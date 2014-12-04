@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  HPPhotoPrint: e9f1a06498be2550c3a81a1c65c07f02e356ae47
+  HPPhotoPrint: e143bffdf1f6cc012e451fd0e5f94ebfae1b3763
 
-COCOAPODS: 0.34.4
+COCOAPODS: 0.35.0
