@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 James. All rights reserved.
 //
 
+#import <HPPhotoPrint/HPPPView.h>
+
 #import "HPPPViewController.h"
 
 @interface HPPPViewController ()
@@ -18,6 +20,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    HPPPView *view = [[HPPPView alloc] initWithFrame:CGRectMake(0, 0, 100, 200)];
+    
+    [self.view addSubview:view];
+    
 }
 
 - (void)didReceiveMemoryWarning
