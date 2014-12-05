@@ -10,18 +10,15 @@
 Pod::Spec.new do |s|
   s.name             = "HPPhotoPrint"
   s.version          = "0.1.0"
-  s.summary          = "A short description of HPPhotoPrint."
+  s.summary          = "AirPrint photo printing with preview."
   s.description      = <<-DESC
-                       An optional longer description of HPPhotoPrint
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       Select paper size, printer, view preview and send to print throught AirPrint.
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/HPPhotoPrint"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "http://hp.com"
+  s.screenshots     = "http://a1.mzstatic.com/us/r30/Purple3/v4/a0/13/56/a0135614-df34-c64a-c943-a01c2340ac85/screen568x568.jpeg", "http://a3.mzstatic.com/us/r30/Purple1/v4/a1/4b/61/a14b61da-9582-3047-94e4-7791ce69a62e/screen568x568.jpeg"
   s.license          = 'MIT'
   s.author           = { "James" => "trask@hp.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/HPPhotoPrint.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/IPGPTP/hp_photo_print.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '7.0'
@@ -29,10 +26,10 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Pod/Classes'
   s.resource_bundles = {
-    'HPPhotoPrint' => ['Pod/Assets/*.png']
+    'HPPhotoPrint' => ['Pod/Assets/*.png', 'Pod/Classes/*.xib', 'Pod/Classes/*.storyboard']
   }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.public_header_files = 'Pod/Classes/**/*.h'
+  # s.frameworks = 'UIKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end

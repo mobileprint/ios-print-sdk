@@ -1,9 +1,9 @@
 //
 //  HPPPViewController.h
-//  HPPhotoPrint
+//  Pods
 //
-//  Created by James on 12/03/2014.
-//  Copyright (c) 2014 James. All rights reserved.
+//  Created by Andre Gatti on 12/4/14.
+//
 //
 
 #import <UIKit/UIKit.h>
