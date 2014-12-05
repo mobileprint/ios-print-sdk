@@ -1,79 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="FkY-SB-qqO">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="JRW-OK-MqO">
+        <!--Example View Controller-->
+        <scene sceneID="gCp-s4-GW4">
             <objects>
-                <viewController id="2xo-qj-i5P" customClass="HPPPViewController" sceneMemberID="viewController">
+                <viewController id="XCd-sr-pZM" customClass="HPPPExampleViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CzZ-mX-cou"/>
-                        <viewControllerLayoutGuide type="bottom" id="1U7-bU-nYb"/>
+                        <viewControllerLayoutGuide type="top" id="ZpE-Ca-oSK"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jrm-9M-6oK"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0yC-Sj-cQf">
+                    <view key="view" contentMode="scaleToFill" id="k4d-vC-35W">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <nil key="simulatedStatusBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ImL-kb-qLY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="168.75" y="182.74647887323943"/>
-        </scene>
-        <!--Example View Controller-->
-        <scene sceneID="ufC-wZ-h7g">
-            <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="vXZ-lx-hvc" customClass="HPPPExampleViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
-                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNv-Nk-ari">
-                                <rect key="frame" x="186" y="562" width="228" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="228" id="5QD-us-YCQ"/>
-                                    <constraint firstAttribute="height" constant="30" id="5iV-WW-7fC"/>
-                                </constraints>
-                                <state key="normal" title="Load VC From Storyboard in Pod">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonTap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="jhA-f3-3RG"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0c4-K3-39y" customClass="HPPPView">
-                                <rect key="frame" x="200" y="0.0" width="100" height="200"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="7Ko-mI-iO3"/>
-                                    <constraint firstAttribute="height" constant="200" id="xFw-RP-G27"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="xNv-Nk-ari" secondAttribute="bottom" constant="8" id="Rh6-WN-P2a"/>
-                            <constraint firstAttribute="centerX" secondItem="xNv-Nk-ari" secondAttribute="centerX" id="T45-vB-2hM"/>
-                            <constraint firstItem="0c4-K3-39y" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="TUk-JR-u0w"/>
-                            <constraint firstItem="0c4-K3-39y" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="200" id="ofz-4C-dAI"/>
-                        </constraints>
-                    </view>
-                    <nil key="simulatedStatusBarMetrics"/>
+                    <navigationItem key="navigationItem" id="CR7-Cl-wrx">
+                        <barButtonItem key="rightBarButtonItem" title="Share" id="SXr-Tl-48k">
+                            <connections>
+                                <action selector="shareBarButtonItemTap:" destination="XCd-sr-pZM" id="Ctq-3i-aaH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="hpppViewStoryboard" destination="0c4-K3-39y" id="NYy-Nx-Gtu"/>
+                        <outlet property="shareBarButtonItem" destination="SXr-Tl-48k" id="PKA-qS-sDb"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p1H-I1-opR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="562.5" y="847.1830985915492"/>
+            <point key="canvasLocation" x="5474" y="-1068"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="uUp-bu-xBd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FkY-SB-qqO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SR9-uB-HmT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="XCd-sr-pZM" kind="relationship" relationship="rootViewController" id="ueF-fV-PAi"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DM5-sK-2aO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4662" y="-1068"/>
         </scene>
     </scenes>
 </document>
