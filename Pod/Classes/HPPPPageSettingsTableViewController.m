@@ -66,9 +66,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.hideBlackAndWhiteOption = YES;
-    
+        
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
