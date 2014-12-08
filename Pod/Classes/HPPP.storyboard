@@ -57,7 +57,7 @@
         <!--Split View Controller-->
         <scene sceneID="Ddf-QV-PAo">
             <objects>
-                <splitViewController storyboardIdentifier="PGPageSettingsSplitViewController" id="ML8-9d-O7s" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="HPPPPageSettingsSplitViewController" id="ML8-9d-O7s" sceneMemberID="viewController">
                     <connections>
                         <segue destination="hsW-qF-QpS" kind="relationship" relationship="detailViewController" id="C3t-Tz-4rn"/>
                         <segue destination="fnW-UD-Pih" kind="relationship" relationship="masterViewController" id="2x5-us-6E6"/>

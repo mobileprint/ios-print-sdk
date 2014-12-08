@@ -37,7 +37,7 @@
 
 - (UIImage *)_activityImage
 {
-    return [UIImage imageNamed:@"Print"];
+    return [UIImage imageNamed:@"HPPPPrint"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems

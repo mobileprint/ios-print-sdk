@@ -252,14 +252,14 @@
         
         if (IS_IPAD) {
             self.cancelBarButtonItem.enabled = YES;
-            [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
+//            [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
         }
     };
     
     
     if (IS_IPAD) {
         self.cancelBarButtonItem.enabled = NO;
-        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
+//        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
         [controller presentFromBarButtonItem:barButtonItem animated:YES completionHandler:completionHandler];
     } else {
         [controller presentAnimated:YES completionHandler:completionHandler];
