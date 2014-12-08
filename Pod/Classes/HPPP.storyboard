@@ -255,6 +255,7 @@
                     <connections>
                         <outlet property="blackAndWhiteModeSwitch" destination="PJf-lw-FSn" id="7VQ-ww-1hY"/>
                         <outlet property="cancelBarButtonItem" destination="tFz-3o-SHA" id="rlm-sN-HFV"/>
+                        <outlet property="filterCell" destination="Sbe-0S-6PA" id="wIB-Jh-AIW"/>
                         <outlet property="learnMoreCell" destination="sbM-32-r9L" id="g5q-VG-1u8"/>
                         <outlet property="pageViewCell" destination="yog-Df-lVB" id="OzG-Kw-kNP"/>
                         <outlet property="paperSizeSelectedLabel" destination="1Mk-oy-yQg" id="oKz-Rh-Yza"/>

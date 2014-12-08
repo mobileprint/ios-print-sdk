@@ -33,6 +33,7 @@
 
 #define PAPER_SHOW_INDEX 0
 #define PAPER_TYPE_INDEX 2
+#define FILTER_INDEX 3
 
 #define LAST_PRINTER_USED_SETTING @"lastPrinterUsed"
 #define LAST_SIZE_USED_SETTING @"lastSizeUsed"
@@ -54,6 +55,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageViewCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *learnMoreCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *printBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
 
@@ -64,6 +66,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.hideBlackAndWhiteOption = YES;
     
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
@@ -90,6 +94,10 @@
         self.paperTypeCell.hidden = YES;
     }
     
+    if (self.hideBlackAndWhiteOption) {
+        self.filterCell.hidden = YES;
+        
+    }
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.navigationItem.rightBarButtonItem = nil;
         self.pageViewController.delegate = self;
@@ -99,13 +107,16 @@
         
         __weak HPPPPageSettingsTableViewController *weakSelf = self;
         [self setPaperSize:self.pageView animated:YES completion:^{
-            if (weakSelf.blackAndWhiteModeSwitch.on) {
-                weakSelf.tableView.userInteractionEnabled = NO;
-                [weakSelf.pageView setBlackAndWhiteWithCompletion:^{
-                    weakSelf.tableView.userInteractionEnabled = YES;
-                }];
+            if (!weakSelf.hideBlackAndWhiteOption) {
+                if (weakSelf.blackAndWhiteModeSwitch.on) {
+                    weakSelf.tableView.userInteractionEnabled = NO;
+                    [weakSelf.pageView setBlackAndWhiteWithCompletion:^{
+                        weakSelf.tableView.userInteractionEnabled = YES;
+                    }];
+                }
             }
         }];
+        
         self.wifiReachability = [[HPPPWiFiReachability alloc] init];
         [self.wifiReachability start:self.printBarButtonItem];
     }
@@ -242,8 +253,8 @@
         
         if (completed) {
             
-//            [MCAnalyticsManager sharedManager].paperType = self.paperTypeSelectedLabel.text;
-//            [MCAnalyticsManager sharedManager].paperSize = self.paperSizeSelectedLabel.text;
+            //            [MCAnalyticsManager sharedManager].paperType = self.paperTypeSelectedLabel.text;
+            //            [MCAnalyticsManager sharedManager].paperSize = self.paperSizeSelectedLabel.text;
             
             if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
                 [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
@@ -252,14 +263,14 @@
         
         if (IS_IPAD) {
             self.cancelBarButtonItem.enabled = YES;
-//            [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
+            //            [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
         }
     };
     
     
     if (IS_IPAD) {
         self.cancelBarButtonItem.enabled = NO;
-//        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
+        //        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
         [controller presentFromBarButtonItem:barButtonItem animated:YES completionHandler:completionHandler];
     } else {
         [controller presentAnimated:YES completionHandler:completionHandler];
@@ -326,23 +337,36 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ((indexPath.section == PAPER_SECTION) && (indexPath.row == PAPER_SHOW_INDEX)) {
-        if (IS_IPAD && IS_OS_8_OR_LATER) {
-            return 0.0f;
-        } else {
-            return self.pageViewCell.frame.size.height;
+    CGFloat rowHeight = 0.0f;
+    
+    if (indexPath.section == PAPER_SECTION) {
+        switch (indexPath.row) {
+            case PAPER_SHOW_INDEX:
+                if (!(IS_IPAD && IS_OS_8_OR_LATER)) {
+                    rowHeight = self.pageViewCell.frame.size.height;
+                }
+                break;
+                
+            case FILTER_INDEX:
+                if (!(self.hideBlackAndWhiteOption)) {
+                    rowHeight = self.tableView.rowHeight;
+                }
+                break;
+                
+            case PAPER_TYPE_INDEX:
+                if (self.selectedPaper.paperSize == SizeLetter) {
+                    rowHeight = tableView.rowHeight;
+                }
+                break;
+            default:
+                rowHeight = self.tableView.rowHeight;
+                break;
         }
     } else {
-        if ((indexPath.section == PAPER_SECTION) && (indexPath.row == PAPER_TYPE_INDEX)) {
-            if (self.selectedPaper.paperSize == SizeLetter) {
-                return tableView.rowHeight;
-            } else {
-                return 0.0f;
-            }
-        } else {
-            return tableView.rowHeight;
-        }
+        rowHeight = tableView.rowHeight;
     }
+    
+    return rowHeight;
 }
 
 #pragma mark - PGPaperSizeTableViewControllerDelegate

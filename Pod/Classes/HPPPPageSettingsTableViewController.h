@@ -16,6 +16,7 @@
 
 @interface HPPPPageSettingsTableViewController : UITableViewController
 
+@property (assign, nonatomic) BOOL hideBlackAndWhiteOption;
 @property (strong, nonatomic) UIImage *image;
 @property (nonatomic, weak) id<PGPageSettingsTableViewControllerDelegate> delegate;
 @property (nonatomic, weak) HPPPPageViewController *pageViewController;
