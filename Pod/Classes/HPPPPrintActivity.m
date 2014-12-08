@@ -37,10 +37,7 @@
 
 - (UIImage *)_activityImage
 {
-    NSBundle *bundle = [NSBundle HPPhotoPrintBundle];
-    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%@/Print", bundle.bundlePath]];
-    
-    return image;
+    return [UIImage imageNamed:@"Print"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems

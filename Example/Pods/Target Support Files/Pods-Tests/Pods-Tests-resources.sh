@@ -47,7 +47,25 @@ install_resource()
       ;;
   esac
 }
-          install_resource "${BUILT_PRODUCTS_DIR}/HPPhotoPrint.bundle"
+          install_resource "../../Pod/Assets/HPPPLearnMore@2x.png"
+                    install_resource "../../Pod/Assets/HPPPMeasurementArrowDown@2x.png"
+                    install_resource "../../Pod/Assets/HPPPMeasurementArrowLeft@2x.png"
+                    install_resource "../../Pod/Assets/HPPPMeasurementArrowRight@2x.png"
+                    install_resource "../../Pod/Assets/HPPPMeasurementArrowUp@2x.png"
+                    install_resource "../../Pod/Assets/HPPPPrint@2x~ipad.png"
+                    install_resource "../../Pod/Assets/HPPPPrint@2x~iphone.png"
+                    install_resource "../../Pod/Classes/HPPPPageView.xib"
+                    install_resource "../../Pod/Classes/HPPPRuleView.xib"
+                    install_resource "../../Pod/Classes/HPPP.storyboard"
+                    install_resource "../../Pod/Libraries/XBPageCurl/Resources/BackPageGradient.png"
+                    install_resource "../../Pod/Libraries/XBPageCurl/Resources/BackFragmentShader.glsl"
+                    install_resource "../../Pod/Libraries/XBPageCurl/Resources/BackVertexShader.glsl"
+                    install_resource "../../Pod/Libraries/XBPageCurl/Resources/FrontFragmentShader.glsl"
+                    install_resource "../../Pod/Libraries/XBPageCurl/Resources/FrontVertexShader.glsl"
+                    install_resource "../../Pod/Libraries/XBPageCurl/Resources/NextPageFragmentShader.glsl"
+                    install_resource "../../Pod/Libraries/XBPageCurl/Resources/NextPageNoTextureFragmentShader.glsl"
+                    install_resource "../../Pod/Libraries/XBPageCurl/Resources/NextPageNoTextureVertexShader.glsl"
+                    install_resource "../../Pod/Libraries/XBPageCurl/Resources/NextPageVertexShader.glsl"
           
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then

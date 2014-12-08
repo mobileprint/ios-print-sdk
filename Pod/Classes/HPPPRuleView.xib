@@ -57,14 +57,14 @@
                                 <constraint firstAttribute="width" constant="1" id="uFO-5U-Y0D"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeasurementArrowUp.png" translatesAutoresizingMaskIntoConstraints="NO" id="TNC-ac-cgb">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HPPPMeasurementArrowUp.png" translatesAutoresizingMaskIntoConstraints="NO" id="TNC-ac-cgb">
                             <rect key="frame" x="14" y="0.0" width="12" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="12" id="aVV-L1-86w"/>
                                 <constraint firstAttribute="height" constant="12" id="udG-nS-wiD"/>
                             </constraints>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeasurementArrowDown.png" translatesAutoresizingMaskIntoConstraints="NO" id="zKm-QY-Uf4">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HPPPMeasurementArrowDown.png" translatesAutoresizingMaskIntoConstraints="NO" id="zKm-QY-Uf4">
                             <rect key="frame" x="14" y="505" width="12" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="Yql-Ak-Yf6"/>
@@ -126,14 +126,14 @@
                                 <constraint firstAttribute="height" constant="1" id="SIN-a0-gg8"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeasurementArrowRight.png" translatesAutoresizingMaskIntoConstraints="NO" id="hhg-aQ-PeE">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HPPPMeasurementArrowRight.png" translatesAutoresizingMaskIntoConstraints="NO" id="hhg-aQ-PeE">
                             <rect key="frame" x="258" y="15" width="12" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="TEb-5o-cox"/>
                                 <constraint firstAttribute="width" constant="12" id="yzH-MQ-yg4"/>
                             </constraints>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeasurementArrowLeft.png" translatesAutoresizingMaskIntoConstraints="NO" id="gzC-Rt-Scu">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HPPPMeasurementArrowLeft.png" translatesAutoresizingMaskIntoConstraints="NO" id="gzC-Rt-Scu">
                             <rect key="frame" x="0.0" y="15" width="12" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="12" id="Acq-Zm-naw"/>
@@ -175,10 +175,10 @@
         </view>
     </objects>
     <resources>
-        <image name="MeasurementArrowDown.png" width="7" height="7"/>
-        <image name="MeasurementArrowLeft.png" width="7" height="7"/>
-        <image name="MeasurementArrowRight.png" width="7" height="7"/>
-        <image name="MeasurementArrowUp.png" width="7" height="7"/>
+        <image name="HPPPMeasurementArrowDown.png" width="7" height="7"/>
+        <image name="HPPPMeasurementArrowLeft.png" width="7" height="7"/>
+        <image name="HPPPMeasurementArrowRight.png" width="7" height="7"/>
+        <image name="HPPPMeasurementArrowUp.png" width="7" height="7"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -25,9 +25,8 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = ['Pod/Classes', 'Pod/Libraries/XBPageCurl', 'Pod/Libraries/Reachability']
-  s.resource_bundles = {
-    'HPPhotoPrint' => ['Pod/Assets/*.png', 'Pod/Classes/*.xib', 'Pod/Classes/*.storyboard']
-  }
+
+  s.resources = ['Pod/Assets/*.png', 'Pod/Classes/*.xib', 'Pod/Classes/*.storyboard', 'Pod/Libraries/XBPageCurl/Resources/*.png', 'Pod/Libraries/XBPageCurl/Resources/*.glsl']
 
   s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = ['Foundation', 'UIKit']

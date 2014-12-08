@@ -30,14 +30,8 @@
 - (IBAction)shareBarButtonItemTap:(id)sender {
     NSString *bundlePath = [NSString stringWithFormat:@"%@/HPPhotoPrint.bundle", [NSBundle mainBundle].bundlePath];
     NSLog(@"Bundle %@", bundlePath);
-//    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-//    
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:bundle];
-//    HPPPViewController *hpppViewController = (HPPPViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPViewController"];
-//    
-//    [self presentViewController:hpppViewController animated:YES completion:nil];
+
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
-//    MCSaveToCameraRollActivity *saveToCameraRollActivity = [[MCSaveToCameraRollActivity alloc] init];
     
     NSArray *applicationActivities = @[printActivity];
     
