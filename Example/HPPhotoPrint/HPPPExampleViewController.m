@@ -1,19 +1,22 @@
 //
-//  HPPPViewController.m
-//  HPPhotoPrint
+// Hewlett-Packard Company
+// All rights reserved.
 //
-//  Created by James on 12/03/2014.
-//  Copyright (c) 2014 James. All rights reserved.
+// This file, its contents, concepts, methods, behavior, and operation
+// (collectively the "Software") are protected by trade secret, patent,
+// and copyright laws. The use of the Software is governed by a license
+// agreement. Disclosure of the Software to third parties, in any form,
+// in whole or in part, is expressly prohibited except as authorized by
+// the license agreement.
 //
 
-#import <HPPPView.h>
-#import <HPPPViewController.h>
-
+#import <HPPPPrintActivity.h>
 #import "HPPPExampleViewController.h"
 
-@interface HPPPExampleViewController ()
+@interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet HPPPView *hpppViewStoryboard;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *shareBarButtonItem;
+@property (strong, nonatomic) UIPopoverController *popover;
 
 @end
 
@@ -22,43 +25,61 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    HPPPView *view = [[HPPPView alloc] initWithFrame:CGRectMake(100, 0, 100, 200)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 200)];
-    label.text = @"Loaded from initWithFrame";
-    label.numberOfLines = 0;
-    [view addSubview:label];
-    [self.view addSubview:view];
-    
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 200)];
-    label2.text = @"Loaded from initWithCoder";
-    label2.numberOfLines = 0;
-    [self.hpppViewStoryboard addSubview:label2];
-
-    
-    NSLog(@"BUNDLE :    %@", [NSBundle mainBundle].bundlePath);
-    
-    NSString *bundlePath = [NSString stringWithFormat:@"%@/HPPhotoPrint.bundle", [NSBundle mainBundle].bundlePath];
-    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-    
-    NSLog(@"POD BUNDLE :    %@", [NSBundle bundleForClass:[HPPPView class]].bundlePath);
-    
-    HPPPView *rightCalloutAccessoryView = [[bundle loadNibNamed:@"HPPPView" owner:self options:nil] lastObject];
-    
-    [self.view addSubview:rightCalloutAccessoryView];
-    
-    
-    
 }
 
-- (IBAction)buttonTap:(id)sender {
+- (IBAction)shareBarButtonItemTap:(id)sender {
     NSString *bundlePath = [NSString stringWithFormat:@"%@/HPPhotoPrint.bundle", [NSBundle mainBundle].bundlePath];
-    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+    NSLog(@"Bundle %@", bundlePath);
+
+    HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:bundle];
-    HPPPViewController *hpppViewController = (HPPPViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPViewController"];
+    NSArray *applicationActivities = @[printActivity];
     
-    [self presentViewController:hpppViewController animated:YES completion:nil];
+    UIImage *card = [UIImage imageNamed:@"sample-portrait.jpg"];
+    NSArray *activitiesItems = @[card];
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activitiesItems applicationActivities:applicationActivities];
+    
+    [activityViewController setValue:@"My HP Greeting Card" forKey:@"subject"];
+    
+    activityViewController.excludedActivityTypes = @[UIActivityTypeCopyToPasteboard,
+                                                     UIActivityTypeSaveToCameraRoll,
+                                                     UIActivityTypePostToWeibo,
+                                                     UIActivityTypePostToTencentWeibo,
+                                                     UIActivityTypeAddToReadingList,
+                                                     UIActivityTypePrint,
+                                                     UIActivityTypeAssignToContact,
+                                                     UIActivityTypePostToVimeo];
+    
+    activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
+        NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
+        if (completed) {
+            NSLog(@"completionHandler - Succeed");
+        } else {
+            NSLog(@"completionHandler - didn't succeed.");
+        }
+    };
+    
+    if (IS_IPAD && !IS_OS_8_OR_LATER) {
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
+        [self.popover presentPopoverFromBarButtonItem:self.shareBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    } else {
+        if (IS_OS_8_OR_LATER) {
+            activityViewController.popoverPresentationController.barButtonItem = self.shareBarButtonItem;
+            activityViewController.popoverPresentationController.delegate = self;
+        }
+        
+        [self presentViewController:activityViewController animated:YES completion:nil];
+    }
+
+}
+
+#pragma mark - UIPopoverPresentationControllerDelegate
+
+// NOTE: The implementation of this delegate with the default value is a workaround to compensate an error in the new popover presentation controller of the SDK 8. This fix correct the case where if the user keep tapping repeatedly the share button in an iPad iOS 8, the app goes back to the first screen.
+- (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
+{
+    return YES;
 }
 
 @end

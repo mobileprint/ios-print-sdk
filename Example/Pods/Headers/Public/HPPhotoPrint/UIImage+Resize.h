@@ -1,0 +1,1 @@
+../../../../../Pod/Classes/UIImage+Resize.h
