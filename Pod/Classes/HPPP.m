@@ -12,6 +12,12 @@
 
 #import "HPPP.h"
 
+NSString * const kHPPPPaperTypeId = @"kHPPPPaperTypeId";
+NSString * const kHPPPPaperSizeId = @"kHPPPPaperSizeId";
+NSString * const kHPPPBlackAndWhiteFilterId = @"kHPPPBlackAndWhiteFilterId";
+NSString * const kHPPPPrinterId = @"kHPPPPrinterId";
+
+
 @implementation HPPP
 
 #pragma mark - Public methods
@@ -25,6 +31,18 @@
     });
     
     return sharedInstance;
+}
+
+#pragma mark - Initialization
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.lastOptionsUsed = [NSMutableDictionary dictionary];
+    }
+    
+    return self;
 }
 
 @end

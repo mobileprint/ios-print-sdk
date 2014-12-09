@@ -30,6 +30,11 @@
 
 #define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
 
+extern NSString * const kHPPPPaperTypeId;
+extern NSString * const kHPPPPaperSizeId;
+extern NSString * const kHPPPBlackAndWhiteFilterId;
+extern NSString * const kHPPPPrinterId;
+
 @interface HPPP : NSObject
 
 /*!
@@ -38,6 +43,9 @@
  By default, this value is false and the black & white filter option is shown.
  */
 @property (assign, nonatomic) BOOL hideBlackAndWhiteOption;
+
+@property (strong, nonatomic) NSMutableDictionary *lastOptionsUsed;
+
 
 + (HPPP *)sharedInstance;
 

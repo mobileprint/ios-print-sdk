@@ -21,8 +21,7 @@
 #import "HPPPPaperTypeTableViewController.h"
 #import "UITableView+Header.h"
 #import "UIColor+HexString.h"
-//#import "UIViewController+Trackable.h"
-//#import "MCAnalyticsManager.h"
+#import "UIView+Animation.h"
 #import "HPPPWiFiReachability.h"
 #import "UIImage+Resize.h"
 
@@ -58,6 +57,8 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *printBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
+
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
 @end
 
@@ -175,6 +176,8 @@
 
 - (IBAction)cancelButtonTapped:(id)sender
 {
+    [[HPPP sharedInstance].lastOptionsUsed removeAllObjects];
+    
     if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidCancelPrintFlow:)]) {
         [self.delegate pageSettingsTableViewControllerDidCancelPrintFlow:self];
     }
@@ -212,8 +215,8 @@
     printInfo.jobName = @"PhotoGram";
     
     // Use the default printer if one is set
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSString * printer = [defaults stringForKey:LAST_PRINTER_USED_SETTING];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *printer = [defaults stringForKey:LAST_PRINTER_USED_SETTING];
     printInfo.printerID = printer;
     
     // This application prints photos. UIKit will pick a paper size and print
@@ -239,6 +242,8 @@
     
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
         
+        [[HPPP sharedInstance].lastOptionsUsed removeAllObjects];
+        
         // Set the last printer used as the default printer for the next job
         NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
         NSString * printer = printController.printInfo.printerID;
@@ -250,9 +255,12 @@
         }
         
         if (completed) {
-            
-            //            [MCAnalyticsManager sharedManager].paperType = self.paperTypeSelectedLabel.text;
-            //            [MCAnalyticsManager sharedManager].paperSize = self.paperSizeSelectedLabel.text;
+            [[HPPP sharedInstance].lastOptionsUsed setValue:self.paperTypeSelectedLabel.text forKey:kHPPPPaperTypeId];
+            [[HPPP sharedInstance].lastOptionsUsed setValue:self.paperSizeSelectedLabel.text forKey:kHPPPPaperSizeId];
+            [[HPPP sharedInstance].lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on] forKey:kHPPPBlackAndWhiteFilterId];
+            if (printer) {
+                [[HPPP sharedInstance].lastOptionsUsed setValue:printer forKey:kHPPPPrinterId];
+            }
             
             if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
                 [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
@@ -386,6 +394,15 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithInteger:self.selectedPaper.paperSize] forKey:LAST_SIZE_USED_SETTING];
     [defaults synchronize];
+    
+    self.spinner = [self.view addSpinner];
+    self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+
+    self.image = [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:paper];
+    self.pageView.image = self.image;
+    
+    [self.spinner removeFromSuperview];
+
 }
 
 - (void)setPaperSize:(HPPPPageView *)pageView animated:(BOOL)animated completion:(void (^)(void))completion

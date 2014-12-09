@@ -13,6 +13,7 @@
 #import "HPPPPageViewController.h"
 
 @protocol PGPageSettingsTableViewControllerDelegate;
+@protocol PGPageSettingsTableViewControllerDataSource;
 
 @interface HPPPPageSettingsTableViewController : UITableViewController
 
@@ -22,6 +23,7 @@
 @property (strong, nonatomic) UIImage *image;
 
 @property (nonatomic, weak) id<PGPageSettingsTableViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<PGPageSettingsTableViewControllerDataSource> dataSource;
 @property (nonatomic, weak) HPPPPageViewController *pageViewController;
 
 @end
@@ -36,5 +38,11 @@
  */
 - (void)pageSettingsTableViewControllerDidFinishPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController;
 - (void)pageSettingsTableViewControllerDidCancelPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController;
+
+@end
+
+@protocol PGPageSettingsTableViewControllerDataSource <NSObject>
+
+- (UIImage *)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper;
 
 @end

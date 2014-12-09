@@ -11,7 +11,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPPPPaper.h"
+
+@protocol HPPPPrintActivityDataSource;
 
 @interface HPPPPrintActivity : UIActivity
+
+@property (nonatomic, weak) id<HPPPPrintActivityDataSource> dataSource;
+
+@end
+
+
+@protocol HPPPPrintActivityDataSource <NSObject>
+
+- (UIImage *)printActivityRequestImageForPaper:(HPPPPaper *)paper;
 
 @end

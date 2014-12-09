@@ -13,7 +13,7 @@
 #import <HPPP.h>
 #import "HPPPExampleViewController.h"
 
-@interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate>
+@interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintActivityDataSource>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
@@ -25,15 +25,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    HPPP *hppp = [HPPP sharedInstance];
-    //hppp.hideBlackAndWhiteOption = YES;
 }
 
-- (IBAction)shareBarButtonItemTap:(id)sender {
+- (IBAction)shareBarButtonItemTap:(id)sender
+{
     NSString *bundlePath = [NSString stringWithFormat:@"%@/HPPhotoPrint.bundle", [NSBundle mainBundle].bundlePath];
     NSLog(@"Bundle %@", bundlePath);
 
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
+    printActivity.dataSource = self;
     
     NSArray *applicationActivities = @[printActivity];
     
@@ -57,6 +57,9 @@
         NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
         if (completed) {
             NSLog(@"completionHandler - Succeed");
+            HPPP *hppp = [HPPP sharedInstance];
+            NSLog(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
+            
         } else {
             NSLog(@"completionHandler - didn't succeed.");
         }
@@ -74,6 +77,11 @@
         [self presentViewController:activityViewController animated:YES completion:nil];
     }
 
+}
+
+- (UIImage *)printActivityRequestImageForPaper:(HPPPPaper *)paper
+{
+    return [UIImage imageNamed:@"sample-landscape.jpg"];
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate

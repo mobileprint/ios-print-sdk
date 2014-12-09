@@ -17,7 +17,7 @@
 #import "HPPPPageViewController.h"
 #import "NSBundle+HPPP.h"
 
-@interface HPPPPrintActivity () <PGPageSettingsTableViewControllerDelegate>
+@interface HPPPPrintActivity () <PGPageSettingsTableViewControllerDelegate, PGPageSettingsTableViewControllerDataSource>
 
 @property (strong, nonatomic) UIImage *image;
 
@@ -68,6 +68,7 @@
         masterNavigationController.navigationBar.translucent = NO;
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
         pageSettingsTableViewController.delegate = self;
+        pageSettingsTableViewController.dataSource = self;
         pageSettingsTableViewController.image = self.image;
         pageSettingsTableViewController.pageViewController = pageViewController;
         pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
@@ -81,6 +82,7 @@
         
         pageSettingsTableViewController.image = self.image;
         pageSettingsTableViewController.delegate = self;
+        pageSettingsTableViewController.dataSource = self;
         
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;
@@ -88,6 +90,13 @@
         
         return navigationController;
     }
+}
+
+#pragma mark - PGSelectPaperSizeViewControllerDataSource
+
+- (UIImage *)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper
+{
+    return [self.dataSource printActivityRequestImageForPaper:paper];
 }
 
 #pragma mark - PGSelectPaperSizeViewControllerDelegate
