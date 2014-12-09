@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "HPPhotoPrint"
-  s.version          = "0.1.0"
+  s.version          = "0.2.0"
   s.summary          = "AirPrint photo printing with preview."
   s.description      = <<-DESC
                        Select paper size, printer, view preview and send to print throught AirPrint.
@@ -29,6 +29,7 @@ Pod::Spec.new do |s|
   s.resources = ['Pod/Assets/*.png', 'Pod/Assets/Fonts/*.ttf', 'Pod/Classes/*.xib', 'Pod/Classes/*.storyboard', 'Pod/Libraries/XBPageCurl/Resources/*.png', 'Pod/Libraries/XBPageCurl/Resources/*.glsl']
 
   s.public_header_files = 'Pod/Classes/**/*.h'
+  # s.private_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = ['Foundation', 'UIKit']
   # s.dependency 'AFNetworking', '~> 2.3'
 end

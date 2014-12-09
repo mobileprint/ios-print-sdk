@@ -10,7 +10,7 @@
 // the license agreement.
 //
 
-#import <HPPPPrintActivity.h>
+#import <HPPP.h>
 #import "HPPPExampleViewController.h"
 
 @interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate>
@@ -25,6 +25,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    HPPP *hppp = [HPPP sharedInstance];
+    //hppp.hideBlackAndWhiteOption = YES;
 }
 
 - (IBAction)shareBarButtonItemTap:(id)sender {

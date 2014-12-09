@@ -17,13 +17,6 @@
 @interface HPPPPageSettingsTableViewController : UITableViewController
 
 /*!
- If this value is true, the black & white filter option is shown together with the paper size and paper type in the page settings screen.
- 
- By default, this value is false and the black & white filter option is shown.
- */
-@property (assign, nonatomic) BOOL hideBlackAndWhiteOption;
-
-/*!
  The image to show in the preview view.
  */
 @property (strong, nonatomic) UIImage *image;

@@ -10,7 +10,7 @@
 // the license agreement.
 //
 
-#import "HPPhotoPrint.h"
+#import "HPPP.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPaper.h"
 #import "UIColor+Style.h"
@@ -92,7 +92,7 @@
         self.paperTypeCell.hidden = YES;
     }
     
-    if (self.hideBlackAndWhiteOption) {
+    if ([HPPP sharedInstance].hideBlackAndWhiteOption) {
         self.filterCell.hidden = YES;
         
     }
@@ -105,7 +105,7 @@
         
         __weak HPPPPageSettingsTableViewController *weakSelf = self;
         [self setPaperSize:self.pageView animated:YES completion:^{
-            if (!weakSelf.hideBlackAndWhiteOption) {
+            if (![HPPP sharedInstance].hideBlackAndWhiteOption) {
                 if (weakSelf.blackAndWhiteModeSwitch.on) {
                     weakSelf.tableView.userInteractionEnabled = NO;
                     [weakSelf.pageView setBlackAndWhiteWithCompletion:^{
@@ -346,7 +346,7 @@
                 break;
                 
             case FILTER_INDEX:
-                if (!(self.hideBlackAndWhiteOption)) {
+                if (!([HPPP sharedInstance].hideBlackAndWhiteOption)) {
                     rowHeight = self.tableView.rowHeight;
                 }
                 break;

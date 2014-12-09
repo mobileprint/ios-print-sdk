@@ -10,8 +10,8 @@
 // the license agreement.
 //
 
-#ifndef Pods_HPPhotoPrint_h
-#define Pods_HPPhotoPrint_h
+#import "HPPPPrintActivity.h"
+#import "HPPPPageSettingsTableViewController.h"
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -30,4 +30,15 @@
 
 #define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
 
-#endif
+@interface HPPP : NSObject
+
+/*!
+ If this value is true, the black & white filter option is shown together with the paper size and paper type in the page settings screen.
+ 
+ By default, this value is false and the black & white filter option is shown.
+ */
+@property (assign, nonatomic) BOOL hideBlackAndWhiteOption;
+
++ (HPPP *)sharedInstance;
+
+@end

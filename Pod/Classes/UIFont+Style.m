@@ -10,7 +10,7 @@
 // the license agreement.
 //
 
-#import "HPPhotoPrint.h"
+#import "HPPP.h"
 #import "UIFont+Style.h"
 
 #define FONT_PLIST_FILENAME @"Fonts"

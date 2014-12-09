@@ -11,8 +11,8 @@
 // the license agreement.
 //
 
-#import "HPPhotoPrint.h"
 #import "HPPPPrintActivity.h"
+#import "HPPP.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
 #import "NSBundle+HPPP.h"
