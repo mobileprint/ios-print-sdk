@@ -15,7 +15,6 @@
 #import "HPPP.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
-#import "NSBundle+HPPP.h"
 
 @interface HPPPPrintActivity () <PGPageSettingsTableViewControllerDelegate, PGPageSettingsTableViewControllerDataSource>
 
