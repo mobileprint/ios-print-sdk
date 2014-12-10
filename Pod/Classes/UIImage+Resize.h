@@ -13,11 +13,7 @@
 
 @interface UIImage (Resize)
 
-- (CGRect)rectForImageResize:(CGSize)resize;
-- (UIImage *)imageResize:(CGSize)size;
 - (UIImage *)cropImageResize:(CGSize)resize;
-- (CGSize)imageFinalSizeAfterContentModeApplied:(UIViewContentMode)contentMode containerSize:(CGSize)containerSize;
-- (UIImage *)rotate;
 - (BOOL)isPortraitImage;
 
 @end

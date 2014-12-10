@@ -12,14 +12,6 @@
 
 @interface UIColor (Style)
 
-+ (UIColor *)HPBlueColor;
-+ (UIColor *)HPGrayColor;
-+ (UIColor *)HPGrayButtonColor;
-+ (UIColor *)HPBlueButtonColor;
 + (UIColor *)HPGrayBackgroundColor;
-+ (UIColor *)HPTabBarSelectedColor;
-+ (UIColor *)HPTabBarUnselectedColor;
-+ (UIColor *)HPTableRowSelectionColor;
-+ (UIImage *)imageWithColor:(UIColor *)color rect:(CGRect)rect;
 
 @end

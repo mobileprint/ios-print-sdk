@@ -54,7 +54,7 @@
 
 - (UIViewController *)activityViewController
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle HPPhotoPrintBundle]];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         UISplitViewController *pageSettingsSplitViewController = (UISplitViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPageSettingsSplitViewController"];

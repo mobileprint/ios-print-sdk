@@ -13,6 +13,5 @@
 @interface UIColor (HexString)
 
 + (UIColor *)colorWithHexString:(NSString *)hexString;
-+ (NSString *)hexStringWithColor:(UIColor *)color;
 
 @end

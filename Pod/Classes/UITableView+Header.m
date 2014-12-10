@@ -11,7 +11,6 @@
 //
 
 #import "UITableView+Header.h"
-#import "UIFont+Style.h"
 #import "UIColor+HexString.h"
 
 #define TITLE_LEFT_OFFSET 10.0f
@@ -26,7 +25,7 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(TITLE_LEFT_OFFSET, HEADER_HEIGHT - TITLE_HEIGHT, self.frame.size.width, TITLE_HEIGHT)];
     titleLabel.text = @"SUPPORT:";
     titleLabel.textColor = [UIColor colorWithHexString:@"8F8F95"];
-    titleLabel.font = [UIFont HPSimplifiedLightFontWithSize:18.0f];
+//    titleLabel.fontSize = [UIFont HPSimplifiedLightFontWithSize:18.0f];
     
     [headerView addSubview:titleLabel];
     

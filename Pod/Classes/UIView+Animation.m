@@ -14,22 +14,6 @@
 
 @implementation UIView (Animation)
 
-+ (void)textEditionTabBarAnimateWithAnimations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion
-{
-    [UIView animateWithDuration:0.5
-                          delay:0
-         usingSpringWithDamping:500.0f
-          initialSpringVelocity:0.0f
-                        options:UIViewAnimationOptionCurveLinear
-                     animations:animations
-                     completion:completion];
-}
-
-- (void)animateConstraintsWithDuration:(NSTimeInterval)duration constraints:(void (^)(void))constraints
-{
-	[self animateConstraintsWithDuration:duration constraints:constraints completion:nil];
-}
-
 - (void)animateConstraintsWithDuration:(NSTimeInterval)duration constraints:(void (^)(void))constraints completion:(void (^)(BOOL finished))completion
 {
 	NSParameterAssert(constraints);

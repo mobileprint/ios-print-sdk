@@ -64,19 +64,4 @@
     return hexComponent / 255.0;
 }
 
-+ (NSString *)hexStringWithColor:(UIColor *)color
-{
-    CGFloat red;
-    CGFloat green;
-    CGFloat blue;
-    CGFloat alpha;
-    
-    [color getRed:&red green:&green blue:&blue alpha:&alpha];
-    
-    red *= 255;
-    green *= 255;
-    blue *= 255;
-    return [NSString stringWithFormat:@"#%2X%2X%2X", (int)red, (int)green, (int)blue];
-}
-
 @end

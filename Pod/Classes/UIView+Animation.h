@@ -12,9 +12,6 @@
 
 @interface UIView (Animation)
 
-+ (void)textEditionTabBarAnimateWithAnimations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion;
-
-- (void)animateConstraintsWithDuration:(NSTimeInterval)duration constraints:(void (^)(void))constraints;
 - (void)animateConstraintsWithDuration:(NSTimeInterval)duration constraints:(void (^)(void))constraints completion:(void (^)(BOOL))completion;
 
 - (UIActivityIndicatorView *)addSpinner;

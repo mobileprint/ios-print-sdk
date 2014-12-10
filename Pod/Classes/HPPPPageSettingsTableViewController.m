@@ -15,7 +15,6 @@
 #import "HPPPPaper.h"
 #import "UIColor+Style.h"
 #import "HPPPPrintPageRenderer.h"
-#import "UIFont+Style.h"
 #import "HPPPPageView.h"
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPPPaperTypeTableViewController.h"

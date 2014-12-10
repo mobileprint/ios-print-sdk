@@ -15,7 +15,6 @@
 #import "UIView+Animation.h"
 #import "HPPPRuleView.h"
 #import "XBCurlView.h"
-#import "UIFont+Style.h"
 #import "UIImage+Resize.h"
 
 #define DEFAULT_WIDTH 5.0f
