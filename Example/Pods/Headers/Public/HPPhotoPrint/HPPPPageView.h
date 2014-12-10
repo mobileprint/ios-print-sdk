@@ -1,1 +1,1 @@
-../../../../../Pod/Classes/HPPPPageView.h
+../../../../../Pod/Classes/Public/HPPPPageView.h

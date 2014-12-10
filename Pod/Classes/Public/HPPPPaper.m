@@ -108,7 +108,7 @@
     if ([paperSizeTitle isEqualToString:SIZE_4_X_5_TITLE]) {
         paperSize = Size4x5;
     }
-    if ([paperSizeTitle isEqualToString:SIZE_4_X_6_TITLE]) {
+    else if ([paperSizeTitle isEqualToString:SIZE_4_X_6_TITLE]) {
         paperSize = Size4x6;
     }
     else if([paperSizeTitle isEqualToString:SIZE_5_X_7_TITLE]) {

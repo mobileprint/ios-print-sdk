@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *printBarButtonItem;
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
 
-
 @end
 
 @implementation HPPPPageViewController

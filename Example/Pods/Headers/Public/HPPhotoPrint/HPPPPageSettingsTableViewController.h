@@ -1,1 +1,1 @@
-../../../../../Pod/Classes/HPPPPageSettingsTableViewController.h
+../../../../../Pod/Classes/Public/HPPPPageSettingsTableViewController.h

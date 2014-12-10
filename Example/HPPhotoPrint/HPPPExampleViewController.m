@@ -29,22 +29,20 @@
     [HPPP sharedInstance].defaultPaperType = Plain;
     [HPPP sharedInstance].tableViewCellValueColor = [UIColor colorWithRed:0x8F / 255.0f green:0x8F / 255.0f blue:0x95 / 255.0f alpha:1.0f];
     [HPPP sharedInstance].tableViewCellLinkLabelColor = [UIColor blueColor];
-    
-    [HPPP sharedInstance].rulesLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:8];
+    [HPPP sharedInstance].tableViewCellLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:14];
+    [HPPP sharedInstance].rulesLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:10];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"PrintInstructions"];
     
     [HPPP sharedInstance].supportActions =  @[@{kHPPPSupportIcon: @"print-instructions",
                                               kHPPPSupportTitle: @"Print Instructions",
-                                              kHPPPSupportUrl: @"http://www.hp.com"},
+                                              kHPPPSupportUrl: @"http://hp.com"},
                                               @{kHPPPSupportIcon: @"print-instructions",
                                                 kHPPPSupportTitle: @"Print Instructions VC",
                                                 kHPPPSupportVC: navigationController}];
 
-    [HPPP sharedInstance].paperSizes = @[@"4 x 9", @"4 x 6", @"5 x 7", @"8.5 x 11"];
-    
-   // [HPPP sharedInstance].tableViewCellLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:8];
+    [HPPP sharedInstance].paperSizes = @[@"4 x 5", @"4 x 6", @"5 x 7", @"8.5 x 11"];
 }
 
 - (IBAction)shareBarButtonItemTap:(id)sender
@@ -101,7 +99,7 @@
 
 - (UIImage *)printActivityRequestImageForPaper:(HPPPPaper *)paper
 {
-    return [UIImage imageNamed:@"sample-landscape.jpg"];
+    return [UIImage imageNamed:@"sample2-portrait.jpg"];
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate
