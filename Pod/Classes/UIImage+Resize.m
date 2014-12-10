@@ -54,4 +54,13 @@
     return (self.size.width < self.size.height);
 }
 
+- (UIImage *)rotate
+{
+    UIImage *image = [[UIImage alloc]initWithCGImage:self.CGImage
+                                               scale:self.scale
+                                         orientation:UIImageOrientationLeft];
+    
+    return image;
+}
+
 @end

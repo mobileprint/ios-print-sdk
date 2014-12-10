@@ -15,5 +15,6 @@
 
 - (UIImage *)cropImageResize:(CGSize)resize;
 - (BOOL)isPortraitImage;
+- (UIImage *)rotate;
 
 @end
