@@ -1,1 +1,1 @@
-../../../../../Pod/Classes/HPPPPrintActivity.h
+../../../../../Pod/Classes/Public/HPPPPrintActivity.h

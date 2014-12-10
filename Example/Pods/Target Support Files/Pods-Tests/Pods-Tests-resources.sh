@@ -47,15 +47,14 @@ install_resource()
       ;;
   esac
 }
-          install_resource "../../Pod/Assets/HPPPLearnMore@2x.png"
-                    install_resource "../../Pod/Assets/HPPPMeasurementArrowDown@2x.png"
+          install_resource "../../Pod/Assets/HPPPMeasurementArrowDown@2x.png"
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowLeft@2x.png"
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowRight@2x.png"
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowUp@2x.png"
                     install_resource "../../Pod/Assets/HPPPPrint@2x~ipad.png"
                     install_resource "../../Pod/Assets/HPPPPrint@2x~iphone.png"
-                    install_resource "../../Pod/Classes/HPPPPageView.xib"
-                    install_resource "../../Pod/Classes/HPPPRuleView.xib"
+                    install_resource "../../Pod/Classes/Private/HPPPRuleView.xib"
+                    install_resource "../../Pod/Classes/Public/HPPPPageView.xib"
                     install_resource "../../Pod/Classes/HPPP.storyboard"
                     install_resource "../../Pod/Libraries/XBPageCurl/Resources/BackPageGradient.png"
                     install_resource "../../Pod/Libraries/XBPageCurl/Resources/BackFragmentShader.glsl"

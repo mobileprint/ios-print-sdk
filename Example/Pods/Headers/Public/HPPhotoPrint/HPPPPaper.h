@@ -1,1 +1,1 @@
-../../../../../Pod/Classes/HPPPPaper.h
+../../../../../Pod/Classes/Public/HPPPPaper.h
