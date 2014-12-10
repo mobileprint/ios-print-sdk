@@ -338,7 +338,7 @@
     }
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -353,21 +353,8 @@
     if (section == SUPPORT_SECTION) {
         return self.hppp.supportActions.count;
     } else {
-        return [super tableView:tableView numberOfRowsInSection:section];;
+        return [super tableView:tableView numberOfRowsInSection:section];
     }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    CGFloat height = 0.0f;
-    
-    if (section == SUPPORT_SECTION) {
-        if (self.hppp.supportActions.count != 0) {
-            height = HEADER_HEIGHT;
-        }
-    }
-    
-    return height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -393,8 +380,26 @@
     return cell;
 }
 
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat height = 0.0f;
+    
+    if (section == SUPPORT_SECTION) {
+        if (self.hppp.supportActions.count != 0) {
+            height = HEADER_HEIGHT;
+        }
+    }
+    
+    return height;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selected = NO;
+    
      if (indexPath.section == SUPPORT_SECTION) {
          NSDictionary *action = self.hppp.supportActions[indexPath.row];
          NSString *url = [action objectForKey:kHPPPSupportUrl];

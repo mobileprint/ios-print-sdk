@@ -24,7 +24,7 @@
         
         self.paperSize = paperSize;
         self.paperType = paperType;
-
+        
         switch (paperType) {
                 
             case Plain:
@@ -39,6 +39,16 @@
         };
         
         switch (paperSize) {
+                
+            case Size4x5:
+                
+                self.sizeTitle = SIZE_4_X_5_TITLE;
+                self.width = 4.0f;
+                self.height = 5.0f;
+                self.printerWidth = self.width;
+                self.printerHeight = self.height;
+                self.scale = 0.70f;
+                break;
                 
             case Size4x6:
                 
@@ -71,7 +81,7 @@
                 break;
                 
             default:
-                
+                NSAssert(NO, @"Unknown paper size");
                 NSLog(@"Unknown paper size %i", paperSize);
                 break;
         };
@@ -85,14 +95,19 @@
 {
     PaperSize paperSize = Size5x7;
     PaperType paperType = Photo;
-
+    
     if([papeTypeTitle isEqualToString:TYPE_PLAIN_TITLE]) {
         paperType = Plain;
     }
     else if ([papeTypeTitle isEqualToString:TYPE_PHOTO_TITLE]) {
         paperType = Photo;
+    } else {
+        NSAssert(NO, @"Unknown paper type");
     }
-
+    
+    if ([paperSizeTitle isEqualToString:SIZE_4_X_5_TITLE]) {
+        paperSize = Size4x5;
+    }
     if ([paperSizeTitle isEqualToString:SIZE_4_X_6_TITLE]) {
         paperSize = Size4x6;
     }
@@ -101,6 +116,8 @@
     }
     else if([paperSizeTitle isEqualToString:SIZE_LETTER_TITLE]) {
         paperSize = SizeLetter;
+    } else {
+        NSAssert(NO, @"Unknown paper size");
     }
     
     return [self initWithPaperSize:paperSize paperType:paperType];

@@ -13,11 +13,13 @@
 #define TYPE_PLAIN_TITLE @"Plain Paper"
 #define TYPE_PHOTO_TITLE @"Photo Paper"
 
+#define SIZE_4_X_5_TITLE @"4 x 5"
 #define SIZE_4_X_6_TITLE @"4 x 6"
 #define SIZE_5_X_7_TITLE @"5 x 7"
 #define SIZE_LETTER_TITLE @"8.5 x 11"
 
 typedef enum {
+    Size4x5,
     Size4x6,
     Size5x7,
     SizeLetter

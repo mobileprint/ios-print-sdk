@@ -51,11 +51,11 @@ extern NSString * const kHPPPSupportVC;
 @property (assign, nonatomic) BOOL hidePaperSizeOption;
 @property (assign, nonatomic) BOOL hidePaperTypeOption;
 
-@property (strong, nonatomic) NSArray *paperSizes; // TODO
+@property (strong, nonatomic) NSArray *paperSizes;
 @property (assign, nonatomic) NSInteger defaultPaperSize;
 @property (assign, nonatomic) NSInteger defaultPaperType;
 
-@property (strong, nonatomic) NSArray *supportActions; // TODO
+@property (strong, nonatomic) NSArray *supportActions;
 
 @property (strong, nonatomic) UIFont *rulesLabelFont;
 

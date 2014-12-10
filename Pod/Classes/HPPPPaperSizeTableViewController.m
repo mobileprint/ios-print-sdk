@@ -11,14 +11,15 @@
 //
 
 #import "HPPPPaperSizeTableViewController.h"
+#import "HPPP.h"
 #import "HPPPPaper.h"
 #import "UIColor+Style.h"
 #import "UITableView+Header.h"
-//#import "UIViewController+Trackable.h"
 
 @interface HPPPPaperSizeTableViewController ()
 
-@property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *paperSizeCells;
+//@property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *paperSizeCells;
+@property (nonatomic, strong) HPPP *hppp;
 
 @end
 
@@ -28,16 +29,34 @@
 {
     [super viewDidLoad];
     
-    //self.trackableScreenName = @"Paper Size Screen";
-    
+    self.hppp = [HPPP sharedInstance];
+
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
-    for (UITableViewCell *cell in self.paperSizeCells) {
-        if ([cell.textLabel.text isEqualToString:self.currentPaper.sizeTitle]) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            break;
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.hppp.paperSizes.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaperSizeTableViewCellIdentifier"];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PaperSizeTableViewCellIdentifier"];
         }
+        
+        cell.textLabel.font = self.hppp.tableViewCellLabelFont;
+        cell.textLabel.text = self.hppp.paperSizes[indexPath.row];
+    
+    if ([cell.textLabel.text isEqualToString:self.currentPaper.sizeTitle]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
+    
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate
@@ -46,7 +65,8 @@
 {
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     
-    for (UITableViewCell *cell in self.paperSizeCells) {
+    for (NSInteger i = 0; i < self.hppp.paperSizes.count; i++) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     

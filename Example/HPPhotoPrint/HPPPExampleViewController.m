@@ -37,11 +37,13 @@
     
     [HPPP sharedInstance].supportActions =  @[@{kHPPPSupportIcon: @"print-instructions",
                                               kHPPPSupportTitle: @"Print Instructions",
-                                              kHPPPSupportUrl: @"http://www.shopping.hp.com/en_US/home-office/-/products/HP-Paper/Everyday-photo-paper/CR759A?HP-Everyday-Glossy-Photo-Paper-100-sht-4-x-6-in"},
+                                              kHPPPSupportUrl: @"http://www.hp.com"},
                                               @{kHPPPSupportIcon: @"print-instructions",
                                                 kHPPPSupportTitle: @"Print Instructions VC",
                                                 kHPPPSupportVC: navigationController}];
 
+    [HPPP sharedInstance].paperSizes = @[@"4 x 9", @"4 x 6", @"5 x 7", @"8.5 x 11"];
+    
    // [HPPP sharedInstance].tableViewCellLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:8];
 }
 
