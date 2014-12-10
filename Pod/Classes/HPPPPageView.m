@@ -11,6 +11,7 @@
 //
 
 #import "HPPPPageView.h"
+#import "HPPP.h"
 #import "UIView+Animation.h"
 #import "HPPPRuleView.h"
 #import "XBCurlView.h"
@@ -106,8 +107,9 @@
 
 - (void)setPaperSize:(HPPPPaper *)paperSize animated:(BOOL)animated completion:(void (^)(void))completion
 {
-    self.ruleView.widthLabel.font = [UIFont HPSimplifiedRegularFontWithSize:12.0f];
-    self.ruleView.heightLabel.font = [UIFont HPSimplifiedRegularFontWithSize:12.0f];
+    HPPP *hppp = [HPPP sharedInstance];
+    self.ruleView.widthLabel.font = hppp.rulesLabelFont;
+    self.ruleView.heightLabel.font = hppp.rulesLabelFont;
     
     CGSize computedPaperSize = [self paperSizeWithWidth:paperSize.width height:paperSize.height containerSize:self.containerView.frame.size containerScale:paperSize.scale];
     

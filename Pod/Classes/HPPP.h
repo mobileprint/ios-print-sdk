@@ -35,6 +35,11 @@ extern NSString * const kHPPPPaperSizeId;
 extern NSString * const kHPPPBlackAndWhiteFilterId;
 extern NSString * const kHPPPPrinterId;
 
+extern NSString * const kHPPPSupportIcon;
+extern NSString * const kHPPPSupportTitle;
+extern NSString * const kHPPPSupportUrl;
+extern NSString * const kHPPPSupportVC;
+
 @interface HPPP : NSObject
 
 /*!
@@ -43,8 +48,30 @@ extern NSString * const kHPPPPrinterId;
  By default, this value is false and the black & white filter option is shown.
  */
 @property (assign, nonatomic) BOOL hideBlackAndWhiteOption;
+@property (assign, nonatomic) BOOL hidePaperSizeOption;
+@property (assign, nonatomic) BOOL hidePaperTypeOption;
+
+@property (strong, nonatomic) NSArray *paperSizes; // TODO
+@property (assign, nonatomic) NSInteger defaultPaperSize;
+@property (assign, nonatomic) NSInteger defaultPaperType;
+
+@property (strong, nonatomic) NSArray *supportActions; // TODO
+
+@property (strong, nonatomic) UIFont *rulesLabelFont;
+
+@property (strong, nonatomic) UIFont *tableViewCellLabelFont;
+@property (strong, nonatomic) UIColor *tableViewCellValueColor;
+@property (strong, nonatomic) UIColor *tableViewCellLinkLabelColor;
 
 @property (strong, nonatomic) NSMutableDictionary *lastOptionsUsed;
+
+
+// TODO. Implement these options:
+//Layout options
+//Zoom and crop?
+//Center with no zoom?
+//Minimum desired DPI (e.g. 300dpi)
+
 
 
 + (HPPP *)sharedInstance;

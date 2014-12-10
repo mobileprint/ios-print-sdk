@@ -25,6 +25,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [HPPP sharedInstance].defaultPaperSize = SizeLetter;
+    [HPPP sharedInstance].defaultPaperType = Plain;
+    [HPPP sharedInstance].tableViewCellValueColor = [UIColor colorWithRed:0x8F / 255.0f green:0x8F / 255.0f blue:0x95 / 255.0f alpha:1.0f];
+    [HPPP sharedInstance].tableViewCellLinkLabelColor = [UIColor blueColor];
+    
+    [HPPP sharedInstance].rulesLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:8];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"PrintInstructions"];
+    
+    [HPPP sharedInstance].supportActions =  @[@{kHPPPSupportIcon: @"print-instructions",
+                                              kHPPPSupportTitle: @"Print Instructions",
+                                              kHPPPSupportUrl: @"http://www.shopping.hp.com/en_US/home-office/-/products/HP-Paper/Everyday-photo-paper/CR759A?HP-Everyday-Glossy-Photo-Paper-100-sht-4-x-6-in"},
+                                              @{kHPPPSupportIcon: @"print-instructions",
+                                                kHPPPSupportTitle: @"Print Instructions VC",
+                                                kHPPPSupportVC: navigationController}];
+
+   // [HPPP sharedInstance].tableViewCellLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:8];
 }
 
 - (IBAction)shareBarButtonItemTap:(id)sender

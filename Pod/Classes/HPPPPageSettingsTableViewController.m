@@ -30,7 +30,10 @@
 #define PAPER_SECTION 0
 #define SUPPORT_SECTION 1
 
+#define NUMBER_OF_ROWS_IN_PAPER_SECTION 4
+
 #define PAPER_SHOW_INDEX 0
+#define PAPER_SIZE_INDEX 1
 #define PAPER_TYPE_INDEX 2
 #define FILTER_INDEX 3
 
@@ -50,8 +53,12 @@
 @property (weak, nonatomic) IBOutlet UISwitch *blackAndWhiteModeSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *paperSizeSelectedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *paperTypeSelectedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *paperSizeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *paperTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *filterLabel;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageViewCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *paperSizeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *learnMoreCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
@@ -59,6 +66,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) HPPP *hppp;
 
 @end
 
@@ -67,19 +75,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
+    
+    self.hppp = [HPPP sharedInstance];
+    
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    //self.trackableScreenName = @"Page Settings Screen";
+    self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
+    self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
+    self.filterLabel.font = self.hppp.tableViewCellLabelFont;
     
-    UIColor *color8F8F95 = [UIColor colorWithHexString:@"8F8F95"];
-    self.paperSizeSelectedLabel.textColor = color8F8F95;
-    self.paperTypeSelectedLabel.textColor = color8F8F95;
+    self.paperSizeSelectedLabel.font = self.hppp.tableViewCellLabelFont;
+    self.paperTypeSelectedLabel.font = self.hppp.tableViewCellLabelFont;
     
-    self.learnMoreCell.textLabel.textColor = [UIColor HPBlueColor];
+    self.paperSizeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
+    self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
+    
+    //self.learnMoreCell.textLabel.textColor = [UIColor HPBlueColor];
     
     self.pageViewCell.backgroundColor = [UIColor HPGrayBackgroundColor];
     
@@ -87,13 +101,13 @@
     
     [self loadLastUsed];
     
-    if (self.selectedPaper.paperSize == SizeLetter) {
+    if ((!self.hppp.hidePaperTypeOption) && self.selectedPaper.paperSize == SizeLetter) {
         self.paperTypeCell.hidden = NO;
     } else {
         self.paperTypeCell.hidden = YES;
     }
     
-    if ([HPPP sharedInstance].hideBlackAndWhiteOption) {
+    if (self.hppp.hideBlackAndWhiteOption) {
         self.filterCell.hidden = YES;
         
     }
@@ -106,7 +120,7 @@
         
         __weak HPPPPageSettingsTableViewController *weakSelf = self;
         [self setPaperSize:self.pageView animated:YES completion:^{
-            if (![HPPP sharedInstance].hideBlackAndWhiteOption) {
+            if (!weakSelf.hppp.hideBlackAndWhiteOption) {
                 if (weakSelf.blackAndWhiteModeSwitch.on) {
                     weakSelf.tableView.userInteractionEnabled = NO;
                     [weakSelf.pageView setBlackAndWhiteWithCompletion:^{
@@ -164,6 +178,8 @@
     
     if (lastSizeUsed != nil) {
         self.selectedPaper = [[HPPPPaper alloc] initWithPaperSize:(PaperSize)lastSizeUsed.integerValue paperType:(PaperType)lastTypeUsed.integerValue];
+    } else {
+        self.selectedPaper = [[HPPPPaper alloc] initWithPaperSize:(PaperSize)self.hppp.defaultPaperSize paperType:(PaperType)self.hppp.defaultPaperType];
     }
     
     NSNumber *lastFilterUsed = [defaults objectForKey:LAST_FILTER_USED_SETTING];
@@ -183,7 +199,8 @@
     }
 }
 
-- (IBAction)printButtonTapped:(id)sender {
+- (IBAction)printButtonTapped:(id)sender
+{
     [self displaySystemPrintFromBarButtonItem:self.printBarButtonItem];
 }
 
@@ -323,22 +340,84 @@
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (self.hppp.supportActions.count != 0)
+        return 2; // Paper Section + Support Section
+    else
+        return 1; // Paper Section
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == SUPPORT_SECTION) {
-        return HEADER_HEIGHT;
+        return self.hppp.supportActions.count;
     } else {
-        return  0.0f;
+        return [super tableView:tableView numberOfRowsInSection:section];;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat height = 0.0f;
+    
+    if (section == SUPPORT_SECTION) {
+        if (self.hppp.supportActions.count != 0) {
+            height = HEADER_HEIGHT;
+        }
+    }
+    
+    return height;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell;
+    
+    if (indexPath.section == PAPER_SECTION) {
+        cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ActionTableViewCellIdentifier"];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ActionTableViewCellIdentifier"];
+        }
+
+        cell.textLabel.font = self.hppp.tableViewCellLabelFont;
+        cell.textLabel.textColor = self.hppp.tableViewCellLinkLabelColor;
+        NSDictionary *action = self.hppp.supportActions[indexPath.row];
+        cell.imageView.image = [UIImage imageNamed:[action objectForKey:kHPPPSupportIcon]];
+        cell.textLabel.text = [action objectForKey:kHPPPSupportTitle];
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+     if (indexPath.section == SUPPORT_SECTION) {
+         NSDictionary *action = self.hppp.supportActions[indexPath.row];
+         NSString *url = [action objectForKey:kHPPPSupportUrl];
+         if (url) {
+             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+         } else {
+            UIViewController *vc = [action objectForKey:kHPPPSupportVC];
+            [self presentViewController:vc animated:YES completion:nil];
+         }
+     }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    UIView *header = nil;
+    
     if (section == SUPPORT_SECTION) {
-        return [tableView headerViewForSupportSection];
-    } else {
-        return nil;
+        if (self.hppp.supportActions.count != 0) {
+            header = [tableView headerViewForSupportSection];
+        }
     }
+    
+    return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -353,17 +432,24 @@
                 }
                 break;
                 
+            case PAPER_SIZE_INDEX:
+                if (!self.hppp.hidePaperSizeOption) {
+                    rowHeight = tableView.rowHeight;
+                }
+                break;
+                
+            case PAPER_TYPE_INDEX:
+                if ((!self.hppp.hidePaperTypeOption) && (self.selectedPaper.paperSize == SizeLetter)) {
+                    rowHeight = tableView.rowHeight;
+                }
+                break;
+                
             case FILTER_INDEX:
                 if (!([HPPP sharedInstance].hideBlackAndWhiteOption)) {
                     rowHeight = self.tableView.rowHeight;
                 }
                 break;
                 
-            case PAPER_TYPE_INDEX:
-                if (self.selectedPaper.paperSize == SizeLetter) {
-                    rowHeight = tableView.rowHeight;
-                }
-                break;
             default:
                 rowHeight = self.tableView.rowHeight;
                 break;
@@ -381,7 +467,7 @@
 {
     self.selectedPaper = paper;
     
-    if (self.selectedPaper.paperSize == SizeLetter) {
+    if ((!self.hppp.hidePaperTypeOption) && self.selectedPaper.paperSize == SizeLetter) {
         self.paperTypeCell.hidden = NO;
     } else {
         self.paperTypeCell.hidden = YES;
@@ -397,12 +483,12 @@
     
     self.spinner = [self.view addSpinner];
     self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-
+    
     self.image = [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:paper];
     self.pageView.image = self.image;
     
     [self.spinner removeFromSuperview];
-
+    
 }
 
 - (void)setPaperSize:(HPPPPageView *)pageView animated:(BOOL)animated completion:(void (^)(void))completion

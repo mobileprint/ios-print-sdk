@@ -10,21 +10,8 @@
 // the license agreement.
 //
 
-#import "HPPPLearnMoreViewController.h"
-//#import "UIViewController+Trackable.h"
+#import "HPPPView.h"
 
-@implementation HPPPLearnMoreViewController
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    //self.trackableScreenName = @"Print Instructions Screen";
-}
-
-- (IBAction)cancelButtonTapped:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+@interface HPPPLearnMoreView : HPPPView
 
 @end

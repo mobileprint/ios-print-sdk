@@ -17,6 +17,12 @@ NSString * const kHPPPPaperSizeId = @"kHPPPPaperSizeId";
 NSString * const kHPPPBlackAndWhiteFilterId = @"kHPPPBlackAndWhiteFilterId";
 NSString * const kHPPPPrinterId = @"kHPPPPrinterId";
 
+NSString * const kHPPPSupportIcon = @"kHPPPSupportIcon";
+NSString * const kHPPPSupportTitle = @"kHPPPSupportTitle";
+
+NSString * const kHPPPSupportUrl = @"kHPPPSupportUrl";
+NSString * const kHPPPSupportVC = @"kHPPPSupportVC";
+
 
 @implementation HPPP
 

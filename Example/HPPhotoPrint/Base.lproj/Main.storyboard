@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="FkY-SB-qqO">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Example View Controller-->
@@ -50,6 +50,80 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DM5-sK-2aO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4662" y="-1068"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Pjp-ZL-uOa">
+            <objects>
+                <navigationController storyboardIdentifier="PrintInstructions" definesPresentationContext="YES" id="EUG-ng-CIO" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="el1-YU-SfN">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="JWh-Ou-9Zi" kind="relationship" relationship="rootViewController" id="Wny-dY-aXv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MSA-BN-5yi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6163" y="820"/>
+        </scene>
+        <!--Print Instructions-->
+        <scene sceneID="DDY-NT-Jku">
+            <objects>
+                <viewController id="JWh-Ou-9Zi" customClass="HPPPLearnMoreViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZeN-1e-T5R"/>
+                        <viewControllerLayoutGuide type="bottom" id="bcn-zH-WY7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YWX-qc-ayj">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCa-Tx-E7N">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oEi-ze-9gf" customClass="HPPPLearnMoreView">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1295"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1295" id="9Jl-7K-4J3"/>
+                                        </constraints>
+                                        <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="400" height="1330"/>
+                                        </variation>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="oEi-ze-9gf" firstAttribute="leading" secondItem="gCa-Tx-E7N" secondAttribute="leading" id="Dqh-JO-sLY"/>
+                                    <constraint firstAttribute="trailing" secondItem="oEi-ze-9gf" secondAttribute="trailing" id="QR8-zY-RyG"/>
+                                    <constraint firstItem="oEi-ze-9gf" firstAttribute="top" secondItem="gCa-Tx-E7N" secondAttribute="top" id="YDM-C1-esT"/>
+                                    <constraint firstItem="oEi-ze-9gf" firstAttribute="centerX" secondItem="gCa-Tx-E7N" secondAttribute="centerX" id="iMq-fy-NGO"/>
+                                    <constraint firstAttribute="bottom" secondItem="oEi-ze-9gf" secondAttribute="bottom" id="r5o-uw-PHI"/>
+                                </constraints>
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="692"/>
+                                </variation>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bcn-zH-WY7" firstAttribute="top" secondItem="gCa-Tx-E7N" secondAttribute="bottom" id="7sP-EE-oXu"/>
+                            <constraint firstItem="gCa-Tx-E7N" firstAttribute="leading" secondItem="YWX-qc-ayj" secondAttribute="leadingMargin" constant="-16" id="RbM-HE-0yP"/>
+                            <constraint firstItem="gCa-Tx-E7N" firstAttribute="top" secondItem="ZeN-1e-T5R" secondAttribute="bottom" id="W3a-0M-R8V"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gCa-Tx-E7N" secondAttribute="trailing" constant="-16" id="b6B-uE-3wS"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Print Instructions" id="g5a-tJ-huK">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="G1h-4N-xXa">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="JWh-Ou-9Zi" id="KrV-YP-TtC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vjI-xy-4dC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7065" y="820"/>
         </scene>
     </scenes>
 </document>

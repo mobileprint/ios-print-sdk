@@ -23,6 +23,9 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		8385D3FA9834DD987A3B752B /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 824DD1CAED53617BFC879B9B /* libPods-Tests.a */; };
 		AEBDAE10899722AFD450C051 /* libPods-HPPhotoPrint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 080854DE6C4D61428EC1D8E8 /* libPods-HPPhotoPrint.a */; };
+		E32115DC1A38B9E60079144C /* HPPPLearnMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DB1A38B9E60079144C /* HPPPLearnMoreViewController.m */; };
+		E32115E01A38BCE50079144C /* HPPPLearnMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DE1A38BCE50079144C /* HPPPLearnMoreView.m */; };
+		E32115E11A38BCE50079144C /* HPPPLearnMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32115DF1A38BCE50079144C /* HPPPLearnMoreView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,11 @@
 		B4517B52F9E6A6FBAF719728 /* Pods-HPPhotoPrint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HPPhotoPrint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HPPhotoPrint/Pods-HPPhotoPrint.debug.xcconfig"; sourceTree = "<group>"; };
 		B6412EFA41C9FD7C470C1D44 /* HPPhotoPrint.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = HPPhotoPrint.podspec; path = ../HPPhotoPrint.podspec; sourceTree = "<group>"; };
 		C6C2E8C63C60FC48B6767AD6 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		E32115DA1A38B9E60079144C /* HPPPLearnMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPLearnMoreViewController.h; sourceTree = "<group>"; };
+		E32115DB1A38B9E60079144C /* HPPPLearnMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPLearnMoreViewController.m; sourceTree = "<group>"; };
+		E32115DD1A38BCE50079144C /* HPPPLearnMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPLearnMoreView.h; sourceTree = "<group>"; };
+		E32115DE1A38BCE50079144C /* HPPPLearnMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPLearnMoreView.m; sourceTree = "<group>"; };
+		E32115DF1A38BCE50079144C /* HPPPLearnMoreView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HPPPLearnMoreView.xib; sourceTree = "<group>"; };
 		EE7EBCBC7723D10BF4D13C7F /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F081076366F4C76425844536 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,9 +138,14 @@
 		6003F593195388D20070C39A /* HPPhotoPrint */ = {
 			isa = PBXGroup;
 			children = (
+				6003F59F195388D20070C39A /* Main.storyboard */,
 				6003F59C195388D20070C39A /* HPPPAppDelegate.h */,
 				6003F59D195388D20070C39A /* HPPPAppDelegate.m */,
-				6003F59F195388D20070C39A /* Main.storyboard */,
+				E32115DD1A38BCE50079144C /* HPPPLearnMoreView.h */,
+				E32115DE1A38BCE50079144C /* HPPPLearnMoreView.m */,
+				E32115DF1A38BCE50079144C /* HPPPLearnMoreView.xib */,
+				E32115DA1A38B9E60079144C /* HPPPLearnMoreViewController.h */,
+				E32115DB1A38B9E60079144C /* HPPPLearnMoreViewController.m */,
 				6003F5A5195388D20070C39A /* HPPPExampleViewController.h */,
 				6003F5A6195388D20070C39A /* HPPPExampleViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -273,6 +286,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E32115E11A38BCE50079144C /* HPPPLearnMoreView.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F5A1195388D20070C39A /* Main.storyboard in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -357,8 +371,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E32115DC1A38B9E60079144C /* HPPPLearnMoreViewController.m in Sources */,
 				6003F59E195388D20070C39A /* HPPPAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* HPPPExampleViewController.m in Sources */,
+				E32115E01A38BCE50079144C /* HPPPLearnMoreView.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
