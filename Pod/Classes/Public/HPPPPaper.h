@@ -36,11 +36,8 @@ typedef enum {
 @property (nonatomic, strong) NSString *typeTitle;
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
-@property (nonatomic, assign) float printerWidth;
-@property (nonatomic, assign) float printerHeight;
 @property (nonatomic, assign) PaperSize paperSize;
 @property (nonatomic, assign) PaperType paperType;
-@property (nonatomic, assign) CGFloat scale;
 
 - (id)initWithPaperSize:(PaperSize)paperSize paperType:(PaperType)paperType;
 
