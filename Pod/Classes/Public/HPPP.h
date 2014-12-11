@@ -31,100 +31,100 @@
 #define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
 
 /*! 
-@abstract Main HP Photo Print manager class
-@discussion This singleton class manages configuration settings and stored job information.
+ * @abstract Main HP Photo Print manager class
+ * @discussion This singleton class manages configuration settings and stored job information.
  */
 @interface HPPP : NSObject
 
 /*!
- @abstract Used to retrieve last paper type used
- @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain the paper type used.
- @seealso lastOptionsUsed
+ * @abstract Used to retrieve last paper type used
+ * @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain the paper type used.
+ * @seealso lastOptionsUsed
  */
 extern NSString * const kHPPPPaperTypeId;
 
 /*!
- @abstract Used to retrieve last paper size used
- @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain the paper size used.
- @seealso lastOptionsUsed
+ * @abstract Used to retrieve last paper size used
+ * @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain the paper size used.
+ * @seealso lastOptionsUsed
  */
 extern NSString * const kHPPPPaperSizeId;
 
 /*!
- @abstract Used to retrieve last black/white setting used
- @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain a true/false value indicating if black/white was chosen.
- @seealso lastOptionsUsed
+ * @abstract Used to retrieve last black/white setting used
+ * @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain a true/false value indicating if black/white was chosen.
+ * @seealso lastOptionsUsed
  */
 extern NSString * const kHPPPBlackAndWhiteFilterId;
 
 /*!
- @abstract Used to retrieve ID of the printer used for the last job
- @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain the ID of the printer that was used.
- @seealso lastOptionsUsed
+ * @abstract Used to retrieve ID of the printer used for the last job
+ * @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain the ID of the printer that was used.
+ * @seealso lastOptionsUsed
  */
 extern NSString * const kHPPPPrinterId;
 
 /*!
- @abstract Specifies the icon used for a support action
- @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the icon to display for the support action.
- @seealso supportActions
+ * @abstract Specifies the icon used for a support action
+ * @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the icon to display for the support action.
+ * @seealso supportActions
  */
 extern NSString * const kHPPPSupportIcon;
 
 /*!
- @abstract Specifies the title used for a support action
- @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the title to display for the support action.
- @seealso supportActions
+ * @abstract Specifies the title used for a support action
+ * @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the title to display for the support action.
+ * @seealso supportActions
  */
 extern NSString * const kHPPPSupportTitle;
 
 /*!
- @abstract Specifies the URL to open for a support action
- @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the URL to open for the support action.
- @seealso supportActions
+ * @abstract Specifies the URL to open for a support action
+ * @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the URL to open for the support action.
+ * @seealso supportActions
  */
 extern NSString * const kHPPPSupportUrl;
 
 /*!
- @abstract Specifies the view controller to present for a support action
- @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the view controller to present for the support action.
- @seealso supportActions
+ * @abstract Specifies the view controller to present for a support action
+ * @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the view controller to present for the support action.
+ * @seealso supportActions
  */
 extern NSString * const kHPPPSupportVC;
 
 /*!
-@abstract Indicates whether the black and white option should be hidden
-@discussion If this value is true, the black and white filter option is hidden on the print preview page and the black and white filter is not used. The default values is false (not hidden).
-*/
+ * @abstract Indicates whether the black and white option should be hidden
+ * @discussion If this value is true, the black and white filter option is hidden on the print preview page and the black and white filter is not used. The default values is false (not hidden).
+ */
 @property (assign, nonatomic) BOOL hideBlackAndWhiteOption;
 
 
 /*!
- @abstract Indicates whether the paper size option should be hidden
- @discussion If this value is true, the paper size option is hidden on the print preview page and the default paper size is used. The default values is false (not hidden).
- @seealso defaultPaperSize
-*/
+ * @abstract Indicates whether the paper size option should be hidden
+ * @discussion If this value is true, the paper size option is hidden on the print preview page and the default paper size is used. The default values is false (not hidden).
+ * @seealso defaultPaperSize
+ */
 @property (assign, nonatomic) BOOL hidePaperSizeOption;
 
 /*!
- @abstract Indicates whether the paper type option should be hidden
- @discussion If this value is true, the paper type option is hidden on the print preview page and the default paper type is used if applicable (e.g. 4x6 always uses photo paper regardless of the value of the default paper type). The default value is false (not hidden).
- @seealso defaultPaperType
-*/
+ * @abstract Indicates whether the paper type option should be hidden
+ * @discussion If this value is true, the paper type option is hidden on the print preview page and the default paper type is used if applicable (e.g. 4x6 always uses photo paper regardless of the value of the default paper type). The default value is false (not hidden).
+ * @seealso defaultPaperType
+ */
 @property (assign, nonatomic) BOOL hidePaperTypeOption;
 
 /*!
-@abstract List of supported paper sizes
-@discussion An array of string values specifying the title of the paper sizes to display. These titles are shown in the paper size selection page and must map to known paper sizes defined in HPPPPaper.
-@seealso HPPPPaper
-*/
+ * @abstract List of supported paper sizes
+ * @discussion An array of string values specifying the title of the paper sizes to display. These titles are shown in the paper size selection page and must map to known paper sizes defined in HPPPPaper.
+ * @seealso HPPPPaper
+ */
 @property (strong, nonatomic) NSArray *paperSizes;
 
 /*!
-@abstract Default paper size
-@discussion A value from the PaperSize enum specifying the default paper size to use. This value is used to set the initial selection for paper size. It is also used as the value for paper size when the paper size selection is hidden. Default value is Size5x7.
-@seealso hidePaperSizeOption
-*/
+ * @abstract Default paper size
+ * @discussion A value from the PaperSize enum specifying the default paper size to use. This value is used to set the initial selection for paper size. It is also used as the value for paper size when the paper size selection is hidden. Default value is Size5x7.
+ * @seealso hidePaperSizeOption
+ */
 @property (assign, nonatomic) NSInteger defaultPaperSize;
 
 /*!
@@ -135,39 +135,39 @@ extern NSString * const kHPPPSupportVC;
 @property (assign, nonatomic) NSInteger defaultPaperType;
 
 /*!
-@property supportActions
-@abstract An array of support actions to display on the print preview page
-@discussion This is an array of dictionaries each describing a single support action. Support actions include an icon and a title and are displayed in a support section at the bottom of the print preview page. An action can either open a URL or present a view controller.
+ * @property supportActions
+ * @abstract An array of support actions to display on the print preview page
+ * @discussion This is an array of dictionaries each describing a single support action. Support actions include an icon and a title and are displayed in a support section at the bottom of the print preview page. An action can either open a URL or present a view controller.
 */
 @property (strong, nonatomic) NSArray *supportActions;
 
 /*!
- @abstract Font used for the ruler labels
+ * @abstract Font used for the ruler labels
  */
 @property (strong, nonatomic) UIFont *rulesLabelFont;
 
 /*!
- @abstract Font used for the label of properties
- @description Used for the name of properties on the print preview page (e.g. Paper Size, Paper Type).
+ * @abstract Font used for the label of properties
+ * @description Used for the name of properties on the print preview page (e.g. Paper Size, Paper Type).
  */
 @property (strong, nonatomic) UIFont *tableViewCellLabelFont;
 
 /*!
- @abstract Font used for the value of properties
- @description Used for the currently selected value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
+ * @abstract Font used for the value of properties
+ * @description Used for the currently selected value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
  */
 @property (strong, nonatomic) UIColor *tableViewCellValueColor;
 
 /*!
- @abstract Color used for action link text
- @description Used for one or more action links shown at the bottom of the print preview page
+ * @abstract Color used for action link text
+ * @description Used for one or more action links shown at the bottom of the print preview page
  */
 @property (strong, nonatomic) UIColor *tableViewCellLinkLabelColor;
 
 /*!
-@abstract A dictionary of the most recent print options used
-@discussion If the last print job was successful this property contains a dictionary of various options used for the job. If the last print job failed or was canceled then this property contains an empty dictionary.
-*/
+ * @abstract A dictionary of the most recent print options used
+ * @discussion If the last print job was successful this property contains a dictionary of various options used for the job. If the last print job failed or was canceled then this property contains an empty dictionary.
+ */
 @property (strong, nonatomic) NSMutableDictionary *lastOptionsUsed;
 
 
@@ -179,8 +179,8 @@ extern NSString * const kHPPPSupportVC;
 
 
 /*!
-@abstract Used to access the singleton instance of this class
-*/
+ * @abstract Used to access the singleton instance of this class
+ */
 + (HPPP *)sharedInstance;
 
 @end
