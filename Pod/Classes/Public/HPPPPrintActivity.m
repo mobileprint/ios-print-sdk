@@ -95,7 +95,11 @@
 
 - (UIImage *)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper
 {
-    return [self.dataSource printActivityRequestImageForPaper:paper];
+    if ([self.dataSource respondsToSelector:@selector(printActivityRequestImageForPaper:)]) {
+        return [self.dataSource printActivityRequestImageForPaper:paper];
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - PGSelectPaperSizeViewControllerDelegate
