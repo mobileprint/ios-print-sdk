@@ -12,8 +12,8 @@
 
 #import "HPPPPageViewController.h"
 
-@protocol PGPageSettingsTableViewControllerDelegate;
-@protocol PGPageSettingsTableViewControllerDataSource;
+@protocol HPPPPageSettingsTableViewControllerDelegate;
+@protocol HPPPPageSettingsTableViewControllerDataSource;
 
 /*!
  * @abstract The view controller class for displaying the print preview
@@ -32,14 +32,14 @@
  * @description This delegate is notified whenever the print flow completes or gets canceled.
  * @seealso PGPageSettingsTableViewControllerDelegate
  */
-@property (nonatomic, weak) id<PGPageSettingsTableViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<HPPPPageSettingsTableViewControllerDelegate> delegate;
 
 /*!
  * @abstract Provides the printable image asset
  * @description The data source is used to provide an image to use for printing. A new image is requested whenever relevant parameters change (e.g. the user picks a new page size).
  * @seealso PGPageSettingsTableViewControllerDataSource
  */
-@property (nonatomic, weak) id<PGPageSettingsTableViewControllerDataSource> dataSource;
+@property (nonatomic, weak) id<HPPPPageSettingsTableViewControllerDataSource> dataSource;
 
 /*!
  * @abstract The graphical page representation part of the print preview
@@ -53,7 +53,7 @@
  * @abstract Defines a delegate protocal for reporting print events
  * @seealso PGPageSettingsTableViewControllerDataSource
  */
-@protocol PGPageSettingsTableViewControllerDelegate <NSObject>
+@protocol HPPPPageSettingsTableViewControllerDelegate <NSObject>
 
 /*!
  * @abstract Called when the print flow finishes successfully
@@ -79,7 +79,7 @@
  * @abstract Defines a data source protocal for requesting the printable image
  * @seealso PGPageSettingsTableViewControllerDelegate
  */
-@protocol PGPageSettingsTableViewControllerDataSource <NSObject>
+@protocol HPPPPageSettingsTableViewControllerDataSource <NSObject>
 
 /*!
  * @abstract Called when a new printable image is needed
