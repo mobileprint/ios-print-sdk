@@ -32,6 +32,6 @@ Pod::Spec.new do |s|
   s.private_header_files = ['Pod/Classes/Private/**/*.h','Pod/Libraries/XBPageCurl/*.h', 'Pod/Libraries/Reachability/*.h']
   s.frameworks = ['Foundation', 'UIKit']
   # s.dependency 'AFNetworking', '~> 2.3'
-  s.xcconfig  =  {'VALID_ARCHS' => 'arm64 armv7 armv7s x86_64', 'ARCHS' => 'arm64 armv7 armv7s x86_64'}
+  # s.xcconfig  =  {'VALID_ARCHS' => 'arm64 armv7 armv7s x86_64', 'ARCHS' => 'arm64 armv7 armv7s x86_64'}
 
 end
