@@ -19,6 +19,7 @@
 
 #define DEFAULT_WIDTH 5.0f
 #define DEFAULT_HEIGHT 7.0f
+#define PREVIEW_CONTAINER_SCALE 0.9f
 
 @interface HPPPPageView ()
 
@@ -110,7 +111,7 @@
     self.ruleView.widthLabel.font = hppp.rulesLabelFont;
     self.ruleView.heightLabel.font = hppp.rulesLabelFont;
     
-    CGSize computedPaperSize = [self paperSizeWithWidth:paperSize.width height:paperSize.height containerSize:self.containerView.frame.size containerScale:paperSize.scale];
+    CGSize computedPaperSize = [self paperSizeWithWidth:paperSize.width height:paperSize.height containerSize:self.containerView.frame.size containerScale:PREVIEW_CONTAINER_SCALE];
     
     CGSize computedImageSize;
     

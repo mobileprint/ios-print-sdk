@@ -45,9 +45,6 @@
                 self.sizeTitle = SIZE_4_X_5_TITLE;
                 self.width = 4.0f;
                 self.height = 5.0f;
-                self.printerWidth = self.width;
-                self.printerHeight = self.height;
-                self.scale = 0.70f;
                 break;
                 
             case Size4x6:
@@ -55,9 +52,6 @@
                 self.sizeTitle = SIZE_4_X_6_TITLE;
                 self.width = 4.0f;
                 self.height = 6.0f;
-                self.printerWidth = self.width;
-                self.printerHeight = self.height;
-                self.scale = 0.75f;
                 break;
                 
             case Size5x7:
@@ -65,9 +59,6 @@
                 self.sizeTitle = SIZE_5_X_7_TITLE;
                 self.width = 5.0f;
                 self.height = 7.0f;
-                self.printerWidth = self.width;
-                self.printerHeight = self.height;
-                self.scale = 0.85f;
                 break;
                 
             case SizeLetter:
@@ -75,9 +66,6 @@
                 self.sizeTitle = SIZE_LETTER_TITLE;
                 self.width = 8.5f;
                 self.height = 11.0f;
-                self.printerWidth = self.width;
-                self.printerHeight = self.height;
-                self.scale = 0.9f;
                 break;
                 
             default:
@@ -135,7 +123,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"Width %f Height %f\nPrinter Width %f Printer Height %f\nPaper Size %d\nPaper Type %d\nScale %f", self.width, self.height, self.printerWidth, self.printerHeight, self.paperSize, self.paperType, self.scale];
+    return [NSString stringWithFormat:@"Width %f Height %f\nPrinter Width %f Printer Height %f\nPaper Size %d\nPaper Type %d\nScale %f", self.width, self.height, self.paperSize, self.paperType];
 }
 
 @end

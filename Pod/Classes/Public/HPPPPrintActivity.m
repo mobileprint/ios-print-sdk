@@ -16,7 +16,7 @@
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
 
-@interface HPPPPrintActivity () <PGPageSettingsTableViewControllerDelegate, PGPageSettingsTableViewControllerDataSource>
+@interface HPPPPrintActivity () <HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
 
 @property (strong, nonatomic) UIImage *image;
 

@@ -14,10 +14,10 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
                        Select paper size, printer, view preview and send to print throught AirPrint.
                        DESC
-  s.homepage         = "http://hp.com"
+  s.homepage         = "http://hppp.herokuapp.com"
   s.screenshots     = "http://a1.mzstatic.com/us/r30/Purple3/v4/a0/13/56/a0135614-df34-c64a-c943-a01c2340ac85/screen568x568.jpeg", "http://a3.mzstatic.com/us/r30/Purple1/v4/a1/4b/61/a14b61da-9582-3047-94e4-7791ce69a62e/screen568x568.jpeg"
   s.license          = 'MIT'
-  s.author           = { "James" => "trask@hp.com" }
+  s.author           = { "James Trask" => "trask@hp.com" }
   s.source           = { :git => "https://github.com/IPGPTP/hp_photo_print.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
