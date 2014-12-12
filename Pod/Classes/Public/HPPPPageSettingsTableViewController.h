@@ -60,7 +60,7 @@
  * @description This delegate method is called when the print flow finishes successfully. This means that the print job was sent to the printer without error. It does not mean that the job was completed and printed without error, just that the job was queued successfully. Errors such as out-of-paper could still occur after this method is called.
  * @param pageSettingsTableViewController The page settings view controller calling the method
  * @returns Nothing
- * @seealso pageSettingsTableViewControllerDidCancelPrintFlow
+ * @seealso pageSettingsTableViewControllerDidCancelPrintFlow:
  */
 - (void)pageSettingsTableViewControllerDidFinishPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController;
 
@@ -69,7 +69,7 @@
  * @description This method is called when the print flow is canceled by the user. If the print job is queued successfully but subsequently canceled by the user in the Print Center, this method is not called.
  * @param pageSettingsTableViewController The page settings view controller calling the method
  * @returns Nothing
- * @seealso pageSettingsTableViewControllerDidFinishPrintFlow
+ * @seealso pageSettingsTableViewControllerDidFinishPrintFlow:
  */
 - (void)pageSettingsTableViewControllerDidCancelPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController;
 
