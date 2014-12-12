@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "HPPhotoPrint"
-  s.version          = "0.4.0"
+  s.version          = "0.5.0"
   s.summary          = "AirPrint photo printing with preview."
   s.description      = <<-DESC
                        Select paper size, printer, view preview and send to print throught AirPrint.
@@ -32,6 +32,5 @@ Pod::Spec.new do |s|
   s.private_header_files = ['Pod/Classes/Private/**/*.h','Pod/Libraries/XBPageCurl/*.h', 'Pod/Libraries/Reachability/*.h']
   s.frameworks = ['Foundation', 'UIKit']
   # s.dependency 'AFNetworking', '~> 2.3'
-  # s.xcconfig  =  {'VALID_ARCHS' => 'arm64 armv7 armv7s x86_64', 'ARCHS' => 'arm64 armv7 armv7s x86_64'}
 
 end
