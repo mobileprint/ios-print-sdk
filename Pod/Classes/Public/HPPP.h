@@ -38,56 +38,56 @@
 
 /*!
  * @abstract Used to retrieve last paper type used
- * @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain the paper type used.
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the paper type used.
  * @seealso lastOptionsUsed
  */
 extern NSString * const kHPPPPaperTypeId;
 
 /*!
  * @abstract Used to retrieve last paper size used
- * @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain the paper size used.
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the paper size used.
  * @seealso lastOptionsUsed
  */
 extern NSString * const kHPPPPaperSizeId;
 
 /*!
  * @abstract Used to retrieve last black/white setting used
- * @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain a true/false value indicating if black/white was chosen.
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain a true/false value indicating if black/white was chosen.
  * @seealso lastOptionsUsed
  */
 extern NSString * const kHPPPBlackAndWhiteFilterId;
 
 /*!
  * @abstract Used to retrieve ID of the printer used for the last job
- * @discussion This key works with the dictionary contained in the lastOptionsUsed property. If the last job was successful, the value for this key will contain the ID of the printer that was used.
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the ID of the printer that was used.
  * @seealso lastOptionsUsed
  */
 extern NSString * const kHPPPPrinterId;
 
 /*!
  * @abstract Specifies the icon used for a support action
- * @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the icon to display for the support action.
+ * @discussion This key is used to prepare a support action dictionary to be added to the @link supportActions @/link array. The value for this key specifies the icon to display for the support action.
  * @seealso supportActions
  */
 extern NSString * const kHPPPSupportIcon;
 
 /*!
  * @abstract Specifies the title used for a support action
- * @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the title to display for the support action.
+ * @discussion This key is used to prepare a support action dictionary to be added to the @link supportActions @/link array. The value for this key specifies the title to display for the support action.
  * @seealso supportActions
  */
 extern NSString * const kHPPPSupportTitle;
 
 /*!
  * @abstract Specifies the URL to open for a support action
- * @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the URL to open for the support action.
+ * @discussion This key is used to prepare a support action dictionary to be added to the @link supportActions @/link array. The value for this key specifies the URL to open for the support action.
  * @seealso supportActions
  */
 extern NSString * const kHPPPSupportUrl;
 
 /*!
  * @abstract Specifies the view controller to present for a support action
- * @discussion This key is used to prepare a support action dictionary to be added to the supportActions array. The value for this key specifies the view controller to present for the support action.
+ * @discussion This key is used to prepare a support action dictionary to be added to the @link supportActions @/link array. The value for this key specifies the view controller to present for the support action.
  * @seealso supportActions
  */
 extern NSString * const kHPPPSupportVC;
@@ -135,13 +135,6 @@ extern NSString * const kHPPPSupportVC;
 @property (assign, nonatomic) NSInteger defaultPaperType;
 
 /*!
- * @property supportActions
- * @abstract An array of support actions to display on the print preview page
- * @discussion This is an array of dictionaries each describing a single support action. Support actions include an icon and a title and are displayed in a support section at the bottom of the print preview page. An action can either open a URL or present a view controller.
-*/
-@property (strong, nonatomic) NSArray *supportActions;
-
-/*!
  * @abstract Font used for the ruler labels
  */
 @property (strong, nonatomic) UIFont *rulesLabelFont;
@@ -167,8 +160,23 @@ extern NSString * const kHPPPSupportVC;
 /*!
  * @abstract A dictionary of the most recent print options used
  * @discussion If the last print job was successful this property contains a dictionary of various options used for the job. If the last print job failed or was canceled then this property contains an empty dictionary.
+ * @seealso kHPPPBlackAndWhiteFilterId
+ * @seealso kHPPPPaperSizeId
+ * @seealso kHPPPPaperTypeId
+ * @seealso kHPPPPrinterId
  */
 @property (strong, nonatomic) NSMutableDictionary *lastOptionsUsed;
+
+/*!
+ * @property supportActions
+ * @abstract An array of support actions to display on the print preview page
+ * @discussion This is an array of dictionaries each describing a single support action. Support actions include an icon and a title and are displayed in a support section at the bottom of the print preview page. An action can either open a URL or present a view controller.
+ * @seealso kHPPPSupportIcon
+ * @seealso kHPPPSupportTitle
+ * @seealso kHPPPSupportUrl
+ * @seealso kHPPPSupportVC
+ */
+@property (strong, nonatomic) NSArray *supportActions;
 
 
 // TODO. Implement these options:
