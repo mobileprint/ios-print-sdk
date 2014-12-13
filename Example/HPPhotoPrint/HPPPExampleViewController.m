@@ -44,7 +44,7 @@
                                               @{
                                                   kHPPPSupportIcon: @"print-instructions",
                                                   kHPPPSupportTitle: @"Print Instructions VC",
-                                                  kHPPPSupportVC: navigationController}
+                                                  kHPPPSupportViewController: navigationController}
                                               ];
     
     [HPPP sharedInstance].paperSizes = @[

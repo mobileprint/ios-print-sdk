@@ -90,7 +90,7 @@ extern NSString * const kHPPPSupportUrl;
  * @discussion This key is used to prepare a support action dictionary to be added to the @link supportActions @/link array. The value for this key specifies the view controller to present for the support action.
  * @seealso supportActions
  */
-extern NSString * const kHPPPSupportVC;
+extern NSString * const kHPPPSupportViewController;
 
 /*!
  * @abstract Indicates whether the black and white option should be hidden
@@ -173,7 +173,7 @@ extern NSString * const kHPPPSupportVC;
  * @seealso kHPPPSupportIcon
  * @seealso kHPPPSupportTitle
  * @seealso kHPPPSupportUrl
- * @seealso kHPPPSupportVC
+ * @seealso kHPPPSupportViewController
  */
 @property (strong, nonatomic) NSArray *supportActions;
 

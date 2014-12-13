@@ -21,7 +21,7 @@ NSString * const kHPPPSupportIcon = @"kHPPPSupportIcon";
 NSString * const kHPPPSupportTitle = @"kHPPPSupportTitle";
 
 NSString * const kHPPPSupportUrl = @"kHPPPSupportUrl";
-NSString * const kHPPPSupportVC = @"kHPPPSupportVC";
+NSString * const kHPPPSupportViewController = @"kHPPPSupportViewController";
 
 
 @implementation HPPP

@@ -405,7 +405,7 @@
          if (url) {
              [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
          } else {
-            UIViewController *vc = [action objectForKey:kHPPPSupportVC];
+            UIViewController *vc = [action objectForKey:kHPPPSupportViewController];
             [self presentViewController:vc animated:YES completion:nil];
          }
      }
