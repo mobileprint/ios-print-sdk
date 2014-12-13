@@ -72,7 +72,7 @@
     
     selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
     
-    NSString *typeTitle = ([SIZE_LETTER_TITLE  isEqual: selectedCell.textLabel.text] ? self.currentPaper.typeTitle : @"Photo Paper");
+    NSString *typeTitle = (SizeLetter == [HPPPPaper sizeFromTitle:selectedCell.textLabel.text] ? self.currentPaper.typeTitle : @"Photo Paper");
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSizeTitle:selectedCell.textLabel.text paperTypeTitle:typeTitle];
     
     [self.navigationController popViewControllerAnimated:YES];

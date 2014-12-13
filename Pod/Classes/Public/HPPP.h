@@ -98,7 +98,6 @@ extern NSString * const kHPPPSupportVC;
  */
 @property (assign, nonatomic) BOOL hideBlackAndWhiteOption;
 
-
 /*!
  * @abstract Indicates whether the paper size option should be hidden
  * @discussion If this value is true, the paper size option is hidden on the print preview page and the default paper size is used. The default values is false (not hidden).
@@ -125,14 +124,14 @@ extern NSString * const kHPPPSupportVC;
  * @discussion A value from the PaperSize enum specifying the default paper size to use. This value is used to set the initial selection for paper size. It is also used as the value for paper size when the paper size selection is hidden. Default value is Size5x7.
  * @seealso hidePaperSizeOption
  */
-@property (assign, nonatomic) NSInteger defaultPaperSize;
+@property (assign, nonatomic) PaperSize defaultPaperSize;
 
 /*!
  * @abstract Default paper type
  * @discussion A value from the PaperType enum specifying the default paper type to use. This value is used to set the initial selection for paper type. It is also used as the value for paper type when the paper type selection is hidden. Note that paper type does not apply to all paper sizes (e.g. 4x6 always uses photo paper regardless what paper type is specified). Default value is Plain.
  * @seealso hidePaperTypeOption
  */
-@property (assign, nonatomic) NSInteger defaultPaperType;
+@property (assign, nonatomic) PaperType defaultPaperType;
 
 /*!
  * @abstract Font used for the ruler labels

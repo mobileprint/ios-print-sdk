@@ -46,9 +46,13 @@ NSString * const kHPPPSupportVC = @"kHPPPSupportVC";
     self = [super init];
     if (self) {
         self.lastOptionsUsed = [NSMutableDictionary dictionary];
-        self.paperSizes = @[@"4 x 6", @"5 x 7", @"8.5 x 11"];
         self.defaultPaperSize = Size5x7;
         self.defaultPaperType = Plain;
+        self.paperSizes = @[
+                            [HPPPPaper titleFromSize:Size4x6],
+                            [HPPPPaper titleFromSize:Size5x7],
+                            [HPPPPaper titleFromSize:SizeLetter]
+                            ];
     }
     
     return self;
