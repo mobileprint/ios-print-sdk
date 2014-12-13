@@ -191,7 +191,7 @@
 
 - (IBAction)cancelButtonTapped:(id)sender
 {
-    [[HPPP sharedInstance].lastOptionsUsed removeAllObjects];
+    [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionary];
     
     if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidCancelPrintFlow:)]) {
         [self.delegate pageSettingsTableViewControllerDidCancelPrintFlow:self];
@@ -258,7 +258,7 @@
     
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
         
-        [[HPPP sharedInstance].lastOptionsUsed removeAllObjects];
+        [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionary];
         
         // Set the last printer used as the default printer for the next job
         NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
@@ -271,12 +271,14 @@
         }
         
         if (completed) {
-            [[HPPP sharedInstance].lastOptionsUsed setValue:self.paperTypeSelectedLabel.text forKey:kHPPPPaperTypeId];
-            [[HPPP sharedInstance].lastOptionsUsed setValue:self.paperSizeSelectedLabel.text forKey:kHPPPPaperSizeId];
-            [[HPPP sharedInstance].lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on] forKey:kHPPPBlackAndWhiteFilterId];
+            NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
+            [lastOptionsUsed setValue:self.paperTypeSelectedLabel.text forKey:kHPPPPaperTypeId];
+            [lastOptionsUsed setValue:self.paperSizeSelectedLabel.text forKey:kHPPPPaperSizeId];
+            [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on] forKey:kHPPPBlackAndWhiteFilterId];
             if (printer) {
-                [[HPPP sharedInstance].lastOptionsUsed setValue:printer forKey:kHPPPPrinterId];
+                [lastOptionsUsed setValue:printer forKey:kHPPPPrinterId];
             }
+            [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
             
             if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
                 [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];

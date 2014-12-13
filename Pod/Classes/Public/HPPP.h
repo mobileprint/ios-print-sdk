@@ -164,7 +164,7 @@ extern NSString * const kHPPPSupportViewController;
  * @seealso kHPPPPaperTypeId
  * @seealso kHPPPPrinterId
  */
-@property (strong, nonatomic) NSMutableDictionary *lastOptionsUsed;
+@property (strong, nonatomic) NSDictionary *lastOptionsUsed;
 
 /*!
  * @property supportActions
