@@ -10,6 +10,9 @@
 // the license agreement.
 //
 
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 /*!
  * @abstract Represents the paper used to print
  * @description This class represents the paper used by the printer. It includes both the size of the media (e.g. 4 x 6 inch paper) as well as the type (e.g. photo paper).
