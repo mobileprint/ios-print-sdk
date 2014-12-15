@@ -10,6 +10,8 @@
 // the license agreement.
 //
 
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "HPPPPageView.h"
 
 @protocol HPPPPageViewControllerDelegate;

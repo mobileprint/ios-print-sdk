@@ -10,6 +10,7 @@
 // the license agreement.
 //
 
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 #define HEADER_HEIGHT 50.0f

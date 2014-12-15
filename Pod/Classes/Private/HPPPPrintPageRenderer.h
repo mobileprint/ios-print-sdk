@@ -9,6 +9,8 @@
 // in whole or in part, is expressly prohibited except as authorized by
 // the license agreement.
 //
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface HPPPPrintPageRenderer : UIPrintPageRenderer
 
