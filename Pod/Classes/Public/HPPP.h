@@ -90,14 +90,13 @@ extern NSString * const kHPPPSupportUrl;
  * @discussion This key is used to prepare a support action dictionary to be added to the @link supportActions @/link array. The value for this key specifies the view controller to present for the support action.
  * @seealso supportActions
  */
-extern NSString * const kHPPPSupportVC;
+extern NSString * const kHPPPSupportViewController;
 
 /*!
  * @abstract Indicates whether the black and white option should be hidden
  * @discussion If this value is true, the black and white filter option is hidden on the print preview page and the black and white filter is not used. The default values is false (not hidden).
  */
 @property (assign, nonatomic) BOOL hideBlackAndWhiteOption;
-
 
 /*!
  * @abstract Indicates whether the paper size option should be hidden
@@ -115,24 +114,28 @@ extern NSString * const kHPPPSupportVC;
 
 /*!
  * @abstract List of supported paper sizes
- * @discussion An array of string values specifying the title of the paper sizes to display. These titles are shown in the paper size selection page and must map to known paper sizes defined in HPPPPaper.
+ * @discussion An array of string values specifying the title of the paper sizes to display. These titles are shown in the paper size selection page and must map to known @link PaperSize @/link defined in @link HPPPPaper @/link .
  * @seealso HPPPPaper
+ * @seealso PaperSize
+ * @seealso titleFromSize:
  */
 @property (strong, nonatomic) NSArray *paperSizes;
 
 /*!
  * @abstract Default paper size
- * @discussion A value from the PaperSize enum specifying the default paper size to use. This value is used to set the initial selection for paper size. It is also used as the value for paper size when the paper size selection is hidden. Default value is Size5x7.
+ * @discussion A value from the @link PaperSize @/link enum specifying the default paper size to use. This value is used to set the initial selection for paper size. It is also used as the value for paper size when the paper size selection is hidden. Default value is @link Size5x7 @/link .
  * @seealso hidePaperSizeOption
+ * @seealso PaperSize
  */
-@property (assign, nonatomic) NSInteger defaultPaperSize;
+@property (assign, nonatomic) PaperSize defaultPaperSize;
 
 /*!
  * @abstract Default paper type
- * @discussion A value from the PaperType enum specifying the default paper type to use. This value is used to set the initial selection for paper type. It is also used as the value for paper type when the paper type selection is hidden. Note that paper type does not apply to all paper sizes (e.g. 4x6 always uses photo paper regardless what paper type is specified). Default value is Plain.
+ * @discussion A value from the @link PaperType @/link enum specifying the default paper type to use. This value is used to set the initial selection for paper type. It is also used as the value for paper type when the paper type selection is hidden. Note that paper type does not apply to all paper sizes (e.g. 4x6 always uses photo paper regardless what paper type is specified). Default value is @link Plain @/link .
  * @seealso hidePaperTypeOption
+ * @seealso PaperType
  */
-@property (assign, nonatomic) NSInteger defaultPaperType;
+@property (assign, nonatomic) PaperType defaultPaperType;
 
 /*!
  * @abstract Font used for the ruler labels
@@ -165,7 +168,7 @@ extern NSString * const kHPPPSupportVC;
  * @seealso kHPPPPaperTypeId
  * @seealso kHPPPPrinterId
  */
-@property (strong, nonatomic) NSMutableDictionary *lastOptionsUsed;
+@property (strong, nonatomic) NSDictionary *lastOptionsUsed;
 
 /*!
  * @property supportActions
@@ -174,7 +177,7 @@ extern NSString * const kHPPPSupportVC;
  * @seealso kHPPPSupportIcon
  * @seealso kHPPPSupportTitle
  * @seealso kHPPPSupportUrl
- * @seealso kHPPPSupportVC
+ * @seealso kHPPPSupportViewController
  */
 @property (strong, nonatomic) NSArray *supportActions;
 

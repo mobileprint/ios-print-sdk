@@ -13,6 +13,13 @@
 #import "HPPPPaper.h"
 
 #define MAXIMUM_ENLARGEMENT 1.25f
+#define INVALID_PAPER -1;
+#define TYPE_PLAIN_TITLE @"Plain Paper"
+#define TYPE_PHOTO_TITLE @"Photo Paper"
+#define SIZE_4_X_5_TITLE @"4 x 5"
+#define SIZE_4_X_6_TITLE @"4 x 6"
+#define SIZE_5_X_7_TITLE @"5 x 7"
+#define SIZE_LETTER_TITLE @"8.5 x 11"
 
 @implementation HPPPPaper
 
@@ -21,94 +28,114 @@
     self = [super init];
     
     if (self) {
-        
         self.paperSize = paperSize;
         self.paperType = paperType;
-        
-        switch (paperType) {
-                
-            case Plain:
-                self.typeTitle = @"Plain Paper";
-                break;
-            case Photo:
-                self.typeTitle = @"Photo Paper";
-                break;
-            default:
-                NSLog(@"Unknown paper type %i", paperSize);
-                break;
-        };
-        
+        self.typeTitle = [HPPPPaper titleFromType:paperType];
+        self.sizeTitle = [HPPPPaper titleFromSize:paperSize];
         switch (paperSize) {
-                
             case Size4x5:
-                
-                self.sizeTitle = SIZE_4_X_5_TITLE;
                 self.width = 4.0f;
                 self.height = 5.0f;
                 break;
-                
             case Size4x6:
-                
-                self.sizeTitle = SIZE_4_X_6_TITLE;
                 self.width = 4.0f;
                 self.height = 6.0f;
                 break;
-                
             case Size5x7:
-                
-                self.sizeTitle = SIZE_5_X_7_TITLE;
                 self.width = 5.0f;
                 self.height = 7.0f;
                 break;
-                
             case SizeLetter:
-                
-                self.sizeTitle = SIZE_LETTER_TITLE;
                 self.width = 8.5f;
                 self.height = 11.0f;
                 break;
-                
             default:
-                NSAssert(NO, @"Unknown paper size");
-                NSLog(@"Unknown paper size %i", paperSize);
-                break;
+                NSAssert(NO, @"Unknown paper size (enum): %ul", paperSize);
         };
-        
     }
     
     return self;
 }
 
-- (id)initWithPaperSizeTitle:(NSString *)paperSizeTitle paperTypeTitle:(NSString *)papeTypeTitle;
+- (id)initWithPaperSizeTitle:(NSString *)paperSizeTitle paperTypeTitle:(NSString *)paperTypeTitle;
 {
-    PaperSize paperSize = Size5x7;
-    PaperType paperType = Photo;
+    return [self initWithPaperSize:[HPPPPaper sizeFromTitle:paperSizeTitle] paperType:[HPPPPaper typeFromTitle:paperTypeTitle]];
+}
+
++ (NSString *)titleFromSize:(PaperSize)paperSize
+{
+    NSString * paperSizeTitle = nil;
     
-    if([papeTypeTitle isEqualToString:TYPE_PLAIN_TITLE]) {
-        paperType = Plain;
+    switch (paperSize) {
+        case Size4x5:
+            paperSizeTitle = SIZE_4_X_5_TITLE;
+            break;
+        case Size4x6:
+            paperSizeTitle = SIZE_4_X_6_TITLE;
+            break;
+        case Size5x7:
+            paperSizeTitle = SIZE_5_X_7_TITLE;
+            break;
+        case SizeLetter:
+            paperSizeTitle = SIZE_LETTER_TITLE;
+            break;
+        default:
+            NSAssert(NO, @"Unknown paper size (enum): %ul", paperSize);
     }
-    else if ([papeTypeTitle isEqualToString:TYPE_PHOTO_TITLE]) {
-        paperType = Photo;
-    } else {
-        NSAssert(NO, @"Unknown paper type");
-    }
+    
+    return paperSizeTitle;
+}
+
++ (PaperSize)sizeFromTitle:(NSString *)paperSizeTitle
+{
+    PaperSize paperSize = INVALID_PAPER;
     
     if ([paperSizeTitle isEqualToString:SIZE_4_X_5_TITLE]) {
         paperSize = Size4x5;
-    }
-    else if ([paperSizeTitle isEqualToString:SIZE_4_X_6_TITLE]) {
+    } else if ([paperSizeTitle isEqualToString:SIZE_4_X_6_TITLE]) {
         paperSize = Size4x6;
-    }
-    else if([paperSizeTitle isEqualToString:SIZE_5_X_7_TITLE]) {
+    } else if ([paperSizeTitle isEqualToString:SIZE_5_X_7_TITLE]) {
         paperSize = Size5x7;
-    }
-    else if([paperSizeTitle isEqualToString:SIZE_LETTER_TITLE]) {
+    } else if ([paperSizeTitle isEqualToString:SIZE_LETTER_TITLE]) {
         paperSize = SizeLetter;
     } else {
-        NSAssert(NO, @"Unknown paper size");
+        NSAssert(NO, @"Unknown paper size: %@", paperSizeTitle);
     }
     
-    return [self initWithPaperSize:paperSize paperType:paperType];
+    return paperSize;
+}
+
++ (NSString *)titleFromType:(PaperType)paperType
+{
+    NSString * paperTypeTitle = nil;
+    
+    switch (paperType) {
+        case Plain:
+            paperTypeTitle = TYPE_PLAIN_TITLE;
+            break;
+        case Photo:
+            paperTypeTitle = TYPE_PHOTO_TITLE;
+            break;
+        default:
+            NSAssert(NO, @"Unknown paper type (enum): %ul", paperType);
+    }
+    
+    return paperTypeTitle;
+}
+
++ (PaperType)typeFromTitle:(NSString *)paperTypeTitle
+{
+    PaperType paperType = INVALID_PAPER;
+    
+    if ([paperTypeTitle isEqualToString:TYPE_PLAIN_TITLE]) {
+        paperType = Plain;
+    } else if ([paperTypeTitle isEqualToString:TYPE_PHOTO_TITLE]) {
+        paperType = Photo;
+    } else {
+        NSAssert(NO, @"Unknown paper type: %@", paperTypeTitle);
+    }
+    
+    return paperType;
 }
 
 - (NSString *)paperWidthTitle
@@ -123,7 +150,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"Width %f Height %f\nPrinter Width %f Printer Height %f\nPaper Size %d\nPaper Type %d\nScale %f", self.width, self.height, self.paperSize, self.paperType];
+    return [NSString stringWithFormat:@"Width %f Height %f\nPaper Size %ul\nPaper Type %ul", self.width, self.height, self.paperSize, self.paperType];
 }
 
 @end

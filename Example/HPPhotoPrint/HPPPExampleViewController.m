@@ -35,21 +35,31 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"PrintInstructions"];
     
-    [HPPP sharedInstance].supportActions =  @[@{kHPPPSupportIcon: @"print-instructions",
-                                              kHPPPSupportTitle: @"Print Instructions",
-                                              kHPPPSupportUrl: @"http://hp.com"},
-                                              @{kHPPPSupportIcon: @"print-instructions",
-                                                kHPPPSupportTitle: @"Print Instructions VC",
-                                                kHPPPSupportVC: navigationController}];
-
-    [HPPP sharedInstance].paperSizes = @[@"4 x 5", @"4 x 6", @"5 x 7", @"8.5 x 11"];
+    [HPPP sharedInstance].supportActions =  @[
+                                              @{
+                                                  kHPPPSupportIcon: @"print-instructions",
+                                                  kHPPPSupportTitle: @"Print Instructions",
+                                                  kHPPPSupportUrl: @"http://hp.com"
+                                                  },
+                                              @{
+                                                  kHPPPSupportIcon: @"print-instructions",
+                                                  kHPPPSupportTitle: @"Print Instructions VC",
+                                                  kHPPPSupportViewController: navigationController}
+                                              ];
+    
+    [HPPP sharedInstance].paperSizes = @[
+                                         [HPPPPaper titleFromSize:Size4x5],
+                                         [HPPPPaper titleFromSize:Size4x6],
+                                         [HPPPPaper titleFromSize:Size5x7],
+                                         [HPPPPaper titleFromSize:SizeLetter]
+                                         ];
 }
 
 - (IBAction)shareBarButtonItemTap:(id)sender
 {
     NSString *bundlePath = [NSString stringWithFormat:@"%@/HPPhotoPrint.bundle", [NSBundle mainBundle].bundlePath];
     NSLog(@"Bundle %@", bundlePath);
-
+    
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
     printActivity.dataSource = self;
     
@@ -94,7 +104,7 @@
         
         [self presentViewController:activityViewController animated:YES completion:nil];
     }
-
+    
 }
 
 - (UIImage *)printActivityRequestImageForPaper:(HPPPPaper *)paper
