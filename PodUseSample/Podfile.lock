@@ -1,0 +1,10 @@
+PODS:
+  - HPPhotoPrint (0.6.0)
+
+DEPENDENCIES:
+  - HPPhotoPrint
+
+SPEC CHECKSUMS:
+  HPPhotoPrint: 8862e98bf3845cbb660c0d0f132a66c0f7ee956f
+
+COCOAPODS: 0.35.0
