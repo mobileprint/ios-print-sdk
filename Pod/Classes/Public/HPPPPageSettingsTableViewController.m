@@ -363,19 +363,19 @@
     
     if (indexPath.section == PAPER_SECTION) {
         cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-
+        
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"ActionTableViewCellIdentifier"];
         
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ActionTableViewCellIdentifier"];
         }
-
+        
         cell.textLabel.font = self.hppp.tableViewCellLabelFont;
         cell.textLabel.textColor = self.hppp.tableViewCellLinkLabelColor;
-        NSDictionary *action = self.hppp.supportActions[indexPath.row];
-        cell.imageView.image = [UIImage imageNamed:[action objectForKey:kHPPPSupportIcon]];
-        cell.textLabel.text = [action objectForKey:kHPPPSupportTitle];
+        HPPPSupportAction *action = self.hppp.supportActions[indexPath.row];
+        cell.imageView.image = action.icon;
+        cell.textLabel.text = action.title;
     }
     
     return cell;
@@ -401,16 +401,14 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.selected = NO;
     
-     if (indexPath.section == SUPPORT_SECTION) {
-         NSDictionary *action = self.hppp.supportActions[indexPath.row];
-         NSString *url = [action objectForKey:kHPPPSupportUrl];
-         if (url) {
-             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-         } else {
-            UIViewController *vc = [action objectForKey:kHPPPSupportViewController];
-            [self presentViewController:vc animated:YES completion:nil];
-         }
-     }
+    if (indexPath.section == SUPPORT_SECTION) {
+        HPPPSupportAction *action = self.hppp.supportActions[indexPath.row];
+        if (action.url) {
+            [[UIApplication sharedApplication] openURL:action.url];
+        } else {
+            [self presentViewController:action.viewController animated:YES completion:nil];
+        }
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

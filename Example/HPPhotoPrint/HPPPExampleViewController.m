@@ -35,17 +35,10 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"PrintInstructions"];
     
-    [HPPP sharedInstance].supportActions =  @[
-                                              @{
-                                                  kHPPPSupportIcon: @"print-instructions",
-                                                  kHPPPSupportTitle: @"Print Instructions",
-                                                  kHPPPSupportUrl: @"http://hp.com"
-                                                  },
-                                              @{
-                                                  kHPPPSupportIcon: @"print-instructions",
-                                                  kHPPPSupportTitle: @"Print Instructions VC",
-                                                  kHPPPSupportViewController: navigationController}
-                                              ];
+    HPPPSupportAction *action1 = [[HPPPSupportAction alloc] initWithIcon:[UIImage imageNamed:@"print-instructions"] title:@"Print Instructions" url:[NSURL URLWithString:@"http://hp.com"]];
+    HPPPSupportAction *action2 = [[HPPPSupportAction alloc] initWithIcon:[UIImage imageNamed:@"print-instructions"] title:@"Print Instructions VC" viewController:navigationController];
+    
+    [HPPP sharedInstance].supportActions =  @[action1, action2];
     
     [HPPP sharedInstance].paperSizes = @[
                                          [HPPPPaper titleFromSize:Size4x5],
