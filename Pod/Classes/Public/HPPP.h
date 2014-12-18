@@ -14,6 +14,7 @@
 #import <UIKit/UIKit.h>
 #import "HPPPPrintActivity.h"
 #import "HPPPPageSettingsTableViewController.h"
+#import "HPPPSupportAction.h"
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -65,34 +66,6 @@ extern NSString * const kHPPPBlackAndWhiteFilterId;
  * @seealso lastOptionsUsed
  */
 extern NSString * const kHPPPPrinterId;
-
-/*!
- * @abstract Specifies the icon used for a support action
- * @discussion This key is used to prepare a support action dictionary to be added to the @link supportActions @/link array. The value for this key specifies the icon to display for the support action.
- * @seealso supportActions
- */
-extern NSString * const kHPPPSupportIcon;
-
-/*!
- * @abstract Specifies the title used for a support action
- * @discussion This key is used to prepare a support action dictionary to be added to the @link supportActions @/link array. The value for this key specifies the title to display for the support action.
- * @seealso supportActions
- */
-extern NSString * const kHPPPSupportTitle;
-
-/*!
- * @abstract Specifies the URL to open for a support action
- * @discussion This key is used to prepare a support action dictionary to be added to the @link supportActions @/link array. The value for this key specifies the URL to open for the support action.
- * @seealso supportActions
- */
-extern NSString * const kHPPPSupportUrl;
-
-/*!
- * @abstract Specifies the view controller to present for a support action
- * @discussion This key is used to prepare a support action dictionary to be added to the @link supportActions @/link array. The value for this key specifies the view controller to present for the support action.
- * @seealso supportActions
- */
-extern NSString * const kHPPPSupportViewController;
 
 /*!
  * @abstract Indicates whether the black and white option should be hidden
@@ -175,11 +148,8 @@ extern NSString * const kHPPPSupportViewController;
 /*!
  * @property supportActions
  * @abstract An array of support actions to display on the print preview page
- * @discussion This is an array of dictionaries each describing a single support action. Support actions include an icon and a title and are displayed in a support section at the bottom of the print preview page. An action can either open a URL or present a view controller.
- * @seealso kHPPPSupportIcon
- * @seealso kHPPPSupportTitle
- * @seealso kHPPPSupportUrl
- * @seealso kHPPPSupportViewController
+ * @discussion This is an array of @link HPPPSupportAction @/link objects, each describing a single support action. Support actions include an icon and a title and are displayed in a support section at the bottom of the print preview page. An action can either open a URL or present a view controller.
+ * @seealso kHPPPSupportAction
  */
 @property (strong, nonatomic) NSArray *supportActions;
 
