@@ -148,6 +148,20 @@
     return [NSNumber numberWithFloat:self.height].stringValue;
 }
 
+- (CGSize)printerPaperSize
+{
+    CGSize pageSize = CGSizeMake(self.width * 72.0f, self.height * 72.0f);
+    
+    // 4x5 prints force printing on 8.5x11 paper
+    //  ... fool AirPrint into printing from the 4x6 tray.
+    if( Size4x5 == self.paperSize )
+    {
+        pageSize = CGSizeMake(4.0f * 72.0f, 6.0f * 72.0f);
+    }
+    
+    return pageSize;
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"Width %f Height %f\nPaper Size %ul\nPaper Type %ul", self.width, self.height, self.paperSize, self.paperType];

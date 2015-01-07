@@ -312,6 +312,14 @@
 - (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList
 {
     CGSize pageSize = CGSizeMake(self.selectedPaper.width * 72.0f, self.selectedPaper.height * 72.0f);
+    
+    // 4x5 prints force printing on 8.5x11 paper
+    //  ... fool AirPrint into printing from the 4x6 tray.
+    if( Size4x5 == self.selectedPaper.paperSize )
+    {
+        pageSize = CGSizeMake(4.0f * 72.0f, 6.0f * 72.0f);
+    }
+
     UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:pageSize withPapersFromArray:paperList];
     return paper;
 }

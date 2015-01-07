@@ -109,6 +109,12 @@ typedef enum {
 - (NSString *)paperHeightTitle;
 
 /*!
+ * @abstract Creates the paper size to be used by AirPrint
+ * @returns A reference paper size to be used during the paper size selection process
+ */
+- (CGSize)printerPaperSize;
+
+/*!
  * @abstract Retrieves the title for a given paper size
  * @description This method asserts that the size given is a valid paper size. An exception is raised if an invalid size is passed.
  * @returns Display title for the paper size

@@ -311,8 +311,7 @@
 
 - (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList
 {
-    CGSize pageSize = CGSizeMake(self.selectedPaper.width * 72.0f, self.selectedPaper.height * 72.0f);
-    UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:pageSize withPapersFromArray:paperList];
+    UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:[self.selectedPaper printerPaperSize] withPapersFromArray:paperList];
     return paper;
 }
 
