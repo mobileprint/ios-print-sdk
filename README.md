@@ -17,6 +17,10 @@ it, simply add the following line to your Podfile:
 
     pod "HPPhotoPrint"
 
+Afterwards, open a terminal window to your project directory and execute:
+
+    pod install
+
 ## Documentation
 
 Reference documentation can be found at http://hppp.herokuapp.com
@@ -28,16 +32,15 @@ The second is to present the printing view controller directly, for example when
 
 ### Sharing Activity
 
-To use the sharing activity just prepare the iOS `UIActivityViewController` in the standard way and add the `HPPPPrintActivity` as an additional application activity. 
-It is strongly advised that you also remove the built-in iOS print activity to avoid confusion.
-If your app uses different printable assets for different paper sizes then you also need to implement the `HPPPPrintActivityDataSource` protocol and set the data source on the print activity instance.
+To use the sharing activity, just prepare the iOS `UIActivityViewController` in the standard way and add the `HPPPPrintActivity` as an additional application activity. 
+It is strongly advised that you also remove the built-in iOS print activity (UIActivityTypePrint) to avoid confusion.
+If your app uses different printable assets for different paper sizes, then you also need to implement the `HPPPPrintActivityDataSource` protocol and set the data source on the print activity instance (see the 'Implementing HPPPPrintActivityDataSource' section below).
 
 ```objc
 
 - (IBAction)shareBarButtonItemTap:(id)sender
 {
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
-    printActivity.dataSource = self;
 
     NSArray *applicationActivities = @[printActivity];
 
@@ -64,8 +67,8 @@ If your app uses different printable assets for different paper sizes then you a
 
 ### View Controller
 
-To show the printing view directly you must get a reference to the `HPPPPageSettingsViewController` from the `HPPP` storyboard.
-Set the `image` property to the printable asset and if needed set the data source delegate that will regenerate the printable asset for different paper sizes.
+To show the printing view directly, you must get a reference to the `HPPPPageSettingsViewController` from the `HPPP` storyboard.
+Set the `image` property to the printable asset, and if needed, set the data source delegate that will regenerate the printable asset for different paper sizes (see the 'Implementing HPPPPrintActivityDataSource' section below).
 
 ```objc
 
@@ -79,6 +82,45 @@ Set the `image` property to the printable asset and if needed set the data sourc
 }
 
 ```
+
+### Implementing HPPPPrintActivityDataSource
+
+First, declare your view controller as an implementor of the `HPPPrintActivityDataSource` protocol.
+
+```objc
+
+@interface MyViewController () <HPPPPrintActivityDataSource>
+
+```
+
+Next, implement the function `printActivityRequestImageForPaper` within `MyViewController`
+
+```objc
+
+- (UIImage *)printActivityRequestImageForPaper:(HPPPPaper *)paper
+{
+    //Logic to determine what UIImage to return based on the paper.paperSize.
+}
+
+```
+
+Next, set `MyViewController` as the delegate data source in the `HPPPPrintActivity` object in the `shareBarButtonItemTap` handler.
+
+```objc
+
+- (IBAction)shareBarButtonItemTap:(id)sender
+{
+    HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
+
+    printActivity.dataSource = self; // <=== Set the delegate here
+
+    NSArray *applicationActivities = @[printActivity];
+
+    // ... rest of the code follows
+}
+
+```
+
 
 ## Author
 
