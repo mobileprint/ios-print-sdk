@@ -100,9 +100,13 @@
     
 }
 
-- (UIImage *)printActivityRequestImageForPaper:(HPPPPaper *)paper
+#pragma mark - HPPPPrintActivityDataSource
+
+- (void)printActivityRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
 {
-    return [UIImage imageNamed:@"sample2-portrait.jpg"];
+    if (completion) {
+        completion([UIImage imageNamed:@"sample2-portrait.jpg"]);
+    }
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate

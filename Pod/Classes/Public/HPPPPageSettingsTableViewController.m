@@ -484,17 +484,17 @@
     [defaults setObject:[NSNumber numberWithInteger:self.selectedPaper.paperSize] forKey:LAST_SIZE_USED_SETTING];
     [defaults synchronize];
     
-    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:)]) {
+    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
         self.spinner = [self.view addSpinner];
         self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-        
-        UIImage *image = [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:paper];
-        if (image) {
-            self.image = image;
-            self.pageView.image = self.image;
-        }
-        
-        [self.spinner removeFromSuperview];
+        [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:paper withCompletion:^(UIImage *image) {
+            if (image) {
+                self.image = image;
+                self.pageView.image = self.image;
+            }
+            
+            [self.spinner removeFromSuperview];
+        }];
     }
 }
 

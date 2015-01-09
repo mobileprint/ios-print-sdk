@@ -93,12 +93,14 @@
 
 #pragma mark - PGSelectPaperSizeViewControllerDataSource
 
-- (UIImage *)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper
+- (void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
 {
-    if ([self.dataSource respondsToSelector:@selector(printActivityRequestImageForPaper:)]) {
-        return [self.dataSource printActivityRequestImageForPaper:paper];
+    if ([self.dataSource respondsToSelector:@selector(printActivityRequestImageForPaper:withCompletion:)]) {
+        [self.dataSource printActivityRequestImageForPaper:paper withCompletion:completion];
     } else {
-        return nil;
+        if (completion) {
+            completion(nil);
+        }
     }
 }
 
