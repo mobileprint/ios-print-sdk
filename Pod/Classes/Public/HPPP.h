@@ -97,12 +97,30 @@ extern NSString * const kHPPPPrinterId;
 @property (strong, nonatomic) NSArray *paperSizes;
 
 /*!
- * @abstract Default paper size
- * @discussion A value from the @link PaperSize @/link enum specifying the default paper size to use. This value is used to set the initial selection for paper size. It is also used as the value for paper size when the paper size selection is hidden. Default value is @link Size5x7 @/link .
+ * @abstract Initial paper size
+ * @discussion A value from the @link PaperSize @/link enum specifying the default paper size to use. This value is used to set the initial selection for paper size. It is also used as the value for paper size when the paper size selection is hidden. Default initial value is @link Size5x7 @/link .
  * @seealso hidePaperSizeOption
  * @seealso PaperSize
  */
-@property (assign, nonatomic) PaperSize defaultPaperSize;
+@property (assign, nonatomic) PaperSize initialPaperSize;
+
+/*!
+ * @abstract Default paper width
+ * @discussion Default width using for zoom and crop and for centering in case of letter paper size.
+ */
+@property (assign, nonatomic) float defaultPaperWidth;
+
+/*!
+ * @abstract Default paper height
+ * @discussion Default width using for zoom and crop and for centering in case of letter paper size.
+ */
+@property (assign, nonatomic) float defaultPaperHeight;
+
+/*!
+ * @abstract Zoom and crop
+ * @discussion Specify if the image should zoom and crop in case the image size doesn't match with the paper size.
+ */
+@property (assign, nonatomic) BOOL zoomAndCrop;
 
 /*!
  * @abstract Default paper type

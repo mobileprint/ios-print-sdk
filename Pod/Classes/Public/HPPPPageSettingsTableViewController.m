@@ -92,8 +92,6 @@
     self.paperSizeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
     self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
     
-    //self.learnMoreCell.textLabel.textColor = [UIColor HPBlueColor];
-    
     self.pageViewCell.backgroundColor = [UIColor HPGrayBackgroundColor];
     
     self.selectedPaper = [[HPPPPaper alloc] initWithPaperSize:Size4x6  paperType:Photo];
@@ -108,8 +106,55 @@
     
     if (self.hppp.hideBlackAndWhiteOption) {
         self.filterCell.hidden = YES;
-        
     }
+    
+    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
+        self.spinner = [self.pageView addSpinner];
+        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:self.selectedPaper withCompletion:^(UIImage *image) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.spinner removeFromSuperview];
+                if (image) {
+                    self.image = image;
+                    [self configurePageView];
+                }
+            });
+        }];
+    } else {
+        [self configurePageView];
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
+        self.pageView = self.pageViewController.pageView;
+        self.pageView.image = self.image;
+        
+        __weak HPPPPageSettingsTableViewController *weakSelf = self;
+        
+        [self setPaperSize:self.pageView animated:NO completion:^{
+            if (weakSelf.blackAndWhiteModeSwitch.on) {
+                weakSelf.tableView.userInteractionEnabled = NO;
+                [weakSelf.pageView setBlackAndWhiteWithCompletion:^{
+                    weakSelf.tableView.userInteractionEnabled = YES;
+                }];
+            }
+        }];
+    }
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration
+{
+    if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
+        [self setPaperSize:self.pageView animated:NO completion:nil];
+    }
+}
+
+- (void)configurePageView
+{
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.navigationItem.rightBarButtonItem = nil;
         self.pageViewController.delegate = self;
@@ -134,33 +179,6 @@
     }
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
-        self.pageView = self.pageViewController.pageView;
-        __weak HPPPPageSettingsTableViewController *weakSelf = self;
-        
-        [self setPaperSize:self.pageView animated:NO completion:^{
-            if (weakSelf.blackAndWhiteModeSwitch.on) {
-                weakSelf.tableView.userInteractionEnabled = NO;
-                [weakSelf.pageView setBlackAndWhiteWithCompletion:^{
-                    weakSelf.tableView.userInteractionEnabled = YES;
-                }];
-            }
-        }];
-    }
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration
-{
-    if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
-        [self setPaperSize:self.pageView animated:NO completion:nil];
-    }
-}
-
-
 - (void)setSelectedPaper:(HPPPPaper *)selectedPaperSize
 {
     _selectedPaper = selectedPaperSize;
@@ -170,21 +188,30 @@
 
 - (void)loadLastUsed
 {
+    self.selectedPaper = [self lastPaperUsed];
+    
+    NSNumber *lastFilterUsed = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_FILTER_USED_SETTING];
+    if (lastFilterUsed != nil) {
+        self.blackAndWhiteModeSwitch.on = lastFilterUsed.boolValue;
+    }
+}
+
+- (HPPPPaper *)lastPaperUsed
+{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     NSNumber *lastSizeUsed = [defaults objectForKey:LAST_SIZE_USED_SETTING];
     NSNumber *lastTypeUsed = [defaults objectForKey:LAST_TYPE_USED_SETTING];
     
+    HPPPPaper *result;
+    
     if (lastSizeUsed != nil) {
-        self.selectedPaper = [[HPPPPaper alloc] initWithPaperSize:(PaperSize)lastSizeUsed.integerValue paperType:(PaperType)lastTypeUsed.integerValue];
+        result = [[HPPPPaper alloc] initWithPaperSize:(PaperSize)lastSizeUsed.integerValue paperType:(PaperType)lastTypeUsed.integerValue];
     } else {
-        self.selectedPaper = [[HPPPPaper alloc] initWithPaperSize:(PaperSize)self.hppp.defaultPaperSize paperType:(PaperType)self.hppp.defaultPaperType];
+        result = [[HPPPPaper alloc] initWithPaperSize:(PaperSize)self.hppp.initialPaperSize paperType:(PaperType)self.hppp.defaultPaperType];
     }
     
-    NSNumber *lastFilterUsed = [defaults objectForKey:LAST_FILTER_USED_SETTING];
-    if (lastFilterUsed != nil) {
-        self.blackAndWhiteModeSwitch.on = lastFilterUsed.boolValue;
-    }
+    return result;
 }
 
 #pragma mark - Button actions
@@ -287,14 +314,12 @@
         
         if (IS_IPAD) {
             self.cancelBarButtonItem.enabled = YES;
-            //            [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
         }
     };
     
     
     if (IS_IPAD) {
         self.cancelBarButtonItem.enabled = NO;
-        //        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
         [controller presentFromBarButtonItem:barButtonItem animated:YES completionHandler:completionHandler];
     } else {
         [controller presentAnimated:YES completionHandler:completionHandler];
@@ -478,23 +503,34 @@
     
     [self.tableView reloadData];
     
-    [self setPaperSize:self.pageView animated:(!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) completion:nil];
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithInteger:self.selectedPaper.paperSize] forKey:LAST_SIZE_USED_SETTING];
     [defaults synchronize];
     
-    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:)]) {
-        self.spinner = [self.view addSpinner];
+    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
+        self.spinner = [self.pageView addSpinner];
         self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-        
-        UIImage *image = [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:paper];
-        if (image) {
-            self.image = image;
-            self.pageView.image = self.image;
-        }
-        
-        [self.spinner removeFromSuperview];
+        [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:paper withCompletion:^(UIImage *image) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (image) {
+                    self.image = image;
+                    self.pageView.image = image;
+                    __weak HPPPPageSettingsTableViewController *weakSelf = self;
+                    [self setPaperSize:self.pageView animated:(!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) completion:^{
+                        if (weakSelf.blackAndWhiteModeSwitch.on) {
+                            weakSelf.tableView.userInteractionEnabled = NO;
+                            [weakSelf.pageView setBlackAndWhiteWithCompletion:^{
+                                weakSelf.tableView.userInteractionEnabled = YES;
+                            }];
+                        }
+                    }];
+                }
+                
+                [self.spinner removeFromSuperview];
+            });
+        }];
+    } else {
+        [self setPaperSize:self.pageView animated:(!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) completion:nil];
     }
 }
 

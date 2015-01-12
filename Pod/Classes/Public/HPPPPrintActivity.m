@@ -67,7 +67,9 @@
         masterNavigationController.navigationBar.translucent = NO;
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
         pageSettingsTableViewController.delegate = self;
-        pageSettingsTableViewController.dataSource = self;
+        if (self.dataSource) {
+            pageSettingsTableViewController.dataSource = self;
+        }
         pageSettingsTableViewController.image = self.image;
         pageSettingsTableViewController.pageViewController = pageViewController;
         pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
@@ -81,7 +83,9 @@
         
         pageSettingsTableViewController.image = self.image;
         pageSettingsTableViewController.delegate = self;
-        pageSettingsTableViewController.dataSource = self;
+        if (self.dataSource) {
+            pageSettingsTableViewController.dataSource = self;
+        }
         
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;
@@ -93,12 +97,14 @@
 
 #pragma mark - PGSelectPaperSizeViewControllerDataSource
 
-- (UIImage *)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper
+- (void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
 {
-    if ([self.dataSource respondsToSelector:@selector(printActivityRequestImageForPaper:)]) {
-        return [self.dataSource printActivityRequestImageForPaper:paper];
+    if ([self.dataSource respondsToSelector:@selector(printActivityRequestImageForPaper:withCompletion:)]) {
+        [self.dataSource printActivityRequestImageForPaper:paper withCompletion:completion];
     } else {
-        return nil;
+        if (completion) {
+            completion(nil);
+        }
     }
 }
 

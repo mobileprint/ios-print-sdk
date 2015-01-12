@@ -39,7 +39,10 @@ NSString * const kHPPPPrinterId = @"kHPPPPrinterId";
     self = [super init];
     if (self) {
         self.lastOptionsUsed = [NSMutableDictionary dictionary];
-        self.defaultPaperSize = Size5x7;
+        self.initialPaperSize = Size5x7;
+        self.defaultPaperWidth = 5.0f;
+        self.defaultPaperHeight = 7.0f;
+        self.zoomAndCrop = NO;
         self.defaultPaperType = Plain;
         self.paperSizes = @[
                             [HPPPPaper titleFromSize:Size4x6],

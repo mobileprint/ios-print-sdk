@@ -87,9 +87,8 @@
  * @abstract Called when a new printable image is needed
  * @description This method is called when initiating the print flow or whenever relevant parameters are changed (e.g. page size).
  * @param paper The @link HPPPPaper @/link object that the image will be laid out on
- * @returns UIImage object for the printable image
  * @seealso HPPPPaper
  */
-- (UIImage *)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper;
+- (void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion;
 
 @end
