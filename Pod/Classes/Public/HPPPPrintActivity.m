@@ -67,7 +67,9 @@
         masterNavigationController.navigationBar.translucent = NO;
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
         pageSettingsTableViewController.delegate = self;
-        pageSettingsTableViewController.dataSource = self;
+        if (self.dataSource) {
+            pageSettingsTableViewController.dataSource = self;
+        }
         pageSettingsTableViewController.image = self.image;
         pageSettingsTableViewController.pageViewController = pageViewController;
         pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
@@ -81,7 +83,9 @@
         
         pageSettingsTableViewController.image = self.image;
         pageSettingsTableViewController.delegate = self;
-        pageSettingsTableViewController.dataSource = self;
+        if (self.dataSource) {
+            pageSettingsTableViewController.dataSource = self;
+        }
         
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;

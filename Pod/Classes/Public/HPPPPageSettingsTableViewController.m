@@ -523,6 +523,8 @@
                 [self.spinner removeFromSuperview];
             });
         }];
+    } else {
+        [self setPaperSize:self.pageView animated:(!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) completion:nil];
     }
 }
 
