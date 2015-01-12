@@ -25,7 +25,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [HPPP sharedInstance].defaultPaperSize = SizeLetter;
+    [HPPP sharedInstance].initialPaperSize = Size5x7;
+    [HPPP sharedInstance].defaultPaperWidth = 5.0f;
+    [HPPP sharedInstance].defaultPaperHeight = 7.0f;
+    [HPPP sharedInstance].zoomAndCrop = NO;
     [HPPP sharedInstance].defaultPaperType = Plain;
     [HPPP sharedInstance].tableViewCellValueColor = [UIColor colorWithRed:0x8F / 255.0f green:0x8F / 255.0f blue:0x95 / 255.0f alpha:1.0f];
     [HPPP sharedInstance].tableViewCellLinkLabelColor = [UIColor blueColor];

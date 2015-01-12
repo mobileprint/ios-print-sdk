@@ -17,8 +17,6 @@
 #import "XBCurlView.h"
 #import "UIImage+Resize.h"
 
-#define DEFAULT_WIDTH 5.0f
-#define DEFAULT_HEIGHT 7.0f
 #define PREVIEW_CONTAINER_SCALE 0.9f
 
 @interface HPPPPageView ()
@@ -115,10 +113,14 @@
     
     CGSize computedImageSize;
     
-    if (paperSize.paperSize == Size4x6) {
-        computedImageSize = CGSizeMake(computedPaperSize.height * DEFAULT_WIDTH / DEFAULT_HEIGHT, computedPaperSize.height);
+    if (((paperSize.width != hppp.defaultPaperWidth) || (paperSize.height != hppp.defaultPaperHeight)) && (paperSize.paperSize != SizeLetter)) {
+        if (hppp.zoomAndCrop) {
+            computedImageSize = CGSizeMake(computedPaperSize.height * hppp.defaultPaperWidth / hppp.defaultPaperHeight, computedPaperSize.height);
+        } else {
+            computedImageSize = computedPaperSize;
+        }
     } else {
-        computedImageSize = CGSizeMake(computedPaperSize.width * DEFAULT_WIDTH / paperSize.width, computedPaperSize.height * DEFAULT_HEIGHT / paperSize.height);
+        computedImageSize = CGSizeMake(computedPaperSize.width * hppp.defaultPaperWidth / paperSize.width, computedPaperSize.height * hppp.defaultPaperHeight / paperSize.height);
     }
     
     [self animateConstraintsWithDuration:0.5f constraints:^{
@@ -158,6 +160,10 @@
     } completion:^(BOOL finished) {
         if (animated) {
             UIView *curlTargetView = self.paperView;
+            
+            if (paperSize.paperSize == Size4x5) {
+                curlTargetView = self.imageView;
+            }
             
             XBCurlView *curlView = [[XBCurlView alloc] initWithFrame:curlTargetView.frame horizontalResolution:30 verticalResolution:42 antialiasing:NO];
             
