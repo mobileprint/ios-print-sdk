@@ -314,14 +314,12 @@
         
         if (IS_IPAD) {
             self.cancelBarButtonItem.enabled = YES;
-            //            [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
         }
     };
     
     
     if (IS_IPAD) {
         self.cancelBarButtonItem.enabled = NO;
-        //        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont HPNavigationBarTitleFont]}];
         [controller presentFromBarButtonItem:barButtonItem animated:YES completionHandler:completionHandler];
     } else {
         [controller presentAnimated:YES completionHandler:completionHandler];
@@ -517,7 +515,15 @@
                 if (image) {
                     self.image = image;
                     self.pageView.image = image;
-                    [self setPaperSize:self.pageView animated:(!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) completion:nil];
+                    __weak HPPPPageSettingsTableViewController *weakSelf = self;
+                    [self setPaperSize:self.pageView animated:(!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) completion:^{
+                        if (weakSelf.blackAndWhiteModeSwitch.on) {
+                            weakSelf.tableView.userInteractionEnabled = NO;
+                            [weakSelf.pageView setBlackAndWhiteWithCompletion:^{
+                                weakSelf.tableView.userInteractionEnabled = YES;
+                            }];
+                        }
+                    }];
                 }
                 
                 [self.spinner removeFromSuperview];
