@@ -13,8 +13,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface UIColor (Style)
+#define HEADER_HEIGHT 50.0f
 
-+ (UIColor *)HPGrayBackgroundColor;
+@interface UITableView (HPPPHeader)
+
+- (UIView *)HPPPHeaderViewForSupportSection;
 
 @end

@@ -13,8 +13,8 @@
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPP.h"
 #import "HPPPPaper.h"
-#import "UIColor+Style.h"
-#import "UITableView+Header.h"
+#import "UIColor+HPPPStyle.h"
+#import "UITableView+HPPPHeader.h"
 
 @interface HPPPPaperSizeTableViewController ()
 

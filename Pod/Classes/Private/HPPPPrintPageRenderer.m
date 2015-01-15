@@ -13,7 +13,7 @@
 #import "HPPPPrintPageRenderer.h"
 #import "HPPP.h"
 #import "HPPPPaper.h"
-#import "UIImage+Resize.h"
+#import "UIImage+HPPPResize.h"
 
 #define DEBUG_PRINT_LAYOUT NO
 #define MAXIMUM_ENLARGEMENT 1.25f
@@ -39,7 +39,7 @@
         // Check content rect and if is smaller than the size of the image, we need to resize the image (cropping it). Otherwise we center the image in the content rect
         UIImage *image = nil;
         if ((contentRect.size.height < self.image.size.height) || (contentRect.size.width < self.image.size.width)) {
-            image = [self.image cropImageResize:contentRect.size];
+            image = [self.image HPPPCropImageResize:contentRect.size];
         } else {
             image = self.image;
         }

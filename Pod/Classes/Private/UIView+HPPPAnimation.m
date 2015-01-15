@@ -10,11 +10,11 @@
 // the license agreement.
 //
 
-#import "UIView+Animation.h"
+#import "UIView+HPPPAnimation.h"
 
-@implementation UIView (Animation)
+@implementation UIView (HPPPAnimation)
 
-- (void)animateConstraintsWithDuration:(NSTimeInterval)duration constraints:(void (^)(void))constraints completion:(void (^)(BOOL finished))completion
+- (void)HPPPAnimateConstraintsWithDuration:(NSTimeInterval)duration constraints:(void (^)(void))constraints completion:(void (^)(BOOL finished))completion
 {
 	NSParameterAssert(constraints);
 	
@@ -29,7 +29,7 @@
 					 completion:completion];
 }
 
-- (UIActivityIndicatorView *)addSpinner
+- (UIActivityIndicatorView *)HPPPAddSpinner
 {
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     

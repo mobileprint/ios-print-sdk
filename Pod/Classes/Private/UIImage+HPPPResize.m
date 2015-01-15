@@ -10,12 +10,12 @@
 // the license agreement.
 //
 
-#import "UIImage+Resize.h"
+#import "UIImage+HPPPResize.h"
 
 
-@implementation UIImage (Resize)
+@implementation UIImage (HPPPResize)
 
-- (UIImage *)cropImageResize:(CGSize)resize
+- (UIImage *)HPPPCropImageResize:(CGSize)resize
 {
     CGRect newRect;
     
@@ -49,12 +49,12 @@
     return scaledImage;
 }
 
-- (BOOL)isPortraitImage
+- (BOOL)HPPPIsPortraitImage
 {
     return (self.size.width < self.size.height);
 }
 
-- (UIImage *)rotate
+- (UIImage *)HPPPRotate
 {
     UIImage *image = [[UIImage alloc]initWithCGImage:self.CGImage
                                                scale:self.scale
