@@ -13,10 +13,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface UIImage (Resize)
+@interface UIColor (HPPPHexString)
 
-- (UIImage *)cropImageResize:(CGSize)resize;
-- (BOOL)isPortraitImage;
-- (UIImage *)rotate;
++ (UIColor *)HPPPColorWithHexString:(NSString *)hexString;
 
 @end

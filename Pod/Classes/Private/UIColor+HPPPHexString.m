@@ -10,12 +10,12 @@
 // the license agreement.
 //
 
-#import "UIColor+HexString.h"
+#import "UIColor+HPPPHexString.h"
 
 
-@implementation UIColor(HexString)
+@implementation UIColor(HPPPHexString)
 
-+ (UIColor *)colorWithHexString:(NSString *)hexString
++ (UIColor *)HPPPColorWithHexString:(NSString *)hexString
 {
     NSString *colorString = [[hexString stringByReplacingOccurrencesOfString:@"#" withString:@""] uppercaseString];
     CGFloat alpha, red, blue, green;
