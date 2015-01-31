@@ -10,13 +10,15 @@
 // the license agreement.
 //
 
+#import <HPPP.h>
 #import "HPPPAppDelegate.h"
 
 @implementation HPPPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTrackableScreenNotification:) name:HPPP_TRACKABLE_SCREEN_NOTIFICATION object:nil];
+
     return YES;
 }
 							
@@ -45,6 +47,14 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Notifications
+
+- (void)handleTrackableScreenNotification:(NSNotification *)notification
+{
+    NSString *screenName = [notification.userInfo objectForKey:kHPPPTrackableScreenNameKey];
+    NSLog(@"Entering in screen: %@", screenName);
 }
 
 @end

@@ -12,6 +12,8 @@
 
 #import "HPPP.h"
 
+NSString * const kHPPPTrackableScreenNameKey = @"screen-name";
+
 NSString * const kHPPPPaperTypeId = @"kHPPPPaperTypeId";
 NSString * const kHPPPPaperSizeId = @"kHPPPPaperSizeId";
 NSString * const kHPPPBlackAndWhiteFilterId = @"kHPPPBlackAndWhiteFilterId";

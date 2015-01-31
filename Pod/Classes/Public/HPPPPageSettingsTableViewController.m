@@ -41,6 +41,7 @@
 #define LAST_TYPE_USED_SETTING @"lastTypeUsed"
 #define LAST_FILTER_USED_SETTING @"lastFilterUsed"
 
+NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 @interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, MCPaperSizeTableViewControllerDelegate, MCPaperTypeTableViewControllerDelegate, HPPPPageViewControllerDelegate>
 
@@ -123,6 +124,13 @@
     } else {
         [self configurePageView];
     }
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:HPPP_TRACKABLE_SCREEN_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:kPageSettingsScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
 -(void)viewDidAppear:(BOOL)animated
