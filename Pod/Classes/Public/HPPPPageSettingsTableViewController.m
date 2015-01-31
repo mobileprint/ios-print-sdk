@@ -13,16 +13,16 @@
 #import "HPPP.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPaper.h"
-#import "UIColor+Style.h"
 #import "HPPPPrintPageRenderer.h"
 #import "HPPPPageView.h"
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPPPaperTypeTableViewController.h"
-#import "UITableView+Header.h"
-#import "UIColor+HexString.h"
-#import "UIView+Animation.h"
 #import "HPPPWiFiReachability.h"
-#import "UIImage+Resize.h"
+#import "UITableView+HPPPHeader.h"
+#import "UIColor+HPPPHexString.h"
+#import "UIView+HPPPAnimation.h"
+#import "UIImage+HPPPResize.h"
+#import "UIColor+HPPPStyle.h"
 
 #define DEFAULT_ROW_HEIGHT 44.0f
 
@@ -93,7 +93,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.paperSizeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
     self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
     
-    self.pageViewCell.backgroundColor = [UIColor HPGrayBackgroundColor];
+    self.pageViewCell.backgroundColor = [UIColor HPPPHPGrayBackgroundColor];
     
     self.selectedPaper = [[HPPPPaper alloc] initWithPaperSize:Size4x6  paperType:Photo];
     
@@ -110,7 +110,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     }
     
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
-        self.spinner = [self.pageView addSpinner];
+        self.spinner = [self.pageView HPPPAddSpinner];
         self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:self.selectedPaper withCompletion:^(UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -255,10 +255,10 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     UIImage *image = nil;
     
-    if ([self.image isPortraitImage] || (self.selectedPaper.paperSize == SizeLetter)) {
+    if ([self.image HPPPIsPortraitImage] || (self.selectedPaper.paperSize == SizeLetter)) {
         image = self.image;
     } else {
-        image = [self.image rotate];
+        image = [self.image HPPPRotate];
     }
     
     // The path to the image may or may not be a good name for our print job
@@ -449,7 +449,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     if (section == SUPPORT_SECTION) {
         if (self.hppp.supportActions.count != 0) {
-            header = [tableView headerViewForSupportSection];
+            header = [tableView HPPPHeaderViewForSupportSection];
         }
     }
     
@@ -516,7 +516,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     [defaults synchronize];
     
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
-        self.spinner = [self.pageView addSpinner];
+        self.spinner = [self.pageView HPPPAddSpinner];
         self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:paper withCompletion:^(UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{

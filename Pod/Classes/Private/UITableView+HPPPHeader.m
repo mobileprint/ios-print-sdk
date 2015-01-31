@@ -10,21 +10,21 @@
 // the license agreement.
 //
 
-#import "UITableView+Header.h"
-#import "UIColor+HexString.h"
+#import "UITableView+HPPPHeader.h"
+#import "UIColor+HPPPHexString.h"
 
 #define TITLE_LEFT_OFFSET 10.0f
 #define TITLE_HEIGHT 30.0f
 
-@implementation UITableView (Header)
+@implementation UITableView (HPPPHeader)
 
-- (UIView *)headerViewForSupportSection
+- (UIView *)HPPPHeaderViewForSupportSection
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width, HEADER_HEIGHT)];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(TITLE_LEFT_OFFSET, HEADER_HEIGHT - TITLE_HEIGHT, self.frame.size.width, TITLE_HEIGHT)];
     titleLabel.text = @"SUPPORT:";
-    titleLabel.textColor = [UIColor colorWithHexString:@"8F8F95"];
+    titleLabel.textColor = [UIColor HPPPColorWithHexString:@"8F8F95"];
 //    titleLabel.fontSize = [UIFont HPSimplifiedLightFontWithSize:18.0f];
     
     [headerView addSubview:titleLabel];

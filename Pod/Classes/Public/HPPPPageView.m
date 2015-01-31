@@ -12,10 +12,10 @@
 
 #import "HPPPPageView.h"
 #import "HPPP.h"
-#import "UIView+Animation.h"
 #import "HPPPRuleView.h"
 #import "XBCurlView.h"
-#import "UIImage+Resize.h"
+#import "UIImage+HPPPResize.h"
+#import "UIView+HPPPAnimation.h"
 
 #define PREVIEW_CONTAINER_SCALE 0.9f
 
@@ -69,7 +69,7 @@
 {
     if (self.blackAndWhiteImage == nil) {
         
-        UIActivityIndicatorView *spinner = [self.imageView addSpinner];
+        UIActivityIndicatorView *spinner = [self.imageView HPPPAddSpinner];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
@@ -123,9 +123,9 @@
         computedImageSize = CGSizeMake(computedPaperSize.width * hppp.defaultPaperWidth / paperSize.width, computedPaperSize.height * hppp.defaultPaperHeight / paperSize.height);
     }
     
-    [self animateConstraintsWithDuration:0.5f constraints:^{
+    [self HPPPAnimateConstraintsWithDuration:0.5f constraints:^{
         
-        if ([self.image isPortraitImage]) {
+        if ([self.image HPPPIsPortraitImage]) {
             self.ruleView.widthLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperWidthTitle];
             self.ruleView.heightLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperHeightTitle];
 

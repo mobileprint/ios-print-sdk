@@ -10,13 +10,13 @@
 // the license agreement.
 //
 
-#import "UIColor+Style.h"
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@implementation UIColor (Style)
+@interface UIView (HPPPAnimation)
 
-+ (UIColor *)HPGrayBackgroundColor
-{
-    return [UIColor colorWithRed:239.0f/255.0f green:239.0f/255.0f blue:244.0f/255.0f alpha:1.0f];
-}
+- (void)HPPPAnimateConstraintsWithDuration:(NSTimeInterval)duration constraints:(void (^)(void))constraints completion:(void (^)(BOOL))completion;
+
+- (UIActivityIndicatorView *)HPPPAddSpinner;
 
 @end
