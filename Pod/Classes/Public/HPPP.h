@@ -16,6 +16,8 @@
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPSupportAction.h"
 
+#define HPPP_TRACKABLE_SCREEN_NOTIFICATION @"HPPPTrackableScreenNotification"
+
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
@@ -33,11 +35,14 @@
 
 #define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
 
+
 /*! 
  * @abstract Main HP Photo Print manager class
  * @discussion This singleton class manages configuration settings and stored job information.
  */
 @interface HPPP : NSObject
+
+extern NSString * const kHPPPTrackableScreenNameKey;
 
 /*!
  * @abstract Used to retrieve last paper type used

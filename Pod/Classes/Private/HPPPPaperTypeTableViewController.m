@@ -11,8 +11,10 @@
 //
 
 #import "HPPPPaperTypeTableViewController.h"
+#import "HPPP.h"
 #import "HPPPPaper.h"
-//#import "UIViewController+Trackable.h"
+
+NSString * const kPaperTypeScreenName = @"Paper Type Screen";
 
 @interface HPPPPaperTypeTableViewController ()
 
@@ -36,6 +38,13 @@
             break;
         }
     }
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:HPPP_TRACKABLE_SCREEN_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:kPaperTypeScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
 #pragma mark - UITableViewDelegate

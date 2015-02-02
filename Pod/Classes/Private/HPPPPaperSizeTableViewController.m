@@ -16,9 +16,10 @@
 #import "UIColor+HPPPStyle.h"
 #import "UITableView+HPPPHeader.h"
 
+NSString * const kPaperSizeScreenName = @"Paper Size Screen";
+
 @interface HPPPPaperSizeTableViewController ()
 
-//@property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *paperSizeCells;
 @property (nonatomic, strong) HPPP *hppp;
 
 @end
@@ -32,6 +33,13 @@
     self.hppp = [HPPP sharedInstance];
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:HPPP_TRACKABLE_SCREEN_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:kPaperSizeScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
 #pragma mark - UITableViewDataSource
