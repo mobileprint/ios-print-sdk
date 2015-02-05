@@ -307,8 +307,8 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
         
         if (completed) {
             NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
-            [lastOptionsUsed setValue:self.paperTypeSelectedLabel.text forKey:kHPPPPaperTypeId];
-            [lastOptionsUsed setValue:self.paperSizeSelectedLabel.text forKey:kHPPPPaperSizeId];
+            [lastOptionsUsed setValue:self.selectedPaper.typeTitle forKey:kHPPPPaperTypeId];
+            [lastOptionsUsed setValue:self.selectedPaper.sizeTitle forKey:kHPPPPaperSizeId];
             [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on] forKey:kHPPPBlackAndWhiteFilterId];
             if (printer) {
                 [lastOptionsUsed setValue:printer forKey:kHPPPPrinterId];
