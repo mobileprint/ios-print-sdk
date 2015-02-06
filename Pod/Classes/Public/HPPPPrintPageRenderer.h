@@ -9,23 +9,13 @@
 // in whole or in part, is expressly prohibited except as authorized by
 // the license agreement.
 //
-
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "HPPPPaper.h"
 
-@protocol HPPPPaperSizeTableViewControllerDelegate;
+@interface HPPPPrintPageRenderer : UIPrintPageRenderer
 
-@interface HPPPPaperSizeTableViewController : UITableViewController
+@property (nonatomic, strong) UIImage *image;
 
-@property (nonatomic, weak) id<HPPPPaperSizeTableViewControllerDelegate> delegate;
-@property (nonatomic, strong) HPPPPaper *currentPaper;
-
-@end
-
-
-@protocol HPPPPaperSizeTableViewControllerDelegate <NSObject>
-
-- (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper;
+- (id)initWithImage:(UIImage *)image;
 
 @end

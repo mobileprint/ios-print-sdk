@@ -12,20 +12,11 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "HPPPPaper.h"
+#import "Reachability.h"
 
-@protocol HPPPPaperSizeTableViewControllerDelegate;
-
-@interface HPPPPaperSizeTableViewController : UITableViewController
-
-@property (nonatomic, weak) id<HPPPPaperSizeTableViewControllerDelegate> delegate;
-@property (nonatomic, strong) HPPPPaper *currentPaper;
-
-@end
+@interface HPPPWiFiReachability : NSObject
 
 
-@protocol HPPPPaperSizeTableViewControllerDelegate <NSObject>
-
-- (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper;
+-(void)start:(UIBarButtonItem *)button;
 
 @end

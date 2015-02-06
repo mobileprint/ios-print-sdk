@@ -14,9 +14,11 @@
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPaper.h"
 #import "HPPPPrintPageRenderer.h"
+#import "HPPPPrintSettings.h"
 #import "HPPPPageView.h"
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPPPaperTypeTableViewController.h"
+#import "HPPPPrintSettingsTableViewController.h"
 #import "HPPPWiFiReachability.h"
 #import "UITableView+HPPPHeader.h"
 #import "UIColor+HPPPHexString.h"
@@ -25,6 +27,7 @@
 #import "UIColor+HPPPStyle.h"
 
 #define DEFAULT_ROW_HEIGHT 44.0f
+#define SEPARATOR_ROW_HEIGHT 15.0f
 
 #define PAPER_SECTION 0
 #define SUPPORT_SECTION 1
@@ -32,22 +35,30 @@
 #define NUMBER_OF_ROWS_IN_PAPER_SECTION 4
 
 #define PAPER_SHOW_INDEX 0
-#define PAPER_SIZE_INDEX 1
-#define PAPER_TYPE_INDEX 2
-#define FILTER_INDEX 3
+#define PRINT_INDEX 1
+#define SEPARATOR1_INDEX 2
+#define PRINTER_SELECT_INDEX 3
+#define SEPARATOR2_INDEX 4
+#define PAPER_SIZE_INDEX 5
+#define PAPER_TYPE_INDEX 6
+#define SEPARATOR3_INDEX 7
+#define FILTER_INDEX 8
+#define PRINT_SETTINGS_INDEX 9
 
 #define LAST_PRINTER_USED_SETTING @"lastPrinterUsed"
+#define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 #define LAST_SIZE_USED_SETTING @"lastSizeUsed"
 #define LAST_TYPE_USED_SETTING @"lastTypeUsed"
 #define LAST_FILTER_USED_SETTING @"lastFilterUsed"
+#define SELECT_PRINTER_PROMPT @"Select Printer"
 
 NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
-@interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, MCPaperSizeTableViewControllerDelegate, MCPaperTypeTableViewControllerDelegate, HPPPPageViewControllerDelegate>
+@interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, HPPPPageViewControllerDelegate, UIPrinterPickerControllerDelegate>
 
 
 @property (weak, nonatomic) HPPPPageView *pageView;
-@property (strong, nonatomic) HPPPPaper *selectedPaper;
+@property (strong, nonatomic) HPPPPrintSettings *currentPrintSettings;
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
 @property (weak, nonatomic) IBOutlet HPPPPageView *tableViewCellPageView;
 @property (weak, nonatomic) IBOutlet UISwitch *blackAndWhiteModeSwitch;
@@ -56,12 +67,24 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 @property (weak, nonatomic) IBOutlet UILabel *paperSizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *paperTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *filterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *printLabel;
+@property (weak, nonatomic) IBOutlet UILabel *selectPrinterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *selectedPrinterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *printSettingsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *printSettingsDetailLabel;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageViewCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperSizeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *learnMoreCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *selectPrinterCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *separator1Cell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *separator2Cell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *separator3Cell;
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *printBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
 
@@ -71,6 +94,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 @end
 
 @implementation HPPPPageSettingsTableViewController
+
 
 - (void)viewDidLoad
 {
@@ -83,6 +107,11 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    self.printLabel.font = self.hppp.tableViewCellLabelFont;
+    self.printSettingsLabel.font = self.hppp.tableViewCellLabelFont;
+    self.printSettingsDetailLabel.font = self.hppp.rulesLabelFont;
+    self.selectPrinterLabel.font = self.hppp.tableViewCellLabelFont;
+    self.selectedPrinterLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
     self.filterLabel.font = self.hppp.tableViewCellLabelFont;
@@ -90,29 +119,32 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.paperSizeSelectedLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperTypeSelectedLabel.font = self.hppp.tableViewCellLabelFont;
     
+    self.printLabel.textColor = self.hppp.tableViewCellLinkLabelColor;
+    
     self.paperSizeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
     self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
     
     self.pageViewCell.backgroundColor = [UIColor HPPPHPGrayBackgroundColor];
     
-    self.selectedPaper = [[HPPPPaper alloc] initWithPaperSize:Size4x6  paperType:Photo];
+    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:Size4x6  paperType:Photo];
+    self.currentPrintSettings = [HPPPPrintSettings alloc];
+    self.currentPrintSettings.paper = paper;
+    self.currentPrintSettings.printerName = SELECT_PRINTER_PROMPT;
     
     [self loadLastUsed];
-    
-    if ((!self.hppp.hidePaperTypeOption) && self.selectedPaper.paperSize == SizeLetter) {
-        self.paperTypeCell.hidden = NO;
-    } else {
-        self.paperTypeCell.hidden = YES;
-    }
     
     if (self.hppp.hideBlackAndWhiteOption) {
         self.filterCell.hidden = YES;
     }
     
+    [self updatePrintSettingsUI];
+    [self checkLastPrinterUsed];
+    [self updatePageSettingsUI];
+    
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
         self.spinner = [self.pageView HPPPAddSpinner];
         self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-        [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:self.selectedPaper withCompletion:^(UIImage *image) {
+        [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:self.currentPrintSettings.paper withCompletion:^(UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.spinner removeFromSuperview];
                 if (image) {
@@ -189,14 +221,20 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 - (void)setSelectedPaper:(HPPPPaper *)selectedPaperSize
 {
-    _selectedPaper = selectedPaperSize;
-    self.paperSizeSelectedLabel.text = [NSString stringWithFormat:@"%@ x %@", _selectedPaper.paperWidthTitle, _selectedPaper.paperHeightTitle];
-    self.paperTypeSelectedLabel.text = _selectedPaper.typeTitle;
+    _currentPrintSettings.paper = selectedPaperSize;
+    self.paperSizeSelectedLabel.text = [NSString stringWithFormat:@"%@ x %@", _currentPrintSettings.paper.paperWidthTitle, _currentPrintSettings.paper.paperHeightTitle];
+    self.paperTypeSelectedLabel.text = _currentPrintSettings.paper.typeTitle;
 }
 
 - (void)loadLastUsed
 {
-    self.selectedPaper = [self lastPaperUsed];
+    self.currentPrintSettings.paper = [self lastPaperUsed];
+    
+    NSString *lastPrinter = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_SETTING];
+    self.currentPrintSettings.printerName = lastPrinter;
+    
+    NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
+    self.currentPrintSettings.printerUrl = [NSURL URLWithString:lastPrinterUrl];
     
     NSNumber *lastFilterUsed = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_FILTER_USED_SETTING];
     if (lastFilterUsed != nil) {
@@ -220,6 +258,94 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     }
     
     return result;
+}
+
+- (void)updatePageSettingsUI
+{
+    [self.tableView beginUpdates];
+    if (IS_OS_8_OR_LATER){
+        self.printCell.hidden = NO;
+        self.separator1Cell.hidden = NO;
+
+        if (self.currentPrintSettings.printerName == nil){
+            self.selectPrinterCell.hidden = NO;
+            self.separator2Cell.hidden = NO;
+            self.paperSizeCell.hidden = NO;
+            self.printSettingsCell.hidden = YES;
+            self.paperTypeCell.hidden = (self.currentPrintSettings.paper.paperSize == SizeLetter) ? NO : YES;
+        } else {
+            self.selectPrinterCell.hidden = YES;
+            self.separator2Cell.hidden = YES;
+            self.paperSizeCell.hidden = YES;
+            self.paperTypeCell.hidden = YES;
+            self.separator3Cell.hidden = YES;
+            self.printSettingsCell.hidden = NO;
+        }
+    } else {
+        self.printCell  .hidden = YES;
+        self.separator1Cell.hidden = YES;
+        self.printSettingsCell.hidden = YES;
+        self.paperTypeCell.hidden = (self.currentPrintSettings.paper.paperSize == SizeLetter) ? NO : YES;
+    }
+    [self.tableView endUpdates];
+}
+
+- (void)updatePrintSettingsUI
+{
+    self.paperSizeSelectedLabel.text = self.currentPrintSettings.paper.sizeTitle;
+    self.paperTypeSelectedLabel.text = self.currentPrintSettings.paper.typeTitle;
+    self.selectedPrinterLabel.text = self.currentPrintSettings.printerName == nil ? SELECT_PRINTER_PROMPT : self.currentPrintSettings.printerName;
+    
+    NSString *displayedPrinterName = [self.selectedPrinterLabel.text isEqualToString:SELECT_PRINTER_PROMPT] ? @"" : [NSString stringWithFormat:@", %@", self.selectedPrinterLabel.text];
+    
+    self.printSettingsDetailLabel.text = [NSString stringWithFormat:@"%@, %@ %@", self.paperSizeSelectedLabel.text, self.paperTypeSelectedLabel.text, displayedPrinterName];
+    
+//    [self updatePaperTypeCellVisibility];
+}
+
+- (void)updatePaperTypeCellVisibility
+{
+    if ((!self.hppp.hidePaperTypeOption) && self.currentPrintSettings.paper.paperSize == SizeLetter && self.printSettingsCell.hidden != NO) {
+        self.paperTypeCell.hidden = NO;
+    } else {
+        self.paperTypeCell.hidden = YES;
+    }
+}
+
+- (void)printerNotFound
+{
+    
+    [self.tableView beginUpdates];
+
+    UIImage *warningSign = [UIImage imageNamed:@"HPPPPrint"]; //HPPPDoNoEnter FDC
+    [self.printSettingsCell.imageView setImage:warningSign];
+
+    [self.tableView endUpdates];
+}
+
+- (void)checkLastPrinterUsed
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        
+        NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
+        NSLog(@"Searching for printer %@", lastPrinterUrl);
+        
+        if( nil != lastPrinterUrl ) {
+            UIPrinter* printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:lastPrinterUrl]];
+            [printerFromUrl contactPrinter:^(BOOL available) {
+                if( available ) {
+                    //FDC
+                    self.currentPrintSettings.printerIsAvailable = YES;
+                    [self printerNotFound];
+                    NSLog(@"The selected printer was contacted using its URL: %@", lastPrinterUrl);                }
+                else {
+                    self.currentPrintSettings.printerIsAvailable = NO;
+                    [self printerNotFound];
+                    NSLog(@"Unable to contact printer %@", lastPrinterUrl);
+                }
+            }];
+        }
+    });
 }
 
 #pragma mark - Button actions
@@ -250,12 +376,30 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     controller.delegate = self;
     
+    [self createPrintJob:controller];
+
+    UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
+        
+        [self printCompleted:printController isCompleted:completed printError:error];
+    };
+    
+    if (IS_IPAD) {
+        self.cancelBarButtonItem.enabled = NO;
+        [controller presentFromBarButtonItem:barButtonItem animated:YES completionHandler:completionHandler];
+    } else {
+        [controller presentAnimated:YES completionHandler:completionHandler];
+    }
+    
+}
+
+- (void)createPrintJob:(UIPrintInteractionController *)controller
+{
     // Obtain a printInfo so that we can set our printing defaults.
     UIPrintInfo *printInfo = [UIPrintInfo printInfo];
     
     UIImage *image = nil;
     
-    if ([self.image HPPPIsPortraitImage] || (self.selectedPaper.paperSize == SizeLetter)) {
+    if ([self.image HPPPIsPortraitImage] || (self.currentPrintSettings.paper.paperSize == SizeLetter)) {
         image = self.image;
     } else {
         image = [self.image HPPPRotate];
@@ -266,13 +410,13 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     printInfo.jobName = @"PhotoGram";
     
     // Use the default printer if one is set
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *printer = [defaults stringForKey:LAST_PRINTER_USED_SETTING];
-    printInfo.printerID = printer;
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSString *printer = [defaults stringForKey:LAST_PRINTER_USED_SETTING];
+    printInfo.printerID = self.currentPrintSettings.printerName;
     
     // This application prints photos. UIKit will pick a paper size and print
     // quality appropriate for this content type.
-    BOOL photoPaper = (self.selectedPaper.paperSize != SizeLetter) || (self.selectedPaper.paperType == Photo);
+    BOOL photoPaper = (self.currentPrintSettings.paper.paperSize != SizeLetter) || (self.currentPrintSettings.paper.paperType == Photo);
     BOOL color = !self.blackAndWhiteModeSwitch.on;
     
     if (photoPaper && color) {
@@ -290,49 +434,40 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     // Use this printInfo for this print job.
     controller.printInfo = printInfo;
+}
+
+- (void)printCompleted:(UIPrintInteractionController *)printController isCompleted:(BOOL)completed printError:(NSError *)error
+{
+    //FDC: Remore lastOptionsUsed?
+    [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionary];
     
-    UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
-        
-        [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionary];
-        
-        // Set the last printer used as the default printer for the next job
-        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-        NSString * printer = printController.printInfo.printerID;
-        [defaults setObject:printer forKey:LAST_PRINTER_USED_SETTING];
-        [defaults synchronize];
-        
-        if (error) {
-            NSLog(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
-        }
-        
-        if (completed) {
-            NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
-            [lastOptionsUsed setValue:self.paperTypeSelectedLabel.text forKey:kHPPPPaperTypeId];
-            [lastOptionsUsed setValue:self.paperSizeSelectedLabel.text forKey:kHPPPPaperSizeId];
-            [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on] forKey:kHPPPBlackAndWhiteFilterId];
-            if (printer) {
-                [lastOptionsUsed setValue:printer forKey:kHPPPPrinterId];
-            }
-            [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
-            
-            if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
-                [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
-            }
-        }
-        
-        if (IS_IPAD) {
-            self.cancelBarButtonItem.enabled = YES;
-        }
-    };
+    // Set the last printer used as the default printer for the next job
+//    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+//    NSString * printer = printController.printInfo.printerID;
+//    [defaults setObject:printer forKey:LAST_PRINTER_USED_SETTING];
+//    [defaults synchronize];
     
-    
-    if (IS_IPAD) {
-        self.cancelBarButtonItem.enabled = NO;
-        [controller presentFromBarButtonItem:barButtonItem animated:YES completionHandler:completionHandler];
-    } else {
-        [controller presentAnimated:YES completionHandler:completionHandler];
+    if (error) {
+        NSLog(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
     }
     
+    if (completed) {
+        NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
+        [lastOptionsUsed setValue:self.paperTypeSelectedLabel.text forKey:kHPPPPaperTypeId];
+        [lastOptionsUsed setValue:self.paperSizeSelectedLabel.text forKey:kHPPPPaperSizeId];
+        [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on] forKey:kHPPPBlackAndWhiteFilterId];
+        [lastOptionsUsed setValue:self.currentPrintSettings.printerName forKey:kHPPPPrinterId];
+        
+        [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
+        
+        if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
+            [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
+        }
+    }
+    
+    if (IS_IPAD) {
+        self.cancelBarButtonItem.enabled = YES;
+    }
 }
 
 #pragma mark - UIPrintInteractionControllerDelegate
@@ -344,7 +479,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 - (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList
 {
-    UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:[self.selectedPaper printerPaperSize] withPapersFromArray:paperList];
+    UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:[self.currentPrintSettings.paper printerPaperSize] withPapersFromArray:paperList];
     return paper;
 }
 
@@ -440,6 +575,64 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
         } else {
             [self presentViewController:action.viewController animated:YES completion:nil];
         }
+    } else if (cell == self.selectPrinterCell) {
+        [self showPrinterSelection:tableView withCompletion:nil];
+    } else if (cell == self.printCell){
+        [self oneTouchPrint:tableView];
+    }
+}
+
+- (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(void))completion
+{
+    UIPrinterPickerController* printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
+    printerPicker.delegate = self;
+    
+    if( IS_IPAD ) {
+        [printerPicker presentFromRect:self.selectPrinterCell.frame
+                                inView:tableView
+                              animated:YES
+                     completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                         if (completion){
+                             completion();
+                         }
+                     }];
+    } else {
+        [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+            if (completion){
+                completion();
+            }
+        }];
+    }
+}
+
+- (void)oneTouchPrint:(UITableView *)tableView
+{
+    if (self.currentPrintSettings.printerUrl == nil){
+        [self showPrinterSelection:tableView withCompletion:^(void){
+            [self doPrint];
+        }];
+    } else {
+        [self doPrint];
+    }
+}
+
+- (void)doPrint
+{
+    if (self.currentPrintSettings.printerUrl != nil){
+        UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
+        if (!controller) {
+            NSLog(@"Couldn't get shared UIPrintInteractionController!");
+            return;
+        }
+
+        [self createPrintJob:controller];
+        
+        UIPrinter* printer = [UIPrinter printerWithURL:self.currentPrintSettings.printerUrl];
+        
+        [controller printToPrinter:printer completionHandler:^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
+            
+            [self printCompleted:printController isCompleted:completed printError:error];
+        }];
     }
 }
 
@@ -458,10 +651,28 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    if (cell.hidden == YES){
+        NSLog(@"section: %ld   row: %ld   text:%@", (long)indexPath.section, (long)indexPath.row, cell.detailTextLabel.text);
+        return 0.0f;
+    }
+    
     CGFloat rowHeight = 0.0f;
     
     if (indexPath.section == PAPER_SECTION) {
         switch (indexPath.row) {
+            case SEPARATOR1_INDEX:
+                rowHeight = SEPARATOR_ROW_HEIGHT;
+                break;
+            
+            case SEPARATOR2_INDEX:
+                rowHeight = SEPARATOR_ROW_HEIGHT;
+                break;
+            
+            case SEPARATOR3_INDEX:
+                rowHeight = SEPARATOR_ROW_HEIGHT;
+                break;
+                
             case PAPER_SHOW_INDEX:
                 if (!(IS_IPAD && IS_OS_8_OR_LATER)) {
                     rowHeight = self.pageViewCell.frame.size.height;
@@ -475,15 +686,20 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
                 break;
                 
             case PAPER_TYPE_INDEX:
-                if ((!self.hppp.hidePaperTypeOption) && (self.selectedPaper.paperSize == SizeLetter)) {
+                if ((!self.hppp.hidePaperTypeOption) && (self.currentPrintSettings.paper.paperSize == SizeLetter)) {
+//                if (!self.hppp.hidePaperTypeOption) {
                     rowHeight = tableView.rowHeight;
                 }
                 break;
-                
+        
             case FILTER_INDEX:
                 if (!([HPPP sharedInstance].hideBlackAndWhiteOption)) {
                     rowHeight = self.tableView.rowHeight;
                 }
+                break;
+                
+            case PRINT_SETTINGS_INDEX:
+                rowHeight = tableView.rowHeight;
                 break;
                 
             default:
@@ -497,22 +713,37 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     return rowHeight;
 }
 
-#pragma mark - PGPaperSizeTableViewControllerDelegate
+#pragma mark - HPPPPrintSettingsTableViewControllerDelegate
+
+- (void)printSettingsTableViewController:(HPPPPrintSettingsTableViewController *)printSettingsTableViewController didChangePrintSettings:(HPPPPrintSettings *)printSettings
+{
+    self.currentPrintSettings.printerName = printSettings.printerName;
+    self.currentPrintSettings.printerUrl = printSettings.printerUrl;
+//    [self updatePrintSettingsUI];
+    
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:printSettings.printerUrl.absoluteString forKey:LAST_PRINTER_USED_URL_SETTING];
+    [defaults setObject:printSettings.printerName forKey:LAST_PRINTER_USED_SETTING];
+    [defaults synchronize];
+    
+    [self paperSizeTableViewController:(HPPPPaperSizeTableViewController *)printSettingsTableViewController didSelectPaper:printSettings.paper];
+    
+    [self paperTypeTableViewController:(HPPPPaperTypeTableViewController *)printSettingsTableViewController didSelectPaper:printSettings.paper];
+}
+
+#pragma mark - HPPPPaperSizeTableViewControllerDelegate
 
 - (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
-    self.selectedPaper = paper;
-    
-    if ((!self.hppp.hidePaperTypeOption) && self.selectedPaper.paperSize == SizeLetter) {
-        self.paperTypeCell.hidden = NO;
-    } else {
-        self.paperTypeCell.hidden = YES;
-    }
+    self.currentPrintSettings.paper = paper;
+    [self updatePageSettingsUI];
+    [self updatePrintSettingsUI];
     
     [self.tableView reloadData];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithInteger:self.selectedPaper.paperSize] forKey:LAST_SIZE_USED_SETTING];
+    [defaults setObject:[NSNumber numberWithInteger:self.currentPrintSettings.paper.paperSize] forKey:LAST_SIZE_USED_SETTING];
     [defaults synchronize];
     
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
@@ -546,7 +777,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 {
     self.tableView.userInteractionEnabled = NO;
     
-    [pageView setPaperSize:self.selectedPaper animated:animated completion:^{
+    [pageView setPaperSize:self.currentPrintSettings.paper animated:animated completion:^{
         self.tableView.userInteractionEnabled = YES;
         if (completion) {
             completion();
@@ -554,14 +785,15 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     }];
 }
 
-#pragma mark - PGPaperTypeTableViewControllerDelegate
+#pragma mark - HPPPPaperTypeTableViewControllerDelegate
 
 - (void)paperTypeTableViewController:(HPPPPaperTypeTableViewController *)paperTypeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
-    self.selectedPaper = paper;
+    self.currentPrintSettings.paper = paper;
+    [self updatePrintSettingsUI];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithInteger:self.selectedPaper.paperType] forKey:LAST_TYPE_USED_SETTING];
+    [defaults setObject:[NSNumber numberWithInteger:self.currentPrintSettings.paper.paperType] forKey:LAST_TYPE_USED_SETTING];
     [defaults synchronize];
 }
 
@@ -579,19 +811,46 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     return NO;
 }
 
+#pragma mark - UIPrinterPickerControllerDelegate
+
+- (void)printerPickerControllerDidDismiss:(UIPrinterPickerController *)printerPickerController
+{
+    UIPrinter* selectedPrinter = printerPickerController.selectedPrinter;
+    
+    if (selectedPrinter != nil){
+        NSLog(@"Selected Printer: %@", selectedPrinter.URL);
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:selectedPrinter.URL.absoluteString forKey:LAST_PRINTER_USED_URL_SETTING];
+        [defaults setObject:selectedPrinter.displayName forKey:LAST_PRINTER_USED_SETTING];
+        [defaults synchronize];
+        
+        
+        self.currentPrintSettings.printerName = selectedPrinter.displayName;
+        self.currentPrintSettings.printerUrl = selectedPrinter.URL;
+        [self updatePageSettingsUI];
+        [self updatePrintSettingsUI];
+    }
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"PaperSizeSegue"]) {
+    if ([segue.identifier isEqualToString:@"PrintSettingsSegue"]) {
+        
+        HPPPPrintSettingsTableViewController *vc = (HPPPPrintSettingsTableViewController *)segue.destinationViewController;
+        vc.printSettings = self.currentPrintSettings;
+        vc.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"PaperSizeSegue"]) {
         
         HPPPPaperSizeTableViewController *vc = (HPPPPaperSizeTableViewController *)segue.destinationViewController;
-        vc.currentPaper = self.selectedPaper;
+        vc.currentPaper = self.currentPrintSettings.paper;
         vc.delegate = self;
     } else if ([segue.identifier isEqualToString:@"PaperTypeSegue"]) {
         
         HPPPPaperTypeTableViewController *vc = (HPPPPaperTypeTableViewController *)segue.destinationViewController;
-        vc.currentPaper = self.selectedPaper;
+        vc.currentPaper = self.currentPrintSettings.paper;
         vc.delegate = self;
     }
 }
