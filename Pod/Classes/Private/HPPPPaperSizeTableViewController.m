@@ -85,8 +85,8 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     
     [self.navigationController popViewControllerAnimated:YES];
     
-    if ([self.delegate respondsToSelector:@selector(paperSizeTableViewController:didSelectPaper:)]) {
-        [self.delegate paperSizeTableViewController:self didSelectPaper:paper];
+    if ([self.delegate respondsToSelector:@selector(paperSizeTableViewController:didSelectPaperSizeWithTitle:)]) {
+        [self.delegate paperSizeTableViewController:self didSelectPaperSizeWithTitle:paper.sizeTitle];
     }
 }
 

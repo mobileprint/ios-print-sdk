@@ -211,15 +211,17 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     NSNumber *lastSizeUsed = [defaults objectForKey:LAST_SIZE_USED_SETTING];
     NSNumber *lastTypeUsed = [defaults objectForKey:LAST_TYPE_USED_SETTING];
     
-    HPPPPaper *result;
-    
-    if (lastSizeUsed != nil) {
-        result = [[HPPPPaper alloc] initWithPaperSize:(PaperSize)lastSizeUsed.integerValue paperType:(PaperType)lastTypeUsed.integerValue];
-    } else {
-        result = [[HPPPPaper alloc] initWithPaperSize:(PaperSize)self.hppp.initialPaperSize paperType:(PaperType)self.hppp.defaultPaperType];
+    PaperSize paperSize = (PaperSize)self.hppp.initialPaperSize;
+    if (lastSizeUsed) {
+        paperSize = (PaperSize)[lastSizeUsed integerValue];
+    }
+
+    PaperType paperType = SizeLetter == paperSize ? Plain : Photo;
+    if (SizeLetter == paperSize && lastTypeUsed) {
+        paperType = (PaperType)[lastTypeUsed integerValue];
     }
     
-    return result;
+    return [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:paperType];
 }
 
 #pragma mark - Button actions
@@ -499,9 +501,21 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 #pragma mark - PGPaperSizeTableViewControllerDelegate
 
-- (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper
+- (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaperSizeWithTitle:(NSString *)sizeTitle
 {
-    self.selectedPaper = paper;
+    PaperSize paperSize = [HPPPPaper sizeFromTitle:sizeTitle];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithInteger:paperSize] forKey:LAST_SIZE_USED_SETTING];
+    [defaults synchronize];
+    
+    PaperType paperType = SizeLetter == paperSize ? Plain : Photo;
+    NSNumber *lastTypeUsed = [defaults objectForKey:LAST_TYPE_USED_SETTING];
+    if (SizeLetter == paperSize && lastTypeUsed) {
+        paperType = (PaperType)[lastTypeUsed integerValue];
+    }
+    
+    self.selectedPaper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:paperType];
     
     if ((!self.hppp.hidePaperTypeOption) && self.selectedPaper.paperSize == SizeLetter) {
         self.paperTypeCell.hidden = NO;
@@ -511,14 +525,10 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     [self.tableView reloadData];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithInteger:self.selectedPaper.paperSize] forKey:LAST_SIZE_USED_SETTING];
-    [defaults synchronize];
-    
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
         self.spinner = [self.pageView HPPPAddSpinner];
         self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-        [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:paper withCompletion:^(UIImage *image) {
+        [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:self.selectedPaper withCompletion:^(UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (image) {
                     self.image = image;

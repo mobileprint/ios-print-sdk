@@ -26,6 +26,6 @@
 
 @protocol MCPaperSizeTableViewControllerDelegate <NSObject>
 
-- (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper;
+- (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaperSizeWithTitle:(NSString *)sizeTitle;
 
 @end
