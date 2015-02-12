@@ -10,6 +10,7 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPPageViewController.h"
 #import "HPPPWiFiReachability.h"
 
@@ -27,6 +28,9 @@
     [super viewDidLoad];
     
     self.pageView.image = self.image;
+    if (IS_OS_8_OR_LATER){
+        self.navigationItem.rightBarButtonItems = nil;
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated

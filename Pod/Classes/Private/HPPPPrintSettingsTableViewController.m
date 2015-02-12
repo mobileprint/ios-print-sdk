@@ -24,7 +24,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *selectedPaperSizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedPaperTypeLabel;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 
 
 @end

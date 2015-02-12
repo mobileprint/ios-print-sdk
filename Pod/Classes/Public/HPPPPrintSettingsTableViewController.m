@@ -1,9 +1,13 @@
 //
-//  HPPPPrintSettingsTableViewController.m
-//  Pods
+// Hewlett-Packard Company
+// All rights reserved.
 //
-//  Created by Fredy on 2/5/15.
-//
+// This file, its contents, concepts, methods, behavior, and operation
+// (collectively the "Software") are protected by trade secret, patent,
+// and copyright laws. The use of the Software is governed by a license
+// agreement. Disclosure of the Software to third parties, in any form,
+// in whole or in part, is expressly prohibited except as authorized by
+// the license agreement.
 //
 
 #import "HPPP.h"
@@ -16,16 +20,16 @@
 
 @property (nonatomic, strong) HPPP *hppp;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *printerLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *paperSizeLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *paperTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *printerLabel;
+@property (weak, nonatomic) IBOutlet UILabel *paperSizeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *paperTypeLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *selectedPrinterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedPaperSizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedPaperTypeLabel;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
-@property (unsafe_unretained, nonatomic) IBOutlet UITableViewCell *printerSelectCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printerSelectCell;
 
 
 @end
@@ -39,7 +43,7 @@
     
     self.selectedPrinterLabel.text = self.printSettings.printerName;
     if (!self.printSettings.printerIsAvailable){
-        UIImage *warningSign = [UIImage imageNamed:@"HPPPPrint"]; //HPPPDoNoEnter
+        UIImage *warningSign = [UIImage imageNamed:@"HPPPDoNoEnter"];
         [self.printerSelectCell.imageView setImage:warningSign];
     }
     self.selectedPaperSizeLabel.text = self.printSettings.paper.sizeTitle;
@@ -55,10 +59,7 @@
     self.paperTypeCell.hidden = self.printSettings.paper.paperSize != SizeLetter;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -81,7 +82,6 @@
                 NSLog(@"closed printer picker");
             }];
         }
-        
     }
 }
 
@@ -107,6 +107,7 @@
         self.printSettings.printerUrl = selectedPrinter.URL;
         self.printSettings.printerIsAvailable = YES;
         
+        // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
         [self.tableView beginUpdates];
         [self.printerSelectCell.imageView setImage:nil];
         [self.tableView endUpdates];
@@ -124,6 +125,7 @@
     self.printSettings.paper = paper;
     self.selectedPaperSizeLabel.text = paper.sizeTitle;
     
+    // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
     if (paper.paperSize == SizeLetter) {
         self.paperTypeCell.hidden = NO;

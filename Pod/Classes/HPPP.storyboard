@@ -64,7 +64,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
-                            <tableViewSection id="L3r-bE-uDg">
+                            <tableViewSection id="L3r-bE-uDg" userLabel="Printer Table View Section">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="ihC-n4-yja" detailTextLabel="Llf-VV-F43" style="IBUITableViewCellStyleValue1" id="QfG-dp-BYj">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -88,7 +88,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle=" " id="3AA-Zi-QTa">
+                            <tableViewSection headerTitle=" " id="3AA-Zi-QTa" userLabel="Paper Table View Section">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="M7R-zC-SFt" detailTextLabel="za8-Ty-kEs" style="IBUITableViewCellStyleValue1" id="nxN-Xa-1fd">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -150,7 +150,7 @@
                         <outlet property="paperTypeCell" destination="pA0-HQ-2fs" id="TF6-0n-zJB"/>
                         <outlet property="paperTypeLabel" destination="aRy-sC-aCR" id="3L1-tS-7fC"/>
                         <outlet property="printerLabel" destination="ihC-n4-yja" id="26v-6W-bRz"/>
-                        <outlet property="printerSelectCell" destination="QfG-dp-BYj" id="4zI-DG-GwJ"/>
+                        <outlet property="printerSelectCell" destination="QfG-dp-BYj" id="VDe-Xk-7Bn"/>
                         <outlet property="selectedPaperSizeLabel" destination="za8-Ty-kEs" id="mC1-oM-FPb"/>
                         <outlet property="selectedPaperTypeLabel" destination="1M3-oI-FLl" id="15V-He-9TU"/>
                         <outlet property="selectedPrinterLabel" destination="Llf-VV-F43" id="ozM-dy-gNG"/>
@@ -236,7 +236,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="ASI-jC-kWU" detailTextLabel="5VP-8d-bD2" style="IBUITableViewCellStyleValue1" id="g3s-vx-1VA" userLabel="Select Printer">
@@ -269,7 +269,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="dhx-u0-Yl9" userLabel="Paper Size Table View Cell">
@@ -347,7 +347,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Sbe-0S-6PA" userLabel="Filter Table View Cell">
@@ -756,9 +756,9 @@
                         <outlet property="selectPrinterCell" destination="g3s-vx-1VA" id="UQ2-1w-nMq"/>
                         <outlet property="selectPrinterLabel" destination="ASI-jC-kWU" id="v0H-Tm-X3z"/>
                         <outlet property="selectedPrinterLabel" destination="5VP-8d-bD2" id="0vB-b0-dbE"/>
-                        <outlet property="separator1Cell" destination="EuL-Sa-Nwd" id="pGj-Jb-kyq"/>
-                        <outlet property="separator2Cell" destination="Jck-Ii-6e5" id="JIg-VZ-G4G"/>
-                        <outlet property="separator3Cell" destination="BXR-Lh-LKN" id="OWn-pf-0fh"/>
+                        <outlet property="separatorUnderPaperTypeCell" destination="BXR-Lh-LKN" id="2Mq-7p-hzc"/>
+                        <outlet property="separatorUnderPrintCell" destination="EuL-Sa-Nwd" id="tD4-X9-Q2L"/>
+                        <outlet property="separatorUnderSelectPrinterCell" destination="Jck-Ii-6e5" id="hha-sy-cQd"/>
                         <outlet property="tableViewCellPageView" destination="seg-M4-fAu" id="XHH-9X-3e1"/>
                     </connections>
                 </tableViewController>

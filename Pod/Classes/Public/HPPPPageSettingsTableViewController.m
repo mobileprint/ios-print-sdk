@@ -36,12 +36,12 @@
 
 #define PAPER_SHOW_INDEX 0
 #define PRINT_INDEX 1
-#define SEPARATOR1_INDEX 2
+#define SEPARATOR_UNDER_PRINT_INDEX 2
 #define PRINTER_SELECT_INDEX 3
-#define SEPARATOR2_INDEX 4
+#define SEPARATOR_UNDER_SELECT_PRINTER_INDEX 4
 #define PAPER_SIZE_INDEX 5
 #define PAPER_TYPE_INDEX 6
-#define SEPARATOR3_INDEX 7
+#define SEPARATOR_UNDER_PAPER_TYPE_INDEX 7
 #define FILTER_INDEX 8
 #define PRINT_SETTINGS_INDEX 9
 
@@ -81,9 +81,9 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 @property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *selectPrinterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *separator1Cell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *separator2Cell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *separator3Cell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderPrintCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderSelectPrinterCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderPaperTypeCell;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *printBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
@@ -137,8 +137,9 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
         self.filterCell.hidden = YES;
     }
     
+    [self prepareUiForIosVersion];
     [self updatePrintSettingsUI];
-    [self checkLastPrinterUsed];
+    [self checkLastPrinterUsedAvailability];
     [self updatePageSettingsUI];
     
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
@@ -260,36 +261,54 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     return result;
 }
 
+// Hide or show UI that will always be hidden or shown based on the iOS version
+- (void) prepareUiForIosVersion
+{
+    if (IS_OS_8_OR_LATER){
+        self.navigationItem.rightBarButtonItems = nil;
+        self.printCell.hidden = NO;
+        self.separatorUnderPrintCell.hidden = NO;
+    } else {
+        self.printCell.hidden = YES;
+        self.separatorUnderPrintCell.hidden = YES;
+        self.selectPrinterCell.hidden = YES;
+        self.separatorUnderSelectPrinterCell.hidden = YES;
+        self.printSettingsCell.hidden = YES;
+    }
+}
+
+// Hide or show UI based on current print settings
 - (void)updatePageSettingsUI
 {
+    // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
     if (IS_OS_8_OR_LATER){
-        self.printCell.hidden = NO;
-        self.separator1Cell.hidden = NO;
-
         if (self.currentPrintSettings.printerName == nil){
             self.selectPrinterCell.hidden = NO;
-            self.separator2Cell.hidden = NO;
+            self.separatorUnderSelectPrinterCell.hidden = NO;
             self.paperSizeCell.hidden = NO;
             self.printSettingsCell.hidden = YES;
             self.paperTypeCell.hidden = (self.currentPrintSettings.paper.paperSize == SizeLetter) ? NO : YES;
         } else {
             self.selectPrinterCell.hidden = YES;
-            self.separator2Cell.hidden = YES;
+            self.separatorUnderSelectPrinterCell.hidden = YES;
             self.paperSizeCell.hidden = YES;
             self.paperTypeCell.hidden = YES;
-            self.separator3Cell.hidden = YES;
+            self.separatorUnderPaperTypeCell.hidden = YES;
             self.printSettingsCell.hidden = NO;
         }
+        if (self.currentPrintSettings.printerIsAvailable){
+            [self printerIsAvailable];
+        } else {
+            [self printerNotAvailable];
+        }
     } else {
-        self.printCell  .hidden = YES;
-        self.separator1Cell.hidden = YES;
-        self.printSettingsCell.hidden = YES;
         self.paperTypeCell.hidden = (self.currentPrintSettings.paper.paperSize == SizeLetter) ? NO : YES;
     }
     [self.tableView endUpdates];
 }
 
+// Update the Paper Size, Paper Type, and Select Printer cells
 - (void)updatePrintSettingsUI
 {
     self.paperSizeSelectedLabel.text = self.currentPrintSettings.paper.sizeTitle;
@@ -299,31 +318,28 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     NSString *displayedPrinterName = [self.selectedPrinterLabel.text isEqualToString:SELECT_PRINTER_PROMPT] ? @"" : [NSString stringWithFormat:@", %@", self.selectedPrinterLabel.text];
     
     self.printSettingsDetailLabel.text = [NSString stringWithFormat:@"%@, %@ %@", self.paperSizeSelectedLabel.text, self.paperTypeSelectedLabel.text, displayedPrinterName];
-    
-//    [self updatePaperTypeCellVisibility];
 }
 
-- (void)updatePaperTypeCellVisibility
+- (void)printerNotAvailable
 {
-    if ((!self.hppp.hidePaperTypeOption) && self.currentPrintSettings.paper.paperSize == SizeLetter && self.printSettingsCell.hidden != NO) {
-        self.paperTypeCell.hidden = NO;
-    } else {
-        self.paperTypeCell.hidden = YES;
-    }
-}
-
-- (void)printerNotFound
-{
-    
+    // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
-
-    UIImage *warningSign = [UIImage imageNamed:@"HPPPPrint"]; //HPPPDoNoEnter FDC
+    UIImage *warningSign = [UIImage imageNamed:@"HPPPDoNoEnter"];
     [self.printSettingsCell.imageView setImage:warningSign];
-
+    self.currentPrintSettings.printerIsAvailable = NO;
     [self.tableView endUpdates];
 }
 
-- (void)checkLastPrinterUsed
+- (void)printerIsAvailable
+{
+    // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
+    [self.tableView beginUpdates];
+    [self.printSettingsCell.imageView setImage:nil];
+    self.currentPrintSettings.printerIsAvailable = YES;
+    [self.tableView endUpdates];
+}
+
+- (void)checkLastPrinterUsedAvailability
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         
@@ -334,13 +350,10 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
             UIPrinter* printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:lastPrinterUrl]];
             [printerFromUrl contactPrinter:^(BOOL available) {
                 if( available ) {
-                    //FDC
-                    self.currentPrintSettings.printerIsAvailable = YES;
-                    [self printerNotFound];
+                    [self printerIsAvailable];
                     NSLog(@"The selected printer was contacted using its URL: %@", lastPrinterUrl);                }
                 else {
-                    self.currentPrintSettings.printerIsAvailable = NO;
-                    [self printerNotFound];
+                    [self printerNotAvailable];
                     NSLog(@"Unable to contact printer %@", lastPrinterUrl);
                 }
             }];
@@ -409,9 +422,6 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     // but that's all we've got.
     printInfo.jobName = @"PhotoGram";
     
-    // Use the default printer if one is set
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSString *printer = [defaults stringForKey:LAST_PRINTER_USED_SETTING];
     printInfo.printerID = self.currentPrintSettings.printerName;
     
     // This application prints photos. UIKit will pick a paper size and print
@@ -438,15 +448,6 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 - (void)printCompleted:(UIPrintInteractionController *)printController isCompleted:(BOOL)completed printError:(NSError *)error
 {
-    //FDC: Remore lastOptionsUsed?
-    [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionary];
-    
-    // Set the last printer used as the default printer for the next job
-//    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-//    NSString * printer = printController.printInfo.printerID;
-//    [defaults setObject:printer forKey:LAST_PRINTER_USED_SETTING];
-//    [defaults synchronize];
-    
     if (error) {
         NSLog(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
     }
@@ -653,7 +654,6 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     if (cell.hidden == YES){
-        NSLog(@"section: %ld   row: %ld   text:%@", (long)indexPath.section, (long)indexPath.row, cell.detailTextLabel.text);
         return 0.0f;
     }
     
@@ -661,15 +661,15 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     if (indexPath.section == PAPER_SECTION) {
         switch (indexPath.row) {
-            case SEPARATOR1_INDEX:
+            case SEPARATOR_UNDER_PRINT_INDEX:
                 rowHeight = SEPARATOR_ROW_HEIGHT;
                 break;
             
-            case SEPARATOR2_INDEX:
+            case SEPARATOR_UNDER_SELECT_PRINTER_INDEX:
                 rowHeight = SEPARATOR_ROW_HEIGHT;
                 break;
             
-            case SEPARATOR3_INDEX:
+            case SEPARATOR_UNDER_PAPER_TYPE_INDEX:
                 rowHeight = SEPARATOR_ROW_HEIGHT;
                 break;
                 
@@ -687,7 +687,6 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
                 
             case PAPER_TYPE_INDEX:
                 if ((!self.hppp.hidePaperTypeOption) && (self.currentPrintSettings.paper.paperSize == SizeLetter)) {
-//                if (!self.hppp.hidePaperTypeOption) {
                     rowHeight = tableView.rowHeight;
                 }
                 break;
@@ -719,7 +718,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 {
     self.currentPrintSettings.printerName = printSettings.printerName;
     self.currentPrintSettings.printerUrl = printSettings.printerUrl;
-//    [self updatePrintSettingsUI];
+    self.currentPrintSettings.printerIsAvailable = printSettings.printerIsAvailable;
     
     
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
@@ -828,6 +827,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
         
         self.currentPrintSettings.printerName = selectedPrinter.displayName;
         self.currentPrintSettings.printerUrl = selectedPrinter.URL;
+        self.currentPrintSettings.printerIsAvailable = YES;
         [self updatePageSettingsUI];
         [self updatePrintSettingsUI];
     }
