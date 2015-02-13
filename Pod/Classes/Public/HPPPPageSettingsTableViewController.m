@@ -28,6 +28,7 @@
 
 #define DEFAULT_ROW_HEIGHT 44.0f
 #define SEPARATOR_ROW_HEIGHT 15.0f
+#define PRINTER_STATUS_ROW_HEIGHT 25.0f
 
 #define PAPER_SECTION 0
 #define SUPPORT_SECTION 1
@@ -44,6 +45,7 @@
 #define SEPARATOR_UNDER_PAPER_TYPE_INDEX 7
 #define FILTER_INDEX 8
 #define PRINT_SETTINGS_INDEX 9
+#define PRINTER_STATUS_INDEX 10
 
 #define LAST_PRINTER_USED_SETTING @"lastPrinterUsed"
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
@@ -72,6 +74,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 @property (weak, nonatomic) IBOutlet UILabel *selectedPrinterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsDetailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *printerStatusLabel;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageViewCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperSizeCell;
@@ -84,6 +87,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 @property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderPrintCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderSelectPrinterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderPaperTypeCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printerStatusCell;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *printBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
@@ -110,6 +114,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.printLabel.font = self.hppp.tableViewCellLabelFont;
     self.printSettingsLabel.font = self.hppp.tableViewCellLabelFont;
     self.printSettingsDetailLabel.font = self.hppp.rulesLabelFont;
+    self.printerStatusLabel.font = self.hppp.rulesLabelFont;
     self.selectPrinterLabel.font = self.hppp.tableViewCellLabelFont;
     self.selectedPrinterLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
@@ -130,6 +135,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.currentPrintSettings = [HPPPPrintSettings alloc];
     self.currentPrintSettings.paper = paper;
     self.currentPrintSettings.printerName = SELECT_PRINTER_PROMPT;
+    self.currentPrintSettings.printerIsAvailable = YES;
     
     [self loadLastUsed];
     
@@ -274,6 +280,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
         self.selectPrinterCell.hidden = YES;
         self.separatorUnderSelectPrinterCell.hidden = YES;
         self.printSettingsCell.hidden = YES;
+        self.printerStatusCell.hidden = YES;
     }
 }
 
@@ -289,6 +296,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
             self.paperSizeCell.hidden = NO;
             self.printSettingsCell.hidden = YES;
             self.paperTypeCell.hidden = (self.currentPrintSettings.paper.paperSize == SizeLetter) ? NO : YES;
+            self.printerStatusCell.hidden = YES;
         } else {
             self.selectPrinterCell.hidden = YES;
             self.separatorUnderSelectPrinterCell.hidden = YES;
@@ -296,6 +304,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
             self.paperTypeCell.hidden = YES;
             self.separatorUnderPaperTypeCell.hidden = YES;
             self.printSettingsCell.hidden = NO;
+            self.printerStatusCell.hidden = (self.currentPrintSettings.printerIsAvailable) ? YES : NO;
         }
         if (self.currentPrintSettings.printerIsAvailable){
             [self printerIsAvailable];
@@ -327,6 +336,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     UIImage *warningSign = [UIImage imageNamed:@"HPPPDoNoEnter"];
     [self.printSettingsCell.imageView setImage:warningSign];
     self.currentPrintSettings.printerIsAvailable = NO;
+    self.printerStatusCell.hidden = NO;
     [self.tableView endUpdates];
 }
 
@@ -336,6 +346,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     [self.tableView beginUpdates];
     [self.printSettingsCell.imageView setImage:nil];
     self.currentPrintSettings.printerIsAvailable = YES;
+    self.printerStatusCell.hidden = YES;
     [self.tableView endUpdates];
 }
 
@@ -699,6 +710,10 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
                 
             case PRINT_SETTINGS_INDEX:
                 rowHeight = tableView.rowHeight;
+                break;
+                
+            case PRINTER_STATUS_INDEX:
+                rowHeight = PRINTER_STATUS_ROW_HEIGHT;
                 break;
                 
             default:

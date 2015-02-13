@@ -16,6 +16,10 @@
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPPPaperTypeTableViewController.h"
 
+#define PRINTER_SECTION 0
+#define PRINTER_STATUS_INDEX 1
+#define PRINTER_STATUS_ROW_HEIGHT 25.0f
+
 @interface HPPPPrintSettingsTableViewController  () <HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, UIPrinterPickerControllerDelegate>
 
 @property (nonatomic, strong) HPPP *hppp;
@@ -27,9 +31,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *selectedPrinterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedPaperSizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedPaperTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *printerStatusLabel;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerSelectCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printerStatusCell;
 
 
 @end
@@ -42,14 +48,12 @@
     self.hppp = [HPPP sharedInstance];
     
     self.selectedPrinterLabel.text = self.printSettings.printerName;
-    if (!self.printSettings.printerIsAvailable){
-        UIImage *warningSign = [UIImage imageNamed:@"HPPPDoNoEnter"];
-        [self.printerSelectCell.imageView setImage:warningSign];
-    }
+
     self.selectedPaperSizeLabel.text = self.printSettings.paper.sizeTitle;
     self.selectedPaperTypeLabel.text = self.printSettings.paper.typeTitle;
     
     self.printerLabel.font = self.hppp.tableViewCellLabelFont;
+    self.printerStatusLabel.font = self.hppp.rulesLabelFont;
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
     self.selectedPrinterLabel.font = self.hppp.tableViewCellLabelFont;
@@ -57,6 +61,22 @@
     self.selectedPaperTypeLabel.font = self.hppp.tableViewCellLabelFont;
     
     self.paperTypeCell.hidden = self.printSettings.paper.paperSize != SizeLetter;
+    
+    [self updatePrinterAvailability];
+}
+
+- (void)updatePrinterAvailability
+{
+    [self.tableView beginUpdates];
+    if (self.printSettings.printerIsAvailable){
+        [self.printerSelectCell.imageView setImage:nil];
+        self.printerStatusCell.hidden = YES;
+    } else {
+        UIImage *warningSign = [UIImage imageNamed:@"HPPPDoNoEnter"];
+        [self.printerSelectCell.imageView setImage:warningSign];
+        self.printerStatusCell.hidden = NO;
+    }
+    [self.tableView endUpdates];
 }
 
 #pragma mark - UITableViewDelegate
@@ -92,7 +112,23 @@
         return 0.0f;
     }
     
-    return tableView.rowHeight;
+    CGFloat rowHeight = 0.0f;
+    
+    if (indexPath.section == PRINTER_SECTION) {
+        switch (indexPath.row) {
+            case PRINTER_STATUS_INDEX:
+                rowHeight = PRINTER_STATUS_ROW_HEIGHT;
+                break;
+                
+            default:
+                rowHeight = self.tableView.rowHeight;
+                break;
+        }
+    } else {
+        rowHeight = self.tableView.rowHeight;
+    }
+    
+    return rowHeight;
 }
 
 #pragma mark - UIPrinterPickerControllerDelegate
@@ -107,10 +143,7 @@
         self.printSettings.printerUrl = selectedPrinter.URL;
         self.printSettings.printerIsAvailable = YES;
         
-        // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
-        [self.tableView beginUpdates];
-        [self.printerSelectCell.imageView setImage:nil];
-        [self.tableView endUpdates];
+        [self updatePrinterAvailability];
         
         if ([self.delegate respondsToSelector:@selector(printSettingsTableViewController:didChangePrintSettings:)]) {
             [self.delegate printSettingsTableViewController:self didChangePrintSettings:self.printSettings];

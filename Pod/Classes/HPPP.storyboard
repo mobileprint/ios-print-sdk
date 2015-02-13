@@ -59,8 +59,8 @@
         <scene sceneID="0kX-uc-8Ix">
             <objects>
                 <tableViewController id="e7w-W2-Hc3" userLabel="Print Settings" customClass="HPPPPrintSettingsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="MS8-Ao-hXT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="MS8-Ao-hXT">
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -85,6 +85,23 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="25" id="6M8-o3-mrT" userLabel="Printer Status Table View Cell">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6M8-o3-mrT" id="CYE-LI-gBs">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recent printer not currently available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8P5-dx-V33">
+                                                    <rect key="frame" x="16" y="2" width="322" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.72433449074074074" alpha="0.17999999999999999" colorSpace="calibratedWhite"/>
+                                            <color key="tintColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -151,6 +168,8 @@
                         <outlet property="paperTypeLabel" destination="aRy-sC-aCR" id="3L1-tS-7fC"/>
                         <outlet property="printerLabel" destination="ihC-n4-yja" id="26v-6W-bRz"/>
                         <outlet property="printerSelectCell" destination="QfG-dp-BYj" id="VDe-Xk-7Bn"/>
+                        <outlet property="printerStatusCell" destination="6M8-o3-mrT" id="O9p-Od-lpR"/>
+                        <outlet property="printerStatusLabel" destination="8P5-dx-V33" id="dfm-vp-2cJ"/>
                         <outlet property="selectedPaperSizeLabel" destination="za8-Ty-kEs" id="mC1-oM-FPb"/>
                         <outlet property="selectedPaperTypeLabel" destination="1M3-oI-FLl" id="15V-He-9TU"/>
                         <outlet property="selectedPrinterLabel" destination="Llf-VV-F43" id="ozM-dy-gNG"/>
@@ -158,7 +177,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yqM-rp-aIU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7162" y="-1690"/>
+            <point key="canvasLocation" x="7162" y="-1691"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Ddf-QV-PAo">
@@ -405,6 +424,24 @@
                                         <connections>
                                             <segue destination="e7w-W2-Hc3" kind="show" identifier="PrintSettingsSegue" id="0Jk-B9-NjN"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="25" id="2yh-xW-llg" userLabel="Printer Status Table View Cell">
+                                        <rect key="frame" x="0.0" y="446" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2yh-xW-llg" id="oBO-YC-FAT">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recent printer not currently available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIL-gs-Kdd">
+                                                    <rect key="frame" x="19" y="3" width="405" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -753,6 +790,8 @@
                         <outlet property="printSettingsCell" destination="RwU-mP-n2A" id="DKU-kv-qbg"/>
                         <outlet property="printSettingsDetailLabel" destination="OoD-1F-wqx" id="bI3-It-hmf"/>
                         <outlet property="printSettingsLabel" destination="XvF-8p-88d" id="Ofl-ht-RX7"/>
+                        <outlet property="printerStatusCell" destination="2yh-xW-llg" id="wgg-nG-9Xv"/>
+                        <outlet property="printerStatusLabel" destination="sIL-gs-Kdd" id="RND-Ue-7yC"/>
                         <outlet property="selectPrinterCell" destination="g3s-vx-1VA" id="UQ2-1w-nMq"/>
                         <outlet property="selectPrinterLabel" destination="ASI-jC-kWU" id="v0H-Tm-X3z"/>
                         <outlet property="selectedPrinterLabel" destination="5VP-8d-bD2" id="0vB-b0-dbE"/>
@@ -764,7 +803,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="obw-U0-5ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6319" y="-943"/>
+            <point key="canvasLocation" x="6319" y="-945"/>
         </scene>
         <!--Paper Size-->
         <scene sceneID="PiC-cJ-GW2">
@@ -900,7 +939,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8fs-df-7w1"/>
-        <segue reference="D8r-qh-umU"/>
+        <segue reference="r3H-wT-dSP"/>
+        <segue reference="IR0-Cb-GP4"/>
     </inferredMetricsTieBreakers>
 </document>
