@@ -16,7 +16,6 @@
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPPPaperTypeTableViewController.h"
 
-#define PRINTER_SECTION 0
 #define PRINTER_STATUS_INDEX 1
 #define PRINTER_STATUS_ROW_HEIGHT 25.0f
 
@@ -35,7 +34,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerSelectCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *printerStatusCell;
 
 
 @end
@@ -70,11 +68,11 @@
     [self.tableView beginUpdates];
     if (self.printSettings.printerIsAvailable){
         [self.printerSelectCell.imageView setImage:nil];
-        self.printerStatusCell.hidden = YES;
+        self.printerStatusLabel.hidden = YES;
     } else {
         UIImage *warningSign = [UIImage imageNamed:@"HPPPDoNoEnter"];
         [self.printerSelectCell.imageView setImage:warningSign];
-        self.printerStatusCell.hidden = NO;
+        self.printerStatusLabel.hidden = NO;
     }
     [self.tableView endUpdates];
 }
@@ -114,19 +112,16 @@
     
     CGFloat rowHeight = 0.0f;
     
-    if (indexPath.section == PRINTER_SECTION) {
-        switch (indexPath.row) {
-            case PRINTER_STATUS_INDEX:
-                rowHeight = PRINTER_STATUS_ROW_HEIGHT;
-                break;
-                
-            default:
-                rowHeight = self.tableView.rowHeight;
-                break;
-        }
-    } else {
-        rowHeight = self.tableView.rowHeight;
+    switch (indexPath.row) {
+        case PRINTER_STATUS_INDEX:
+            rowHeight = PRINTER_STATUS_ROW_HEIGHT;
+            break;
+            
+        default:
+            rowHeight = self.tableView.rowHeight;
+            break;
     }
+
     
     return rowHeight;
 }

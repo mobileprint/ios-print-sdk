@@ -66,7 +66,7 @@
                         <sections>
                             <tableViewSection id="L3r-bE-uDg" userLabel="Printer Table View Section">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="ihC-n4-yja" detailTextLabel="Llf-VV-F43" style="IBUITableViewCellStyleValue1" id="QfG-dp-BYj">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="ihC-n4-yja" detailTextLabel="Llf-VV-F43" style="IBUITableViewCellStyleValue1" id="QfG-dp-BYj">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QfG-dp-BYj" id="Jv9-Uy-dqJ">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -103,10 +103,6 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle=" " id="3AA-Zi-QTa" userLabel="Paper Table View Section">
-                                <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="M7R-zC-SFt" detailTextLabel="za8-Ty-kEs" style="IBUITableViewCellStyleValue1" id="nxN-Xa-1fd">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nxN-Xa-1fd" id="YCs-Ct-DC4">
@@ -168,7 +164,6 @@
                         <outlet property="paperTypeLabel" destination="aRy-sC-aCR" id="3L1-tS-7fC"/>
                         <outlet property="printerLabel" destination="ihC-n4-yja" id="26v-6W-bRz"/>
                         <outlet property="printerSelectCell" destination="QfG-dp-BYj" id="VDe-Xk-7Bn"/>
-                        <outlet property="printerStatusCell" destination="6M8-o3-mrT" id="O9p-Od-lpR"/>
                         <outlet property="printerStatusLabel" destination="8P5-dx-V33" id="dfm-vp-2cJ"/>
                         <outlet property="selectedPaperSizeLabel" destination="za8-Ty-kEs" id="mC1-oM-FPb"/>
                         <outlet property="selectedPaperTypeLabel" destination="1M3-oI-FLl" id="15V-He-9TU"/>
@@ -258,7 +253,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="ASI-jC-kWU" detailTextLabel="5VP-8d-bD2" style="IBUITableViewCellStyleValue1" id="g3s-vx-1VA" userLabel="Select Printer">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="ASI-jC-kWU" detailTextLabel="5VP-8d-bD2" style="IBUITableViewCellStyleValue1" id="g3s-vx-1VA" userLabel="Select Printer">
                                         <rect key="frame" x="0.0" y="446" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g3s-vx-1VA" id="O3q-37-JGs">
@@ -939,7 +934,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="r3H-wT-dSP"/>
-        <segue reference="IR0-Cb-GP4"/>
+        <segue reference="D8r-qh-umU"/>
+        <segue reference="8fs-df-7w1"/>
     </inferredMetricsTieBreakers>
 </document>
