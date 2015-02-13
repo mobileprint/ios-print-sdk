@@ -55,7 +55,6 @@ install_resource()
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowUp@2x.png"
                     install_resource "../../Pod/Assets/HPPPPrint@2x~ipad.png"
                     install_resource "../../Pod/Assets/HPPPPrint@2x~iphone.png"
-                    install_resource "../../Pod/Assets/HPPPStopSign@2x.png"
                     install_resource "../../Pod/Classes/Private/HPPPRuleView.xib"
                     install_resource "../../Pod/Classes/Public/HPPPPageView.xib"
                     install_resource "../../Pod/Classes/HPPP.storyboard"
