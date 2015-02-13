@@ -60,7 +60,7 @@ NSString * const kHPPPPrinterId = @"kHPPPPrinterId";
 {
     BOOL retVal = YES;
     
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+    if (IS_OS_8_OR_LATER) {
         retVal = _hideBlackAndWhiteOption;
     }
     
