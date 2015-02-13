@@ -56,4 +56,15 @@ NSString * const kHPPPPrinterId = @"kHPPPPrinterId";
     return self;
 }
 
+- (BOOL)hideBlackAndWhiteOption
+{
+    BOOL retVal = YES;
+    
+    if (IS_OS_8_OR_LATER) {
+        retVal = _hideBlackAndWhiteOption;
+    }
+    
+    return retVal;
+}
+
 @end

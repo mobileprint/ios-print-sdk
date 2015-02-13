@@ -75,6 +75,7 @@ extern NSString * const kHPPPPrinterId;
 /*!
  * @abstract Indicates whether the black and white option should be hidden
  * @discussion If this value is true, the black and white filter option is hidden on the print preview page and the black and white filter is not used. The default values is false (not hidden).
+ *   The black and white filter option is only available for iOS version 8.0 and above.
  */
 @property (assign, nonatomic) BOOL hideBlackAndWhiteOption;
 
