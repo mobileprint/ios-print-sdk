@@ -256,15 +256,17 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     NSNumber *lastSizeUsed = [defaults objectForKey:LAST_SIZE_USED_SETTING];
     NSNumber *lastTypeUsed = [defaults objectForKey:LAST_TYPE_USED_SETTING];
     
-    HPPPPaper *result;
-    
-    if (lastSizeUsed != nil) {
-        result = [[HPPPPaper alloc] initWithPaperSize:(PaperSize)lastSizeUsed.integerValue paperType:(PaperType)lastTypeUsed.integerValue];
-    } else {
-        result = [[HPPPPaper alloc] initWithPaperSize:(PaperSize)self.hppp.initialPaperSize paperType:(PaperType)self.hppp.defaultPaperType];
+    PaperSize paperSize = (PaperSize)self.hppp.initialPaperSize;
+    if (lastSizeUsed) {
+        paperSize = (PaperSize)[lastSizeUsed integerValue];
+    }
+
+    PaperType paperType = SizeLetter == paperSize ? Plain : Photo;
+    if (SizeLetter == paperSize && lastTypeUsed) {
+        paperType = (PaperType)[lastTypeUsed integerValue];
     }
     
-    return result;
+    return [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:paperType];
 }
 
 // Hide or show UI that will always be hidden or shown based on the iOS version
@@ -376,9 +378,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 - (IBAction)cancelButtonTapped:(id)sender
 {
-    [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionary];
-    
-    if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidCancelPrintFlow:)]) {
+   if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidCancelPrintFlow:)]) {
         [self.delegate pageSettingsTableViewControllerDidCancelPrintFlow:self];
     }
 }
@@ -463,15 +463,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
         NSLog(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
     }
     
-    if (completed) {
-        NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
-        [lastOptionsUsed setValue:self.paperTypeSelectedLabel.text forKey:kHPPPPaperTypeId];
-        [lastOptionsUsed setValue:self.paperSizeSelectedLabel.text forKey:kHPPPPaperSizeId];
-        [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on] forKey:kHPPPBlackAndWhiteFilterId];
-        [lastOptionsUsed setValue:self.currentPrintSettings.printerName forKey:kHPPPPrinterId];
-        
-        [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
-        
+    if (completed) {       
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
             [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
         }
@@ -735,7 +727,6 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.currentPrintSettings.printerUrl = printSettings.printerUrl;
     self.currentPrintSettings.printerIsAvailable = printSettings.printerIsAvailable;
     
-    
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:printSettings.printerUrl.absoluteString forKey:LAST_PRINTER_USED_URL_SETTING];
     [defaults setObject:printSettings.printerName forKey:LAST_PRINTER_USED_SETTING];
@@ -750,11 +741,17 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 - (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
+    if (self.currentPrintSettings.paper.paperSize != SizeLetter && paper.paperSize == SizeLetter){
+        paper.paperType = Plain;
+        paper.typeTitle = [HPPPPaper titleFromType:Plain];
+    } else if (self.currentPrintSettings.paper.paperSize == SizeLetter && paper.paperSize != SizeLetter){
+        paper.paperType = Photo;
+        paper.typeTitle = [HPPPPaper titleFromType:Photo];
+    }
     self.currentPrintSettings.paper = paper;
+
     [self updatePageSettingsUI];
     [self updatePrintSettingsUI];
-    
-    [self.tableView reloadData];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithInteger:self.currentPrintSettings.paper.paperSize] forKey:LAST_SIZE_USED_SETTING];
