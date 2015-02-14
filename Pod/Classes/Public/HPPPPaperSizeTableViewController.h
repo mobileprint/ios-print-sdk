@@ -14,18 +14,18 @@
 #import <UIKit/UIKit.h>
 #import "HPPPPaper.h"
 
-@protocol MCPaperTypeTableViewControllerDelegate;
+@protocol HPPPPaperSizeTableViewControllerDelegate;
 
-@interface HPPPPaperTypeTableViewController : UITableViewController
+@interface HPPPPaperSizeTableViewController : UITableViewController
 
-@property (nonatomic, weak) id<MCPaperTypeTableViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<HPPPPaperSizeTableViewControllerDelegate> delegate;
 @property (nonatomic, strong) HPPPPaper *currentPaper;
 
 @end
 
 
-@protocol MCPaperTypeTableViewControllerDelegate <NSObject>
+@protocol HPPPPaperSizeTableViewControllerDelegate <NSObject>
 
-- (void)paperTypeTableViewController:(HPPPPaperTypeTableViewController *)paperTypeTableViewController didSelectPaper:(HPPPPaper *)paper;
+- (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper;
 
 @end

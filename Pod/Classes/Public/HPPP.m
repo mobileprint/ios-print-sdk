@@ -45,7 +45,7 @@ NSString * const kHPPPPrinterId = @"kHPPPPrinterId";
         self.defaultPaperWidth = 5.0f;
         self.defaultPaperHeight = 7.0f;
         self.zoomAndCrop = NO;
-        self.defaultPaperType = Plain;
+        self.defaultPaperType = Photo;
         self.paperSizes = @[
                             [HPPPPaper titleFromSize:Size4x6],
                             [HPPPPaper titleFromSize:Size5x7],

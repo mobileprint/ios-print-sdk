@@ -11,21 +11,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "HPPPPaper.h"
 
-@protocol MCPaperSizeTableViewControllerDelegate;
+@interface HPPPPrintSettings : NSObject
 
-@interface HPPPPaperSizeTableViewController : UITableViewController
-
-@property (nonatomic, weak) id<MCPaperSizeTableViewControllerDelegate> delegate;
-@property (nonatomic, strong) HPPPPaper *currentPaper;
-
-@end
-
-
-@protocol MCPaperSizeTableViewControllerDelegate <NSObject>
-
-- (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaperSizeWithTitle:(NSString *)sizeTitle;
+@property (strong, nonatomic) NSString *printerName;
+@property (strong, nonatomic) NSURL *printerUrl;
+@property (assign, nonatomic) BOOL printerIsAvailable;
+@property (strong, nonatomic) HPPPPaper *paper;
 
 @end

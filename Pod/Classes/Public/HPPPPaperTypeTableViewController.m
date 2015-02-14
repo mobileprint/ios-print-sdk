@@ -18,6 +18,7 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
 
 @interface HPPPPaperTypeTableViewController ()
 
+@property (strong, nonatomic) HPPP *hppp;
 @property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *paperTypeCells;
 
 @end
@@ -30,15 +31,20 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
     
     //self.trackableScreenName = @"Paper Type Screen";
     
+    self.hppp = [HPPP sharedInstance];
+    
+    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     for (UITableViewCell *cell in self.paperTypeCells) {
+        cell.textLabel.font = self.hppp.tableViewCellLabelFont;
+        
         if ([cell.textLabel.text isEqualToString:self.currentPaper.typeTitle]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            break;
         }
     }
 }
+
 
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -51,12 +57,11 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    
     for (UITableViewCell *cell in self.paperTypeCells) {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
+    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
     
     

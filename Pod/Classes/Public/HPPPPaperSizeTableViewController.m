@@ -71,13 +71,12 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    
     for (NSInteger i = 0; i < self.hppp.paperSizes.count; i++) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
+    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
     
     NSString *typeTitle = (SizeLetter == [HPPPPaper sizeFromTitle:selectedCell.textLabel.text] ? self.currentPaper.typeTitle : @"Photo Paper");
@@ -85,8 +84,8 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     
     [self.navigationController popViewControllerAnimated:YES];
     
-    if ([self.delegate respondsToSelector:@selector(paperSizeTableViewController:didSelectPaperSizeWithTitle:)]) {
-        [self.delegate paperSizeTableViewController:self didSelectPaperSizeWithTitle:paper.sizeTitle];
+    if ([self.delegate respondsToSelector:@selector(paperSizeTableViewController:didSelectPaper:)]) {
+        [self.delegate paperSizeTableViewController:self didSelectPaper:paper];
     }
 }
 
