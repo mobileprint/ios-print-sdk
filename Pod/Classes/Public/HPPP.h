@@ -73,6 +73,27 @@ extern NSString * const kHPPPBlackAndWhiteFilterId;
 extern NSString * const kHPPPPrinterId;
 
 /*!
+ * @abstract Used to retrieve display name of the printer used for the last job
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. Only available in iOS 8 after the printer has been contacted successfully.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPPrinterDisplayName;
+
+/*!
+ * @abstract Used to retrieve display location of the printer used for the last job
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. Only available in iOS 8 after the printer has been contacted successfully.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPPrinterDisplayLocation;
+
+/*!
+ * @abstract Used to retrieve ID of the printer used for the last job
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. Only available in iOS 8 after the printer has been contacted successfully.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPPrinterMakeAndModel;
+
+/*!
  * @abstract Indicates whether the black and white option should be hidden
  * @discussion If this value is true, the black and white filter option is hidden on the print preview page and the black and white filter is not used. The default values is false (not hidden).
  *   The black and white filter option is only available for iOS version 8.0 and above.
@@ -166,6 +187,9 @@ extern NSString * const kHPPPPrinterId;
  * @seealso kHPPPPaperSizeId
  * @seealso kHPPPPaperTypeId
  * @seealso kHPPPPrinterId
+ * @seealso kHPPPPrinterDisplayName
+ * @seealso kHPPPPrinterDisplayLocation
+ * @seealso kHPPPPrinterMakeAndModel
  */
 @property (strong, nonatomic) NSDictionary *lastOptionsUsed;
 
