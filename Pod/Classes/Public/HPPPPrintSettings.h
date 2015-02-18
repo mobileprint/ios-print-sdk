@@ -15,8 +15,10 @@
 
 @interface HPPPPrintSettings : NSObject
 
-@property (strong, nonatomic) NSString *printerName;
 @property (strong, nonatomic) NSURL *printerUrl;
+@property (strong, nonatomic) NSString *printerName;
+@property (strong, nonatomic) NSString *printerLocation;
+@property (strong, nonatomic) NSString *printerModel;
 @property (assign, nonatomic) BOOL printerIsAvailable;
 @property (strong, nonatomic) HPPPPaper *paper;
 
