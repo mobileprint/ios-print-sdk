@@ -10,7 +10,247 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
-		<key>00E5E0F68EBF26F4BB6BB057</key>
+		<key>04519ACB80BFD5BA40C60644</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-Tests-HPPhotoPrint-Private.xcconfig</string>
+			<key>path</key>
+			<string>../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-Private.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>047EFEE6D6FC88D5C50E0421</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>04519ACB80BFD5BA40C60644</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>DSTROOT</key>
+				<string>/tmp/xcodeproj.dst</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-prefix.pch</string>
+				<key>INSTALL_PATH</key>
+				<string>$(BUILT_PRODUCTS_DIR)</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.1</string>
+				<key>OTHER_CFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_CPLUSPLUSFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>048DB921C2D960D54A00343B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>HPPPPrintSettingsTableViewController.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPrintSettingsTableViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>04D9858B52F0F903E391E928</key>
+		<dict>
+			<key>fileRef</key>
+			<string>585A3F1444CA314BEDACDCD6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>06E583EAAEFB1AC6FF10CBA4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4602F3E73BD0F3EC43413471</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0737369082CBCEA3AA428A4C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>60BC8432B3839B1282D80E6C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0CF972F6A65AF7A6DF43FFD8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-Tests-resources.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0D506E29CAB68D96005B49F2</key>
+		<dict>
+			<key>fileRef</key>
+			<string>CDC4745E07D18203ABDFBD1D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0D52DF27F513297D11FF0E23</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>HPPPPageView.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPageView.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0DA032FCFDD862B200568445</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastUpgradeCheck</key>
+				<string>0510</string>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>1029423540696D1617044215</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>85A7D543DF60B9EED8FF8F93</string>
+			<key>productRefGroup</key>
+			<string>93E7F8A1FD9EE2C0585E12D5</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>2F8F6850540D6E8A0E2A88B8</string>
+				<string>CB10D0206D2AA82CC9DB9C5B</string>
+				<string>23F2E27D2587AF7D3BF4944C</string>
+				<string>D4FC0A32C4BF5AA576835115</string>
+			</array>
+		</dict>
+		<key>0E99473EE66DBEEA22F1E317</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2B51324E5A8E4DA30F09BB8A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0F4D9767B2D38B2DC8FEFBF6</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>Pods-HPPhotoPrint-HPPhotoPrint</string>
+			<key>target</key>
+			<string>CB10D0206D2AA82CC9DB9C5B</string>
+			<key>targetProxy</key>
+			<string>6B15BF2B3AAA32970E43271C</string>
+		</dict>
+		<key>0F86D1F3A302DF177283B0F1</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>F1F6C53749DD094093819A96</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>0FC8BC4F0702939D2D6122A7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>048DB921C2D960D54A00343B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1029423540696D1617044215</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>6478EB80AFBC5407CF4D21B3</string>
+				<string>C37989FB46AA512B73A24607</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>1224600C36C4E4D20A7876F7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-HPPhotoPrint-HPPhotoPrint.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>12BE7D0B9B325A509A1524D8</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -19,41 +259,177 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>HPPPPaper.m</string>
+			<string>HPPPDashedLineView.m</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPaper.m</string>
+			<string>Pod/Classes/Private/HPPPDashedLineView.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>037F1BA004A2BD394502B34B</key>
+		<key>141F0095E9B825318D5C1B6D</key>
 		<dict>
-			<key>buildConfigurationList</key>
-			<string>3F045B00092F87FF2A69B235</string>
-			<key>buildPhases</key>
-			<array>
-				<string>D35C1C82D2F2F0ADDADEAB92</string>
-				<string>1A516CC84B9C4654DA06595E</string>
-				<string>4E4057CD31334B261A0E4808</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-Tests-HPPhotoPrint</string>
-			<key>productName</key>
-			<string>Pods-Tests-HPPhotoPrint</string>
-			<key>productReference</key>
-			<string>C2332418EEB7CF7A6C06DC1B</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>Pods-Tests-acknowledgements.markdown</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>046659F1E4AAD814B39ADE60</key>
+		<key>14A9D8660EAA78C49929BF64</key>
+		<dict>
+			<key>fileRef</key>
+			<string>FCD6DE69C37C36F688E5E45E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>14FDF359D0A49CE5F243AED8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>XBAnimation.h</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/XBAnimation.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>150B2771EEDA000FDB20A53C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>687F08A60E2DC6830235C30B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1537556288A56B5E42AB04F5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>CGPointAdditions.h</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/CGPointAdditions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>15885AA31AF3C7DF637CE6F5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>HPPPPageViewController.m</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPageViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>15FDEE30E2F677B4B7E53725</key>
+		<dict>
+			<key>fileRef</key>
+			<string>37F4D49B50672A6F13B0D94F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>17BF05FE369EC31C73ECDB15</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C5CBE79572B02E4EA084A403</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>17EC19FD089E25573882128E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E0C66C377716C962834DCB2D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>18AA22C7F6CA44388C520538</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4C77C0CFEB14C19F76DFAFF5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1A62064FCF0F7087CFC7B7B1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>HPPPPrint@2x~iphone.png</string>
+			<key>path</key>
+			<string>Pod/Assets/HPPPPrint@2x~iphone.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1AE2735A3D4BE003F42E141C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>75D2441D005D13182B942BE7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1D045AAA27A52267C1B61E78</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>BackFragmentShader.glsl</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/Resources/BackFragmentShader.glsl</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1D7E86D67F31E43F2E069E10</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>XBAnimationManager.h</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/XBAnimationManager.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>20095AF8A2A9A83B3C7F0097</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-HPPhotoPrint.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2046DC401118E2C9A7FBD0EC</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>7339DD4CF88DCB03D050F323</string>
+			<string>20095AF8A2A9A83B3C7F0097</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
@@ -97,106 +473,27 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>05947E29BDDA3C1D53F0106F</key>
+		<key>2068C3EE4FAB423AB4AD6CD0</key>
 		<dict>
 			<key>fileRef</key>
-			<string>4C077CB1BF831537192B6417</string>
+			<string>9B24C7D1E5960E88DFA84F86</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>074CCF8DF2F455BE1EB613E1</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>23C447474C014B22A84B29A0</string>
-				<string>125CE57CF1220BD06E3E9C60</string>
-				<string>0DEB5ED29B5F766F3B1799D6</string>
-				<string>2FB73A21ADD9C50A6F02D22D</string>
-				<string>91DD1BDF30A67744558B0EA1</string>
-				<string>AB2B2C93509B43BEAE8C1851</string>
-				<string>6603D5254D51CBC14B80B975</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods-HPPhotoPrint</string>
-			<key>path</key>
-			<string>Target Support Files/Pods-HPPhotoPrint</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>08211F7C59261C5A0D2112ED</key>
-		<dict>
-			<key>fileRef</key>
-			<string>FD0FCC4AD78D71635001BB08</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>0CB1D4A7B1A203C29B3E2731</key>
+		<key>21E42BCC63FE3D14B3F5A579</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>Pods-Tests-HPPhotoPrint-prefix.pch</string>
+			<string>FrontVertexShader.glsl</string>
 			<key>path</key>
-			<string>../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-prefix.pch</string>
+			<string>Pod/Libraries/XBPageCurl/Resources/FrontVertexShader.glsl</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>0DEB5ED29B5F766F3B1799D6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-HPPhotoPrint-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>0E73361A2F1FB5A1D078FF17</key>
-		<dict>
-			<key>fileRef</key>
-			<string>EF00F218B1AC4FD5D345B589</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>10036223A50511D73582C562</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>92EFB807D589C0450F18F93A</string>
-				<string>2C3325FB8B9780BD033F06A9</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>121079CE72F27A5FA7CA9B18</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>XBPageCurlView.m</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBPageCurlView.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>125CE57CF1220BD06E3E9C60</key>
+		<key>21FFBF5DB2CD05E870843084</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -205,149 +502,94 @@
 			<key>lastKnownFileType</key>
 			<string>text.plist.xml</string>
 			<key>path</key>
-			<string>Pods-HPPhotoPrint-acknowledgements.plist</string>
+			<string>Pods-Tests-acknowledgements.plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>12BC8ED466AA868C6D9A24A1</key>
+		<key>2279C3D4E850978BAF9ED8E3</key>
 		<dict>
-			<key>baseConfigurationReference</key>
-			<string>54E1960F3BE7B6D625DF028D</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-HPPhotoPrint-HPPhotoPrint/Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
+			<key>fileRef</key>
+			<string>7527E09293035D21B9109D5E</string>
 			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
+			<string>PBXBuildFile</string>
 		</dict>
-		<key>14E00FE34258F775823D8936</key>
+		<key>2389422F4023E88BECD2C9EE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5A1404150925DF9A47511536</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>238E5F5AEB721159E45EBD9A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A412290016C93B5C348FA815</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>23EA9141A2052FB244A47858</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6571DE0AD251F7D973D6C3D6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>23F2E27D2587AF7D3BF4944C</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>667A10214C88A70D9923C6CA</string>
+			<key>buildPhases</key>
+			<array>
+				<string>A70F7FCC790D31B05EF786C0</string>
+				<string>0F86D1F3A302DF177283B0F1</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>C44DF4738BB380BFAF33E78A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-Tests</string>
+			<key>productName</key>
+			<string>Pods-Tests</string>
+			<key>productReference</key>
+			<string>29130CC64C60AAF90B42BE4D</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>242F86B0D7F14D7CFB1B4C00</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B037BE4157310264AB037483</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2703424607E1987A6381FEA4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1537556288A56B5E42AB04F5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>27B473625F4DCA5731C914F3</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>NextPageNoTextureFragmentShader.glsl</string>
+			<string>HPPPPaper.m</string>
 			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/Resources/NextPageNoTextureFragmentShader.glsl</string>
+			<string>Pod/Classes/Public/HPPPPaper.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>1634D96502563FA08239F52F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>AE99B3B0EEB296D5A83863DA</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>167FFE44C58DF7B11279DFCD</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F02D6A4E7D8B297637A8FF67</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>169338DFD3E5A80E2DCCBA24</key>
-		<dict>
-			<key>fileRef</key>
-			<string>DEB017563093786EDB05C235</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>17212247B4E977BCED0B6356</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D37FE68106E2E0EBD79F292E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>188E8AC19C0AFAFC46220116</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>664C52C928E4D723869C7AC9</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>1A4720FB33B7A35CAACD3533</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>HPPP.storyboard</string>
-			<key>path</key>
-			<string>Pod/Classes/HPPP.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1A516CC84B9C4654DA06595E</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>05947E29BDDA3C1D53F0106F</string>
-				<string>83B608140A5490DDD096E58D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>1B73E2E691F618F9CF5FE779</key>
-		<dict>
-			<key>fileRef</key>
-			<string>51D8772932932628DB8653C5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1D56FC138B6FC02FB50FCEAF</key>
+		<key>29130CC64C60AAF90B42BE4D</key>
 		<dict>
 			<key>explicitFileType</key>
 			<string>archive.ar</string>
@@ -356,285 +598,167 @@
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>path</key>
-			<string>libPods-HPPhotoPrint.a</string>
+			<string>libPods-Tests.a</string>
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>1E11711D40966B159EA31A35</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5F4F73FF7C7BB9632DEE6ED1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1E51106461BAFFC7323F4D71</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>UIImage+HPPPResize.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Private/UIImage+HPPPResize.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2041D69876E11736C107C590</key>
-		<dict>
-			<key>fileRef</key>
-			<string>28FBF59F5B8740D50B0068F4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>21E57979A581EBECCDCEB1E8</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CA21EF384BBA0345847D54FC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>23ABF16C58060023B2B85FF0</key>
-		<dict>
-			<key>fileRef</key>
-			<string>44C7EBD43D1DD2974A551E4E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>23C447474C014B22A84B29A0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-HPPhotoPrint-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>23E4D1B26D7334DA6878ACD4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>286E0172D0F8BB9BD8AEA0D4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>24CB75F122386D9D1B78D37A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>HPPPMeasurementArrowDown@2x.png</string>
-			<key>path</key>
-			<string>Pod/Assets/HPPPMeasurementArrowDown@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>25F0EFACCC9FFFDF64E8095A</key>
+		<key>2A17714B73E4E115417D63FD</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>771BE60FD3EAA3742BFE24EC</string>
-				<string>54E1960F3BE7B6D625DF028D</string>
-				<string>DEC73160A66E1C2D70EAFA6A</string>
-				<string>EDE522186246FFEAB86AAF45</string>
-				<string>EC9099D2610FEA9FC20A7F18</string>
-				<string>E3088E43399F3CA94AEDEDE3</string>
-				<string>2A9668CE3117756493DC8FD2</string>
-				<string>0CB1D4A7B1A203C29B3E2731</string>
+				<string>E0354CC20AB9EF72E2093261</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>Example/Pods/Target Support Files/Pods-HPPhotoPrint-HPPhotoPrint</string>
+			<string>Development Pods</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>269DB6CE1774CBF2BEFAA12E</key>
+		<key>2AFC464BAA17DB7E43AA1F83</key>
 		<dict>
-			<key>fileRef</key>
-			<string>B3009D8C01E04B8F4A971F6A</string>
+			<key>children</key>
+			<array>
+				<string>141F0095E9B825318D5C1B6D</string>
+				<string>21FFBF5DB2CD05E870843084</string>
+				<string>9A65B451F0D45930FB7A736C</string>
+				<string>7B6F87536335DB50E1E386D5</string>
+				<string>0CF972F6A65AF7A6DF43FFD8</string>
+				<string>554AB5002B0DAEC5892CD0ED</string>
+				<string>76C260D9185AAA619BD2706B</string>
+			</array>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods-Tests</string>
+			<key>path</key>
+			<string>Target Support Files/Pods-Tests</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>274017B35797FFB260ACF5DE</key>
+		<key>2B51324E5A8E4DA30F09BB8A</key>
 		<dict>
-			<key>fileRef</key>
-			<string>A3CFA13699F456923E9281E8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>286E0172D0F8BB9BD8AEA0D4</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
+			<string>wrapper.framework</string>
 			<key>name</key>
-			<string>HPPPPaperSizeTableViewController.m</string>
+			<string>Foundation.framework</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPaperSizeTableViewController.m</string>
+			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework</string>
 			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>DEVELOPER_DIR</string>
 		</dict>
-		<key>28E57A95EBC6BD2F0B34139C</key>
+		<key>2C28C5261D75C9F1366A254A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>4D15507D095AF9DFDF272CF4</string>
+			<string>15885AA31AF3C7DF637CE6F5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>28EBD86F3C5B57AE38F8A978</key>
-		<dict>
-			<key>fileRef</key>
-			<string>EF00F218B1AC4FD5D345B589</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>28FBF59F5B8740D50B0068F4</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>XBAnimationManager.m</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBAnimationManager.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>298813873DAF6DDA3FCA4D1D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>121079CE72F27A5FA7CA9B18</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>2A9668CE3117756493DC8FD2</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>Pods-Tests-HPPhotoPrint-dummy.m</string>
-			<key>path</key>
-			<string>../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2AB02CFC499AC86DED48052E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>53DDF2E77107EB30F3AB65AF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>2ADECFADD3DE65FD5EDB14A3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FCE99895086E6AB237A5B5F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>2B55C02587A450177D9A6F5E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>DAF378F227F15F3A944A6C66</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>2B97ABFE17DB4C5B2FA7EE5D</key>
+		<key>2EF2545809850B495F9B212F</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>name</key>
-			<string>BackPageGradient.png</string>
+			<string>NextPageNoTextureVertexShader.glsl</string>
 			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/Resources/BackPageGradient.png</string>
+			<string>Pod/Libraries/XBPageCurl/Resources/NextPageNoTextureVertexShader.glsl</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>2C3325FB8B9780BD033F06A9</key>
+		<key>2F0F712C94E315683E413D01</key>
 		<dict>
-			<key>baseConfigurationReference</key>
-			<string>6603D5254D51CBC14B80B975</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
+			<key>fileRef</key>
+			<string>2B51324E5A8E4DA30F09BB8A</string>
 			<key>isa</key>
-			<string>XCBuildConfiguration</string>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2F8F6850540D6E8A0E2A88B8</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>E42C526CB6E532899396BC3E</string>
+			<key>buildPhases</key>
+			<array>
+				<string>6A24CA42E957A5E3A572E94D</string>
+				<string>3F9104FB2D690E1BEF4A2107</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>0F4D9767B2D38B2DC8FEFBF6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
 			<key>name</key>
+			<string>Pods-HPPhotoPrint</string>
+			<key>productName</key>
+			<string>Pods-HPPhotoPrint</string>
+			<key>productReference</key>
+			<string>8B2B4476E7E174E1E91882C3</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>30A59DC3B36378D7936D410C</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>D740FBF28371B330D8CC03E5</string>
+				<string>047EFEE6D6FC88D5C50E0421</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
 			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
 		</dict>
-		<key>2DB7DDCE574AAEFE695752A8</key>
+		<key>342A57FD6F549A7C64707332</key>
 		<dict>
 			<key>fileRef</key>
-			<string>8FCE99895086E6AB237A5B5F</string>
+			<string>27B473625F4DCA5731C914F3</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>2EE9DE413B49BBE60D7CDD7B</key>
+		<key>358792F0AB67DEAEA512670C</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D8261873B9A9672D4678D9B6</string>
+			<string>0D52DF27F513297D11FF0E23</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>2F0C831EEFB2BCBFF77165B8</key>
+		<key>375A137B97D831CFC12074DE</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>0DA032FCFDD862B200568445</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>D4FC0A32C4BF5AA576835115</string>
+			<key>remoteInfo</key>
+			<string>Pods-Tests-HPPhotoPrint</string>
+		</dict>
+		<key>37F4D49B50672A6F13B0D94F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>HPPPWiFiReachability.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPWiFiReachability.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>37FDE5E8DFB3846F8B0EFDFC</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -649,119 +773,28 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>2F81D51B5CFD394AEE4F33A2</key>
+		<key>38075D52C39E9BBD01DB7AEB</key>
 		<dict>
-			<key>fileRef</key>
-			<string>764F7FEF7C907833C45EC435</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>2FB73A21ADD9C50A6F02D22D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-HPPhotoPrint-environment.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>315BBD81DDF46409D2F03AB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>559A65D4CF5BCDF86058367D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>327E95662291ADB08594AE8A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>61D23A7DBB11AA30D833A8B3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>33BCA7F5135DC3F16562361E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>AC0480EE7FFE7DE802AF62AD</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>3414A81A3D88A66946D49855</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>XBCurlView.h</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBCurlView.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>35AD0FE104ECB62BD58845DD</key>
-		<dict>
-			<key>buildConfigurations</key>
+			<key>children</key>
 			<array>
-				<string>6A99A45AFA1D12AC2E84E854</string>
-				<string>A27624BF0BC094000944D5F5</string>
+				<string>7DFB2BBFA2CE7779A43FE432</string>
+				<string>41BCE1E61DFFE14DCC5F3170</string>
+				<string>B957E0B8FD07559771605971</string>
+				<string>BE853E3A706DE9A165418E50</string>
+				<string>C9E5EC584F517D2C21FD1D91</string>
+				<string>20095AF8A2A9A83B3C7F0097</string>
+				<string>60AAEEADBDC12C236E1968DB</string>
 			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
 			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>38F39070F9B9FE5DC027FF5E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-Tests.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>39532EC1B5168314F3A9AA11</key>
-		<dict>
-			<key>fileRef</key>
-			<string>00E5E0F68EBF26F4BB6BB057</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>39B580A76626FB8D7AA350F7</key>
-		<dict>
-			<key>fileRef</key>
-			<string>518B7062BB0A26383B11F78D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>3BC9D1D9F3FFA72A91157B45</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>PBXGroup</string>
 			<key>name</key>
-			<string>UIView+HPPPAnimation.h</string>
+			<string>Pods-HPPhotoPrint</string>
 			<key>path</key>
-			<string>Pod/Classes/Private/UIView+HPPPAnimation.h</string>
+			<string>Target Support Files/Pods-HPPhotoPrint</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>3BEBE52F1DE49F4A9E65A399</key>
+		<key>3866FF842709808D1E6A675C</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -770,264 +803,137 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>HPPPView.m</string>
+			<string>HPPPPaperSizeTableViewController.m</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPPView.m</string>
+			<string>Pod/Classes/Public/HPPPPaperSizeTableViewController.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>3C8E7226D731FB61C01651FF</key>
+		<key>399B78F873C59355E4961A92</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.xib</string>
 			<key>name</key>
-			<string>HPPPPageView.xib</string>
+			<string>NextPageFragmentShader.glsl</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPageView.xib</string>
+			<string>Pod/Libraries/XBPageCurl/Resources/NextPageFragmentShader.glsl</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>3C9A1CDA619EE99B8F65D973</key>
+		<key>3BBEFF82A9CF3C59D308D539</key>
 		<dict>
 			<key>fileRef</key>
-			<string>B282E2AE394CB2FB7445E3C4</string>
+			<string>8C85E0C2F852F3F74068397F</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>3D89D045C1C0E75360771998</key>
+		<key>3F9104FB2D690E1BEF4A2107</key>
 		<dict>
-			<key>fileRef</key>
-			<string>F6E415AC96C8E323E6DC257E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>3F045B00092F87FF2A69B235</key>
-		<dict>
-			<key>buildConfigurations</key>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
 			<array>
-				<string>810D5FD69D4D7CA60A0CDC56</string>
-				<string>7B8882683556D5A2F34469CD</string>
+				<string>0E99473EE66DBEEA22F1E317</string>
 			</array>
-			<key>defaultConfigurationIsVisible</key>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
 		</dict>
-		<key>40DE41D7A1C8DC629580488E</key>
+		<key>407873A909D74182639C5078</key>
 		<dict>
-			<key>buildConfigurations</key>
+			<key>fileRef</key>
+			<string>5A1C9C1667968F337A4E036E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>417BC5B74750D26C3A4D5CE9</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Reachability.m</string>
+			<key>path</key>
+			<string>Pod/Libraries/Reachability/Reachability.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>41AC12336ACEDEF65411FF92</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1D7E86D67F31E43F2E069E10</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>41BCE1E61DFFE14DCC5F3170</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Pods-HPPhotoPrint-acknowledgements.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>424870921CA2184F361027E7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>HPPPPrintPageRenderer.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPrintPageRenderer.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>42AEE85317688EC159708F0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>417BC5B74750D26C3A4D5CE9</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4315F0CF2F36C95442D600B7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>BackVertexShader.glsl</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/Resources/BackVertexShader.glsl</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>45074D6750CF36D6DA816C79</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
 			<array>
-				<string>046659F1E4AAD814B39ADE60</string>
-				<string>C2749D099D04695C53E62E6B</string>
+				<string>2F0F712C94E315683E413D01</string>
+				<string>BE2D60E2F08440C6B52B485A</string>
 			</array>
-			<key>defaultConfigurationIsVisible</key>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
 		</dict>
-		<key>4168243A77FB265853E6D745</key>
-		<dict>
-			<key>fileRef</key>
-			<string>559A65D4CF5BCDF86058367D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>432973C9894A41158136FB38</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>HPPPDashedLineView.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Private/HPPPDashedLineView.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>432978F8B76F75FE66339512</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.xib</string>
-			<key>name</key>
-			<string>HPPPRuleView.xib</string>
-			<key>path</key>
-			<string>Pod/Classes/Private/HPPPRuleView.xib</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>43519B16B3EBEAF4CBE49AF9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>UIColor+HPPPHexString.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Private/UIColor+HPPPHexString.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4363128C732E8A8573DE684B</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B089853829A160A3946C02B4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>44C7EBD43D1DD2974A551E4E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>HPPPPageSettingsTableViewController.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPageSettingsTableViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>44E25F86EF693824CB0570D3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B95ADA2CD5F87B604A802F29</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>4556F319708486ADAB853847</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>name</key>
-			<string>Podfile</string>
-			<key>path</key>
-			<string>../Podfile</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-			<key>xcLanguageSpecificationIdentifier</key>
-			<string>xcode.lang.ruby</string>
-		</dict>
-		<key>46642B2862843CBD23A1AD7E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>HPPPMeasurementArrowLeft@2x.png</string>
-			<key>path</key>
-			<string>Pod/Assets/HPPPMeasurementArrowLeft@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4837C9C3B7F67B4E51D4B097</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3BC9D1D9F3FFA72A91157B45</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>48C7D5B7AB0894D02C9DD2D1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>HPPPPaperTypeTableViewController.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPaperTypeTableViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>49790592A334853C4C225ADD</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D86BBC4A319ECAB67FB08E42</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>4A645C2C63030967A71626CC</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9C64BC6CC54DCB09CB5EE960</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>4A6C7D8AADCCEFA6FC8D9DBC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>BackFragmentShader.glsl</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/Resources/BackFragmentShader.glsl</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4C077CB1BF831537192B6417</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>4D15507D095AF9DFDF272CF4</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>UIColor+HPPPStyle.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Private/UIColor+HPPPStyle.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4DB030279402CD8FFABACC3A</key>
+		<key>4602F3E73BD0F3EC43413471</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1042,68 +948,14 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>4DDCD14EA533CD386F9C5D23</key>
+		<key>48952EB225B4132E45C67DB2</key>
 		<dict>
 			<key>fileRef</key>
-			<string>4DB030279402CD8FFABACC3A</string>
+			<string>97A9D7590AABB892619F4801</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>4E4057CD31334B261A0E4808</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>E34FB76EE6EA513EDA5B630A</string>
-				<string>98ABF1A79CBEB1727D32FB2F</string>
-				<string>8BFBFDE49490D359D50DFA32</string>
-				<string>23ABF16C58060023B2B85FF0</string>
-				<string>4A645C2C63030967A71626CC</string>
-				<string>A4744D3D96E41FB08EFFBAAC</string>
-				<string>A4CF2D79719887E66F981698</string>
-				<string>522A740B4A4A43A4621D3FC2</string>
-				<string>F7F9788735EB8F84273FD729</string>
-				<string>D6B5C5ED9FDA56C7D0E6B396</string>
-				<string>AA6AD07FCB9CC6B5212EAD75</string>
-				<string>911F3D66B99B782F0A4EB8F4</string>
-				<string>70FF3CEF824326E5DEE4AE10</string>
-				<string>39B580A76626FB8D7AA350F7</string>
-				<string>8879B4A078A7CF9907BF86C4</string>
-				<string>892629907A5962BB48A736EF</string>
-				<string>21E57979A581EBECCDCEB1E8</string>
-				<string>2EE9DE413B49BBE60D7CDD7B</string>
-				<string>519A9D84F2FFE32D57163813</string>
-				<string>28E57A95EBC6BD2F0B34139C</string>
-				<string>1634D96502563FA08239F52F</string>
-				<string>B6ACB4E289DBEEAD2B32F48D</string>
-				<string>ED321A7A4C4F37A667AB0D30</string>
-				<string>2AB02CFC499AC86DED48052E</string>
-				<string>269DB6CE1774CBF2BEFAA12E</string>
-				<string>F5EFBED46F6B3E2DAA71757B</string>
-				<string>F134F0A267C1153391C599ED</string>
-				<string>4168243A77FB265853E6D745</string>
-				<string>DF442C22BB24AE2F6EDBFF11</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>514971856BCC3DF22CF71B0F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>HPPPPrint@2x~iphone.png</string>
-			<key>path</key>
-			<string>Pod/Assets/HPPPPrint@2x~iphone.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>518B7062BB0A26383B11F78D</key>
+		<key>4C77C0CFEB14C19F76DFAFF5</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1112,64 +964,62 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>HPPPRuleView.h</string>
+			<string>XBPageCurlView.h</string>
 			<key>path</key>
-			<string>Pod/Classes/Private/HPPPRuleView.h</string>
+			<string>Pod/Libraries/XBPageCurl/XBPageCurlView.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>519A9D84F2FFE32D57163813</key>
+		<key>4C8403D75617BD29ECBF6EC8</key>
 		<dict>
-			<key>fileRef</key>
-			<string>43519B16B3EBEAF4CBE49AF9</string>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>HPPPMeasurementArrowRight@2x.png</string>
+			<key>path</key>
+			<string>Pod/Assets/HPPPMeasurementArrowRight@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>51C0F9592F976395532225C2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9FFB0F4E22256463C68612BC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>51D8772932932628DB8653C5</key>
+		<key>4E3CE05CBCFE906FE9CB2CA8</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
+			<string>file.xib</string>
 			<key>name</key>
-			<string>HPPP.m</string>
+			<string>HPPPRuleView.xib</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPP.m</string>
+			<string>Pod/Classes/Private/HPPPRuleView.xib</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>522A740B4A4A43A4621D3FC2</key>
+		<key>4FC2F7ADEB5352D9FEB538E7</key>
 		<dict>
 			<key>fileRef</key>
-			<string>E3B05B51ABA3A7736FF28770</string>
+			<string>12BE7D0B9B325A509A1524D8</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>52E91FBA01818B69A113BEEF</key>
+		<key>53D6C5E1005E306E9058352C</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>784966222F955C24D58F84E8</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>UIView+HPPPAnimation.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Private/UIView+HPPPAnimation.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXBuildFile</string>
 		</dict>
-		<key>53DDF2E77107EB30F3AB65AF</key>
+		<key>543A693EEE36B6FBEFAC6DEA</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6769AEDF3E16D3D2EB7CB3C2</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>5498BC1215BD16D220C365BD</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1178,13 +1028,13 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>XBAnimation.h</string>
+			<string>HPPPPrintSettings.h</string>
 			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBAnimation.h</string>
+			<string>Pod/Classes/Public/HPPPPrintSettings.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>54E1960F3BE7B6D625DF028D</key>
+		<key>554AB5002B0DAEC5892CD0ED</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1193,190 +1043,31 @@
 			<key>lastKnownFileType</key>
 			<string>text.xcconfig</string>
 			<key>path</key>
-			<string>Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig</string>
+			<string>Pods-Tests.debug.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>559A65D4CF5BCDF86058367D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>XBPageDragView.h</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBPageDragView.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>56442D07F0ED4A6C9965C3BE</key>
-		<dict>
-			<key>fileRef</key>
-			<string>53DDF2E77107EB30F3AB65AF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>57DA0D1ABA89D0892FEF7B27</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9F8578C4D4CD72D35C112576</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>57F7583CDB6BFF7B3345A3FF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>121079CE72F27A5FA7CA9B18</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>58008D55517779CA264AEDDE</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C405E08B3692A37B69AA6FEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>58D605D001780F0E909C45D9</key>
-		<dict>
-			<key>fileRef</key>
-			<string>A537EED68A87CB79A85A731D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5BBE263193B5ABE453D1F884</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F52F77FC7AD5195B43A022A8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5D7246D801907511381A82D0</key>
-		<dict>
-			<key>fileRef</key>
-			<string>BA5FC777FC5D7DE767C585B2</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5F4F73FF7C7BB9632DEE6ED1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>HPPPSupportAction.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPSupportAction.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5FC282B3A7320E44A08DE535</key>
+		<key>55E58081B17E4B79F892242F</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>name</key>
-			<string>FrontFragmentShader.glsl</string>
+			<string>HPPP.storyboard</string>
 			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/Resources/FrontFragmentShader.glsl</string>
+			<string>Pod/Classes/HPPP.storyboard</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>607B6593DC9B1F895F0C1A47</key>
+		<key>561D6B42214D1D6C08E6CCE2</key>
 		<dict>
-			<key>containerPortal</key>
-			<string>BFCE84F13E1660C298A8BC22</string>
+			<key>fileRef</key>
+			<string>6D57C8DC615AF54B2E321E1B</string>
 			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>8B1005786E2661D37C770423</string>
-			<key>remoteInfo</key>
-			<string>Pods-HPPhotoPrint-HPPhotoPrint</string>
+			<string>PBXBuildFile</string>
 		</dict>
-		<key>60A816D992E678F6AC640518</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D37FE68106E2E0EBD79F292E</string>
-				<string>A537EED68A87CB79A85A731D</string>
-				<string>FD0FCC4AD78D71635001BB08</string>
-				<string>51D8772932932628DB8653C5</string>
-				<string>432973C9894A41158136FB38</string>
-				<string>F02D6A4E7D8B297637A8FF67</string>
-				<string>44C7EBD43D1DD2974A551E4E</string>
-				<string>D86BBC4A319ECAB67FB08E42</string>
-				<string>9C64BC6CC54DCB09CB5EE960</string>
-				<string>A3CFA13699F456923E9281E8</string>
-				<string>6DEAE91A2FDBE447BCEAFB69</string>
-				<string>C142EC6EDB8B80FC18C5A57B</string>
-				<string>AC0480EE7FFE7DE802AF62AD</string>
-				<string>00E5E0F68EBF26F4BB6BB057</string>
-				<string>E3B05B51ABA3A7736FF28770</string>
-				<string>286E0172D0F8BB9BD8AEA0D4</string>
-				<string>48C7D5B7AB0894D02C9DD2D1</string>
-				<string>61D23A7DBB11AA30D833A8B3</string>
-				<string>F6E415AC96C8E323E6DC257E</string>
-				<string>8FCE99895086E6AB237A5B5F</string>
-				<string>F52F77FC7AD5195B43A022A8</string>
-				<string>4DB030279402CD8FFABACC3A</string>
-				<string>DEB017563093786EDB05C235</string>
-				<string>96FF590E27662E84F22C7548</string>
-				<string>9F8578C4D4CD72D35C112576</string>
-				<string>EF00F218B1AC4FD5D345B589</string>
-				<string>518B7062BB0A26383B11F78D</string>
-				<string>DAF378F227F15F3A944A6C66</string>
-				<string>D774677E44A959DA30729E24</string>
-				<string>5F4F73FF7C7BB9632DEE6ED1</string>
-				<string>78F59D850F967FFF43D46749</string>
-				<string>3BEBE52F1DE49F4A9E65A399</string>
-				<string>CA21EF384BBA0345847D54FC</string>
-				<string>2F0C831EEFB2BCBFF77165B8</string>
-				<string>D8261873B9A9672D4678D9B6</string>
-				<string>D7DEB43AB35640B22BE1FAA6</string>
-				<string>43519B16B3EBEAF4CBE49AF9</string>
-				<string>B282E2AE394CB2FB7445E3C4</string>
-				<string>4D15507D095AF9DFDF272CF4</string>
-				<string>764F7FEF7C907833C45EC435</string>
-				<string>AE99B3B0EEB296D5A83863DA</string>
-				<string>1E51106461BAFFC7323F4D71</string>
-				<string>CA1EDE2E8AF65D0491166D82</string>
-				<string>C405E08B3692A37B69AA6FEB</string>
-				<string>3BC9D1D9F3FFA72A91157B45</string>
-				<string>52E91FBA01818B69A113BEEF</string>
-				<string>53DDF2E77107EB30F3AB65AF</string>
-				<string>BA5FC777FC5D7DE767C585B2</string>
-				<string>B3009D8C01E04B8F4A971F6A</string>
-				<string>28FBF59F5B8740D50B0068F4</string>
-				<string>3414A81A3D88A66946D49855</string>
-				<string>9FFB0F4E22256463C68612BC</string>
-				<string>8D38D30039EE04136C29664A</string>
-				<string>121079CE72F27A5FA7CA9B18</string>
-				<string>559A65D4CF5BCDF86058367D</string>
-				<string>E7038A8D7DD4381D7B67BB48</string>
-				<string>B95ADA2CD5F87B604A802F29</string>
-				<string>D5E65CDADFB3719619EBBBEF</string>
-				<string>9128505BE3EE149968ACF4F8</string>
-				<string>25F0EFACCC9FFFDF64E8095A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>HPPhotoPrint</string>
-			<key>path</key>
-			<string>../..</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>61D23A7DBB11AA30D833A8B3</key>
+		<key>5656C4A3D121EB6395FBE9ED</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1391,40 +1082,101 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>61E06FFD3922D8BC8246C3FC</key>
+		<key>57C136C4E4BCB51F40BF72C8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>14FDF359D0A49CE5F243AED8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>585A3F1444CA314BEDACDCD6</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>HPPPMeasurementArrowRight@2x.png</string>
+			<string>HPPPView.h</string>
 			<key>path</key>
-			<string>Pod/Assets/HPPPMeasurementArrowRight@2x.png</string>
+			<string>Pod/Classes/Public/HPPPView.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>63DEE818E0F78D0A7EFF00AA</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-HPPhotoPrint-HPPhotoPrint.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>64EB07881BAA1FDE4A9857A1</key>
+		<key>594EC84C075D05F28D9AF174</key>
 		<dict>
 			<key>fileRef</key>
-			<string>2F0C831EEFB2BCBFF77165B8</string>
+			<string>7C4A466CB3D4BC78D83BDB5B</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>6603D5254D51CBC14B80B975</key>
+		<key>5A1404150925DF9A47511536</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>XBCurlView.h</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/XBCurlView.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5A1C9C1667968F337A4E036E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UIColor+HPPPStyle.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Private/UIColor+HPPPStyle.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5B439553BDF6771C95B005E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4602F3E73BD0F3EC43413471</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>5C53517664E7161E735F3DF1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C8F2FE9537018FC784F51F7E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>5E291CE3787BCF2915E38282</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C62A3F5CC7C3359015ED0301</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>5E59FB2D2748B662735E60D1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>048DB921C2D960D54A00343B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>5FC664C8850AEE199BBDA75E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0D52DF27F513297D11FF0E23</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>60AAEEADBDC12C236E1968DB</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1437,59 +1189,56 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>664C52C928E4D723869C7AC9</key>
+		<key>60BC8432B3839B1282D80E6C</key>
 		<dict>
-			<key>fileRef</key>
-			<string>4C077CB1BF831537192B6417</string>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>66DE3F0A8C2157E79F151CB0</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CA21EF384BBA0345847D54FC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>683947912C14B73A0A22AF21</key>
-		<dict>
-			<key>fileRef</key>
-			<string>51D8772932932628DB8653C5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68F00E9DC4781FFD8E978E1C</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>Pods-HPPhotoPrint-HPPhotoPrint</string>
-			<key>target</key>
-			<string>8B1005786E2661D37C770423</string>
-			<key>targetProxy</key>
-			<string>607B6593DC9B1F895F0C1A47</string>
-		</dict>
-		<key>6A1E8E3B03FD1B448A7836AA</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5F4F73FF7C7BB9632DEE6ED1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>6A2E72CBD1BE65CF14304750</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>60A816D992E678F6AC640518</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Development Pods</string>
+			<string>XBPageCurlView.m</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/XBPageCurlView.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>6A99A45AFA1D12AC2E84E854</key>
+		<key>60CD38088F41ECEAE9FB4D18</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A61148244967F37833F4A979</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>6245FF625036FAFC52705E31</key>
+		<dict>
+			<key>fileRef</key>
+			<string>585A3F1444CA314BEDACDCD6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>6254F0430F49DB8E4619CCAB</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B9859D3017B747E436858F46</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>625A8E9E69532951DFBE14DE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>HPPPMeasurementArrowUp@2x.png</string>
+			<key>path</key>
+			<string>Pod/Assets/HPPPMeasurementArrowUp@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6478EB80AFBC5407CF4D21B3</key>
 		<dict>
 			<key>buildSettings</key>
 			<dict>
@@ -1556,14 +1305,14 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>6B8A2C02C2D047FD0AAD5155</key>
+		<key>649A7A4A4A5FB70DC9FF5969</key>
 		<dict>
 			<key>fileRef</key>
-			<string>E7038A8D7DD4381D7B67BB48</string>
+			<string>7A259511F9BFAE48F357D3D0</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>6DEAE91A2FDBE447BCEAFB69</key>
+		<key>64F1F63FE5907F7179514661</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1572,48 +1321,224 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>HPPPPageViewController.h</string>
+			<string>HPPP.h</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPageViewController.h</string>
+			<string>Pod/Classes/Public/HPPP.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>6E01720AD6A92C86A765839E</key>
+		<key>6571DE0AD251F7D973D6C3D6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>CGPointAdditions.c</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/CGPointAdditions.c</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>667A10214C88A70D9923C6CA</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>BB7EFB39E89B219BE15A1E58</string>
+				<string>89A52F9B6BDE121AE114E448</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>6684F70252476DE31A05D6FA</key>
 		<dict>
 			<key>fileRef</key>
-			<string>61D23A7DBB11AA30D833A8B3</string>
+			<string>A61148244967F37833F4A979</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>6E7284EA57A57EF61913D6FD</key>
+		<key>672C0B63378FB136D58FE4A8</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C142EC6EDB8B80FC18C5A57B</string>
+			<string>9BE0DC5265F87BC920B365FB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>707CC6E4649E53E767371385</key>
+		<key>6769AEDF3E16D3D2EB7CB3C2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>HPPPPrintSettings.m</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPrintSettings.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>687F08A60E2DC6830235C30B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UIView+HPPPAnimation.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Private/UIView+HPPPAnimation.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6954227E054DB36E5F40A3F1</key>
 		<dict>
 			<key>fileRef</key>
-			<string>BAED9E541E2B2B0ED73155FF</string>
+			<string>C8F2FE9537018FC784F51F7E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>70FF3CEF824326E5DEE4AE10</key>
+		<key>6A24CA42E957A5E3A572E94D</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>8B93678E950267368B3AD3F4</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>6A879C0599A7EDED83EE77DF</key>
 		<dict>
 			<key>fileRef</key>
-			<string>9F8578C4D4CD72D35C112576</string>
+			<string>E0C66C377716C962834DCB2D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>730849E79126A1F8C3C6C4DE</key>
+		<key>6B15BF2B3AAA32970E43271C</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>0DA032FCFDD862B200568445</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>CB10D0206D2AA82CC9DB9C5B</string>
+			<key>remoteInfo</key>
+			<string>Pods-HPPhotoPrint-HPPhotoPrint</string>
+		</dict>
+		<key>6CF82849F939F5C079DDF541</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D7DEB43AB35640B22BE1FAA6</string>
+			<string>424870921CA2184F361027E7</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>7339DD4CF88DCB03D050F323</key>
+		<key>6D57C8DC615AF54B2E321E1B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>HPPPSupportAction.m</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPSupportAction.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6EE15680CAACFD874334785A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>85AAB3EF09102C07A7C2BB9F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>6FC848184603C57FC0D60DC8</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2B51324E5A8E4DA30F09BB8A</string>
+				<string>8B8E193C707F76CAE9749B6F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>iOS</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>71D7382207243D28B06F4984</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4C77C0CFEB14C19F76DFAFF5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>73A780C33795C9B51B6BEC46</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>NextPageNoTextureFragmentShader.glsl</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/Resources/NextPageNoTextureFragmentShader.glsl</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7527E09293035D21B9109D5E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UITableView+HPPPHeader.m</string>
+			<key>path</key>
+			<string>Pod/Classes/Private/UITableView+HPPPHeader.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>754DC8A8471DFA8A1D2BE09D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C62A3F5CC7C3359015ED0301</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>75D2441D005D13182B942BE7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>HPPPRuleView.m</string>
+			<key>path</key>
+			<string>Pod/Classes/Private/HPPPRuleView.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>76C260D9185AAA619BD2706B</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1622,24 +1547,84 @@
 			<key>lastKnownFileType</key>
 			<string>text.xcconfig</string>
 			<key>path</key>
-			<string>Pods-Tests.debug.xcconfig</string>
+			<string>Pods-Tests.release.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>74045512A73A3304CCABC6E6</key>
+		<key>784966222F955C24D58F84E8</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>NextPageFragmentShader.glsl</string>
+			<string>UIColor+HPPPHexString.m</string>
 			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/Resources/NextPageFragmentShader.glsl</string>
+			<string>Pod/Classes/Private/UIColor+HPPPHexString.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>764F7FEF7C907833C45EC435</key>
+		<key>791BD10345666440623EAC78</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>HPPP.m</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPP.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>79466C4A443C42C27DC661F2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>HPPPPaperSizeTableViewController.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPaperSizeTableViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7A259511F9BFAE48F357D3D0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>HPPPPrintActivity.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPrintActivity.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7B6F87536335DB50E1E386D5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-Tests-environment.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7C4A466CB3D4BC78D83BDB5B</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1654,20 +1639,20 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>771BE60FD3EAA3742BFE24EC</key>
+		<key>7DFB2BBFA2CE7779A43FE432</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
+			<string>text</string>
 			<key>path</key>
-			<string>Pods-HPPhotoPrint-HPPhotoPrint.xcconfig</string>
+			<string>Pods-HPPhotoPrint-acknowledgements.markdown</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>78F59D850F967FFF43D46749</key>
+		<key>7EA1C8B0C9BA5833723997D2</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1676,23 +1661,145 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>HPPPView.h</string>
+			<string>Pods-Tests-HPPhotoPrint-prefix.pch</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPPView.h</string>
+			<string>../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-prefix.pch</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>7B5CC797F56C40C5D19C8E0D</key>
+		<key>7FA86B6E4E064E6E7BE41A34</key>
 		<dict>
 			<key>fileRef</key>
-			<string>4C077CB1BF831537192B6417</string>
+			<string>27B473625F4DCA5731C914F3</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>7B8882683556D5A2F34469CD</key>
+		<key>7FD5F2B45E865D303865FAF5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>79466C4A443C42C27DC661F2</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>800C1CA40164243464BDB2C4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>Reachability.h</string>
+			<key>path</key>
+			<string>Pod/Libraries/Reachability/Reachability.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>81BE0F94AA0F97A5BA967298</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6FC848184603C57FC0D60DC8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>82100C111D1FF8C744A47BD5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>HPPPMeasurementArrowDown@2x.png</string>
+			<key>path</key>
+			<string>Pod/Assets/HPPPMeasurementArrowDown@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>82D7E95DA2D06B2CFF6E0B7F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UIView+HPPPAnimation.m</string>
+			<key>path</key>
+			<string>Pod/Classes/Private/UIView+HPPPAnimation.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>82EE7CC98A42CAC26FB8E5CB</key>
+		<dict>
+			<key>fileRef</key>
+			<string>784966222F955C24D58F84E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>83172DD752D753B93CBB91A8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9DF1A95363FDC4EA7D564A3A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>83446C6F7851CDDCC4591AA6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>HPPPView.m</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPView.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>85A7D543DF60B9EED8FF8F93</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>C94038CB5D8260B0BBC8DFEA</string>
+				<string>2A17714B73E4E115417D63FD</string>
+				<string>81BE0F94AA0F97A5BA967298</string>
+				<string>93E7F8A1FD9EE2C0585E12D5</string>
+				<string>EF32231C5E9696E508CE1A61</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>85AAB3EF09102C07A7C2BB9F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>HPPPPaper.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPaper.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>89399FA6152CD714E0A30776</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>E3088E43399F3CA94AEDEDE3</string>
+			<string>C429F1D97A3FF70E219A0065</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
@@ -1704,7 +1811,7 @@
 				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
 				<string>YES</string>
 				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-prefix.pch</string>
+				<string>Target Support Files/Pods-HPPhotoPrint-HPPhotoPrint/Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch</string>
 				<key>INSTALL_PATH</key>
 				<string>$(BUILT_PRODUCTS_DIR)</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
@@ -1739,77 +1846,34 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>7BA96A6498E399958C158FD7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>NextPageVertexShader.glsl</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/Resources/NextPageVertexShader.glsl</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7DF8AC29B91D51F11E0343B5</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B3009D8C01E04B8F4A971F6A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>7ED65691C34F53F45FE96EF0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-Tests-resources.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>81032D34C74EFA3445D2DCB0</key>
-		<dict>
-			<key>fileRef</key>
-			<string>96FF590E27662E84F22C7548</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>810D5FD69D4D7CA60A0CDC56</key>
+		<key>89A52F9B6BDE121AE114E448</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>E3088E43399F3CA94AEDEDE3</string>
+			<string>76C260D9185AAA619BD2706B</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
 				<string>NO</string>
 				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
+				<string>YES</string>
 				<key>DSTROOT</key>
 				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
 				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
 				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
 				<key>INSTALL_PATH</key>
 				<string>$(BUILT_PRODUCTS_DIR)</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
 				<string>7.1</string>
+				<key>OTHER_CFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_CPLUSPLUSFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
 				<key>OTHER_LDFLAGS</key>
 				<string></string>
 				<key>OTHER_LIBTOOLFLAGS</key>
@@ -1822,134 +1886,22 @@
 				<string>iphoneos</string>
 				<key>SKIP_INSTALL</key>
 				<string>YES</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
 			</dict>
 			<key>isa</key>
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
-			<string>Debug</string>
+			<string>Release</string>
 		</dict>
-		<key>81942ED6163DB24AC3AA7A68</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>074CCF8DF2F455BE1EB613E1</string>
-				<string>F3171FA731C4BF726EA2FB67</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Targets Support Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8244A68D49E008A859ABCA7E</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>BFCE84F13E1660C298A8BC22</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>037F1BA004A2BD394502B34B</string>
-			<key>remoteInfo</key>
-			<string>Pods-Tests-HPPhotoPrint</string>
-		</dict>
-		<key>83B608140A5490DDD096E58D</key>
+		<key>89B91417852F65A3439CAD6C</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D67BBB8A224DCD77081EDBF9</string>
+			<string>3866FF842709808D1E6A675C</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>845EC501464EAFDF7BFBE0AB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3BEBE52F1DE49F4A9E65A399</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>86D09990D7FE7C6D7BFFA726</key>
-		<dict>
-			<key>fileRef</key>
-			<string>AE99B3B0EEB296D5A83863DA</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>87F84B98269E601436CEA6E2</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>DC2A8BF0F337BFFF7629B77E</string>
-				<string>8EE4C9BC8F4F7A8E47A407A4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>8879B4A078A7CF9907BF86C4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D774677E44A959DA30729E24</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>892629907A5962BB48A736EF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>78F59D850F967FFF43D46749</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8A31094AE614E9391233F370</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>HPPPPrint@2x~ipad.png</string>
-			<key>path</key>
-			<string>Pod/Assets/HPPPPrint@2x~ipad.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8B1005786E2661D37C770423</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>92ACABFF640FD3DA01BD4ECC</string>
-			<key>buildPhases</key>
-			<array>
-				<string>B052463714FB65ECC981A87F</string>
-				<string>87F84B98269E601436CEA6E2</string>
-				<string>BE42F773CD6C13B3C4577B47</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-HPPhotoPrint-HPPhotoPrint</string>
-			<key>productName</key>
-			<string>Pods-HPPhotoPrint-HPPhotoPrint</string>
-			<key>productReference</key>
-			<string>63DEE818E0F78D0A7EFF00AA</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>8BFBFDE49490D359D50DFA32</key>
-		<dict>
-			<key>fileRef</key>
-			<string>432973C9894A41158136FB38</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8D38D30039EE04136C29664A</key>
+		<key>8A321EE54DA4177B421A998D</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1958,27 +1910,378 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>XBPageCurlView.h</string>
+			<string>HPPPPageSettingsTableViewController.h</string>
 			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBPageCurlView.h</string>
+			<string>Pod/Classes/Public/HPPPPageSettingsTableViewController.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>8DD6C1F6898949762A974197</key>
+		<key>8B1334833D961F5774CB02CC</key>
 		<dict>
 			<key>fileRef</key>
-			<string>764F7FEF7C907833C45EC435</string>
+			<string>3866FF842709808D1E6A675C</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>8EE4C9BC8F4F7A8E47A407A4</key>
+		<key>8B2B4476E7E174E1E91882C3</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-HPPhotoPrint.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>8B42503DB1527F0E28FE4214</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>BackPageGradient.png</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/Resources/BackPageGradient.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8B8E193C707F76CAE9749B6F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>UIKit.framework</string>
+			<key>path</key>
+			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>8B93678E950267368B3AD3F4</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D67BBB8A224DCD77081EDBF9</string>
+			<string>B957E0B8FD07559771605971</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>8FCE99895086E6AB237A5B5F</key>
+		<key>8C6B3C4AB71BF6FFE64CADF4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7527E09293035D21B9109D5E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>8C85E0C2F852F3F74068397F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>HPPPPageViewController.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPageViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8D99FCD0F58CF6AFEA838776</key>
+		<dict>
+			<key>fileRef</key>
+			<string>60BC8432B3839B1282D80E6C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>90FA14C2AD95F201BFB80813</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1537556288A56B5E42AB04F5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>931EB10C91BDC2F5270CE370</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-HPPhotoPrint-HPPhotoPrint-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>93E7F8A1FD9EE2C0585E12D5</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>8B2B4476E7E174E1E91882C3</string>
+				<string>CA925087EA2515C6849605F9</string>
+				<string>29130CC64C60AAF90B42BE4D</string>
+				<string>CD02FEE948C551B224EC5080</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9585FC443DBB6D0FD9133F21</key>
+		<dict>
+			<key>fileRef</key>
+			<string>15885AA31AF3C7DF637CE6F5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>95E5922D40955FB1117D61A0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UIImage+HPPPResize.m</string>
+			<key>path</key>
+			<string>Pod/Classes/Private/UIImage+HPPPResize.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>97A9D7590AABB892619F4801</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>XBAnimation.m</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/XBAnimation.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>995A06D418AA3AA4C1C87E2D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9B24C7D1E5960E88DFA84F86</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>9A65B451F0D45930FB7A736C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-Tests-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9B24C7D1E5960E88DFA84F86</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>HPPPPageView.m</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPageView.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9BE0DC5265F87BC920B365FB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>HPPPPageSettingsTableViewController.m</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPageSettingsTableViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9DF1A95363FDC4EA7D564A3A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>XBSnappingPoint.m</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/XBSnappingPoint.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A01314A99D7E7C0610A633F9</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>2703424607E1987A6381FEA4</string>
+				<string>E1A384ACF446FE50FF2B77BF</string>
+				<string>E4A554DF71A71EE2B75C9A70</string>
+				<string>F0F26E3234D75307FE3CD5A3</string>
+				<string>5FC664C8850AEE199BBDA75E</string>
+				<string>3BBEFF82A9CF3C59D308D539</string>
+				<string>D2150106C539B41CF81E8F50</string>
+				<string>7FD5F2B45E865D303865FAF5</string>
+				<string>5E291CE3787BCF2915E38282</string>
+				<string>FB1E772D937A9CC0EDD57879</string>
+				<string>6CF82849F939F5C079DDF541</string>
+				<string>A6661C83F6C599334ECC2414</string>
+				<string>5E59FB2D2748B662735E60D1</string>
+				<string>14A9D8660EAA78C49929BF64</string>
+				<string>E18FBF0FEBA2D6C10EB63DCC</string>
+				<string>04D9858B52F0F903E391E928</string>
+				<string>A2224E7FBE75414E37EA952C</string>
+				<string>E33EEF6BCC3207C4A0D274E3</string>
+				<string>6954227E054DB36E5F40A3F1</string>
+				<string>E93196CCD4FF7AD88CDCCE6A</string>
+				<string>0D506E29CAB68D96005B49F2</string>
+				<string>A0832A6F2B477460ABA959D4</string>
+				<string>C0B511B5B10FF58FA61BB577</string>
+				<string>A61972C48FA4BECEE7EBF70B</string>
+				<string>C282650E33F44627C96B8B23</string>
+				<string>2389422F4023E88BECD2C9EE</string>
+				<string>18AA22C7F6CA44388C520538</string>
+				<string>C02C1B04E67F4A24853AC8ED</string>
+				<string>A3E851967602D1345F3A3D98</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>A03AE37A23C3A035FB32DEE7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A0832A6F2B477460ABA959D4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A9FA81339F93B710F96E96EF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A0DF4F5CC164DD6E9C9794AF</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>90FA14C2AD95F201BFB80813</string>
+				<string>C981C8DC81BCD0C0ABEB01CB</string>
+				<string>F1097025CE7F5A5A6683ADC5</string>
+				<string>C83894CC15816C06A07E337E</string>
+				<string>358792F0AB67DEAEA512670C</string>
+				<string>B6558A361D657BDFBE4394A0</string>
+				<string>6EE15680CAACFD874334785A</string>
+				<string>AC77C451FBCA8668920EB55A</string>
+				<string>754DC8A8471DFA8A1D2BE09D</string>
+				<string>649A7A4A4A5FB70DC9FF5969</string>
+				<string>F57549581B0C53633E03C5CE</string>
+				<string>DDCAD7F2107F97F73C2F9664</string>
+				<string>0FC8BC4F0702939D2D6122A7</string>
+				<string>C6645C28CA1D070F9969E3CC</string>
+				<string>F31BB16287EC4988E65DFDF9</string>
+				<string>6245FF625036FAFC52705E31</string>
+				<string>15FDEE30E2F677B4B7E53725</string>
+				<string>BED3AFB38E3B3A6287DB2BB2</string>
+				<string>5C53517664E7161E735F3DF1</string>
+				<string>407873A909D74182639C5078</string>
+				<string>D2825995AC77A1688356B749</string>
+				<string>D38A0674829380E339903BB3</string>
+				<string>150B2771EEDA000FDB20A53C</string>
+				<string>57C136C4E4BCB51F40BF72C8</string>
+				<string>41AC12336ACEDEF65411FF92</string>
+				<string>B5A59231B07DD605A4D7AACF</string>
+				<string>71D7382207243D28B06F4984</string>
+				<string>F5C98A4EB10D04E65ADC07B4</string>
+				<string>242F86B0D7F14D7CFB1B4C00</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>A1DE711F300E4EF1F6100979</key>
+		<dict>
+			<key>fileRef</key>
+			<string>83446C6F7851CDDCC4591AA6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A2224E7FBE75414E37EA952C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>37F4D49B50672A6F13B0D94F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A2E5DAB9CDBBF213DF89AF09</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A412290016C93B5C348FA815</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A3E851967602D1345F3A3D98</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B037BE4157310264AB037483</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A412290016C93B5C348FA815</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>XBPageDragView.m</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/XBPageDragView.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A61148244967F37833F4A979</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1993,90 +2296,297 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>90104EA414418857CC03A2E6</key>
+		<key>A61972C48FA4BECEE7EBF70B</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D5E65CDADFB3719619EBBBEF</string>
+			<string>14FDF359D0A49CE5F243AED8</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>90E75B4393BC6827D5B56FD4</key>
+		<key>A6661C83F6C599334ECC2414</key>
 		<dict>
 			<key>fileRef</key>
-			<string>DEC73160A66E1C2D70EAFA6A</string>
+			<string>5498BC1215BD16D220C365BD</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>911F3D66B99B782F0A4EB8F4</key>
+		<key>A70F7FCC790D31B05EF786C0</key>
 		<dict>
-			<key>fileRef</key>
-			<string>DEB017563093786EDB05C235</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9128505BE3EE149968ACF4F8</key>
-		<dict>
-			<key>children</key>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
 			<array>
-				<string>4A6C7D8AADCCEFA6FC8D9DBC</string>
-				<string>2B97ABFE17DB4C5B2FA7EE5D</string>
-				<string>C5DE696BF215A7E655747B3D</string>
-				<string>5FC282B3A7320E44A08DE535</string>
-				<string>DE70DE643D7E87116E693AF9</string>
-				<string>1A4720FB33B7A35CAACD3533</string>
-				<string>95F908DBF9646EDFE2D7DF8C</string>
-				<string>C3594406AB4AC49C960FC78B</string>
-				<string>24CB75F122386D9D1B78D37A</string>
-				<string>46642B2862843CBD23A1AD7E</string>
-				<string>61E06FFD3922D8BC8246C3FC</string>
-				<string>D8B449F9D1963D09623F0B33</string>
-				<string>3C8E7226D731FB61C01651FF</string>
-				<string>8A31094AE614E9391233F370</string>
-				<string>514971856BCC3DF22CF71B0F</string>
-				<string>432978F8B76F75FE66339512</string>
-				<string>74045512A73A3304CCABC6E6</string>
-				<string>14E00FE34258F775823D8936</string>
-				<string>DD63491DEFF17DC5A8BE1D34</string>
-				<string>7BA96A6498E399958C158FD7</string>
+				<string>D107563BFD0EBD433D604F55</string>
 			</array>
 			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Resources</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
 		</dict>
-		<key>91DD1BDF30A67744558B0EA1</key>
+		<key>A76124DCA5306CFBC3E5F618</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>HPPPSupportAction.h</string>
 			<key>path</key>
-			<string>Pods-HPPhotoPrint-resources.sh</string>
+			<string>Pod/Classes/Public/HPPPSupportAction.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>92ACABFF640FD3DA01BD4ECC</key>
+		<key>A77DEF35A624D258416737D3</key>
 		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>E52136115626C0CC8B196416</string>
-				<string>12BC8ED466AA868C6D9A24A1</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>XCConfigurationList</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-Tests-HPPhotoPrint.xcconfig</string>
+			<key>path</key>
+			<string>../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>92EFB807D589C0450F18F93A</key>
+		<key>A796F50389B9CEF444B71916</key>
+		<dict>
+			<key>fileRef</key>
+			<string>82D7E95DA2D06B2CFF6E0B7F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A9FA81339F93B710F96E96EF</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UITableView+HPPPHeader.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Private/UITableView+HPPPHeader.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>AAED8517EE0EE539BCE228FE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5656C4A3D121EB6395FBE9ED</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>AC77C451FBCA8668920EB55A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>79466C4A443C42C27DC661F2</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>AE83CA8F38CB4E4577FA98C6</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>AB2B2C93509B43BEAE8C1851</string>
+			<string>60AAEEADBDC12C236E1968DB</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>DSTROOT</key>
+				<string>/tmp/xcodeproj.dst</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>INSTALL_PATH</key>
+				<string>$(BUILT_PRODUCTS_DIR)</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.1</string>
+				<key>OTHER_CFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_CPLUSPLUSFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>AF32AB29E026D3343954D328</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>BB7DE4515C3F8E13A67C4093</string>
+				<string>D361DEA2EAADC46036373170</string>
+				<string>4FC2F7ADEB5352D9FEB538E7</string>
+				<string>672C0B63378FB136D58FE4A8</string>
+				<string>995A06D418AA3AA4C1C87E2D</string>
+				<string>2C28C5261D75C9F1366A254A</string>
+				<string>7FA86B6E4E064E6E7BE41A34</string>
+				<string>89B91417852F65A3439CAD6C</string>
+				<string>D5066A25A7648E0515508F99</string>
+				<string>60CD38088F41ECEAE9FB4D18</string>
+				<string>5B439553BDF6771C95B005E8</string>
+				<string>543A693EEE36B6FBEFAC6DEA</string>
+				<string>B00448137DFA4007E6521379</string>
+				<string>E73E0882902546C1CD2DC4FB</string>
+				<string>F8C165D05E88DE4544E1FA72</string>
+				<string>A1DE711F300E4EF1F6100979</string>
+				<string>AF4B52CEFF4601CCE61DD2B1</string>
+				<string>E118D4710AA3A478835148D8</string>
+				<string>C67FBFAB785F55AF5F0A2352</string>
+				<string>82EE7CC98A42CAC26FB8E5CB</string>
+				<string>594EC84C075D05F28D9AF174</string>
+				<string>BC9EAFE160C793DF56F09CD0</string>
+				<string>2279C3D4E850978BAF9ED8E3</string>
+				<string>A796F50389B9CEF444B71916</string>
+				<string>48952EB225B4132E45C67DB2</string>
+				<string>17BF05FE369EC31C73ECDB15</string>
+				<string>6A879C0599A7EDED83EE77DF</string>
+				<string>8D99FCD0F58CF6AFEA838776</string>
+				<string>A2E5DAB9CDBBF213DF89AF09</string>
+				<string>83172DD752D753B93CBB91A8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>AF4B52CEFF4601CCE61DD2B1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>37FDE5E8DFB3846F8B0EFDFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>B00448137DFA4007E6521379</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D66C527C9AAAF5A91EB59228</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>B037BE4157310264AB037483</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>XBSnappingPoint.h</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/XBSnappingPoint.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B5A59231B07DD605A4D7AACF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5A1404150925DF9A47511536</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>B5BCF3EA900DA8FA18A48D37</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>HPPPDoNoEnter@2x.png</string>
+			<key>path</key>
+			<string>Pod/Assets/HPPPDoNoEnter@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B6558A361D657BDFBE4394A0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8C85E0C2F852F3F74068397F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>B88934AA13AE6038A14BF295</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>HPPPDoNoEnter.png</string>
+			<key>path</key>
+			<string>Pod/Assets/HPPPDoNoEnter.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B957E0B8FD07559771605971</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-HPPhotoPrint-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B9859D3017B747E436858F46</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>Pods-Tests-HPPhotoPrint-dummy.m</string>
+			<key>path</key>
+			<string>../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BB7DE4515C3F8E13A67C4093</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6571DE0AD251F7D973D6C3D6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>BB7EFB39E89B219BE15A1E58</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>554AB5002B0DAEC5892CD0ED</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
@@ -2120,145 +2630,21 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>932E50127F9748BBEC988A98</key>
+		<key>BC9EAFE160C793DF56F09CD0</key>
 		<dict>
 			<key>fileRef</key>
-			<string>1E51106461BAFFC7323F4D71</string>
+			<string>95E5922D40955FB1117D61A0</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>93A281389E639FC525B70359</key>
+		<key>BE2D60E2F08440C6B52B485A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D7DEB43AB35640B22BE1FAA6</string>
+			<string>8B8E193C707F76CAE9749B6F</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>93C29E3506F1063A33E2AD65</key>
-		<dict>
-			<key>fileRef</key>
-			<string>4DB030279402CD8FFABACC3A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9520D2347913DD15DA0E6F2F</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>707CC6E4649E53E767371385</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>95F908DBF9646EDFE2D7DF8C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>HPPPDoNoEnter.png</string>
-			<key>path</key>
-			<string>Pod/Assets/HPPPDoNoEnter.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>96FF590E27662E84F22C7548</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>HPPPPrintSettings.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPrintSettings.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>97A9EF59ED00474A2AB0A88D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>78F59D850F967FFF43D46749</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>97F83F2A4CC100EBC20247F5</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>40DE41D7A1C8DC629580488E</string>
-			<key>buildPhases</key>
-			<array>
-				<string>9520D2347913DD15DA0E6F2F</string>
-				<string>AC773E77675FF228924F9294</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>9E05E407A14B539DAE16215A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-Tests</string>
-			<key>productName</key>
-			<string>Pods-Tests</string>
-			<key>productReference</key>
-			<string>D86A7D8B39A5000C8ABD3C19</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>98ABF1A79CBEB1727D32FB2F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>FD0FCC4AD78D71635001BB08</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>98EAE33EFDA8B5F40CC6A89C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>00E5E0F68EBF26F4BB6BB057</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9A05136FD0AA5C140C83EB8C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>A3CFA13699F456923E9281E8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9AD713F19ED11449A0A54DF1</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>4556F319708486ADAB853847</string>
-				<string>6A2E72CBD1BE65CF14304750</string>
-				<string>4363128C732E8A8573DE684B</string>
-				<string>B14835D4C10807BBCFC73AAE</string>
-				<string>81942ED6163DB24AC3AA7A68</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9B064D82DD7F047BDA117D1C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E7038A8D7DD4381D7B67BB48</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9C64BC6CC54DCB09CB5EE960</key>
+		<key>BE853E3A706DE9A165418E50</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -2266,69 +2652,54 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>HPPPPageView.h</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPageView.h</string>
+			<string>Pods-HPPhotoPrint-environment.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>9D631F6918D15F60B2FE0864</key>
+		<key>BEC086D6F65FE6EF5182E189</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D8261873B9A9672D4678D9B6</string>
+			<string>6769AEDF3E16D3D2EB7CB3C2</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>9E05E407A14B539DAE16215A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Pods-Tests-HPPhotoPrint</string>
-			<key>target</key>
-			<string>037F1BA004A2BD394502B34B</string>
-			<key>targetProxy</key>
-			<string>8244A68D49E008A859ABCA7E</string>
-		</dict>
-		<key>9F8578C4D4CD72D35C112576</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>HPPPPrintSettingsTableViewController.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPrintSettingsTableViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9FFB0F4E22256463C68612BC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>XBCurlView.m</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBCurlView.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A1E7E036F07D8E10A6F10C12</key>
+		<key>BED3AFB38E3B3A6287DB2BB2</key>
 		<dict>
 			<key>fileRef</key>
-			<string>48C7D5B7AB0894D02C9DD2D1</string>
+			<string>800C1CA40164243464BDB2C4</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>A27624BF0BC094000944D5F5</key>
+		<key>C02C1B04E67F4A24853AC8ED</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DD19A6D753D1FDCE37258306</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C0B511B5B10FF58FA61BB577</key>
+		<dict>
+			<key>fileRef</key>
+			<string>687F08A60E2DC6830235C30B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C0EF363199639EEA9ED4C9FB</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C5CBE79572B02E4EA084A403</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C282650E33F44627C96B8B23</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1D7E86D67F31E43F2E069E10</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C37989FB46AA512B73A24607</key>
 		<dict>
 			<key>buildSettings</key>
 			<dict>
@@ -2390,72 +2761,7 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>A3CFA13699F456923E9281E8</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>HPPPPageView.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPageView.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A4744D3D96E41FB08EFFBAAC</key>
-		<dict>
-			<key>fileRef</key>
-			<string>6DEAE91A2FDBE447BCEAFB69</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>A4CF2D79719887E66F981698</key>
-		<dict>
-			<key>fileRef</key>
-			<string>AC0480EE7FFE7DE802AF62AD</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>A537EED68A87CB79A85A731D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>CGPointAdditions.h</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/CGPointAdditions.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A6819C05BFDEBD64C0CEDB5E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>4D15507D095AF9DFDF272CF4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>A7E5795333B0B3BAD866851F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>52E91FBA01818B69A113BEEF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>AA6AD07FCB9CC6B5212EAD75</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F52F77FC7AD5195B43A022A8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>AB2B2C93509B43BEAE8C1851</key>
+		<key>C429F1D97A3FF70E219A0065</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -2464,18 +2770,37 @@
 			<key>lastKnownFileType</key>
 			<string>text.xcconfig</string>
 			<key>path</key>
-			<string>Pods-HPPhotoPrint.debug.xcconfig</string>
+			<string>Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>ABFB90A0BCDBEC1A4809A358</key>
+		<key>C44DF4738BB380BFAF33E78A</key>
 		<dict>
-			<key>fileRef</key>
-			<string>44C7EBD43D1DD2974A551E4E</string>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>Pods-Tests-HPPhotoPrint</string>
+			<key>target</key>
+			<string>D4FC0A32C4BF5AA576835115</string>
+			<key>targetProxy</key>
+			<string>375A137B97D831CFC12074DE</string>
 		</dict>
-		<key>AC0480EE7FFE7DE802AF62AD</key>
+		<key>C5CBE79572B02E4EA084A403</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>XBAnimationManager.m</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/XBAnimationManager.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C62A3F5CC7C3359015ED0301</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -2484,33 +2809,165 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>HPPPPaper.h</string>
+			<string>HPPPPaperTypeTableViewController.h</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPaper.h</string>
+			<string>Pod/Classes/Public/HPPPPaperTypeTableViewController.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>AC773E77675FF228924F9294</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>7B5CC797F56C40C5D19C8E0D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>AD37E4002372AC67185AAA0D</key>
+		<key>C6645C28CA1D070F9969E3CC</key>
 		<dict>
 			<key>fileRef</key>
-			<string>286E0172D0F8BB9BD8AEA0D4</string>
+			<string>FCD6DE69C37C36F688E5E45E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>AE99B3B0EEB296D5A83863DA</key>
+		<key>C67FBFAB785F55AF5F0A2352</key>
+		<dict>
+			<key>fileRef</key>
+			<string>417BC5B74750D26C3A4D5CE9</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C6CA721920C7383DC38528E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>82D7E95DA2D06B2CFF6E0B7F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C7712DB1D1F321467E0ABBD5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>12BE7D0B9B325A509A1524D8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C83894CC15816C06A07E337E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8A321EE54DA4177B421A998D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C8F2FE9537018FC784F51F7E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UIColor+HPPPHexString.h</string>
+			<key>path</key>
+			<string>Pod/Classes/Private/UIColor+HPPPHexString.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C94038CB5D8260B0BBC8DFEA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>name</key>
+			<string>Podfile</string>
+			<key>path</key>
+			<string>../Podfile</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.ruby</string>
+		</dict>
+		<key>C981C8DC81BCD0C0ABEB01CB</key>
+		<dict>
+			<key>fileRef</key>
+			<string>64F1F63FE5907F7179514661</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C9E5EC584F517D2C21FD1D91</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-HPPhotoPrint-resources.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CA925087EA2515C6849605F9</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-HPPhotoPrint-HPPhotoPrint.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>CB10D0206D2AA82CC9DB9C5B</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>CC3D64F0D06AAD4708CB09A6</string>
+			<key>buildPhases</key>
+			<array>
+				<string>AF32AB29E026D3343954D328</string>
+				<string>45074D6750CF36D6DA816C79</string>
+				<string>A01314A99D7E7C0610A633F9</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-HPPhotoPrint-HPPhotoPrint</string>
+			<key>productName</key>
+			<string>Pods-HPPhotoPrint-HPPhotoPrint</string>
+			<key>productReference</key>
+			<string>CA925087EA2515C6849605F9</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>CC3D64F0D06AAD4708CB09A6</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>DC76F64DAD6832D5E48F0B56</string>
+				<string>89399FA6152CD714E0A30776</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>CD02FEE948C551B224EC5080</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-Tests-HPPhotoPrint.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>CDC4745E07D18203ABDFBD1D</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -2525,274 +2982,150 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>B052463714FB65ECC981A87F</key>
+		<key>CE6565358D0EBB258D602926</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2B51324E5A8E4DA30F09BB8A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>CFECF36260C9DE34C44F1397</key>
+		<dict>
+			<key>fileRef</key>
+			<string>791BD10345666440623EAC78</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>D0131702A9EF6C368C1359CC</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>E386473A82EFF3240D5E68B6</string>
-				<string>683947912C14B73A0A22AF21</string>
-				<string>EEED0A5F2EC6B254691D8055</string>
-				<string>E00C03FED8A260DB70F6B3CC</string>
-				<string>9A05136FD0AA5C140C83EB8C</string>
-				<string>6E7284EA57A57EF61913D6FD</string>
-				<string>39532EC1B5168314F3A9AA11</string>
-				<string>AD37E4002372AC67185AAA0D</string>
-				<string>327E95662291ADB08594AE8A</string>
-				<string>2DB7DDCE574AAEFE695752A8</string>
-				<string>93C29E3506F1063A33E2AD65</string>
-				<string>F605A3901C51CBA9A4EA2C38</string>
-				<string>0E73361A2F1FB5A1D078FF17</string>
-				<string>2B55C02587A450177D9A6F5E</string>
-				<string>6A1E8E3B03FD1B448A7836AA</string>
-				<string>845EC501464EAFDF7BFBE0AB</string>
-				<string>D4F34D4D984420923C25EC2E</string>
-				<string>90E75B4393BC6827D5B56FD4</string>
-				<string>730849E79126A1F8C3C6C4DE</string>
-				<string>3C9A1CDA619EE99B8F65D973</string>
-				<string>2F81D51B5CFD394AEE4F33A2</string>
-				<string>932E50127F9748BBEC988A98</string>
-				<string>58008D55517779CA264AEDDE</string>
-				<string>CDEFF660267AF4F9B83CB3B2</string>
-				<string>BC14E48356DD6468178C49CD</string>
-				<string>2041D69876E11736C107C590</string>
-				<string>BF1908FBDFC0DD0DD40AC218</string>
-				<string>57F7583CDB6BFF7B3345A3FF</string>
-				<string>6B8A2C02C2D047FD0AAD5155</string>
-				<string>90104EA414418857CC03A2E6</string>
+				<string>23EA9141A2052FB244A47858</string>
+				<string>CFECF36260C9DE34C44F1397</string>
+				<string>C7712DB1D1F321467E0ABBD5</string>
+				<string>E104B60B843D0E5F84781A3F</string>
+				<string>2068C3EE4FAB423AB4AD6CD0</string>
+				<string>9585FC443DBB6D0FD9133F21</string>
+				<string>342A57FD6F549A7C64707332</string>
+				<string>8B1334833D961F5774CB02CC</string>
+				<string>AAED8517EE0EE539BCE228FE</string>
+				<string>6684F70252476DE31A05D6FA</string>
+				<string>06E583EAAEFB1AC6FF10CBA4</string>
+				<string>BEC086D6F65FE6EF5182E189</string>
+				<string>ECBC55D72A23D3EAD41CCC0B</string>
+				<string>1AE2735A3D4BE003F42E141C</string>
+				<string>561D6B42214D1D6C08E6CCE2</string>
+				<string>EEF91D6D8E905803A50F3BC2</string>
+				<string>E995FF90C290D18F12C3934E</string>
+				<string>6254F0430F49DB8E4619CCAB</string>
+				<string>42AEE85317688EC159708F0A</string>
+				<string>53D6C5E1005E306E9058352C</string>
+				<string>DB36C2C74A27858F208B6B70</string>
+				<string>F93FD8B30437EFE9E0C02EE1</string>
+				<string>8C6B3C4AB71BF6FFE64CADF4</string>
+				<string>C6CA721920C7383DC38528E8</string>
+				<string>D3C107A425F8402E15CDBF1F</string>
+				<string>C0EF363199639EEA9ED4C9FB</string>
+				<string>17EC19FD089E25573882128E</string>
+				<string>0737369082CBCEA3AA428A4C</string>
+				<string>238E5F5AEB721159E45EBD9A</string>
+				<string>F0C5FB805411DF2BC56DCD3A</string>
 			</array>
 			<key>isa</key>
 			<string>PBXSourcesBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>B089853829A160A3946C02B4</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>4C077CB1BF831537192B6417</string>
-				<string>D67BBB8A224DCD77081EDBF9</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>iOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B14835D4C10807BBCFC73AAE</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1D56FC138B6FC02FB50FCEAF</string>
-				<string>63DEE818E0F78D0A7EFF00AA</string>
-				<string>D86A7D8B39A5000C8ABD3C19</string>
-				<string>C2332418EEB7CF7A6C06DC1B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B282E2AE394CB2FB7445E3C4</key>
+		<key>D02C1203DB35FD66F32BDF54</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>UIColor+HPPPHexString.m</string>
+			<string>HPPPMeasurementArrowLeft@2x.png</string>
 			<key>path</key>
-			<string>Pod/Classes/Private/UIColor+HPPPHexString.m</string>
+			<string>Pod/Assets/HPPPMeasurementArrowLeft@2x.png</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>B3009D8C01E04B8F4A971F6A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>XBAnimationManager.h</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBAnimationManager.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B6ACB4E289DBEEAD2B32F48D</key>
+		<key>D107563BFD0EBD433D604F55</key>
 		<dict>
 			<key>fileRef</key>
-			<string>CA1EDE2E8AF65D0491166D82</string>
+			<string>9A65B451F0D45930FB7A736C</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>B95ADA2CD5F87B604A802F29</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>XBSnappingPoint.h</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBSnappingPoint.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BA5FC777FC5D7DE767C585B2</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>XBAnimation.m</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBAnimation.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BAED9E541E2B2B0ED73155FF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-Tests-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BB6F4C362908AB30556FCB96</key>
+		<key>D2150106C539B41CF81E8F50</key>
 		<dict>
 			<key>fileRef</key>
-			<string>518B7062BB0A26383B11F78D</string>
+			<string>85AAB3EF09102C07A7C2BB9F</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>BBA29EF8498066AFAB130DCC</key>
+		<key>D2825995AC77A1688356B749</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D5E65CDADFB3719619EBBBEF</string>
+			<string>CDC4745E07D18203ABDFBD1D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>BC14E48356DD6468178C49CD</key>
+		<key>D361DEA2EAADC46036373170</key>
 		<dict>
 			<key>fileRef</key>
-			<string>BA5FC777FC5D7DE767C585B2</string>
+			<string>791BD10345666440623EAC78</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>BD527002CE7A77E3284B2AF0</key>
+		<key>D38A0674829380E339903BB3</key>
 		<dict>
 			<key>fileRef</key>
-			<string>43519B16B3EBEAF4CBE49AF9</string>
+			<string>A9FA81339F93B710F96E96EF</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>BE42F773CD6C13B3C4577B47</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>58D605D001780F0E909C45D9</string>
-				<string>08211F7C59261C5A0D2112ED</string>
-				<string>C3125AC94380C1331FB702C4</string>
-				<string>ABFB90A0BCDBEC1A4809A358</string>
-				<string>C6E73FBCBE1059A59DC1CB2B</string>
-				<string>E11DA6F2D9B5F0E781E2ADC7</string>
-				<string>33BCA7F5135DC3F16562361E</string>
-				<string>D4759D080FE48D7CDE1B4A82</string>
-				<string>A1E7E036F07D8E10A6F10C12</string>
-				<string>3D89D045C1C0E75360771998</string>
-				<string>5BBE263193B5ABE453D1F884</string>
-				<string>169338DFD3E5A80E2DCCBA24</string>
-				<string>57DA0D1ABA89D0892FEF7B27</string>
-				<string>BB6F4C362908AB30556FCB96</string>
-				<string>FBFE6A47F8E3A0DC1F94866B</string>
-				<string>97A9EF59ED00474A2AB0A88D</string>
-				<string>66DE3F0A8C2157E79F151CB0</string>
-				<string>9D631F6918D15F60B2FE0864</string>
-				<string>BD527002CE7A77E3284B2AF0</string>
-				<string>A6819C05BFDEBD64C0CEDB5E</string>
-				<string>86D09990D7FE7C6D7BFFA726</string>
-				<string>F7AB77FEC7772C97121AC4C6</string>
-				<string>4837C9C3B7F67B4E51D4B097</string>
-				<string>56442D07F0ED4A6C9965C3BE</string>
-				<string>7DF8AC29B91D51F11E0343B5</string>
-				<string>E2FBA1F473AD37D96BACCCA0</string>
-				<string>C543F8ED7022B9CDFEBE7C89</string>
-				<string>315BBD81DDF46409D2F03AB3</string>
-				<string>44E25F86EF693824CB0570D3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>BF1908FBDFC0DD0DD40AC218</key>
+		<key>D3C107A425F8402E15CDBF1F</key>
 		<dict>
 			<key>fileRef</key>
-			<string>9FFB0F4E22256463C68612BC</string>
+			<string>97A9D7590AABB892619F4801</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>BFCE84F13E1660C298A8BC22</key>
+		<key>D4FC0A32C4BF5AA576835115</key>
 		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastUpgradeCheck</key>
-				<string>0510</string>
-			</dict>
 			<key>buildConfigurationList</key>
-			<string>35AD0FE104ECB62BD58845DD</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
+			<string>30A59DC3B36378D7936D410C</string>
+			<key>buildPhases</key>
 			<array>
-				<string>en</string>
+				<string>D0131702A9EF6C368C1359CC</string>
+				<string>E2639A85BFFFDC40279DC4CA</string>
+				<string>A0DF4F5CC164DD6E9C9794AF</string>
 			</array>
-			<key>mainGroup</key>
-			<string>9AD713F19ED11449A0A54DF1</string>
-			<key>productRefGroup</key>
-			<string>B14835D4C10807BBCFC73AAE</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
+			<key>buildRules</key>
 			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>D09539F863B503210C07CF8B</string>
-				<string>8B1005786E2661D37C770423</string>
-				<string>97F83F2A4CC100EBC20247F5</string>
-				<string>037F1BA004A2BD394502B34B</string>
-			</array>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-Tests-HPPhotoPrint</string>
+			<key>productName</key>
+			<string>Pods-Tests-HPPhotoPrint</string>
+			<key>productReference</key>
+			<string>CD02FEE948C551B224EC5080</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
 		</dict>
-		<key>C142EC6EDB8B80FC18C5A57B</key>
+		<key>D5066A25A7648E0515508F99</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5656C4A3D121EB6395FBE9ED</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>D66C527C9AAAF5A91EB59228</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -2801,53 +3134,43 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>HPPPPageViewController.m</string>
+			<string>HPPPPrintSettingsTableViewController.m</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPageViewController.m</string>
+			<string>Pod/Classes/Public/HPPPPrintSettingsTableViewController.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>C2332418EEB7CF7A6C06DC1B</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-Tests-HPPhotoPrint.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>C2749D099D04695C53E62E6B</key>
+		<key>D740FBF28371B330D8CC03E5</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>38F39070F9B9FE5DC027FF5E</string>
+			<string>04519ACB80BFD5BA40C60644</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
 				<string>NO</string>
 				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
+				<string>NO</string>
 				<key>DSTROOT</key>
 				<string>/tmp/xcodeproj.dst</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
 				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
 				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-prefix.pch</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
 				<key>INSTALL_PATH</key>
 				<string>$(BUILT_PRODUCTS_DIR)</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
 				<string>7.1</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
 				<key>OTHER_LDFLAGS</key>
 				<string></string>
 				<key>OTHER_LIBTOOLFLAGS</key>
@@ -2860,521 +3183,36 @@
 				<string>iphoneos</string>
 				<key>SKIP_INSTALL</key>
 				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
 			</dict>
 			<key>isa</key>
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
-			<string>Release</string>
+			<string>Debug</string>
 		</dict>
-		<key>C3125AC94380C1331FB702C4</key>
+		<key>D8C487F845F15D2C9A5FF346</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>HPPPPrint@2x~ipad.png</string>
+			<key>path</key>
+			<string>Pod/Assets/HPPPPrint@2x~ipad.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DB36C2C74A27858F208B6B70</key>
 		<dict>
 			<key>fileRef</key>
-			<string>432973C9894A41158136FB38</string>
+			<string>7C4A466CB3D4BC78D83BDB5B</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>C3594406AB4AC49C960FC78B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>HPPPDoNoEnter@2x.png</string>
-			<key>path</key>
-			<string>Pod/Assets/HPPPDoNoEnter@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C405E08B3692A37B69AA6FEB</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>UITableView+HPPPHeader.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Private/UITableView+HPPPHeader.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C543F8ED7022B9CDFEBE7C89</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8D38D30039EE04136C29664A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>C5DE696BF215A7E655747B3D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>BackVertexShader.glsl</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/Resources/BackVertexShader.glsl</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C6E73FBCBE1059A59DC1CB2B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9C64BC6CC54DCB09CB5EE960</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CA1EDE2E8AF65D0491166D82</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>UITableView+HPPPHeader.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Private/UITableView+HPPPHeader.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CA21EF384BBA0345847D54FC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>HPPPWiFiReachability.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPWiFiReachability.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CDEFF660267AF4F9B83CB3B2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>52E91FBA01818B69A113BEEF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CE2C605E504053B21B3323C9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-Tests-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D09539F863B503210C07CF8B</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>10036223A50511D73582C562</string>
-			<key>buildPhases</key>
-			<array>
-				<string>EB244D78B3AC2A843D6F2DDC</string>
-				<string>188E8AC19C0AFAFC46220116</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>68F00E9DC4781FFD8E978E1C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-HPPhotoPrint</string>
-			<key>productName</key>
-			<string>Pods-HPPhotoPrint</string>
-			<key>productReference</key>
-			<string>1D56FC138B6FC02FB50FCEAF</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>D33F8108CE191B20DFB518AA</key>
-		<dict>
-			<key>fileRef</key>
-			<string>1E51106461BAFFC7323F4D71</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D35C1C82D2F2F0ADDADEAB92</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>17212247B4E977BCED0B6356</string>
-				<string>1B73E2E691F618F9CF5FE779</string>
-				<string>167FFE44C58DF7B11279DFCD</string>
-				<string>49790592A334853C4C225ADD</string>
-				<string>274017B35797FFB260ACF5DE</string>
-				<string>E961F3806B08821DF4963013</string>
-				<string>98EAE33EFDA8B5F40CC6A89C</string>
-				<string>23E4D1B26D7334DA6878ACD4</string>
-				<string>6E01720AD6A92C86A765839E</string>
-				<string>2ADECFADD3DE65FD5EDB14A3</string>
-				<string>4DDCD14EA533CD386F9C5D23</string>
-				<string>81032D34C74EFA3445D2DCB0</string>
-				<string>28EBD86F3C5B57AE38F8A978</string>
-				<string>E26A4390390EC59AB113B2B7</string>
-				<string>1E11711D40966B159EA31A35</string>
-				<string>F0FB183D25ACB969446CD99A</string>
-				<string>64EB07881BAA1FDE4A9857A1</string>
-				<string>FDF65CF8D4ADF6C89E7D5952</string>
-				<string>93A281389E639FC525B70359</string>
-				<string>F56CDFFC03AA9849969DC142</string>
-				<string>8DD6C1F6898949762A974197</string>
-				<string>D33F8108CE191B20DFB518AA</string>
-				<string>EBB01C6F4D0E6D355789ED3D</string>
-				<string>A7E5795333B0B3BAD866851F</string>
-				<string>5D7246D801907511381A82D0</string>
-				<string>FEFF47271EAC1B900CD024D8</string>
-				<string>51C0F9592F976395532225C2</string>
-				<string>298813873DAF6DDA3FCA4D1D</string>
-				<string>9B064D82DD7F047BDA117D1C</string>
-				<string>BBA29EF8498066AFAB130DCC</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D37FE68106E2E0EBD79F292E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>CGPointAdditions.c</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/CGPointAdditions.c</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D4759D080FE48D7CDE1B4A82</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E3B05B51ABA3A7736FF28770</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D4F34D4D984420923C25EC2E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>2F0C831EEFB2BCBFF77165B8</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D5E65CDADFB3719619EBBBEF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>XBSnappingPoint.m</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBSnappingPoint.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D67BBB8A224DCD77081EDBF9</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>UIKit.framework</string>
-			<key>path</key>
-			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>D6B5C5ED9FDA56C7D0E6B396</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F6E415AC96C8E323E6DC257E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D774677E44A959DA30729E24</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>HPPPSupportAction.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPSupportAction.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D7DEB43AB35640B22BE1FAA6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>Reachability.m</string>
-			<key>path</key>
-			<string>Pod/Libraries/Reachability/Reachability.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D8261873B9A9672D4678D9B6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>Reachability.h</string>
-			<key>path</key>
-			<string>Pod/Libraries/Reachability/Reachability.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D86A7D8B39A5000C8ABD3C19</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-Tests.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>D86BBC4A319ECAB67FB08E42</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>HPPPPageSettingsTableViewController.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPageSettingsTableViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D8B449F9D1963D09623F0B33</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>HPPPMeasurementArrowUp@2x.png</string>
-			<key>path</key>
-			<string>Pod/Assets/HPPPMeasurementArrowUp@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DAF378F227F15F3A944A6C66</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>HPPPRuleView.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Private/HPPPRuleView.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DC2A8BF0F337BFFF7629B77E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>4C077CB1BF831537192B6417</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>DD63491DEFF17DC5A8BE1D34</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>NextPageNoTextureVertexShader.glsl</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/Resources/NextPageNoTextureVertexShader.glsl</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DE70DE643D7E87116E693AF9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>FrontVertexShader.glsl</string>
-			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/Resources/FrontVertexShader.glsl</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DEB017563093786EDB05C235</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>HPPPPrintSettings.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPrintSettings.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DEC73160A66E1C2D70EAFA6A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-HPPhotoPrint-HPPhotoPrint-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DF442C22BB24AE2F6EDBFF11</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B95ADA2CD5F87B604A802F29</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>DFF067E44A06649AC80F5919</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Pods-Tests-acknowledgements.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E00C03FED8A260DB70F6B3CC</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D86BBC4A319ECAB67FB08E42</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E11DA6F2D9B5F0E781E2ADC7</key>
-		<dict>
-			<key>fileRef</key>
-			<string>6DEAE91A2FDBE447BCEAFB69</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E26A4390390EC59AB113B2B7</key>
-		<dict>
-			<key>fileRef</key>
-			<string>DAF378F227F15F3A944A6C66</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E2FBA1F473AD37D96BACCCA0</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3414A81A3D88A66946D49855</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E3088E43399F3CA94AEDEDE3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-Tests-HPPhotoPrint-Private.xcconfig</string>
-			<key>path</key>
-			<string>../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-Private.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E34FB76EE6EA513EDA5B630A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>A537EED68A87CB79A85A731D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E386473A82EFF3240D5E68B6</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D37FE68106E2E0EBD79F292E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E3B05B51ABA3A7736FF28770</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>HPPPPaperSizeTableViewController.h</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPaperSizeTableViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E52136115626C0CC8B196416</key>
+		<key>DC76F64DAD6832D5E48F0B56</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>54E1960F3BE7B6D625DF028D</string>
+			<string>C429F1D97A3FF70E219A0065</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
@@ -3420,7 +3258,103 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>E7038A8D7DD4381D7B67BB48</key>
+		<key>DD19A6D753D1FDCE37258306</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>XBPageDragView.h</string>
+			<key>path</key>
+			<string>Pod/Libraries/XBPageCurl/XBPageDragView.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DDCAD7F2107F97F73C2F9664</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5498BC1215BD16D220C365BD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E0354CC20AB9EF72E2093261</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6571DE0AD251F7D973D6C3D6</string>
+				<string>1537556288A56B5E42AB04F5</string>
+				<string>64F1F63FE5907F7179514661</string>
+				<string>791BD10345666440623EAC78</string>
+				<string>F9EE23D3FBB61D77180C897D</string>
+				<string>12BE7D0B9B325A509A1524D8</string>
+				<string>8A321EE54DA4177B421A998D</string>
+				<string>9BE0DC5265F87BC920B365FB</string>
+				<string>0D52DF27F513297D11FF0E23</string>
+				<string>9B24C7D1E5960E88DFA84F86</string>
+				<string>8C85E0C2F852F3F74068397F</string>
+				<string>15885AA31AF3C7DF637CE6F5</string>
+				<string>85AAB3EF09102C07A7C2BB9F</string>
+				<string>27B473625F4DCA5731C914F3</string>
+				<string>79466C4A443C42C27DC661F2</string>
+				<string>3866FF842709808D1E6A675C</string>
+				<string>C62A3F5CC7C3359015ED0301</string>
+				<string>5656C4A3D121EB6395FBE9ED</string>
+				<string>7A259511F9BFAE48F357D3D0</string>
+				<string>A61148244967F37833F4A979</string>
+				<string>424870921CA2184F361027E7</string>
+				<string>4602F3E73BD0F3EC43413471</string>
+				<string>5498BC1215BD16D220C365BD</string>
+				<string>6769AEDF3E16D3D2EB7CB3C2</string>
+				<string>048DB921C2D960D54A00343B</string>
+				<string>D66C527C9AAAF5A91EB59228</string>
+				<string>FCD6DE69C37C36F688E5E45E</string>
+				<string>75D2441D005D13182B942BE7</string>
+				<string>A76124DCA5306CFBC3E5F618</string>
+				<string>6D57C8DC615AF54B2E321E1B</string>
+				<string>585A3F1444CA314BEDACDCD6</string>
+				<string>83446C6F7851CDDCC4591AA6</string>
+				<string>37F4D49B50672A6F13B0D94F</string>
+				<string>37FDE5E8DFB3846F8B0EFDFC</string>
+				<string>800C1CA40164243464BDB2C4</string>
+				<string>417BC5B74750D26C3A4D5CE9</string>
+				<string>C8F2FE9537018FC784F51F7E</string>
+				<string>784966222F955C24D58F84E8</string>
+				<string>5A1C9C1667968F337A4E036E</string>
+				<string>7C4A466CB3D4BC78D83BDB5B</string>
+				<string>CDC4745E07D18203ABDFBD1D</string>
+				<string>95E5922D40955FB1117D61A0</string>
+				<string>A9FA81339F93B710F96E96EF</string>
+				<string>7527E09293035D21B9109D5E</string>
+				<string>687F08A60E2DC6830235C30B</string>
+				<string>82D7E95DA2D06B2CFF6E0B7F</string>
+				<string>14FDF359D0A49CE5F243AED8</string>
+				<string>97A9D7590AABB892619F4801</string>
+				<string>1D7E86D67F31E43F2E069E10</string>
+				<string>C5CBE79572B02E4EA084A403</string>
+				<string>5A1404150925DF9A47511536</string>
+				<string>E0C66C377716C962834DCB2D</string>
+				<string>4C77C0CFEB14C19F76DFAFF5</string>
+				<string>60BC8432B3839B1282D80E6C</string>
+				<string>DD19A6D753D1FDCE37258306</string>
+				<string>A412290016C93B5C348FA815</string>
+				<string>B037BE4157310264AB037483</string>
+				<string>9DF1A95363FDC4EA7D564A3A</string>
+				<string>F97E2AF5DED085798A2B94F7</string>
+				<string>EDA62E627DD03BB039704068</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>HPPhotoPrint</string>
+			<key>path</key>
+			<string>../..</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E0C66C377716C962834DCB2D</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -3429,154 +3363,284 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>XBPageDragView.m</string>
+			<string>XBCurlView.m</string>
 			<key>path</key>
-			<string>Pod/Libraries/XBPageCurl/XBPageDragView.m</string>
+			<string>Pod/Libraries/XBPageCurl/XBCurlView.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>E961F3806B08821DF4963013</key>
+		<key>E104B60B843D0E5F84781A3F</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C142EC6EDB8B80FC18C5A57B</string>
+			<string>9BE0DC5265F87BC920B365FB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>EB244D78B3AC2A843D6F2DDC</key>
+		<key>E118D4710AA3A478835148D8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>931EB10C91BDC2F5270CE370</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E18FBF0FEBA2D6C10EB63DCC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A76124DCA5306CFBC3E5F618</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E1A384ACF446FE50FF2B77BF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>64F1F63FE5907F7179514661</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E2639A85BFFFDC40279DC4CA</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>EB312EC863B419C0EC3A5A9A</string>
+				<string>CE6565358D0EBB258D602926</string>
+				<string>E429FF63BC1014D930B32C9F</string>
 			</array>
 			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
+			<string>PBXFrameworksBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>EB312EC863B419C0EC3A5A9A</key>
+		<key>E33EEF6BCC3207C4A0D274E3</key>
 		<dict>
 			<key>fileRef</key>
-			<string>0DEB5ED29B5F766F3B1799D6</string>
+			<string>800C1CA40164243464BDB2C4</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>EBB01C6F4D0E6D355789ED3D</key>
+		<key>E429FF63BC1014D930B32C9F</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C405E08B3692A37B69AA6FEB</string>
+			<string>8B8E193C707F76CAE9749B6F</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>EC9099D2610FEA9FC20A7F18</key>
+		<key>E42C526CB6E532899396BC3E</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>2046DC401118E2C9A7FBD0EC</string>
+				<string>AE83CA8F38CB4E4577FA98C6</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>E4A554DF71A71EE2B75C9A70</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F9EE23D3FBB61D77180C897D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E6800EB5CAE598F2116B32BE</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
 			<key>name</key>
-			<string>Pods-Tests-HPPhotoPrint.xcconfig</string>
+			<string>FrontFragmentShader.glsl</string>
 			<key>path</key>
-			<string>../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint.xcconfig</string>
+			<string>Pod/Libraries/XBPageCurl/Resources/FrontFragmentShader.glsl</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>ED321A7A4C4F37A667AB0D30</key>
+		<key>E73E0882902546C1CD2DC4FB</key>
 		<dict>
 			<key>fileRef</key>
-			<string>3BC9D1D9F3FFA72A91157B45</string>
+			<string>75D2441D005D13182B942BE7</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>EDE522186246FFEAB86AAF45</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EEED0A5F2EC6B254691D8055</key>
+		<key>E93196CCD4FF7AD88CDCCE6A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>F02D6A4E7D8B297637A8FF67</string>
+			<string>5A1C9C1667968F337A4E036E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>EF00F218B1AC4FD5D345B589</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>HPPPPrintSettingsTableViewController.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPrintSettingsTableViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F02D6A4E7D8B297637A8FF67</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>HPPPDashedLineView.m</string>
-			<key>path</key>
-			<string>Pod/Classes/Private/HPPPDashedLineView.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F0FB183D25ACB969446CD99A</key>
+		<key>E995FF90C290D18F12C3934E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>3BEBE52F1DE49F4A9E65A399</string>
+			<string>37FDE5E8DFB3846F8B0EFDFC</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>F134F0A267C1153391C599ED</key>
+		<key>ECBC55D72A23D3EAD41CCC0B</key>
 		<dict>
 			<key>fileRef</key>
-			<string>8D38D30039EE04136C29664A</string>
+			<string>D66C527C9AAAF5A91EB59228</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>F3171FA731C4BF726EA2FB67</key>
+		<key>EDA62E627DD03BB039704068</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>CE2C605E504053B21B3323C9</string>
-				<string>DFF067E44A06649AC80F5919</string>
-				<string>BAED9E541E2B2B0ED73155FF</string>
-				<string>FC879FAE0DE5C7429396161A</string>
-				<string>7ED65691C34F53F45FE96EF0</string>
-				<string>7339DD4CF88DCB03D050F323</string>
-				<string>38F39070F9B9FE5DC027FF5E</string>
+				<string>1224600C36C4E4D20A7876F7</string>
+				<string>C429F1D97A3FF70E219A0065</string>
+				<string>931EB10C91BDC2F5270CE370</string>
+				<string>A03AE37A23C3A035FB32DEE7</string>
+				<string>A77DEF35A624D258416737D3</string>
+				<string>04519ACB80BFD5BA40C60644</string>
+				<string>B9859D3017B747E436858F46</string>
+				<string>7EA1C8B0C9BA5833723997D2</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>name</key>
-			<string>Pods-Tests</string>
+			<string>Support Files</string>
 			<key>path</key>
-			<string>Target Support Files/Pods-Tests</string>
+			<string>Example/Pods/Target Support Files/Pods-HPPhotoPrint-HPPhotoPrint</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>F52F77FC7AD5195B43A022A8</key>
+		<key>EDF3D3415FC32518809C2F36</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.xib</string>
+			<key>name</key>
+			<string>HPPPPageView.xib</string>
+			<key>path</key>
+			<string>Pod/Classes/Public/HPPPPageView.xib</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>EEF91D6D8E905803A50F3BC2</key>
+		<dict>
+			<key>fileRef</key>
+			<string>83446C6F7851CDDCC4591AA6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>EF32231C5E9696E508CE1A61</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>38075D52C39E9BBD01DB7AEB</string>
+				<string>2AFC464BAA17DB7E43AA1F83</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Targets Support Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F0C5FB805411DF2BC56DCD3A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9DF1A95363FDC4EA7D564A3A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F0F26E3234D75307FE3CD5A3</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8A321EE54DA4177B421A998D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F1097025CE7F5A5A6683ADC5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F9EE23D3FBB61D77180C897D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F1F6C53749DD094093819A96</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2B51324E5A8E4DA30F09BB8A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F31BB16287EC4988E65DFDF9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A76124DCA5306CFBC3E5F618</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F57549581B0C53633E03C5CE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>424870921CA2184F361027E7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F5C98A4EB10D04E65ADC07B4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DD19A6D753D1FDCE37258306</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8C165D05E88DE4544E1FA72</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6D57C8DC615AF54B2E321E1B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F93FD8B30437EFE9E0C02EE1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>95E5922D40955FB1117D61A0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F97E2AF5DED085798A2B94F7</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>1D045AAA27A52267C1B61E78</string>
+				<string>8B42503DB1527F0E28FE4214</string>
+				<string>4315F0CF2F36C95442D600B7</string>
+				<string>E6800EB5CAE598F2116B32BE</string>
+				<string>21E42BCC63FE3D14B3F5A579</string>
+				<string>55E58081B17E4B79F892242F</string>
+				<string>B88934AA13AE6038A14BF295</string>
+				<string>B5BCF3EA900DA8FA18A48D37</string>
+				<string>82100C111D1FF8C744A47BD5</string>
+				<string>D02C1203DB35FD66F32BDF54</string>
+				<string>4C8403D75617BD29ECBF6EC8</string>
+				<string>625A8E9E69532951DFBE14DE</string>
+				<string>EDF3D3415FC32518809C2F36</string>
+				<string>D8C487F845F15D2C9A5FF346</string>
+				<string>1A62064FCF0F7087CFC7B7B1</string>
+				<string>4E3CE05CBCFE906FE9CB2CA8</string>
+				<string>399B78F873C59355E4961A92</string>
+				<string>73A780C33795C9B51B6BEC46</string>
+				<string>2EF2545809850B495F9B212F</string>
+				<string>FFAE5012060A2FDD1B4B9F86</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Resources</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F9EE23D3FBB61D77180C897D</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -3585,34 +3649,20 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>HPPPPrintPageRenderer.h</string>
+			<string>HPPPDashedLineView.h</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPrintPageRenderer.h</string>
+			<string>Pod/Classes/Private/HPPPDashedLineView.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>F56CDFFC03AA9849969DC142</key>
+		<key>FB1E772D937A9CC0EDD57879</key>
 		<dict>
 			<key>fileRef</key>
-			<string>B282E2AE394CB2FB7445E3C4</string>
+			<string>7A259511F9BFAE48F357D3D0</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>F5EFBED46F6B3E2DAA71757B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3414A81A3D88A66946D49855</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F605A3901C51CBA9A4EA2C38</key>
-		<dict>
-			<key>fileRef</key>
-			<string>96FF590E27662E84F22C7548</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F6E415AC96C8E323E6DC257E</key>
+		<key>FCD6DE69C37C36F688E5E45E</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -3621,77 +3671,27 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>HPPPPrintActivity.h</string>
+			<string>HPPPRuleView.h</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPPPrintActivity.h</string>
+			<string>Pod/Classes/Private/HPPPRuleView.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>F7AB77FEC7772C97121AC4C6</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CA1EDE2E8AF65D0491166D82</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F7F9788735EB8F84273FD729</key>
-		<dict>
-			<key>fileRef</key>
-			<string>48C7D5B7AB0894D02C9DD2D1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>FBFE6A47F8E3A0DC1F94866B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D774677E44A959DA30729E24</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>FC879FAE0DE5C7429396161A</key>
+		<key>FFAE5012060A2FDD1B4B9F86</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-Tests-environment.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>FD0FCC4AD78D71635001BB08</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>HPPP.h</string>
+			<string>NextPageVertexShader.glsl</string>
 			<key>path</key>
-			<string>Pod/Classes/Public/HPPP.h</string>
+			<string>Pod/Libraries/XBPageCurl/Resources/NextPageVertexShader.glsl</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>FDF65CF8D4ADF6C89E7D5952</key>
-		<dict>
-			<key>fileRef</key>
-			<string>2A9668CE3117756493DC8FD2</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>FEFF47271EAC1B900CD024D8</key>
-		<dict>
-			<key>fileRef</key>
-			<string>28FBF59F5B8740D50B0068F4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>
-	<string>BFCE84F13E1660C298A8BC22</string>
+	<string>0DA032FCFDD862B200568445</string>
 </dict>
 </plist>
