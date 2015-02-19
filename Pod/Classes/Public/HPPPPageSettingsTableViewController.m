@@ -545,7 +545,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     }
 }
 
-- (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(void))completion
+- (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
 {
     UIPrinterPickerController* printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
     printerPicker.delegate = self;
@@ -556,13 +556,13 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
                               animated:YES
                      completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
                          if (completion){
-                             completion();
+                             completion(userDidSelect);
                          }
                      }];
     } else {
         [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
             if (completion){
-                completion();
+                completion(userDidSelect);
             }
         }];
     }
@@ -651,9 +651,12 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
 - (void)oneTouchPrint:(UITableView *)tableView
 {
-    if (self.currentPrintSettings.printerUrl == nil){
-        [self showPrinterSelection:tableView withCompletion:^(void){
-            [self doPrint];
+    if (self.currentPrintSettings.printerUrl == nil ||
+        !self.currentPrintSettings.printerIsAvailable  ){
+        [self showPrinterSelection:tableView withCompletion:^(BOOL userDidSelect){
+            if (userDidSelect) {
+                [self doPrint];
+            }
         }];
     } else {
         [self doPrint];
