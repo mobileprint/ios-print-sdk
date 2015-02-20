@@ -336,6 +336,17 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     self.printSettingsDetailLabel.text = [NSString stringWithFormat:@"%@, %@ %@", self.paperSizeSelectedLabel.text, self.paperTypeSelectedLabel.text, displayedPrinterName];
 }
 
+- (UIPrintInteractionController*)getSharedPrintInteractionController
+{
+    UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
+    
+    if (nil != controller) {
+        controller.delegate = self;
+    }
+    
+    return controller;
+}
+
 #pragma mark - Printer availability
 
 - (void)printerNotAvailable
@@ -399,15 +410,13 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 - (void)displaySystemPrintFromBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
     // Obtain the shared UIPrintInteractionController
-    UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
+    UIPrintInteractionController *controller = [self getSharedPrintInteractionController];
     
     if (!controller) {
         NSLog(@"Couldn't get shared UIPrintInteractionController!");
         return;
     }
-    
-    controller.delegate = self;
-    
+   
     [self createPrintJob:controller];
 
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
@@ -657,7 +666,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 - (void)doPrint
 {
     if (self.currentPrintSettings.printerUrl != nil){
-        UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
+        UIPrintInteractionController *controller = [self getSharedPrintInteractionController];
         if (!controller) {
             NSLog(@"Couldn't get shared UIPrintInteractionController!");
             return;
