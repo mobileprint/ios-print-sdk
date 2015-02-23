@@ -222,7 +222,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         }];
         
         self.wifiReachability = [[HPPPWiFiReachability alloc] init];
-        [self.wifiReachability start:self.printCell];
+        [self.wifiReachability start:self.printCell label:self.printLabel];
     }
 }
 

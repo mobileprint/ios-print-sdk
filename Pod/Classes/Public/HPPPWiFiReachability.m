@@ -10,10 +10,12 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPWiFiReachability.h"
 
 @interface HPPPWiFiReachability ()
 
+@property (weak, nonatomic) UILabel *label;
 @property (weak, nonatomic) UITableViewCell *cell;
 @property (nonatomic) Reachability *wifiReachability;
 
@@ -22,9 +24,10 @@
 
 @implementation HPPPWiFiReachability
 
-- (void)start:(UITableViewCell *)cell
+- (void)start:(UITableViewCell *)cell label:(UILabel *)label
 {
     self.cell = cell;
+    self.label = label;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     self.wifiReachability = [Reachability reachabilityForLocalWiFi];
     [self.wifiReachability startNotifier];
@@ -37,9 +40,10 @@
     if (wifiStatus != NotReachable) {
         self.cell.userInteractionEnabled = YES;
         self.cell.textLabel.textColor = [UIColor blackColor];
+        self.label.textColor = [HPPP sharedInstance].tableViewCellLinkLabelColor;
     } else {
         self.cell.userInteractionEnabled = NO;
-        self.cell.textLabel.textColor = [UIColor grayColor];
+        self.label.textColor = [UIColor grayColor];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Printing Requires Wi-Fi"
                                                         message:@"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings."
                                                        delegate:nil
