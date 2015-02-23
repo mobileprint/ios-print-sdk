@@ -16,7 +16,6 @@
 
 @interface HPPPWiFiReachability : NSObject
 
-
--(void)start:(UIBarButtonItem *)button;
+- (void)start:(UITableViewCell *)cell;
 
 @end

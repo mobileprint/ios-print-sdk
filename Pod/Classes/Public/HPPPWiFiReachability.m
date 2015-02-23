@@ -14,7 +14,7 @@
 
 @interface HPPPWiFiReachability ()
 
-@property (weak, nonatomic) UIBarButtonItem *button;
+@property (weak, nonatomic) UITableViewCell *cell;
 @property (nonatomic) Reachability *wifiReachability;
 
 @end
@@ -22,21 +22,24 @@
 
 @implementation HPPPWiFiReachability
 
--(void)start:(UIBarButtonItem *)button
+- (void)start:(UITableViewCell *)cell
 {
-    self.button = button;
+    self.cell = cell;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     self.wifiReachability = [Reachability reachabilityForLocalWiFi];
     [self.wifiReachability startNotifier];
     [self verifyWifiIsConnected:self.wifiReachability];
 }
 
-- (void)verifyWifiIsConnected:(Reachability *)reachability {
+- (void)verifyWifiIsConnected:(Reachability *)reachability
+{
     NetworkStatus wifiStatus = [reachability currentReachabilityStatus];
     if (wifiStatus != NotReachable) {
-        [self.button setEnabled:YES];
+        self.cell.userInteractionEnabled = YES;
+        self.cell.textLabel.textColor = [UIColor blackColor];
     } else {
-        [self.button setEnabled:NO];
+        self.cell.userInteractionEnabled = NO;
+        self.cell.textLabel.textColor = [UIColor grayColor];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Printing Requires Wi-Fi"
                                                         message:@"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings."
                                                        delegate:nil

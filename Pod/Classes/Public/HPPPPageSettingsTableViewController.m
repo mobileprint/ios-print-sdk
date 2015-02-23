@@ -58,7 +58,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
-@interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, HPPPPageViewControllerDelegate, UIPrinterPickerControllerDelegate>
+@interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate>
 
 
 @property (weak, nonatomic) HPPPPageView *pageView;
@@ -81,7 +81,6 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageViewCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperSizeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *learnMoreCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *selectPrinterCell;
@@ -91,7 +90,6 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 @property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderPaperTypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerStatusCell;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *printBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
@@ -207,10 +205,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
 - (void)configurePageView
 {
-    if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
-        self.navigationItem.rightBarButtonItem = nil;
-        self.pageViewController.delegate = self;
-    } else {
+    if (!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.tableViewCellPageView;
         self.pageView.image = self.image;
         
@@ -227,7 +222,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         }];
         
         self.wifiReachability = [[HPPPWiFiReachability alloc] init];
-        [self.wifiReachability start:self.printBarButtonItem];
+        [self.wifiReachability start:self.printCell];
     }
 }
 
@@ -277,17 +272,12 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 // Hide or show UI that will always be hidden or shown based on the iOS version
 - (void) prepareUiForIosVersion
 {
-    if (IS_OS_8_OR_LATER){
-        self.navigationItem.rightBarButtonItems = nil;
-        self.printCell.hidden = NO;
-        self.separatorUnderPrintCell.hidden = NO;
-    } else {
-        self.printCell.hidden = YES;
-        self.separatorUnderPrintCell.hidden = YES;
+    if (!IS_OS_8_OR_LATER){
         self.selectPrinterCell.hidden = YES;
         self.separatorUnderSelectPrinterCell.hidden = YES;
         self.printSettingsCell.hidden = YES;
         self.printerStatusCell.hidden = YES;
+        self.separatorUnderPaperTypeCell.hidden = YES;
     }
 }
 
@@ -402,12 +392,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     }
 }
 
-- (IBAction)printButtonTapped:(id)sender
-{
-    [self displaySystemPrintFromBarButtonItem:self.printBarButtonItem];
-}
-
-- (void)displaySystemPrintFromBarButtonItem:(UIBarButtonItem *)barButtonItem
+- (void)displaySystemPrintFromView:(UIView *)view
 {
     // Obtain the shared UIPrintInteractionController
     UIPrintInteractionController *controller = [self getSharedPrintInteractionController];
@@ -426,7 +411,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     
     if (IS_IPAD) {
         self.cancelBarButtonItem.enabled = NO;
-        [controller presentFromBarButtonItem:barButtonItem animated:YES completionHandler:completionHandler];
+        [controller presentFromRect:view.frame inView:self.view animated:YES completionHandler:completionHandler];
     } else {
         [controller presentAnimated:YES completionHandler:completionHandler];
     }
@@ -673,15 +658,19 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
 - (void)oneTouchPrint:(UITableView *)tableView
 {
-    if (self.currentPrintSettings.printerUrl == nil ||
-        !self.currentPrintSettings.printerIsAvailable  ){
-        [self showPrinterSelection:tableView withCompletion:^(BOOL userDidSelect){
-            if (userDidSelect) {
-                [self doPrint];
-            }
-        }];
+    if (IS_OS_8_OR_LATER) {
+        if (self.currentPrintSettings.printerUrl == nil ||
+            !self.currentPrintSettings.printerIsAvailable  ){
+            [self showPrinterSelection:tableView withCompletion:^(BOOL userDidSelect){
+                if (userDidSelect) {
+                    [self doPrint];
+                }
+            }];
+        } else {
+            [self doPrint];
+        }
     } else {
-        [self doPrint];
+        [self displaySystemPrintFromView:self.printCell];
     }
 }
 
@@ -882,13 +871,6 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithInteger:self.currentPrintSettings.paper.paperType] forKey:LAST_TYPE_USED_SETTING];
     [defaults synchronize];
-}
-
-#pragma mark - PGPageViewControllerDelegate
-
-- (void)pageViewController:(HPPPPageViewController *)pageViewController didTapPrintBarButtonItem:(UIBarButtonItem *)printBarButtonItem
-{
-    [self displaySystemPrintFromBarButtonItem:printBarButtonItem];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
