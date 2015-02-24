@@ -245,9 +245,11 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
     self.currentPrintSettings.printerUrl = [NSURL URLWithString:lastPrinterUrl];
     
-    NSNumber *lastFilterUsed = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_FILTER_USED_SETTING];
-    if (lastFilterUsed != nil) {
-        self.blackAndWhiteModeSwitch.on = lastFilterUsed.boolValue;
+    if (IS_OS_8_OR_LATER) {
+        NSNumber *lastFilterUsed = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_FILTER_USED_SETTING];
+        if (lastFilterUsed != nil) {
+            self.blackAndWhiteModeSwitch.on = lastFilterUsed.boolValue;
+        }
     }
 }
 
@@ -752,10 +754,6 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     }
     
     if (completed) {
-        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:printController.printInfo.printerID forKey:LAST_PRINTER_USED_SETTING];
-        [defaults synchronize];
-        
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
             [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
         }
