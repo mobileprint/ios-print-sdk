@@ -79,7 +79,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="25" id="6M8-o3-mrT" userLabel="Printer Status Table View Cell">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="25" id="6M8-o3-mrT" userLabel="Printer Status Table View Cell">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6M8-o3-mrT" id="CYE-LI-gBs">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -150,7 +150,9 @@
                             <outlet property="delegate" destination="e7w-W2-Hc3" id="wfz-Ml-TMM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Print Settings" id="rl1-nO-JgX" userLabel="Print Settings"/>
+                    <navigationItem key="navigationItem" title="Print Settings" id="rl1-nO-JgX" userLabel="Print Settings">
+                        <barButtonItem key="backBarButtonItem" title=" " id="RGM-fG-U6G"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="paperSizeLabel" destination="M7R-zC-SFt" id="4Ei-Xo-GWy"/>
                         <outlet property="paperTypeCell" destination="pA0-HQ-2fs" id="TF6-0n-zJB"/>
@@ -213,7 +215,7 @@
                                         <color key="backgroundColor" red="0.93725496529999996" green="0.93725496529999996" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
                                         <inset key="separatorInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell alpha="0.0" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="20" id="frP-o4-Bf6" userLabel="Separator Table View Cell">
+                                    <tableViewCell userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="20" id="frP-o4-Bf6" userLabel="Separator Table View Cell">
                                         <rect key="frame" x="0.0" y="446" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="frP-o4-Bf6" id="sp3-tB-oy0">
@@ -247,7 +249,7 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell alpha="0.0" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="20" id="EuL-Sa-Nwd" userLabel="Separator Table View Cell">
+                                    <tableViewCell userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="20" id="EuL-Sa-Nwd" userLabel="Separator Table View Cell">
                                         <rect key="frame" x="0.0" y="446" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EuL-Sa-Nwd" id="PYf-mN-MhD">
@@ -281,7 +283,7 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="20" id="Jck-Ii-6e5" userLabel="Separator Table View Cell">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="20" id="Jck-Ii-6e5" userLabel="Separator Table View Cell">
                                         <rect key="frame" x="0.0" y="446" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jck-Ii-6e5" id="9Rw-xd-SXa">
@@ -360,7 +362,7 @@
                                             <segue destination="wth-P5-nh4" kind="push" identifier="PaperTypeSegue" id="IR0-Cb-GP4"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="20" id="BXR-Lh-LKN" userLabel="Separator Table View Cell">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="20" id="BXR-Lh-LKN" userLabel="Separator Table View Cell">
                                         <rect key="frame" x="0.0" y="446" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BXR-Lh-LKN" id="39e-aF-Xrb">
@@ -427,7 +429,7 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="25" id="2yh-xW-llg" userLabel="Printer Status Table View Cell">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="25" id="2yh-xW-llg" userLabel="Printer Status Table View Cell">
                                         <rect key="frame" x="0.0" y="446" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2yh-xW-llg" id="oBO-YC-FAT">
@@ -936,7 +938,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IR0-Cb-GP4"/>
         <segue reference="r3H-wT-dSP"/>
+        <segue reference="IR0-Cb-GP4"/>
     </inferredMetricsTieBreakers>
 </document>

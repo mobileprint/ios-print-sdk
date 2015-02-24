@@ -29,10 +29,7 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
 {
     [super viewDidLoad];
     
-    //self.trackableScreenName = @"Paper Type Screen";
-    
     self.hppp = [HPPP sharedInstance];
-    
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
@@ -44,7 +41,6 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
         }
     }
 }
-
 
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -74,7 +70,7 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)viewDidLayoutSubviews
 {
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
@@ -83,7 +79,10 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
     if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
         [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     }
-    
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
         [cell setSeparatorInset:UIEdgeInsetsZero];
     }
