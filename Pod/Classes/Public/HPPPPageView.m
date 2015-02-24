@@ -17,7 +17,7 @@
 #import "UIImage+HPPPResize.h"
 #import "UIView+HPPPAnimation.h"
 
-#define PREVIEW_CONTAINER_SCALE 0.9f
+#define PREVIEW_CONTAINER_SCALE 0.8f
 
 @interface HPPPPageView ()
 
