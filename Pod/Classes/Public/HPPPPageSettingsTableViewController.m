@@ -36,16 +36,17 @@
 #define NUMBER_OF_ROWS_IN_PAPER_SECTION 4
 
 #define PAPER_SHOW_INDEX 0
-#define PRINT_INDEX 1
-#define SEPARATOR_UNDER_PRINT_INDEX 2
-#define PRINTER_SELECT_INDEX 3
-#define SEPARATOR_UNDER_SELECT_PRINTER_INDEX 4
-#define PAPER_SIZE_INDEX 5
-#define PAPER_TYPE_INDEX 6
-#define SEPARATOR_UNDER_PAPER_TYPE_INDEX 7
-#define FILTER_INDEX 8
+#define SEPARATOR_UNDER_PAGE_VIEW_INDEX 1
+#define PRINT_INDEX 2
+#define SEPARATOR_UNDER_PRINT_INDEX 3
+#define PRINTER_SELECT_INDEX 4
+#define SEPARATOR_UNDER_SELECT_PRINTER_INDEX 5
+#define PAPER_SIZE_INDEX 6
+#define PAPER_TYPE_INDEX 7
+#define SEPARATOR_UNDER_PAPER_TYPE_INDEX 8
 #define PRINT_SETTINGS_INDEX 9
-#define PRINTER_STATUS_INDEX 10
+#define FILTER_INDEX 10
+#define PRINTER_STATUS_INDEX 11
 
 #define LAST_PRINTER_USED_SETTING @"lastPrinterUsed"
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
@@ -85,6 +86,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 @property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *selectPrinterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderPageViewCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderPrintCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderSelectPrinterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderPaperTypeCell;
@@ -273,11 +275,16 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 - (void) prepareUiForIosVersion
 {
     if (!IS_OS_8_OR_LATER){
+        self.separatorUnderPageViewCell.hidden = YES;
         self.selectPrinterCell.hidden = YES;
         self.separatorUnderSelectPrinterCell.hidden = YES;
         self.printSettingsCell.hidden = YES;
         self.printerStatusCell.hidden = YES;
         self.separatorUnderPaperTypeCell.hidden = YES;
+    } else {
+        if (!IS_IPAD) {
+            self.separatorUnderPageViewCell.hidden = YES;
+        }
     }
 }
 
@@ -577,6 +584,10 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     
     if (indexPath.section == PAPER_SECTION) {
         switch (indexPath.row) {
+            case SEPARATOR_UNDER_PAGE_VIEW_INDEX:
+                rowHeight = SEPARATOR_ROW_HEIGHT;
+                break;
+                
             case SEPARATOR_UNDER_PRINT_INDEX:
                 rowHeight = SEPARATOR_ROW_HEIGHT;
                 break;
@@ -741,6 +752,10 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     }
     
     if (completed) {
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:printController.printInfo.printerID forKey:LAST_PRINTER_USED_SETTING];
+        [defaults synchronize];
+        
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
             [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
         }
