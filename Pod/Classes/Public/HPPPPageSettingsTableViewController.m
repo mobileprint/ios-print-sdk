@@ -49,6 +49,7 @@
 
 #define LAST_PRINTER_USED_SETTING @"lastPrinterUsed"
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
+#define LAST_PRINTER_USED_ID_SETTING @"lastPrinterIdUsed"
 #define LAST_SIZE_USED_SETTING @"lastSizeUsed"
 #define LAST_TYPE_USED_SETTING @"lastTypeUsed"
 #define LAST_FILTER_USED_SETTING @"lastFilterUsed"
@@ -248,6 +249,9 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
     self.currentPrintSettings.printerUrl = [NSURL URLWithString:lastPrinterUrl];
     
+    NSString *lastPrinterId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_ID_SETTING];
+    self.currentPrintSettings.printerId = lastPrinterId;
+
     NSNumber *lastFilterUsed = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_FILTER_USED_SETTING];
     if (lastFilterUsed != nil) {
         self.blackAndWhiteModeSwitch.on = lastFilterUsed.boolValue;
@@ -700,7 +704,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     // but that's all we've got.
     printInfo.jobName = @"PhotoGram";
     
-    printInfo.printerID = self.currentPrintSettings.printerName;
+    printInfo.printerID = self.currentPrintSettings.printerId;
     
     // This application prints photos. UIKit will pick a paper size and print
     // quality appropriate for this content type.
@@ -749,6 +753,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     [lastOptionsUsed setValue:self.currentPrintSettings.paper.typeTitle forKey:kHPPPPaperTypeId];
     [lastOptionsUsed setValue:self.currentPrintSettings.paper.sizeTitle forKey:kHPPPPaperSizeId];
     [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on] forKey:kHPPPBlackAndWhiteFilterId];
+
     NSString * printerID = printController.printInfo.printerID;
     if (printerID) {
         [lastOptionsUsed setValue:printerID forKey:kHPPPPrinterId];
@@ -763,6 +768,12 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         }
     }
     [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
+    
+    self.currentPrintSettings.printerId = printerID;
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.currentPrintSettings.printerId forKey:LAST_PRINTER_USED_ID_SETTING];
+    [defaults synchronize];
+
 }
 
 - (void)setPrinterDetails:(UIPrinter *)printer
@@ -784,6 +795,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:printSettings.printerUrl.absoluteString forKey:LAST_PRINTER_USED_URL_SETTING];
     [defaults setObject:printSettings.printerName forKey:LAST_PRINTER_USED_SETTING];
+    [defaults setObject:printSettings.printerId forKey:LAST_PRINTER_USED_ID_SETTING];
     [defaults synchronize];
     
     [self paperSizeTableViewController:(HPPPPaperSizeTableViewController *)printSettingsTableViewController didSelectPaper:printSettings.paper];
@@ -888,6 +900,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:selectedPrinter.URL.absoluteString forKey:LAST_PRINTER_USED_URL_SETTING];
         [defaults setObject:selectedPrinter.displayName forKey:LAST_PRINTER_USED_SETTING];
+        [defaults setObject:self.currentPrintSettings.printerId forKey:LAST_PRINTER_USED_ID_SETTING];
         [defaults synchronize];
         
         self.currentPrintSettings.printerIsAvailable = YES;
