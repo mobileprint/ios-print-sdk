@@ -15,6 +15,13 @@
 
 #define HEADER_HEIGHT 50.0f
 
+// http://stackoverflow.com/questions/19056428/how-to-hide-first-section-header-in-uitableview-grouped-style
+#define ZERO_HEIGHT 0.0001f
+
+#define SEPARATOR_SECTION_FOOTER_HEIGHT 15.0f
+#define PRINTER_WARNING_SECTION_FOOTER_HEIGHT 25.0f
+
+
 @interface UITableView (HPPPHeader)
 
 - (UIView *)HPPPHeaderViewForSupportSection;

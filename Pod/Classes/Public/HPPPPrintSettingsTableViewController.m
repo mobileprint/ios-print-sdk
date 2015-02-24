@@ -15,9 +15,13 @@
 #import "HPPPPrintSettingsTableViewController.h"
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPPPaperTypeTableViewController.h"
+#import "UITableView+HPPPHeader.h"
 
-#define PRINTER_STATUS_INDEX 1
-#define PRINTER_STATUS_ROW_HEIGHT 25.0f
+#define PRINTER_SELECTION_SECTION 0
+#define PAPER_SELECTION_SECTION 1
+
+#define PAPER_SIZE_ROW_INDEX 0
+#define PAPER_TYPE_ROW_INDEX 1
 
 @interface HPPPPrintSettingsTableViewController  () <HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, UIPrinterPickerControllerDelegate>
 
@@ -30,7 +34,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *selectedPrinterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedPaperSizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedPaperTypeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *printerStatusLabel;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerSelectCell;
@@ -46,19 +49,16 @@
     self.hppp = [HPPP sharedInstance];
     
     self.selectedPrinterLabel.text = self.printSettings.printerName;
-
+    
     self.selectedPaperSizeLabel.text = self.printSettings.paper.sizeTitle;
     self.selectedPaperTypeLabel.text = self.printSettings.paper.typeTitle;
     
     self.printerLabel.font = self.hppp.tableViewCellLabelFont;
-    self.printerStatusLabel.font = self.hppp.rulesLabelFont;
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
     self.selectedPrinterLabel.font = self.hppp.tableViewCellLabelFont;
     self.selectedPaperSizeLabel.font = self.hppp.tableViewCellLabelFont;
     self.selectedPaperTypeLabel.font = self.hppp.tableViewCellLabelFont;
-    
-    self.paperTypeCell.hidden = self.printSettings.paper.paperSize != SizeLetter;
     
     [self updatePrinterAvailability];
     
@@ -70,16 +70,43 @@
     [self.tableView beginUpdates];
     if (self.printSettings.printerIsAvailable){
         [self.printerSelectCell.imageView setImage:nil];
-        self.printerStatusLabel.hidden = YES;
     } else {
         UIImage *warningSign = [UIImage imageNamed:@"HPPPDoNoEnter"];
         [self.printerSelectCell.imageView setImage:warningSign];
-        self.printerStatusLabel.hidden = NO;
     }
     [self.tableView endUpdates];
+    
+    [self reloadPrinterSelectionSection];
+}
+
+- (void)reloadPrinterSelectionSection
+{
+    NSRange range = NSMakeRange(PRINTER_SELECTION_SECTION, 1);
+    NSIndexSet *sectionToReload = [NSIndexSet indexSetWithIndexesInRange:range];
+    [self.tableView reloadSections:sectionToReload withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)reloadPaperSelectionSection
+{
+    NSRange range = NSMakeRange(PAPER_SELECTION_SECTION, 1);
+    NSIndexSet *sectionToReload = [NSIndexSet indexSetWithIndexesInRange:range];
+    [self.tableView reloadSections:sectionToReload withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - UITableViewDelegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == PAPER_SELECTION_SECTION) {
+        if (self.printSettings.paper.paperSize == SizeLetter) {
+            return 2;
+        } else {
+            return 1;
+        }
+    } else {
+        return [super tableView:tableView numberOfRowsInSection:section];
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -108,53 +135,77 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    if (cell.hidden == YES){
+    
+    if (cell.hidden == YES) {
         return 0.0f;
     }
     
     CGFloat rowHeight = 0.0f;
     
-    switch (indexPath.row) {
-        case PRINTER_STATUS_INDEX:
-            rowHeight = PRINTER_STATUS_ROW_HEIGHT;
-            break;
-            
-        default:
-            rowHeight = self.tableView.rowHeight;
-            break;
+    if (indexPath.section == PAPER_SELECTION_SECTION) {
+        if (indexPath.row == PAPER_SIZE_ROW_INDEX) {
+            if (!self.hppp.hidePaperSizeOption) {
+                rowHeight = tableView.rowHeight;
+            }
+        } else if (indexPath.row == PAPER_TYPE_ROW_INDEX) {
+            if ((!self.hppp.hidePaperTypeOption) && (self.printSettings.paper.paperSize == SizeLetter)) {
+                rowHeight = tableView.rowHeight;
+            }
+        }
+    } else {
+        rowHeight = tableView.rowHeight;
     }
-    
     
     return rowHeight;
 }
 
-- (void)viewDidLayoutSubviews
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-    }
-    
-    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+    if (section == PRINTER_SELECTION_SECTION) {
+        return [super tableView:tableView heightForHeaderInSection:section];
+    } else {
+        return ZERO_HEIGHT;
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
+    CGFloat height = ZERO_HEIGHT;
+    
+    if (section == PRINTER_SELECTION_SECTION) {
+        if (self.printSettings.printerIsAvailable) {
+            height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+        } else {
+            height = PRINTER_WARNING_SECTION_FOOTER_HEIGHT;
+        }
     }
     
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
+    return height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footer = nil;
+    
+    if (section == PRINTER_SELECTION_SECTION) {
+        if (!self.printSettings.printerIsAvailable) {
+            footer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableView.frame.size.width, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
+            label.font = self.hppp.rulesLabelFont;
+            label.textColor = [UIColor grayColor];
+            label.text = @"Recent printer not currently available";
+            [footer addSubview:label];
+        }
     }
+    
+    return footer;
 }
 
 #pragma mark - UIPrinterPickerControllerDelegate
 
 - (void)printerPickerControllerDidDismiss:(UIPrinterPickerController *)printerPickerController
 {
-    UIPrinter* selectedPrinter = printerPickerController.selectedPrinter;
+    UIPrinter *selectedPrinter = printerPickerController.selectedPrinter;
     
     if (selectedPrinter != nil){
         self.selectedPrinterLabel.text = selectedPrinter.displayName;
@@ -175,18 +226,19 @@
 - (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
     self.printSettings.paper = paper;
+    
+    [self reloadPaperSelectionSection];
+    
     self.selectedPaperSizeLabel.text = paper.sizeTitle;
     
     // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
     if (paper.paperSize == SizeLetter) {
-        self.paperTypeCell.hidden = NO;
         self.printSettings.paper.paperType = Plain;
         self.printSettings.paper.typeTitle = [HPPPPaper titleFromType:Plain];
         self.selectedPaperTypeLabel.text = self.printSettings.paper.typeTitle;
         
     } else {
-        self.paperTypeCell.hidden = YES;
         self.printSettings.paper.paperType = Photo;
         self.printSettings.paper.typeTitle = [HPPPPaper titleFromType:Photo];
         self.selectedPaperTypeLabel.text = self.printSettings.paper.typeTitle;

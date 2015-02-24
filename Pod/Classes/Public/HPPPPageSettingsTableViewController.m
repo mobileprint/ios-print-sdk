@@ -27,26 +27,20 @@
 #import "UIColor+HPPPStyle.h"
 
 #define DEFAULT_ROW_HEIGHT 44.0f
-#define SEPARATOR_ROW_HEIGHT 15.0f
-#define PRINTER_STATUS_ROW_HEIGHT 25.0f
 
-#define PAPER_SECTION 0
-#define SUPPORT_SECTION 1
+#define PRINT_FUNCTION_SECTION 0
+#define PRINTER_SELECTION_SECTION 1
+#define PAPER_SELECTION_SECTION 2
+#define PRINT_SETTINGS_SECTION 3
+#define FILTER_SECTION 4
+#define SUPPORT_SECTION 5
 
-#define NUMBER_OF_ROWS_IN_PAPER_SECTION 4
-
-#define PAPER_SHOW_INDEX 0
-#define SEPARATOR_UNDER_PAGE_VIEW_INDEX 1
-#define PRINT_INDEX 2
-#define SEPARATOR_UNDER_PRINT_INDEX 3
-#define PRINTER_SELECT_INDEX 4
-#define SEPARATOR_UNDER_SELECT_PRINTER_INDEX 5
-#define PAPER_SIZE_INDEX 6
-#define PAPER_TYPE_INDEX 7
-#define SEPARATOR_UNDER_PAPER_TYPE_INDEX 8
-#define PRINT_SETTINGS_INDEX 9
-#define FILTER_INDEX 10
-#define PRINTER_STATUS_INDEX 11
+#define PRINT_FUNCTION_ROW_INDEX 0
+#define PRINTER_SELECTION_INDEX 0
+#define PAPER_SIZE_ROW_INDEX 0
+#define PAPER_TYPE_ROW_INDEX 1
+#define PRINT_SETTINGS_ROW_INDEX 0
+#define FILTER_ROW_INDEX 0
 
 #define LAST_PRINTER_USED_SETTING @"lastPrinterUsed"
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
@@ -77,20 +71,14 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 @property (weak, nonatomic) IBOutlet UILabel *selectedPrinterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsDetailLabel;
-@property (weak, nonatomic) IBOutlet UILabel *printerStatusLabel;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageViewCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *selectPrinterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperSizeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *selectPrinterCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *printCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderPageViewCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderPrintCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderSelectPrinterCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *separatorUnderPaperTypeCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *printerStatusCell;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
 
@@ -114,10 +102,13 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    if (IS_IPAD && IS_OS_8_OR_LATER) {
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
+    }
+    
     self.printLabel.font = self.hppp.tableViewCellLabelFont;
     self.printSettingsLabel.font = self.hppp.tableViewCellLabelFont;
     self.printSettingsDetailLabel.font = self.hppp.rulesLabelFont;
-    self.printerStatusLabel.font = self.hppp.rulesLabelFont;
     self.selectPrinterLabel.font = self.hppp.tableViewCellLabelFont;
     self.selectedPrinterLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
@@ -145,6 +136,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     if (self.hppp.hideBlackAndWhiteOption) {
         self.filterCell.hidden = YES;
     }
+    
+    [self reloadPaperSelectionSection];
     
     [self prepareUiForIosVersion];
     [self updatePrintSettingsUI];
@@ -264,7 +257,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     if (lastSizeUsed) {
         paperSize = (PaperSize)[lastSizeUsed integerValue];
     }
-
+    
     PaperType paperType = SizeLetter == paperSize ? Plain : Photo;
     if (SizeLetter == paperSize && lastTypeUsed) {
         paperType = (PaperType)[lastTypeUsed integerValue];
@@ -277,16 +270,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 - (void) prepareUiForIosVersion
 {
     if (!IS_OS_8_OR_LATER){
-        self.separatorUnderPageViewCell.hidden = YES;
         self.selectPrinterCell.hidden = YES;
-        self.separatorUnderSelectPrinterCell.hidden = YES;
         self.printSettingsCell.hidden = YES;
-        self.printerStatusCell.hidden = YES;
-        self.separatorUnderPaperTypeCell.hidden = YES;
-    } else {
-        if (!IS_IPAD) {
-            self.separatorUnderPageViewCell.hidden = YES;
-        }
     }
 }
 
@@ -298,19 +283,14 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     if (IS_OS_8_OR_LATER){
         if (self.currentPrintSettings.printerName == nil){
             self.selectPrinterCell.hidden = NO;
-            self.separatorUnderSelectPrinterCell.hidden = NO;
             self.paperSizeCell.hidden = NO;
             self.printSettingsCell.hidden = YES;
             self.paperTypeCell.hidden = (self.currentPrintSettings.paper.paperSize == SizeLetter) ? NO : YES;
-            self.printerStatusCell.hidden = YES;
         } else {
             self.selectPrinterCell.hidden = YES;
-            self.separatorUnderSelectPrinterCell.hidden = YES;
             self.paperSizeCell.hidden = YES;
             self.paperTypeCell.hidden = YES;
-            self.separatorUnderPaperTypeCell.hidden = YES;
             self.printSettingsCell.hidden = NO;
-            self.printerStatusCell.hidden = (self.currentPrintSettings.printerIsAvailable) ? YES : NO;
         }
         if (self.currentPrintSettings.printerIsAvailable){
             [self printerIsAvailable];
@@ -346,6 +326,43 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     return controller;
 }
 
+- (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
+{
+    UIPrinterPickerController *printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
+    printerPicker.delegate = self;
+    
+    if( IS_IPAD ) {
+        [printerPicker presentFromRect:self.selectPrinterCell.frame
+                                inView:tableView
+                              animated:YES
+                     completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                         if (completion){
+                             completion(userDidSelect);
+                         }
+                     }];
+    } else {
+        [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+            if (completion){
+                completion(userDidSelect);
+            }
+        }];
+    }
+}
+
+- (void)reloadPrinterSelectionSection
+{
+    NSRange range = NSMakeRange(PRINTER_SELECTION_SECTION, 1);
+    NSIndexSet *sectionToReload = [NSIndexSet indexSetWithIndexesInRange:range];
+    [self.tableView reloadSections:sectionToReload withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)reloadPaperSelectionSection
+{
+    NSRange range = NSMakeRange(PAPER_SELECTION_SECTION, 1);
+    NSIndexSet *sectionToReload = [NSIndexSet indexSetWithIndexesInRange:range];
+    [self.tableView reloadSections:sectionToReload withRowAnimation:UITableViewRowAnimationNone];
+}
+
 #pragma mark - Printer availability
 
 - (void)printerNotAvailable
@@ -355,7 +372,6 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     UIImage *warningSign = [UIImage imageNamed:@"HPPPDoNoEnter"];
     [self.printSettingsCell.imageView setImage:warningSign];
     self.currentPrintSettings.printerIsAvailable = NO;
-    self.printerStatusCell.hidden = NO;
     [self.tableView endUpdates];
 }
 
@@ -365,7 +381,6 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     [self.tableView beginUpdates];
     [self.printSettingsCell.imageView setImage:nil];
     self.currentPrintSettings.printerIsAvailable = YES;
-    self.printerStatusCell.hidden = YES;
     [self.tableView endUpdates];
 }
 
@@ -387,6 +402,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
                     [self printerNotAvailable];
                     NSLog(@"Unable to contact printer %@", lastPrinterUrl);
                 }
+                
+                [self reloadPrinterSelectionSection];
             }];
         }
     });
@@ -396,7 +413,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
 - (IBAction)cancelButtonTapped:(id)sender
 {
-   if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidCancelPrintFlow:)]) {
+    if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidCancelPrintFlow:)]) {
         [self.delegate pageSettingsTableViewControllerDidCancelPrintFlow:self];
     }
 }
@@ -410,9 +427,9 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         NSLog(@"Couldn't get shared UIPrintInteractionController!");
         return;
     }
-   
+    
     [self createPrintJob:controller];
-
+    
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
         
         [self printCompleted:printController isCompleted:completed printError:error];
@@ -468,15 +485,21 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (self.hppp.supportActions.count != 0)
-        return 2; // Paper Section + Support Section
+        return [super numberOfSectionsInTableView:tableView];
     else
-        return 1; // Paper Section
+        return ([super numberOfSectionsInTableView:tableView] - 1);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == SUPPORT_SECTION) {
         return self.hppp.supportActions.count;
+    } else if (section == PAPER_SELECTION_SECTION) {
+        if (self.currentPrintSettings.paper.paperSize == SizeLetter) {
+            return 2;
+        } else {
+            return 1;
+        }
     } else {
         return [super tableView:tableView numberOfRowsInSection:section];
     }
@@ -485,7 +508,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
     
-    if (indexPath.section == PAPER_SECTION) {
+    if (indexPath.section != SUPPORT_SECTION) {
         cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
         
     } else {
@@ -505,15 +528,40 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     return cell;
 }
 
+
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    CGFloat height = 0.0f;
+    CGFloat height = ZERO_HEIGHT;
     
     if (section == SUPPORT_SECTION) {
         if (self.hppp.supportActions.count != 0) {
             height = HEADER_HEIGHT;
+        }
+    }
+    
+    return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    CGFloat height = ZERO_HEIGHT;
+    
+    if (section == PRINT_FUNCTION_SECTION) {
+        height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+    } else if (IS_OS_8_OR_LATER && ((section == PRINTER_SELECTION_SECTION) || (section == PAPER_SELECTION_SECTION))) {
+        if ((!self.hppp.hidePaperTypeOption) && (self.currentPrintSettings.printerUrl == nil)) {
+            height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+        }
+    } else if (IS_OS_8_OR_LATER && (section == PRINT_SETTINGS_SECTION)) {
+        if (self.currentPrintSettings.printerUrl != nil) {
+            if (self.currentPrintSettings.printerIsAvailable) {
+                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+            } else {
+                height = PRINTER_WARNING_SECTION_FOOTER_HEIGHT;
+            }
         }
     }
     
@@ -539,29 +587,6 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     }
 }
 
-- (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
-{
-    UIPrinterPickerController* printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
-    printerPicker.delegate = self;
-    
-    if( IS_IPAD ) {
-        [printerPicker presentFromRect:self.selectPrinterCell.frame
-                                inView:tableView
-                              animated:YES
-                     completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                         if (completion){
-                             completion(userDidSelect);
-                         }
-                     }];
-    } else {
-        [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-            if (completion){
-                completion(userDidSelect);
-            }
-        }];
-    }
-}
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *header = nil;
@@ -575,93 +600,57 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     return header;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footer = nil;
+    
+    if (IS_OS_8_OR_LATER) {
+        if (section == PRINT_SETTINGS_SECTION) {
+            if ((self.currentPrintSettings.printerUrl != nil) && !self.currentPrintSettings.printerIsAvailable) {
+                footer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableView.frame.size.width, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
+                
+                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
+                label.font = self.hppp.rulesLabelFont;
+                label.textColor = [UIColor grayColor];
+                label.text = @"Recent printer not currently available";
+                [footer addSubview:label];
+            }
+        }
+    }
+    
+    return footer;
+}
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    if (cell.hidden == YES){
+    
+    if (cell.hidden == YES) {
         return 0.0f;
     }
     
     CGFloat rowHeight = 0.0f;
     
-    if (indexPath.section == PAPER_SECTION) {
-        switch (indexPath.row) {
-            case SEPARATOR_UNDER_PAGE_VIEW_INDEX:
-                rowHeight = SEPARATOR_ROW_HEIGHT;
-                break;
-                
-            case SEPARATOR_UNDER_PRINT_INDEX:
-                rowHeight = SEPARATOR_ROW_HEIGHT;
-                break;
-            
-            case SEPARATOR_UNDER_SELECT_PRINTER_INDEX:
-                rowHeight = SEPARATOR_ROW_HEIGHT;
-                break;
-            
-            case SEPARATOR_UNDER_PAPER_TYPE_INDEX:
-                rowHeight = SEPARATOR_ROW_HEIGHT;
-                break;
-                
-            case PAPER_SHOW_INDEX:
-                if (!(IS_IPAD && IS_OS_8_OR_LATER)) {
-                    rowHeight = self.pageViewCell.frame.size.height;
-                }
-                break;
-                
-            case PAPER_SIZE_INDEX:
-                if (!self.hppp.hidePaperSizeOption) {
-                    rowHeight = tableView.rowHeight;
-                }
-                break;
-                
-            case PAPER_TYPE_INDEX:
-                if ((!self.hppp.hidePaperTypeOption) && (self.currentPrintSettings.paper.paperSize == SizeLetter)) {
-                    rowHeight = tableView.rowHeight;
-                }
-                break;
-        
-            case FILTER_INDEX:
-                if (!([HPPP sharedInstance].hideBlackAndWhiteOption)) {
-                    rowHeight = self.tableView.rowHeight;
-                }
-                break;
-                
-            case PRINT_SETTINGS_INDEX:
+    if (indexPath.section == PAPER_SELECTION_SECTION) {
+        if (indexPath.row == PAPER_SIZE_ROW_INDEX) {
+            if (!self.hppp.hidePaperSizeOption) {
                 rowHeight = tableView.rowHeight;
-                break;
-                
-            case PRINTER_STATUS_INDEX:
-                rowHeight = PRINTER_STATUS_ROW_HEIGHT;
-                break;
-                
-            default:
-                rowHeight = self.tableView.rowHeight;
-                break;
+            }
+        } else if (indexPath.row == PAPER_TYPE_ROW_INDEX) {
+            if ((!self.hppp.hidePaperTypeOption) && (self.currentPrintSettings.paper.paperSize == SizeLetter)) {
+                rowHeight = tableView.rowHeight;
+            }
+        }
+    } else if (indexPath.section == FILTER_SECTION) {
+        if (!([HPPP sharedInstance].hideBlackAndWhiteOption)) {
+            rowHeight = self.tableView.rowHeight;
         }
     } else {
         rowHeight = tableView.rowHeight;
     }
     
     return rowHeight;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-    }
-    
-    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
-    }
-    
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-    }
-    
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
 }
 
 #pragma mark - Printing
@@ -824,7 +813,9 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         paper.typeTitle = [HPPPPaper titleFromType:Photo];
     }
     self.currentPrintSettings.paper = paper;
-
+    
+    [self reloadPaperSelectionSection];
+    
     [self updatePageSettingsUI];
     [self updatePrintSettingsUI];
     
