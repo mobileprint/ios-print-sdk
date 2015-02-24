@@ -39,7 +39,6 @@
     NetworkStatus wifiStatus = [reachability currentReachabilityStatus];
     if (wifiStatus != NotReachable) {
         self.cell.userInteractionEnabled = YES;
-        self.cell.textLabel.textColor = [UIColor blackColor];
         self.label.textColor = [HPPP sharedInstance].tableViewCellLinkLabelColor;
     } else {
         self.cell.userInteractionEnabled = NO;
