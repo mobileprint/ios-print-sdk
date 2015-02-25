@@ -351,7 +351,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
 - (void)reloadPrinterSelectionSection
 {
-    NSRange range = NSMakeRange(PRINTER_SELECTION_SECTION, 1);
+    NSRange range = NSMakeRange(PRINT_SETTINGS_SECTION, 1);
     NSIndexSet *sectionToReload = [NSIndexSet indexSetWithIndexesInRange:range];
     [self.tableView reloadSections:sectionToReload withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -392,18 +392,20 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         NSLog(@"Searching for printer %@", lastPrinterUrl);
         
         if( nil != lastPrinterUrl ) {
-            UIPrinter* printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:lastPrinterUrl]];
+            UIPrinter *printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:lastPrinterUrl]];
             [printerFromUrl contactPrinter:^(BOOL available) {
-                if( available ) {
-                    [self setPrinterDetails:printerFromUrl];
-                    [self printerIsAvailable];
-                    NSLog(@"The selected printer was contacted using its URL: %@", lastPrinterUrl);                }
-                else {
-                    [self printerNotAvailable];
-                    NSLog(@"Unable to contact printer %@", lastPrinterUrl);
-                }
-                
-                [self reloadPrinterSelectionSection];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ( available ) {
+                        [self setPrinterDetails:printerFromUrl];
+                        [self printerIsAvailable];
+                        NSLog(@"The selected printer was contacted using its URL: %@", lastPrinterUrl);
+                    } else {
+                        [self printerNotAvailable];
+                        NSLog(@"Unable to contact printer %@", lastPrinterUrl);
+                    }
+                    
+                    [self reloadPrinterSelectionSection];
+                });
             }];
         }
     });
