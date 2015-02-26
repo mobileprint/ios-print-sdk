@@ -17,6 +17,11 @@
 #import "HPPPSupportAction.h"
 
 #define HPPP_TRACKABLE_SCREEN_NOTIFICATION @"HPPPTrackableScreenNotification"
+#define HPPP_PRINTER_AVAILABILITY_NOTIFICATION @"HPPPPrinterAvailabilityNotification"
+#define HPPP_PRINTER_AVAILABLE_KEY @"HPPPPrinterAvailableKey"
+#define HPPP_PRINTER_URL_KEY @"HPPPPrinterUrlKey"
+
+#define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -163,13 +168,49 @@ extern NSString * const kHPPPPrinterMakeAndModel;
 @property (strong, nonatomic) UIFont *rulesLabelFont;
 
 /*!
+ * @abstract Font used for the print label
+ * @description Used for the print label on the print preview page.
+ */
+@property (strong, nonatomic) UIFont *tableViewCellPrintLabelFont;
+
+/*!
+ * @abstract Color used for the print label
+ * @description Used for the print label on the print preview page.
+ */
+@property (strong, nonatomic) UIColor *tableViewCellPrintLabelColor;
+
+/*!
+ * @abstract Font used for the footer label warning
+ * @description Used for the footer label warning on the print preview page.
+ */
+@property (strong, nonatomic) UIFont *tableViewFooterWarningLabelFont;
+
+/*!
+ * @abstract Color used for the footer label warning
+ * @description Used for the footer label warning on the print preview page.
+ */
+@property (strong, nonatomic) UIColor *tableViewFooterWarningLabelColor;
+
+/*!
  * @abstract Font used for the label of properties
  * @description Used for the name of properties on the print preview page (e.g. Paper Size, Paper Type).
  */
 @property (strong, nonatomic) UIFont *tableViewCellLabelFont;
 
 /*!
+ * @abstract Color used for the label of properties
+ * @description Used for the name of properties on the print preview page (e.g. Paper Size, Paper Type).
+ */
+@property (strong, nonatomic) UIColor *tableViewCellLabelColor;
+
+/*!
  * @abstract Font used for the value of properties
+ * @description Used for the value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
+ */
+@property (strong, nonatomic) UIFont *tableViewCellValueFont;
+
+/*!
+ * @abstract Color used for the value of properties
  * @description Used for the currently selected value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
  */
 @property (strong, nonatomic) UIColor *tableViewCellValueColor;

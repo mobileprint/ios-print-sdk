@@ -10,11 +10,13 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPWiFiReachability.h"
 
 @interface HPPPWiFiReachability ()
 
-@property (weak, nonatomic) UIBarButtonItem *button;
+@property (weak, nonatomic) UILabel *label;
+@property (weak, nonatomic) UITableViewCell *cell;
 @property (nonatomic) Reachability *wifiReachability;
 
 @end
@@ -22,21 +24,25 @@
 
 @implementation HPPPWiFiReachability
 
--(void)start:(UIBarButtonItem *)button
+- (void)start:(UITableViewCell *)cell label:(UILabel *)label
 {
-    self.button = button;
+    self.cell = cell;
+    self.label = label;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     self.wifiReachability = [Reachability reachabilityForLocalWiFi];
     [self.wifiReachability startNotifier];
     [self verifyWifiIsConnected:self.wifiReachability];
 }
 
-- (void)verifyWifiIsConnected:(Reachability *)reachability {
+- (void)verifyWifiIsConnected:(Reachability *)reachability
+{
     NetworkStatus wifiStatus = [reachability currentReachabilityStatus];
     if (wifiStatus != NotReachable) {
-        [self.button setEnabled:YES];
+        self.cell.userInteractionEnabled = YES;
+        self.label.textColor = [HPPP sharedInstance].tableViewCellPrintLabelColor;
     } else {
-        [self.button setEnabled:NO];
+        self.cell.userInteractionEnabled = NO;
+        self.label.textColor = [UIColor grayColor];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Printing Requires Wi-Fi"
                                                         message:@"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings."
                                                        delegate:nil

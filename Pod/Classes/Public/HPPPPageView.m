@@ -18,6 +18,7 @@
 #import "UIView+HPPPAnimation.h"
 
 #define PREVIEW_CONTAINER_SCALE 0.9f
+#define RULER_SPACE 52.0f
 
 @interface HPPPPageView ()
 
@@ -189,6 +190,9 @@
 
 - (CGSize)paperSizeWithWidth:(CGFloat)width height:(CGFloat)height containerSize:(CGSize)containerSize containerScale:(CGFloat)containerScale
 {
+    containerSize.height -= RULER_SPACE;
+    containerSize.width -= RULER_SPACE;
+    
     containerSize.height *= containerScale;
     containerSize.width *= containerScale;
     

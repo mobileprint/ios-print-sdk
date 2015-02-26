@@ -25,7 +25,6 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(TITLE_LEFT_OFFSET, HEADER_HEIGHT - TITLE_HEIGHT, self.frame.size.width, TITLE_HEIGHT)];
     titleLabel.text = @"SUPPORT:";
     titleLabel.textColor = [UIColor HPPPColorWithHexString:@"8F8F95"];
-//    titleLabel.fontSize = [UIFont HPSimplifiedLightFontWithSize:18.0f];
     
     [headerView addSubview:titleLabel];
     

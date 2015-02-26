@@ -31,7 +31,7 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     [super viewDidLoad];
     
     self.hppp = [HPPP sharedInstance];
-
+    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
@@ -52,13 +52,15 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaperSizeTableViewCellIdentifier"];
-        
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PaperSizeTableViewCellIdentifier"];
-        }
-        
-        cell.textLabel.font = self.hppp.tableViewCellLabelFont;
-        cell.textLabel.text = self.hppp.paperSizes[indexPath.row];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PaperSizeTableViewCellIdentifier"];
+    }
+    
+    cell.textLabel.font = self.hppp.tableViewCellLabelFont;
+    cell.textLabel.textColor = self.hppp.tableViewCellLabelColor;
+    
+    cell.textLabel.text = self.hppp.paperSizes[indexPath.row];
     
     if ([cell.textLabel.text isEqualToString:self.currentPaper.sizeTitle]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
