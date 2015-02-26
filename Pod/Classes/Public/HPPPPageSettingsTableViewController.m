@@ -107,23 +107,36 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
     }
     
-    self.printLabel.font = self.hppp.tableViewCellLabelFont;
+    self.printLabel.font = self.hppp.tableViewCellPrintLabelFont;
+    self.printLabel.textColor = self.hppp.tableViewCellPrintLabelColor;
+    
     self.printSettingsLabel.font = self.hppp.tableViewCellLabelFont;
-    self.printSettingsDetailLabel.font = self.hppp.rulesLabelFont;
+    self.printSettingsLabel.textColor = self.hppp.tableViewCellLabelColor;
+    
+    self.printSettingsDetailLabel.font = self.hppp.tableViewCellValueFont;
+    self.printSettingsDetailLabel.textColor = self.hppp.tableViewCellValueColor;
+
     self.selectPrinterLabel.font = self.hppp.tableViewCellLabelFont;
-    self.selectedPrinterLabel.font = self.hppp.tableViewCellLabelFont;
+    self.selectPrinterLabel.textColor = self.hppp.tableViewCellLabelColor;
+
+    self.selectedPrinterLabel.font = self.hppp.tableViewCellValueFont;
+    self.selectedPrinterLabel.textColor = self.hppp.tableViewCellValueColor;
+    
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
-    self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
-    self.filterLabel.font = self.hppp.tableViewCellLabelFont;
-    
-    self.paperSizeSelectedLabel.font = self.hppp.tableViewCellLabelFont;
-    self.paperTypeSelectedLabel.font = self.hppp.tableViewCellLabelFont;
-    
-    self.printLabel.textColor = self.hppp.tableViewCellLinkLabelColor;
-    
+    self.paperSizeLabel.textColor = self.hppp.tableViewCellLabelColor;
+
+    self.paperSizeSelectedLabel.font = self.hppp.tableViewCellValueFont;
     self.paperSizeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
+
+    self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
+    self.paperTypeLabel.textColor = self.hppp.tableViewCellLabelColor;
+
+    self.paperTypeSelectedLabel.font = self.hppp.tableViewCellValueFont;
     self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
-    
+
+    self.filterLabel.font = self.hppp.tableViewCellLabelFont;
+    self.filterLabel.textColor = self.hppp.tableViewCellLabelColor;
+
     self.pageViewCell.backgroundColor = [UIColor HPPPHPGrayBackgroundColor];
     
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:Size4x6  paperType:Photo];
@@ -568,6 +581,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
                 height = PRINTER_WARNING_SECTION_FOOTER_HEIGHT;
             }
         }
+    } else if (section == SUPPORT_SECTION) {
+        height = SEPARATOR_SECTION_FOOTER_HEIGHT;
     }
     
     return height;
@@ -615,8 +630,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
                 footer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableView.frame.size.width, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
                 
                 UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
-                label.font = self.hppp.rulesLabelFont;
-                label.textColor = [UIColor grayColor];
+                label.font = self.hppp.tableViewFooterWarningLabelFont;
+                label.textColor = self.hppp.tableViewFooterWarningLabelColor;
                 label.text = @"Recent printer not currently available";
                 [footer addSubview:label];
             }

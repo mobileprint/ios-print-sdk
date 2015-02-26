@@ -35,6 +35,7 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
     
     for (UITableViewCell *cell in self.paperTypeCells) {
         cell.textLabel.font = self.hppp.tableViewCellLabelFont;
+        cell.textLabel.textColor = self.hppp.tableViewCellLabelColor;
         
         if ([cell.textLabel.text isEqualToString:self.currentPaper.typeTitle]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;

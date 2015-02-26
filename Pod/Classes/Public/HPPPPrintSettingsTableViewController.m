@@ -54,12 +54,23 @@
     self.selectedPaperTypeLabel.text = self.printSettings.paper.typeTitle;
     
     self.printerLabel.font = self.hppp.tableViewCellLabelFont;
+    self.printerLabel.textColor = self.hppp.tableViewCellLabelColor;
+
+    self.selectedPrinterLabel.font = self.hppp.tableViewCellValueFont;
+    self.selectedPrinterLabel.textColor = self.hppp.tableViewCellValueColor;
+
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
-    self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
-    self.selectedPrinterLabel.font = self.hppp.tableViewCellLabelFont;
-    self.selectedPaperSizeLabel.font = self.hppp.tableViewCellLabelFont;
-    self.selectedPaperTypeLabel.font = self.hppp.tableViewCellLabelFont;
+    self.paperSizeLabel.textColor = self.hppp.tableViewCellLabelColor;
+
+    self.selectedPaperSizeLabel.font = self.hppp.tableViewCellValueFont;
+    self.selectedPaperSizeLabel.textColor = self.hppp.tableViewCellValueColor;
     
+    self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
+    self.paperTypeLabel.textColor = self.hppp.tableViewCellLabelColor;
+
+    self.selectedPaperTypeLabel.font = self.hppp.tableViewCellValueFont;
+    self.selectedPaperTypeLabel.textColor = self.hppp.tableViewCellValueColor;
+
     [self updatePrinterAvailability];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -191,8 +202,8 @@
         if (!self.printSettings.printerIsAvailable) {
             footer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableView.frame.size.width, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
-            label.font = self.hppp.rulesLabelFont;
-            label.textColor = [UIColor grayColor];
+            label.font = self.hppp.tableViewFooterWarningLabelFont;
+            label.textColor = self.hppp.tableViewFooterWarningLabelColor;
             label.text = @"Recent printer not currently available";
             [footer addSubview:label];
         }
