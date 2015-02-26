@@ -11,6 +11,7 @@
 //
 
 #import "HPPP.h"
+#import "HPPPPrinter.h"
 #import "HPPPPaper.h"
 #import "HPPPPrintSettingsTableViewController.h"
 #import "HPPPPaperSizeTableViewController.h"
@@ -38,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerSelectCell;
 
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -74,7 +76,28 @@
     [self updatePrinterAvailability];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:HPPP_PRINTER_AVAILABILITY_NOTIFICATION object:nil];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(startRefreshing:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
+
 }
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:HPPP_PRINTER_AVAILABILITY_NOTIFICATION];
+}
+
+#pragma mark - Pull to refresh
+
+- (void)startRefreshing:(UIRefreshControl *)refreshControl
+{
+    [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
+}
+
+#pragma mark - Utils
 
 - (void)updatePrinterAvailability
 {
@@ -288,6 +311,21 @@
         HPPPPaperTypeTableViewController *vc = (HPPPPaperTypeTableViewController *)segue.destinationViewController;
         vc.currentPaper = self.printSettings.paper;
         vc.delegate = self;
+    }
+}
+
+#pragma mark - Notifications
+
+- (void)handleDidCheckPrinterAvailability:(NSNotification *)notification
+{
+    BOOL available = [[notification.userInfo objectForKey:HPPP_PRINTER_AVAILABLE_KEY] boolValue];
+    
+    self.printSettings.printerIsAvailable = available;
+    
+    [self updatePrinterAvailability];
+    
+    if (self.refreshControl.refreshing) {
+        [self.refreshControl endRefreshing];
     }
 }
 

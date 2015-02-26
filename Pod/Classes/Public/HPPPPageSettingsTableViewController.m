@@ -20,11 +20,14 @@
 #import "HPPPPaperTypeTableViewController.h"
 #import "HPPPPrintSettingsTableViewController.h"
 #import "HPPPWiFiReachability.h"
+#import "HPPPPrinter.h"
 #import "UITableView+HPPPHeader.h"
 #import "UIColor+HPPPHexString.h"
 #import "UIView+HPPPAnimation.h"
 #import "UIImage+HPPPResize.h"
 #import "UIColor+HPPPStyle.h"
+
+#define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 
 #define DEFAULT_ROW_HEIGHT 44.0f
 
@@ -43,7 +46,6 @@
 #define FILTER_ROW_INDEX 0
 
 #define LAST_PRINTER_USED_SETTING @"lastPrinterUsed"
-#define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 #define LAST_PRINTER_USED_ID_SETTING @"lastPrinterIdUsed"
 #define LAST_SIZE_USED_SETTING @"lastSizeUsed"
 #define LAST_TYPE_USED_SETTING @"lastTypeUsed"
@@ -83,6 +85,9 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
 
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSTimer *refreshPrinterStatusTimer;
+
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) HPPP *hppp;
 
@@ -115,28 +120,28 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     
     self.printSettingsDetailLabel.font = self.hppp.tableViewCellValueFont;
     self.printSettingsDetailLabel.textColor = self.hppp.tableViewCellValueColor;
-
+    
     self.selectPrinterLabel.font = self.hppp.tableViewCellLabelFont;
     self.selectPrinterLabel.textColor = self.hppp.tableViewCellLabelColor;
-
+    
     self.selectedPrinterLabel.font = self.hppp.tableViewCellValueFont;
     self.selectedPrinterLabel.textColor = self.hppp.tableViewCellValueColor;
     
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperSizeLabel.textColor = self.hppp.tableViewCellLabelColor;
-
+    
     self.paperSizeSelectedLabel.font = self.hppp.tableViewCellValueFont;
     self.paperSizeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
-
+    
     self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperTypeLabel.textColor = self.hppp.tableViewCellLabelColor;
-
+    
     self.paperTypeSelectedLabel.font = self.hppp.tableViewCellValueFont;
     self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
-
+    
     self.filterLabel.font = self.hppp.tableViewCellLabelFont;
     self.filterLabel.textColor = self.hppp.tableViewCellLabelColor;
-
+    
     self.pageViewCell.backgroundColor = [UIColor HPPPHPGrayBackgroundColor];
     
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:Size4x6  paperType:Photo];
@@ -155,7 +160,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     
     [self prepareUiForIosVersion];
     [self updatePrintSettingsUI];
-    [self checkLastPrinterUsedAvailability];
+    [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
     [self updatePageSettingsUI];
     
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
@@ -173,9 +178,21 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     } else {
         [self configurePageView];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:HPPP_PRINTER_AVAILABILITY_NOTIFICATION object:nil];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(startRefreshing:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
+    
+    self.refreshPrinterStatusTimer = [NSTimer scheduledTimerWithTimeInterval:REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS
+                                                                      target:self
+                                                                    selector:@selector(refreshPrinterStatus:)
+                                                                    userInfo:nil
+                                                                     repeats:YES];
 }
 
-- (void) viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
@@ -203,11 +220,31 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     }
 }
 
+- (void)dealloc
+{
+    [self.refreshPrinterStatusTimer invalidate];
+    self.refreshPrinterStatusTimer = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:HPPP_PRINTER_AVAILABILITY_NOTIFICATION];
+}
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration
 {
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         [self setPaperSize:self.pageView animated:NO completion:nil];
     }
+}
+
+#pragma mark - Pull to refresh
+
+- (void)startRefreshing:(UIRefreshControl *)refreshControl
+{
+    [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
+}
+
+- (void)refreshPrinterStatus:(NSTimer *)timer
+{
+    [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
 }
 
 #pragma mark - Configure UI
@@ -257,7 +294,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         if (lastFilterUsed != nil) {
             self.blackAndWhiteModeSwitch.on = lastFilterUsed.boolValue;
         }
-	}
+    }
     NSString *lastPrinterId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_ID_SETTING];
     self.currentPrintSettings.printerId = lastPrinterId;
 }
@@ -398,33 +435,6 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     [self.printSettingsCell.imageView setImage:nil];
     self.currentPrintSettings.printerIsAvailable = YES;
     [self.tableView endUpdates];
-}
-
-- (void)checkLastPrinterUsedAvailability
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        
-        NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
-        NSLog(@"Searching for printer %@", lastPrinterUrl);
-        
-        if( nil != lastPrinterUrl ) {
-            UIPrinter *printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:lastPrinterUrl]];
-            [printerFromUrl contactPrinter:^(BOOL available) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if ( available ) {
-                        [self setPrinterDetails:printerFromUrl];
-                        [self printerIsAvailable];
-                        NSLog(@"The selected printer was contacted using its URL: %@", lastPrinterUrl);
-                    } else {
-                        [self printerNotAvailable];
-                        NSLog(@"Unable to contact printer %@", lastPrinterUrl);
-                    }
-                    
-                    [self reloadPrinterSelectionSection];
-                });
-            }];
-        }
-    });
 }
 
 #pragma mark - Button actions
@@ -779,7 +789,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     [lastOptionsUsed setValue:self.currentPrintSettings.paper.typeTitle forKey:kHPPPPaperTypeId];
     [lastOptionsUsed setValue:self.currentPrintSettings.paper.sizeTitle forKey:kHPPPPaperSizeId];
     [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on] forKey:kHPPPBlackAndWhiteFilterId];
-
+    
     NSString * printerID = printController.printInfo.printerID;
     if (printerID) {
         [lastOptionsUsed setValue:printerID forKey:kHPPPPrinterId];
@@ -799,7 +809,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:self.currentPrintSettings.printerId forKey:LAST_PRINTER_USED_ID_SETTING];
     [defaults synchronize];
-
+    
 }
 
 - (void)setPrinterDetails:(UIPrinter *)printer
@@ -827,6 +837,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     [self paperSizeTableViewController:(HPPPPaperSizeTableViewController *)printSettingsTableViewController didSelectPaper:printSettings.paper];
     
     [self paperTypeTableViewController:(HPPPPaperTypeTableViewController *)printSettingsTableViewController didSelectPaper:printSettings.paper];
+    
+    [self reloadPrinterSelectionSection];
 }
 
 #pragma mark - HPPPPaperSizeTableViewControllerDelegate
@@ -950,6 +962,28 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         HPPPPaperTypeTableViewController *vc = (HPPPPaperTypeTableViewController *)segue.destinationViewController;
         vc.currentPaper = self.currentPrintSettings.paper;
         vc.delegate = self;
+    }
+}
+
+#pragma mark - Notifications
+
+- (void)handleDidCheckPrinterAvailability:(NSNotification *)notification
+{
+    BOOL available = [[notification.userInfo objectForKey:HPPP_PRINTER_AVAILABLE_KEY] boolValue];
+    
+    if ( available ) {
+        UIPrinter *printerFromUrl = [notification.userInfo objectForKey:HPPP_PRINTER_URL_KEY];
+        
+        [self setPrinterDetails:printerFromUrl];
+        [self printerIsAvailable];
+    } else {
+        [self printerNotAvailable];
+    }
+    
+    [self reloadPrinterSelectionSection];
+    
+    if (self.refreshControl.refreshing) {
+        [self.refreshControl endRefreshing];
     }
 }
 

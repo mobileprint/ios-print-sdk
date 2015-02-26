@@ -17,6 +17,11 @@
 #import "HPPPSupportAction.h"
 
 #define HPPP_TRACKABLE_SCREEN_NOTIFICATION @"HPPPTrackableScreenNotification"
+#define HPPP_PRINTER_AVAILABILITY_NOTIFICATION @"HPPPPrinterAvailabilityNotification"
+#define HPPP_PRINTER_AVAILABLE_KEY @"HPPPPrinterAvailableKey"
+#define HPPP_PRINTER_URL_KEY @"HPPPPrinterUrlKey"
+
+#define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
