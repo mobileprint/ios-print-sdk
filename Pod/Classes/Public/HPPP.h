@@ -180,6 +180,18 @@ extern NSString * const kHPPPPrinterMakeAndModel;
 @property (strong, nonatomic) UIColor *tableViewCellPrintLabelColor;
 
 /*!
+ * @abstract Font used for the support header label
+ * @description Used for the support header label warning on the print preview page.
+ */
+@property (strong, nonatomic) UIFont *tableViewSupportHeaderLabelFont;
+
+/*!
+ * @abstract Color used for the support header label
+ * @description Used for the support header label warning on the print preview page.
+ */
+@property (strong, nonatomic) UIColor *tableViewSupportHeaderLabelColor;
+
+/*!
  * @abstract Font used for the footer label warning
  * @description Used for the footer label warning on the print preview page.
  */
@@ -214,6 +226,18 @@ extern NSString * const kHPPPPrinterMakeAndModel;
  * @description Used for the currently selected value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
  */
 @property (strong, nonatomic) UIColor *tableViewCellValueColor;
+
+/*!
+ * @abstract Font used for the settings value of properties
+ * @description Used for the value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
+ */
+@property (strong, nonatomic) UIFont *tableViewSettingsCellValueFont;
+
+/*!
+ * @abstract Color used for the settings value of properties
+ * @description Used for the currently selected value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
+ */
+@property (strong, nonatomic) UIColor *tableViewSettingsCellValueColor;
 
 /*!
  * @abstract Color used for action link text

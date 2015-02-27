@@ -118,8 +118,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     self.printSettingsLabel.font = self.hppp.tableViewCellLabelFont;
     self.printSettingsLabel.textColor = self.hppp.tableViewCellLabelColor;
     
-    self.printSettingsDetailLabel.font = self.hppp.tableViewCellValueFont;
-    self.printSettingsDetailLabel.textColor = self.hppp.tableViewCellValueColor;
+    self.printSettingsDetailLabel.font = self.hppp.tableViewSettingsCellValueFont;
+    self.printSettingsDetailLabel.textColor = self.hppp.tableViewSettingsCellValueColor;
     
     self.selectPrinterLabel.font = self.hppp.tableViewCellLabelFont;
     self.selectPrinterLabel.textColor = self.hppp.tableViewCellLabelColor;
@@ -179,17 +179,19 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         [self configurePageView];
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:HPPP_PRINTER_AVAILABILITY_NOTIFICATION object:nil];
-    
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(startRefreshing:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:self.refreshControl];
-    
-    self.refreshPrinterStatusTimer = [NSTimer scheduledTimerWithTimeInterval:REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS
-                                                                      target:self
-                                                                    selector:@selector(refreshPrinterStatus:)
-                                                                    userInfo:nil
-                                                                     repeats:YES];
+    if (IS_OS_8_OR_LATER) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:HPPP_PRINTER_AVAILABILITY_NOTIFICATION object:nil];
+        
+        self.refreshControl = [[UIRefreshControl alloc] init];
+        [self.refreshControl addTarget:self action:@selector(startRefreshing:) forControlEvents:UIControlEventValueChanged];
+        [self.tableView addSubview:self.refreshControl];
+        
+        self.refreshPrinterStatusTimer = [NSTimer scheduledTimerWithTimeInterval:REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS
+                                                                          target:self
+                                                                        selector:@selector(refreshPrinterStatus:)
+                                                                        userInfo:nil
+                                                                         repeats:YES];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -982,8 +984,10 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     
     [self reloadPrinterSelectionSection];
     
-    if (self.refreshControl.refreshing) {
-        [self.refreshControl endRefreshing];
+    if (IS_OS_8_OR_LATER) {
+        if (self.refreshControl.refreshing) {
+            [self.refreshControl endRefreshing];
+        }
     }
 }
 

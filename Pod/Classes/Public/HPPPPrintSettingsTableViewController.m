@@ -57,32 +57,33 @@
     
     self.printerLabel.font = self.hppp.tableViewCellLabelFont;
     self.printerLabel.textColor = self.hppp.tableViewCellLabelColor;
-
+    
     self.selectedPrinterLabel.font = self.hppp.tableViewCellValueFont;
     self.selectedPrinterLabel.textColor = self.hppp.tableViewCellValueColor;
-
+    
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperSizeLabel.textColor = self.hppp.tableViewCellLabelColor;
-
+    
     self.selectedPaperSizeLabel.font = self.hppp.tableViewCellValueFont;
     self.selectedPaperSizeLabel.textColor = self.hppp.tableViewCellValueColor;
     
     self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperTypeLabel.textColor = self.hppp.tableViewCellLabelColor;
-
+    
     self.selectedPaperTypeLabel.font = self.hppp.tableViewCellValueFont;
     self.selectedPaperTypeLabel.textColor = self.hppp.tableViewCellValueColor;
-
+    
     [self updatePrinterAvailability];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:HPPP_PRINTER_AVAILABILITY_NOTIFICATION object:nil];
-    
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(startRefreshing:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:self.refreshControl];
-
+    if (IS_OS_8_OR_LATER) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:HPPP_PRINTER_AVAILABILITY_NOTIFICATION object:nil];
+        
+        self.refreshControl = [[UIRefreshControl alloc] init];
+        [self.refreshControl addTarget:self action:@selector(startRefreshing:) forControlEvents:UIControlEventValueChanged];
+        [self.tableView addSubview:self.refreshControl];
+    }
 }
 
 - (void)dealloc
@@ -324,8 +325,10 @@
     
     [self updatePrinterAvailability];
     
-    if (self.refreshControl.refreshing) {
-        [self.refreshControl endRefreshing];
+    if (IS_OS_8_OR_LATER) {
+        if (self.refreshControl.refreshing) {
+            [self.refreshControl endRefreshing];
+        }
     }
 }
 
