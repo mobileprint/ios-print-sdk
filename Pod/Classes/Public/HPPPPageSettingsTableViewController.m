@@ -748,7 +748,11 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     
     // The path to the image may or may not be a good name for our print job
     // but that's all we've got.
-    printInfo.jobName = self.hppp.printJobName;
+    if (nil != self.hppp.printJobName) {
+        printInfo.jobName = self.hppp.printJobName;
+    } else {
+        printInfo.jobName = HPPP_DEFAULT_PRINT_JOB_NAME;
+    }
     
     printInfo.printerID = self.currentPrintSettings.printerId;
     
