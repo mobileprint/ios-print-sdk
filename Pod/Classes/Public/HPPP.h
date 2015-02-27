@@ -40,6 +40,7 @@
 
 #define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
 
+#define HPPP_DEFAULT_PRINT_JOB_NAME @"Photo"
 
 /*! 
  * @abstract Main HP Photo Print manager class
@@ -97,6 +98,12 @@ extern NSString * const kHPPPPrinterDisplayLocation;
  * @seealso lastOptionsUsed
  */
 extern NSString * const kHPPPPrinterMakeAndModel;
+
+
+/*!
+ * @abstract Job name of the print
+ */
+@property (strong, nonatomic) NSString *printJobName;
 
 /*!
  * @abstract Indicates whether the black and white option should be hidden

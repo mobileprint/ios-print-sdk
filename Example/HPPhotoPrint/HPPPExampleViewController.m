@@ -25,6 +25,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [HPPP sharedInstance].printJobName = @"Print POD Example";
+
     [HPPP sharedInstance].initialPaperSize = Size5x7;
     [HPPP sharedInstance].defaultPaperWidth = 5.0f;
     [HPPP sharedInstance].defaultPaperHeight = 7.0f;
