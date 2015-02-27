@@ -98,6 +98,12 @@ extern NSString * const kHPPPPrinterDisplayLocation;
  */
 extern NSString * const kHPPPPrinterMakeAndModel;
 
+
+/*!
+ * @abstract Job name of the print
+ */
+@property (strong, nonatomic) NSString *printJobName;
+
 /*!
  * @abstract Indicates whether the black and white option should be hidden
  * @discussion If this value is true, the black and white filter option is hidden on the print preview page and the black and white filter is not used. The default values is false (not hidden).

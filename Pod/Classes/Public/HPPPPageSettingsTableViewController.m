@@ -241,7 +241,15 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
 - (void)startRefreshing:(UIRefreshControl *)refreshControl
 {
-    [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
+    NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
+    
+    if( nil != lastPrinterUrl ) {
+        [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
+    } else {
+        if (self.refreshControl.refreshing) {
+            [self.refreshControl endRefreshing];
+        }
+    }
 }
 
 - (void)refreshPrinterStatus:(NSTimer *)timer
@@ -740,7 +748,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     
     // The path to the image may or may not be a good name for our print job
     // but that's all we've got.
-    printInfo.jobName = @"PhotoGram";
+    printInfo.jobName = self.hppp.printJobName;
     
     printInfo.printerID = self.currentPrintSettings.printerId;
     
