@@ -12,14 +12,7 @@
 
 #import "HPPP.h"
 #import "HPPPPageViewController.h"
-#import "HPPPWiFiReachability.h"
 
-@interface HPPPPageViewController ()
-
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *printBarButtonItem;
-@property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
-
-@end
 
 @implementation HPPPPageViewController
 
@@ -28,28 +21,6 @@
     [super viewDidLoad];
     
     self.pageView.image = self.image;
-    if (IS_OS_8_OR_LATER){
-        self.navigationItem.rightBarButtonItems = nil;
-    }
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.wifiReachability = [[HPPPWiFiReachability alloc] init];
-    [self.wifiReachability start:self.printBarButtonItem];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (IBAction)printButtonTapped:(id)sender
-{
-    if ([self.delegate respondsToSelector:@selector(pageViewController:didTapPrintBarButtonItem:)]) {
-        [self.delegate pageViewController:self didTapPrintBarButtonItem:sender];
-    }
 }
 
 @end
