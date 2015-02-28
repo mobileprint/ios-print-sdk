@@ -10,6 +10,7 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "UITableView+HPPPHeader.h"
 #import "UIColor+HPPPHexString.h"
 
@@ -24,8 +25,8 @@
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(TITLE_LEFT_OFFSET, HEADER_HEIGHT - TITLE_HEIGHT, self.frame.size.width, TITLE_HEIGHT)];
     titleLabel.text = @"SUPPORT:";
-    titleLabel.textColor = [UIColor HPPPColorWithHexString:@"8F8F95"];
-//    titleLabel.fontSize = [UIFont HPSimplifiedLightFontWithSize:18.0f];
+    titleLabel.font = [HPPP sharedInstance].tableViewSupportHeaderLabelFont;
+    titleLabel.textColor = [HPPP sharedInstance].tableViewSupportHeaderLabelColor;
     
     [headerView addSubview:titleLabel];
     

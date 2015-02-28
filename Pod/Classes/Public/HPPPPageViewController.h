@@ -23,11 +23,3 @@
 @property (nonatomic, weak) id<HPPPPageViewControllerDelegate> delegate;
 
 @end
-
-
-
-@protocol HPPPPageViewControllerDelegate <NSObject>
-
-- (void)pageViewController:(HPPPPageViewController *)pageViewController didTapPrintBarButtonItem:(UIBarButtonItem *)printBarButtonItem;
-
-@end
