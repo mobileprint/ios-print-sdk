@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "Reachability.h"
+#import "HPPPReachability.h"
 
 @interface HPPPWiFiReachability : NSObject
 

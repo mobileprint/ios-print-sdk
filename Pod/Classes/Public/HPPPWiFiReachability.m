@@ -15,7 +15,7 @@
 @interface HPPPWiFiReachability ()
 
 @property (weak, nonatomic) UIBarButtonItem *button;
-@property (nonatomic) Reachability *wifiReachability;
+@property (nonatomic) HPPPReachability *wifiReachability;
 
 @end
 
@@ -26,12 +26,12 @@
 {
     self.button = button;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-    self.wifiReachability = [Reachability reachabilityForLocalWiFi];
+    self.wifiReachability = [HPPPReachability reachabilityForLocalWiFi];
     [self.wifiReachability startNotifier];
     [self verifyWifiIsConnected:self.wifiReachability];
 }
 
-- (void)verifyWifiIsConnected:(Reachability *)reachability {
+- (void)verifyWifiIsConnected:(HPPPReachability *)reachability {
     NetworkStatus wifiStatus = [reachability currentReachabilityStatus];
     if (wifiStatus != NotReachable) {
         [self.button setEnabled:YES];
@@ -48,8 +48,8 @@
 
 - (void)reachabilityChanged:(NSNotification *)notification
 {
-    Reachability *currentReachability = [notification object];
-    NSParameterAssert([currentReachability isKindOfClass:[Reachability class]]);
+    HPPPReachability *currentReachability = [notification object];
+    NSParameterAssert([currentReachability isKindOfClass:[HPPPReachability class]]);
     [self verifyWifiIsConnected:currentReachability];
 }
 
