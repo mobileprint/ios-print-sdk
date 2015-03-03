@@ -66,7 +66,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
 @property (weak, nonatomic) IBOutlet HPPPPageView *tableViewCellPageView;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UIStepper *numberOfCopiesStepper;
+@property (weak, nonatomic) IBOutlet UIStepper *numberOfCopiesStepper;
 @property (weak, nonatomic) IBOutlet UISwitch *blackAndWhiteModeSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *paperSizeSelectedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *paperTypeSelectedLabel;
@@ -78,7 +78,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 @property (weak, nonatomic) IBOutlet UILabel *selectedPrinterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsDetailLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *numberOfCopiesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberOfCopiesLabel;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageViewCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printCell;
