@@ -99,6 +99,12 @@ extern NSString * const kHPPPPrinterDisplayLocation;
  */
 extern NSString * const kHPPPPrinterMakeAndModel;
 
+/*!
+ * @abstract Used to retrieve number of copies used for the last job
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the number of copies that was used.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPNumberOfCopies;
 
 /*!
  * @abstract Job name of the print
