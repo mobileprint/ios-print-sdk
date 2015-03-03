@@ -350,7 +350,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="aW2-FC-LM9" userLabel="FilterSection">
+                            <tableViewSection id="aW2-FC-LM9" userLabel="NumberOfCopiesSection">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="BiF-qH-SiL" userLabel="Number Of Copies Table View Cell">
                                         <rect key="frame" x="0.0" y="446" width="320" height="44"/>
@@ -745,7 +745,6 @@
                         <outlet property="cancelBarButtonItem" destination="tFz-3o-SHA" id="rlm-sN-HFV"/>
                         <outlet property="filterCell" destination="26Z-ee-pHd" id="7Ur-k4-zO6"/>
                         <outlet property="filterLabel" destination="r3L-G4-U1t" id="7eo-PL-bwv"/>
-                        <outlet property="numberOfCopiesCell" destination="BiF-qH-SiL" id="f4m-oS-n4W"/>
                         <outlet property="numberOfCopiesLabel" destination="4sH-Cb-1H4" id="cOy-TQ-rrj"/>
                         <outlet property="numberOfCopiesStepper" destination="GrB-y6-lo8" id="Uqg-j3-9jW"/>
                         <outlet property="paperSizeCell" destination="WsN-5r-Kfs" id="QZ5-I0-iCI"/>

@@ -85,7 +85,6 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 @property (weak, nonatomic) IBOutlet UITableViewCell *selectPrinterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperSizeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
-@property (unsafe_unretained, nonatomic) IBOutlet UITableViewCell *numberOfCopiesCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
 
@@ -167,6 +166,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     }
     
     self.numberOfCopiesStepper.value = DEFAULT_NUMBER_OF_COPIES;
+    self.numberOfCopiesStepper.tintColor = self.hppp.tableViewCellLinkLabelColor;
+    
     
     [self reloadPaperSelectionSection];
     
