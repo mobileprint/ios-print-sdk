@@ -31,6 +31,11 @@
     return self;
 }
 
+- (NSInteger)numberOfPages
+{
+    return _numberOfPages;
+}
+
 #pragma mark - UIPrintPageRenderer overrides
 
 - (void)drawContentForPageAtIndex:(NSInteger)index inRect:(CGRect)contentRect

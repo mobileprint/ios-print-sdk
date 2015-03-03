@@ -21,6 +21,7 @@ NSString * const kHPPPPrinterId = @"kHPPPPrinterId";
 NSString * const kHPPPPrinterDisplayName = @"kHPPPPrinterDisplayName";
 NSString * const kHPPPPrinterDisplayLocation = @"kHPPPPrinterDisplayLocation";
 NSString * const kHPPPPrinterMakeAndModel = @"kHPPPPrinterMakeAndModel";
+NSString * const kHPPPNumberOfCopies = @"kHPPPNumberOfCopies";
 
 @implementation HPPP
 
