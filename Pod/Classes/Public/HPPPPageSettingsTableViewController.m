@@ -30,13 +30,15 @@
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 
 #define DEFAULT_ROW_HEIGHT 44.0f
+#define DEFAULT_NUMBER_OF_COPIES 1
 
 #define PRINT_FUNCTION_SECTION 0
 #define PRINTER_SELECTION_SECTION 1
 #define PAPER_SELECTION_SECTION 2
 #define PRINT_SETTINGS_SECTION 3
-#define FILTER_SECTION 4
-#define SUPPORT_SECTION 5
+#define NUMBER_OF_COPIES_SECTION 4
+#define FILTER_SECTION 5
+#define SUPPORT_SECTION 6
 
 #define PRINT_FUNCTION_ROW_INDEX 0
 #define PRINTER_SELECTION_INDEX 0
@@ -63,6 +65,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 @property (strong, nonatomic) HPPPPrintSettings *currentPrintSettings;
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
 @property (weak, nonatomic) IBOutlet HPPPPageView *tableViewCellPageView;
+
+@property (unsafe_unretained, nonatomic) IBOutlet UIStepper *numberOfCopiesStepper;
 @property (weak, nonatomic) IBOutlet UISwitch *blackAndWhiteModeSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *paperSizeSelectedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *paperTypeSelectedLabel;
@@ -74,12 +78,14 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 @property (weak, nonatomic) IBOutlet UILabel *selectedPrinterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsDetailLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *numberOfCopiesLabel;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageViewCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *selectPrinterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperSizeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
+@property (unsafe_unretained, nonatomic) IBOutlet UITableViewCell *numberOfCopiesCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
 
@@ -90,6 +96,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) HPPP *hppp;
+@property (nonatomic, assign) NSInteger numberOfCopies;
 
 @end
 
@@ -138,6 +145,9 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     
     self.paperTypeSelectedLabel.font = self.hppp.tableViewCellValueFont;
     self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
+
+    self.numberOfCopiesLabel.font = self.hppp.tableViewCellLabelFont;
+    self.numberOfCopiesLabel.textColor = self.hppp.tableViewCellLabelColor;
     
     self.filterLabel.font = self.hppp.tableViewCellLabelFont;
     self.filterLabel.textColor = self.hppp.tableViewCellLabelColor;
@@ -155,6 +165,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     if (self.hppp.hideBlackAndWhiteOption) {
         self.filterCell.hidden = YES;
     }
+    
+    self.numberOfCopiesStepper.value = DEFAULT_NUMBER_OF_COPIES;
     
     [self reloadPaperSelectionSection];
     
@@ -495,6 +507,15 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     return paper;
 }
 
+#pragma mark - Stepper actions
+
+- (IBAction)numberOfCopiesStepperTapped:(UIStepper *)sender
+{
+    self.numberOfCopies = sender.value;
+    
+    self.numberOfCopiesLabel.text = [NSString stringWithFormat:@"%ld %@", (long)self.numberOfCopies, (self.numberOfCopies == 1) ? @"copy" : @"copies"];
+}
+
 #pragma mark - Switch actions
 
 - (IBAction)blackAndWhiteSwitchToggled:(id)sender
@@ -593,6 +614,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         if ((!self.hppp.hidePaperTypeOption) && (self.currentPrintSettings.printerUrl == nil)) {
             height = SEPARATOR_SECTION_FOOTER_HEIGHT;
         }
+    } else if (!IS_OS_8_OR_LATER && (section == PAPER_SELECTION_SECTION)) {
+        height = SEPARATOR_SECTION_FOOTER_HEIGHT;
     } else if (IS_OS_8_OR_LATER && (section == PRINT_SETTINGS_SECTION)) {
         if (self.currentPrintSettings.printerUrl != nil) {
             if (self.currentPrintSettings.printerIsAvailable) {
@@ -601,6 +624,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
                 height = PRINTER_WARNING_SECTION_FOOTER_HEIGHT;
             }
         }
+    } else if (IS_OS_8_OR_LATER && (section == NUMBER_OF_COPIES_SECTION)) {
+        height = SEPARATOR_SECTION_FOOTER_HEIGHT;
     } else if (section == SUPPORT_SECTION) {
         height = SEPARATOR_SECTION_FOOTER_HEIGHT;
     }
@@ -754,6 +779,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         printInfo.jobName = HPPP_DEFAULT_PRINT_JOB_NAME;
     }
     
+    
+    
     printInfo.printerID = self.currentPrintSettings.printerId;
     
     // This application prints photos. UIKit will pick a paper size and print
@@ -772,6 +799,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     }
     
     HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImage:image];
+    renderer.numberOfPages = self.numberOfCopies;
     controller.printPageRenderer = renderer;
     
     // Use this printInfo for this print job.
