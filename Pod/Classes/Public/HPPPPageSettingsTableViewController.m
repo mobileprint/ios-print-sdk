@@ -479,6 +479,8 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         return;
     }
     
+    controller.showsNumberOfCopies = NO;
+    
     [self createPrintJob:controller];
     
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
@@ -743,10 +745,13 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 {
     if (self.currentPrintSettings.printerUrl != nil){
         UIPrintInteractionController *controller = [self getSharedPrintInteractionController];
+        
         if (!controller) {
             NSLog(@"Couldn't get shared UIPrintInteractionController!");
             return;
         }
+        
+        controller.showsNumberOfCopies = NO;
         
         [self createPrintJob:controller];
         
