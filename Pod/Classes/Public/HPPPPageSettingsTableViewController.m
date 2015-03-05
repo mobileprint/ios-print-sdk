@@ -11,6 +11,7 @@
 //
 
 #import "HPPP.h"
+#import "HPPPAnalyticsManager.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPaper.h"
 #import "HPPPPrintPageRenderer.h"
@@ -211,7 +212,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 {
     [super viewWillAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:HPPP_TRACKABLE_SCREEN_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:kPageSettingsScreenName forKey:kHPPPTrackableScreenNameKey]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kPageSettingsScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -821,8 +822,14 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     }
     
     if (completed) {
+        
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
             [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
+        }
+    
+        if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
+            NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:kHPPPPrintActivity, kHPPPOfframpKey, nil];
+            [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:options];
         }
     }
     

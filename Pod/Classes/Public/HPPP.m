@@ -11,17 +11,21 @@
 //
 
 #import "HPPP.h"
+#import "HPPPAnalyticsManager.h"
 
 NSString * const kHPPPTrackableScreenNameKey = @"screen-name";
 
-NSString * const kHPPPPaperTypeId = @"kHPPPPaperTypeId";
-NSString * const kHPPPPaperSizeId = @"kHPPPPaperSizeId";
-NSString * const kHPPPBlackAndWhiteFilterId = @"kHPPPBlackAndWhiteFilterId";
-NSString * const kHPPPPrinterId = @"kHPPPPrinterId";
-NSString * const kHPPPPrinterDisplayName = @"kHPPPPrinterDisplayName";
-NSString * const kHPPPPrinterDisplayLocation = @"kHPPPPrinterDisplayLocation";
-NSString * const kHPPPPrinterMakeAndModel = @"kHPPPPrinterMakeAndModel";
-NSString * const kHPPPNumberOfCopies = @"kHPPPNumberOfCopies";
+NSString * const kHPPPShareCompletedNotification = @"kHPPPShareCompletedNotification";
+NSString * const kHPPPTrackableScreenNotification = @"kHPPPTrackableScreenNotification";
+
+NSString * const kHPPPBlackAndWhiteFilterId = @"black_and_white_filter";
+NSString * const kHPPPNumberOfCopies = @"number_of_copies";
+NSString * const kHPPPPaperSizeId = @"paper_size";
+NSString * const kHPPPPaperTypeId = @"paper_type";
+NSString * const kHPPPPrinterId = @"printer_id";
+NSString * const kHPPPPrinterDisplayLocation = @"printer_location";
+NSString * const kHPPPPrinterMakeAndModel = @"printer_model";
+NSString * const kHPPPPrinterDisplayName = @"printer_name";
 
 @implementation HPPP
 
@@ -44,6 +48,7 @@ NSString * const kHPPPNumberOfCopies = @"kHPPPNumberOfCopies";
 {
     self = [super init];
     if (self) {
+        self.handlePrintMetricsAutomatically = YES;
         self.lastOptionsUsed = [NSMutableDictionary dictionary];
         self.initialPaperSize = Size5x7;
         self.defaultPaperWidth = 5.0f;
@@ -55,9 +60,25 @@ NSString * const kHPPPNumberOfCopies = @"kHPPPNumberOfCopies";
                             [HPPPPaper titleFromSize:Size5x7],
                             [HPPPPaper titleFromSize:SizeLetter]
                             ];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleShareCompletedNotification:) name:kHPPPShareCompletedNotification object:nil];
     }
     
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)handleShareCompletedNotification:(NSNotification *)notification
+{
+    NSString *offramp = [notification.userInfo objectForKey:kHPPPOfframpKey];
+    if ([offramp isEqualToString:kHPPPPrintActivity]  && self.handlePrintMetricsAutomatically) {
+        // The client app must disable automatic print metric handling in order to post print metrics via the notification system
+        return;
+    }
+    [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:notification.userInfo];
 }
 
 - (BOOL)hideBlackAndWhiteOption
