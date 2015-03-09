@@ -45,10 +45,10 @@
                 [printerFromUrl contactPrinter:^(BOOL available) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                              [NSNumber numberWithBool:available], HPPP_PRINTER_AVAILABLE_KEY,
-                                              printerFromUrl, HPPP_PRINTER_URL_KEY, nil];
+                                              [NSNumber numberWithBool:available], kHPPPPrinterAvailableKey,
+                                              printerFromUrl, kHPPPPrinterKey, nil];
                                               
-                        [[NSNotificationCenter defaultCenter] postNotificationName:HPPP_PRINTER_AVAILABILITY_NOTIFICATION object:nil userInfo:dict];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrinterAvailabilityNotification object:nil userInfo:dict];
                     });
                     self.refreshing = NO;
                 }];

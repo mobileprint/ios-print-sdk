@@ -13,13 +13,17 @@
 #import "HPPP.h"
 #import "HPPPAnalyticsManager.h"
 
+NSString * const kHPPPShareCompletedNotification = @"kHPPPShareCompletedNotification";
+
+NSString * const kHPPPTrackableScreenNotification = @"kHPPPTrackableScreenNotification";
 NSString * const kHPPPTrackableScreenNameKey = @"screen-name";
 
-NSString * const kHPPPShareCompletedNotification = @"kHPPPShareCompletedNotification";
-NSString * const kHPPPTrackableScreenNotification = @"kHPPPTrackableScreenNotification";
+NSString * const kHPPPPrinterAvailabilityNotification = @"kHPPPTrackableScreenNotification";
+NSString * const kHPPPPrinterAvailableKey = @"availability";
+NSString * const kHPPPPrinterKey = @"printer";
 
 NSString * const kHPPPBlackAndWhiteFilterId = @"black_and_white_filter";
-NSString * const kHPPPNumberOfCopies = @"number_of_copies";
+NSString * const kHPPPNumberOfCopies = @"copies";
 NSString * const kHPPPPaperSizeId = @"paper_size";
 NSString * const kHPPPPaperTypeId = @"paper_type";
 NSString * const kHPPPPrinterId = @"printer_id";

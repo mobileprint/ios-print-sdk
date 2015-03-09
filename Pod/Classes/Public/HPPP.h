@@ -16,10 +16,6 @@
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPSupportAction.h"
 
-#define HPPP_PRINTER_AVAILABILITY_NOTIFICATION @"HPPPPrinterAvailabilityNotification"
-#define HPPP_PRINTER_AVAILABLE_KEY @"HPPPPrinterAvailableKey"
-#define HPPP_PRINTER_URL_KEY @"HPPPPrinterUrlKey"
-
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -56,15 +52,40 @@ extern NSString * const kHPPPShareCompletedNotification;
 /*!
  * @abstract Notifies subscribers that a trackable screen was visited
  * @discussion Clients can use this notification to indicate that the user visited a trackable screen. This is useful for collecting and reporting analytics.
+ * @seealso kHPPPTrackableScreenNameKey
  */
 extern NSString * const kHPPPTrackableScreenNotification;
 
 /*!
  * @abstract Used to retrieve name of the trackable screen
  * @discussion This key works with the trackable screen notification to inform the client application when a trackable screen was visited.
- * @seealso lastOptionsUsed
+ * @seealso kHPPPTrackableScreenNotification
  */
 extern NSString * const kHPPPTrackableScreenNameKey;
+
+/*!
+ * @abstract Notifies subscribers with the result of the printer avaiability check
+ * @discussion Clients can use this notification to update the user interface with printer status
+ * @seealso kHPPPPrinterAvailableKey
+ * @seealso kHPPPPrinterAvailabilityNotification
+ */
+extern NSString * const kHPPPPrinterAvailabilityNotification;
+
+/*!
+ * @abstract Used to retrieve availability of the printer
+ * @discussion This key works with the printer available notification to inform the client application whether the printer was available or not.
+ * @seealso kHPPPPrinterAvailabilityNotification
+ * @seealso kHPPPPrinterKey
+ */
+extern NSString * const kHPPPPrinterAvailableKey;
+
+/*!
+ * @abstract Used to retrieve printer that was checked for avaiability
+ * @discussion This key works with the printer available notification to communicate the UIPrinter object that was checked for availability.
+ * @seealso kHPPPPrinterAvailabilityNotification
+ * @seealso kHPPPPrinterAvailableKey
+ */
+extern NSString * const kHPPPPrinterKey;
 
 /*!
  * @abstract Used to retrieve last paper size used
