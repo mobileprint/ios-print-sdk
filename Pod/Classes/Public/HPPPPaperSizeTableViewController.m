@@ -39,7 +39,7 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
 {
     [super viewWillAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:HPPP_TRACKABLE_SCREEN_NOTIFICATION object:nil userInfo:[NSDictionary dictionaryWithObject:kPaperSizeScreenName forKey:kHPPPTrackableScreenNameKey]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kPaperSizeScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
 #pragma mark - UITableViewDataSource

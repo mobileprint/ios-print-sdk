@@ -78,7 +78,7 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     if (IS_OS_8_OR_LATER) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:HPPP_PRINTER_AVAILABILITY_NOTIFICATION object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:kHPPPPrinterAvailabilityNotification object:nil];
         
         self.refreshControl = [[UIRefreshControl alloc] init];
         [self.refreshControl addTarget:self action:@selector(startRefreshing:) forControlEvents:UIControlEventValueChanged];
@@ -88,7 +88,7 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:HPPP_PRINTER_AVAILABILITY_NOTIFICATION];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Pull to refresh
@@ -319,7 +319,7 @@
 
 - (void)handleDidCheckPrinterAvailability:(NSNotification *)notification
 {
-    BOOL available = [[notification.userInfo objectForKey:HPPP_PRINTER_AVAILABLE_KEY] boolValue];
+    BOOL available = [[notification.userInfo objectForKey:kHPPPPrinterAvailableKey] boolValue];
     
     self.printSettings.printerIsAvailable = available;
     
