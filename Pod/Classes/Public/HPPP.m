@@ -34,7 +34,7 @@ NSString * const kHPPPShareCompletedNotification = @"kHPPPShareCompletedNotifica
 NSString * const kHPPPTrackableScreenNotification = @"kHPPPTrackableScreenNotification";
 NSString * const kHPPPTrackableScreenNameKey = @"screen-name";
 
-NSString * const kHPPPPrinterAvailabilityNotification = @"kHPPPTrackableScreenNotification";
+NSString * const kHPPPPrinterAvailabilityNotification = @"kHPPPPrinterAvailabilityNotification";
 NSString * const kHPPPPrinterAvailableKey = @"availability";
 NSString * const kHPPPPrinterKey = @"printer";
 
