@@ -15,7 +15,7 @@
 
 #define DEFAULT_RULES_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:10]
 #define DEFAULT_TABLE_VIEW_CELL_PRINT_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
-#define DEFAULT_TABLE_VIEW_CELL_PRINT_LABEL_COLOR [UIColor colorWithRed:0x00 / 255.0f green:0x96 / 255.0f blue:0xD6 / 255.0f alpha:1.0f]
+#define DEFAULT_TABLE_VIEW_CELL_PRINT_LABEL_COLOR [UIColor colorWithRed:0x02 / 255.0f green:0x7B / 255.0f blue:0xFF / 255.0f alpha:1.0f]
 #define DEFAULT_TABLE_VIEW_SUPPORT_HEADER_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
 #define DEFAULT_TABLE_VIEW_SUPPORT_HEADER_LABEL_COLOR [UIColor colorWithRed:0x86 / 255.0f green:0x86 / 255.0f blue:0x86 / 255.0f alpha:1.0f]
 #define DEFAULT_TABLE_VIEW_FOOTER_WARNING_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:12]
@@ -26,7 +26,7 @@
 #define DEFAULT_TABLE_VIEW_CELL_VALUE_COLOR [UIColor colorWithRed:0x86 / 255.0f green:0x86 / 255.0f blue:0x86 / 255.0f alpha:1.0f]
 #define DEFAULT_TABLE_VIEW_SETTINGS_CELL_VALUE_FONT [UIFont fontWithName:@"Helvetica Neue" size:12]
 #define DEFAULT_TABLE_VIEW_SETTINGS_CELL_VALUE_COLOR [UIColor colorWithRed:0x86 / 255.0f green:0x86 / 255.0f blue:0x86 / 255.0f alpha:1.0f]
-#define DEFAULT_TABLE_VIEW_CELL_LINK_LABEL_COLOR [UIColor colorWithRed:0x00 / 255.0f green:0x96 / 255.0f blue:0xD6 / 255.0f alpha:1.0f]
+#define DEFAULT_TABLE_VIEW_CELL_LINK_LABEL_COLOR [UIColor colorWithRed:0x02 / 255.0f green:0x7B / 255.0f blue:0xFF / 255.0f alpha:1.0f]
 
 
 NSString * const kHPPPShareCompletedNotification = @"kHPPPShareCompletedNotification";
