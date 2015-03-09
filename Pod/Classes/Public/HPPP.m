@@ -13,6 +13,22 @@
 #import "HPPP.h"
 #import "HPPPAnalyticsManager.h"
 
+#define DEFAULT_RULES_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:10]
+#define DEFAULT_TABLE_VIEW_CELL_PRINT_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
+#define DEFAULT_TABLE_VIEW_CELL_PRINT_LABEL_COLOR [UIColor colorWithRed:0x00 / 255.0f green:0x96 / 255.0f blue:0xD6 / 255.0f alpha:1.0f]
+#define DEFAULT_TABLE_VIEW_SUPPORT_HEADER_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
+#define DEFAULT_TABLE_VIEW_SUPPORT_HEADER_LABEL_COLOR [UIColor colorWithRed:0x86 / 255.0f green:0x86 / 255.0f blue:0x86 / 255.0f alpha:1.0f]
+#define DEFAULT_TABLE_VIEW_FOOTER_WARNING_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:12]
+#define DEFAULT_TABLE_VIEW_FOOTER_WARNING_LABEL_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
+#define DEFAULT_TABLE_VIEW_CELL_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:16]
+#define DEFAULT_TABLE_VIEW_CELL_LABEL_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
+#define DEFAULT_TABLE_VIEW_CELL_VALUE_FONT [UIFont fontWithName:@"Helvetica Neue" size:16]
+#define DEFAULT_TABLE_VIEW_CELL_VALUE_COLOR [UIColor colorWithRed:0x86 / 255.0f green:0x86 / 255.0f blue:0x86 / 255.0f alpha:1.0f]
+#define DEFAULT_TABLE_VIEW_SETTINGS_CELL_VALUE_FONT [UIFont fontWithName:@"Helvetica Neue" size:12]
+#define DEFAULT_TABLE_VIEW_SETTINGS_CELL_VALUE_COLOR [UIColor colorWithRed:0x86 / 255.0f green:0x86 / 255.0f blue:0x86 / 255.0f alpha:1.0f]
+#define DEFAULT_TABLE_VIEW_CELL_LINK_LABEL_COLOR [UIColor colorWithRed:0x00 / 255.0f green:0x96 / 255.0f blue:0xD6 / 255.0f alpha:1.0f]
+
+
 NSString * const kHPPPShareCompletedNotification = @"kHPPPShareCompletedNotification";
 
 NSString * const kHPPPTrackableScreenNotification = @"kHPPPTrackableScreenNotification";
@@ -94,6 +110,134 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     }
     
     return retVal;
+}
+
+#pragma mark - Getter methods
+
+- (UIFont *)rulesLabelFont
+{
+    if (nil == _rulesLabelFont) {
+        return DEFAULT_RULES_LABEL_FONT;
+    } else {
+        return _rulesLabelFont;
+    }
+}
+
+- (UIFont *)tableViewCellPrintLabelFont
+{
+    if (nil == _tableViewCellPrintLabelFont) {
+        return DEFAULT_TABLE_VIEW_CELL_PRINT_LABEL_FONT;
+    } else {
+        return _tableViewCellPrintLabelFont;
+    }
+}
+
+- (UIColor *)tableViewCellPrintLabelColor
+{
+    if (nil == _tableViewCellPrintLabelColor) {
+        return DEFAULT_TABLE_VIEW_CELL_PRINT_LABEL_COLOR;
+    } else {
+        return _tableViewCellPrintLabelColor;
+    }
+}
+
+- (UIFont *)tableViewSupportHeaderLabelFont
+{
+    if (nil == _tableViewSupportHeaderLabelFont) {
+        return DEFAULT_TABLE_VIEW_SUPPORT_HEADER_LABEL_FONT;
+    } else {
+        return _tableViewSupportHeaderLabelFont;
+    }
+}
+
+- (UIColor *)tableViewSupportHeaderLabelColor
+{
+    if (nil == _tableViewSupportHeaderLabelColor) {
+        return DEFAULT_TABLE_VIEW_SUPPORT_HEADER_LABEL_COLOR;
+    } else {
+        return _tableViewSupportHeaderLabelColor;
+    }
+}
+
+- (UIFont *)tableViewFooterWarningLabelFont
+{
+    if (nil == _tableViewFooterWarningLabelFont) {
+        return DEFAULT_TABLE_VIEW_FOOTER_WARNING_LABEL_FONT;
+    } else {
+        return _tableViewFooterWarningLabelFont;
+    }
+}
+
+- (UIColor *)tableViewFooterWarningLabelColor
+{
+    if (nil == _tableViewFooterWarningLabelColor) {
+        return DEFAULT_TABLE_VIEW_FOOTER_WARNING_LABEL_COLOR;
+    } else {
+        return _tableViewFooterWarningLabelColor;
+    }
+}
+
+- (UIFont *)tableViewCellLabelFont
+{
+    if (nil == _tableViewCellLabelFont) {
+        return DEFAULT_TABLE_VIEW_CELL_LABEL_FONT;
+    } else {
+        return _tableViewCellLabelFont;
+    }
+}
+
+- (UIColor *)tableViewCellLabelColor
+{
+    if (nil == _tableViewCellLabelColor) {
+        return DEFAULT_TABLE_VIEW_CELL_LABEL_COLOR;
+    } else {
+        return _tableViewCellLabelColor;
+    }
+}
+
+- (UIFont *)tableViewCellValueFont
+{
+    if (nil == _tableViewCellValueFont) {
+        return DEFAULT_TABLE_VIEW_CELL_VALUE_FONT;
+    } else {
+        return _tableViewCellValueFont;
+    }
+}
+
+- (UIColor *)tableViewCellValueColor
+{
+    if (nil == _tableViewCellValueColor) {
+        return DEFAULT_TABLE_VIEW_CELL_VALUE_COLOR;
+    } else {
+        return _tableViewCellValueColor;
+    }
+}
+
+- (UIFont *)tableViewSettingsCellValueFont
+{
+    if (nil == _tableViewSettingsCellValueFont) {
+        return DEFAULT_TABLE_VIEW_SETTINGS_CELL_VALUE_FONT;
+    } else {
+        return _tableViewSettingsCellValueFont;
+    }
+}
+
+- (UIColor *)tableViewSettingsCellValueColor
+{
+    if (nil == _tableViewSettingsCellValueColor) {
+        return DEFAULT_TABLE_VIEW_SETTINGS_CELL_VALUE_COLOR;
+    } else {
+        return _tableViewSettingsCellValueColor;
+    }
+}
+
+- (UIColor *)tableViewCellLinkLabelColor
+{
+    if (nil == _tableViewCellLinkLabelColor) {
+        return DEFAULT_TABLE_VIEW_CELL_LINK_LABEL_COLOR;
+    } else {
+        return _tableViewCellLinkLabelColor;
+    }
 }
 
 @end
