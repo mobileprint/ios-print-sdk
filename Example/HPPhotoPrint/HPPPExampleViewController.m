@@ -34,28 +34,6 @@
     [HPPP sharedInstance].zoomAndCrop = NO;
     [HPPP sharedInstance].defaultPaperType = Plain;
     
-    [HPPP sharedInstance].tableViewCellLinkLabelColor = [UIColor colorWithRed:0x00 / 255.0f green:0x96 / 255.0f blue:0xD6 / 255.0f alpha:1.0f];
-    
-    [HPPP sharedInstance].tableViewSupportHeaderLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:18];
-    [HPPP sharedInstance].tableViewSupportHeaderLabelColor = [UIColor colorWithRed:0x86 / 255.0f green:0x86 / 255.0f blue:0x86 / 255.0f alpha:1.0f];
-
-    [HPPP sharedInstance].tableViewFooterWarningLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:12];
-    [HPPP sharedInstance].tableViewFooterWarningLabelColor = [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f];
-    
-    [HPPP sharedInstance].tableViewCellPrintLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:18];
-    [HPPP sharedInstance].tableViewCellPrintLabelColor = [UIColor colorWithRed:0x00 / 255.0f green:0x96 / 255.0f blue:0xD6 / 255.0f alpha:1.0f];
-
-    [HPPP sharedInstance].tableViewCellLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:16];
-    [HPPP sharedInstance].tableViewCellLabelColor = [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f];
-
-    [HPPP sharedInstance].tableViewCellValueFont = [UIFont fontWithName:@"Helvetica Neue" size:16];
-    [HPPP sharedInstance].tableViewCellValueColor = [UIColor colorWithRed:0x86 / 255.0f green:0x86 / 255.0f blue:0x86 / 255.0f alpha:1.0f];
-
-    [HPPP sharedInstance].tableViewSettingsCellValueFont = [UIFont fontWithName:@"Helvetica Neue" size:12];
-    [HPPP sharedInstance].tableViewSettingsCellValueColor = [UIColor colorWithRed:0x86 / 255.0f green:0x86 / 255.0f blue:0x86 / 255.0f alpha:1.0f];
-    
-    [HPPP sharedInstance].rulesLabelFont = [UIFont fontWithName:@"Helvetica Neue" size:10];
-    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"PrintInstructions"];
     
