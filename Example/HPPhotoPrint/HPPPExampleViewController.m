@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
+@property (weak, nonatomic) IBOutlet UIImageView *lastPrintLaterJobSavedImageView;
 
 @end
 
@@ -60,8 +61,9 @@
     
     HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
     
+    NSString *printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
     HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
-    printLaterJob.id = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
+    printLaterJob.id = printLaterJobNextAvailableId;
     printLaterJob.name = @"Einstein";
     printLaterJob.date = [NSDate date];
     printLaterJob.printerName = @"Epson";
@@ -96,6 +98,10 @@
             HPPP *hppp = [HPPP sharedInstance];
             NSLog(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
             
+            HPPPPrintLaterJob *lastPrintLaterJobSaved = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobWithID:printLaterJobNextAvailableId];
+            
+            UIImage *image = [lastPrintLaterJobSaved.images objectForKey:@"4 x 6"];
+            self.lastPrintLaterJobSavedImageView.image = image;
         } else {
             NSLog(@"completionHandler - didn't succeed.");
         }
@@ -113,6 +119,16 @@
         [self presentViewController:activityViewController animated:YES completion:nil];
     }
     
+}
+
+- (IBAction)showPrintLaterJobsButtonTapped:(id)sender
+{
+    NSLog(@"Showing print later jobs:");
+    NSArray *printLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
+    
+    for (HPPPPrintLaterJob *printLaterJob in printLaterJobs) {
+        NSLog(@"%@", printLaterJob);
+    }
 }
 
 #pragma mark - HPPPPrintActivityDataSource
