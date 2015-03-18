@@ -18,6 +18,11 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
 @property (weak, nonatomic) IBOutlet UIImageView *lastPrintLaterJobSavedImageView;
+@property (weak, nonatomic) IBOutlet UISwitch *basicMetricsSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *extendedMetricsSwitch;
+@property (weak, nonatomic) IBOutlet UITextField *photoSourceTextField;
+@property (weak, nonatomic) IBOutlet UITextField *userIDTextField;
+@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 
 @end
 
@@ -53,6 +58,8 @@
 
 - (IBAction)shareBarButtonItemTap:(id)sender
 {
+    [HPPP sharedInstance].handlePrintMetricsAutomatically = self.basicMetricsSwitch.on;
+    
     NSString *bundlePath = [NSString stringWithFormat:@"%@/HPPhotoPrint.bundle", [NSBundle mainBundle].bundlePath];
     NSLog(@"Bundle %@", bundlePath);
     
@@ -97,6 +104,14 @@
             NSLog(@"completionHandler - Succeed");
             HPPP *hppp = [HPPP sharedInstance];
             NSLog(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
+            if (self.extendedMetricsSwitch.on) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                                                                 activityType, @"off_ramp",
+                                                                                                                                 self.photoSourceTextField.text, @"photo_source",
+                                                                                                                                 self.userIDTextField.text, @"user_id",
+                                                                                                                                 self.userNameTextField.text, @"user_name",
+                                                                                                                                 nil]];
+            }
             
             HPPPPrintLaterJob *lastPrintLaterJobSaved = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobWithID:printLaterJobNextAvailableId];
             
