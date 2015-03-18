@@ -76,6 +76,28 @@
     
     self.printerNameLabel.text = self.printLaterJob.printerName;
     self.printerLocationLabel.text = self.printLaterJob.printerLocation;
+    
+    if (IS_OS_8_OR_LATER) {
+        UIMutableUserNotificationAction *laterAction = [[UIMutableUserNotificationAction alloc] init];
+        laterAction.identifier = @"LATER_ACTION_IDENTIFIER";
+        laterAction.activationMode = UIUserNotificationActivationModeBackground;
+        laterAction.title = @"Later";
+        laterAction.destructive = YES;
+        
+        UIMutableUserNotificationAction *printAction = [[UIMutableUserNotificationAction alloc] init];
+        printAction.identifier = @"PRINT_ACTION_IDENTIFIER";
+        printAction.activationMode = UIUserNotificationActivationModeBackground;
+        printAction.title = @"Print";
+        printAction.destructive = NO;
+        
+        UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];
+        category.identifier = @"PRINT_CATEGORY_IDENTIFIER";
+        [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextDefault];
+        [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextMinimal];
+        
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge|UIUserNotificationTypeAlert categories:[NSSet setWithObjects:category, nil]];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }
 }
 
 #pragma mark - Table view data source
