@@ -17,6 +17,7 @@
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPSupportAction.h"
 #import "HPPPPrintLaterQueue.h"
+#import "HPPPAttributedString.h"
 
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 
@@ -39,7 +40,8 @@
 
 #define HPPP_DEFAULT_PRINT_JOB_NAME @"Photo"
 
-/*! 
+
+/*!
  * @abstract Main HP Photo Print manager class
  * @discussion This singleton class manages configuration settings and stored job information.
  */
@@ -297,6 +299,7 @@ extern NSString * const kHPPPNumberOfCopies;
  */
 @property (strong, nonatomic) UIColor *tableViewCellLinkLabelColor;
 
+
 /*!
  * @abstract A dictionary of the most recent print options used
  * @discussion If the last print job was successful this property contains a dictionary of various options used for the job. If the last print job failed or was canceled then this property contains an empty dictionary.
@@ -326,6 +329,12 @@ extern NSString * const kHPPPNumberOfCopies;
  * @seealso kHPPPShareCompletedNotification
  */
 @property (assign, nonatomic) BOOL handlePrintMetricsAutomatically;
+
+/*!
+ * @property attributedString
+ * @description Allows customization of the view fonts and colors of the print later screens.
+ */
+@property (strong, nonatomic) HPPPAttributedString *attributedString;
 
 /*!
  * @abstract Used to access the singleton instance of this class
