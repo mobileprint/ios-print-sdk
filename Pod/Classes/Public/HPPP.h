@@ -13,8 +13,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "HPPPPrintActivity.h"
+#import "HPPPPrintLaterActivity.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPSupportAction.h"
+#import "HPPPPrintLaterQueue.h"
 
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 

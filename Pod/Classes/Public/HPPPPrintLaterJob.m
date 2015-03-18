@@ -11,7 +11,6 @@
 //
 
 #import "HPPPPrintLaterJob.h"
-#import "HPPP.h"
 
 NSString * const kHPPPPrintLaterJobId = @"kHPPPPrintLaterJobId";
 NSString * const kHPPPPrintLaterJobName = @"kHPPPPrintLaterJobName";

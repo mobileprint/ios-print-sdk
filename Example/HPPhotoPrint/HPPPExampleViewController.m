@@ -58,7 +58,24 @@
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
     printActivity.dataSource = self;
     
-    NSArray *applicationActivities = @[printActivity];
+    HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
+    
+    HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
+    printLaterJob.id = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
+    printLaterJob.name = @"Einstein";
+    printLaterJob.date = [NSDate date];
+    printLaterJob.printerName = @"Epson";
+    printLaterJob.printerLocation = @"Office";
+    printLaterJob.printerURL = @"URL//EPSON";
+    NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:@"sample2-portrait.jpg"], 1);
+    printLaterJob.images = @{@"4 x 6" : imageData};
+    
+    printLaterActivity.printLaterJob = printLaterJob;
+    
+//    NSData *encodedImageData = [printLaterJob.images objectForKey:@"4 x 6"];
+//    UIImage *image = [UIImage imageWithData:encodedImageData];
+    
+    NSArray *applicationActivities = @[printActivity, printLaterActivity];
     
     UIImage *card = [UIImage imageNamed:@"sample-portrait.jpg"];
     NSArray *activitiesItems = @[card];

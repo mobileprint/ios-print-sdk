@@ -14,13 +14,13 @@
 #import <UIKit/UIKit.h>
 #import "HPPPPrintLaterJob.h"
 
-@interface HPPPPrintLaterQueue : NSObject
+@interface HPPPPrintLaterActivity : UIActivity
 
-+ (HPPPPrintLaterQueue *)sharedInstance;
-- (BOOL)addPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob;
-- (BOOL)deletePrintLaterJob:(HPPPPrintLaterJob *)printLaterJob;
-- (BOOL)deleteAllPrintLaterJobs;
-- (HPPPPrintLaterJob *)retrievePrintLaterJobWithID:(NSString *)id;
-- (NSArray *)retrieveAllPrintLaterJobs;
+/*!
+ * @abstract Provides the print later job
+ * @description The client app must create the print later job and set it to the activity. The class HPPPPrintLaterQueue provides a method called retrievePrintLaterJobNextAvailableId to get an id, otherwise the client app can use their own ids.
+ * @seealso HPPPPrintLaterJob, HPPPPrintLaterQueue
+ */
+@property (nonatomic, strong) HPPPPrintLaterJob *printLaterJob;
 
 @end

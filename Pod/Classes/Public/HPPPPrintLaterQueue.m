@@ -14,6 +14,8 @@
 
 #define PRINT_LATER_JOBS_DIRECTORY_NAME @"PrintLaterJobs"
 
+NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAvailableId";
+
 @interface HPPPPrintLaterQueue()
 
 @property (nonatomic, strong) NSString *printLaterJobsDirectoryPath;
@@ -31,6 +33,20 @@
     });
     
     return sharedInstance;
+}
+
+- (NSString *)retrievePrintLaterJobNextAvailableId
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    NSInteger printLaterJobNextAvailableId = [defaults integerForKey:kHPPPPrintLaterJobNextAvailableId];
+    
+    printLaterJobNextAvailableId++;
+    
+    [defaults setInteger:printLaterJobNextAvailableId forKey:kHPPPPrintLaterJobNextAvailableId];
+    [defaults synchronize];
+
+    return [NSString stringWithFormat:@"ID%08lX", (long)printLaterJobNextAvailableId];
 }
 
 #pragma mark - Getter methods
@@ -127,11 +143,11 @@
 {
     BOOL success = YES;
     
-    NSFileManager *fileMgr = [NSFileManager defaultManager];
-    NSArray *fileArray = [fileMgr contentsOfDirectoryAtPath:path error:nil];
-    for (NSString *filename in fileArray)  {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *files = [fileManager contentsOfDirectoryAtPath:path error:nil];
+    for (NSString *filename in files)  {
         NSError *error = nil;
-        if (![fileMgr removeItemAtPath:[path stringByAppendingPathComponent:filename] error:&error]) {
+        if (![fileManager removeItemAtPath:[path stringByAppendingPathComponent:filename] error:&error]) {
             NSLog(@"Delete file error: %@", error);
             success = NO;
         }
