@@ -32,7 +32,16 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
     [encoder encodeObject:self.printerName forKey:kHPPPPrintLaterJobPrinterName];
     [encoder encodeObject:self.printerLocation forKey:kHPPPPrintLaterJobPrinterLocation];
     [encoder encodeObject:self.printerURL forKey:kHPPPPrintLaterJobPrinterURL];
-    [encoder encodeObject:self.images forKey:kHPPPPrintLaterJobImages];
+    
+    // UIImages don't implement the protocol necessary for serialization, so they must be change to NSDatas
+    NSMutableDictionary *serializeImages = [NSMutableDictionary dictionary];
+    
+    for (NSString *printJobId in self.images.allKeys) {
+        NSData *imageData = UIImageJPEGRepresentation([self.images objectForKey:printJobId], 1);
+        [serializeImages setObject:imageData forKey:printJobId];
+    }
+    
+    [encoder encodeObject:serializeImages.copy forKey:kHPPPPrintLaterJobImages];
     [encoder encodeObject:self.extra forKey:kHPPPPrintLaterJobExtra];
 }
 
@@ -45,7 +54,17 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
         self.printerName = [decoder decodeObjectForKey:kHPPPPrintLaterJobPrinterName];
         self.printerLocation = [decoder decodeObjectForKey:kHPPPPrintLaterJobPrinterLocation];
         self.printerURL = [decoder decodeObjectForKey:kHPPPPrintLaterJobPrinterURL];
-        self.images = [decoder decodeObjectForKey:kHPPPPrintLaterJobImages];
+        
+        NSDictionary *decodedImages = [decoder decodeObjectForKey:kHPPPPrintLaterJobImages];
+        
+        NSMutableDictionary *serializeImages = [NSMutableDictionary dictionary];
+        for (NSString *printJobId in decodedImages.allKeys) {
+            NSData *imageData = [decodedImages objectForKey:printJobId];
+            UIImage *image = [UIImage imageWithData:imageData];
+            [serializeImages setObject:image forKey:printJobId];
+        }
+        
+        self.images = serializeImages.copy;
         self.extra = [decoder decodeObjectForKey:kHPPPPrintLaterJobExtra];
     }
     

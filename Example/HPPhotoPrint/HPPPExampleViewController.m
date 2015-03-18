@@ -67,13 +67,9 @@
     printLaterJob.printerName = @"Epson";
     printLaterJob.printerLocation = @"Office";
     printLaterJob.printerURL = @"URL//EPSON";
-    NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:@"sample2-portrait.jpg"], 1);
-    printLaterJob.images = @{@"4 x 6" : imageData};
+    printLaterJob.images = @{@"4 x 6" : [UIImage imageNamed:@"sample2-portrait.jpg"]};
     
     printLaterActivity.printLaterJob = printLaterJob;
-    
-//    NSData *encodedImageData = [printLaterJob.images objectForKey:@"4 x 6"];
-//    UIImage *image = [UIImage imageWithData:encodedImageData];
     
     NSArray *applicationActivities = @[printActivity, printLaterActivity];
     
