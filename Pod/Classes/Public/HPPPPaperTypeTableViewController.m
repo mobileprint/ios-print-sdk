@@ -43,7 +43,7 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
     }
 }
 
-- (void) viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     

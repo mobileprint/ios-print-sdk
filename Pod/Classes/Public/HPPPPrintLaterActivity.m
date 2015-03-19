@@ -12,6 +12,11 @@
 
 #import "HPPPPrintLaterActivity.h"
 #import "HPPPPrintLaterQueue.h"
+#import "HPPPAddPrintLaterJobTableViewController.h"
+
+@interface HPPPPrintLaterActivity () <HPPPAddPrintLaterJobTableViewControllerDelegate>
+
+@end
 
 @implementation HPPPPrintLaterActivity
 
@@ -22,12 +27,12 @@
 
 - (NSString *)activityTitle
 {
-    return @"Print Later";
+    return @"Print Q";
 }
 
 - (UIImage *)_activityImage
 {
-    return [UIImage imageNamed:@"HPPPPrint"]; //TODO Get icon for print later
+    return [UIImage imageNamed:@"HPPPPrintLater"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
@@ -35,10 +40,34 @@
     return YES;
 }
 
-- (void)performActivity
+- (UIViewController *)activityViewController
 {
-    BOOL result = [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob];
-    [self activityDidFinish:result];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
+    
+    UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPAddPrintLaterJobNavigationController"];
+    
+    HPPPAddPrintLaterJobTableViewController *addPrintLaterJobTableViewController = (HPPPAddPrintLaterJobTableViewController *) navigationController.topViewController;
+    
+    addPrintLaterJobTableViewController.printLaterJob = self.printLaterJob;
+    addPrintLaterJobTableViewController.delegate = self;
+    
+    return navigationController;
+}
+
+#pragma mark - HPPPAddPrintLaterJobTableViewControllerDelegate
+
+- (void)addPrintLaterJobTableViewControllerDidFinishPrintFlow:(HPPPAddPrintLaterJobTableViewController *)addPrintLaterJobTableViewController
+{
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self activityDidFinish:YES];
+    });
+}
+
+- (void)addPrintLaterJobTableViewControllerDidCancelPrintFlow:(HPPPAddPrintLaterJobTableViewController *)addPrintLaterJobTableViewController
+{
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self activityDidFinish:NO];
+    });
 }
 
 @end
