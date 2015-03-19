@@ -48,6 +48,8 @@
 #define PRINT_SETTINGS_ROW_INDEX 0
 #define FILTER_ROW_INDEX 0
 
+#define DEFAULT_PRINTER_NAME_SETTING @"defaultPrinterName"
+#define DEFAULT_PRINTER_URL_SETTING @"defaultPrinterUrl"
 #define LAST_PRINTER_USED_SETTING @"lastPrinterUsed"
 #define LAST_PRINTER_USED_ID_SETTING @"lastPrinterIdUsed"
 #define LAST_SIZE_USED_SETTING @"lastSizeUsed"
@@ -59,7 +61,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
-@interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate>
+@interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
 
 
 @property (weak, nonatomic) HPPPPageView *pageView;
@@ -250,6 +252,16 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         [self setPaperSize:self.pageView animated:NO completion:nil];
     }
+}
+
++ (NSString *)defaultPrinterName
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_PRINTER_NAME_SETTING];
+}
+
++ (NSString *)defaultPrinterUrl
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_PRINTER_URL_SETTING];
 }
 
 #pragma mark - Pull to refresh
@@ -823,6 +835,7 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     }
     
     if (completed) {
+        [self displaySaveAsDefalutPrinter];
         
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
             [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
@@ -833,10 +846,27 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
             [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:options];
         }
     }
-    
+
     if (IS_IPAD) {
         self.cancelBarButtonItem.enabled = YES;
     }
+}
+
+- (void)displaySaveAsDefalutPrinter
+{
+    NSString *defaultPrinter = [HPPPPageSettingsTableViewController defaultPrinterUrl];
+    if (defaultPrinter != nil) {
+        return;
+    }
+    
+    NSString *message = [NSString stringWithFormat:@"Would you like to set\n'%@'\nas the app's default printer?", self.currentPrintSettings.printerName];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"No Thanks"
+                                          otherButtonTitles:@"Yes", nil];
+    [alert show];
 }
 
 - (void)setLastOptionsUsedWithPrintController:(UIPrintInteractionController *)printController;
@@ -875,6 +905,19 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
     self.currentPrintSettings.printerName = printer.displayName;
     self.currentPrintSettings.printerLocation = printer.displayLocation;
     self.currentPrintSettings.printerModel = printer.makeAndModel;
+}
+
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if( 1 == buttonIndex ) {
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:self.currentPrintSettings.printerName forKey:DEFAULT_PRINTER_NAME_SETTING];
+        [defaults setObject:self.currentPrintSettings.printerUrl.absoluteString forKey:DEFAULT_PRINTER_URL_SETTING];
+        [defaults synchronize];
+    }
 }
 
 #pragma mark - HPPPPrintSettingsTableViewControllerDelegate
