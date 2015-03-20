@@ -16,5 +16,6 @@
 
 + (HPPPPrinter *)sharedInstance;
 - (void)checkLastPrinterUsedAvailability;
+- (void)checkDefaultPrinterAvailabilityWithCompletion:(void(^)(BOOL available))completion;
 
 @end

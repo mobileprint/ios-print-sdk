@@ -105,6 +105,14 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     return printLaterJobs.copy;
 }
 
+- (NSInteger)retrieveNumberOfPrintLaterJobs
+{
+    NSArray *fileArray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.printLaterJobsDirectoryPath error:nil];
+    
+    return fileArray.count;
+}
+
+
 #pragma mark - Filesystem manipulation methods
 
 - (BOOL)createDirectory:(NSString *)directoryName atPath:(NSString *)path

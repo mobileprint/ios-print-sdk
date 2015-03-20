@@ -12,17 +12,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "HPPPPrintLaterJob.h"
 
-@interface HPPPPrintLaterQueue : NSObject
+@interface HPPPPrintLaterManager : NSObject
 
-+ (HPPPPrintLaterQueue *)sharedInstance;
-- (NSString *)retrievePrintLaterJobNextAvailableId;
-- (BOOL)addPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob;
-- (BOOL)deletePrintLaterJob:(HPPPPrintLaterJob *)printLaterJob;
-- (BOOL)deleteAllPrintLaterJobs;
-- (HPPPPrintLaterJob *)retrievePrintLaterJobWithID:(NSString *)id;
-- (NSArray *)retrieveAllPrintLaterJobs;
-- (NSInteger)retrieveNumberOfPrintLaterJobs;
++ (HPPPPrintLaterManager *)sharedInstance;
 
 @end

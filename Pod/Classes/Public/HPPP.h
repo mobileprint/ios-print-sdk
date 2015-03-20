@@ -337,6 +337,12 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (strong, nonatomic) HPPPAttributedString *attributedString;
 
 /*!
+ * @property printLaterUserNotificationCategory
+ * @description UIUserNotificationCategory to register in the clients for push notifications of the print later. The clients must do the registration because it may happen that the client have other notification categories to register, and all the registration must be do at the same time, otherwise the new category will override the previous one.
+ */
+- (UIUserNotificationCategory *)printLaterUserNotificationCategory;
+
+/*!
  * @abstract Used to access the singleton instance of this class
  */
 + (HPPP *)sharedInstance;

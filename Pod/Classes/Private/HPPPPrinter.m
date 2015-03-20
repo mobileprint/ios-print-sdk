@@ -47,7 +47,7 @@
                         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                                               [NSNumber numberWithBool:available], kHPPPPrinterAvailableKey,
                                               printerFromUrl, kHPPPPrinterKey, nil];
-                                              
+                        
                         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrinterAvailabilityNotification object:nil userInfo:dict];
                     });
                     self.refreshing = NO;
@@ -57,6 +57,24 @@
             }
         });
     }
+}
+
+- (void)checkDefaultPrinterAvailabilityWithCompletion:(void(^)(BOOL available))completion
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        
+        NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
+        NSLog(@"Searching for printer %@", lastPrinterUrl);
+        
+        if( nil != lastPrinterUrl ) {
+            UIPrinter *printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:lastPrinterUrl]];
+            [printerFromUrl contactPrinter:^(BOOL available) {
+                completion(YES);
+            }];
+        } else {
+            completion(NO);
+        }
+    });
 }
 
 @end

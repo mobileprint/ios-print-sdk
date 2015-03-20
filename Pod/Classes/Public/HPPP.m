@@ -243,4 +243,26 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     }
 }
 
+- (UIUserNotificationCategory *)printLaterUserNotificationCategory
+{
+    UIMutableUserNotificationAction *laterAction = [[UIMutableUserNotificationAction alloc] init];
+    laterAction.identifier = @"LATER_ACTION_IDENTIFIER";
+    laterAction.activationMode = UIUserNotificationActivationModeBackground;
+    laterAction.title = @"Later";
+    laterAction.destructive = NO;
+    
+    UIMutableUserNotificationAction *printAction = [[UIMutableUserNotificationAction alloc] init];
+    printAction.identifier = @"PRINT_ACTION_IDENTIFIER";
+    printAction.activationMode = UIUserNotificationActivationModeForeground;
+    printAction.title = @"Print";
+    printAction.destructive = NO;
+    
+    UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];
+    category.identifier = @"PRINT_CATEGORY_IDENTIFIER";
+    [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextDefault];
+    [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextMinimal];
+    
+    return category.copy;
+}
+
 @end
