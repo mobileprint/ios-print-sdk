@@ -341,4 +341,19 @@ extern NSString * const kHPPPNumberOfCopies;
  */
 + (HPPP *)sharedInstance;
 
+/*!
+ * @abstract Returns the printer name of the default printer set by the user.
+ */
++ (NSString *)defaultPrinterName;
+
+/*!
+ * @abstract Returns the printer URL of the default printer set by the user.
+ */
++ (NSString *)defaultPrinterUrl;
+
+/*!
+ * @abstract Returns the printer Network of the default printer.
+ */
++ (NSString *)defaultPrinterNetwork;
+
 @end
