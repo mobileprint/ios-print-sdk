@@ -27,7 +27,7 @@
 
 - (NSString *)activityTitle
 {
-    return @"Print Q";
+    return @"Print Queue";
 }
 
 - (UIImage *)_activityImage
