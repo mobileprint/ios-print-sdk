@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
+@property (weak, nonatomic) IBOutlet UIImageView *lastPrintLaterJobSavedImageView;
 @property (weak, nonatomic) IBOutlet UISwitch *basicMetricsSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *extendedMetricsSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *photoSourceTextField;
@@ -65,7 +66,21 @@
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
     printActivity.dataSource = self;
     
-    NSArray *applicationActivities = @[printActivity];
+    HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
+    
+    NSString *printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
+    HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
+    printLaterJob.id = printLaterJobNextAvailableId;
+    printLaterJob.name = @"Einstein";
+    printLaterJob.date = [NSDate date];
+    printLaterJob.printerName = @"Epson";
+    printLaterJob.printerLocation = @"Office";
+    printLaterJob.printerURL = @"URL//EPSON";
+    printLaterJob.images = @{@"4 x 6" : [UIImage imageNamed:@"sample2-portrait.jpg"]};
+    
+    printLaterActivity.printLaterJob = printLaterJob;
+    
+    NSArray *applicationActivities = @[printActivity, printLaterActivity];
     
     UIImage *card = [UIImage imageNamed:@"sample-portrait.jpg"];
     NSArray *activitiesItems = @[card];
@@ -98,6 +113,10 @@
                                                                                                                                  nil]];
             }
             
+            HPPPPrintLaterJob *lastPrintLaterJobSaved = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobWithID:printLaterJobNextAvailableId];
+            
+            UIImage *image = [lastPrintLaterJobSaved.images objectForKey:@"4 x 6"];
+            self.lastPrintLaterJobSavedImageView.image = image;
         } else {
             NSLog(@"completionHandler - didn't succeed.");
         }
@@ -115,6 +134,16 @@
         [self presentViewController:activityViewController animated:YES completion:nil];
     }
     
+}
+
+- (IBAction)showPrintLaterJobsButtonTapped:(id)sender
+{
+    NSLog(@"Showing print later jobs:");
+    NSArray *printLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
+    
+    for (HPPPPrintLaterJob *printLaterJob in printLaterJobs) {
+        NSLog(@"%@", printLaterJob);
+    }
 }
 
 #pragma mark - HPPPPrintActivityDataSource

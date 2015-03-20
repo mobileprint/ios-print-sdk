@@ -9,6 +9,11 @@
 // HPPhotoPrint
 #define COCOAPODS_POD_AVAILABLE_HPPhotoPrint
 #define COCOAPODS_VERSION_MAJOR_HPPhotoPrint 0
+<<<<<<< HEAD
 #define COCOAPODS_VERSION_MINOR_HPPhotoPrint 12
 #define COCOAPODS_VERSION_PATCH_HPPhotoPrint 0
+=======
+#define COCOAPODS_VERSION_MINOR_HPPhotoPrint 11
+#define COCOAPODS_VERSION_PATCH_HPPhotoPrint 2
+>>>>>>> master
 
