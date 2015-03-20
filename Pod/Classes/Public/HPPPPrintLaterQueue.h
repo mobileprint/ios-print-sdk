@@ -14,6 +14,10 @@
 #import <UIKit/UIKit.h>
 #import "HPPPPrintLaterJob.h"
 
+extern NSString * const kHPPPPrintJobAddedToQueueNotification;
+extern NSString * const kHPPPAllPrintJobsRemovedFromQueueNotification;
+
+
 @interface HPPPPrintLaterQueue : NSObject
 
 + (HPPPPrintLaterQueue *)sharedInstance;

@@ -40,9 +40,21 @@ const int kSecondsInOneHour = (60 * 60);
 {
     self = [super init];
     if (self) {
-        //
+        [self initLocationManager];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintJobAddedToQueueNotification:) name:kHPPPPrintJobAddedToQueueNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAllPrintJobsRemovedFromQueueNotification:) name:kHPPPAllPrintJobsRemovedFromQueueNotification object:nil];
+        
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDefaultPrinterAddedNotification:) name:kHPPPDefaultPrinterAddedNotification object:nil];
+//        
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDefaultPrinterRemovedNotification:) name:kHPPPDefaultPrinterRemovedNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)initLocationManager
@@ -51,21 +63,66 @@ const int kSecondsInOneHour = (60 * 60);
     [self.locationManager requestAlwaysAuthorization];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.distanceFilter = 5.0f;
     self.locationManager.activityType = CLActivityTypeOtherNavigation;
     
+    // TODO. NOTE to myself. check if we need to start the updating location to use the region monitoring, otherwise delete that line
     [self.locationManager startUpdatingLocation];
     
     if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
         [[[UIAlertView alloc] initWithTitle:@"Monitoring not available" message:@"Your device does not support the region monitoring, it is not possible to fire alarms base on position" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil] show];
-    } else {
-        for (CLRegion *region in self.locationManager.monitoredRegions) {
-            [self.locationManager stopMonitoringForRegion:region];
+    }
+}
+
+#pragma mark - Notifications
+
+- (void)handlePrintJobAddedToQueueNotification:(NSNotification *)notification
+{
+    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 1) {
+        // It is the first one, so add the monitoring
+        if ([self isDefaultPrinterSet]) {
+            [self addMonitoringForDefaultPrinter];
         }
     }
 }
 
+- (void)handleAllPrintJobsRemovedFromQueueNotification:(NSNotification *)notification
+{
+    if ([self isDefaultPrinterSet]) {
+        [self removeMonitoringForDefaultPrinter];
+    }
+}
+
+- (void)handleDefaultPrinterAddedNotification:(NSNotification *)notification
+{
+    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
+        [self addMonitoringForDefaultPrinter];
+    }
+}
+
+- (void)handleDefaultPrinterRemovedNotification:(NSNotification *)notification
+{
+    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
+        [self removeMonitoringForDefaultPrinter];
+    }
+}
+
 #pragma mark - Utils
+
+- (BOOL)isDefaultPrinterSet
+{
+    return YES;
+}
+
+- (void)addMonitoringForDefaultPrinter
+{
+    
+}
+
+- (void)removeMonitoringForDefaultPrinter
+{
+    
+}
 
 - (UILocalNotification *)localNotification
 {
@@ -93,6 +150,11 @@ const int kSecondsInOneHour = (60 * 60);
     }];
 }
 
+- (BOOL)isDefaultPrinterRegion:(CLRegion *)region
+{
+    return YES;
+}
+
 - (void)fireNotificationLater
 {
     UILocalNotification *localNotification = [self localNotification];
@@ -109,12 +171,11 @@ const int kSecondsInOneHour = (60 * 60);
     NSLog(@"Location updated: (old %f %f) (new %f %f)", oldLocation.coordinate.latitude, oldLocation.coordinate.longitude, newLocation.coordinate.latitude, newLocation.coordinate.longitude);
 }
 
-
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     NSLog(@"Region entered: %@", region.identifier);
     
-    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
+    if ([self isDefaultPrinterRegion:region]) {
         [self fireNotificationIfPrinterIsAvailable];
     }
 }
@@ -131,8 +192,10 @@ const int kSecondsInOneHour = (60 * 60);
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
+    NSLog(@"Status %d", status);
+    
     if (status == kCLAuthorizationStatusDenied) {
-        //location denied, handle accordingly
+        [[[UIAlertView alloc] initWithTitle:@"Monitoring of default printer" message:@"You won't be notify when you are in the region of your default printer and you have print later jobs" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil] show];
     }
     else if (status == kCLAuthorizationStatusAuthorizedAlways) {
         

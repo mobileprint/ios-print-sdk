@@ -12,6 +12,8 @@
 
 #import "HPPP.h"
 #import "HPPPAnalyticsManager.h"
+#import "HPPPPrintLaterManager.h"
+
 
 #define DEFAULT_RULES_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:10]
 #define DEFAULT_TABLE_VIEW_CELL_PRINT_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
@@ -68,6 +70,12 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
 {
     self = [super init];
     if (self) {
+        
+        if (IS_OS_8_OR_LATER) {
+            // Calling the share instance causes the initiazilation of the location manager inside the print later manager
+            [HPPPPrintLaterManager sharedInstance];
+        }
+        
         self.handlePrintMetricsAutomatically = YES;
         self.lastOptionsUsed = [NSMutableDictionary dictionary];
         self.initialPaperSize = Size5x7;
