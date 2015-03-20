@@ -95,16 +95,6 @@
     }
 }
 
-+ (NSString *)defaultPrinterName
-{
-    return [HPPPPageSettingsTableViewController defaultPrinterName];
-}
-
-+ (NSString *)defaultPrinterUrl
-{
-    return [HPPPPageSettingsTableViewController defaultPrinterUrl];
-}
-
 #pragma mark - PGSelectPaperSizeViewControllerDataSource
 
 - (void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion

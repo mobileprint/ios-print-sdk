@@ -50,6 +50,7 @@
 
 #define DEFAULT_PRINTER_NAME_SETTING @"defaultPrinterName"
 #define DEFAULT_PRINTER_URL_SETTING @"defaultPrinterUrl"
+#define DEFAULT_PRINTER_NETWORK_SETTING @"defaultPrinterNetwork"
 #define LAST_PRINTER_USED_SETTING @"lastPrinterUsed"
 #define LAST_PRINTER_USED_ID_SETTING @"lastPrinterIdUsed"
 #define LAST_SIZE_USED_SETTING @"lastSizeUsed"
@@ -58,8 +59,10 @@
 #define SELECT_PRINTER_PROMPT @"Select Printer"
 
 NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
-
 NSString * const kPrinterDetailsNotAvailable = @"Not Available";
+
+int const kSaveDefaultPrinterIndex = 1;
+
 
 @interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
 
@@ -262,6 +265,11 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 + (NSString *)defaultPrinterUrl
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_PRINTER_URL_SETTING];
+}
+
++ (NSString *)defaultPrinterNetwork
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_PRINTER_NETWORK_SETTING];
 }
 
 #pragma mark - Pull to refresh
@@ -859,12 +867,12 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
         return;
     }
     
-    NSString *message = [NSString stringWithFormat:@"Would you like to set\n'%@'\nas the app's default printer?", self.currentPrintSettings.printerName];
+    NSString *message = [NSString stringWithFormat:@"Would you like to set the following as the app's default printer?\n\n'%@'", self.currentPrintSettings.printerName];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                     message:message
                                                    delegate:self
-                                          cancelButtonTitle:@"No Thanks"
+                                          cancelButtonTitle:@"No, thanks"
                                           otherButtonTitles:@"Yes", nil];
     [alert show];
 }
@@ -912,10 +920,11 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if( 1 == buttonIndex ) {
+    if( kSaveDefaultPrinterIndex == buttonIndex ) {
         NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:self.currentPrintSettings.printerName forKey:DEFAULT_PRINTER_NAME_SETTING];
         [defaults setObject:self.currentPrintSettings.printerUrl.absoluteString forKey:DEFAULT_PRINTER_URL_SETTING];
+        [defaults setObject:[HPPPAnalyticsManager wifiName] forKey:DEFAULT_PRINTER_NETWORK_SETTING];
         [defaults synchronize];
     }
 }

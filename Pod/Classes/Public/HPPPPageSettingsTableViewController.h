@@ -59,6 +59,11 @@
  */
 + (NSString *)defaultPrinterUrl;
 
+/*!
+ * @abstract Returns the printer Network of the default printer.
+ */
++ (NSString *)defaultPrinterNetwork;
+
 @end
 
 /*!

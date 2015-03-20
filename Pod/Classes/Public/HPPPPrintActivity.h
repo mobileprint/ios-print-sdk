@@ -29,16 +29,6 @@
  */
 @property (nonatomic, weak) id<HPPPPrintActivityDataSource> dataSource;
 
-/*!
- * @abstract Returns the printer name of the default printer set by the user.
- */
-+ (NSString *)defaultPrinterName;
-
-/*!
- * @abstract Returns the printer URL of the default printer set by the user.
- */
-+ (NSString *)defaultPrinterUrl;
-
 @end
 
 /*!

@@ -17,6 +17,8 @@ extern NSString * const kHPPPPrintActivity;
 
 + (HPPPAnalyticsManager *)sharedManager;
 
++ (NSString *)wifiName;
+    
 - (void)trackShareEventWithOptions:(NSDictionary *)options;
 
 @end
