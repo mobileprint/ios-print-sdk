@@ -12,10 +12,14 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import "HPPPPrintLaterManager.h"
+#import "HPPP.h"
 #import "HPPPPrinter.h"
 #import "HPPPPrintLaterQueue.h"
+#import "HPPPPageSettingsTableViewController.h"
 
 const int kSecondsInOneHour = (60 * 60);
+const CLLocationDistance kDefaultPrinterRadiusInMeters = 20.0f;
+NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER";
 
 @interface HPPPPrintLaterManager() <CLLocationManagerDelegate>
 
@@ -45,9 +49,9 @@ const int kSecondsInOneHour = (60 * 60);
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAllPrintJobsRemovedFromQueueNotification:) name:kHPPPAllPrintJobsRemovedFromQueueNotification object:nil];
         
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDefaultPrinterAddedNotification:) name:kHPPPDefaultPrinterAddedNotification object:nil];
-//        
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDefaultPrinterRemovedNotification:) name:kHPPPDefaultPrinterRemovedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDefaultPrinterAddedNotification:) name:kHPPPDefaultPrinterAddedNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDefaultPrinterRemovedNotification:) name:kHPPPDefaultPrinterRemovedNotification object:nil];
     }
     return self;
 }
@@ -66,7 +70,6 @@ const int kSecondsInOneHour = (60 * 60);
     self.locationManager.distanceFilter = 5.0f;
     self.locationManager.activityType = CLActivityTypeOtherNavigation;
     
-    // TODO. NOTE to myself. check if we need to start the updating location to use the region monitoring, otherwise delete that line
     [self.locationManager startUpdatingLocation];
     
     if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
@@ -111,17 +114,25 @@ const int kSecondsInOneHour = (60 * 60);
 
 - (BOOL)isDefaultPrinterSet
 {
-    return YES;
+    NSString *defaultPrinterName = [HPPP defaultPrinterName];
+    
+    return (nil != defaultPrinterName);
 }
 
 - (void)addMonitoringForDefaultPrinter
 {
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:[HPPP defaultPrinterCoordinate] radius:kDefaultPrinterRadiusInMeters identifier:kDefaultPrinterRegionIdentifier];
     
+    [self.locationManager startMonitoringForRegion:region];
 }
 
 - (void)removeMonitoringForDefaultPrinter
 {
-    
+    for (CLRegion *region in self.locationManager.monitoredRegions) {
+        if ([region.identifier isEqualToString:kDefaultPrinterRegionIdentifier]) {
+            [self.locationManager stopMonitoringForRegion:region];
+        }
+    }
 }
 
 - (UILocalNotification *)localNotification
@@ -160,6 +171,12 @@ const int kSecondsInOneHour = (60 * 60);
     UILocalNotification *localNotification = [self localNotification];
     localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:(kSecondsInOneHour / 2)];
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+}
+
+- (CLLocationCoordinate2D)retrieveCurrentLocation
+{
+    CLLocation *location = [self.locationManager location];
+    return [location coordinate];
 }
 
 #pragma mark - CLLocationManagerDelegate

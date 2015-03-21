@@ -273,4 +273,24 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     return category.copy;
 }
 
++ (NSString *)defaultPrinterName
+{
+    return [HPPPPageSettingsTableViewController defaultPrinterName];
+}
+
++ (NSString *)defaultPrinterUrl
+{
+    return [HPPPPageSettingsTableViewController defaultPrinterUrl];
+}
+
++ (NSString *)defaultPrinterNetwork
+{
+    return[HPPPPageSettingsTableViewController defaultPrinterNetwork];
+}
+
++ (CLLocationCoordinate2D)defaultPrinterCoordinate
+{
+    return[HPPPPageSettingsTableViewController defaultPrinterCoordinate];
+}
+
 @end

@@ -7,694 +7,677 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00DC84BBCC837E67A7E700E0 /* HPPPRuleView.h in Headers */ = {isa = PBXBuildFile; fileRef = D45A09AB1502D95AA1CFB9F2 /* HPPPRuleView.h */; };
-		0100B55E7E4121D66D161CB0 /* XBSnappingPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F5A460A9E49EE71B5B25591 /* XBSnappingPoint.m */; };
-		010571ACB56806F560DE6062 /* XBPageCurlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC204E235286B83EBF22D89 /* XBPageCurlView.m */; };
-		02E398EFDDA295EED5CF3B1B /* HPPPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = DE60E27B9F57BD7F2084EB6D /* HPPPPageView.h */; };
-		037A9B6653CB03018B87456D /* HPPPPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC71633F746FBF543DF50698 /* HPPPPrinter.m */; };
-		04C82560734B569E8404FA58 /* UIImage+HPPPResize.h in Headers */ = {isa = PBXBuildFile; fileRef = BE4A3C547F81D23F3B09F964 /* UIImage+HPPPResize.h */; };
-		04D05805895680B9ACF36F33 /* HPPPPrintLaterQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BED01DD17F22E1203847C /* HPPPPrintLaterQueue.m */; };
-		078BD495302ACD5C8705E825 /* HPPPAttributedString.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B8799B49405A74C2EC959D3 /* HPPPAttributedString.h */; };
-		08F61CD0CD1E3B3C14A40EA4 /* HPPPView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A292DCBA88EB59716559D2E /* HPPPView.m */; };
-		0A535E2A537F0EB55C668F67 /* HPPPPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E3F321261C1B69C30968DF /* HPPPPageViewController.m */; };
-		0C8496BED6F7B1001140D7D1 /* HPPPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A88C3086751E68178DF014 /* HPPPReachability.m */; };
-		0D946324880EE8A40468C278 /* HPPPPrintLaterJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A02045AB2963F8A38928DD6 /* HPPPPrintLaterJob.h */; };
-		0FD366CD52FCEE751FE913B6 /* HPPPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A88C3086751E68178DF014 /* HPPPReachability.m */; };
-		10BF6346CF31820929BBC140 /* HPPPPaperSizeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2184061537EE66FCCB86C5E8 /* HPPPPaperSizeTableViewController.h */; };
-		128FFAACB80AEB917785F428 /* HPPPAddPrintLaterJobTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 39D41662666C344D113F8819 /* HPPPAddPrintLaterJobTableViewController.h */; };
-		1346E89C309F2AE24626563D /* HPPPPrintPageRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 70135EE523323E609DD17E85 /* HPPPPrintPageRenderer.h */; };
-		160437288DDFCE11FA59D3ED /* HPPPPrintSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B1F6EF87739A7D5521C422C /* HPPPPrintSettingsTableViewController.m */; };
-		1888B945EC449B6173DE7ABB /* UIImage+HPPPResize.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A70ECB26DC9F4A385319DC6 /* UIImage+HPPPResize.m */; };
-		1A793FCFC47C3C7473961421 /* HPPPPrintLaterJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FBA37FC6CA97A281B8F091 /* HPPPPrintLaterJob.m */; };
-		1C9577B10522527BB4B94E9D /* HPPPPaperSizeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2184061537EE66FCCB86C5E8 /* HPPPPaperSizeTableViewController.h */; };
-		1DE82F76F60274BD4A4B071D /* HPPPPrintLaterActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = A68F8804552E381787D1D49D /* HPPPPrintLaterActivity.h */; };
-		20F3C51C546C79693139E415 /* HPPPPrintLaterQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BED01DD17F22E1203847C /* HPPPPrintLaterQueue.m */; };
-		21CDD9FDB140E263DE55C415 /* UIColor+HPPPStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DC2EB765DCA61E069A2C67F /* UIColor+HPPPStyle.h */; };
-		23E07488282F5616C2736B3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93AD344BDAD119F171972575 /* UIKit.framework */; };
-		23FF4C048232402A70DE545C /* UIImage+HPPPResize.h in Headers */ = {isa = PBXBuildFile; fileRef = BE4A3C547F81D23F3B09F964 /* UIImage+HPPPResize.h */; };
-		24755F109021E611CB310585 /* HPPPPrintPageRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1A31EBD539D71DAF512550 /* HPPPPrintPageRenderer.m */; };
-		27677DD85B64AB78F3E5B77D /* HPPPPrintActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5888696D4803E2204EA82519 /* HPPPPrintActivity.m */; };
-		2BCAECE37CC18FE87F5715F3 /* HPPPPageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD20B9AFC7437162AED0783 /* HPPPPageSettingsTableViewController.m */; };
-		2CD7DAA30DECCBCB8C556882 /* HPPPSupportAction.m in Sources */ = {isa = PBXBuildFile; fileRef = D9723452940FF48F15B79315 /* HPPPSupportAction.m */; };
-		2E673FBB2858864845FCAB1E /* XBAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 06BAE902091D3238CA9CBF75 /* XBAnimationManager.m */; };
-		2E9C48201C344CD98263AD06 /* Pods-HPPhotoPrint-HPPhotoPrint-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 253E19605C69C4823193C1DA /* Pods-HPPhotoPrint-HPPhotoPrint-dummy.m */; };
-		30CEB240872E83293F6112AB /* HPPPPrintSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F8D883881E50EC3C59D0820 /* HPPPPrintSettings.h */; };
-		317E48CD994B3443C7837CD1 /* HPPPRuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B265BB2D67AA7AFA82F663C /* HPPPRuleView.m */; };
-		33F28C5C750FA9BD40621A25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61EEDB9D86CB15C066FC373 /* Foundation.framework */; };
-		34649BC32FCB578930B4B1A9 /* HPPPPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EF7D9D1CB977AC20418345DA /* HPPPPageViewController.h */; };
-		349A079FE22504926A917E5A /* XBAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = D51AA603323A9554A81A0BF0 /* XBAnimation.h */; };
-		3AE3949CF7215C0FEC255B10 /* HPPPDashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4B9E66086E5583FC884E7 /* HPPPDashedLineView.m */; };
-		3C6E2F86D2887EDABF2D5765 /* HPPPWiFiReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EF12FEB042B26F1C84C1BB3 /* HPPPWiFiReachability.h */; };
-		3E9ADD698F3EA57FBEE41144 /* HPPPPrintLaterJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FBA37FC6CA97A281B8F091 /* HPPPPrintLaterJob.m */; };
-		3F692DDDEF696AE92DC499F3 /* HPPPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2B52569DF177D15C92E670 /* HPPPPageView.m */; };
-		409236C63B29F3B6EFE41888 /* HPPPPrintLaterActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = A68F8804552E381787D1D49D /* HPPPPrintLaterActivity.h */; };
-		45E92FDD1C5CAADC95A79034 /* XBAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E06D7847B714EA9B42A5EA /* XBAnimation.m */; };
-		46129ADBFB46648E20832DEA /* UITableView+HPPPHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 28D03503D4C4305D2EE4025E /* UITableView+HPPPHeader.h */; };
-		488406CD05F334D6A8C8551C /* HPPPPrintPageRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1A31EBD539D71DAF512550 /* HPPPPrintPageRenderer.m */; };
-		4CDF8A2C7CCB541D86E1F1EA /* HPPPPrintActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5888696D4803E2204EA82519 /* HPPPPrintActivity.m */; };
-		4D619B5E9CEE8F8A7A6744A4 /* UIColor+HPPPStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B88F25CF48656DA1EEE94485 /* UIColor+HPPPStyle.m */; };
-		4E9B8F61E70F49F79CB1A55D /* HPPPPaper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A8DCB82D01F81E6A41F68E8 /* HPPPPaper.h */; };
-		53AC811B3DBA7E2ABBF7421E /* HPPPPrintSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B1F6EF87739A7D5521C422C /* HPPPPrintSettingsTableViewController.m */; };
-		53ECA9CDA4E1E947EAED530D /* HPPPWiFiReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EF12FEB042B26F1C84C1BB3 /* HPPPWiFiReachability.h */; };
-		5565556C2B18B6D4570D40F9 /* HPPPSupportAction.m in Sources */ = {isa = PBXBuildFile; fileRef = D9723452940FF48F15B79315 /* HPPPSupportAction.m */; };
-		59714DAAA0F39A77DB63F9C7 /* HPPPRuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B265BB2D67AA7AFA82F663C /* HPPPRuleView.m */; };
-		59843ED2B15EA9E86C5598C6 /* XBPageCurlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E43C906F68F0388B2320341 /* XBPageCurlView.h */; };
-		5A16D2D3AF9C1B6861A21349 /* HPPPSupportAction.h in Headers */ = {isa = PBXBuildFile; fileRef = CF7A7690E59E95ADCBE87094 /* HPPPSupportAction.h */; };
-		5E9C1127EAD43553FA827608 /* HPPP.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AE2C0E4B98EBA0DCE1C55C /* HPPP.m */; };
-		5FFE3B600791BEA527092D9D /* HPPPView.h in Headers */ = {isa = PBXBuildFile; fileRef = 76D0BA3206B8BB85D99B1C76 /* HPPPView.h */; };
-		60AB5A22B1B55C6BABB60C14 /* HPPPSupportAction.h in Headers */ = {isa = PBXBuildFile; fileRef = CF7A7690E59E95ADCBE87094 /* HPPPSupportAction.h */; };
-		60E063CE83C1671A94E867D4 /* HPPPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2B52569DF177D15C92E670 /* HPPPPageView.m */; };
-		61888AFD6DB00B56CC59EE9F /* UIColor+HPPPHexString.h in Headers */ = {isa = PBXBuildFile; fileRef = 92625473441E592358415BD3 /* UIColor+HPPPHexString.h */; };
-		636CE9778E8D396ED5FF4B21 /* XBSnappingPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F5A460A9E49EE71B5B25591 /* XBSnappingPoint.m */; };
-		654111AE1ECD31D45BF8D0E4 /* HPPPRuleView.h in Headers */ = {isa = PBXBuildFile; fileRef = D45A09AB1502D95AA1CFB9F2 /* HPPPRuleView.h */; };
-		6628248E97DABA5E0CB006BA /* XBAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 06BAE902091D3238CA9CBF75 /* XBAnimationManager.m */; };
-		66679BB30E550633B65F1E5E /* HPPPPrintSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3D83264A6DE24EAA4C66C6 /* HPPPPrintSettingsTableViewController.h */; };
-		6841BAA25F958D4B8CB502FB /* CGPointAdditions.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF9D5EF3B73CBDCFBB5F86 /* CGPointAdditions.c */; };
-		6AC53306CBE9AF7EC40A80F8 /* HPPPPageSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D4FFA82B653A8323D074FA0 /* HPPPPageSettingsTableViewController.h */; };
-		6B1BA92665B92A6A4F647BDC /* HPPPPaperSizeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC39957D86E8AD2D82764542 /* HPPPPaperSizeTableViewController.m */; };
-		704BF8B288D582C9225D9221 /* HPPPAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E0186EAFE54C371CE36CAED /* HPPPAnalyticsManager.m */; };
-		704D098C2C5D963E46EB8F3E /* XBPageDragView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55272512D09D26E256F1EFDB /* XBPageDragView.m */; };
-		70E88DD16718E788BBAF498D /* HPPPAddPrintLaterJobTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F7DD2C021A7EE3FBFCB3EB /* HPPPAddPrintLaterJobTableViewController.m */; };
-		71D8C927CAA11F20417297C5 /* HPPPPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EF7D9D1CB977AC20418345DA /* HPPPPageViewController.h */; };
-		76652F8C1F5D58F54F92CEAF /* XBPageCurlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC204E235286B83EBF22D89 /* XBPageCurlView.m */; };
-		76CFE0BFB0E79C6E71A187DD /* XBAnimationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F05A5D8FCF8A40B54C576617 /* XBAnimationManager.h */; };
-		7775F2D8C381EF053F30D48C /* HPPPPaper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A8DCB82D01F81E6A41F68E8 /* HPPPPaper.h */; };
-		7B8AD45534440518ED36B601 /* HPPPPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7842CCBD90D1CD41B4B7B220 /* HPPPPaper.m */; };
-		7DC2D58595EAD542FCBF9E57 /* XBPageCurlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E43C906F68F0388B2320341 /* XBPageCurlView.h */; };
-		844B98299BC30FCA6D2CA24D /* HPPPAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = F506BE0DD83E0BEE4EF21BC1 /* HPPPAttributedString.m */; };
-		872E1EED22F7AB26FCD06DCA /* HPPPPrintLaterQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B3658F84F544D7B1D240E87 /* HPPPPrintLaterQueue.h */; };
-		8BC9F22642A215066E0B9C91 /* HPPPPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = A5544D7624FFB097C5CA8858 /* HPPPPrinter.h */; };
-		8C4F4FD70476C3F8FBD534AD /* XBPageDragView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F619A0EAC52C455042542E5 /* XBPageDragView.h */; };
-		8CA3FF592C9738A4E94A4208 /* HPPPPrintActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B8FC3518F46A2185956765D /* HPPPPrintActivity.h */; };
-		8CC18CF9AD029BADD92C6F76 /* HPPPPaperTypeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 359F6D8F6FB0FF851EB0DB57 /* HPPPPaperTypeTableViewController.h */; };
-		90B4C1BF0E2C3CE7C07BE366 /* XBCurlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F7EF273C3821E3EFAEDCD3 /* XBCurlView.m */; };
-		91661E86EC1AE23E2C38B898 /* HPPPPrintSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4765FED0D675CA3AF401F42C /* HPPPPrintSettings.m */; };
-		9371D2338B4F8D5BB9E8C942 /* UIView+HPPPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F318975E3BE9797CAFDB001 /* UIView+HPPPAnimation.m */; };
-		955646CD2E9830E7D4139B77 /* HPPPPaperTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DE666CCCE06DA7A0AF759A /* HPPPPaperTypeTableViewController.m */; };
-		955A83DC7962E12CB166A886 /* HPPP.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AE2C0E4B98EBA0DCE1C55C /* HPPP.m */; };
-		958C9E55052FBC296952ECBB /* UIColor+HPPPStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DC2EB765DCA61E069A2C67F /* UIColor+HPPPStyle.h */; };
-		97194100618D44E6B6A8605D /* HPPPPrintSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4765FED0D675CA3AF401F42C /* HPPPPrintSettings.m */; };
-		9734014C029E41E19E9B8389 /* HPPPAddPrintLaterJobTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F7DD2C021A7EE3FBFCB3EB /* HPPPAddPrintLaterJobTableViewController.m */; };
-		974D5B924E0ACA73AC31AE39 /* HPPPAddPrintLaterJobTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 39D41662666C344D113F8819 /* HPPPAddPrintLaterJobTableViewController.h */; };
-		9B1184127BC0E228FB13C6D5 /* HPPPDashedLineView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3302C3FF67F3D52DDA157BB1 /* HPPPDashedLineView.h */; };
-		9FA0A84AE0F8007F1D9AB500 /* HPPPPaperTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DE666CCCE06DA7A0AF759A /* HPPPPaperTypeTableViewController.m */; };
-		A24D001ECDE9A0723AB55FCD /* UIColor+HPPPHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = B673D6302FE351529FFD36F7 /* UIColor+HPPPHexString.m */; };
-		A2E184623D0ADFAEBB3F270B /* XBCurlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F7EF273C3821E3EFAEDCD3 /* XBCurlView.m */; };
-		A55178D784EC70629D2230C2 /* HPPPPrintPageRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 70135EE523323E609DD17E85 /* HPPPPrintPageRenderer.h */; };
-		A6FE566FE167E230454D2720 /* UITableView+HPPPHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 28D03503D4C4305D2EE4025E /* UITableView+HPPPHeader.h */; };
-		A72AC04C2791BE157EC5B02C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61EEDB9D86CB15C066FC373 /* Foundation.framework */; };
-		A7694794C418C9B69B450C70 /* HPPPAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E0186EAFE54C371CE36CAED /* HPPPAnalyticsManager.m */; };
-		A83B245852CAF5BF68110562 /* XBAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = D51AA603323A9554A81A0BF0 /* XBAnimation.h */; };
-		AF92811E1C41CA682DE63096 /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EF1FBFDC58575CC5FA4D0AAE /* Pods-Tests-dummy.m */; };
-		B0D29AA66F7D46D648642C08 /* CGPointAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DB1FAE12C85DF7875B5BA5DF /* CGPointAdditions.h */; };
-		B15B7A68D4E27E8116DB9A87 /* UIColor+HPPPHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = B673D6302FE351529FFD36F7 /* UIColor+HPPPHexString.m */; };
-		B412E7563B28AD88E130D4C2 /* HPPPPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = A5544D7624FFB097C5CA8858 /* HPPPPrinter.h */; };
-		B46CF61963284EB523F8EAB6 /* XBAnimationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F05A5D8FCF8A40B54C576617 /* XBAnimationManager.h */; };
-		B4E53365FE01078F1ADEF04B /* HPPPPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC71633F746FBF543DF50698 /* HPPPPrinter.m */; };
-		B70AA38A6BE5B1D3D972EFE8 /* XBAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E06D7847B714EA9B42A5EA /* XBAnimation.m */; };
-		B76C4A835F254961CB9C4C69 /* HPPPAnalyticsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D6D6E818A893E07F7F8C7B12 /* HPPPAnalyticsManager.h */; };
-		B88FAAA9652610F94BCB4437 /* XBCurlView.h in Headers */ = {isa = PBXBuildFile; fileRef = B70CD7D476E0F49737D56F5E /* XBCurlView.h */; };
-		B9FD50B50DEAC8591BE023C6 /* HPPPPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E3F321261C1B69C30968DF /* HPPPPageViewController.m */; };
-		BD65AB60A00A8D7054F42770 /* XBPageDragView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55272512D09D26E256F1EFDB /* XBPageDragView.m */; };
-		BF343D6F056F06625C71209E /* HPPPAnalyticsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D6D6E818A893E07F7F8C7B12 /* HPPPAnalyticsManager.h */; };
-		C221AD3065E24E7D1652A607 /* HPPPPaperSizeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC39957D86E8AD2D82764542 /* HPPPPaperSizeTableViewController.m */; };
-		C5CF123C6539AD59F3A8F3D7 /* Pods-HPPhotoPrint-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 69566DA6956137C5469F1D95 /* Pods-HPPhotoPrint-dummy.m */; };
-		C5EA85905BEEAFEE18841A11 /* HPPPView.h in Headers */ = {isa = PBXBuildFile; fileRef = 76D0BA3206B8BB85D99B1C76 /* HPPPView.h */; };
-		C7529DA034358599B60F6765 /* XBPageDragView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F619A0EAC52C455042542E5 /* XBPageDragView.h */; };
-		C7B1643C89EA01964FC87646 /* HPPPPrintActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B8FC3518F46A2185956765D /* HPPPPrintActivity.h */; };
-		CA49980DC3BA7B5068A203DF /* HPPPView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A292DCBA88EB59716559D2E /* HPPPView.m */; };
-		CAC40376B13A60FCED093C0E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93AD344BDAD119F171972575 /* UIKit.framework */; };
-		CAD9A173D5FA01D7F96F6E76 /* HPPPPrintSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3D83264A6DE24EAA4C66C6 /* HPPPPrintSettingsTableViewController.h */; };
-		CC257D8943C45131B095D198 /* UITableView+HPPPHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD1F5525CDDC0D97FB75F28 /* UITableView+HPPPHeader.m */; };
-		CC31A2FA9B0C959DA5812826 /* UIImage+HPPPResize.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A70ECB26DC9F4A385319DC6 /* UIImage+HPPPResize.m */; };
-		CD032C65CB4B3255FD2A1FE2 /* HPPPAttributedString.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B8799B49405A74C2EC959D3 /* HPPPAttributedString.h */; };
-		CD14A2CFA04630F901D9E485 /* HPPPDashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4B9E66086E5583FC884E7 /* HPPPDashedLineView.m */; };
-		CE1CA609DB84C0D71E7ABA52 /* HPPPReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = CF77C0C64E2C8664FD1E7692 /* HPPPReachability.h */; };
-		D2987A8445C5A0C2DBB70767 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61EEDB9D86CB15C066FC373 /* Foundation.framework */; };
-		D4137E4AFAAC3F6E93E678AA /* UITableView+HPPPHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD1F5525CDDC0D97FB75F28 /* UITableView+HPPPHeader.m */; };
-		D59000ADC2C52E7B29BF5E2A /* HPPPPaperTypeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 359F6D8F6FB0FF851EB0DB57 /* HPPPPaperTypeTableViewController.h */; };
-		D7D2E24A7D9D51A72E4BAB04 /* HPPPPageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD20B9AFC7437162AED0783 /* HPPPPageSettingsTableViewController.m */; };
-		DAF776E4A742A878DD3AA34F /* HPPPPrintSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F8D883881E50EC3C59D0820 /* HPPPPrintSettings.h */; };
-		DD147B64F8C8236C70EB7263 /* HPPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 04B1B8BFD8FDB44FB79FE91D /* HPPP.h */; };
-		DDBBA73D7849A4258E4B4229 /* XBSnappingPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = B9EA430DA7FCC50FFE3CB671 /* XBSnappingPoint.h */; };
-		DF61D001D477F56CA8703074 /* XBSnappingPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = B9EA430DA7FCC50FFE3CB671 /* XBSnappingPoint.h */; };
-		E10A3CF316291D1E154C5A43 /* UIView+HPPPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = A8483096EE6BF0E6F25D693D /* UIView+HPPPAnimation.h */; };
-		E208EF5C49627D0136307873 /* CGPointAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DB1FAE12C85DF7875B5BA5DF /* CGPointAdditions.h */; };
-		E315EEF71ABB9E61002199A3 /* HPPPPrintLaterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E315EEF61ABB9E61002199A3 /* HPPPPrintLaterManager.m */; };
-		E34FBFF7EA03A702C3F3D188 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61EEDB9D86CB15C066FC373 /* Foundation.framework */; };
-		E3C377CB8E4A2C9BCFBE77E4 /* HPPPDashedLineView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3302C3FF67F3D52DDA157BB1 /* HPPPDashedLineView.h */; };
-		E53E0D06903711340236FCD9 /* UIColor+HPPPHexString.h in Headers */ = {isa = PBXBuildFile; fileRef = 92625473441E592358415BD3 /* UIColor+HPPPHexString.h */; };
-		E7DA84DDBCBE773C90ED01A3 /* UIView+HPPPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F318975E3BE9797CAFDB001 /* UIView+HPPPAnimation.m */; };
-		EF21A07420F404C7BFA93EEB /* XBCurlView.h in Headers */ = {isa = PBXBuildFile; fileRef = B70CD7D476E0F49737D56F5E /* XBCurlView.h */; };
-		F1C7714A16B6CE43C71EC999 /* UIView+HPPPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = A8483096EE6BF0E6F25D693D /* UIView+HPPPAnimation.h */; };
-		F24399FBB71BF4DE8703485F /* CGPointAdditions.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF9D5EF3B73CBDCFBB5F86 /* CGPointAdditions.c */; };
-		F28A796080212F3040644E48 /* HPPPPageSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D4FFA82B653A8323D074FA0 /* HPPPPageSettingsTableViewController.h */; };
-		F36F11F54DC4F2043028D074 /* HPPPPrintLaterQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B3658F84F544D7B1D240E87 /* HPPPPrintLaterQueue.h */; };
-		F37A8627C9D83067E2736F7B /* HPPPPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7842CCBD90D1CD41B4B7B220 /* HPPPPaper.m */; };
-		F3D01AC53F7A30E78DC92993 /* HPPPReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = CF77C0C64E2C8664FD1E7692 /* HPPPReachability.h */; };
-		F493A2D13C27873AF0A99697 /* Pods-Tests-HPPhotoPrint-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B88F1FFC0C442882FED086DA /* Pods-Tests-HPPhotoPrint-dummy.m */; };
-		F5A436E7C427DFAB550C5C44 /* HPPPWiFiReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DC709D891B15CCA53A6A4777 /* HPPPWiFiReachability.m */; };
-		F70AAE7D01001F22A80CB1E3 /* HPPPPrintLaterActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4800A7F485D5818705855CD9 /* HPPPPrintLaterActivity.m */; };
-		F801234CC7937CBE330D73A8 /* HPPPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = DE60E27B9F57BD7F2084EB6D /* HPPPPageView.h */; };
-		F91900C4EF2318CEA4EB270B /* HPPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 04B1B8BFD8FDB44FB79FE91D /* HPPP.h */; };
-		F97C8F01A3D89032C1F74E92 /* HPPPPrintLaterActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4800A7F485D5818705855CD9 /* HPPPPrintLaterActivity.m */; };
-		F9E8C731FE4FBEEC9E4B9C9B /* HPPPAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = F506BE0DD83E0BEE4EF21BC1 /* HPPPAttributedString.m */; };
-		FB732696A067D92D5363E303 /* UIColor+HPPPStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B88F25CF48656DA1EEE94485 /* UIColor+HPPPStyle.m */; };
-		FFAC6B4E7F41364A7B0D96E0 /* HPPPWiFiReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DC709D891B15CCA53A6A4777 /* HPPPWiFiReachability.m */; };
-		FFEE5048B0C4BB75592A0FD5 /* HPPPPrintLaterJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A02045AB2963F8A38928DD6 /* HPPPPrintLaterJob.h */; };
+		019C757883888A4F3FAB8A65 /* UIColor+HPPPHexString.h in Headers */ = {isa = PBXBuildFile; fileRef = ABDFD34B8D899575620F0BE6 /* UIColor+HPPPHexString.h */; };
+		02D77EF1D221C88650E5ECEE /* UIColor+HPPPHexString.h in Headers */ = {isa = PBXBuildFile; fileRef = ABDFD34B8D899575620F0BE6 /* UIColor+HPPPHexString.h */; };
+		031CE00FC1DB5A1FA586719F /* HPPPRuleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 976C04D64A770E2D7A8F2D70 /* HPPPRuleView.h */; };
+		03FFCBA89210807DF8D0A723 /* XBPageDragView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B903C80F80A5BBD9263D6 /* XBPageDragView.m */; };
+		04A090E25B710404B4B427C4 /* HPPPPrintPageRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED69D05181CD8B2F7DA3D345 /* HPPPPrintPageRenderer.m */; };
+		05B99D5964D1274C8D93FCA3 /* HPPPAnalyticsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DF6B4585FCCE2EA0ABFDBBC /* HPPPAnalyticsManager.h */; };
+		0646FE67A9636A6745A87007 /* HPPPPaperSizeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BF97186566BD7F3AEFA454E /* HPPPPaperSizeTableViewController.h */; };
+		06CAE5E97673EB59F2CD724B /* HPPPRuleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 976C04D64A770E2D7A8F2D70 /* HPPPRuleView.h */; };
+		080B094079BA9BB7A4874886 /* HPPPPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = EF9E0BA1CB732ECC8D73025B /* HPPPPrinter.m */; };
+		09D3D3F9094C2995BF1F6027 /* HPPPPrintActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2AFE7F9B64F7BD0E9147C8 /* HPPPPrintActivity.m */; };
+		0B508140C904C6D80736BCA9 /* HPPPPaper.h in Headers */ = {isa = PBXBuildFile; fileRef = E2CDEA0E4CD67B3CFEA147EC /* HPPPPaper.h */; };
+		0C325CD803CDE2AD3F481A94 /* XBPageCurlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0679330B60C6FF93D3078433 /* XBPageCurlView.m */; };
+		0F30CB4C99CC4B02CC65CFDB /* HPPPRuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 377DE33B79D6A3ED519D72C8 /* HPPPRuleView.m */; };
+		0F5871DC1B470CE87005D2F0 /* HPPPAttributedString.h in Headers */ = {isa = PBXBuildFile; fileRef = BC48341B2DB4A453DC66B5FA /* HPPPAttributedString.h */; };
+		125FB348BF03075075FFA777 /* HPPPPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C04704A18858F4D4254DD04 /* HPPPPageViewController.h */; };
+		16FA1E786AD2C7D9098E86C6 /* HPPPView.h in Headers */ = {isa = PBXBuildFile; fileRef = D061B4EB99FB24524FD7D57C /* HPPPView.h */; };
+		18981F492BB3DBF6F73A935D /* HPPPWiFiReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A66D5A6C9763E35C1CD4A5 /* HPPPWiFiReachability.m */; };
+		19DDA8A3ADEB67251BB38B79 /* UITableView+HPPPHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 86966E8462872022FBC410CD /* UITableView+HPPPHeader.m */; };
+		1F05017BCA3B3E4DE4F765EC /* UIColor+HPPPStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F141F97505C270103DC1C7 /* UIColor+HPPPStyle.m */; };
+		1F2AB71F61FA279983E7284C /* CGPointAdditions.c in Sources */ = {isa = PBXBuildFile; fileRef = AEEAAD930020A1A845D399FF /* CGPointAdditions.c */; };
+		215646940E781FD4A0708ED5 /* HPPPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = DBD2A026B3E543050DC69834 /* HPPPPageView.h */; };
+		222E92E6309D1A158174B789 /* HPPPPaperTypeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B11B9800071CCC6E6250D3FC /* HPPPPaperTypeTableViewController.h */; };
+		2314F8F973B892C77F62C545 /* XBAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1AE27324937401984C34C2 /* XBAnimation.m */; };
+		262E33AB055E9CE87F42126A /* HPPPPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B1364FD8B2B8097DE227BA3F /* HPPPPrinter.h */; };
+		2712619F830BCDABA163355A /* UITableView+HPPPHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = F68E69881F8E63F5C932D0F6 /* UITableView+HPPPHeader.h */; };
+		278D8E14CBB79571E301792F /* HPPPAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D7DF6D7686BA4B7EB5A74A /* HPPPAnalyticsManager.m */; };
+		280FBFA1524665CAE4D5CAEE /* HPPPDashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 259BFB773A4036BEA7CE7C7D /* HPPPDashedLineView.m */; };
+		29570FF8541D04FA4F442EB8 /* CGPointAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F8E9E97D17E34786216B0CA /* CGPointAdditions.h */; };
+		2B08E7578C6122A0F6F5E6D8 /* HPPPPaperSizeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8080C0E7C1FB8D455D529 /* HPPPPaperSizeTableViewController.m */; };
+		2B9FB2D035C2FB592CF7EB45 /* HPPPAddPrintLaterJobTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F26C550647C46912778599 /* HPPPAddPrintLaterJobTableViewController.m */; };
+		2CC507FC6992F97F053FDDB3 /* HPPPPrintPageRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 47C5C4497BF13DC430CACC29 /* HPPPPrintPageRenderer.h */; };
+		3029BA994333FDDE179ADF63 /* HPPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AF7010BB2449E7D1D1B80F0 /* HPPP.h */; };
+		322347C130351C81C60192E8 /* HPPPPaper.h in Headers */ = {isa = PBXBuildFile; fileRef = E2CDEA0E4CD67B3CFEA147EC /* HPPPPaper.h */; };
+		32ED8D4E3758BB21BE778B10 /* Pods-Tests-HPPhotoPrint-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB8F43ADC02A1A074FC99E7 /* Pods-Tests-HPPhotoPrint-dummy.m */; };
+		3487BCFB7CD142F4FC06D225 /* Pods-HPPhotoPrint-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 89862D5D9F0058F876002BE6 /* Pods-HPPhotoPrint-dummy.m */; };
+		34CE7D46FCFF78D9CB2F2D97 /* HPPPView.h in Headers */ = {isa = PBXBuildFile; fileRef = D061B4EB99FB24524FD7D57C /* HPPPView.h */; };
+		357CE4E0253C5A595A99CB59 /* HPPPPageSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 599BE176D9363F15CCD1E20E /* HPPPPageSettingsTableViewController.h */; };
+		35E7A89880AFA373FE2E00E9 /* XBCurlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E724D36180A381B0D7E9AF6 /* XBCurlView.m */; };
+		38B7AC20EDECB8F132844EFD /* UIView+HPPPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0399BBD1EA3ED538998DE9C7 /* UIView+HPPPAnimation.m */; };
+		39102831579A58FE9506E14C /* HPPPReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F3491FEC38308F500DA028 /* HPPPReachability.h */; };
+		3DA92E32B844940D656BDA32 /* HPPPPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 105B366E668CAEA8DCA58083 /* HPPPPaper.m */; };
+		3FC919C7A6474B25A2E000BB /* HPPPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = DBD2A026B3E543050DC69834 /* HPPPPageView.h */; };
+		4120079500652F1221EC1CA6 /* HPPPView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4055F0C799FC22D84918D70 /* HPPPView.m */; };
+		47A5C7242498AADC056AA7E1 /* HPPPPrintLaterActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 974277BDD7D6B5E433065149 /* HPPPPrintLaterActivity.h */; };
+		49377F0CD93DB995F6ED111B /* HPPPPaperTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6895EBD1D31B1FE2FE57D5 /* HPPPPaperTypeTableViewController.m */; };
+		4996EE556F5CA98E1157CED8 /* UIView+HPPPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0A1A989405A76E2E0D7767 /* UIView+HPPPAnimation.h */; };
+		4AF25AB35FC98813C2D8DC42 /* HPPPSupportAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B9D5F1DB9C9ABA2E7C454E4 /* HPPPSupportAction.h */; };
+		4B559152D0BE5E2B6558710D /* UIColor+HPPPStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D40B92203CCD4F585AC1853 /* UIColor+HPPPStyle.h */; };
+		4D1B9613B85DD335675A6CC6 /* HPPPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB3A0B261B4E4A2B0BE0FC8 /* HPPPPageView.m */; };
+		4F60B6BB0DE7ED899F80BC47 /* UITableView+HPPPHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = F68E69881F8E63F5C932D0F6 /* UITableView+HPPPHeader.h */; };
+		4F7629BDA3AD4B261BE03917 /* HPPPPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 737BD002448FED83915583FE /* HPPPPageViewController.m */; };
+		512863E5D230794A1CF099A5 /* HPPPWiFiReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 383410128822DA37B4C25570 /* HPPPWiFiReachability.h */; };
+		51AF3706F6106DB4076D68C8 /* XBAnimationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 26A22D23DFB47FAABE3D8094 /* XBAnimationManager.h */; };
+		52D54675D31D211AD4E10530 /* HPPPAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 30482859D064163F7944D29D /* HPPPAttributedString.m */; };
+		53E0BA5014844863742588AA /* HPPPPrintPageRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 47C5C4497BF13DC430CACC29 /* HPPPPrintPageRenderer.h */; };
+		53E0D57677B3E5E0716DA384 /* HPPPPrintLaterJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 865849AA5328665AB411E870 /* HPPPPrintLaterJob.m */; };
+		5587131F453ECE4AA054C9DC /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FA62ECF6558735188A4A194A /* Pods-Tests-dummy.m */; };
+		558DD8571B4345A822A845DA /* XBPageCurlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 35D7973FC416C5A67F3C7AE4 /* XBPageCurlView.h */; };
+		55D609D6961A5ADD1939BB85 /* HPPPPrintPageRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED69D05181CD8B2F7DA3D345 /* HPPPPrintPageRenderer.m */; };
+		57A0A647B8E7FCD939A6401B /* HPPPDashedLineView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B31F789D422A7E86B4A48BC /* HPPPDashedLineView.h */; };
+		59BCF30ECEAC89A4DEE74CA6 /* HPPPPaperTypeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B11B9800071CCC6E6250D3FC /* HPPPPaperTypeTableViewController.h */; };
+		5AF64D1A2BE8F5E4D1FE840B /* UITableView+HPPPHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 86966E8462872022FBC410CD /* UITableView+HPPPHeader.m */; };
+		5B027BAAAA6B1485496C1E88 /* HPPPPrintLaterActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F894DEFD54FF4E4A085D1E4 /* HPPPPrintLaterActivity.m */; };
+		5C795FA1D67F01869FC22806 /* HPPPPrintSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED65E8DD2779A6EA807948 /* HPPPPrintSettingsTableViewController.m */; };
+		5CF1615D663D0744AC81D316 /* CGPointAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F8E9E97D17E34786216B0CA /* CGPointAdditions.h */; };
+		5FDEDAC710DBEF55B1FB424C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3F3CB34037D91998811B7E5 /* Foundation.framework */; };
+		606002BB1D93818C8BC8E19A /* CGPointAdditions.c in Sources */ = {isa = PBXBuildFile; fileRef = AEEAAD930020A1A845D399FF /* CGPointAdditions.c */; };
+		624130D0218AAEC62C3FA6AF /* HPPPPrintLaterQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = B340E2A9DC2703950597D62B /* HPPPPrintLaterQueue.m */; };
+		62740791227DB4C0C4DBC1C7 /* HPPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AF7010BB2449E7D1D1B80F0 /* HPPP.h */; };
+		64573EDFBFB4AB49E62048BC /* HPPPSupportAction.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8284C3AADF150D4CF11D57 /* HPPPSupportAction.m */; };
+		6606D0B775C216B0035B2C70 /* HPPPWiFiReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A66D5A6C9763E35C1CD4A5 /* HPPPWiFiReachability.m */; };
+		675098F166249184CAD2C919 /* UIColor+HPPPHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A40CEBE1A8C9601A8BB798 /* UIColor+HPPPHexString.m */; };
+		6905510C32D05B8BE16A977C /* HPPPAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 30482859D064163F7944D29D /* HPPPAttributedString.m */; };
+		690BC62DDBBE145C49701CD6 /* HPPPPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B1364FD8B2B8097DE227BA3F /* HPPPPrinter.h */; };
+		6DB629E2E67006141A78C545 /* HPPPAddPrintLaterJobTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F26C550647C46912778599 /* HPPPAddPrintLaterJobTableViewController.m */; };
+		6F242476DACA9229D4CC43EB /* HPPPPrintSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D556049D712BEC43976D0FE /* HPPPPrintSettings.h */; };
+		71104E7CD1A828DF8A1D85E7 /* XBAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 810F955F247C61A4B2E04CF2 /* XBAnimationManager.m */; };
+		72A0DB70863893887D5EA093 /* HPPPPrintSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1352B8C99C34FCE07DE65B34 /* HPPPPrintSettingsTableViewController.h */; };
+		72C3D0E425803671637D7244 /* HPPPAddPrintLaterJobTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F61B936B39D03942A96F9107 /* HPPPAddPrintLaterJobTableViewController.h */; };
+		733648C83745F422814ED03F /* HPPPPrintLaterQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = B340E2A9DC2703950597D62B /* HPPPPrintLaterQueue.m */; };
+		76AFB468FA144142B071A4B7 /* HPPP.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB78471C55A89AAEAA55A29 /* HPPP.m */; };
+		7740E39319D0C46EC53610C1 /* XBAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 548C84EB29834CF697E9E790 /* XBAnimation.h */; };
+		777F5AFCF9903045CC47054D /* XBCurlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E724D36180A381B0D7E9AF6 /* XBCurlView.m */; };
+		7D489330E504B3896561F581 /* HPPPPageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD62EA782D7900626F29672 /* HPPPPageSettingsTableViewController.m */; };
+		7D8779370C8D86D1FA2F860F /* HPPPDashedLineView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B31F789D422A7E86B4A48BC /* HPPPDashedLineView.h */; };
+		7DE570853708D571D974366D /* HPPPPaperSizeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BF97186566BD7F3AEFA454E /* HPPPPaperSizeTableViewController.h */; };
+		82518CA7EF44ECD3B03E9E79 /* XBCurlView.h in Headers */ = {isa = PBXBuildFile; fileRef = DB4D00C17BC741871CC078CD /* XBCurlView.h */; };
+		82D3AA310FED41F97A9A05AE /* HPPPRuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 377DE33B79D6A3ED519D72C8 /* HPPPRuleView.m */; };
+		82E69C028E5E2165F01CD6FA /* HPPPPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = EF9E0BA1CB732ECC8D73025B /* HPPPPrinter.m */; };
+		84435C7A3D85492DAC638783 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE43B78511B75B79A5C4C0E /* UIKit.framework */; };
+		8BA763113186753D669309BF /* HPPPPrintSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D556049D712BEC43976D0FE /* HPPPPrintSettings.h */; };
+		8DFDC57C60D013F9DFCAEA67 /* HPPPAttributedString.h in Headers */ = {isa = PBXBuildFile; fileRef = BC48341B2DB4A453DC66B5FA /* HPPPAttributedString.h */; };
+		8E11B26D649735CEBDE27FFC /* HPPPPrintLaterActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 974277BDD7D6B5E433065149 /* HPPPPrintLaterActivity.h */; };
+		901870668C4349E2BB5A44A9 /* HPPPPrintLaterActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F894DEFD54FF4E4A085D1E4 /* HPPPPrintLaterActivity.m */; };
+		9269EC67642789BCDBDA711E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3F3CB34037D91998811B7E5 /* Foundation.framework */; };
+		944FF4701481D0A0BE2EF7AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3F3CB34037D91998811B7E5 /* Foundation.framework */; };
+		95DB453865DCD608D629C71D /* XBSnappingPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD52AA92DE8026E9DA60798 /* XBSnappingPoint.m */; };
+		9B71F97A657E8485480C9D77 /* HPPPPrintActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = BBBD0BD6E981DAAAF8463EDE /* HPPPPrintActivity.h */; };
+		9C4061F7412B98ED75DE90CC /* HPPP.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB78471C55A89AAEAA55A29 /* HPPP.m */; };
+		9DF92C9A78BE125F33FDDF57 /* XBAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1AE27324937401984C34C2 /* XBAnimation.m */; };
+		9E3DFB789DC53228B6B112EC /* HPPPAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D7DF6D7686BA4B7EB5A74A /* HPPPAnalyticsManager.m */; };
+		9FDBC65827D87B7C9B29C9D2 /* XBPageCurlView.h in Headers */ = {isa = PBXBuildFile; fileRef = 35D7973FC416C5A67F3C7AE4 /* XBPageCurlView.h */; };
+		A094DB24ED66059436B07AB3 /* HPPPReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 91F3491FEC38308F500DA028 /* HPPPReachability.h */; };
+		A54486A48ED6AC3DE7FFCB8C /* HPPPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB3A0B261B4E4A2B0BE0FC8 /* HPPPPageView.m */; };
+		A8B82AD85B128A889FB75DCF /* HPPPPrintLaterQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = C8C659D31B58DCD13195B59C /* HPPPPrintLaterQueue.h */; };
+		A99BC3CF2C051ADA905B3F3A /* XBSnappingPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD52AA92DE8026E9DA60798 /* XBSnappingPoint.m */; };
+		ABA027E48291500C6AB504C4 /* HPPPAddPrintLaterJobTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F61B936B39D03942A96F9107 /* HPPPAddPrintLaterJobTableViewController.h */; };
+		AE361DCAF0BC1A50C9BA41B2 /* XBSnappingPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 7994DE2265BE8BC6E391DF36 /* XBSnappingPoint.h */; };
+		AE5E25BC13E744EA11EF9A0F /* HPPPAnalyticsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DF6B4585FCCE2EA0ABFDBBC /* HPPPAnalyticsManager.h */; };
+		AE81BACCA94570F1A7FAA2F8 /* XBSnappingPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 7994DE2265BE8BC6E391DF36 /* XBSnappingPoint.h */; };
+		B630CC3966EDED71F7D72FA9 /* HPPPPrintActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = BBBD0BD6E981DAAAF8463EDE /* HPPPPrintActivity.h */; };
+		B634612A32F125861AD80631 /* HPPPPaperSizeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8080C0E7C1FB8D455D529 /* HPPPPaperSizeTableViewController.m */; };
+		B6CB8D8EF4D545129355D159 /* HPPPPaperTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6895EBD1D31B1FE2FE57D5 /* HPPPPaperTypeTableViewController.m */; };
+		BA72A0E2C8CE61D6D1856768 /* XBPageDragView.h in Headers */ = {isa = PBXBuildFile; fileRef = 44FC4D570FD43D197F598C6E /* XBPageDragView.h */; };
+		BD58034EF065E4247E7C3177 /* HPPPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A8F77AAA3DA85C5A3425F7 /* HPPPReachability.m */; };
+		BDD544BAC7321B634D3D3044 /* UIImage+HPPPResize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C50493DE214EA009C071983 /* UIImage+HPPPResize.m */; };
+		BF207D5B83ECB7EF41A1C5E0 /* Pods-HPPhotoPrint-HPPhotoPrint-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 719B752E95D0438C921B5437 /* Pods-HPPhotoPrint-HPPhotoPrint-dummy.m */; };
+		BFE5BFA9A4F731961AA7BD5E /* HPPPPrintLaterJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 865849AA5328665AB411E870 /* HPPPPrintLaterJob.m */; };
+		C1421CC6128548AF276633A3 /* HPPPPageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD62EA782D7900626F29672 /* HPPPPageSettingsTableViewController.m */; };
+		C2E5165168F364175791DAC6 /* HPPPWiFiReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 383410128822DA37B4C25570 /* HPPPWiFiReachability.h */; };
+		C30301E1E0E6FA22FC80823A /* XBAnimationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 26A22D23DFB47FAABE3D8094 /* XBAnimationManager.h */; };
+		C531C6836C94972320F5E72A /* XBCurlView.h in Headers */ = {isa = PBXBuildFile; fileRef = DB4D00C17BC741871CC078CD /* XBCurlView.h */; };
+		C776D8219FD5E34BC6685346 /* HPPPPrintSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED65E8DD2779A6EA807948 /* HPPPPrintSettingsTableViewController.m */; };
+		C8E5519B297BBBE6F05C3E94 /* UIColor+HPPPStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D40B92203CCD4F585AC1853 /* UIColor+HPPPStyle.h */; };
+		CBD698E0758497152F4C76A7 /* HPPPPrintSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1352B8C99C34FCE07DE65B34 /* HPPPPrintSettingsTableViewController.h */; };
+		CD1A32741B79949A4D384BC1 /* XBAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 548C84EB29834CF697E9E790 /* XBAnimation.h */; };
+		CD60C5F75232B68B530881D4 /* HPPPPrintActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2AFE7F9B64F7BD0E9147C8 /* HPPPPrintActivity.m */; };
+		D01E8BCE6EE953F11477E38B /* XBPageDragView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B903C80F80A5BBD9263D6 /* XBPageDragView.m */; };
+		D1CA284D2BE0905B580E8976 /* HPPPPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C04704A18858F4D4254DD04 /* HPPPPageViewController.h */; };
+		D31F72BE8D56E43D9BA1A7E5 /* UIColor+HPPPHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A40CEBE1A8C9601A8BB798 /* UIColor+HPPPHexString.m */; };
+		D3CC95AF6E845D8105ECD054 /* HPPPPrintSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 36BDB52A37FB7C417441A41C /* HPPPPrintSettings.m */; };
+		D884C92AAB1B11263675F1E7 /* HPPPPrintLaterQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = C8C659D31B58DCD13195B59C /* HPPPPrintLaterQueue.h */; };
+		DA8E1EAC3FD9B67D83666147 /* HPPPPrintLaterJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E5C9854DFA3A4E1B4D46F0B /* HPPPPrintLaterJob.h */; };
+		DB7B748855101005FD18ABAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE43B78511B75B79A5C4C0E /* UIKit.framework */; };
+		DCBFDF08C3FA9C2AC0877792 /* UIColor+HPPPStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F141F97505C270103DC1C7 /* UIColor+HPPPStyle.m */; };
+		DF547273E45DC4625B595974 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3F3CB34037D91998811B7E5 /* Foundation.framework */; };
+		DF600571864AC32FA9D82C71 /* UIView+HPPPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0A1A989405A76E2E0D7767 /* UIView+HPPPAnimation.h */; };
+		E08A980D6DA910766C9282D7 /* HPPPView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4055F0C799FC22D84918D70 /* HPPPView.m */; };
+		E363FFD91ABCE94000CE3B42 /* HPPPPrintLaterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E363FFD81ABCE94000CE3B42 /* HPPPPrintLaterManager.m */; };
+		E537EDE4BD513F48AA422A8A /* HPPPSupportAction.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8284C3AADF150D4CF11D57 /* HPPPSupportAction.m */; };
+		E5AAE98C7573202B771CFCEC /* HPPPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A8F77AAA3DA85C5A3425F7 /* HPPPReachability.m */; };
+		E61D2DFFE9B6310F09EBAFBF /* UIView+HPPPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0399BBD1EA3ED538998DE9C7 /* UIView+HPPPAnimation.m */; };
+		EA4899D6A90C0DBCE30782C1 /* HPPPPageSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 599BE176D9363F15CCD1E20E /* HPPPPageSettingsTableViewController.h */; };
+		EABAFC1B5F6D627135FB6EF4 /* UIImage+HPPPResize.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F1BAB71B4DB4C2770A3A42B /* UIImage+HPPPResize.h */; };
+		ED5186B4D4F8E2D6A93754AF /* HPPPDashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 259BFB773A4036BEA7CE7C7D /* HPPPDashedLineView.m */; };
+		EFEB06D61C32CE7EBFA882BF /* HPPPPrintSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 36BDB52A37FB7C417441A41C /* HPPPPrintSettings.m */; };
+		EFF455FB97077B8E8C26091E /* XBPageCurlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0679330B60C6FF93D3078433 /* XBPageCurlView.m */; };
+		F6465EB943A8FEFD1542771D /* UIImage+HPPPResize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C50493DE214EA009C071983 /* UIImage+HPPPResize.m */; };
+		F670E38CDEBEEDFDD29ACD28 /* HPPPPrintLaterJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E5C9854DFA3A4E1B4D46F0B /* HPPPPrintLaterJob.h */; };
+		F6DE6BB6561A67B06FE0F736 /* XBAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 810F955F247C61A4B2E04CF2 /* XBAnimationManager.m */; };
+		F74460B3E87CDA81C0A1B603 /* UIImage+HPPPResize.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F1BAB71B4DB4C2770A3A42B /* UIImage+HPPPResize.h */; };
+		F74C777F3BD3B9CA0FE6F896 /* XBPageDragView.h in Headers */ = {isa = PBXBuildFile; fileRef = 44FC4D570FD43D197F598C6E /* XBPageDragView.h */; };
+		FA967516DB73DA190CC05B05 /* HPPPPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 737BD002448FED83915583FE /* HPPPPageViewController.m */; };
+		FC58556C557C56376EACB979 /* HPPPPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 105B366E668CAEA8DCA58083 /* HPPPPaper.m */; };
+		FC60D3817CA19E102D953393 /* HPPPSupportAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B9D5F1DB9C9ABA2E7C454E4 /* HPPPSupportAction.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		11F8713F65E2D2009A748241 /* PBXContainerItemProxy */ = {
+		36CDB2290F983DBF9B944063 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B2AD626FC46337E9D939268F /* Project object */;
+			containerPortal = 24819683085D185D05854793 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = BCAFC97EBB7EF27B90020901;
+			remoteGlobalIDString = C7F14A756669A73D538349EC;
 			remoteInfo = "Pods-HPPhotoPrint-HPPhotoPrint";
 		};
-		BCB6F503D8A746CA24463A48 /* PBXContainerItemProxy */ = {
+		660F0255B44E83B95E468CAF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B2AD626FC46337E9D939268F /* Project object */;
+			containerPortal = 24819683085D185D05854793 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 9FBEB34E7DE991AECC611176;
+			remoteGlobalIDString = D8C71C2637AB819BFD6FD074;
 			remoteInfo = "Pods-Tests-HPPhotoPrint";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04B1B8BFD8FDB44FB79FE91D /* HPPP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPP.h; path = Pod/Classes/Public/HPPP.h; sourceTree = "<group>"; };
-		06BAE902091D3238CA9CBF75 /* XBAnimationManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBAnimationManager.m; path = Pod/Libraries/XBPageCurl/XBAnimationManager.m; sourceTree = "<group>"; };
-		08DFC47955763A8CDAE9D5E8 /* HPPPPrintLater@2x~ipad.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPPrintLater@2x~ipad.png"; path = "Pod/Assets/HPPPPrintLater@2x~ipad.png"; sourceTree = "<group>"; };
-		0B1F6EF87739A7D5521C422C /* HPPPPrintSettingsTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintSettingsTableViewController.m; path = Pod/Classes/Public/HPPPPrintSettingsTableViewController.m; sourceTree = "<group>"; };
-		0B8FC3518F46A2185956765D /* HPPPPrintActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintActivity.h; path = Pod/Classes/Public/HPPPPrintActivity.h; sourceTree = "<group>"; };
-		0E2F9BF32299F1C55F615BD6 /* NextPageNoTextureFragmentShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NextPageNoTextureFragmentShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/NextPageNoTextureFragmentShader.glsl; sourceTree = "<group>"; };
-		0EC204E235286B83EBF22D89 /* XBPageCurlView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBPageCurlView.m; path = Pod/Libraries/XBPageCurl/XBPageCurlView.m; sourceTree = "<group>"; };
-		10F7DD2C021A7EE3FBFCB3EB /* HPPPAddPrintLaterJobTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPAddPrintLaterJobTableViewController.m; path = Pod/Classes/Private/HPPPAddPrintLaterJobTableViewController.m; sourceTree = "<group>"; };
-		11B4B9E66086E5583FC884E7 /* HPPPDashedLineView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPDashedLineView.m; path = Pod/Classes/Private/HPPPDashedLineView.m; sourceTree = "<group>"; };
-		1367451D3A32576460EFBFAB /* HPPPPrintLater@2x~iphone.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPPrintLater@2x~iphone.png"; path = "Pod/Assets/HPPPPrintLater@2x~iphone.png"; sourceTree = "<group>"; };
-		19AD23EA34756B73E847E6EA /* libPods-Tests-HPPhotoPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests-HPPhotoPrint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1A02045AB2963F8A38928DD6 /* HPPPPrintLaterJob.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintLaterJob.h; path = Pod/Classes/Public/HPPPPrintLaterJob.h; sourceTree = "<group>"; };
-		1B9B17F0B4570718995E88CE /* Pods-HPPhotoPrint-HPPhotoPrint.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HPPhotoPrint-HPPhotoPrint.xcconfig"; sourceTree = "<group>"; };
-		1FD0300E6F4A985A702D26E8 /* libPods-HPPhotoPrint-HPPhotoPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HPPhotoPrint-HPPhotoPrint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1FEF9D5EF3B73CBDCFBB5F86 /* CGPointAdditions.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = CGPointAdditions.c; path = Pod/Libraries/XBPageCurl/CGPointAdditions.c; sourceTree = "<group>"; };
-		2184061537EE66FCCB86C5E8 /* HPPPPaperSizeTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPaperSizeTableViewController.h; path = Pod/Classes/Public/HPPPPaperSizeTableViewController.h; sourceTree = "<group>"; };
-		2220DCF93CB9EB96EF296B4F /* HPPPPrint@2x~ipad.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPPrint@2x~ipad.png"; path = "Pod/Assets/HPPPPrint@2x~ipad.png"; sourceTree = "<group>"; };
-		2268C32381C94284E5764E29 /* Pods-HPPhotoPrint-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HPPhotoPrint-acknowledgements.markdown"; sourceTree = "<group>"; };
-		248C453E5767D86B6974FD45 /* Pods-HPPhotoPrint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HPPhotoPrint.debug.xcconfig"; sourceTree = "<group>"; };
-		253E19605C69C4823193C1DA /* Pods-HPPhotoPrint-HPPhotoPrint-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HPPhotoPrint-HPPhotoPrint-dummy.m"; sourceTree = "<group>"; };
-		273FEABF30A2594AEF47D34C /* HPPP.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = HPPP.storyboard; path = Pod/Classes/HPPP.storyboard; sourceTree = "<group>"; };
-		28D03503D4C4305D2EE4025E /* UITableView+HPPPHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UITableView+HPPPHeader.h"; path = "Pod/Classes/Private/UITableView+HPPPHeader.h"; sourceTree = "<group>"; };
-		2925167BF7509A5B7ED55E2A /* libPods-HPPhotoPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HPPhotoPrint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2A20FF2EFE83460639A1BC75 /* HPPPRuleView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = HPPPRuleView.xib; path = Pod/Classes/Private/HPPPRuleView.xib; sourceTree = "<group>"; };
-		2B8799B49405A74C2EC959D3 /* HPPPAttributedString.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPAttributedString.h; path = Pod/Classes/Public/HPPPAttributedString.h; sourceTree = "<group>"; };
-		2BB3284250415ED11B48CAF7 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E1BB78EE4818F365425EFA4 /* NextPageFragmentShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NextPageFragmentShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/NextPageFragmentShader.glsl; sourceTree = "<group>"; };
-		30DE666CCCE06DA7A0AF759A /* HPPPPaperTypeTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPaperTypeTableViewController.m; path = Pod/Classes/Public/HPPPPaperTypeTableViewController.m; sourceTree = "<group>"; };
-		3302C3FF67F3D52DDA157BB1 /* HPPPDashedLineView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPDashedLineView.h; path = Pod/Classes/Private/HPPPDashedLineView.h; sourceTree = "<group>"; };
-		359F6D8F6FB0FF851EB0DB57 /* HPPPPaperTypeTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPaperTypeTableViewController.h; path = Pod/Classes/Public/HPPPPaperTypeTableViewController.h; sourceTree = "<group>"; };
-		39D41662666C344D113F8819 /* HPPPAddPrintLaterJobTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPAddPrintLaterJobTableViewController.h; path = Pod/Classes/Private/HPPPAddPrintLaterJobTableViewController.h; sourceTree = "<group>"; };
-		3D4FFA82B653A8323D074FA0 /* HPPPPageSettingsTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPageSettingsTableViewController.h; path = Pod/Classes/Public/HPPPPageSettingsTableViewController.h; sourceTree = "<group>"; };
-		3F318975E3BE9797CAFDB001 /* UIView+HPPPAnimation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+HPPPAnimation.m"; path = "Pod/Classes/Private/UIView+HPPPAnimation.m"; sourceTree = "<group>"; };
-		3F5A460A9E49EE71B5B25591 /* XBSnappingPoint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBSnappingPoint.m; path = Pod/Libraries/XBPageCurl/XBSnappingPoint.m; sourceTree = "<group>"; };
-		447141900A232DFBD896B7EE /* Pods-Tests-HPPhotoPrint-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-HPPhotoPrint-Private.xcconfig"; path = "../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-Private.xcconfig"; sourceTree = "<group>"; };
-		44FBA37FC6CA97A281B8F091 /* HPPPPrintLaterJob.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintLaterJob.m; path = Pod/Classes/Public/HPPPPrintLaterJob.m; sourceTree = "<group>"; };
-		4563C4139966DCD266D48A64 /* NextPageVertexShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NextPageVertexShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/NextPageVertexShader.glsl; sourceTree = "<group>"; };
-		45DAAAF2F1D22D07396BB97B /* Pods-HPPhotoPrint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HPPhotoPrint.release.xcconfig"; sourceTree = "<group>"; };
-		4765FED0D675CA3AF401F42C /* HPPPPrintSettings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintSettings.m; path = Pod/Classes/Public/HPPPPrintSettings.m; sourceTree = "<group>"; };
-		4800A7F485D5818705855CD9 /* HPPPPrintLaterActivity.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintLaterActivity.m; path = Pod/Classes/Public/HPPPPrintLaterActivity.m; sourceTree = "<group>"; };
-		48A68BAFCD2BA037D1A84FEA /* HPPPMeasurementArrowLeft@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPMeasurementArrowLeft@2x.png"; path = "Pod/Assets/HPPPMeasurementArrowLeft@2x.png"; sourceTree = "<group>"; };
-		4A292DCBA88EB59716559D2E /* HPPPView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPView.m; path = Pod/Classes/Public/HPPPView.m; sourceTree = "<group>"; };
-		4B1A31EBD539D71DAF512550 /* HPPPPrintPageRenderer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintPageRenderer.m; path = Pod/Classes/Public/HPPPPrintPageRenderer.m; sourceTree = "<group>"; };
-		4C4D4DBFD852134EDC984B27 /* FrontFragmentShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FrontFragmentShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/FrontFragmentShader.glsl; sourceTree = "<group>"; };
-		4E7BED01DD17F22E1203847C /* HPPPPrintLaterQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintLaterQueue.m; path = Pod/Classes/Public/HPPPPrintLaterQueue.m; sourceTree = "<group>"; };
-		52E06D7847B714EA9B42A5EA /* XBAnimation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBAnimation.m; path = Pod/Libraries/XBPageCurl/XBAnimation.m; sourceTree = "<group>"; };
-		537793516C5CA259904B76B3 /* HPPPMeasurementArrowUp@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPMeasurementArrowUp@2x.png"; path = "Pod/Assets/HPPPMeasurementArrowUp@2x.png"; sourceTree = "<group>"; };
-		55272512D09D26E256F1EFDB /* XBPageDragView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBPageDragView.m; path = Pod/Libraries/XBPageCurl/XBPageDragView.m; sourceTree = "<group>"; };
-		5848C0E8EFE65EA3F5EF4BFD /* BackPageGradient.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = BackPageGradient.png; path = Pod/Libraries/XBPageCurl/Resources/BackPageGradient.png; sourceTree = "<group>"; };
-		5888696D4803E2204EA82519 /* HPPPPrintActivity.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintActivity.m; path = Pod/Classes/Public/HPPPPrintActivity.m; sourceTree = "<group>"; };
-		5DC2EB765DCA61E069A2C67F /* UIColor+HPPPStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+HPPPStyle.h"; path = "Pod/Classes/Private/UIColor+HPPPStyle.h"; sourceTree = "<group>"; };
-		5F619A0EAC52C455042542E5 /* XBPageDragView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBPageDragView.h; path = Pod/Libraries/XBPageCurl/XBPageDragView.h; sourceTree = "<group>"; };
-		5F8D883881E50EC3C59D0820 /* HPPPPrintSettings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintSettings.h; path = Pod/Classes/Public/HPPPPrintSettings.h; sourceTree = "<group>"; };
-		60BC95E9B63994D97A7A0328 /* Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch"; sourceTree = "<group>"; };
-		69566DA6956137C5469F1D95 /* Pods-HPPhotoPrint-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HPPhotoPrint-dummy.m"; sourceTree = "<group>"; };
-		6C3D83264A6DE24EAA4C66C6 /* HPPPPrintSettingsTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintSettingsTableViewController.h; path = Pod/Classes/Public/HPPPPrintSettingsTableViewController.h; sourceTree = "<group>"; };
-		6E0186EAFE54C371CE36CAED /* HPPPAnalyticsManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPAnalyticsManager.m; path = Pod/Classes/Private/HPPPAnalyticsManager.m; sourceTree = "<group>"; };
-		6E43C906F68F0388B2320341 /* XBPageCurlView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBPageCurlView.h; path = Pod/Libraries/XBPageCurl/XBPageCurlView.h; sourceTree = "<group>"; };
-		6EF12FEB042B26F1C84C1BB3 /* HPPPWiFiReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPWiFiReachability.h; path = Pod/Classes/Public/HPPPWiFiReachability.h; sourceTree = "<group>"; };
-		70135EE523323E609DD17E85 /* HPPPPrintPageRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintPageRenderer.h; path = Pod/Classes/Public/HPPPPrintPageRenderer.h; sourceTree = "<group>"; };
-		71F7EF273C3821E3EFAEDCD3 /* XBCurlView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBCurlView.m; path = Pod/Libraries/XBPageCurl/XBCurlView.m; sourceTree = "<group>"; };
-		76D0BA3206B8BB85D99B1C76 /* HPPPView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPView.h; path = Pod/Classes/Public/HPPPView.h; sourceTree = "<group>"; };
-		7842CCBD90D1CD41B4B7B220 /* HPPPPaper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPaper.m; path = Pod/Classes/Public/HPPPPaper.m; sourceTree = "<group>"; };
-		7E408D55216006EA8D1CA7D8 /* Pods-Tests-HPPhotoPrint-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-Tests-HPPhotoPrint-prefix.pch"; path = "../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-prefix.pch"; sourceTree = "<group>"; };
-		7F2B52569DF177D15C92E670 /* HPPPPageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPageView.m; path = Pod/Classes/Public/HPPPPageView.m; sourceTree = "<group>"; };
-		81946D79E887A4330832135B /* FrontVertexShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FrontVertexShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/FrontVertexShader.glsl; sourceTree = "<group>"; };
-		84A88C3086751E68178DF014 /* HPPPReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPReachability.m; path = Pod/Libraries/Reachability/HPPPReachability.m; sourceTree = "<group>"; };
-		86DE8D487CE016715A9CF83C /* Pods-Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-resources.sh"; sourceTree = "<group>"; };
-		873E1F0B3699DFB02F2FC411 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		8A70ECB26DC9F4A385319DC6 /* UIImage+HPPPResize.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+HPPPResize.m"; path = "Pod/Classes/Private/UIImage+HPPPResize.m"; sourceTree = "<group>"; };
-		8A8DCB82D01F81E6A41F68E8 /* HPPPPaper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPaper.h; path = Pod/Classes/Public/HPPPPaper.h; sourceTree = "<group>"; };
-		8BD1F5525CDDC0D97FB75F28 /* UITableView+HPPPHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UITableView+HPPPHeader.m"; path = "Pod/Classes/Private/UITableView+HPPPHeader.m"; sourceTree = "<group>"; };
-		92625473441E592358415BD3 /* UIColor+HPPPHexString.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+HPPPHexString.h"; path = "Pod/Classes/Private/UIColor+HPPPHexString.h"; sourceTree = "<group>"; };
-		93AD344BDAD119F171972575 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		9B265BB2D67AA7AFA82F663C /* HPPPRuleView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPRuleView.m; path = Pod/Classes/Private/HPPPRuleView.m; sourceTree = "<group>"; };
-		9B3658F84F544D7B1D240E87 /* HPPPPrintLaterQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintLaterQueue.h; path = Pod/Classes/Public/HPPPPrintLaterQueue.h; sourceTree = "<group>"; };
-		9DEEE6C047920D806B130FBD /* Pods-Tests-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tests-environment.h"; sourceTree = "<group>"; };
-		A543589FEB2D64FBCBBD984A /* Pods-HPPhotoPrint-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HPPhotoPrint-environment.h"; sourceTree = "<group>"; };
-		A5544D7624FFB097C5CA8858 /* HPPPPrinter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrinter.h; path = Pod/Classes/Private/HPPPPrinter.h; sourceTree = "<group>"; };
-		A6357712ED3F0EDC91221300 /* BackVertexShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BackVertexShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/BackVertexShader.glsl; sourceTree = "<group>"; };
-		A668198E3A43D18BA4524088 /* HPPPMeasurementArrowRight@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPMeasurementArrowRight@2x.png"; path = "Pod/Assets/HPPPMeasurementArrowRight@2x.png"; sourceTree = "<group>"; };
-		A68F8804552E381787D1D49D /* HPPPPrintLaterActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintLaterActivity.h; path = Pod/Classes/Public/HPPPPrintLaterActivity.h; sourceTree = "<group>"; };
-		A8483096EE6BF0E6F25D693D /* UIView+HPPPAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+HPPPAnimation.h"; path = "Pod/Classes/Private/UIView+HPPPAnimation.h"; sourceTree = "<group>"; };
-		AC39957D86E8AD2D82764542 /* HPPPPaperSizeTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPaperSizeTableViewController.m; path = Pod/Classes/Public/HPPPPaperSizeTableViewController.m; sourceTree = "<group>"; };
-		AC5DFACC0D8814AD20F15761 /* BackFragmentShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BackFragmentShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/BackFragmentShader.glsl; sourceTree = "<group>"; };
-		B61EEDB9D86CB15C066FC373 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		B673D6302FE351529FFD36F7 /* UIColor+HPPPHexString.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+HPPPHexString.m"; path = "Pod/Classes/Private/UIColor+HPPPHexString.m"; sourceTree = "<group>"; };
-		B70CD7D476E0F49737D56F5E /* XBCurlView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBCurlView.h; path = Pod/Libraries/XBPageCurl/XBCurlView.h; sourceTree = "<group>"; };
-		B88F1FFC0C442882FED086DA /* Pods-Tests-HPPhotoPrint-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-Tests-HPPhotoPrint-dummy.m"; path = "../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-dummy.m"; sourceTree = "<group>"; };
-		B88F25CF48656DA1EEE94485 /* UIColor+HPPPStyle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+HPPPStyle.m"; path = "Pod/Classes/Private/UIColor+HPPPStyle.m"; sourceTree = "<group>"; };
-		B9EA430DA7FCC50FFE3CB671 /* XBSnappingPoint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBSnappingPoint.h; path = Pod/Libraries/XBPageCurl/XBSnappingPoint.h; sourceTree = "<group>"; };
-		BC71633F746FBF543DF50698 /* HPPPPrinter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrinter.m; path = Pod/Classes/Private/HPPPPrinter.m; sourceTree = "<group>"; };
-		BE4A3C547F81D23F3B09F964 /* UIImage+HPPPResize.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+HPPPResize.h"; path = "Pod/Classes/Private/UIImage+HPPPResize.h"; sourceTree = "<group>"; };
-		C0C1DBB21764D69FC6F90677 /* HPPPPrint@2x~iphone.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPPrint@2x~iphone.png"; path = "Pod/Assets/HPPPPrint@2x~iphone.png"; sourceTree = "<group>"; };
-		C47DE7DF74996960014F4895 /* HPPPPageView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = HPPPPageView.xib; path = Pod/Classes/Public/HPPPPageView.xib; sourceTree = "<group>"; };
-		C6E3F321261C1B69C30968DF /* HPPPPageViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPageViewController.m; path = Pod/Classes/Public/HPPPPageViewController.m; sourceTree = "<group>"; };
-		CF29C3250C2E36142FE0CA38 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
-		CF77C0C64E2C8664FD1E7692 /* HPPPReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPReachability.h; path = Pod/Libraries/Reachability/HPPPReachability.h; sourceTree = "<group>"; };
-		CF7A7690E59E95ADCBE87094 /* HPPPSupportAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPSupportAction.h; path = Pod/Classes/Public/HPPPSupportAction.h; sourceTree = "<group>"; };
-		D45A09AB1502D95AA1CFB9F2 /* HPPPRuleView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPRuleView.h; path = Pod/Classes/Private/HPPPRuleView.h; sourceTree = "<group>"; };
-		D51AA603323A9554A81A0BF0 /* XBAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBAnimation.h; path = Pod/Libraries/XBPageCurl/XBAnimation.h; sourceTree = "<group>"; };
-		D599B8E3EABCDD09E9299436 /* Pods-Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		D6D6E818A893E07F7F8C7B12 /* HPPPAnalyticsManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPAnalyticsManager.h; path = Pod/Classes/Private/HPPPAnalyticsManager.h; sourceTree = "<group>"; };
-		D7C6506298417AE8300C174F /* Pods-HPPhotoPrint-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HPPhotoPrint-acknowledgements.plist"; sourceTree = "<group>"; };
-		D87CDBA0DFB53240676AEF29 /* Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig"; sourceTree = "<group>"; };
-		D9723452940FF48F15B79315 /* HPPPSupportAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPSupportAction.m; path = Pod/Classes/Public/HPPPSupportAction.m; sourceTree = "<group>"; };
-		D9AE2C0E4B98EBA0DCE1C55C /* HPPP.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPP.m; path = Pod/Classes/Public/HPPP.m; sourceTree = "<group>"; };
-		DB1FAE12C85DF7875B5BA5DF /* CGPointAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CGPointAdditions.h; path = Pod/Libraries/XBPageCurl/CGPointAdditions.h; sourceTree = "<group>"; };
-		DC709D891B15CCA53A6A4777 /* HPPPWiFiReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPWiFiReachability.m; path = Pod/Classes/Public/HPPPWiFiReachability.m; sourceTree = "<group>"; };
-		DD1D2D059BB006B4D4EB530E /* HPPPDoNoEnter@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPDoNoEnter@2x.png"; path = "Pod/Assets/HPPPDoNoEnter@2x.png"; sourceTree = "<group>"; };
-		DDD20B9AFC7437162AED0783 /* HPPPPageSettingsTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPageSettingsTableViewController.m; path = Pod/Classes/Public/HPPPPageSettingsTableViewController.m; sourceTree = "<group>"; };
-		DE60E27B9F57BD7F2084EB6D /* HPPPPageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPageView.h; path = Pod/Classes/Public/HPPPPageView.h; sourceTree = "<group>"; };
-		DF23AF43798B694E3D2EB838 /* NextPageNoTextureVertexShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NextPageNoTextureVertexShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/NextPageNoTextureVertexShader.glsl; sourceTree = "<group>"; };
-		E315EEF51ABB9E61002199A3 /* HPPPPrintLaterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPPPPrintLaterManager.h; path = Pod/Classes/Public/HPPPPrintLaterManager.h; sourceTree = "<group>"; };
-		E315EEF61ABB9E61002199A3 /* HPPPPrintLaterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintLaterManager.m; path = Pod/Classes/Public/HPPPPrintLaterManager.m; sourceTree = "<group>"; };
-		EF1FBFDC58575CC5FA4D0AAE /* Pods-Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tests-dummy.m"; sourceTree = "<group>"; };
-		EF7D9D1CB977AC20418345DA /* HPPPPageViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPageViewController.h; path = Pod/Classes/Public/HPPPPageViewController.h; sourceTree = "<group>"; };
-		F05A5D8FCF8A40B54C576617 /* XBAnimationManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBAnimationManager.h; path = Pod/Libraries/XBPageCurl/XBAnimationManager.h; sourceTree = "<group>"; };
-		F18B66241FA9C57FFFB219FA /* Pods-HPPhotoPrint-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HPPhotoPrint-resources.sh"; sourceTree = "<group>"; };
-		F272ACCEA4E40E3E778BA6A5 /* HPPPDoNoEnter.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = HPPPDoNoEnter.png; path = Pod/Assets/HPPPDoNoEnter.png; sourceTree = "<group>"; };
-		F506BE0DD83E0BEE4EF21BC1 /* HPPPAttributedString.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPAttributedString.m; path = Pod/Classes/Public/HPPPAttributedString.m; sourceTree = "<group>"; };
-		F610AA0D945184A2307B1EDF /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		F7CFA4E1ED37EC34C90518EB /* HPPPMeasurementArrowDown@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPMeasurementArrowDown@2x.png"; path = "Pod/Assets/HPPPMeasurementArrowDown@2x.png"; sourceTree = "<group>"; };
-		F7EA3691384CBFD918C76326 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		FE652FC89E5D1ABDDE8D3E4F /* Pods-Tests-HPPhotoPrint.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-HPPhotoPrint.xcconfig"; path = "../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint.xcconfig"; sourceTree = "<group>"; };
+		0399BBD1EA3ED538998DE9C7 /* UIView+HPPPAnimation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+HPPPAnimation.m"; path = "Pod/Classes/Private/UIView+HPPPAnimation.m"; sourceTree = "<group>"; };
+		05EE669011E22E2B63B044F3 /* libPods-HPPhotoPrint-HPPhotoPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HPPhotoPrint-HPPhotoPrint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0679330B60C6FF93D3078433 /* XBPageCurlView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBPageCurlView.m; path = Pod/Libraries/XBPageCurl/XBPageCurlView.m; sourceTree = "<group>"; };
+		09CDDE2EA5AEAC828AA72DC8 /* NextPageNoTextureFragmentShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NextPageNoTextureFragmentShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/NextPageNoTextureFragmentShader.glsl; sourceTree = "<group>"; };
+		0A6895EBD1D31B1FE2FE57D5 /* HPPPPaperTypeTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPaperTypeTableViewController.m; path = Pod/Classes/Public/HPPPPaperTypeTableViewController.m; sourceTree = "<group>"; };
+		0D1E6BE9C579266F8339B2E3 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		0F8E9E97D17E34786216B0CA /* CGPointAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CGPointAdditions.h; path = Pod/Libraries/XBPageCurl/CGPointAdditions.h; sourceTree = "<group>"; };
+		105B366E668CAEA8DCA58083 /* HPPPPaper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPaper.m; path = Pod/Classes/Public/HPPPPaper.m; sourceTree = "<group>"; };
+		12CDE6020766AE4703BFE00F /* FrontVertexShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FrontVertexShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/FrontVertexShader.glsl; sourceTree = "<group>"; };
+		1352B8C99C34FCE07DE65B34 /* HPPPPrintSettingsTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintSettingsTableViewController.h; path = Pod/Classes/Public/HPPPPrintSettingsTableViewController.h; sourceTree = "<group>"; };
+		16D45B7F7F3E70465BBB91B5 /* Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig"; sourceTree = "<group>"; };
+		185B903C80F80A5BBD9263D6 /* XBPageDragView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBPageDragView.m; path = Pod/Libraries/XBPageCurl/XBPageDragView.m; sourceTree = "<group>"; };
+		1F894DEFD54FF4E4A085D1E4 /* HPPPPrintLaterActivity.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintLaterActivity.m; path = Pod/Classes/Public/HPPPPrintLaterActivity.m; sourceTree = "<group>"; };
+		22A40CEBE1A8C9601A8BB798 /* UIColor+HPPPHexString.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+HPPPHexString.m"; path = "Pod/Classes/Private/UIColor+HPPPHexString.m"; sourceTree = "<group>"; };
+		24D41EA43B67AEB2E92CC3B4 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		259BFB773A4036BEA7CE7C7D /* HPPPDashedLineView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPDashedLineView.m; path = Pod/Classes/Private/HPPPDashedLineView.m; sourceTree = "<group>"; };
+		26A22D23DFB47FAABE3D8094 /* XBAnimationManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBAnimationManager.h; path = Pod/Libraries/XBPageCurl/XBAnimationManager.h; sourceTree = "<group>"; };
+		2AB78471C55A89AAEAA55A29 /* HPPP.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPP.m; path = Pod/Classes/Public/HPPP.m; sourceTree = "<group>"; };
+		2C50493DE214EA009C071983 /* UIImage+HPPPResize.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+HPPPResize.m"; path = "Pod/Classes/Private/UIImage+HPPPResize.m"; sourceTree = "<group>"; };
+		2D0A1A989405A76E2E0D7767 /* UIView+HPPPAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+HPPPAnimation.h"; path = "Pod/Classes/Private/UIView+HPPPAnimation.h"; sourceTree = "<group>"; };
+		2D1AE27324937401984C34C2 /* XBAnimation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBAnimation.m; path = Pod/Libraries/XBPageCurl/XBAnimation.m; sourceTree = "<group>"; };
+		2E8E44840E59ACF4C4624C15 /* BackVertexShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BackVertexShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/BackVertexShader.glsl; sourceTree = "<group>"; };
+		30482859D064163F7944D29D /* HPPPAttributedString.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPAttributedString.m; path = Pod/Classes/Public/HPPPAttributedString.m; sourceTree = "<group>"; };
+		306B70C01A12A4B97227ACA5 /* HPPPMeasurementArrowDown@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPMeasurementArrowDown@2x.png"; path = "Pod/Assets/HPPPMeasurementArrowDown@2x.png"; sourceTree = "<group>"; };
+		32A8F77AAA3DA85C5A3425F7 /* HPPPReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPReachability.m; path = Pod/Libraries/Reachability/HPPPReachability.m; sourceTree = "<group>"; };
+		35D7973FC416C5A67F3C7AE4 /* XBPageCurlView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBPageCurlView.h; path = Pod/Libraries/XBPageCurl/XBPageCurlView.h; sourceTree = "<group>"; };
+		36BDB52A37FB7C417441A41C /* HPPPPrintSettings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintSettings.m; path = Pod/Classes/Public/HPPPPrintSettings.m; sourceTree = "<group>"; };
+		377DE33B79D6A3ED519D72C8 /* HPPPRuleView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPRuleView.m; path = Pod/Classes/Private/HPPPRuleView.m; sourceTree = "<group>"; };
+		383410128822DA37B4C25570 /* HPPPWiFiReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPWiFiReachability.h; path = Pod/Classes/Public/HPPPWiFiReachability.h; sourceTree = "<group>"; };
+		3C010E8F6E9CD079F6690183 /* HPPPPrint@2x~iphone.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPPrint@2x~iphone.png"; path = "Pod/Assets/HPPPPrint@2x~iphone.png"; sourceTree = "<group>"; };
+		3D556049D712BEC43976D0FE /* HPPPPrintSettings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintSettings.h; path = Pod/Classes/Public/HPPPPrintSettings.h; sourceTree = "<group>"; };
+		40E3078DDB72C8E3210B3655 /* Pods-HPPhotoPrint-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HPPhotoPrint-acknowledgements.markdown"; sourceTree = "<group>"; };
+		42C1182DC24FCF7F8987DCEF /* HPPPRuleView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = HPPPRuleView.xib; path = Pod/Classes/Private/HPPPRuleView.xib; sourceTree = "<group>"; };
+		4372770D3CE759B869494DAC /* HPPPPrintLater@2x~iphone.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPPrintLater@2x~iphone.png"; path = "Pod/Assets/HPPPPrintLater@2x~iphone.png"; sourceTree = "<group>"; };
+		44FC4D570FD43D197F598C6E /* XBPageDragView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBPageDragView.h; path = Pod/Libraries/XBPageCurl/XBPageDragView.h; sourceTree = "<group>"; };
+		47C5C4497BF13DC430CACC29 /* HPPPPrintPageRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintPageRenderer.h; path = Pod/Classes/Public/HPPPPrintPageRenderer.h; sourceTree = "<group>"; };
+		4B663CC18617216EA0FAB120 /* NextPageVertexShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NextPageVertexShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/NextPageVertexShader.glsl; sourceTree = "<group>"; };
+		4C064E894F97C24B447C50BF /* HPPPDoNoEnter.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = HPPPDoNoEnter.png; path = Pod/Assets/HPPPDoNoEnter.png; sourceTree = "<group>"; };
+		4C63C60826BA6AEBBBDA0FFF /* Pods-HPPhotoPrint-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HPPhotoPrint-resources.sh"; sourceTree = "<group>"; };
+		4EF457D3B8167AA944CB363A /* NextPageFragmentShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NextPageFragmentShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/NextPageFragmentShader.glsl; sourceTree = "<group>"; };
+		4F3659AB8443D903FD85737A /* HPPPMeasurementArrowLeft@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPMeasurementArrowLeft@2x.png"; path = "Pod/Assets/HPPPMeasurementArrowLeft@2x.png"; sourceTree = "<group>"; };
+		50D530C0F812346711A7DFF1 /* HPPPMeasurementArrowRight@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPMeasurementArrowRight@2x.png"; path = "Pod/Assets/HPPPMeasurementArrowRight@2x.png"; sourceTree = "<group>"; };
+		548C84EB29834CF697E9E790 /* XBAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBAnimation.h; path = Pod/Libraries/XBPageCurl/XBAnimation.h; sourceTree = "<group>"; };
+		599BE176D9363F15CCD1E20E /* HPPPPageSettingsTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPageSettingsTableViewController.h; path = Pod/Classes/Public/HPPPPageSettingsTableViewController.h; sourceTree = "<group>"; };
+		5C04704A18858F4D4254DD04 /* HPPPPageViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPageViewController.h; path = Pod/Classes/Public/HPPPPageViewController.h; sourceTree = "<group>"; };
+		5DF6B4585FCCE2EA0ABFDBBC /* HPPPAnalyticsManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPAnalyticsManager.h; path = Pod/Classes/Private/HPPPAnalyticsManager.h; sourceTree = "<group>"; };
+		5E724D36180A381B0D7E9AF6 /* XBCurlView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBCurlView.m; path = Pod/Libraries/XBPageCurl/XBCurlView.m; sourceTree = "<group>"; };
+		6223FB8CD42598AB07AA2DF0 /* Pods-Tests-HPPhotoPrint-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-Tests-HPPhotoPrint-prefix.pch"; path = "../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-prefix.pch"; sourceTree = "<group>"; };
+		62ED65E8DD2779A6EA807948 /* HPPPPrintSettingsTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintSettingsTableViewController.m; path = Pod/Classes/Public/HPPPPrintSettingsTableViewController.m; sourceTree = "<group>"; };
+		63539E0D684201835DD18CCE /* Pods-HPPhotoPrint-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HPPhotoPrint-acknowledgements.plist"; sourceTree = "<group>"; };
+		66E8080C0E7C1FB8D455D529 /* HPPPPaperSizeTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPaperSizeTableViewController.m; path = Pod/Classes/Public/HPPPPaperSizeTableViewController.m; sourceTree = "<group>"; };
+		683314CBD18CDCFC703B5196 /* BackPageGradient.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = BackPageGradient.png; path = Pod/Libraries/XBPageCurl/Resources/BackPageGradient.png; sourceTree = "<group>"; };
+		6B5259E8DEBC1B102455C962 /* HPPPDoNoEnter@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPDoNoEnter@2x.png"; path = "Pod/Assets/HPPPDoNoEnter@2x.png"; sourceTree = "<group>"; };
+		6D40B92203CCD4F585AC1853 /* UIColor+HPPPStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+HPPPStyle.h"; path = "Pod/Classes/Private/UIColor+HPPPStyle.h"; sourceTree = "<group>"; };
+		6EA774FF424B09477AA614C3 /* Pods-HPPhotoPrint-HPPhotoPrint.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HPPhotoPrint-HPPhotoPrint.xcconfig"; sourceTree = "<group>"; };
+		719B752E95D0438C921B5437 /* Pods-HPPhotoPrint-HPPhotoPrint-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HPPhotoPrint-HPPhotoPrint-dummy.m"; sourceTree = "<group>"; };
+		737BD002448FED83915583FE /* HPPPPageViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPageViewController.m; path = Pod/Classes/Public/HPPPPageViewController.m; sourceTree = "<group>"; };
+		77FB442DA9A3466CF9B0EFD6 /* Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch"; sourceTree = "<group>"; };
+		7994DE2265BE8BC6E391DF36 /* XBSnappingPoint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBSnappingPoint.h; path = Pod/Libraries/XBPageCurl/XBSnappingPoint.h; sourceTree = "<group>"; };
+		7B31F789D422A7E86B4A48BC /* HPPPDashedLineView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPDashedLineView.h; path = Pod/Classes/Private/HPPPDashedLineView.h; sourceTree = "<group>"; };
+		7DBD5F9F0332F48A47D2D943 /* HPPP.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = HPPP.storyboard; path = Pod/Classes/HPPP.storyboard; sourceTree = "<group>"; };
+		7EBD67649641D34DAC638139 /* Pods-Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		810F955F247C61A4B2E04CF2 /* XBAnimationManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBAnimationManager.m; path = Pod/Libraries/XBPageCurl/XBAnimationManager.m; sourceTree = "<group>"; };
+		865849AA5328665AB411E870 /* HPPPPrintLaterJob.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintLaterJob.m; path = Pod/Classes/Public/HPPPPrintLaterJob.m; sourceTree = "<group>"; };
+		86966E8462872022FBC410CD /* UITableView+HPPPHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UITableView+HPPPHeader.m"; path = "Pod/Classes/Private/UITableView+HPPPHeader.m"; sourceTree = "<group>"; };
+		89862D5D9F0058F876002BE6 /* Pods-HPPhotoPrint-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HPPhotoPrint-dummy.m"; sourceTree = "<group>"; };
+		8AD62EA782D7900626F29672 /* HPPPPageSettingsTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPageSettingsTableViewController.m; path = Pod/Classes/Public/HPPPPageSettingsTableViewController.m; sourceTree = "<group>"; };
+		8AF7010BB2449E7D1D1B80F0 /* HPPP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPP.h; path = Pod/Classes/Public/HPPP.h; sourceTree = "<group>"; };
+		91F3491FEC38308F500DA028 /* HPPPReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPReachability.h; path = Pod/Libraries/Reachability/HPPPReachability.h; sourceTree = "<group>"; };
+		974277BDD7D6B5E433065149 /* HPPPPrintLaterActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintLaterActivity.h; path = Pod/Classes/Public/HPPPPrintLaterActivity.h; sourceTree = "<group>"; };
+		976C04D64A770E2D7A8F2D70 /* HPPPRuleView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPRuleView.h; path = Pod/Classes/Private/HPPPRuleView.h; sourceTree = "<group>"; };
+		9B977A352F4F7063CADE103C /* HPPPPrint@2x~ipad.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPPrint@2x~ipad.png"; path = "Pod/Assets/HPPPPrint@2x~ipad.png"; sourceTree = "<group>"; };
+		9B9D5F1DB9C9ABA2E7C454E4 /* HPPPSupportAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPSupportAction.h; path = Pod/Classes/Public/HPPPSupportAction.h; sourceTree = "<group>"; };
+		9BF97186566BD7F3AEFA454E /* HPPPPaperSizeTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPaperSizeTableViewController.h; path = Pod/Classes/Public/HPPPPaperSizeTableViewController.h; sourceTree = "<group>"; };
+		9DE43B78511B75B79A5C4C0E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		9E5C9854DFA3A4E1B4D46F0B /* HPPPPrintLaterJob.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintLaterJob.h; path = Pod/Classes/Public/HPPPPrintLaterJob.h; sourceTree = "<group>"; };
+		9F1BAB71B4DB4C2770A3A42B /* UIImage+HPPPResize.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+HPPPResize.h"; path = "Pod/Classes/Private/UIImage+HPPPResize.h"; sourceTree = "<group>"; };
+		9F45898ABE147DF33885DD97 /* HPPPPrintLater@2x~ipad.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPPrintLater@2x~ipad.png"; path = "Pod/Assets/HPPPPrintLater@2x~ipad.png"; sourceTree = "<group>"; };
+		9F641DF180E301542B3D2ABD /* HPPPPageView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = HPPPPageView.xib; path = Pod/Classes/Public/HPPPPageView.xib; sourceTree = "<group>"; };
+		A4055F0C799FC22D84918D70 /* HPPPView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPView.m; path = Pod/Classes/Public/HPPPView.m; sourceTree = "<group>"; };
+		A4F12ABF737319176CFBBF6F /* NextPageNoTextureVertexShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NextPageNoTextureVertexShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/NextPageNoTextureVertexShader.glsl; sourceTree = "<group>"; };
+		ABDFD34B8D899575620F0BE6 /* UIColor+HPPPHexString.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+HPPPHexString.h"; path = "Pod/Classes/Private/UIColor+HPPPHexString.h"; sourceTree = "<group>"; };
+		ACB8F43ADC02A1A074FC99E7 /* Pods-Tests-HPPhotoPrint-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-Tests-HPPhotoPrint-dummy.m"; path = "../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-dummy.m"; sourceTree = "<group>"; };
+		AEEAAD930020A1A845D399FF /* CGPointAdditions.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = CGPointAdditions.c; path = Pod/Libraries/XBPageCurl/CGPointAdditions.c; sourceTree = "<group>"; };
+		AF5E1536D644FFB6465EC0BC /* Pods-HPPhotoPrint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HPPhotoPrint.debug.xcconfig"; sourceTree = "<group>"; };
+		B11B9800071CCC6E6250D3FC /* HPPPPaperTypeTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPaperTypeTableViewController.h; path = Pod/Classes/Public/HPPPPaperTypeTableViewController.h; sourceTree = "<group>"; };
+		B1364FD8B2B8097DE227BA3F /* HPPPPrinter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrinter.h; path = Pod/Classes/Private/HPPPPrinter.h; sourceTree = "<group>"; };
+		B340E2A9DC2703950597D62B /* HPPPPrintLaterQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintLaterQueue.m; path = Pod/Classes/Public/HPPPPrintLaterQueue.m; sourceTree = "<group>"; };
+		B3F3CB34037D91998811B7E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		B8D858BFAE407C15C6ABC9B4 /* libPods-HPPhotoPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HPPhotoPrint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBBD0BD6E981DAAAF8463EDE /* HPPPPrintActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintActivity.h; path = Pod/Classes/Public/HPPPPrintActivity.h; sourceTree = "<group>"; };
+		BC48341B2DB4A453DC66B5FA /* HPPPAttributedString.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPAttributedString.h; path = Pod/Classes/Public/HPPPAttributedString.h; sourceTree = "<group>"; };
+		BFB35990D7E2627D966719B1 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0657FB934007D984C0FB735 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		C15C20CC9BA1153425BD5E6F /* Pods-Tests-HPPhotoPrint-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-HPPhotoPrint-Private.xcconfig"; path = "../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint-Private.xcconfig"; sourceTree = "<group>"; };
+		C3F3BBA3C74B03050AF17DD2 /* Pods-HPPhotoPrint-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HPPhotoPrint-environment.h"; sourceTree = "<group>"; };
+		C723D658BFB626422C4EDF07 /* Pods-Tests-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tests-environment.h"; sourceTree = "<group>"; };
+		C8C659D31B58DCD13195B59C /* HPPPPrintLaterQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintLaterQueue.h; path = Pod/Classes/Public/HPPPPrintLaterQueue.h; sourceTree = "<group>"; };
+		CD3AD1AD18509FB776695743 /* libPods-Tests-HPPhotoPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests-HPPhotoPrint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF35D9FBED3E24D4632093DE /* Pods-HPPhotoPrint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HPPhotoPrint.release.xcconfig"; sourceTree = "<group>"; };
+		D061B4EB99FB24524FD7D57C /* HPPPView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPView.h; path = Pod/Classes/Public/HPPPView.h; sourceTree = "<group>"; };
+		D4F141F97505C270103DC1C7 /* UIColor+HPPPStyle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+HPPPStyle.m"; path = "Pod/Classes/Private/UIColor+HPPPStyle.m"; sourceTree = "<group>"; };
+		D6B3BF754B1F4A754E771670 /* HPPPMeasurementArrowUp@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPMeasurementArrowUp@2x.png"; path = "Pod/Assets/HPPPMeasurementArrowUp@2x.png"; sourceTree = "<group>"; };
+		DB21E1202E092849F88E4ED9 /* Pods-Tests-HPPhotoPrint.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-HPPhotoPrint.xcconfig"; path = "../Pods-Tests-HPPhotoPrint/Pods-Tests-HPPhotoPrint.xcconfig"; sourceTree = "<group>"; };
+		DB4D00C17BC741871CC078CD /* XBCurlView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XBCurlView.h; path = Pod/Libraries/XBPageCurl/XBCurlView.h; sourceTree = "<group>"; };
+		DBB3A0B261B4E4A2B0BE0FC8 /* HPPPPageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPageView.m; path = Pod/Classes/Public/HPPPPageView.m; sourceTree = "<group>"; };
+		DBD2A026B3E543050DC69834 /* HPPPPageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPageView.h; path = Pod/Classes/Public/HPPPPageView.h; sourceTree = "<group>"; };
+		DBD52AA92DE8026E9DA60798 /* XBSnappingPoint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XBSnappingPoint.m; path = Pod/Libraries/XBPageCurl/XBSnappingPoint.m; sourceTree = "<group>"; };
+		DF8284C3AADF150D4CF11D57 /* HPPPSupportAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPSupportAction.m; path = Pod/Classes/Public/HPPPSupportAction.m; sourceTree = "<group>"; };
+		E0F26C550647C46912778599 /* HPPPAddPrintLaterJobTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPAddPrintLaterJobTableViewController.m; path = Pod/Classes/Private/HPPPAddPrintLaterJobTableViewController.m; sourceTree = "<group>"; };
+		E16E581443F2AC34A875B8C3 /* BackFragmentShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BackFragmentShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/BackFragmentShader.glsl; sourceTree = "<group>"; };
+		E2CDEA0E4CD67B3CFEA147EC /* HPPPPaper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPaper.h; path = Pod/Classes/Public/HPPPPaper.h; sourceTree = "<group>"; };
+		E363FFD71ABCE94000CE3B42 /* HPPPPrintLaterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPPPPrintLaterManager.h; path = Pod/Classes/Public/HPPPPrintLaterManager.h; sourceTree = "<group>"; };
+		E363FFD81ABCE94000CE3B42 /* HPPPPrintLaterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintLaterManager.m; path = Pod/Classes/Public/HPPPPrintLaterManager.m; sourceTree = "<group>"; };
+		ED69D05181CD8B2F7DA3D345 /* HPPPPrintPageRenderer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintPageRenderer.m; path = Pod/Classes/Public/HPPPPrintPageRenderer.m; sourceTree = "<group>"; };
+		EF9E0BA1CB732ECC8D73025B /* HPPPPrinter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrinter.m; path = Pod/Classes/Private/HPPPPrinter.m; sourceTree = "<group>"; };
+		F3D7DF6D7686BA4B7EB5A74A /* HPPPAnalyticsManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPAnalyticsManager.m; path = Pod/Classes/Private/HPPPAnalyticsManager.m; sourceTree = "<group>"; };
+		F61B936B39D03942A96F9107 /* HPPPAddPrintLaterJobTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPAddPrintLaterJobTableViewController.h; path = Pod/Classes/Private/HPPPAddPrintLaterJobTableViewController.h; sourceTree = "<group>"; };
+		F68E69881F8E63F5C932D0F6 /* UITableView+HPPPHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UITableView+HPPPHeader.h"; path = "Pod/Classes/Private/UITableView+HPPPHeader.h"; sourceTree = "<group>"; };
+		F84BA9BE683C6DED950368B4 /* FrontFragmentShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FrontFragmentShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/FrontFragmentShader.glsl; sourceTree = "<group>"; };
+		F867688F5A411E5FD10CAD44 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F9A66D5A6C9763E35C1CD4A5 /* HPPPWiFiReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPWiFiReachability.m; path = Pod/Classes/Public/HPPPWiFiReachability.m; sourceTree = "<group>"; };
+		FA62ECF6558735188A4A194A /* Pods-Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tests-dummy.m"; sourceTree = "<group>"; };
+		FB656E175726901E3F91104B /* Pods-Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-resources.sh"; sourceTree = "<group>"; };
+		FC2AFE7F9B64F7BD0E9147C8 /* HPPPPrintActivity.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintActivity.m; path = Pod/Classes/Public/HPPPPrintActivity.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		34BC2453A2538851A40A65B6 /* Frameworks */ = {
+		0030BA1D09324F77EE3297BF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2987A8445C5A0C2DBB70767 /* Foundation.framework in Frameworks */,
+				9269EC67642789BCDBDA711E /* Foundation.framework in Frameworks */,
+				84435C7A3D85492DAC638783 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4F9EB1489AFFD176A6CCE061 /* Frameworks */ = {
+		21E0A240DCF39583512FDD48 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E34FBFF7EA03A702C3F3D188 /* Foundation.framework in Frameworks */,
+				5FDEDAC710DBEF55B1FB424C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		889065AD9B352D0177821945 /* Frameworks */ = {
+		4406E31376698954F6BD801E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33F28C5C750FA9BD40621A25 /* Foundation.framework in Frameworks */,
-				CAC40376B13A60FCED093C0E /* UIKit.framework in Frameworks */,
+				DF547273E45DC4625B595974 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BEDB2615069F9E16FFAA34F0 /* Frameworks */ = {
+		4F3E6C7A7479CFFB842D1A3B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A72AC04C2791BE157EC5B02C /* Foundation.framework in Frameworks */,
-				23E07488282F5616C2736B3D /* UIKit.framework in Frameworks */,
+				944FF4701481D0A0BE2EF7AA /* Foundation.framework in Frameworks */,
+				DB7B748855101005FD18ABAE /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		452B88D70AC296078551A374 /* Pods-Tests */ = {
+		1302CBD825A2F54A1BD242BD /* Pods-Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D599B8E3EABCDD09E9299436 /* Pods-Tests-acknowledgements.markdown */,
-				F7EA3691384CBFD918C76326 /* Pods-Tests-acknowledgements.plist */,
-				EF1FBFDC58575CC5FA4D0AAE /* Pods-Tests-dummy.m */,
-				9DEEE6C047920D806B130FBD /* Pods-Tests-environment.h */,
-				86DE8D487CE016715A9CF83C /* Pods-Tests-resources.sh */,
-				873E1F0B3699DFB02F2FC411 /* Pods-Tests.debug.xcconfig */,
-				CF29C3250C2E36142FE0CA38 /* Pods-Tests.release.xcconfig */,
+				7EBD67649641D34DAC638139 /* Pods-Tests-acknowledgements.markdown */,
+				C0657FB934007D984C0FB735 /* Pods-Tests-acknowledgements.plist */,
+				FA62ECF6558735188A4A194A /* Pods-Tests-dummy.m */,
+				C723D658BFB626422C4EDF07 /* Pods-Tests-environment.h */,
+				FB656E175726901E3F91104B /* Pods-Tests-resources.sh */,
+				0D1E6BE9C579266F8339B2E3 /* Pods-Tests.debug.xcconfig */,
+				24D41EA43B67AEB2E92CC3B4 /* Pods-Tests.release.xcconfig */,
 			);
 			name = "Pods-Tests";
 			path = "Target Support Files/Pods-Tests";
 			sourceTree = "<group>";
 		};
-		5290BC10247B7E299C1156E3 /* Targets Support Files */ = {
+		203E4402CD2B2ABBAB7933AE /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				5A7EAAE431A7F5ED387864EB /* Pods-HPPhotoPrint */,
-				452B88D70AC296078551A374 /* Pods-Tests */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		5A7EAAE431A7F5ED387864EB /* Pods-HPPhotoPrint */ = {
-			isa = PBXGroup;
-			children = (
-				2268C32381C94284E5764E29 /* Pods-HPPhotoPrint-acknowledgements.markdown */,
-				D7C6506298417AE8300C174F /* Pods-HPPhotoPrint-acknowledgements.plist */,
-				69566DA6956137C5469F1D95 /* Pods-HPPhotoPrint-dummy.m */,
-				A543589FEB2D64FBCBBD984A /* Pods-HPPhotoPrint-environment.h */,
-				F18B66241FA9C57FFFB219FA /* Pods-HPPhotoPrint-resources.sh */,
-				248C453E5767D86B6974FD45 /* Pods-HPPhotoPrint.debug.xcconfig */,
-				45DAAAF2F1D22D07396BB97B /* Pods-HPPhotoPrint.release.xcconfig */,
-			);
-			name = "Pods-HPPhotoPrint";
-			path = "Target Support Files/Pods-HPPhotoPrint";
-			sourceTree = "<group>";
-		};
-		829E8739FBE55825BCC57393 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				B61EEDB9D86CB15C066FC373 /* Foundation.framework */,
-				93AD344BDAD119F171972575 /* UIKit.framework */,
+				B3F3CB34037D91998811B7E5 /* Foundation.framework */,
+				9DE43B78511B75B79A5C4C0E /* UIKit.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		AA2191E590CA8C1455C8A722 /* Resources */ = {
+		2FD7EF3A6A6BBD29CAE4F339 /* HPPhotoPrint */ = {
 			isa = PBXGroup;
 			children = (
-				AC5DFACC0D8814AD20F15761 /* BackFragmentShader.glsl */,
-				5848C0E8EFE65EA3F5EF4BFD /* BackPageGradient.png */,
-				A6357712ED3F0EDC91221300 /* BackVertexShader.glsl */,
-				4C4D4DBFD852134EDC984B27 /* FrontFragmentShader.glsl */,
-				81946D79E887A4330832135B /* FrontVertexShader.glsl */,
-				273FEABF30A2594AEF47D34C /* HPPP.storyboard */,
-				F272ACCEA4E40E3E778BA6A5 /* HPPPDoNoEnter.png */,
-				DD1D2D059BB006B4D4EB530E /* HPPPDoNoEnter@2x.png */,
-				F7CFA4E1ED37EC34C90518EB /* HPPPMeasurementArrowDown@2x.png */,
-				48A68BAFCD2BA037D1A84FEA /* HPPPMeasurementArrowLeft@2x.png */,
-				A668198E3A43D18BA4524088 /* HPPPMeasurementArrowRight@2x.png */,
-				537793516C5CA259904B76B3 /* HPPPMeasurementArrowUp@2x.png */,
-				C47DE7DF74996960014F4895 /* HPPPPageView.xib */,
-				2220DCF93CB9EB96EF296B4F /* HPPPPrint@2x~ipad.png */,
-				C0C1DBB21764D69FC6F90677 /* HPPPPrint@2x~iphone.png */,
-				08DFC47955763A8CDAE9D5E8 /* HPPPPrintLater@2x~ipad.png */,
-				1367451D3A32576460EFBFAB /* HPPPPrintLater@2x~iphone.png */,
-				2A20FF2EFE83460639A1BC75 /* HPPPRuleView.xib */,
-				2E1BB78EE4818F365425EFA4 /* NextPageFragmentShader.glsl */,
-				0E2F9BF32299F1C55F615BD6 /* NextPageNoTextureFragmentShader.glsl */,
-				DF23AF43798B694E3D2EB838 /* NextPageNoTextureVertexShader.glsl */,
-				4563C4139966DCD266D48A64 /* NextPageVertexShader.glsl */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		B34D236D3E2C25712570C960 = {
-			isa = PBXGroup;
-			children = (
-				F610AA0D945184A2307B1EDF /* Podfile */,
-				BB7591BD3CB37BD76FC4D180 /* Development Pods */,
-				B9CCAA7DEC9C960B548DA43C /* Frameworks */,
-				B7DE9A00A63C330BAFB4C1E9 /* Products */,
-				5290BC10247B7E299C1156E3 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		B43D1E17B45F4CAD8296BDD7 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				1B9B17F0B4570718995E88CE /* Pods-HPPhotoPrint-HPPhotoPrint.xcconfig */,
-				D87CDBA0DFB53240676AEF29 /* Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig */,
-				253E19605C69C4823193C1DA /* Pods-HPPhotoPrint-HPPhotoPrint-dummy.m */,
-				60BC95E9B63994D97A7A0328 /* Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch */,
-				FE652FC89E5D1ABDDE8D3E4F /* Pods-Tests-HPPhotoPrint.xcconfig */,
-				447141900A232DFBD896B7EE /* Pods-Tests-HPPhotoPrint-Private.xcconfig */,
-				B88F1FFC0C442882FED086DA /* Pods-Tests-HPPhotoPrint-dummy.m */,
-				7E408D55216006EA8D1CA7D8 /* Pods-Tests-HPPhotoPrint-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/Pods-HPPhotoPrint-HPPhotoPrint";
-			sourceTree = "<group>";
-		};
-		B7DE9A00A63C330BAFB4C1E9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2925167BF7509A5B7ED55E2A /* libPods-HPPhotoPrint.a */,
-				1FD0300E6F4A985A702D26E8 /* libPods-HPPhotoPrint-HPPhotoPrint.a */,
-				2BB3284250415ED11B48CAF7 /* libPods-Tests.a */,
-				19AD23EA34756B73E847E6EA /* libPods-Tests-HPPhotoPrint.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		B9CCAA7DEC9C960B548DA43C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				829E8739FBE55825BCC57393 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BB7591BD3CB37BD76FC4D180 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E950609EC50B5DCF9EB0F84B /* HPPhotoPrint */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		E950609EC50B5DCF9EB0F84B /* HPPhotoPrint */ = {
-			isa = PBXGroup;
-			children = (
-				1FEF9D5EF3B73CBDCFBB5F86 /* CGPointAdditions.c */,
-				DB1FAE12C85DF7875B5BA5DF /* CGPointAdditions.h */,
-				04B1B8BFD8FDB44FB79FE91D /* HPPP.h */,
-				D9AE2C0E4B98EBA0DCE1C55C /* HPPP.m */,
-				39D41662666C344D113F8819 /* HPPPAddPrintLaterJobTableViewController.h */,
-				10F7DD2C021A7EE3FBFCB3EB /* HPPPAddPrintLaterJobTableViewController.m */,
-				D6D6E818A893E07F7F8C7B12 /* HPPPAnalyticsManager.h */,
-				6E0186EAFE54C371CE36CAED /* HPPPAnalyticsManager.m */,
-				2B8799B49405A74C2EC959D3 /* HPPPAttributedString.h */,
-				F506BE0DD83E0BEE4EF21BC1 /* HPPPAttributedString.m */,
-				3302C3FF67F3D52DDA157BB1 /* HPPPDashedLineView.h */,
-				11B4B9E66086E5583FC884E7 /* HPPPDashedLineView.m */,
-				3D4FFA82B653A8323D074FA0 /* HPPPPageSettingsTableViewController.h */,
-				DDD20B9AFC7437162AED0783 /* HPPPPageSettingsTableViewController.m */,
-				DE60E27B9F57BD7F2084EB6D /* HPPPPageView.h */,
-				7F2B52569DF177D15C92E670 /* HPPPPageView.m */,
-				EF7D9D1CB977AC20418345DA /* HPPPPageViewController.h */,
-				C6E3F321261C1B69C30968DF /* HPPPPageViewController.m */,
-				8A8DCB82D01F81E6A41F68E8 /* HPPPPaper.h */,
-				7842CCBD90D1CD41B4B7B220 /* HPPPPaper.m */,
-				2184061537EE66FCCB86C5E8 /* HPPPPaperSizeTableViewController.h */,
-				AC39957D86E8AD2D82764542 /* HPPPPaperSizeTableViewController.m */,
-				359F6D8F6FB0FF851EB0DB57 /* HPPPPaperTypeTableViewController.h */,
-				30DE666CCCE06DA7A0AF759A /* HPPPPaperTypeTableViewController.m */,
-				0B8FC3518F46A2185956765D /* HPPPPrintActivity.h */,
-				5888696D4803E2204EA82519 /* HPPPPrintActivity.m */,
-				A68F8804552E381787D1D49D /* HPPPPrintLaterActivity.h */,
-				4800A7F485D5818705855CD9 /* HPPPPrintLaterActivity.m */,
-				1A02045AB2963F8A38928DD6 /* HPPPPrintLaterJob.h */,
-				44FBA37FC6CA97A281B8F091 /* HPPPPrintLaterJob.m */,
-				9B3658F84F544D7B1D240E87 /* HPPPPrintLaterQueue.h */,
-				4E7BED01DD17F22E1203847C /* HPPPPrintLaterQueue.m */,
-				E315EEF51ABB9E61002199A3 /* HPPPPrintLaterManager.h */,
-				E315EEF61ABB9E61002199A3 /* HPPPPrintLaterManager.m */,
-				70135EE523323E609DD17E85 /* HPPPPrintPageRenderer.h */,
-				4B1A31EBD539D71DAF512550 /* HPPPPrintPageRenderer.m */,
-				5F8D883881E50EC3C59D0820 /* HPPPPrintSettings.h */,
-				4765FED0D675CA3AF401F42C /* HPPPPrintSettings.m */,
-				6C3D83264A6DE24EAA4C66C6 /* HPPPPrintSettingsTableViewController.h */,
-				0B1F6EF87739A7D5521C422C /* HPPPPrintSettingsTableViewController.m */,
-				A5544D7624FFB097C5CA8858 /* HPPPPrinter.h */,
-				BC71633F746FBF543DF50698 /* HPPPPrinter.m */,
-				CF77C0C64E2C8664FD1E7692 /* HPPPReachability.h */,
-				84A88C3086751E68178DF014 /* HPPPReachability.m */,
-				D45A09AB1502D95AA1CFB9F2 /* HPPPRuleView.h */,
-				9B265BB2D67AA7AFA82F663C /* HPPPRuleView.m */,
-				CF7A7690E59E95ADCBE87094 /* HPPPSupportAction.h */,
-				D9723452940FF48F15B79315 /* HPPPSupportAction.m */,
-				76D0BA3206B8BB85D99B1C76 /* HPPPView.h */,
-				4A292DCBA88EB59716559D2E /* HPPPView.m */,
-				6EF12FEB042B26F1C84C1BB3 /* HPPPWiFiReachability.h */,
-				DC709D891B15CCA53A6A4777 /* HPPPWiFiReachability.m */,
-				92625473441E592358415BD3 /* UIColor+HPPPHexString.h */,
-				B673D6302FE351529FFD36F7 /* UIColor+HPPPHexString.m */,
-				5DC2EB765DCA61E069A2C67F /* UIColor+HPPPStyle.h */,
-				B88F25CF48656DA1EEE94485 /* UIColor+HPPPStyle.m */,
-				BE4A3C547F81D23F3B09F964 /* UIImage+HPPPResize.h */,
-				8A70ECB26DC9F4A385319DC6 /* UIImage+HPPPResize.m */,
-				28D03503D4C4305D2EE4025E /* UITableView+HPPPHeader.h */,
-				8BD1F5525CDDC0D97FB75F28 /* UITableView+HPPPHeader.m */,
-				A8483096EE6BF0E6F25D693D /* UIView+HPPPAnimation.h */,
-				3F318975E3BE9797CAFDB001 /* UIView+HPPPAnimation.m */,
-				D51AA603323A9554A81A0BF0 /* XBAnimation.h */,
-				52E06D7847B714EA9B42A5EA /* XBAnimation.m */,
-				F05A5D8FCF8A40B54C576617 /* XBAnimationManager.h */,
-				06BAE902091D3238CA9CBF75 /* XBAnimationManager.m */,
-				B70CD7D476E0F49737D56F5E /* XBCurlView.h */,
-				71F7EF273C3821E3EFAEDCD3 /* XBCurlView.m */,
-				6E43C906F68F0388B2320341 /* XBPageCurlView.h */,
-				0EC204E235286B83EBF22D89 /* XBPageCurlView.m */,
-				5F619A0EAC52C455042542E5 /* XBPageDragView.h */,
-				55272512D09D26E256F1EFDB /* XBPageDragView.m */,
-				B9EA430DA7FCC50FFE3CB671 /* XBSnappingPoint.h */,
-				3F5A460A9E49EE71B5B25591 /* XBSnappingPoint.m */,
-				AA2191E590CA8C1455C8A722 /* Resources */,
-				B43D1E17B45F4CAD8296BDD7 /* Support Files */,
+				AEEAAD930020A1A845D399FF /* CGPointAdditions.c */,
+				0F8E9E97D17E34786216B0CA /* CGPointAdditions.h */,
+				8AF7010BB2449E7D1D1B80F0 /* HPPP.h */,
+				2AB78471C55A89AAEAA55A29 /* HPPP.m */,
+				F61B936B39D03942A96F9107 /* HPPPAddPrintLaterJobTableViewController.h */,
+				E0F26C550647C46912778599 /* HPPPAddPrintLaterJobTableViewController.m */,
+				5DF6B4585FCCE2EA0ABFDBBC /* HPPPAnalyticsManager.h */,
+				F3D7DF6D7686BA4B7EB5A74A /* HPPPAnalyticsManager.m */,
+				BC48341B2DB4A453DC66B5FA /* HPPPAttributedString.h */,
+				30482859D064163F7944D29D /* HPPPAttributedString.m */,
+				7B31F789D422A7E86B4A48BC /* HPPPDashedLineView.h */,
+				259BFB773A4036BEA7CE7C7D /* HPPPDashedLineView.m */,
+				599BE176D9363F15CCD1E20E /* HPPPPageSettingsTableViewController.h */,
+				8AD62EA782D7900626F29672 /* HPPPPageSettingsTableViewController.m */,
+				DBD2A026B3E543050DC69834 /* HPPPPageView.h */,
+				DBB3A0B261B4E4A2B0BE0FC8 /* HPPPPageView.m */,
+				5C04704A18858F4D4254DD04 /* HPPPPageViewController.h */,
+				737BD002448FED83915583FE /* HPPPPageViewController.m */,
+				E2CDEA0E4CD67B3CFEA147EC /* HPPPPaper.h */,
+				105B366E668CAEA8DCA58083 /* HPPPPaper.m */,
+				9BF97186566BD7F3AEFA454E /* HPPPPaperSizeTableViewController.h */,
+				66E8080C0E7C1FB8D455D529 /* HPPPPaperSizeTableViewController.m */,
+				B11B9800071CCC6E6250D3FC /* HPPPPaperTypeTableViewController.h */,
+				0A6895EBD1D31B1FE2FE57D5 /* HPPPPaperTypeTableViewController.m */,
+				BBBD0BD6E981DAAAF8463EDE /* HPPPPrintActivity.h */,
+				FC2AFE7F9B64F7BD0E9147C8 /* HPPPPrintActivity.m */,
+				974277BDD7D6B5E433065149 /* HPPPPrintLaterActivity.h */,
+				1F894DEFD54FF4E4A085D1E4 /* HPPPPrintLaterActivity.m */,
+				9E5C9854DFA3A4E1B4D46F0B /* HPPPPrintLaterJob.h */,
+				865849AA5328665AB411E870 /* HPPPPrintLaterJob.m */,
+				C8C659D31B58DCD13195B59C /* HPPPPrintLaterQueue.h */,
+				B340E2A9DC2703950597D62B /* HPPPPrintLaterQueue.m */,
+				E363FFD71ABCE94000CE3B42 /* HPPPPrintLaterManager.h */,
+				E363FFD81ABCE94000CE3B42 /* HPPPPrintLaterManager.m */,
+				47C5C4497BF13DC430CACC29 /* HPPPPrintPageRenderer.h */,
+				ED69D05181CD8B2F7DA3D345 /* HPPPPrintPageRenderer.m */,
+				3D556049D712BEC43976D0FE /* HPPPPrintSettings.h */,
+				36BDB52A37FB7C417441A41C /* HPPPPrintSettings.m */,
+				1352B8C99C34FCE07DE65B34 /* HPPPPrintSettingsTableViewController.h */,
+				62ED65E8DD2779A6EA807948 /* HPPPPrintSettingsTableViewController.m */,
+				B1364FD8B2B8097DE227BA3F /* HPPPPrinter.h */,
+				EF9E0BA1CB732ECC8D73025B /* HPPPPrinter.m */,
+				91F3491FEC38308F500DA028 /* HPPPReachability.h */,
+				32A8F77AAA3DA85C5A3425F7 /* HPPPReachability.m */,
+				976C04D64A770E2D7A8F2D70 /* HPPPRuleView.h */,
+				377DE33B79D6A3ED519D72C8 /* HPPPRuleView.m */,
+				9B9D5F1DB9C9ABA2E7C454E4 /* HPPPSupportAction.h */,
+				DF8284C3AADF150D4CF11D57 /* HPPPSupportAction.m */,
+				D061B4EB99FB24524FD7D57C /* HPPPView.h */,
+				A4055F0C799FC22D84918D70 /* HPPPView.m */,
+				383410128822DA37B4C25570 /* HPPPWiFiReachability.h */,
+				F9A66D5A6C9763E35C1CD4A5 /* HPPPWiFiReachability.m */,
+				ABDFD34B8D899575620F0BE6 /* UIColor+HPPPHexString.h */,
+				22A40CEBE1A8C9601A8BB798 /* UIColor+HPPPHexString.m */,
+				6D40B92203CCD4F585AC1853 /* UIColor+HPPPStyle.h */,
+				D4F141F97505C270103DC1C7 /* UIColor+HPPPStyle.m */,
+				9F1BAB71B4DB4C2770A3A42B /* UIImage+HPPPResize.h */,
+				2C50493DE214EA009C071983 /* UIImage+HPPPResize.m */,
+				F68E69881F8E63F5C932D0F6 /* UITableView+HPPPHeader.h */,
+				86966E8462872022FBC410CD /* UITableView+HPPPHeader.m */,
+				2D0A1A989405A76E2E0D7767 /* UIView+HPPPAnimation.h */,
+				0399BBD1EA3ED538998DE9C7 /* UIView+HPPPAnimation.m */,
+				548C84EB29834CF697E9E790 /* XBAnimation.h */,
+				2D1AE27324937401984C34C2 /* XBAnimation.m */,
+				26A22D23DFB47FAABE3D8094 /* XBAnimationManager.h */,
+				810F955F247C61A4B2E04CF2 /* XBAnimationManager.m */,
+				DB4D00C17BC741871CC078CD /* XBCurlView.h */,
+				5E724D36180A381B0D7E9AF6 /* XBCurlView.m */,
+				35D7973FC416C5A67F3C7AE4 /* XBPageCurlView.h */,
+				0679330B60C6FF93D3078433 /* XBPageCurlView.m */,
+				44FC4D570FD43D197F598C6E /* XBPageDragView.h */,
+				185B903C80F80A5BBD9263D6 /* XBPageDragView.m */,
+				7994DE2265BE8BC6E391DF36 /* XBSnappingPoint.h */,
+				DBD52AA92DE8026E9DA60798 /* XBSnappingPoint.m */,
+				CCC0EDB4D3C788E8E6C9B6A5 /* Resources */,
+				61E3A6D9D71044DC823C5094 /* Support Files */,
 			);
 			name = HPPhotoPrint;
 			path = ../..;
 			sourceTree = "<group>";
 		};
+		53B4CC30E61C8893653EC3E9 /* Pods-HPPhotoPrint */ = {
+			isa = PBXGroup;
+			children = (
+				40E3078DDB72C8E3210B3655 /* Pods-HPPhotoPrint-acknowledgements.markdown */,
+				63539E0D684201835DD18CCE /* Pods-HPPhotoPrint-acknowledgements.plist */,
+				89862D5D9F0058F876002BE6 /* Pods-HPPhotoPrint-dummy.m */,
+				C3F3BBA3C74B03050AF17DD2 /* Pods-HPPhotoPrint-environment.h */,
+				4C63C60826BA6AEBBBDA0FFF /* Pods-HPPhotoPrint-resources.sh */,
+				AF5E1536D644FFB6465EC0BC /* Pods-HPPhotoPrint.debug.xcconfig */,
+				CF35D9FBED3E24D4632093DE /* Pods-HPPhotoPrint.release.xcconfig */,
+			);
+			name = "Pods-HPPhotoPrint";
+			path = "Target Support Files/Pods-HPPhotoPrint";
+			sourceTree = "<group>";
+		};
+		61E3A6D9D71044DC823C5094 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6EA774FF424B09477AA614C3 /* Pods-HPPhotoPrint-HPPhotoPrint.xcconfig */,
+				16D45B7F7F3E70465BBB91B5 /* Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig */,
+				719B752E95D0438C921B5437 /* Pods-HPPhotoPrint-HPPhotoPrint-dummy.m */,
+				77FB442DA9A3466CF9B0EFD6 /* Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch */,
+				DB21E1202E092849F88E4ED9 /* Pods-Tests-HPPhotoPrint.xcconfig */,
+				C15C20CC9BA1153425BD5E6F /* Pods-Tests-HPPhotoPrint-Private.xcconfig */,
+				ACB8F43ADC02A1A074FC99E7 /* Pods-Tests-HPPhotoPrint-dummy.m */,
+				6223FB8CD42598AB07AA2DF0 /* Pods-Tests-HPPhotoPrint-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/Pods-HPPhotoPrint-HPPhotoPrint";
+			sourceTree = "<group>";
+		};
+		87B34CD69A218EDC714CD433 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				203E4402CD2B2ABBAB7933AE /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C596405182D431A4BD7ED74C = {
+			isa = PBXGroup;
+			children = (
+				F867688F5A411E5FD10CAD44 /* Podfile */,
+				C7F0DEEEA77390DD97C48D20 /* Development Pods */,
+				87B34CD69A218EDC714CD433 /* Frameworks */,
+				D9F2BAF5A60DC31E4660829F /* Products */,
+				C9AED1481800472560BE3C75 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		C7F0DEEEA77390DD97C48D20 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2FD7EF3A6A6BBD29CAE4F339 /* HPPhotoPrint */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		C9AED1481800472560BE3C75 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				53B4CC30E61C8893653EC3E9 /* Pods-HPPhotoPrint */,
+				1302CBD825A2F54A1BD242BD /* Pods-Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		CCC0EDB4D3C788E8E6C9B6A5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E16E581443F2AC34A875B8C3 /* BackFragmentShader.glsl */,
+				683314CBD18CDCFC703B5196 /* BackPageGradient.png */,
+				2E8E44840E59ACF4C4624C15 /* BackVertexShader.glsl */,
+				F84BA9BE683C6DED950368B4 /* FrontFragmentShader.glsl */,
+				12CDE6020766AE4703BFE00F /* FrontVertexShader.glsl */,
+				7DBD5F9F0332F48A47D2D943 /* HPPP.storyboard */,
+				4C064E894F97C24B447C50BF /* HPPPDoNoEnter.png */,
+				6B5259E8DEBC1B102455C962 /* HPPPDoNoEnter@2x.png */,
+				306B70C01A12A4B97227ACA5 /* HPPPMeasurementArrowDown@2x.png */,
+				4F3659AB8443D903FD85737A /* HPPPMeasurementArrowLeft@2x.png */,
+				50D530C0F812346711A7DFF1 /* HPPPMeasurementArrowRight@2x.png */,
+				D6B3BF754B1F4A754E771670 /* HPPPMeasurementArrowUp@2x.png */,
+				9F641DF180E301542B3D2ABD /* HPPPPageView.xib */,
+				9B977A352F4F7063CADE103C /* HPPPPrint@2x~ipad.png */,
+				3C010E8F6E9CD079F6690183 /* HPPPPrint@2x~iphone.png */,
+				9F45898ABE147DF33885DD97 /* HPPPPrintLater@2x~ipad.png */,
+				4372770D3CE759B869494DAC /* HPPPPrintLater@2x~iphone.png */,
+				42C1182DC24FCF7F8987DCEF /* HPPPRuleView.xib */,
+				4EF457D3B8167AA944CB363A /* NextPageFragmentShader.glsl */,
+				09CDDE2EA5AEAC828AA72DC8 /* NextPageNoTextureFragmentShader.glsl */,
+				A4F12ABF737319176CFBBF6F /* NextPageNoTextureVertexShader.glsl */,
+				4B663CC18617216EA0FAB120 /* NextPageVertexShader.glsl */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		D9F2BAF5A60DC31E4660829F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B8D858BFAE407C15C6ABC9B4 /* libPods-HPPhotoPrint.a */,
+				05EE669011E22E2B63B044F3 /* libPods-HPPhotoPrint-HPPhotoPrint.a */,
+				BFB35990D7E2627D966719B1 /* libPods-Tests.a */,
+				CD3AD1AD18509FB776695743 /* libPods-Tests-HPPhotoPrint.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		2C275BA29BE6245195B8CE5A /* Headers */ = {
+		47F056EB7C22A82EF8200C7E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E208EF5C49627D0136307873 /* CGPointAdditions.h in Headers */,
-				DD147B64F8C8236C70EB7263 /* HPPP.h in Headers */,
-				974D5B924E0ACA73AC31AE39 /* HPPPAddPrintLaterJobTableViewController.h in Headers */,
-				B76C4A835F254961CB9C4C69 /* HPPPAnalyticsManager.h in Headers */,
-				078BD495302ACD5C8705E825 /* HPPPAttributedString.h in Headers */,
-				9B1184127BC0E228FB13C6D5 /* HPPPDashedLineView.h in Headers */,
-				F28A796080212F3040644E48 /* HPPPPageSettingsTableViewController.h in Headers */,
-				02E398EFDDA295EED5CF3B1B /* HPPPPageView.h in Headers */,
-				34649BC32FCB578930B4B1A9 /* HPPPPageViewController.h in Headers */,
-				4E9B8F61E70F49F79CB1A55D /* HPPPPaper.h in Headers */,
-				10BF6346CF31820929BBC140 /* HPPPPaperSizeTableViewController.h in Headers */,
-				D59000ADC2C52E7B29BF5E2A /* HPPPPaperTypeTableViewController.h in Headers */,
-				C7B1643C89EA01964FC87646 /* HPPPPrintActivity.h in Headers */,
-				1DE82F76F60274BD4A4B071D /* HPPPPrintLaterActivity.h in Headers */,
-				FFEE5048B0C4BB75592A0FD5 /* HPPPPrintLaterJob.h in Headers */,
-				872E1EED22F7AB26FCD06DCA /* HPPPPrintLaterQueue.h in Headers */,
-				A55178D784EC70629D2230C2 /* HPPPPrintPageRenderer.h in Headers */,
-				30CEB240872E83293F6112AB /* HPPPPrintSettings.h in Headers */,
-				66679BB30E550633B65F1E5E /* HPPPPrintSettingsTableViewController.h in Headers */,
-				B412E7563B28AD88E130D4C2 /* HPPPPrinter.h in Headers */,
-				CE1CA609DB84C0D71E7ABA52 /* HPPPReachability.h in Headers */,
-				654111AE1ECD31D45BF8D0E4 /* HPPPRuleView.h in Headers */,
-				5A16D2D3AF9C1B6861A21349 /* HPPPSupportAction.h in Headers */,
-				C5EA85905BEEAFEE18841A11 /* HPPPView.h in Headers */,
-				3C6E2F86D2887EDABF2D5765 /* HPPPWiFiReachability.h in Headers */,
-				E53E0D06903711340236FCD9 /* UIColor+HPPPHexString.h in Headers */,
-				21CDD9FDB140E263DE55C415 /* UIColor+HPPPStyle.h in Headers */,
-				23FF4C048232402A70DE545C /* UIImage+HPPPResize.h in Headers */,
-				A6FE566FE167E230454D2720 /* UITableView+HPPPHeader.h in Headers */,
-				F1C7714A16B6CE43C71EC999 /* UIView+HPPPAnimation.h in Headers */,
-				A83B245852CAF5BF68110562 /* XBAnimation.h in Headers */,
-				76CFE0BFB0E79C6E71A187DD /* XBAnimationManager.h in Headers */,
-				B88FAAA9652610F94BCB4437 /* XBCurlView.h in Headers */,
-				7DC2D58595EAD542FCBF9E57 /* XBPageCurlView.h in Headers */,
-				C7529DA034358599B60F6765 /* XBPageDragView.h in Headers */,
-				DF61D001D477F56CA8703074 /* XBSnappingPoint.h in Headers */,
+				29570FF8541D04FA4F442EB8 /* CGPointAdditions.h in Headers */,
+				62740791227DB4C0C4DBC1C7 /* HPPP.h in Headers */,
+				72C3D0E425803671637D7244 /* HPPPAddPrintLaterJobTableViewController.h in Headers */,
+				05B99D5964D1274C8D93FCA3 /* HPPPAnalyticsManager.h in Headers */,
+				8DFDC57C60D013F9DFCAEA67 /* HPPPAttributedString.h in Headers */,
+				57A0A647B8E7FCD939A6401B /* HPPPDashedLineView.h in Headers */,
+				EA4899D6A90C0DBCE30782C1 /* HPPPPageSettingsTableViewController.h in Headers */,
+				3FC919C7A6474B25A2E000BB /* HPPPPageView.h in Headers */,
+				D1CA284D2BE0905B580E8976 /* HPPPPageViewController.h in Headers */,
+				0B508140C904C6D80736BCA9 /* HPPPPaper.h in Headers */,
+				7DE570853708D571D974366D /* HPPPPaperSizeTableViewController.h in Headers */,
+				222E92E6309D1A158174B789 /* HPPPPaperTypeTableViewController.h in Headers */,
+				B630CC3966EDED71F7D72FA9 /* HPPPPrintActivity.h in Headers */,
+				8E11B26D649735CEBDE27FFC /* HPPPPrintLaterActivity.h in Headers */,
+				DA8E1EAC3FD9B67D83666147 /* HPPPPrintLaterJob.h in Headers */,
+				A8B82AD85B128A889FB75DCF /* HPPPPrintLaterQueue.h in Headers */,
+				53E0BA5014844863742588AA /* HPPPPrintPageRenderer.h in Headers */,
+				8BA763113186753D669309BF /* HPPPPrintSettings.h in Headers */,
+				72A0DB70863893887D5EA093 /* HPPPPrintSettingsTableViewController.h in Headers */,
+				262E33AB055E9CE87F42126A /* HPPPPrinter.h in Headers */,
+				A094DB24ED66059436B07AB3 /* HPPPReachability.h in Headers */,
+				06CAE5E97673EB59F2CD724B /* HPPPRuleView.h in Headers */,
+				FC60D3817CA19E102D953393 /* HPPPSupportAction.h in Headers */,
+				34CE7D46FCFF78D9CB2F2D97 /* HPPPView.h in Headers */,
+				512863E5D230794A1CF099A5 /* HPPPWiFiReachability.h in Headers */,
+				02D77EF1D221C88650E5ECEE /* UIColor+HPPPHexString.h in Headers */,
+				4B559152D0BE5E2B6558710D /* UIColor+HPPPStyle.h in Headers */,
+				F74460B3E87CDA81C0A1B603 /* UIImage+HPPPResize.h in Headers */,
+				4F60B6BB0DE7ED899F80BC47 /* UITableView+HPPPHeader.h in Headers */,
+				4996EE556F5CA98E1157CED8 /* UIView+HPPPAnimation.h in Headers */,
+				7740E39319D0C46EC53610C1 /* XBAnimation.h in Headers */,
+				C30301E1E0E6FA22FC80823A /* XBAnimationManager.h in Headers */,
+				C531C6836C94972320F5E72A /* XBCurlView.h in Headers */,
+				9FDBC65827D87B7C9B29C9D2 /* XBPageCurlView.h in Headers */,
+				BA72A0E2C8CE61D6D1856768 /* XBPageDragView.h in Headers */,
+				AE361DCAF0BC1A50C9BA41B2 /* XBSnappingPoint.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DA295BF415559648CBA5E804 /* Headers */ = {
+		F158FD17EA0B4DBBB485588E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0D29AA66F7D46D648642C08 /* CGPointAdditions.h in Headers */,
-				F91900C4EF2318CEA4EB270B /* HPPP.h in Headers */,
-				128FFAACB80AEB917785F428 /* HPPPAddPrintLaterJobTableViewController.h in Headers */,
-				BF343D6F056F06625C71209E /* HPPPAnalyticsManager.h in Headers */,
-				CD032C65CB4B3255FD2A1FE2 /* HPPPAttributedString.h in Headers */,
-				E3C377CB8E4A2C9BCFBE77E4 /* HPPPDashedLineView.h in Headers */,
-				6AC53306CBE9AF7EC40A80F8 /* HPPPPageSettingsTableViewController.h in Headers */,
-				F801234CC7937CBE330D73A8 /* HPPPPageView.h in Headers */,
-				71D8C927CAA11F20417297C5 /* HPPPPageViewController.h in Headers */,
-				7775F2D8C381EF053F30D48C /* HPPPPaper.h in Headers */,
-				1C9577B10522527BB4B94E9D /* HPPPPaperSizeTableViewController.h in Headers */,
-				8CC18CF9AD029BADD92C6F76 /* HPPPPaperTypeTableViewController.h in Headers */,
-				8CA3FF592C9738A4E94A4208 /* HPPPPrintActivity.h in Headers */,
-				409236C63B29F3B6EFE41888 /* HPPPPrintLaterActivity.h in Headers */,
-				0D946324880EE8A40468C278 /* HPPPPrintLaterJob.h in Headers */,
-				F36F11F54DC4F2043028D074 /* HPPPPrintLaterQueue.h in Headers */,
-				1346E89C309F2AE24626563D /* HPPPPrintPageRenderer.h in Headers */,
-				DAF776E4A742A878DD3AA34F /* HPPPPrintSettings.h in Headers */,
-				CAD9A173D5FA01D7F96F6E76 /* HPPPPrintSettingsTableViewController.h in Headers */,
-				8BC9F22642A215066E0B9C91 /* HPPPPrinter.h in Headers */,
-				F3D01AC53F7A30E78DC92993 /* HPPPReachability.h in Headers */,
-				00DC84BBCC837E67A7E700E0 /* HPPPRuleView.h in Headers */,
-				60AB5A22B1B55C6BABB60C14 /* HPPPSupportAction.h in Headers */,
-				5FFE3B600791BEA527092D9D /* HPPPView.h in Headers */,
-				53ECA9CDA4E1E947EAED530D /* HPPPWiFiReachability.h in Headers */,
-				61888AFD6DB00B56CC59EE9F /* UIColor+HPPPHexString.h in Headers */,
-				958C9E55052FBC296952ECBB /* UIColor+HPPPStyle.h in Headers */,
-				04C82560734B569E8404FA58 /* UIImage+HPPPResize.h in Headers */,
-				46129ADBFB46648E20832DEA /* UITableView+HPPPHeader.h in Headers */,
-				E10A3CF316291D1E154C5A43 /* UIView+HPPPAnimation.h in Headers */,
-				349A079FE22504926A917E5A /* XBAnimation.h in Headers */,
-				B46CF61963284EB523F8EAB6 /* XBAnimationManager.h in Headers */,
-				EF21A07420F404C7BFA93EEB /* XBCurlView.h in Headers */,
-				59843ED2B15EA9E86C5598C6 /* XBPageCurlView.h in Headers */,
-				8C4F4FD70476C3F8FBD534AD /* XBPageDragView.h in Headers */,
-				DDBBA73D7849A4258E4B4229 /* XBSnappingPoint.h in Headers */,
+				5CF1615D663D0744AC81D316 /* CGPointAdditions.h in Headers */,
+				3029BA994333FDDE179ADF63 /* HPPP.h in Headers */,
+				ABA027E48291500C6AB504C4 /* HPPPAddPrintLaterJobTableViewController.h in Headers */,
+				AE5E25BC13E744EA11EF9A0F /* HPPPAnalyticsManager.h in Headers */,
+				0F5871DC1B470CE87005D2F0 /* HPPPAttributedString.h in Headers */,
+				7D8779370C8D86D1FA2F860F /* HPPPDashedLineView.h in Headers */,
+				357CE4E0253C5A595A99CB59 /* HPPPPageSettingsTableViewController.h in Headers */,
+				215646940E781FD4A0708ED5 /* HPPPPageView.h in Headers */,
+				125FB348BF03075075FFA777 /* HPPPPageViewController.h in Headers */,
+				322347C130351C81C60192E8 /* HPPPPaper.h in Headers */,
+				0646FE67A9636A6745A87007 /* HPPPPaperSizeTableViewController.h in Headers */,
+				59BCF30ECEAC89A4DEE74CA6 /* HPPPPaperTypeTableViewController.h in Headers */,
+				9B71F97A657E8485480C9D77 /* HPPPPrintActivity.h in Headers */,
+				47A5C7242498AADC056AA7E1 /* HPPPPrintLaterActivity.h in Headers */,
+				F670E38CDEBEEDFDD29ACD28 /* HPPPPrintLaterJob.h in Headers */,
+				D884C92AAB1B11263675F1E7 /* HPPPPrintLaterQueue.h in Headers */,
+				2CC507FC6992F97F053FDDB3 /* HPPPPrintPageRenderer.h in Headers */,
+				6F242476DACA9229D4CC43EB /* HPPPPrintSettings.h in Headers */,
+				CBD698E0758497152F4C76A7 /* HPPPPrintSettingsTableViewController.h in Headers */,
+				690BC62DDBBE145C49701CD6 /* HPPPPrinter.h in Headers */,
+				39102831579A58FE9506E14C /* HPPPReachability.h in Headers */,
+				031CE00FC1DB5A1FA586719F /* HPPPRuleView.h in Headers */,
+				4AF25AB35FC98813C2D8DC42 /* HPPPSupportAction.h in Headers */,
+				16FA1E786AD2C7D9098E86C6 /* HPPPView.h in Headers */,
+				C2E5165168F364175791DAC6 /* HPPPWiFiReachability.h in Headers */,
+				019C757883888A4F3FAB8A65 /* UIColor+HPPPHexString.h in Headers */,
+				C8E5519B297BBBE6F05C3E94 /* UIColor+HPPPStyle.h in Headers */,
+				EABAFC1B5F6D627135FB6EF4 /* UIImage+HPPPResize.h in Headers */,
+				2712619F830BCDABA163355A /* UITableView+HPPPHeader.h in Headers */,
+				DF600571864AC32FA9D82C71 /* UIView+HPPPAnimation.h in Headers */,
+				CD1A32741B79949A4D384BC1 /* XBAnimation.h in Headers */,
+				51AF3706F6106DB4076D68C8 /* XBAnimationManager.h in Headers */,
+				82518CA7EF44ECD3B03E9E79 /* XBCurlView.h in Headers */,
+				558DD8571B4345A822A845DA /* XBPageCurlView.h in Headers */,
+				F74C777F3BD3B9CA0FE6F896 /* XBPageDragView.h in Headers */,
+				AE81BACCA94570F1A7FAA2F8 /* XBSnappingPoint.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		41E9C3E5BB8DB8710B965DAC /* Pods-HPPhotoPrint */ = {
+		169D575CDC657198781D4874 /* Pods-HPPhotoPrint */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 168E2CE45EDCB0643CA0EE3A /* Build configuration list for PBXNativeTarget "Pods-HPPhotoPrint" */;
+			buildConfigurationList = B2E2F0BE2AA94E62DA54F201 /* Build configuration list for PBXNativeTarget "Pods-HPPhotoPrint" */;
 			buildPhases = (
-				14F359F4AD268C88C9545CC9 /* Sources */,
-				4F9EB1489AFFD176A6CCE061 /* Frameworks */,
+				DB618864FDC58E497445039F /* Sources */,
+				4406E31376698954F6BD801E /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2F342401F61326645AA64672 /* PBXTargetDependency */,
+				27F46D30B61D03C56172C61A /* PBXTargetDependency */,
 			);
 			name = "Pods-HPPhotoPrint";
 			productName = "Pods-HPPhotoPrint";
-			productReference = 2925167BF7509A5B7ED55E2A /* libPods-HPPhotoPrint.a */;
+			productReference = B8D858BFAE407C15C6ABC9B4 /* libPods-HPPhotoPrint.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		9FBEB34E7DE991AECC611176 /* Pods-Tests-HPPhotoPrint */ = {
+		C7F14A756669A73D538349EC /* Pods-HPPhotoPrint-HPPhotoPrint */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 71FCC10BC9FBFAF9D95342C6 /* Build configuration list for PBXNativeTarget "Pods-Tests-HPPhotoPrint" */;
+			buildConfigurationList = 27AAC88A3535258669B20B1B /* Build configuration list for PBXNativeTarget "Pods-HPPhotoPrint-HPPhotoPrint" */;
 			buildPhases = (
-				9F0F2C883042173E24392011 /* Sources */,
-				889065AD9B352D0177821945 /* Frameworks */,
-				2C275BA29BE6245195B8CE5A /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-Tests-HPPhotoPrint";
-			productName = "Pods-Tests-HPPhotoPrint";
-			productReference = 19AD23EA34756B73E847E6EA /* libPods-Tests-HPPhotoPrint.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		BCAFC97EBB7EF27B90020901 /* Pods-HPPhotoPrint-HPPhotoPrint */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 461927FD5F19F47C7BD97651 /* Build configuration list for PBXNativeTarget "Pods-HPPhotoPrint-HPPhotoPrint" */;
-			buildPhases = (
-				C5A964C12EB51DF72131FF54 /* Sources */,
-				BEDB2615069F9E16FFAA34F0 /* Frameworks */,
-				DA295BF415559648CBA5E804 /* Headers */,
+				70EB04F82DFEEC68CF577F7B /* Sources */,
+				0030BA1D09324F77EE3297BF /* Frameworks */,
+				47F056EB7C22A82EF8200C7E /* Headers */,
 			);
 			buildRules = (
 			);
@@ -702,290 +685,198 @@
 			);
 			name = "Pods-HPPhotoPrint-HPPhotoPrint";
 			productName = "Pods-HPPhotoPrint-HPPhotoPrint";
-			productReference = 1FD0300E6F4A985A702D26E8 /* libPods-HPPhotoPrint-HPPhotoPrint.a */;
+			productReference = 05EE669011E22E2B63B044F3 /* libPods-HPPhotoPrint-HPPhotoPrint.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		E77905327003D5936C0A0ECD /* Pods-Tests */ = {
+		D2A2782FF207D7D9E7C6846E /* Pods-Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FAAD08B58EF1A0D5C23CED89 /* Build configuration list for PBXNativeTarget "Pods-Tests" */;
+			buildConfigurationList = FD940C3B4F12B556F0DA2980 /* Build configuration list for PBXNativeTarget "Pods-Tests" */;
 			buildPhases = (
-				B4FE5F4439BCA16A6D32DB7F /* Sources */,
-				34BC2453A2538851A40A65B6 /* Frameworks */,
+				A99160380CC6EF9020C974C0 /* Sources */,
+				21E0A240DCF39583512FDD48 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				22C1EF89AE5720739595BF72 /* PBXTargetDependency */,
+				0D2896BB5BC7111EFBFD19AD /* PBXTargetDependency */,
 			);
 			name = "Pods-Tests";
 			productName = "Pods-Tests";
-			productReference = 2BB3284250415ED11B48CAF7 /* libPods-Tests.a */;
+			productReference = BFB35990D7E2627D966719B1 /* libPods-Tests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		D8C71C2637AB819BFD6FD074 /* Pods-Tests-HPPhotoPrint */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DED3BE1A3DAC9931C1ADBE1 /* Build configuration list for PBXNativeTarget "Pods-Tests-HPPhotoPrint" */;
+			buildPhases = (
+				533168AC3EF2438E4A5619FE /* Sources */,
+				4F3E6C7A7479CFFB842D1A3B /* Frameworks */,
+				F158FD17EA0B4DBBB485588E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-Tests-HPPhotoPrint";
+			productName = "Pods-Tests-HPPhotoPrint";
+			productReference = CD3AD1AD18509FB776695743 /* libPods-Tests-HPPhotoPrint.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		B2AD626FC46337E9D939268F /* Project object */ = {
+		24819683085D185D05854793 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
 			};
-			buildConfigurationList = 41CF357E24CAFFC506C8348F /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = D1EAD62959B337E07FD9BDE1 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = B34D236D3E2C25712570C960;
-			productRefGroup = B7DE9A00A63C330BAFB4C1E9 /* Products */;
+			mainGroup = C596405182D431A4BD7ED74C;
+			productRefGroup = D9F2BAF5A60DC31E4660829F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				41E9C3E5BB8DB8710B965DAC /* Pods-HPPhotoPrint */,
-				BCAFC97EBB7EF27B90020901 /* Pods-HPPhotoPrint-HPPhotoPrint */,
-				E77905327003D5936C0A0ECD /* Pods-Tests */,
-				9FBEB34E7DE991AECC611176 /* Pods-Tests-HPPhotoPrint */,
+				169D575CDC657198781D4874 /* Pods-HPPhotoPrint */,
+				C7F14A756669A73D538349EC /* Pods-HPPhotoPrint-HPPhotoPrint */,
+				D2A2782FF207D7D9E7C6846E /* Pods-Tests */,
+				D8C71C2637AB819BFD6FD074 /* Pods-Tests-HPPhotoPrint */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		14F359F4AD268C88C9545CC9 /* Sources */ = {
+		533168AC3EF2438E4A5619FE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E315EEF71ABB9E61002199A3 /* HPPPPrintLaterManager.m in Sources */,
-				C5CF123C6539AD59F3A8F3D7 /* Pods-HPPhotoPrint-dummy.m in Sources */,
+				606002BB1D93818C8BC8E19A /* CGPointAdditions.c in Sources */,
+				9C4061F7412B98ED75DE90CC /* HPPP.m in Sources */,
+				2B9FB2D035C2FB592CF7EB45 /* HPPPAddPrintLaterJobTableViewController.m in Sources */,
+				278D8E14CBB79571E301792F /* HPPPAnalyticsManager.m in Sources */,
+				52D54675D31D211AD4E10530 /* HPPPAttributedString.m in Sources */,
+				ED5186B4D4F8E2D6A93754AF /* HPPPDashedLineView.m in Sources */,
+				7D489330E504B3896561F581 /* HPPPPageSettingsTableViewController.m in Sources */,
+				A54486A48ED6AC3DE7FFCB8C /* HPPPPageView.m in Sources */,
+				4F7629BDA3AD4B261BE03917 /* HPPPPageViewController.m in Sources */,
+				FC58556C557C56376EACB979 /* HPPPPaper.m in Sources */,
+				B634612A32F125861AD80631 /* HPPPPaperSizeTableViewController.m in Sources */,
+				B6CB8D8EF4D545129355D159 /* HPPPPaperTypeTableViewController.m in Sources */,
+				CD60C5F75232B68B530881D4 /* HPPPPrintActivity.m in Sources */,
+				5B027BAAAA6B1485496C1E88 /* HPPPPrintLaterActivity.m in Sources */,
+				53E0D57677B3E5E0716DA384 /* HPPPPrintLaterJob.m in Sources */,
+				733648C83745F422814ED03F /* HPPPPrintLaterQueue.m in Sources */,
+				04A090E25B710404B4B427C4 /* HPPPPrintPageRenderer.m in Sources */,
+				D3CC95AF6E845D8105ECD054 /* HPPPPrintSettings.m in Sources */,
+				C776D8219FD5E34BC6685346 /* HPPPPrintSettingsTableViewController.m in Sources */,
+				080B094079BA9BB7A4874886 /* HPPPPrinter.m in Sources */,
+				E5AAE98C7573202B771CFCEC /* HPPPReachability.m in Sources */,
+				0F30CB4C99CC4B02CC65CFDB /* HPPPRuleView.m in Sources */,
+				E537EDE4BD513F48AA422A8A /* HPPPSupportAction.m in Sources */,
+				E08A980D6DA910766C9282D7 /* HPPPView.m in Sources */,
+				6606D0B775C216B0035B2C70 /* HPPPWiFiReachability.m in Sources */,
+				32ED8D4E3758BB21BE778B10 /* Pods-Tests-HPPhotoPrint-dummy.m in Sources */,
+				D31F72BE8D56E43D9BA1A7E5 /* UIColor+HPPPHexString.m in Sources */,
+				1F05017BCA3B3E4DE4F765EC /* UIColor+HPPPStyle.m in Sources */,
+				BDD544BAC7321B634D3D3044 /* UIImage+HPPPResize.m in Sources */,
+				19DDA8A3ADEB67251BB38B79 /* UITableView+HPPPHeader.m in Sources */,
+				38B7AC20EDECB8F132844EFD /* UIView+HPPPAnimation.m in Sources */,
+				2314F8F973B892C77F62C545 /* XBAnimation.m in Sources */,
+				F6DE6BB6561A67B06FE0F736 /* XBAnimationManager.m in Sources */,
+				777F5AFCF9903045CC47054D /* XBCurlView.m in Sources */,
+				EFF455FB97077B8E8C26091E /* XBPageCurlView.m in Sources */,
+				03FFCBA89210807DF8D0A723 /* XBPageDragView.m in Sources */,
+				95DB453865DCD608D629C71D /* XBSnappingPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9F0F2C883042173E24392011 /* Sources */ = {
+		70EB04F82DFEEC68CF577F7B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6841BAA25F958D4B8CB502FB /* CGPointAdditions.c in Sources */,
-				955A83DC7962E12CB166A886 /* HPPP.m in Sources */,
-				9734014C029E41E19E9B8389 /* HPPPAddPrintLaterJobTableViewController.m in Sources */,
-				A7694794C418C9B69B450C70 /* HPPPAnalyticsManager.m in Sources */,
-				F9E8C731FE4FBEEC9E4B9C9B /* HPPPAttributedString.m in Sources */,
-				3AE3949CF7215C0FEC255B10 /* HPPPDashedLineView.m in Sources */,
-				D7D2E24A7D9D51A72E4BAB04 /* HPPPPageSettingsTableViewController.m in Sources */,
-				3F692DDDEF696AE92DC499F3 /* HPPPPageView.m in Sources */,
-				0A535E2A537F0EB55C668F67 /* HPPPPageViewController.m in Sources */,
-				F37A8627C9D83067E2736F7B /* HPPPPaper.m in Sources */,
-				C221AD3065E24E7D1652A607 /* HPPPPaperSizeTableViewController.m in Sources */,
-				9FA0A84AE0F8007F1D9AB500 /* HPPPPaperTypeTableViewController.m in Sources */,
-				4CDF8A2C7CCB541D86E1F1EA /* HPPPPrintActivity.m in Sources */,
-				F97C8F01A3D89032C1F74E92 /* HPPPPrintLaterActivity.m in Sources */,
-				1A793FCFC47C3C7473961421 /* HPPPPrintLaterJob.m in Sources */,
-				20F3C51C546C79693139E415 /* HPPPPrintLaterQueue.m in Sources */,
-				24755F109021E611CB310585 /* HPPPPrintPageRenderer.m in Sources */,
-				97194100618D44E6B6A8605D /* HPPPPrintSettings.m in Sources */,
-				160437288DDFCE11FA59D3ED /* HPPPPrintSettingsTableViewController.m in Sources */,
-				037A9B6653CB03018B87456D /* HPPPPrinter.m in Sources */,
-				0C8496BED6F7B1001140D7D1 /* HPPPReachability.m in Sources */,
-				59714DAAA0F39A77DB63F9C7 /* HPPPRuleView.m in Sources */,
-				5565556C2B18B6D4570D40F9 /* HPPPSupportAction.m in Sources */,
-				08F61CD0CD1E3B3C14A40EA4 /* HPPPView.m in Sources */,
-				FFAC6B4E7F41364A7B0D96E0 /* HPPPWiFiReachability.m in Sources */,
-				F493A2D13C27873AF0A99697 /* Pods-Tests-HPPhotoPrint-dummy.m in Sources */,
-				A24D001ECDE9A0723AB55FCD /* UIColor+HPPPHexString.m in Sources */,
-				4D619B5E9CEE8F8A7A6744A4 /* UIColor+HPPPStyle.m in Sources */,
-				CC31A2FA9B0C959DA5812826 /* UIImage+HPPPResize.m in Sources */,
-				CC257D8943C45131B095D198 /* UITableView+HPPPHeader.m in Sources */,
-				9371D2338B4F8D5BB9E8C942 /* UIView+HPPPAnimation.m in Sources */,
-				45E92FDD1C5CAADC95A79034 /* XBAnimation.m in Sources */,
-				6628248E97DABA5E0CB006BA /* XBAnimationManager.m in Sources */,
-				90B4C1BF0E2C3CE7C07BE366 /* XBCurlView.m in Sources */,
-				010571ACB56806F560DE6062 /* XBPageCurlView.m in Sources */,
-				BD65AB60A00A8D7054F42770 /* XBPageDragView.m in Sources */,
-				636CE9778E8D396ED5FF4B21 /* XBSnappingPoint.m in Sources */,
+				1F2AB71F61FA279983E7284C /* CGPointAdditions.c in Sources */,
+				76AFB468FA144142B071A4B7 /* HPPP.m in Sources */,
+				6DB629E2E67006141A78C545 /* HPPPAddPrintLaterJobTableViewController.m in Sources */,
+				9E3DFB789DC53228B6B112EC /* HPPPAnalyticsManager.m in Sources */,
+				6905510C32D05B8BE16A977C /* HPPPAttributedString.m in Sources */,
+				280FBFA1524665CAE4D5CAEE /* HPPPDashedLineView.m in Sources */,
+				C1421CC6128548AF276633A3 /* HPPPPageSettingsTableViewController.m in Sources */,
+				4D1B9613B85DD335675A6CC6 /* HPPPPageView.m in Sources */,
+				FA967516DB73DA190CC05B05 /* HPPPPageViewController.m in Sources */,
+				3DA92E32B844940D656BDA32 /* HPPPPaper.m in Sources */,
+				2B08E7578C6122A0F6F5E6D8 /* HPPPPaperSizeTableViewController.m in Sources */,
+				49377F0CD93DB995F6ED111B /* HPPPPaperTypeTableViewController.m in Sources */,
+				09D3D3F9094C2995BF1F6027 /* HPPPPrintActivity.m in Sources */,
+				901870668C4349E2BB5A44A9 /* HPPPPrintLaterActivity.m in Sources */,
+				BFE5BFA9A4F731961AA7BD5E /* HPPPPrintLaterJob.m in Sources */,
+				624130D0218AAEC62C3FA6AF /* HPPPPrintLaterQueue.m in Sources */,
+				55D609D6961A5ADD1939BB85 /* HPPPPrintPageRenderer.m in Sources */,
+				EFEB06D61C32CE7EBFA882BF /* HPPPPrintSettings.m in Sources */,
+				5C795FA1D67F01869FC22806 /* HPPPPrintSettingsTableViewController.m in Sources */,
+				82E69C028E5E2165F01CD6FA /* HPPPPrinter.m in Sources */,
+				BD58034EF065E4247E7C3177 /* HPPPReachability.m in Sources */,
+				82D3AA310FED41F97A9A05AE /* HPPPRuleView.m in Sources */,
+				64573EDFBFB4AB49E62048BC /* HPPPSupportAction.m in Sources */,
+				4120079500652F1221EC1CA6 /* HPPPView.m in Sources */,
+				18981F492BB3DBF6F73A935D /* HPPPWiFiReachability.m in Sources */,
+				BF207D5B83ECB7EF41A1C5E0 /* Pods-HPPhotoPrint-HPPhotoPrint-dummy.m in Sources */,
+				675098F166249184CAD2C919 /* UIColor+HPPPHexString.m in Sources */,
+				DCBFDF08C3FA9C2AC0877792 /* UIColor+HPPPStyle.m in Sources */,
+				F6465EB943A8FEFD1542771D /* UIImage+HPPPResize.m in Sources */,
+				5AF64D1A2BE8F5E4D1FE840B /* UITableView+HPPPHeader.m in Sources */,
+				E61D2DFFE9B6310F09EBAFBF /* UIView+HPPPAnimation.m in Sources */,
+				9DF92C9A78BE125F33FDDF57 /* XBAnimation.m in Sources */,
+				71104E7CD1A828DF8A1D85E7 /* XBAnimationManager.m in Sources */,
+				35E7A89880AFA373FE2E00E9 /* XBCurlView.m in Sources */,
+				0C325CD803CDE2AD3F481A94 /* XBPageCurlView.m in Sources */,
+				D01E8BCE6EE953F11477E38B /* XBPageDragView.m in Sources */,
+				A99BC3CF2C051ADA905B3F3A /* XBSnappingPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B4FE5F4439BCA16A6D32DB7F /* Sources */ = {
+		A99160380CC6EF9020C974C0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF92811E1C41CA682DE63096 /* Pods-Tests-dummy.m in Sources */,
+				5587131F453ECE4AA054C9DC /* Pods-Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C5A964C12EB51DF72131FF54 /* Sources */ = {
+		DB618864FDC58E497445039F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F24399FBB71BF4DE8703485F /* CGPointAdditions.c in Sources */,
-				5E9C1127EAD43553FA827608 /* HPPP.m in Sources */,
-				70E88DD16718E788BBAF498D /* HPPPAddPrintLaterJobTableViewController.m in Sources */,
-				704BF8B288D582C9225D9221 /* HPPPAnalyticsManager.m in Sources */,
-				844B98299BC30FCA6D2CA24D /* HPPPAttributedString.m in Sources */,
-				CD14A2CFA04630F901D9E485 /* HPPPDashedLineView.m in Sources */,
-				2BCAECE37CC18FE87F5715F3 /* HPPPPageSettingsTableViewController.m in Sources */,
-				60E063CE83C1671A94E867D4 /* HPPPPageView.m in Sources */,
-				B9FD50B50DEAC8591BE023C6 /* HPPPPageViewController.m in Sources */,
-				7B8AD45534440518ED36B601 /* HPPPPaper.m in Sources */,
-				6B1BA92665B92A6A4F647BDC /* HPPPPaperSizeTableViewController.m in Sources */,
-				955646CD2E9830E7D4139B77 /* HPPPPaperTypeTableViewController.m in Sources */,
-				27677DD85B64AB78F3E5B77D /* HPPPPrintActivity.m in Sources */,
-				F70AAE7D01001F22A80CB1E3 /* HPPPPrintLaterActivity.m in Sources */,
-				3E9ADD698F3EA57FBEE41144 /* HPPPPrintLaterJob.m in Sources */,
-				04D05805895680B9ACF36F33 /* HPPPPrintLaterQueue.m in Sources */,
-				488406CD05F334D6A8C8551C /* HPPPPrintPageRenderer.m in Sources */,
-				91661E86EC1AE23E2C38B898 /* HPPPPrintSettings.m in Sources */,
-				53AC811B3DBA7E2ABBF7421E /* HPPPPrintSettingsTableViewController.m in Sources */,
-				B4E53365FE01078F1ADEF04B /* HPPPPrinter.m in Sources */,
-				0FD366CD52FCEE751FE913B6 /* HPPPReachability.m in Sources */,
-				317E48CD994B3443C7837CD1 /* HPPPRuleView.m in Sources */,
-				2CD7DAA30DECCBCB8C556882 /* HPPPSupportAction.m in Sources */,
-				CA49980DC3BA7B5068A203DF /* HPPPView.m in Sources */,
-				F5A436E7C427DFAB550C5C44 /* HPPPWiFiReachability.m in Sources */,
-				2E9C48201C344CD98263AD06 /* Pods-HPPhotoPrint-HPPhotoPrint-dummy.m in Sources */,
-				B15B7A68D4E27E8116DB9A87 /* UIColor+HPPPHexString.m in Sources */,
-				FB732696A067D92D5363E303 /* UIColor+HPPPStyle.m in Sources */,
-				1888B945EC449B6173DE7ABB /* UIImage+HPPPResize.m in Sources */,
-				D4137E4AFAAC3F6E93E678AA /* UITableView+HPPPHeader.m in Sources */,
-				E7DA84DDBCBE773C90ED01A3 /* UIView+HPPPAnimation.m in Sources */,
-				B70AA38A6BE5B1D3D972EFE8 /* XBAnimation.m in Sources */,
-				2E673FBB2858864845FCAB1E /* XBAnimationManager.m in Sources */,
-				A2E184623D0ADFAEBB3F270B /* XBCurlView.m in Sources */,
-				76652F8C1F5D58F54F92CEAF /* XBPageCurlView.m in Sources */,
-				704D098C2C5D963E46EB8F3E /* XBPageDragView.m in Sources */,
-				0100B55E7E4121D66D161CB0 /* XBSnappingPoint.m in Sources */,
+				E363FFD91ABCE94000CE3B42 /* HPPPPrintLaterManager.m in Sources */,
+				3487BCFB7CD142F4FC06D225 /* Pods-HPPhotoPrint-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		22C1EF89AE5720739595BF72 /* PBXTargetDependency */ = {
+		0D2896BB5BC7111EFBFD19AD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-Tests-HPPhotoPrint";
-			target = 9FBEB34E7DE991AECC611176 /* Pods-Tests-HPPhotoPrint */;
-			targetProxy = BCB6F503D8A746CA24463A48 /* PBXContainerItemProxy */;
+			target = D8C71C2637AB819BFD6FD074 /* Pods-Tests-HPPhotoPrint */;
+			targetProxy = 660F0255B44E83B95E468CAF /* PBXContainerItemProxy */;
 		};
-		2F342401F61326645AA64672 /* PBXTargetDependency */ = {
+		27F46D30B61D03C56172C61A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-HPPhotoPrint-HPPhotoPrint";
-			target = BCAFC97EBB7EF27B90020901 /* Pods-HPPhotoPrint-HPPhotoPrint */;
-			targetProxy = 11F8713F65E2D2009A748241 /* PBXContainerItemProxy */;
+			target = C7F14A756669A73D538349EC /* Pods-HPPhotoPrint-HPPhotoPrint */;
+			targetProxy = 36CDB2290F983DBF9B944063 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		25C864015C510C08E3A53F51 /* Release */ = {
+		1C2D2537035B07E1A526EA70 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D87CDBA0DFB53240676AEF29 /* Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-HPPhotoPrint-HPPhotoPrint/Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch";
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				OTHER_CFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		38A038AA39C265DCBA354D00 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF29C3250C2E36142FE0CA38 /* Pods-Tests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				OTHER_CFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		4AE71205901C3F710B4C9361 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 873E1F0B3699DFB02F2FC411 /* Pods-Tests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		5696E26B8497CD0734E86B50 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 248C453E5767D86B6974FD45 /* Pods-HPPhotoPrint.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		662B2100C191D9632B1DF387 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 447141900A232DFBD896B7EE /* Pods-Tests-HPPhotoPrint-Private.xcconfig */;
+			baseConfigurationReference = C15C20CC9BA1153425BD5E6F /* Pods-Tests-HPPhotoPrint-Private.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
@@ -1010,9 +901,91 @@
 			};
 			name = Debug;
 		};
-		8B276358636C7BED152D670C /* Release */ = {
+		23CD48688CD301D33E98DBD0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 447141900A232DFBD896B7EE /* Pods-Tests-HPPhotoPrint-Private.xcconfig */;
+			baseConfigurationReference = CF35D9FBED3E24D4632093DE /* Pods-HPPhotoPrint.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		364B650BCB96D6A3C353437F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF5E1536D644FFB6465EC0BC /* Pods-HPPhotoPrint.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		62BDC0D49AC6480E5F50D7C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24D41EA43B67AEB2E92CC3B4 /* Pods-Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		733B834683B99E728832E5EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C15C20CC9BA1153425BD5E6F /* Pods-Tests-HPPhotoPrint-Private.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
@@ -1039,93 +1012,7 @@
 			};
 			name = Release;
 		};
-		A50478142C0FEE4168E6F01B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				STRIP_INSTALLED_PRODUCT = NO;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		AD4F85E703800D2FB9949C2B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D87CDBA0DFB53240676AEF29 /* Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-HPPhotoPrint-HPPhotoPrint/Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		D5135A72C81E12A6BDD19883 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45DAAAF2F1D22D07396BB97B /* Pods-HPPhotoPrint.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/xcodeproj.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				OTHER_CFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		F3C2767D7E604AFC2B164FDB /* Debug */ = {
+		BB57CBCFFD78FE47BC993626 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1161,55 +1048,168 @@
 			};
 			name = Debug;
 		};
+		DA7D73D45A4627FAC04A8741 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16D45B7F7F3E70465BBB91B5 /* Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-HPPhotoPrint-HPPhotoPrint/Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ED2846BD3B0DE7D8EF32B6A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16D45B7F7F3E70465BBB91B5 /* Pods-HPPhotoPrint-HPPhotoPrint-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-HPPhotoPrint-HPPhotoPrint/Pods-HPPhotoPrint-HPPhotoPrint-prefix.pch";
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F33C30CB9B499BD9B754EAD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				STRIP_INSTALLED_PRODUCT = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F76E98A316D17E84146E4A54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D1E6BE9C579266F8339B2E3 /* Pods-Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		168E2CE45EDCB0643CA0EE3A /* Build configuration list for PBXNativeTarget "Pods-HPPhotoPrint" */ = {
+		27AAC88A3535258669B20B1B /* Build configuration list for PBXNativeTarget "Pods-HPPhotoPrint-HPPhotoPrint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5696E26B8497CD0734E86B50 /* Debug */,
-				D5135A72C81E12A6BDD19883 /* Release */,
+				DA7D73D45A4627FAC04A8741 /* Debug */,
+				ED2846BD3B0DE7D8EF32B6A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		41CF357E24CAFFC506C8348F /* Build configuration list for PBXProject "Pods" */ = {
+		8DED3BE1A3DAC9931C1ADBE1 /* Build configuration list for PBXNativeTarget "Pods-Tests-HPPhotoPrint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F3C2767D7E604AFC2B164FDB /* Debug */,
-				A50478142C0FEE4168E6F01B /* Release */,
+				1C2D2537035B07E1A526EA70 /* Debug */,
+				733B834683B99E728832E5EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		461927FD5F19F47C7BD97651 /* Build configuration list for PBXNativeTarget "Pods-HPPhotoPrint-HPPhotoPrint" */ = {
+		B2E2F0BE2AA94E62DA54F201 /* Build configuration list for PBXNativeTarget "Pods-HPPhotoPrint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AD4F85E703800D2FB9949C2B /* Debug */,
-				25C864015C510C08E3A53F51 /* Release */,
+				364B650BCB96D6A3C353437F /* Debug */,
+				23CD48688CD301D33E98DBD0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		71FCC10BC9FBFAF9D95342C6 /* Build configuration list for PBXNativeTarget "Pods-Tests-HPPhotoPrint" */ = {
+		D1EAD62959B337E07FD9BDE1 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				662B2100C191D9632B1DF387 /* Debug */,
-				8B276358636C7BED152D670C /* Release */,
+				BB57CBCFFD78FE47BC993626 /* Debug */,
+				F33C30CB9B499BD9B754EAD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FAAD08B58EF1A0D5C23CED89 /* Build configuration list for PBXNativeTarget "Pods-Tests" */ = {
+		FD940C3B4F12B556F0DA2980 /* Build configuration list for PBXNativeTarget "Pods-Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4AE71205901C3F710B4C9361 /* Debug */,
-				38A038AA39C265DCBA354D00 /* Release */,
+				F76E98A316D17E84146E4A54 /* Debug */,
+				62BDC0D49AC6480E5F50D7C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = B2AD626FC46337E9D939268F /* Project object */;
+	rootObject = 24819683085D185D05854793 /* Project object */;
 }

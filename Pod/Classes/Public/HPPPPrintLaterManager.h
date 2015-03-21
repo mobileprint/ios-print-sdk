@@ -16,5 +16,6 @@
 @interface HPPPPrintLaterManager : NSObject
 
 + (HPPPPrintLaterManager *)sharedInstance;
+- (CLLocationCoordinate2D)retrieveCurrentLocation;
 
 @end
