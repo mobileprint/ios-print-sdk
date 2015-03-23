@@ -832,7 +832,9 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     }
     
     if (completed) {
-        [self displaySaveAsDefalutPrinter];
+        if (IS_OS_8_OR_LATER) {
+            [self displaySaveAsDefaultPrinter];
+        }
         
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
             [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
@@ -849,7 +851,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     }
 }
 
-- (void)displaySaveAsDefalutPrinter
+- (void)displaySaveAsDefaultPrinter
 {
     NSString *defaultPrinterUrl = [self.defaultSettingsManager defaultPrinterUrl];
     if (defaultPrinterUrl != nil) {
