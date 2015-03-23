@@ -12,6 +12,8 @@
 
 #import "HPPP.h"
 #import "HPPPAnalyticsManager.h"
+#import "HPPPPrintLaterManager.h"
+
 
 #define DEFAULT_RULES_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:10]
 #define DEFAULT_TABLE_VIEW_CELL_PRINT_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
@@ -28,6 +30,9 @@
 #define DEFAULT_TABLE_VIEW_SETTINGS_CELL_VALUE_COLOR [UIColor colorWithRed:0x86 / 255.0f green:0x86 / 255.0f blue:0x86 / 255.0f alpha:1.0f]
 #define DEFAULT_TABLE_VIEW_CELL_LINK_LABEL_COLOR [UIColor colorWithRed:0x02 / 255.0f green:0x7B / 255.0f blue:0xFF / 255.0f alpha:1.0f]
 
+NSString * const kLaterActionIdentifier = @"LATER_ACTION_IDENTIFIER";
+NSString * const kPrintActionIdentifier = @"PRINT_ACTION_IDENTIFIER";
+NSString * const kPrintCategoryIdentifier = @"PRINT_CATEGORY_IDENTIFIER";
 
 NSString * const kHPPPShareCompletedNotification = @"kHPPPShareCompletedNotification";
 
@@ -68,6 +73,11 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
 {
     self = [super init];
     if (self) {
+        
+        if (IS_OS_8_OR_LATER) {
+            [[HPPPPrintLaterManager sharedInstance] initLocationManager];
+        }
+        
         self.handlePrintMetricsAutomatically = YES;
         self.lastOptionsUsed = [NSMutableDictionary dictionary];
         self.initialPaperSize = Size5x7;
@@ -243,19 +253,26 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     }
 }
 
-+ (NSString *)defaultPrinterName
+- (UIUserNotificationCategory *)printLaterUserNotificationCategory
 {
-    return [HPPPPageSettingsTableViewController defaultPrinterName];
-}
-
-+ (NSString *)defaultPrinterUrl
-{
-    return [HPPPPageSettingsTableViewController defaultPrinterUrl];
-}
-
-+ (NSString *)defaultPrinterNetwork
-{
-    return[HPPPPageSettingsTableViewController defaultPrinterNetwork];
+    UIMutableUserNotificationAction *laterAction = [[UIMutableUserNotificationAction alloc] init];
+    laterAction.identifier = kLaterActionIdentifier;
+    laterAction.activationMode = UIUserNotificationActivationModeBackground;
+    laterAction.title = @"Later";
+    laterAction.destructive = NO;
+    
+    UIMutableUserNotificationAction *printAction = [[UIMutableUserNotificationAction alloc] init];
+    printAction.identifier = kPrintActionIdentifier;
+    printAction.activationMode = UIUserNotificationActivationModeForeground;
+    printAction.title = @"Print";
+    printAction.destructive = NO;
+    
+    UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];
+    category.identifier = kPrintCategoryIdentifier;
+    [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextDefault];
+    [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextMinimal];
+    
+    return category.copy;
 }
 
 @end

@@ -16,12 +16,14 @@
 #import "HPPPPaper.h"
 #import "HPPPPrintPageRenderer.h"
 #import "HPPPPrintSettings.h"
+#import "HPPPDefaultSettingsManager.h"
 #import "HPPPPageView.h"
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPPPaperTypeTableViewController.h"
 #import "HPPPPrintSettingsTableViewController.h"
 #import "HPPPWiFiReachability.h"
 #import "HPPPPrinter.h"
+#import "HPPPPrintLaterManager.h"
 #import "UITableView+HPPPHeader.h"
 #import "UIColor+HPPPHexString.h"
 #import "UIView+HPPPAnimation.h"
@@ -48,9 +50,6 @@
 #define PRINT_SETTINGS_ROW_INDEX 0
 #define FILTER_ROW_INDEX 0
 
-#define DEFAULT_PRINTER_NAME_SETTING @"defaultPrinterName"
-#define DEFAULT_PRINTER_URL_SETTING @"defaultPrinterUrl"
-#define DEFAULT_PRINTER_NETWORK_SETTING @"defaultPrinterNetwork"
 #define LAST_PRINTER_USED_SETTING @"lastPrinterUsed"
 #define LAST_PRINTER_USED_ID_SETTING @"lastPrinterIdUsed"
 #define LAST_SIZE_USED_SETTING @"lastSizeUsed"
@@ -63,11 +62,15 @@ NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
 int const kSaveDefaultPrinterIndex = 1;
 
+NSString * const kHPPPDefaultPrinterAddedNotification = @"kHPPPDefaultPrinterAddedNotification";
+NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterRemovedNotification";
+
 
 @interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
 
 
 @property (weak, nonatomic) HPPPPageView *pageView;
+@property (strong, nonatomic) HPPPDefaultSettingsManager *defaultSettingsManager;
 @property (strong, nonatomic) HPPPPrintSettings *currentPrintSettings;
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
 @property (weak, nonatomic) IBOutlet HPPPPageView *tableViewCellPageView;
@@ -114,6 +117,7 @@ int const kSaveDefaultPrinterIndex = 1;
     [super viewDidLoad];
     
     self.hppp = [HPPP sharedInstance];
+    self.defaultSettingsManager = [HPPPDefaultSettingsManager sharedInstance];
     
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
@@ -255,21 +259,6 @@ int const kSaveDefaultPrinterIndex = 1;
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         [self setPaperSize:self.pageView animated:NO completion:nil];
     }
-}
-
-+ (NSString *)defaultPrinterName
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_PRINTER_NAME_SETTING];
-}
-
-+ (NSString *)defaultPrinterUrl
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_PRINTER_URL_SETTING];
-}
-
-+ (NSString *)defaultPrinterNetwork
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_PRINTER_NETWORK_SETTING];
 }
 
 #pragma mark - Pull to refresh
@@ -843,7 +832,9 @@ int const kSaveDefaultPrinterIndex = 1;
     }
     
     if (completed) {
-        [self displaySaveAsDefalutPrinter];
+        if (IS_OS_8_OR_LATER) {
+            [self displaySaveAsDefaultPrinter];
+        }
         
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
             [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
@@ -860,10 +851,10 @@ int const kSaveDefaultPrinterIndex = 1;
     }
 }
 
-- (void)displaySaveAsDefalutPrinter
+- (void)displaySaveAsDefaultPrinter
 {
-    NSString *defaultPrinter = [HPPPPageSettingsTableViewController defaultPrinterUrl];
-    if (defaultPrinter != nil) {
+    NSString *defaultPrinterUrl = [self.defaultSettingsManager defaultPrinterUrl];
+    if (defaultPrinterUrl != nil) {
         return;
     }
     
@@ -921,11 +912,13 @@ int const kSaveDefaultPrinterIndex = 1;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if( kSaveDefaultPrinterIndex == buttonIndex ) {
-        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:self.currentPrintSettings.printerName forKey:DEFAULT_PRINTER_NAME_SETTING];
-        [defaults setObject:self.currentPrintSettings.printerUrl.absoluteString forKey:DEFAULT_PRINTER_URL_SETTING];
-        [defaults setObject:[HPPPAnalyticsManager wifiName] forKey:DEFAULT_PRINTER_NETWORK_SETTING];
-        [defaults synchronize];
+        
+        self.defaultSettingsManager.defaultPrinterName = self.currentPrintSettings.printerName;
+        self.defaultSettingsManager.defaultPrinterUrl = self.currentPrintSettings.printerUrl.absoluteString;
+        self.defaultSettingsManager.defaultPrinterNetwork = [HPPPAnalyticsManager wifiName];
+        self.defaultSettingsManager.defaultPrinterCoordinate = [[HPPPPrintLaterManager sharedInstance] retrieveCurrentLocation];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPDefaultPrinterAddedNotification object:self userInfo:nil];
     }
 }
 

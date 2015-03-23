@@ -12,7 +12,11 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "HPPPPageViewController.h"
+
+extern NSString * const kHPPPDefaultPrinterAddedNotification;
+extern NSString * const kHPPPDefaultPrinterRemovedNotification;
 
 @protocol HPPPPageSettingsTableViewControllerDelegate;
 @protocol HPPPPageSettingsTableViewControllerDataSource;
@@ -48,21 +52,6 @@
  * @description The pageViewController is reponsible for displaying a graphical representation of the print on the page. It is one part of the overall page settings view also known as the print preview.
  */
 @property (nonatomic, weak) HPPPPageViewController *pageViewController;
-
-/*!
- * @abstract Returns the printer name of the default printer set by the user.
- */
-+ (NSString *)defaultPrinterName;
-
-/*!
- * @abstract Returns the printer URL of the default printer set by the user.
- */
-+ (NSString *)defaultPrinterUrl;
-
-/*!
- * @abstract Returns the printer Network of the default printer.
- */
-+ (NSString *)defaultPrinterNetwork;
 
 @end
 

@@ -12,6 +12,7 @@
 
 #import <HPPP.h>
 #import "HPPPExampleViewController.h"
+#import "HPPPWiFiReachability.h"
 
 @interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintActivityDataSource>
 
@@ -58,6 +59,8 @@
 
 - (IBAction)shareBarButtonItemTap:(id)sender
 {
+    NSString *printLaterJobNextAvailableId = nil;
+    
     [HPPP sharedInstance].handlePrintMetricsAutomatically = self.basicMetricsSwitch.on;
     
     NSString *bundlePath = [NSString stringWithFormat:@"%@/HPPhotoPrint.bundle", [NSBundle mainBundle].bundlePath];
@@ -66,21 +69,29 @@
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
     printActivity.dataSource = self;
     
-    HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
+    HPPPWiFiReachability *wifiReachability = [[HPPPWiFiReachability alloc] init];
     
-    NSString *printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
-    HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
-    printLaterJob.id = printLaterJobNextAvailableId;
-    printLaterJob.name = @"Einstein";
-    printLaterJob.date = [NSDate date];
-    printLaterJob.printerName = @"Epson";
-    printLaterJob.printerLocation = @"Office";
-    printLaterJob.printerURL = @"URL//EPSON";
-    printLaterJob.images = @{@"4 x 6" : [UIImage imageNamed:@"sample2-portrait.jpg"]};
-    
-    printLaterActivity.printLaterJob = printLaterJob;
-    
-    NSArray *applicationActivities = @[printActivity, printLaterActivity];
+    NSArray *applicationActivities = nil;
+    if (IS_OS_8_OR_LATER && ![wifiReachability isWifiConnected]) {
+        HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
+        
+        printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
+        HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
+        printLaterJob.id = printLaterJobNextAvailableId;
+        printLaterJob.name = @"Einstein";
+        printLaterJob.date = [NSDate date];
+        printLaterJob.printerName = @"Epson";
+        printLaterJob.printerLocation = @"Office";
+        printLaterJob.printerURL = @"URL//EPSON";
+        printLaterJob.images = @{@"4 x 6" : [UIImage imageNamed:@"sample2-portrait.jpg"]};
+        
+        printLaterActivity.printLaterJob = printLaterJob;
+        
+        applicationActivities = @[printLaterActivity];
+        
+    } else {
+        applicationActivities = @[printActivity];
+    }
     
     UIImage *card = [UIImage imageNamed:@"sample-portrait.jpg"];
     NSArray *activitiesItems = @[card];
@@ -113,10 +124,12 @@
                                                                                                                                  nil]];
             }
             
-            HPPPPrintLaterJob *lastPrintLaterJobSaved = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobWithID:printLaterJobNextAvailableId];
-            
-            UIImage *image = [lastPrintLaterJobSaved.images objectForKey:@"4 x 6"];
-            self.lastPrintLaterJobSavedImageView.image = image;
+            if (IS_OS_8_OR_LATER) {
+                HPPPPrintLaterJob *lastPrintLaterJobSaved = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobWithID:printLaterJobNextAvailableId];
+                
+                UIImage *image = [lastPrintLaterJobSaved.images objectForKey:@"4 x 6"];
+                self.lastPrintLaterJobSavedImageView.image = image;
+            }
         } else {
             NSLog(@"completionHandler - didn't succeed.");
         }

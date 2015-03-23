@@ -19,6 +19,18 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTrackableScreenNotification:) name:kHPPPTrackableScreenNotification object:nil];
 
+    if (IS_OS_8_OR_LATER) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge|UIUserNotificationTypeAlert categories:[NSSet setWithObjects:[HPPP sharedInstance].printLaterUserNotificationCategory, nil]];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }
+    
+    // Check if the app was opened by local notification
+    UILocalNotification *localNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+    if (localNotification) {
+        NSLog(@"App starts to run because of a notification");
+    }
+
+    
     return YES;
 }
 							
@@ -47,6 +59,18 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSLog(@"Receive local notification while the app was running and the user tap in the notification (instead of the action) or the app was on foreground.");
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)())completionHandler
+{
+    NSLog(@"Action %@", identifier);
+    
+    completionHandler();
 }
 
 #pragma mark - Notifications

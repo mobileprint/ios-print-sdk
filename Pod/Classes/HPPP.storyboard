@@ -732,9 +732,9 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Page Settings" id="tyb-xP-2ia">
                         <barButtonItem key="backBarButtonItem" title=" " id="2DA-dI-8xn" userLabel="Bar Button Item - Hide Back Buttom Text"/>
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="tFz-3o-SHA">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="w3y-3p-k4Q">
                             <connections>
-                                <action selector="cancelButtonTapped:" destination="Ddr-Or-99s" id="OAU-pN-Bf5"/>
+                                <action selector="cancelButtonTapped:" destination="Ddr-Or-99s" id="lb0-4h-0jm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -742,7 +742,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="blackAndWhiteModeSwitch" destination="uyD-Yr-hJv" id="MOo-Vu-0IK"/>
-                        <outlet property="cancelBarButtonItem" destination="tFz-3o-SHA" id="rlm-sN-HFV"/>
+                        <outlet property="cancelBarButtonItem" destination="w3y-3p-k4Q" id="hKV-Iq-ZQt"/>
                         <outlet property="filterCell" destination="26Z-ee-pHd" id="7Ur-k4-zO6"/>
                         <outlet property="filterLabel" destination="r3L-G4-U1t" id="7eo-PL-bwv"/>
                         <outlet property="numberOfCopiesLabel" destination="4sH-Cb-1H4" id="cOy-TQ-rrj"/>
@@ -882,7 +882,7 @@
             </objects>
             <point key="canvasLocation" x="5347" y="-798"/>
         </scene>
-        <!--Add Project-->
+        <!--Add Print-->
         <scene sceneID="An0-w2-EEb">
             <objects>
                 <tableViewController id="T1V-lZ-COE" customClass="HPPPAddPrintLaterJobTableViewController" sceneMemberID="viewController">
@@ -898,7 +898,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z0N-Nu-Rvz" id="KLs-wj-0dR">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to Print Q" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWA-KL-Vys">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to Print Queue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWA-KL-Vys">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1019,10 +1019,10 @@
                             <outlet property="delegate" destination="T1V-lZ-COE" id="Ruc-JM-53o"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add Project" id="thq-Q1-BmT">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="tf7-rG-HS5">
+                    <navigationItem key="navigationItem" title="Add Print" id="thq-Q1-BmT">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="GmQ-eE-xh9">
                             <connections>
-                                <action selector="cancelButtonTapped:" destination="T1V-lZ-COE" id="Yf2-TW-PLs"/>
+                                <action selector="cancelButtonTapped:" destination="T1V-lZ-COE" id="wQ7-dc-JCt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1080,7 +1080,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gpl-F0-UT5"/>
-        <segue reference="OHc-hu-xz3"/>
+        <segue reference="4eJ-bv-9qP"/>
+        <segue reference="E8A-CH-mPX"/>
     </inferredMetricsTieBreakers>
 </document>

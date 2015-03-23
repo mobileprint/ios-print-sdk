@@ -12,6 +12,10 @@
 
 #import "HPPPPrintLaterQueue.h"
 
+NSString * const kHPPPPrintJobAddedToQueueNotification = @"kHPPPPrintJobAddedToQueueNotification";
+NSString * const kHPPPAllPrintJobsRemovedFromQueueNotification = @"kHPPPAllPrintJobsRemovedFromQueueNotification";
+
+
 #define PRINT_LATER_JOBS_DIRECTORY_NAME @"PrintLaterJobs"
 
 NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAvailableId";
@@ -38,14 +42,14 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
 - (NSString *)retrievePrintLaterJobNextAvailableId
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
+    
     NSInteger printLaterJobNextAvailableId = [defaults integerForKey:kHPPPPrintLaterJobNextAvailableId];
     
     printLaterJobNextAvailableId++;
     
     [defaults setInteger:printLaterJobNextAvailableId forKey:kHPPPPrintLaterJobNextAvailableId];
     [defaults synchronize];
-
+    
     return [NSString stringWithFormat:@"ID%08lX", (long)printLaterJobNextAvailableId];
 }
 
@@ -69,23 +73,43 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
 - (BOOL)addPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob
 {
     NSString *fileName = [self.printLaterJobsDirectoryPath stringByAppendingPathComponent:printLaterJob.id];
-    return [NSKeyedArchiver archiveRootObject:printLaterJob toFile:fileName];
+    BOOL success = [NSKeyedArchiver archiveRootObject:printLaterJob toFile:fileName];
+    
+    if (success) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobAddedToQueueNotification object:self userInfo:nil];
+    }
+    
+    return success;
 }
 
 - (BOOL)deletePrintLaterJob:(HPPPPrintLaterJob *)printLaterJob
 {
-    return [self deleteFile:printLaterJob.id atPath:self.printLaterJobsDirectoryPath];
+    BOOL success = [self deleteFile:printLaterJob.id atPath:self.printLaterJobsDirectoryPath];
+    
+    if (success) {
+        if ([self retrieveNumberOfPrintLaterJobs] == 0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPAllPrintJobsRemovedFromQueueNotification object:self userInfo:nil];
+        }
+    }
+    
+    return  success;
 }
 
 - (BOOL)deleteAllPrintLaterJobs
 {
-    return [self deleteAllFilesAtPath:self.printLaterJobsDirectoryPath];
+    BOOL success = [self deleteAllFilesAtPath:self.printLaterJobsDirectoryPath];
+    
+    if (success) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPAllPrintJobsRemovedFromQueueNotification object:self userInfo:nil];
+    }
+    
+    return  success;
 }
 
 - (HPPPPrintLaterJob *)retrievePrintLaterJobWithID:(NSString *)id
 {
     NSString *fileName = [self.printLaterJobsDirectoryPath stringByAppendingPathComponent:id];
-
+    
     return [NSKeyedUnarchiver unarchiveObjectWithFile:fileName];
 }
 
@@ -97,7 +121,7 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     
     for (NSString *filename in fileArray)  {
         NSString *completeFileName = [self.printLaterJobsDirectoryPath stringByAppendingPathComponent:filename];
-
+        
         HPPPPrintLaterJob *printLaterJob = [NSKeyedUnarchiver unarchiveObjectWithFile:completeFileName];
         [printLaterJobs addObject:printLaterJob];
     }
@@ -105,12 +129,20 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     return printLaterJobs.copy;
 }
 
+- (NSInteger)retrieveNumberOfPrintLaterJobs
+{
+    NSArray *fileArray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.printLaterJobsDirectoryPath error:nil];
+    
+    return fileArray.count;
+}
+
+
 #pragma mark - Filesystem manipulation methods
 
 - (BOOL)createDirectory:(NSString *)directoryName atPath:(NSString *)path
 {
     BOOL success = YES;
-
+    
     NSString *pathAndDirectory = [path stringByAppendingPathComponent:directoryName];
     NSError *error;
     

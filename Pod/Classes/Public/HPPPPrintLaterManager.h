@@ -12,11 +12,11 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "HPPPReachability.h"
 
-@interface HPPPWiFiReachability : NSObject
+@interface HPPPPrintLaterManager : NSObject
 
-- (void)start:(UITableViewCell *)cell label:(UILabel *)label;
-- (BOOL)isWifiConnected;
++ (HPPPPrintLaterManager *)sharedInstance;
+- (void)initLocationManager;
+- (CLLocationCoordinate2D)retrieveCurrentLocation;
 
 @end
