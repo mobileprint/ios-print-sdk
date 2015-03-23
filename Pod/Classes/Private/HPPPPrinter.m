@@ -69,7 +69,7 @@
         if( nil != lastPrinterUrl ) {
             UIPrinter *printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:lastPrinterUrl]];
             [printerFromUrl contactPrinter:^(BOOL available) {
-                completion(YES);
+                completion(available);
             }];
         } else {
             completion(NO);

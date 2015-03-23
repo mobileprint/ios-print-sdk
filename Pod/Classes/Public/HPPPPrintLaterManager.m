@@ -15,7 +15,7 @@
 #import "HPPP.h"
 #import "HPPPPrinter.h"
 #import "HPPPPrintLaterQueue.h"
-#import "HPPPPageSettingsTableViewController.h"
+#import "HPPPDefaultSettingsManager.h"
 
 const int kSecondsInOneHour = (60 * 60);
 const CLLocationDistance kDefaultPrinterRadiusInMeters = 20.0f;
@@ -24,6 +24,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 @interface HPPPPrintLaterManager() <CLLocationManagerDelegate>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) HPPPDefaultSettingsManager *defaultSettingsManager;
 
 @end
 
@@ -44,7 +45,8 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 {
     self = [super init];
     if (self) {
-        [self initLocationManager];
+        self.defaultSettingsManager = [HPPPDefaultSettingsManager sharedInstance];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintJobAddedToQueueNotification:) name:kHPPPPrintJobAddedToQueueNotification object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAllPrintJobsRemovedFromQueueNotification:) name:kHPPPAllPrintJobsRemovedFromQueueNotification object:nil];
@@ -53,6 +55,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDefaultPrinterRemovedNotification:) name:kHPPPDefaultPrinterRemovedNotification object:nil];
     }
+    
     return self;
 }
 
@@ -83,7 +86,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 {
     if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 1) {
         // It is the first one, so add the monitoring
-        if ([self isDefaultPrinterSet]) {
+        if ([self.defaultSettingsManager isDefaultPrinterSet]) {
             [self addMonitoringForDefaultPrinter];
         }
     }
@@ -91,7 +94,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 
 - (void)handleAllPrintJobsRemovedFromQueueNotification:(NSNotification *)notification
 {
-    if ([self isDefaultPrinterSet]) {
+    if ([self.defaultSettingsManager isDefaultPrinterSet]) {
         [self removeMonitoringForDefaultPrinter];
     }
 }
@@ -112,16 +115,9 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 
 #pragma mark - Utils
 
-- (BOOL)isDefaultPrinterSet
-{
-    NSString *defaultPrinterName = [HPPP defaultPrinterName];
-    
-    return (nil != defaultPrinterName);
-}
-
 - (void)addMonitoringForDefaultPrinter
 {
-    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:[HPPP defaultPrinterCoordinate] radius:kDefaultPrinterRadiusInMeters identifier:kDefaultPrinterRegionIdentifier];
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:[self.defaultSettingsManager defaultPrinterCoordinate] radius:kDefaultPrinterRadiusInMeters identifier:kDefaultPrinterRegionIdentifier];
     
     [self.locationManager startMonitoringForRegion:region];
 }
@@ -129,7 +125,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 - (void)removeMonitoringForDefaultPrinter
 {
     for (CLRegion *region in self.locationManager.monitoredRegions) {
-        if ([region.identifier isEqualToString:kDefaultPrinterRegionIdentifier]) {
+        if ([self isDefaultPrinterRegion:region]) {
             [self.locationManager stopMonitoringForRegion:region];
         }
     }
@@ -163,7 +159,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 
 - (BOOL)isDefaultPrinterRegion:(CLRegion *)region
 {
-    return YES;
+    return ([region.identifier isEqualToString:kDefaultPrinterRegionIdentifier]);
 }
 
 - (void)fireNotificationLater

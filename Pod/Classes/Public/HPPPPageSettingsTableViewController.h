@@ -53,26 +53,6 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  */
 @property (nonatomic, weak) HPPPPageViewController *pageViewController;
 
-/*!
- * @abstract Returns the printer name of the default printer set by the user.
- */
-+ (NSString *)defaultPrinterName;
-
-/*!
- * @abstract Returns the printer URL of the default printer set by the user.
- */
-+ (NSString *)defaultPrinterUrl;
-
-/*!
- * @abstract Returns the printer Network of the default printer.
- */
-+ (NSString *)defaultPrinterNetwork;
-
-/*!
- * @abstract Returns the coordinates of the default printer.
- */
-+ (CLLocationCoordinate2D)defaultPrinterCoordinate;
-
 @end
 
 /*!
