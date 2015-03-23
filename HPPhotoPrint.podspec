@@ -29,8 +29,8 @@ Pod::Spec.new do |s|
 
   s.resources = ['Pod/Assets/*.png', 'Pod/Assets/Fonts/*.ttf', 'Pod/Classes/**/*.xib', 'Pod/Classes/*.storyboard', 'Pod/Libraries/XBPageCurl/Resources/*.png', 'Pod/Libraries/XBPageCurl/Resources/*.glsl']
 
-  s.public_header_files = 'Pod/Classes/Public/**/*.h'
-  s.private_header_files = ['Pod/Classes/Private/**/*.h','Pod/Libraries/XBPageCurl/*.h', 'Pod/Libraries/Reachability/*.h']
+  s.public_header_files = ['Pod/Classes/Public/**/*.h', 'Pod/Libraries/Reachability/*.h']
+  s.private_header_files = ['Pod/Classes/Private/**/*.h','Pod/Libraries/XBPageCurl/*.h']
   s.frameworks = ['Foundation', 'UIKit']
   # s.dependency 'AFNetworking', '~> 2.3'
 

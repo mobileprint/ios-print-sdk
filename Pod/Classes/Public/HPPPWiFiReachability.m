@@ -10,8 +10,9 @@
 // the license agreement.
 //
 
-#import "HPPP.h"
 #import "HPPPWiFiReachability.h"
+#import "HPPP.h"
+
 
 @interface HPPPWiFiReachability ()
 
@@ -34,7 +35,8 @@
     [self verifyWifiIsConnected:self.wifiReachability];
 }
 
-- (void)verifyWifiIsConnected:(HPPPReachability *)reachability {
+- (void)verifyWifiIsConnected:(HPPPReachability *)reachability
+{
     NetworkStatus wifiStatus = [reachability currentReachabilityStatus];
     if (wifiStatus != NotReachable) {
         self.cell.userInteractionEnabled = YES;
@@ -49,6 +51,13 @@
                                               otherButtonTitles:nil];
         [alert show];
     }
+}
+
+- (BOOL)isWifiConnected
+{
+    HPPPReachability *wifiReachability = [HPPPReachability reachabilityForLocalWiFi];
+    NetworkStatus wifiStatus = [wifiReachability currentReachabilityStatus];
+    return (wifiStatus != NotReachable);
 }
 
 - (void)reachabilityChanged:(NSNotification *)notification

@@ -17,5 +17,6 @@
 @interface HPPPWiFiReachability : NSObject
 
 - (void)start:(UITableViewCell *)cell label:(UILabel *)label;
+- (BOOL)isWifiConnected;
 
 @end
