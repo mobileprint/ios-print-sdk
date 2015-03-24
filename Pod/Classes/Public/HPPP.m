@@ -29,6 +29,7 @@
 #define DEFAULT_TABLE_VIEW_SETTINGS_CELL_VALUE_FONT [UIFont fontWithName:@"Helvetica Neue" size:12]
 #define DEFAULT_TABLE_VIEW_SETTINGS_CELL_VALUE_COLOR [UIColor colorWithRed:0x86 / 255.0f green:0x86 / 255.0f blue:0x86 / 255.0f alpha:1.0f]
 #define DEFAULT_TABLE_VIEW_CELL_LINK_LABEL_COLOR [UIColor colorWithRed:0x02 / 255.0f green:0x7B / 255.0f blue:0xFF / 255.0f alpha:1.0f]
+#define DEFAULT_DATE_FORMAT @"MMMM d, h:mma"
 
 NSString * const kLaterActionIdentifier = @"LATER_ACTION_IDENTIFIER";
 NSString * const kPrintActionIdentifier = @"PRINT_ACTION_IDENTIFIER";
@@ -250,6 +251,15 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
         return DEFAULT_TABLE_VIEW_CELL_LINK_LABEL_COLOR;
     } else {
         return _tableViewCellLinkLabelColor;
+    }
+}
+
+- (NSString *)defaultDateFormat
+{
+    if (nil == _defaultDateFormat) {
+        return DEFAULT_DATE_FORMAT;
+    } else {
+        return _defaultDateFormat;
     }
 }
 

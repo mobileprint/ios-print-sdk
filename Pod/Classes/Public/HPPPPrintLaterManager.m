@@ -208,10 +208,10 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
     NSLog(@"Status %d", status);
     
     if (status == kCLAuthorizationStatusDenied) {
-        [[[UIAlertView alloc] initWithTitle:@"Monitoring of default printer" message:@"You won't be notify when you are in the region of your default printer and you have print later jobs" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil] show];
+        NSLog(@"Current location permission denied");
     }
     else if (status == kCLAuthorizationStatusAuthorizedAlways) {
-        
+        NSLog(@"Current location permission granted");
     }
 }
 
