@@ -299,6 +299,11 @@ extern NSString * const kHPPPNumberOfCopies;
  */
 @property (strong, nonatomic) UIColor *tableViewCellLinkLabelColor;
 
+/*!
+ * @abstract A string with the default date format
+ * @discussion The default date format applies to all the screens where a date is present.
+ */
+@property (strong, nonatomic) NSString *defaultDateFormat;
 
 /*!
  * @abstract A dictionary of the most recent print options used

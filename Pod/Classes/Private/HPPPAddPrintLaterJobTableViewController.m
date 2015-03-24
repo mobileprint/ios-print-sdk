@@ -71,7 +71,7 @@
     self.nameLabel.text = self.printLaterJob.name;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init] ;
-    [dateFormatter setDateFormat:@"MMM dd, hh:mm"];
+    [dateFormatter setDateFormat:[HPPP sharedInstance].defaultDateFormat];
     self.dateLabel.text = [dateFormatter stringFromDate:self.printLaterJob.date];
     
     self.printerNameLabel.text = self.printLaterJob.printerName;
