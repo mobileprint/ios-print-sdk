@@ -29,7 +29,6 @@
     if (localNotification) {
         NSLog(@"App starts to run because of a notification");
     }
-
     
     return YES;
 }
