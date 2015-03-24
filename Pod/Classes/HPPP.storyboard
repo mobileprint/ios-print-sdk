@@ -922,10 +922,10 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Aip-ds-0bE" id="ftk-JF-UNC">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get a notification where there is access to your default printer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pT-Cu-0wC">
-                                                    <rect key="frame" x="148" y="10" width="305" height="88"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get a notification where there is access  to your default printer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pT-Cu-0wC">
+                                                    <rect key="frame" x="10" y="10" width="580" height="88"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="305" id="rTq-hE-Hh1"/>
+                                                        <constraint firstAttribute="width" constant="580" id="rTq-hE-Hh1"/>
                                                         <constraint firstAttribute="height" constant="88" id="y65-fJ-daI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
