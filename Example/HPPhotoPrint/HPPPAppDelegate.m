@@ -63,8 +63,12 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    NSLog(@"Receive local notification while the app was running and the user tap in the notification (instead of the action) or the app was on foreground.");
-    [[HPPPPrintLaterManager sharedInstance] handleNotification:notification];
+    if (application.applicationState == UIApplicationStateInactive) {
+        NSLog(@"Receive local notification while the app was inactive and the user tap in the notification (instead of the action).");
+        [[HPPPPrintLaterManager sharedInstance] handleNotification:notification];
+    } else if (application.applicationState == UIApplicationStateActive) {
+        NSLog(@"Receive local notification while the app was active.");
+    }
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)())completionHandler
