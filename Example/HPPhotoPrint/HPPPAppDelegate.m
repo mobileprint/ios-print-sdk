@@ -18,9 +18,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTrackableScreenNotification:) name:kHPPPTrackableScreenNotification object:nil];
-
+    
     if (IS_OS_8_OR_LATER) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge|UIUserNotificationTypeAlert categories:[NSSet setWithObjects:[HPPP sharedInstance].printLaterUserNotificationCategory, nil]];
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound|UIUserNotificationTypeBadge|UIUserNotificationTypeAlert categories:[NSSet setWithObjects:[HPPP sharedInstance].printLaterUserNotificationCategory, nil]];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
     
@@ -28,11 +28,12 @@
     UILocalNotification *localNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotification) {
         NSLog(@"App starts to run because of a notification");
+        [[HPPPPrintLaterManager sharedInstance] handleNotification:localNotification];
     }
     
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -41,7 +42,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
@@ -63,11 +64,14 @@
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     NSLog(@"Receive local notification while the app was running and the user tap in the notification (instead of the action) or the app was on foreground.");
+    [[HPPPPrintLaterManager sharedInstance] handleNotification:notification];
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)())completionHandler
 {
     NSLog(@"Action %@", identifier);
+    
+    [[HPPPPrintLaterManager sharedInstance] handleNotification:notification action:identifier];
     
     completionHandler();
 }

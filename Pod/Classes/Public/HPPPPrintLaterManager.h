@@ -12,11 +12,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface HPPPPrintLaterManager : NSObject
 
 + (HPPPPrintLaterManager *)sharedInstance;
 - (void)initLocationManager;
 - (CLLocationCoordinate2D)retrieveCurrentLocation;
+- (void)handleNotification:(UILocalNotification *)notification action:(NSString *)action;
+- (void)handleNotification:(UILocalNotification *)notification;
 
 @end
