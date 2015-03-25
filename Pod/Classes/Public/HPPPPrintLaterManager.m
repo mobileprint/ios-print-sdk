@@ -16,6 +16,8 @@
 #import "HPPPPrinter.h"
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPDefaultSettingsManager.h"
+#import "HPPPPrintJobsTableViewController.h"
+
 
 const int kSecondsInOneHour = (60 * 60);
 const CLLocationDistance kDefaultPrinterRadiusInMeters = 20.0f;
@@ -82,6 +84,15 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
             [self.locationManager startUpdatingLocation];
         }
     }
+}
+
+- (UIViewController *)hostViewController
+{
+    if (nil == _hostViewController) {
+        _hostViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    }
+    
+    return _hostViewController;
 }
 
 #pragma mark - Notifications
@@ -194,28 +205,28 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
     NSLog(@"Location updated: (old %f %f) (new %f %f)", oldLocation.coordinate.latitude, oldLocation.coordinate.longitude, newLocation.coordinate.latitude, newLocation.coordinate.longitude);
     
     if (!contactingPrinter) {
-    // There are many reason why we want to do this...
-    // First the user may have rejected the permission to use current location and later, after the default printer was set, he allowed it in the settings.
-    // Second at the moment of adding the default printer the GPS signal was lost or not yet retrieved (could be 0,0).
-    // TBD if we want to do this regardless the latitude = 0 and longitude = 0, the home printer can change its location...
-    CLLocationCoordinate2D coordinate = [HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate;
-    
-    if ((coordinate.latitude == 0.0f) && (coordinate.longitude == 0.0f)) {
+        // There are many reason why we want to do this...
+        // First the user may have rejected the permission to use current location and later, after the default printer was set, he allowed it in the settings.
+        // Second at the moment of adding the default printer the GPS signal was lost or not yet retrieved (could be 0,0).
+        // TBD if we want to do this regardless the latitude = 0 and longitude = 0, the home printer can change its location...
+        CLLocationCoordinate2D coordinate = [HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate;
         
-        contactingPrinter = YES;
-        
-        [[HPPPPrinter sharedInstance] checkDefaultPrinterAvailabilityWithCompletion:^(BOOL available) {
-            if (available) {
-                [HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate = newLocation.coordinate;
-                if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
-                    [self removeMonitoringForDefaultPrinter];
-                    [self addMonitoringForDefaultPrinter];
+        if ((coordinate.latitude == 0.0f) && (coordinate.longitude == 0.0f)) {
+            
+            contactingPrinter = YES;
+            
+            [[HPPPPrinter sharedInstance] checkDefaultPrinterAvailabilityWithCompletion:^(BOOL available) {
+                if (available) {
+                    [HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate = newLocation.coordinate;
+                    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
+                        [self removeMonitoringForDefaultPrinter];
+                        [self addMonitoringForDefaultPrinter];
+                    }
+                    
+                    contactingPrinter = NO;
                 }
-                
-                contactingPrinter = NO;
-            }
-        }];
-    }
+            }];
+        }
     }
 }
 
@@ -259,13 +270,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
             [self fireNotificationLater];
             NSLog(@"Notification will fire again in %d seconds", (kSecondsInOneHour / 2));
         } else if ([action isEqualToString:kPrintActionIdentifier]) {
-            // TODO. Open print later screen
-            NSLog(@"Shows all print later jobs.");
-            [[[UIAlertView alloc] initWithTitle:@"Print later job list screen"
-                                                            message:@"The print later job list screen will be opened instead of showing this alert view"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil] show];
+            [HPPPPrintJobsTableViewController presentAnimated:YES usingController:self.hostViewController andCompletion:nil];
         }
     }
 }
@@ -273,13 +278,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 - (void)handleNotification:(UILocalNotification *)notification
 {
     if ([notification.category isEqualToString:kPrintCategoryIdentifier]) {
-        // TODO. Open print later screen[self fireNotificationLater];
-        NSLog(@"Shows all print later jobs.");
-        [[[UIAlertView alloc] initWithTitle:@"Print later job list screen"
-                                    message:@"The print later job list screen will be opened instead of showing this alert view"
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil] show];
+        [HPPPPrintJobsTableViewController presentAnimated:YES usingController:self.hostViewController andCompletion:nil];
     }
 }
 

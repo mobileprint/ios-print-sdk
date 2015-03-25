@@ -130,6 +130,10 @@
                 UIImage *image = [lastPrintLaterJobSaved.images objectForKey:@"4 x 6"];
                 self.lastPrintLaterJobSavedImageView.image = image;
             }
+            
+            if ([activityType isEqualToString:@"HPPPPrintLaterActivity"]) {
+                [HPPPPrintJobsTableViewController presentAnimated:YES usingController:self andCompletion:nil];
+            }
         } else {
             NSLog(@"completionHandler - didn't succeed.");
         }

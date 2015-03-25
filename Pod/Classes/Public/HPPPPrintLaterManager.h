@@ -16,6 +16,8 @@
 
 @interface HPPPPrintLaterManager : NSObject
 
+@property (strong, nonatomic) UIViewController *hostViewController;
+
 + (HPPPPrintLaterManager *)sharedInstance;
 - (void)initLocationManager;
 - (CLLocationCoordinate2D)retrieveCurrentLocation;
