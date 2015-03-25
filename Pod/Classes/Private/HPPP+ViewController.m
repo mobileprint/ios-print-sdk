@@ -14,7 +14,7 @@
 
 @implementation HPPP (ViewController)
 
-+ (UIViewController *)activityViewControllerWithOwner:(id<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>)owner andImage:(UIImage *)image
++ (UIViewController *)activityViewControllerWithOwner:(id<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>)owner andImage:(UIImage *)image andUseDefaultPrinter:(BOOL)useDefaultPrinter
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
     
@@ -31,6 +31,7 @@
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
         pageSettingsTableViewController.delegate = owner;
         pageSettingsTableViewController.dataSource = owner;
+        pageSettingsTableViewController.useDefaultPrinter = useDefaultPrinter;
         
         pageSettingsTableViewController.image = image;
         pageSettingsTableViewController.pageViewController = pageViewController;
@@ -46,7 +47,8 @@
         pageSettingsTableViewController.image = image;
         pageSettingsTableViewController.delegate = owner;
         pageSettingsTableViewController.dataSource = owner;
-        
+        pageSettingsTableViewController.useDefaultPrinter = useDefaultPrinter;
+
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;
         navigationController.modalPresentationStyle = UIModalPresentationFormSheet;

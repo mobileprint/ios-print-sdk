@@ -15,6 +15,7 @@
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
 #import "HPPP+ViewController.h"
+#import "HPPPDefaultSettingsManager.h"
 
 @interface HPPPPrintJobsTableViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
 
@@ -66,7 +67,7 @@ CGFloat kPrintInfoHeight = 35.0f;
 {
     self.selectedPrintJob = printJob;
     
-    UIViewController *vc = [HPPP activityViewControllerWithOwner:self andImage:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]]];
+    UIViewController *vc = [HPPP activityViewControllerWithOwner:self andImage:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] andUseDefaultPrinter:YES];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
     } else {
@@ -123,7 +124,8 @@ CGFloat kPrintInfoHeight = 35.0f;
         cell.detailTextLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateFontAttribute];
         cell.detailTextLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateColorAttribute];
         
-        cell.imageView.image = [job.images objectForKey:@"4 x 6"];
+        cell.imageView.image = [job.images objectForKey:@"4 x 5"];
+        
     }
     return cell;
 }
@@ -183,10 +185,16 @@ CGFloat kPrintInfoHeight = 35.0f;
     if (kPrintAllSectionIndex == section) {
         view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, kPrintInfoHeight)];
         view.backgroundColor = [UIColor clearColor];
-        UILabel *printerInfo = [[UILabel alloc] initWithFrame:CGRectMake(5.0f, 0.0f, self.tableView.frame.size.width - 5.0f, kPrintInfoHeight)];
+        UILabel *printerInfo = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 0.0f, self.tableView.frame.size.width - 10.0f, kPrintInfoHeight)];
         
         HPPP *hppp = [HPPP sharedInstance];
-        printerInfo.text = @"HP Photosmart 7520 / mobile-rdwlan";
+        HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
+        if (settings.defaultPrinterName && settings.defaultPrinterNetwork) {
+            printerInfo.text = [NSString stringWithFormat:@"%@ / %@", settings.defaultPrinterName, settings.defaultPrinterNetwork];
+        }
+        else {
+            printerInfo.text = @"No default printer";
+        }
         printerInfo.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrinterInfoFontAttribute];
         printerInfo.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrinterInfoColorAttribute];
         [view addSubview:printerInfo];
