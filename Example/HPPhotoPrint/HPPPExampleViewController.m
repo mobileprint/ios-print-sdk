@@ -73,10 +73,8 @@
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
     printActivity.dataSource = self;
     
-    HPPPWiFiReachability *wifiReachability = [[HPPPWiFiReachability alloc] init];
-    
     NSArray *applicationActivities = nil;
-    if (IS_OS_8_OR_LATER && ![wifiReachability isWifiConnected]) {
+    if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
         
         printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
@@ -90,9 +88,7 @@
         printLaterJob.images = @{@"4 x 6" : [UIImage imageNamed:@"sample2-portrait.jpg"]};
         
         printLaterActivity.printLaterJob = printLaterJob;
-        
-        applicationActivities = @[printLaterActivity];
-        
+        applicationActivities = @[printActivity, printLaterActivity];
     } else {
         applicationActivities = @[printActivity];
     }
@@ -133,6 +129,10 @@
                 
                 UIImage *image = [lastPrintLaterJobSaved.images objectForKey:@"4 x 6"];
                 self.lastPrintLaterJobSavedImageView.image = image;
+            }
+            
+            if ([activityType isEqualToString:@"HPPPPrintLaterActivity"]) {
+                [HPPPPrintJobsTableViewController presentAnimated:YES usingController:self andCompletion:nil];
             }
         } else {
             NSLog(@"completionHandler - didn't succeed.");

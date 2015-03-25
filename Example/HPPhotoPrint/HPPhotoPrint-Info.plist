@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Curent location is required to know when the region of default printer is entered for print later jobs.</string>
+	<string>Current location is required to identify when your printer connection is available.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Curent location is required to know when the region of default printer is entered for print later jobs.</string>
+	<string>Current location is required to identify when your printer connection is available.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

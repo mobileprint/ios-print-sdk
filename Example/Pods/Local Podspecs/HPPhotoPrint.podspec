@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "HPPhotoPrint"
-  s.version          = "1.0.2"
+  s.version          = "1.0.3"
   s.summary          = "AirPrint photo printing with preview."
   s.description      = <<-DESC
                        Select paper size, printer, view preview and send to print throught AirPrint.
@@ -20,7 +20,6 @@ Pod::Spec.new do |s|
   s.author           = { "Hewlett-Packard Company" => "support@hp.com" }
   s.source           = { :git => "https://github.com/IPGPTP/hp_photo_print.git", :tag => s.version.to_s }
   s.documentation_url = 'http://hppp.herokuapp.com'
-# s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true

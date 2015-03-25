@@ -14,6 +14,7 @@
 #import <UIKit/UIKit.h>
 #import "HPPPPrintActivity.h"
 #import "HPPPPrintLaterActivity.h"
+#import "HPPPPrintLaterManager.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPSupportAction.h"
 #import "HPPPPrintLaterQueue.h"
@@ -40,6 +41,10 @@
 
 #define HPPP_DEFAULT_PRINT_JOB_NAME @"Photo"
 
+
+extern NSString * const kLaterActionIdentifier;
+extern NSString * const kPrintActionIdentifier;
+extern NSString * const kPrintCategoryIdentifier;
 
 /*!
  * @abstract Main HP Photo Print manager class

@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "HPPhotoPrint"
-  s.version          = "1.0.2"
+  s.version          = "1.0.3"
   s.summary          = "AirPrint photo printing with preview."
   s.description      = <<-DESC
                        Select paper size, printer, view preview and send to print throught AirPrint.
