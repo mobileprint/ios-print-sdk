@@ -11,6 +11,7 @@
 //
 
 #import "HPPPPrintJobsTableViewController.h"
+#import "HPPPPrintJobsTableViewCell.h"
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
@@ -32,6 +33,9 @@ NSString * const kPrintAllCellIdentifier = @"PrintAllCell";
 NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 CGFloat kPrintAllTopSpace = 20.0f;
 CGFloat kPrintInfoHeight = 35.0f;
+CGFloat kPrintInfoInset = 10.0f;
+CGFloat kPrintAllHeight = 44.0f;
+CGFloat kPrintJobHeight = 60.0f;
 
 #pragma mark - Life cycle
 
@@ -111,21 +115,21 @@ CGFloat kPrintInfoHeight = 35.0f;
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kPrintJobCellIdentifier];
         }
         
+        HPPPPrintJobsTableViewCell *jobCell = (HPPPPrintJobsTableViewCell *)cell;
         HPPPPrintLaterJob *job = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row];
 
-        cell.textLabel.text = job.name;
-        cell.textLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameFontAttribute];
-        cell.textLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameColorAttribute];
+        jobCell.jobNameLabel.text = job.name;
+        jobCell.jobNameLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameFontAttribute];
+        jobCell.jobNameLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameColorAttribute];
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMMM d, h:mma"];
         
-        cell.detailTextLabel.text = [formatter stringFromDate:job.date];
-        cell.detailTextLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateFontAttribute];
-        cell.detailTextLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateColorAttribute];
+        jobCell.jobDateLabel.text = [formatter stringFromDate:job.date];
+        jobCell.jobDateLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateFontAttribute];
+        jobCell.jobDateLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateColorAttribute];
         
-        cell.imageView.image = [job.images objectForKey:@"4 x 5"];
-        
+        jobCell.jobThumbnailImageView.image = [job.images objectForKey:@"4 x 5"];
     }
     return cell;
 }
@@ -144,6 +148,15 @@ CGFloat kPrintInfoHeight = 35.0f;
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     // Must override this to enable swipe buttons. Do NOT delete!
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (kPrintJobSectionIndex == indexPath.section) {
+        return kPrintJobHeight;
+    } else {
+        return kPrintAllHeight;
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -185,7 +198,7 @@ CGFloat kPrintInfoHeight = 35.0f;
     if (kPrintAllSectionIndex == section) {
         view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, kPrintInfoHeight)];
         view.backgroundColor = [UIColor clearColor];
-        UILabel *printerInfo = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 0.0f, self.tableView.frame.size.width - 10.0f, kPrintInfoHeight)];
+        UILabel *printerInfo = [[UILabel alloc] initWithFrame:CGRectMake(kPrintInfoInset, 0.0f, self.tableView.frame.size.width - kPrintInfoInset, kPrintInfoHeight)];
         
         HPPP *hppp = [HPPP sharedInstance];
         HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
