@@ -31,11 +31,11 @@ int const kPrintAllSectionIndex = 0;
 int const kPrintJobSectionIndex = 1;
 NSString * const kPrintAllCellIdentifier = @"PrintAllCell";
 NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
-CGFloat kPrintAllTopSpace = 20.0f;
-CGFloat kPrintInfoHeight = 35.0f;
-CGFloat kPrintInfoInset = 10.0f;
-CGFloat kPrintAllHeight = 44.0f;
-CGFloat kPrintJobHeight = 60.0f;
+CGFloat const kPrintAllTopSpace = 20.0f;
+CGFloat const kPrintInfoHeight = 35.0f;
+CGFloat const kPrintInfoInset = 10.0f;
+CGFloat const kPrintAllHeight = 44.0f;
+CGFloat const kPrintJobHeight = 60.0f;
 
 #pragma mark - Life cycle
 
@@ -71,7 +71,7 @@ CGFloat kPrintJobHeight = 60.0f;
 {
     self.selectedPrintJob = printJob;
     
-    UIViewController *vc = [HPPP activityViewControllerWithOwner:self andImage:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] andUseDefaultPrinter:YES];
+    UIViewController *vc = [HPPP activityViewControllerWithOwner:self andImage:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] useDefaultPrinter:YES];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
     } else {

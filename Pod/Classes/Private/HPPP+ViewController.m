@@ -14,7 +14,7 @@
 
 @implementation HPPP (ViewController)
 
-+ (UIViewController *)activityViewControllerWithOwner:(id<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>)owner andImage:(UIImage *)image andUseDefaultPrinter:(BOOL)useDefaultPrinter
++ (UIViewController *)activityViewControllerWithOwner:(id<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>)owner andImage:(UIImage *)image useDefaultPrinter:(BOOL)useDefaultPrinter
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
     
