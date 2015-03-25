@@ -13,6 +13,8 @@
 #import <HPPP.h>
 #import <HPPPWiFiReachability.h>
 #import "HPPPExampleViewController.h"
+#import "HPPPWiFiReachability.h"
+#import "HPPPPrintJobsTableViewController.h"
 
 @interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintActivityDataSource>
 
@@ -55,6 +57,8 @@
                                          [HPPPPaper titleFromSize:Size5x7],
                                          [HPPPPaper titleFromSize:SizeLetter]
                                          ];
+    
+    [self populatePrintQueue];
 }
 
 - (IBAction)shareBarButtonItemTap:(id)sender
@@ -151,12 +155,7 @@
 
 - (IBAction)showPrintLaterJobsButtonTapped:(id)sender
 {
-    NSLog(@"Showing print later jobs:");
-    NSArray *printLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
-    
-    for (HPPPPrintLaterJob *printLaterJob in printLaterJobs) {
-        NSLog(@"%@", printLaterJob);
-    }
+    [HPPPPrintJobsTableViewController presentAnimated:YES usingController:self andCompletion:nil];
 }
 
 #pragma mark - HPPPPrintActivityDataSource
@@ -174,6 +173,55 @@
 - (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
 {
     return YES;
+}
+
+#pragma mark - DEBUG
+
+- (void)populatePrintQueue
+{
+    [[HPPPPrintLaterQueue sharedInstance] deleteAllPrintLaterJobs];
+    
+    NSString *printLaterJobNextAvailableId = nil;
+    HPPPPrintLaterJob *printLaterJob = nil;
+    
+    UIImage *image4x5 = [UIImage imageNamed:@"sample2-portrait.jpg"];
+    UIImage *image4x6 = [UIImage imageNamed:@"sample2-portrait.jpg"];
+    UIImage *image5x7 = [UIImage imageNamed:@"sample2-portrait.jpg"];
+    UIImage *imageLetter = image4x5;
+
+    printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
+    printLaterJob = [[HPPPPrintLaterJob alloc] init];
+    printLaterJob.id = printLaterJobNextAvailableId;
+    printLaterJob.name = @"Einstein";
+    printLaterJob.date = [NSDate date];
+    printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
+                             [HPPPPaper titleFromSize:Size4x6] : image4x6,
+                             [HPPPPaper titleFromSize:Size5x7] : image5x7,
+                             [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
+    [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:printLaterJob];
+    
+    printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
+    printLaterJob = [[HPPPPrintLaterJob alloc] init];
+    printLaterJob.id = printLaterJobNextAvailableId;
+    printLaterJob.name = @"Dude";
+    printLaterJob.date = [NSDate date];
+    printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
+                             [HPPPPaper titleFromSize:Size4x6] : image4x6,
+                             [HPPPPaper titleFromSize:Size5x7] : image5x7,
+                             [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
+    [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:printLaterJob];
+    
+    printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
+    printLaterJob = [[HPPPPrintLaterJob alloc] init];
+    printLaterJob.id = printLaterJobNextAvailableId;
+    printLaterJob.name = @"Awesome";
+    printLaterJob.date = [NSDate date];
+    printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
+                             [HPPPPaper titleFromSize:Size4x6] : image4x6,
+                             [HPPPPaper titleFromSize:Size5x7] : image5x7,
+                             [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
+    [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:printLaterJob];
+    
 }
 
 @end

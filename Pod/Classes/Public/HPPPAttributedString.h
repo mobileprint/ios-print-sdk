@@ -25,6 +25,15 @@ extern NSString *const HPPPAddPrintLaterJobScreenPrinterNameTitleColorAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenPrinterNameFontAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenPrinterNameColorAttribute;
 
+extern NSString *const HPPPPrintQueueScreenPrintAllLabelFontAttribute;
+extern NSString *const HPPPPrintQueueScreenPrintAllLabelColorAttribute;
+extern NSString *const HPPPPrintQueueScreenPrinterInfoFontAttribute;
+extern NSString *const HPPPPrintQueueScreenPrinterInfoColorAttribute;
+extern NSString *const HPPPPrintQueueScreenJobNameFontAttribute;
+extern NSString *const HPPPPrintQueueScreenJobNameColorAttribute;
+extern NSString *const HPPPPrintQueueScreenJobDateFontAttribute;
+extern NSString *const HPPPPrintQueueScreenJobDateColorAttribute;
+
 @interface HPPPAttributedString : NSObject
 
 /*!
@@ -32,5 +41,6 @@ extern NSString *const HPPPAddPrintLaterJobScreenPrinterNameColorAttribute;
  * @description Used to set the fonts and colors of the Add Print Later Job Screen
  */
 @property (strong, nonatomic) NSDictionary *addPrintLaterJobScreenAttributes;
+@property (strong, nonatomic) NSDictionary *printQueueScreenAttributes;
 
 @end
