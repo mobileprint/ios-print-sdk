@@ -17,6 +17,7 @@
 #import "HPPPPageViewController.h"
 #import "HPPP+ViewController.h"
 #import "HPPPDefaultSettingsManager.h"
+#import "HPPPPaper.h"
 
 @interface HPPPPrintJobsTableViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
 
@@ -129,7 +130,8 @@ CGFloat const kPrintJobHeight = 60.0f;
         jobCell.jobDateLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateFontAttribute];
         jobCell.jobDateLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateColorAttribute];
         
-        jobCell.jobThumbnailImageView.image = [job.images objectForKey:@"4 x 5"];
+        NSString *paperSizeTitle = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
+        jobCell.jobThumbnailImageView.image = [job.images objectForKey:paperSizeTitle];
     }
     return cell;
 }
@@ -198,11 +200,11 @@ CGFloat const kPrintJobHeight = 60.0f;
     if (kPrintAllSectionIndex == section) {
         view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, kPrintInfoHeight)];
         view.backgroundColor = [UIColor clearColor];
-        UILabel *printerInfo = [[UILabel alloc] initWithFrame:CGRectMake(kPrintInfoInset, 0.0f, self.tableView.frame.size.width - kPrintInfoInset, kPrintInfoHeight)];
+        UILabel *printerInfo = [[UILabel alloc] initWithFrame:CGRectMake(kPrintInfoInset, 0.0f, self.tableView.frame.size.width - (2 * kPrintInfoInset), kPrintInfoHeight)];
         
         HPPP *hppp = [HPPP sharedInstance];
         HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
-        if (settings.defaultPrinterName && settings.defaultPrinterNetwork) {
+        if ([settings isDefaultPrinterSet]) {
             printerInfo.text = [NSString stringWithFormat:@"%@ / %@", settings.defaultPrinterName, settings.defaultPrinterNetwork];
         }
         else {

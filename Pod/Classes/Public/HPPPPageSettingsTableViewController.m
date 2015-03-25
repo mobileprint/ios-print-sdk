@@ -318,7 +318,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     self.currentPrintSettings.paper = [self lastPaperUsed];
     
     HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
-    if (self.useDefaultPrinter && settings.defaultPrinterName && settings.defaultPrinterUrl) {
+    if (self.useDefaultPrinter && [settings isDefaultPrinterSet]) {
         self.currentPrintSettings.printerName = settings.defaultPrinterName;
         self.currentPrintSettings.printerUrl = [NSURL URLWithString:settings.defaultPrinterUrl];
         self.currentPrintSettings.printerId = nil;

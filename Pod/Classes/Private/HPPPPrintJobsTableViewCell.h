@@ -14,8 +14,8 @@
 
 @interface HPPPPrintJobsTableViewCell : UITableViewCell
 
-@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *jobThumbnailImageView;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *jobNameLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *jobDateLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *jobThumbnailImageView;
+@property (weak, nonatomic) IBOutlet UILabel *jobNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *jobDateLabel;
 
 @end

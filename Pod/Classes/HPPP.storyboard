@@ -1066,7 +1066,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hgZ-kM-z85" id="7vV-Ds-Pbj">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hbR-u5-Rb6" userLabel="Thumbnail Image">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hbR-u5-Rb6" userLabel="Thumbnail Image">
                                             <rect key="frame" x="0.0" y="-1" width="48" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="48" id="NJZ-Jc-Gnn"/>
