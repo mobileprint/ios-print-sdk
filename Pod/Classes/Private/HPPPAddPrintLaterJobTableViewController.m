@@ -32,10 +32,15 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *printerLocationLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *addToPrintQCell;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *getNotificationHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameTopConstraint;
 
 @end
 
 @implementation HPPPAddPrintLaterJobTableViewController
+
+int const kJobInfoSection = 1;
+CGFloat const kJobInfoNoPrinterHeight = 130.0f;
 
 - (void)viewDidLoad
 {
@@ -85,7 +90,8 @@
         self.printerNameLabel.text = settings.defaultPrinterName;
         self.printerLocationLabel.text = settings.defaultPrinterNetwork;
     } else {
-        self.getNotificationLabel.hidden = YES;
+        self.getNotificationHeightConstraint.constant = 0;
+        self.nameTopConstraint.constant = 0;
         self.printerNameTitleLabel.hidden = YES;
         self.printerNameLabel.hidden = YES;
         self.printerLocationTitleLabel.hidden = YES;
@@ -126,6 +132,15 @@
             }
         }
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    if (kJobInfoSection == indexPath.section && ![HPPPDefaultSettingsManager sharedInstance].isDefaultPrinterSet) {
+        height = kJobInfoNoPrinterHeight;
+    }
+    return height;
 }
 
 - (IBAction)cancelButtonTapped:(id)sender

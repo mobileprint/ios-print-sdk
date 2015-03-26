@@ -48,6 +48,12 @@ CGFloat const kPrintJobHeight = 60.0f;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -254,7 +260,9 @@ CGFloat const kPrintJobHeight = 60.0f;
          [weakSelf.tableView setEditing:NO animated:YES];
          [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:job];
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-         [tableView reloadData];
+         if (0 == [[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs] count]) {
+             [tableView reloadData];
+         }
      }];
     
     return @[actionDelete, actionPrint];
