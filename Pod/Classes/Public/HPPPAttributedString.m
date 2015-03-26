@@ -70,10 +70,13 @@ NSString *const HPPPPrintQueueScreenJobDateFontAttribute = @"HPPPPrintQueueScree
 NSString *const HPPPPrintQueueScreenJobDateColorAttribute = @"HPPPPrintQueueScreenJobDateColorAttribute";
 
 #define DEFAULT_PRINT_Q_PRINTER_INFO_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12]
-#define DEFAULT_PRINT_Q_PRINTER_INFO_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
+#define DEFAULT_PRINT_Q_PRINTER_INFO_COLOR [UIColor colorWithRed:0x88 / 255.0f green:0x88 / 255.0f blue:0x88 / 255.0f alpha:1.0f]
 
 #define DEFAULT_PRINT_Q_JOB_NAME_FONT [UIFont fontWithName:@"Helvetica Neue" size:14]
 #define DEFAULT_PRINT_Q_JOB_NAME_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
+
+#define DEFAULT_PRINT_Q_JOB_DATE_FONT [UIFont fontWithName:@"Helvetica Neue" size:12]
+#define DEFAULT_PRINT_Q_JOB_DATE_COLOR [UIColor colorWithRed:0x88 / 255.0f green:0x88 / 255.0f blue:0x88 / 255.0f alpha:1.0f]
 
 #define DEFAULT_PRINT_Q_SCREEN_ATTRIBUTES @{HPPPPrintQueueScreenPrinterInfoFontAttribute:DEFAULT_PRINT_Q_PRINTER_INFO_FONT, \
                                             HPPPPrintQueueScreenPrinterInfoColorAttribute:DEFAULT_PRINT_Q_PRINTER_INFO_COLOR, \
@@ -81,8 +84,8 @@ NSString *const HPPPPrintQueueScreenJobDateColorAttribute = @"HPPPPrintQueueScre
                                             HPPPPrintQueueScreenPrintAllLabelColorAttribute:DEFAULT_ADD_TO_PRINT_Q_COLOR, \
                                             HPPPPrintQueueScreenJobNameFontAttribute:DEFAULT_PRINT_Q_JOB_NAME_FONT, \
                                             HPPPPrintQueueScreenJobNameColorAttribute:DEFAULT_PRINT_Q_JOB_NAME_COLOR, \
-                                            HPPPPrintQueueScreenJobDateFontAttribute:DEFAULT_PRINT_Q_PRINTER_INFO_FONT, \
-                                            HPPPPrintQueueScreenJobDateColorAttribute:DEFAULT_PRINT_Q_PRINTER_INFO_COLOR}
+                                            HPPPPrintQueueScreenJobDateFontAttribute:DEFAULT_PRINT_Q_JOB_DATE_FONT, \
+                                            HPPPPrintQueueScreenJobDateColorAttribute:DEFAULT_PRINT_Q_JOB_DATE_COLOR}
 
 
 @implementation HPPPAttributedString

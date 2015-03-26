@@ -10,12 +10,12 @@
 // the license agreement.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "HPPP.h"
 
-@interface HPPP (ViewController)
+@interface HPPPPrintJobsTableViewCell : UITableViewCell
 
-+ (UIViewController *)activityViewControllerWithOwner:(id<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>)owner andImage:(UIImage *)image useDefaultPrinter:(BOOL)useDefaultPrinter;
+@property (weak, nonatomic) IBOutlet UIImageView *jobThumbnailImageView;
+@property (weak, nonatomic) IBOutlet UILabel *jobNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *jobDateLabel;
 
 @end

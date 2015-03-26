@@ -317,11 +317,16 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 {
     self.currentPrintSettings.paper = [self lastPaperUsed];
     
-    NSString *lastPrinter = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_SETTING];
-    self.currentPrintSettings.printerName = lastPrinter;
-    
-    NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
-    self.currentPrintSettings.printerUrl = [NSURL URLWithString:lastPrinterUrl];
+    HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
+    if (self.useDefaultPrinter && [settings isDefaultPrinterSet]) {
+        self.currentPrintSettings.printerName = settings.defaultPrinterName;
+        self.currentPrintSettings.printerUrl = [NSURL URLWithString:settings.defaultPrinterUrl];
+        self.currentPrintSettings.printerId = nil;
+    } else {
+        self.currentPrintSettings.printerName = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_SETTING];
+        self.currentPrintSettings.printerUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
+        self.currentPrintSettings.printerId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_ID_SETTING];
+    }
     
     if (IS_OS_8_OR_LATER) {
         NSNumber *lastFilterUsed = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_FILTER_USED_SETTING];
@@ -329,8 +334,6 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
             self.blackAndWhiteModeSwitch.on = lastFilterUsed.boolValue;
         }
     }
-    NSString *lastPrinterId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_ID_SETTING];
-    self.currentPrintSettings.printerId = lastPrinterId;
 }
 
 - (HPPPPaper *)lastPaperUsed

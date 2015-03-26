@@ -77,15 +77,20 @@
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
         
+        UIImage *image4x5 = [UIImage imageNamed:@"sample2-portrait.jpg"];
+        UIImage *image4x6 = [UIImage imageNamed:@"sample2-portrait.jpg"];
+        UIImage *image5x7 = [UIImage imageNamed:@"sample2-portrait.jpg"];
+        UIImage *imageLetter = image4x5;
+
         printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
         HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
         printLaterJob.id = printLaterJobNextAvailableId;
         printLaterJob.name = @"Einstein";
         printLaterJob.date = [NSDate date];
-        printLaterJob.printerName = @"Epson";
-        printLaterJob.printerLocation = @"Office";
-        printLaterJob.printerURL = @"URL//EPSON";
-        printLaterJob.images = @{@"4 x 6" : [UIImage imageNamed:@"sample2-portrait.jpg"]};
+        printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
+                                 [HPPPPaper titleFromSize:Size4x6] : image4x6,
+                                 [HPPPPaper titleFromSize:Size5x7] : image5x7,
+                                 [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
         
         printLaterActivity.printLaterJob = printLaterJob;
         applicationActivities = @[printActivity, printLaterActivity];

@@ -10,12 +10,8 @@
 // the license agreement.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "HPPP.h"
+#import "HPPPPrintJobsTableViewCell.h"
 
-@interface HPPP (ViewController)
-
-+ (UIViewController *)activityViewControllerWithOwner:(id<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>)owner andImage:(UIImage *)image useDefaultPrinter:(BOOL)useDefaultPrinter;
+@implementation HPPPPrintJobsTableViewCell
 
 @end

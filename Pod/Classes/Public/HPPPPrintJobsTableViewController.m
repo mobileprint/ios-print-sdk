@@ -11,10 +11,13 @@
 //
 
 #import "HPPPPrintJobsTableViewController.h"
+#import "HPPPPrintJobsTableViewCell.h"
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
 #import "HPPP+ViewController.h"
+#import "HPPPDefaultSettingsManager.h"
+#import "HPPPPaper.h"
 
 @interface HPPPPrintJobsTableViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
 
@@ -29,8 +32,11 @@ int const kPrintAllSectionIndex = 0;
 int const kPrintJobSectionIndex = 1;
 NSString * const kPrintAllCellIdentifier = @"PrintAllCell";
 NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
-CGFloat kPrintAllTopSpace = 20.0f;
-CGFloat kPrintInfoHeight = 35.0f;
+CGFloat const kPrintAllTopSpace = 20.0f;
+CGFloat const kPrintInfoHeight = 35.0f;
+CGFloat const kPrintInfoInset = 10.0f;
+CGFloat const kPrintAllHeight = 44.0f;
+CGFloat const kPrintJobHeight = 60.0f;
 
 #pragma mark - Life cycle
 
@@ -66,7 +72,7 @@ CGFloat kPrintInfoHeight = 35.0f;
 {
     self.selectedPrintJob = printJob;
     
-    UIViewController *vc = [HPPP activityViewControllerWithOwner:self andImage:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]]];
+    UIViewController *vc = [HPPP activityViewControllerWithOwner:self andImage:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] useDefaultPrinter:YES];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
     } else {
@@ -110,20 +116,22 @@ CGFloat kPrintInfoHeight = 35.0f;
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kPrintJobCellIdentifier];
         }
         
+        HPPPPrintJobsTableViewCell *jobCell = (HPPPPrintJobsTableViewCell *)cell;
         HPPPPrintLaterJob *job = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row];
 
-        cell.textLabel.text = job.name;
-        cell.textLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameFontAttribute];
-        cell.textLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameColorAttribute];
+        jobCell.jobNameLabel.text = job.name;
+        jobCell.jobNameLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameFontAttribute];
+        jobCell.jobNameLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameColorAttribute];
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMMM d, h:mma"];
         
-        cell.detailTextLabel.text = [formatter stringFromDate:job.date];
-        cell.detailTextLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateFontAttribute];
-        cell.detailTextLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateColorAttribute];
+        jobCell.jobDateLabel.text = [formatter stringFromDate:job.date];
+        jobCell.jobDateLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateFontAttribute];
+        jobCell.jobDateLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateColorAttribute];
         
-        cell.imageView.image = [job.images objectForKey:@"4 x 6"];
+        NSString *paperSizeTitle = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
+        jobCell.jobThumbnailImageView.image = [job.images objectForKey:paperSizeTitle];
     }
     return cell;
 }
@@ -142,6 +150,15 @@ CGFloat kPrintInfoHeight = 35.0f;
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     // Must override this to enable swipe buttons. Do NOT delete!
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (kPrintJobSectionIndex == indexPath.section) {
+        return kPrintJobHeight;
+    } else {
+        return kPrintAllHeight;
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -183,10 +200,16 @@ CGFloat kPrintInfoHeight = 35.0f;
     if (kPrintAllSectionIndex == section) {
         view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, kPrintInfoHeight)];
         view.backgroundColor = [UIColor clearColor];
-        UILabel *printerInfo = [[UILabel alloc] initWithFrame:CGRectMake(5.0f, 0.0f, self.tableView.frame.size.width - 5.0f, kPrintInfoHeight)];
+        UILabel *printerInfo = [[UILabel alloc] initWithFrame:CGRectMake(kPrintInfoInset, 0.0f, self.tableView.frame.size.width - (2 * kPrintInfoInset), kPrintInfoHeight)];
         
         HPPP *hppp = [HPPP sharedInstance];
-        printerInfo.text = @"HP Photosmart 7520 / mobile-rdwlan";
+        HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
+        if ([settings isDefaultPrinterSet]) {
+            printerInfo.text = [NSString stringWithFormat:@"%@ / %@", settings.defaultPrinterName, settings.defaultPrinterNetwork];
+        }
+        else {
+            printerInfo.text = @"No default printer";
+        }
         printerInfo.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrinterInfoFontAttribute];
         printerInfo.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrinterInfoColorAttribute];
         [view addSubview:printerInfo];
