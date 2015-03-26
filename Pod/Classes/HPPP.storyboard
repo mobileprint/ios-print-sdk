@@ -923,10 +923,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get a notification where there is access  to your default printer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pT-Cu-0wC">
-                                                    <rect key="frame" x="10" y="10" width="580" height="88"/>
+                                                    <rect key="frame" x="10" y="27" width="580" height="52"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="580" id="rTq-hE-Hh1"/>
-                                                        <constraint firstAttribute="height" constant="88" id="y65-fJ-daI"/>
+                                                        <constraint firstAttribute="height" constant="52" id="y65-fJ-daI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -960,7 +960,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edmo's 7520" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBz-ee-1oy">
-                                                    <rect key="frame" x="0.0" y="197" width="600" height="21"/>
+                                                    <rect key="frame" x="10" y="197" width="580" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="PPV-5a-RMZ"/>
                                                     </constraints>
@@ -994,12 +994,12 @@
                                                 <constraint firstItem="Fkh-3N-vvp" firstAttribute="leading" secondItem="ftk-JF-UNC" secondAttribute="leading" id="Dk9-n6-AOF"/>
                                                 <constraint firstAttribute="trailing" secondItem="lMe-9C-MtU" secondAttribute="trailing" id="G0y-2R-eoX"/>
                                                 <constraint firstAttribute="centerX" secondItem="4pT-Cu-0wC" secondAttribute="centerX" id="GzE-Sh-ulZ"/>
-                                                <constraint firstItem="Lh9-df-H1V" firstAttribute="top" secondItem="ftk-JF-UNC" secondAttribute="topMargin" constant="82" id="H3g-BX-dp9"/>
                                                 <constraint firstAttribute="trailing" secondItem="fGn-cT-AN9" secondAttribute="trailing" id="OUu-a3-fen"/>
-                                                <constraint firstItem="4pT-Cu-0wC" firstAttribute="top" secondItem="ftk-JF-UNC" secondAttribute="top" constant="10" id="Of3-8o-5To"/>
-                                                <constraint firstItem="WBz-ee-1oy" firstAttribute="leading" secondItem="ftk-JF-UNC" secondAttribute="leading" id="QcE-5X-VLY"/>
+                                                <constraint firstItem="4pT-Cu-0wC" firstAttribute="top" secondItem="ftk-JF-UNC" secondAttribute="top" constant="27" id="Of3-8o-5To"/>
+                                                <constraint firstItem="WBz-ee-1oy" firstAttribute="leading" secondItem="ftk-JF-UNC" secondAttribute="leading" constant="10" id="QcE-5X-VLY"/>
                                                 <constraint firstItem="lMe-9C-MtU" firstAttribute="top" secondItem="WBz-ee-1oy" secondAttribute="bottom" constant="20" id="Qqo-rC-ckZ"/>
                                                 <constraint firstItem="Fkh-3N-vvp" firstAttribute="top" secondItem="Lh9-df-H1V" secondAttribute="bottom" constant="5" id="T3E-L3-xQ5"/>
+                                                <constraint firstItem="Lh9-df-H1V" firstAttribute="top" secondItem="4pT-Cu-0wC" secondAttribute="bottom" constant="11" id="TUA-bM-WJM"/>
                                                 <constraint firstItem="lMe-9C-MtU" firstAttribute="leading" secondItem="ftk-JF-UNC" secondAttribute="leading" id="VKO-t2-hlY"/>
                                                 <constraint firstItem="fGn-cT-AN9" firstAttribute="leading" secondItem="ftk-JF-UNC" secondAttribute="leading" id="Wvi-iw-t0E"/>
                                                 <constraint firstItem="fGn-cT-AN9" firstAttribute="top" secondItem="lMe-9C-MtU" secondAttribute="bottom" constant="5" id="h3x-5K-4zF"/>
@@ -1007,7 +1007,7 @@
                                                 <constraint firstItem="WBz-ee-1oy" firstAttribute="top" secondItem="P2c-gs-D5D" secondAttribute="bottom" constant="5" id="pVt-ma-yRN"/>
                                                 <constraint firstAttribute="trailing" secondItem="Lh9-df-H1V" secondAttribute="trailing" id="qn7-YB-a6u"/>
                                                 <constraint firstItem="Lh9-df-H1V" firstAttribute="leading" secondItem="ftk-JF-UNC" secondAttribute="leading" id="ulx-K1-suW"/>
-                                                <constraint firstAttribute="trailing" secondItem="WBz-ee-1oy" secondAttribute="trailing" id="vwX-4N-dIa"/>
+                                                <constraint firstAttribute="trailing" secondItem="WBz-ee-1oy" secondAttribute="trailing" constant="10" id="vwX-4N-dIa"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1030,8 +1030,10 @@
                         <outlet property="addToPrintQCell" destination="z0N-Nu-Rvz" id="vub-XC-nwe"/>
                         <outlet property="addToPrintQLabel" destination="KWA-KL-Vys" id="mpf-nF-tux"/>
                         <outlet property="dateLabel" destination="Fkh-3N-vvp" id="IhP-3o-gb8"/>
+                        <outlet property="getNotificationHeightConstraint" destination="y65-fJ-daI" id="5JK-ym-Bnj"/>
                         <outlet property="getNotificationLabel" destination="4pT-Cu-0wC" id="gUZ-e8-nfl"/>
                         <outlet property="nameLabel" destination="Lh9-df-H1V" id="u94-SO-SJD"/>
+                        <outlet property="nameTopConstraint" destination="TUA-bM-WJM" id="LCW-rf-OMW"/>
                         <outlet property="printerLocationLabel" destination="fGn-cT-AN9" id="RNW-Oy-lUr"/>
                         <outlet property="printerLocationTitleLabel" destination="lMe-9C-MtU" id="k0s-Gj-zYQ"/>
                         <outlet property="printerNameLabel" destination="WBz-ee-1oy" id="pzv-oZ-bxw"/>
@@ -1111,7 +1113,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Print Queue" id="cyX-UA-U7U">
                         <barButtonItem key="backBarButtonItem" title=" " id="pRB-Of-4oD"/>
-                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="PWt-Fr-zQK">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="PWt-Fr-zQK">
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="eKk-9e-x6C" id="4t5-8x-PpC"/>
                             </connections>
