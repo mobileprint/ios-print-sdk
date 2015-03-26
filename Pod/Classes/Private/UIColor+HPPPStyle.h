@@ -16,5 +16,6 @@
 @interface UIColor (HPPPStyle)
 
 + (UIColor *)HPPPHPGrayBackgroundColor;
++ (UIColor *)HPPPHPBlueColor;
 
 @end

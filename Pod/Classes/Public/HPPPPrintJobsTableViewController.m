@@ -18,6 +18,7 @@
 #import "HPPP+ViewController.h"
 #import "HPPPDefaultSettingsManager.h"
 #import "HPPPPaper.h"
+#import "UIColor+HPPPStyle.h"
 
 @interface HPPPPrintJobsTableViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
 
@@ -240,6 +241,8 @@ CGFloat const kPrintJobHeight = 60.0f;
          
          [self printJob:job];
      }];
+    
+    actionPrint.backgroundColor = [UIColor HPPPHPBlueColor];
     
     UITableViewRowAction *actionDelete =
     [UITableViewRowAction
