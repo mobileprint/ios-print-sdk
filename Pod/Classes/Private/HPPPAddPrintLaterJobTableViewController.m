@@ -14,6 +14,7 @@
 #import "UITableView+HPPPHeader.h"
 #import "HPPPPrintLaterQueue.h"
 #import "HPPP.h"
+#import "HPPPDefaultSettingsManager.h"
 
 @interface HPPPAddPrintLaterJobTableViewController ()
 
@@ -73,9 +74,23 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init] ;
     [dateFormatter setDateFormat:[HPPP sharedInstance].defaultDateFormat];
     self.dateLabel.text = [dateFormatter stringFromDate:self.printLaterJob.date];
-    
-    self.printerNameLabel.text = self.printLaterJob.printerName;
-    self.printerLocationLabel.text = self.printLaterJob.printerLocation;
+
+    [self preparePrinterDisplayValues];
+}
+
+- (void)preparePrinterDisplayValues
+{
+    HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
+    if (settings.isDefaultPrinterSet) {
+        self.printerNameLabel.text = settings.defaultPrinterName;
+        self.printerLocationLabel.text = settings.defaultPrinterNetwork;
+    } else {
+        self.getNotificationLabel.hidden = YES;
+        self.printerNameTitleLabel.hidden = YES;
+        self.printerNameLabel.hidden = YES;
+        self.printerLocationTitleLabel.hidden = YES;
+        self.printerLocationLabel.hidden = YES;
+    }
 }
 
 #pragma mark - Table view data source
