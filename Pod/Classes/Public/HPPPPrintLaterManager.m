@@ -81,6 +81,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
     
     if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
         if ([self.defaultSettingsManager isDefaultPrinterSet]) {
+            NSLog(@"Print jobs in the queue and default printer set");
             [self.locationManager startUpdatingLocation];
         }
     }
@@ -102,6 +103,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
     if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 1) {
         // It is the first one, so add the monitoring
         if ([self.defaultSettingsManager isDefaultPrinterSet]) {
+            NSLog(@"First print job added and default printer set");
             [self.locationManager startUpdatingLocation];
             [self addMonitoringForDefaultPrinter];
         }
@@ -111,6 +113,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 - (void)handleAllPrintJobsRemovedFromQueueNotification:(NSNotification *)notification
 {
     if ([self.defaultSettingsManager isDefaultPrinterSet]) {
+        NSLog(@"All print jobs removed and default printer set");
         [self removeMonitoringForDefaultPrinter];
         [self.locationManager stopUpdatingLocation];
     }
@@ -119,6 +122,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 - (void)handleDefaultPrinterAddedNotification:(NSNotification *)notification
 {
     if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
+        NSLog(@"Default printer added and print jobs in the queue");
         [self.locationManager startUpdatingLocation];
         [self addMonitoringForDefaultPrinter];
     }
@@ -127,6 +131,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 - (void)handleDefaultPrinterRemovedNotification:(NSNotification *)notification
 {
     if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
+        NSLog(@"Default printer removed and print jobs in the queue");
         [self removeMonitoringForDefaultPrinter];
         [self.locationManager stopUpdatingLocation];
     }
@@ -136,6 +141,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 
 - (void)addMonitoringForDefaultPrinter
 {
+    NSLog(@"Adding monitoring for default printer");
     CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:self.defaultSettingsManager.defaultPrinterCoordinate radius:kDefaultPrinterRadiusInMeters identifier:kDefaultPrinterRegionIdentifier];
     
     [self.locationManager startMonitoringForRegion:region];
@@ -143,6 +149,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 
 - (void)removeMonitoringForDefaultPrinter
 {
+    NSLog(@"Removing monitoring for default printer");
     for (CLRegion *region in self.locationManager.monitoredRegions) {
         if ([self isDefaultPrinterRegion:region]) {
             [self.locationManager stopMonitoringForRegion:region];
@@ -222,9 +229,9 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
                         [self removeMonitoringForDefaultPrinter];
                         [self addMonitoringForDefaultPrinter];
                     }
-                    
-                    contactingPrinter = NO;
                 }
+                
+                contactingPrinter = NO;
             }];
         }
     }
