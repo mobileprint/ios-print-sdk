@@ -122,6 +122,120 @@ Next, set `MyViewController` as the delegate data source in the `HPPPPrintActivi
 ```
 
 
+## Print later integration (ONLY iOS 8 COMPATIBLE)
+
+Some parts of the code to support print later must be implemented in the client app.
+
+### Add capabilities to the target used
+
+Add the following Background Modes to the target
+* Location Updates
+* Background Fetch
+
+
+### Add keys to the project-Info.plist file
+
+Inside the Information Property List add:
+
+* NSLocationWhenInUseUsageDescription
+* NSLocationAlwaysUsageDescription
+
+NOTE: You can add a custom message explaining why you need access to the current location. For example: “Current location is required to identify when your printer connection is available.”
+
+### Configure the app delegate file
+
+* Copy these lines in the appDelegate didFinishLaunchingWithOptions
+
+```objc
+
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound|UIUserNotificationTypeBadge|UIUserNotificationTypeAlert categories:[NSSet setWithObjects:[HPPP sharedInstance].printLaterUserNotificationCategory, nil]];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+
+```
+
+* Implement these two delegate methods in the appDelegate
+
+```objc
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    if (application.applicationState == UIApplicationStateInactive) {
+        [[HPPPPrintLaterManager sharedInstance] handleNotification:notification];
+    } 
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)())completionHandler
+{
+    [[HPPPPrintLaterManager sharedInstance] handleNotification:notification action:identifier];
+    
+    completionHandler();
+}
+
+```
+
+NOTE: You need to import the HPPP header file for compiling:
+
+
+```objc
+
+#import <HPPP.h>
+
+```
+
+
+### Open the print jobs list screen from other locations
+
+If you need to open the print jobs list screen from another location in your app you can call:
+
+```objc
+
+[HPPPPrintJobsTableViewController presentAnimated:YES usingController:self andCompletion:nil];
+
+```
+
+### Sharing Activity
+
+You may want to add the print later activity to the collection of existing share activities:
+
+```objc
+
+- (IBAction)shareBarButtonItemTap:(id)sender
+{
+    HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
+    HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
+
+    NSString *printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
+    HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
+    printLaterJob.id = printLaterJobNextAvailableId;
+    printLaterJob.name = @“PrintJob Name”;
+    printLaterJob.date = [NSDate date];
+    printLaterJob.images = @{@"4 x 6" : [UIImage imageNamed:@"sample-portrait.jpg"]};
+    
+    printLaterActivity.printLaterJob = printLaterJob;
+
+    NSArray *applicationActivities = @[printActivity, printLaterActivity];
+
+    UIImage *printableItem = [UIImage imageNamed:@"sample-portrait.jpg"];
+    NSArray *activitiesItems = @[printableItem];
+
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activitiesItems applicationActivities:applicationActivities];
+    activityViewController.excludedActivityTypes = @[UIActivityTypePrint];
+    activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
+        NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
+        if (completed) {
+            NSLog(@"completionHandler - Succeed");
+            HPPP *hppp = [HPPP sharedInstance];
+            NSLog(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
+        } else {
+            NSLog(@"completionHandler - didn't succeed.");
+        }
+    };
+
+    [self presentViewController:activityViewController animated:YES completion:nil];
+}
+
+```
+
 ## Author
 
 Hewlett-Packard Company
