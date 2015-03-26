@@ -104,11 +104,17 @@ CGFloat const kPrintJobHeight = 60.0f;
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kPrintAllCellIdentifier];
         }
-        
-        cell.textLabel.text = @"Print all";
+        if ([[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs] count] == 0) {
+            cell.textLabel.text = @"Print queue is empty";
+            cell.userInteractionEnabled = NO;
+            cell.textLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute];
+        } else {
+            cell.textLabel.text = @"Print all";
+            cell.userInteractionEnabled = YES;
+            cell.textLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelColorAttribute];
+        }
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelFontAttribute];
-        cell.textLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelColorAttribute];
 
     } else if (kPrintJobSectionIndex == indexPath.section) {
         cell = [tableView dequeueReusableCellWithIdentifier:kPrintJobCellIdentifier];
@@ -245,6 +251,7 @@ CGFloat const kPrintJobHeight = 60.0f;
          [weakSelf.tableView setEditing:NO animated:YES];
          [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:job];
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+         [tableView reloadData];
      }];
     
     return @[actionDelete, actionPrint];
