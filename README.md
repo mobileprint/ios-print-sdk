@@ -122,7 +122,7 @@ Next, set `MyViewController` as the delegate data source in the `HPPPPrintActivi
 ```
 
 
-## Print later integration
+## Print later integration (ONLY iOS 8 COMPATIBLE)
 
 Some parts of the code to support print later must be implemented in the client app.
 
@@ -148,10 +148,8 @@ NOTE: You can add a custom message explaining why you need access to the current
 
 ```objc
 
-    if (IS_OS_8_OR_LATER) {
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound|UIUserNotificationTypeBadge|UIUserNotificationTypeAlert categories:[NSSet setWithObjects:[HPPP sharedInstance].printLaterUserNotificationCategory, nil]];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    }
 
 ```
 
@@ -197,7 +195,7 @@ If you need to open the print jobs list screen from another location in your app
 
 ### Sharing Activity
 
-You may want to update the share to include the print later activity:
+You may want to add the print later activity to the collection of existing share activities:
 
 ```objc
 
@@ -211,9 +209,6 @@ You may want to update the share to include the print later activity:
     printLaterJob.id = printLaterJobNextAvailableId;
     printLaterJob.name = @“PrintJob Name”;
     printLaterJob.date = [NSDate date];
-    printLaterJob.printerName = @"Epson";
-    printLaterJob.printerLocation = @"Office";
-    printLaterJob.printerURL = @"URL//EPSON";
     printLaterJob.images = @{@"4 x 6" : [UIImage imageNamed:@"sample-portrait.jpg"]};
     
     printLaterActivity.printLaterJob = printLaterJob;
