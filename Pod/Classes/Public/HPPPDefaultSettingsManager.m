@@ -85,6 +85,8 @@ NSString * const kDefaultPrinterLongitudeCoordinateKey = @"kDefaultPrinterLongit
     [defaults setFloat:defaultPrinterCoordinate.latitude forKey:kDefaultPrinterLatitudeCoordinateKey];
     [defaults setFloat:defaultPrinterCoordinate.longitude forKey:kDefaultPrinterLongitudeCoordinateKey];
     [defaults synchronize];
+    
+    NSLog(@"DEFAULT PRINTER COORDINATES:\nlat:%f\nlon:%f", defaultPrinterCoordinate.latitude, defaultPrinterCoordinate.longitude);
 }
 
 - (BOOL)isDefaultPrinterSet
