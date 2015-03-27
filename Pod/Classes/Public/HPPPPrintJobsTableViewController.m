@@ -24,6 +24,7 @@
 
 //@property (unsafe_unretained, nonatomic) IBOutlet UIView *printAllFooterView;
 @property (strong, nonatomic) HPPPPrintLaterJob *selectedPrintJob;
+@property (strong, nonatomic) UILabel *defaultPrinterLabel;
 
 @end
 
@@ -38,20 +39,23 @@ CGFloat const kPrintInfoHeight = 35.0f;
 CGFloat const kPrintInfoInset = 10.0f;
 CGFloat const kPrintAllHeight = 44.0f;
 CGFloat const kPrintJobHeight = 60.0f;
+NSString * const kNoDefaultPrinterMessage = @"No default printer";
 
 #pragma mark - Life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaultPrinterLabel:) name:kHPPPDefaultPrinterAddedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaultPrinterLabel:) name:kHPPPDefaultPrinterRemovedNotification object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)dealloc
 {
-    [super viewWillAppear:animated];
-    [self.tableView reloadData];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,7 +109,7 @@ CGFloat const kPrintJobHeight = 60.0f;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     HPPP *hppp = [HPPP sharedInstance];
-
+    
     if (kPrintAllSectionIndex == indexPath.section) {
         cell = [tableView dequeueReusableCellWithIdentifier:kPrintAllCellIdentifier];
         if (!cell) {
@@ -122,7 +126,7 @@ CGFloat const kPrintJobHeight = 60.0f;
         }
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelFontAttribute];
-
+        
     } else if (kPrintJobSectionIndex == indexPath.section) {
         cell = [tableView dequeueReusableCellWithIdentifier:kPrintJobCellIdentifier];
         if (!cell) {
@@ -131,7 +135,7 @@ CGFloat const kPrintJobHeight = 60.0f;
         
         HPPPPrintJobsTableViewCell *jobCell = (HPPPPrintJobsTableViewCell *)cell;
         HPPPPrintLaterJob *job = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row];
-
+        
         jobCell.jobNameLabel.text = job.name;
         jobCell.jobNameLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameFontAttribute];
         jobCell.jobNameLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameColorAttribute];
@@ -178,7 +182,7 @@ CGFloat const kPrintJobHeight = 60.0f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
+    
     NSLog(@"%ld - %ld", (long)indexPath.section, (long)indexPath.row);
     
     if( indexPath.section == kPrintAllSectionIndex ) {
@@ -213,19 +217,8 @@ CGFloat const kPrintJobHeight = 60.0f;
     if (kPrintAllSectionIndex == section) {
         view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, kPrintInfoHeight)];
         view.backgroundColor = [UIColor clearColor];
-        UILabel *printerInfo = [[UILabel alloc] initWithFrame:CGRectMake(kPrintInfoInset, 0.0f, self.tableView.frame.size.width - (2 * kPrintInfoInset), kPrintInfoHeight)];
-        
-        HPPP *hppp = [HPPP sharedInstance];
-        HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
-        if ([settings isDefaultPrinterSet]) {
-            printerInfo.text = [NSString stringWithFormat:@"%@ / %@", settings.defaultPrinterName, settings.defaultPrinterNetwork];
-        }
-        else {
-            printerInfo.text = @"No default printer";
-        }
-        printerInfo.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrinterInfoFontAttribute];
-        printerInfo.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrinterInfoColorAttribute];
-        [view addSubview:printerInfo];
+        [self configureDefaultPrinterLabel];
+        [view addSubview:self.defaultPrinterLabel];
     }
     return view;
 }
@@ -256,16 +249,19 @@ CGFloat const kPrintJobHeight = 60.0f;
      title:@"Delete"
      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
          NSLog(@"Delete!");
-         
          [weakSelf.tableView setEditing:NO animated:YES];
          [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:job];
-         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-         if (0 == [[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs] count]) {
-             [tableView reloadData];
-         }
+         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
      }];
     
     return @[actionDelete, actionPrint];
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (kPrintJobSectionIndex == indexPath.section && 0 == [[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs] count]) {
+        [tableView reloadData];
+    }
 }
 
 #pragma mark - HPPPPageSettingsTableViewControllerDelegate
@@ -292,6 +288,36 @@ CGFloat const kPrintJobHeight = 60.0f;
     if( completion ) {
         UIImage *image = [self.selectedPrintJob.images objectForKey:imageKey];
         completion(image);
+    }
+}
+
+#pragma mark - Default printer label
+
+- (void)configureDefaultPrinterLabel
+{
+    if (!self.defaultPrinterLabel) {
+        self.defaultPrinterLabel = [[UILabel alloc] initWithFrame:CGRectMake(kPrintInfoInset, 0.0f, self.tableView.frame.size.width - (2 * kPrintInfoInset), kPrintInfoHeight)];
+    }
+    [self setPrinterLabelText:self.defaultPrinterLabel];
+    self.defaultPrinterLabel.font = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrinterInfoFontAttribute];
+    self.defaultPrinterLabel.textColor = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrinterInfoColorAttribute];
+}
+
+- (void)updateDefaultPrinterLabel:(NSNotification *)notification
+{
+    if (self.defaultPrinterLabel) {
+        [self setPrinterLabelText:self.defaultPrinterLabel];
+    }
+}
+
+- (void)setPrinterLabelText:(UILabel *)label
+{
+    HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
+    if ([settings isDefaultPrinterSet]) {
+        label.text = [NSString stringWithFormat:@"%@ / %@", settings.defaultPrinterName, settings.defaultPrinterNetwork];
+    }
+    else {
+        label.text = kNoDefaultPrinterMessage;
     }
 }
 
