@@ -47,8 +47,13 @@ CGFloat const kJobInfoNoPrinterHeight = 130.0f;
     [super viewDidLoad];
     
     if (IS_OS_8_OR_LATER) {
-        [[HPPPPrintLaterManager sharedInstance] initLocationManager];
-        [[HPPPPrintLaterManager sharedInstance] printLaterUserNotificationPermissionRequest];
+        HPPPPrintLaterManager *printLaterManager = [HPPPPrintLaterManager sharedInstance];
+        
+        [printLaterManager initLocationManager];
+
+        if ([printLaterManager currentLocationAccessAuthorized]) {
+            [printLaterManager printLaterUserNotificationPermissionRequest];
+        }
     }
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

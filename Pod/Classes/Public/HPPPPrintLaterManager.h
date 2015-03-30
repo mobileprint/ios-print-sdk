@@ -34,5 +34,6 @@
 - (void)handleNotification:(UILocalNotification *)notification action:(NSString *)action;
 - (void)handleNotification:(UILocalNotification *)notification;
 - (void)printLaterUserNotificationPermissionRequest;
+- (BOOL)currentLocationAccessAuthorized;
 
 @end
