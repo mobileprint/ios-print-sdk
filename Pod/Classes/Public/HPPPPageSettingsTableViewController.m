@@ -861,7 +861,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         return;
     }
     
-    NSString *message = [NSString stringWithFormat:@"Would you like to set the following as the app's default printer?\n\n'%@'", self.currentPrintSettings.printerName];
+    NSString *message = [NSString stringWithFormat:@"Would you like to set the following as this app's default printer?\n\n'%@'", self.currentPrintSettings.printerName];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                     message:message
