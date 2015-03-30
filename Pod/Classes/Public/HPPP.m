@@ -75,8 +75,9 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     self = [super init];
     if (self) {
         
-        if (IS_OS_8_OR_LATER) {
+        if ([HPPPPrintLaterManager sharedInstance].userNotificationsPermissionSet) {
             [[HPPPPrintLaterManager sharedInstance] initLocationManager];
+            [[HPPPPrintLaterManager sharedInstance] initUserNotifications];
         }
         
         self.handlePrintMetricsAutomatically = YES;
@@ -261,28 +262,6 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     } else {
         return _defaultDateFormat;
     }
-}
-
-- (UIUserNotificationCategory *)printLaterUserNotificationCategory
-{
-    UIMutableUserNotificationAction *laterAction = [[UIMutableUserNotificationAction alloc] init];
-    laterAction.identifier = kLaterActionIdentifier;
-    laterAction.activationMode = UIUserNotificationActivationModeBackground;
-    laterAction.title = @"Later";
-    laterAction.destructive = NO;
-    
-    UIMutableUserNotificationAction *printAction = [[UIMutableUserNotificationAction alloc] init];
-    printAction.identifier = kPrintActionIdentifier;
-    printAction.activationMode = UIUserNotificationActivationModeForeground;
-    printAction.title = @"Print";
-    printAction.destructive = NO;
-    
-    UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];
-    category.identifier = kPrintCategoryIdentifier;
-    [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextDefault];
-    [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextMinimal];
-    
-    return category.copy;
 }
 
 @end

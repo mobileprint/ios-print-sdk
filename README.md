@@ -144,11 +144,11 @@ NOTE: You can add a custom message explaining why you need access to the current
 
 ### Configure the app delegate file
 
-* Copy these lines in the appDelegate didFinishLaunchingWithOptions
+* Copy these lines in the appDelegate didFinishLaunchingWithOptions if you are already using push notifications (otherwise we will be overriding your notification registration with the following one). If you are not using push notifications then you don’t need to add those lines, we will handle them for you.
 
 ```objc
 
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound|UIUserNotificationTypeBadge|UIUserNotificationTypeAlert categories:[NSSet setWithObjects:[HPPP sharedInstance].printLaterUserNotificationCategory, nil]];
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound|UIUserNotificationTypeBadge|UIUserNotificationTypeAlert categories:[NSSet setWithObjects:[HPPPPrintLaterManager  sharedInstance].printLaterUserNotificationCategory, nil]];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
 
 ```
