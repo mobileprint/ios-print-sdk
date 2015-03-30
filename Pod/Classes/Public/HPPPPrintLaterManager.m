@@ -89,9 +89,9 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
     }
 }
 
-- (BOOL)currentLocationAccessAuthorized
+- (BOOL)currentLocationAccessSet
 {
-    return (([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways) || ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse));
+    return !(([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) || ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted));
 }
 
 - (UIViewController *)hostViewController
@@ -269,6 +269,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
     
     if (status == kCLAuthorizationStatusDenied) {
         NSLog(@"Current location permission denied");
+        [[HPPPPrintLaterManager sharedInstance] printLaterUserNotificationPermissionRequest];
     } else if ((status == kCLAuthorizationStatusAuthorizedAlways) || (status == kCLAuthorizationStatusAuthorizedWhenInUse)) {
         NSLog(@"Current location permission granted");
         [[HPPPPrintLaterManager sharedInstance] printLaterUserNotificationPermissionRequest];
