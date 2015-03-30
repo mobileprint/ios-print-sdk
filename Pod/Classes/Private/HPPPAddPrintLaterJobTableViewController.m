@@ -1,4 +1,4 @@
-                 //
+//
 // Hewlett-Packard Company
 // All rights reserved.
 //
@@ -46,8 +46,13 @@ CGFloat const kJobInfoNoPrinterHeight = 130.0f;
 {
     [super viewDidLoad];
     
+    if (IS_OS_8_OR_LATER) {
+        [[HPPPPrintLaterManager sharedInstance] initLocationManager];
+        [[HPPPPrintLaterManager sharedInstance] printLaterUserNotificationPermissionRequest];
+    }
+    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
+    
     HPPP *hppp = [HPPP sharedInstance];
     
     self.addToPrintQLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute];
@@ -55,7 +60,7 @@ CGFloat const kJobInfoNoPrinterHeight = 130.0f;
     
     self.getNotificationLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenNotificationDescriptionFontAttribute];
     self.getNotificationLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenNotificationDescriptionColorAttribute];
-
+    
     self.nameLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenJobNameFontAttribute];
     self.nameLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenJobNameColorAttribute];
     
@@ -79,7 +84,7 @@ CGFloat const kJobInfoNoPrinterHeight = 130.0f;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init] ;
     [dateFormatter setDateFormat:[HPPP sharedInstance].defaultDateFormat];
     self.dateLabel.text = [dateFormatter stringFromDate:self.printLaterJob.date];
-
+    
     [self preparePrinterDisplayValues];
 }
 

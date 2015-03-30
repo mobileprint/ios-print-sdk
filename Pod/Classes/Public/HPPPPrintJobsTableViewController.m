@@ -43,8 +43,14 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 
 #pragma mark - Life cycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    
+    if (IS_OS_8_OR_LATER) {
+        [[HPPPPrintLaterManager sharedInstance] initLocationManager];
+        [[HPPPPrintLaterManager sharedInstance] printLaterUserNotificationPermissionRequest];
+    }
     
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -56,10 +62,6 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 + (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion

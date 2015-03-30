@@ -68,21 +68,23 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 
 - (void)initLocationManager
 {
-    self.locationManager = [[CLLocationManager alloc] init];
-    [self.locationManager requestAlwaysAuthorization];
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = 5.0f;
-    self.locationManager.activityType = CLActivityTypeOtherNavigation;
-    
-    if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
-        [[[UIAlertView alloc] initWithTitle:@"Monitoring not available" message:@"Your device does not support the region monitoring, it is not possible to fire alarms base on position" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil] show];
-    }
-    
-    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
-        if ([self.defaultSettingsManager isDefaultPrinterSet]) {
-            NSLog(@"Print jobs in the queue and default printer set");
-            [self.locationManager startUpdatingLocation];
+    if (nil == self.locationManager) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        [self.locationManager requestAlwaysAuthorization];
+        self.locationManager.delegate = self;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        self.locationManager.distanceFilter = 5.0f;
+        self.locationManager.activityType = CLActivityTypeOtherNavigation;
+        
+        if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
+            [[[UIAlertView alloc] initWithTitle:@"Monitoring not available" message:@"Your device does not support the region monitoring, it is not possible to fire alarms base on position" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil] show];
+        }
+        
+        if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
+            if ([self.defaultSettingsManager isDefaultPrinterSet]) {
+                NSLog(@"Print jobs in the queue and default printer set");
+                [self.locationManager startUpdatingLocation];
+            }
         }
     }
 }
@@ -286,6 +288,42 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
 {
     if ([notification.category isEqualToString:kPrintCategoryIdentifier]) {
         [HPPPPrintJobsTableViewController presentAnimated:YES usingController:self.hostViewController andCompletion:nil];
+    }
+}
+
+#pragma mark - User Notifications methods
+
+- (UIUserNotificationCategory *)printLaterUserNotificationCategory
+{
+    if (nil == _printLaterUserNotificationCategory) {
+        UIMutableUserNotificationAction *laterAction = [[UIMutableUserNotificationAction alloc] init];
+        laterAction.identifier = kLaterActionIdentifier;
+        laterAction.activationMode = UIUserNotificationActivationModeBackground;
+        laterAction.title = @"Later";
+        laterAction.destructive = NO;
+        
+        UIMutableUserNotificationAction *printAction = [[UIMutableUserNotificationAction alloc] init];
+        printAction.identifier = kPrintActionIdentifier;
+        printAction.activationMode = UIUserNotificationActivationModeForeground;
+        printAction.title = @"Print";
+        printAction.destructive = NO;
+        
+        UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];
+        category.identifier = kPrintCategoryIdentifier;
+        [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextDefault];
+        [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextMinimal];
+        
+        _printLaterUserNotificationCategory = category.copy;
+    }
+    
+    return _printLaterUserNotificationCategory;
+}
+
+- (void)printLaterUserNotificationPermissionRequest
+{
+    if (nil == _printLaterUserNotificationCategory) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound|UIUserNotificationTypeBadge|UIUserNotificationTypeAlert categories:[NSSet setWithObjects:self.printLaterUserNotificationCategory, nil]];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
 }
 
