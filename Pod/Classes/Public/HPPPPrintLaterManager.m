@@ -22,6 +22,8 @@
 const int kSecondsInOneHour = (60 * 60);
 const CLLocationDistance kDefaultPrinterRadiusInMeters = 20.0f;
 NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER";
+NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermissionSetKey";
+
 
 @interface HPPPPrintLaterManager() <CLLocationManagerDelegate>
 
@@ -89,7 +91,7 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
     }
 }
 
-- (BOOL)currentLocationAccessSet
+- (BOOL)currentLocationPermissionSet
 {
     return !(([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) || ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted));
 }
@@ -269,10 +271,10 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
     
     if (status == kCLAuthorizationStatusDenied) {
         NSLog(@"Current location permission denied");
-        [[HPPPPrintLaterManager sharedInstance] printLaterUserNotificationPermissionRequest];
+        [[HPPPPrintLaterManager sharedInstance] initUserNotifications];
     } else if ((status == kCLAuthorizationStatusAuthorizedAlways) || (status == kCLAuthorizationStatusAuthorizedWhenInUse)) {
         NSLog(@"Current location permission granted");
-        [[HPPPPrintLaterManager sharedInstance] printLaterUserNotificationPermissionRequest];
+        [[HPPPPrintLaterManager sharedInstance] initUserNotifications];
     }
 }
 
@@ -325,12 +327,27 @@ NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER"
     return _printLaterUserNotificationCategory;
 }
 
-- (void)printLaterUserNotificationPermissionRequest
+- (void)initUserNotifications
 {
     if (nil == _printLaterUserNotificationCategory) {
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound|UIUserNotificationTypeBadge|UIUserNotificationTypeAlert categories:[NSSet setWithObjects:self.printLaterUserNotificationCategory, nil]];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        
+        self.userNotificationsPermissionSet = YES;
     }
 }
+
+- (BOOL)userNotificationsPermissionSet
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kUserNotificationsPermissionSetKey];
+}
+
+- (void)setUserNotificationsPermissionSet:(BOOL)userNotificationsPermissionSet
+{
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:userNotificationsPermissionSet forKey:kUserNotificationsPermissionSetKey];
+    [defaults synchronize];
+}
+
 
 @end

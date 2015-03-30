@@ -51,8 +51,8 @@ CGFloat const kJobInfoNoPrinterHeight = 130.0f;
         
         [printLaterManager initLocationManager];
 
-        if ([printLaterManager currentLocationAccessSet]) {
-            [printLaterManager printLaterUserNotificationPermissionRequest];
+        if ([printLaterManager currentLocationPermissionSet]) {
+            [printLaterManager initUserNotifications];
         }
     }
     

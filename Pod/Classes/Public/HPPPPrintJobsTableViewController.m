@@ -52,8 +52,8 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
         
         [printLaterManager initLocationManager];
         
-        if ([printLaterManager currentLocationAccessSet]) {
-            [printLaterManager printLaterUserNotificationPermissionRequest];
+        if ([printLaterManager currentLocationPermissionSet]) {
+            [printLaterManager initUserNotifications];
         }
     }
     

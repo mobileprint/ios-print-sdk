@@ -74,6 +74,12 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
 {
     self = [super init];
     if (self) {
+        
+        if ([HPPPPrintLaterManager sharedInstance].userNotificationsPermissionSet) {
+            [[HPPPPrintLaterManager sharedInstance] initLocationManager];
+            [[HPPPPrintLaterManager sharedInstance] initUserNotifications];
+        }
+        
         self.handlePrintMetricsAutomatically = YES;
         self.lastOptionsUsed = [NSMutableDictionary dictionary];
         self.initialPaperSize = Size5x7;

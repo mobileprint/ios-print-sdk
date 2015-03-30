@@ -28,12 +28,14 @@
  */
 @property (strong, nonatomic) UIUserNotificationCategory *printLaterUserNotificationCategory;
 
+@property (assign, nonatomic) BOOL userNotificationsPermissionSet;
+@property (assign, nonatomic) BOOL currentLocationPermissionSet;
+
 + (HPPPPrintLaterManager *)sharedInstance;
 - (void)initLocationManager;
 - (CLLocationCoordinate2D)retrieveCurrentLocation;
 - (void)handleNotification:(UILocalNotification *)notification action:(NSString *)action;
 - (void)handleNotification:(UILocalNotification *)notification;
-- (void)printLaterUserNotificationPermissionRequest;
-- (BOOL)currentLocationAccessSet;
+- (void)initUserNotifications;
 
 @end
