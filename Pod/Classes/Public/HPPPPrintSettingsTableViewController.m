@@ -16,6 +16,7 @@
 #import "HPPPPrintSettingsTableViewController.h"
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPPPaperTypeTableViewController.h"
+#import "HPPPWiFiReachability.h"
 #import "UITableView+HPPPHeader.h"
 
 #define PRINTER_SELECTION_SECTION 0
@@ -149,20 +150,24 @@
     cell.selected = NO;
     
     if (cell == self.printerSelectCell) {
-        UIPrinterPickerController* printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
-        printerPicker.delegate = self;
-        
-        if( IS_IPAD ) {
-            [printerPicker presentFromRect:self.printerSelectCell.frame
-                                    inView:tableView
-                                  animated:YES
-                         completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                             NSLog(@"closed printer picker");
-                         }];
+        if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+            UIPrinterPickerController* printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
+            printerPicker.delegate = self;
+            
+            if( IS_IPAD ) {
+                [printerPicker presentFromRect:self.printerSelectCell.frame
+                                        inView:tableView
+                                      animated:YES
+                             completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                                 NSLog(@"closed printer picker");
+                             }];
+            } else {
+                [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                    NSLog(@"closed printer picker");
+                }];
+            }
         } else {
-            [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                NSLog(@"closed printer picker");
-            }];
+            [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
         }
     }
 }

@@ -16,7 +16,13 @@
 
 @interface HPPPWiFiReachability : NSObject
 
-- (void)start:(UITableViewCell *)cell label:(UILabel *)label;
+extern NSString * const kHPPPWiFiConnectionEstablished;
+extern NSString * const kHPPPWiFiConnectionLost;
+
++ (HPPPWiFiReachability *)sharedInstance;
+
 - (BOOL)isWifiConnected;
+- (void)noWiFiAlert;
 
 @end
+

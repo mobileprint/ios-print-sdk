@@ -18,6 +18,8 @@
 #import "HPPP+ViewController.h"
 #import "HPPPDefaultSettingsManager.h"
 #import "HPPPPaper.h"
+#import "HPPPAnalyticsManager.h"
+#import "HPPPWiFiReachability.h"
 #import "UIColor+HPPPStyle.h"
 
 @interface HPPPPrintJobsTableViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
@@ -25,6 +27,8 @@
 //@property (unsafe_unretained, nonatomic) IBOutlet UIView *printAllFooterView;
 @property (strong, nonatomic) HPPPPrintLaterJob *selectedPrintJob;
 @property (strong, nonatomic) UILabel *defaultPrinterLabel;
+@property (weak, nonatomic) UITableViewCell *printAllCell;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
 
 @end
 
@@ -60,6 +64,10 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaultPrinterLabel:) name:kHPPPDefaultPrinterAddedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaultPrinterLabel:) name:kHPPPDefaultPrinterRemovedNotification object:nil];
 }
@@ -67,6 +75,25 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionEstablished object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionLost object:nil];
+    [self configurePrintAllCell];
+}
+
+-  (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kHPPPWiFiConnectionEstablished object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kHPPPWiFiConnectionLost object:nil];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
 + (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
@@ -122,23 +149,15 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kPrintAllCellIdentifier];
         }
-        if ([[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs] count] == 0) {
-            cell.textLabel.text = @"Print queue is empty";
-            cell.userInteractionEnabled = NO;
-            cell.textLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute];
-        } else {
-            cell.textLabel.text = @"Print all";
-            cell.userInteractionEnabled = YES;
-            cell.textLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelColorAttribute];
-        }
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelFontAttribute];
-        
+        self.printAllCell = cell;
+        [self configurePrintAllCell];
     } else if (kPrintJobSectionIndex == indexPath.section) {
         cell = [tableView dequeueReusableCellWithIdentifier:kPrintJobCellIdentifier];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kPrintJobCellIdentifier];
         }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         HPPPPrintJobsTableViewCell *jobCell = (HPPPPrintJobsTableViewCell *)cell;
         HPPPPrintLaterJob *job = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row];
@@ -196,7 +215,9 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
         [[[UIAlertView alloc] initWithTitle:@"Print Dreams" message:@"You can dream about printing all of your jobs at once, but when you wake up you're going to be bummed!!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
     }
     else {
-        [self printJob:[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row]];
+        if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+            [self printJob:[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row]];
+        }
     }
 }
 
@@ -236,10 +257,12 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     
     HPPPPrintLaterJob *job = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row];
     
+    NSMutableArray *actions = [NSMutableArray array];
+    
     UITableViewRowAction *actionPrint =
     [UITableViewRowAction
      rowActionWithStyle:UITableViewRowActionStyleNormal
-     title:@"Print"
+     title:@" Print "
      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
          NSLog(@"Print!");
          
@@ -261,13 +284,18 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
      }];
     
-    return @[actionDelete, actionPrint];
+    [actions addObject:actionDelete];
+    if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+        [actions addObject:actionPrint];
+    }
+    
+    return actions;
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (kPrintJobSectionIndex == indexPath.section && 0 == [[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs] count]) {
-        [tableView reloadData];
+    if (kPrintJobSectionIndex == indexPath.section) {
+        [self configurePrintAllCell];
     }
 }
 
@@ -328,4 +356,79 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     }
 }
 
+#pragma mark - Print all button
+
+- (void)configurePrintAllCell
+{
+    self.printAllCell.textLabel.textAlignment = NSTextAlignmentCenter;
+    self.printAllCell.textLabel.font = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelFontAttribute];
+    NSUInteger jobCount = [[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs] count];
+    if (jobCount == 0) {
+        self.printAllCell.textLabel.text = @"Print queue is empty";
+        self.printAllCell.userInteractionEnabled = NO;
+        self.printAllCell.textLabel.textColor = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute];
+    } else {
+        BOOL enabled = NO;
+        UIColor *color = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute];
+        if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+            enabled = YES;
+            color = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelColorAttribute];
+        }
+        self.printAllCell.userInteractionEnabled = enabled;
+        self.printAllCell.textLabel.textColor = color;
+        if (1 == jobCount) {
+            self.printAllCell.textLabel.text = @"Print";
+        } else if (2 == jobCount) {
+            self.printAllCell.textLabel.text = @"Print both";
+        } else {
+            self.printAllCell.textLabel.text = [NSString stringWithFormat:@"Print all %lu", (unsigned long)jobCount];
+        }
+    }
+}
+
+#pragma mark - Default printer
+
+- (IBAction)settingsButtonTapped:(id)sender
+{
+    if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+        UIPrinterPickerController *printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
+        if(IS_IPAD) {
+            [printerPicker presentFromBarButtonItem:self.settingsButton animated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error) {
+                if (userDidSelect) {
+                    [self userDidSelectPrinter:printerPickerController.selectedPrinter];
+                }
+            }];
+        } else {
+            [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                if (userDidSelect) {
+                    [self userDidSelectPrinter:printerPickerController.selectedPrinter];
+                }
+            }];
+        }
+    } else {
+        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+    }
+}
+
+- (void)userDidSelectPrinter:(UIPrinter *)printer
+{
+    [HPPPDefaultSettingsManager sharedInstance].defaultPrinterName = printer.displayName;
+    [HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl = printer.URL.absoluteString;
+    [HPPPDefaultSettingsManager sharedInstance].defaultPrinterNetwork = [HPPPAnalyticsManager wifiName];
+    [HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate = [[HPPPPrintLaterManager sharedInstance] retrieveCurrentLocation];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPDefaultPrinterAddedNotification object:self userInfo:nil];
+}
+
+#pragma mark - HPPPWiFiReachability notification
+
+- (void)connectionChanged:(NSNotification *)notification
+{
+    [self configurePrintAllCell];
+    if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+    }
+}
+
 @end
+
+

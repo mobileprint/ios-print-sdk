@@ -13,64 +13,73 @@
 #import "HPPPWiFiReachability.h"
 #import "HPPP.h"
 
-
 @interface HPPPWiFiReachability ()
 
 @property (weak, nonatomic) UILabel *label;
 @property (weak, nonatomic) UITableViewCell *cell;
-@property (nonatomic) HPPPReachability *wifiReachability;
+@property (strong, nonatomic) HPPPReachability *reachability;
+@property (assign, nonatomic) BOOL connected;
 
 @end
 
-
 @implementation HPPPWiFiReachability
 
-- (void)start:(UITableViewCell *)cell label:(UILabel *)label
+NSString * const kHPPPWiFiConnectionEstablished = @"kHPPPWiFiConnectionEstablished";
+NSString * const kHPPPWiFiConnectionLost = @"kHPPPWiFiConnectionLost";
+
++ (HPPPWiFiReachability *)sharedInstance
 {
-    self.cell = cell;
-    self.label = label;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-    self.wifiReachability = [HPPPReachability reachabilityForLocalWiFi];
-    [self.wifiReachability startNotifier];
-    [self verifyWifiIsConnected:self.wifiReachability];
+    static HPPPWiFiReachability *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[HPPPWiFiReachability alloc] init];
+        [sharedInstance startMonitoring];
+    });
+    
+    return sharedInstance;
 }
 
-- (void)verifyWifiIsConnected:(HPPPReachability *)reachability
+- (void)startMonitoring
 {
-    NetworkStatus wifiStatus = [reachability currentReachabilityStatus];
-    if (wifiStatus != NotReachable) {
-        self.cell.userInteractionEnabled = YES;
-        self.label.textColor = [HPPP sharedInstance].tableViewCellPrintLabelColor;
-    } else {
-        self.cell.userInteractionEnabled = NO;
-        self.label.textColor = [UIColor grayColor];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Printing Requires Wi-Fi"
-                                                        message:@"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    self.reachability = [HPPPReachability reachabilityForLocalWiFi];
+    [self.reachability startNotifier];
+    self.connected = (NotReachable != [self.reachability currentReachabilityStatus]);
+}
+
+- (void)noWiFiAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Printing Requires Wi-Fi"
+                                                    message:@"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (BOOL)isWifiConnected
 {
-    HPPPReachability *wifiReachability = [HPPPReachability reachabilityForLocalWiFi];
-    NetworkStatus wifiStatus = [wifiReachability currentReachabilityStatus];
-    return (wifiStatus != NotReachable);
+    return (NotReachable != [self.reachability currentReachabilityStatus]);
 }
 
 - (void)reachabilityChanged:(NSNotification *)notification
 {
     HPPPReachability *currentReachability = [notification object];
     NSParameterAssert([currentReachability isKindOfClass:[HPPPReachability class]]);
-    [self verifyWifiIsConnected:currentReachability];
+    BOOL connected = (NotReachable != [currentReachability currentReachabilityStatus]);
+    if (connected != self.connected) {
+        self.connected = connected;
+        if (self.connected) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPWiFiConnectionEstablished object:nil];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPWiFiConnectionLost object:nil];
+        }
+    }
 }
-
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

@@ -203,6 +203,10 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         [self configurePageView];
     }
     
+    if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+    }
+    
     if (IS_OS_8_OR_LATER) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:kHPPPPrinterAvailabilityNotification object:nil];
         
@@ -222,7 +226,16 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 {
     [super viewWillAppear:animated];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEstablished:) name:kHPPPWiFiConnectionEstablished object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionLost:) name:kHPPPWiFiConnectionLost object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kPageSettingsScreenName forKey:kHPPPTrackableScreenNameKey]];
+}
+
+-  (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kHPPPWiFiConnectionEstablished object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kHPPPWiFiConnectionLost object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -300,9 +313,6 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
                 }
             }
         }];
-        
-        self.wifiReachability = [[HPPPWiFiReachability alloc] init];
-        [self.wifiReachability start:self.printCell label:self.printLabel];
     }
 }
 
@@ -418,24 +428,28 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 
 - (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
 {
-    UIPrinterPickerController *printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
-    printerPicker.delegate = self;
-    
-    if( IS_IPAD ) {
-        [printerPicker presentFromRect:self.selectPrinterCell.frame
-                                inView:tableView
-                              animated:YES
-                     completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                         if (completion){
-                             completion(userDidSelect);
-                         }
-                     }];
+    if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+        UIPrinterPickerController *printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
+        printerPicker.delegate = self;
+        
+        if( IS_IPAD ) {
+            [printerPicker presentFromRect:self.selectPrinterCell.frame
+                                    inView:tableView
+                                  animated:YES
+                         completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                             if (completion){
+                                 completion(userDidSelect);
+                             }
+                         }];
+        } else {
+            [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                if (completion){
+                    completion(userDidSelect);
+                }
+            }];
+        }
     } else {
-        [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-            if (completion){
-                completion(userDidSelect);
-            }
-        }];
+        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
     }
 }
 
@@ -1092,6 +1106,21 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
             [self.refreshControl endRefreshing];
         }
     }
+}
+
+#pragma mark - HPPPWiFiReachability notifications
+
+- (void)connectionEstablished:(NSNotification *)notification
+{
+    self.printCell.userInteractionEnabled = YES;
+    self.printLabel.textColor = [HPPP sharedInstance].tableViewCellPrintLabelColor;
+}
+
+- (void)connectionLost:(NSNotification *)notification
+{
+    self.printCell.userInteractionEnabled = NO;
+    self.printLabel.textColor = [UIColor grayColor];
+    [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
 }
 
 @end
