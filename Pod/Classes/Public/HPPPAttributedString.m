@@ -12,6 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HPPPAttributedString.h"
+#import "UIColor+HPPPStyle.h"
 
 // Print Later Screen
 NSString *const HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute = @"HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute";
@@ -28,7 +29,7 @@ NSString *const HPPPAddPrintLaterJobScreenPrinterNameFontAttribute = @"HPPPAddPr
 NSString *const HPPPAddPrintLaterJobScreenPrinterNameColorAttribute = @"HPPPAddPrintLaterJobScreenPrinterNameColorAttribute";
 
 #define DEFAULT_ADD_TO_PRINT_Q_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
-#define DEFAULT_ADD_TO_PRINT_Q_COLOR [UIColor colorWithRed:0x02 / 255.0f green:0x7B / 255.0f blue:0xFF / 255.0f alpha:1.0f]
+#define DEFAULT_ADD_TO_PRINT_Q_COLOR [UIColor HPPPHPBlueColor]
 
 #define DEFAULT_NOTIFICATION_DESCRIPTION_FONT [UIFont fontWithName:@"Helvetica Neue" size:16]
 #define DEFAULT_NOTIFICATION_DESCRIPTION_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
@@ -72,7 +73,7 @@ NSString *const HPPPPrintQueueScreenJobDateFontAttribute = @"HPPPPrintQueueScree
 NSString *const HPPPPrintQueueScreenJobDateColorAttribute = @"HPPPPrintQueueScreenJobDateColorAttribute";
 
 #define DEFAULT_PRINT_Q_PRINT_ALL_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
-#define DEFAULT_PRINT_Q_PRINT_ALL_COLOR [UIColor colorWithRed:0x02 / 255.0f green:0x7B / 255.0f blue:0xFF / 255.0f alpha:1.0f]
+#define DEFAULT_PRINT_Q_PRINT_ALL_COLOR [UIColor HPPPHPBlueColor]
 
 #define DEFAULT_PRINT_Q_PRINT_ALL_DISABLED_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:18]
 #define DEFAULT_PRINT_Q_PRINT_ALL_DISABLED_COLOR [UIColor colorWithRed:0x88 / 255.0f green:0x88 / 255.0f blue:0x88 / 255.0f alpha:1.0f]

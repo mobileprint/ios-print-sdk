@@ -22,7 +22,8 @@ extern NSString * const kHPPPWiFiConnectionLost;
 + (HPPPWiFiReachability *)sharedInstance;
 
 - (BOOL)isWifiConnected;
-- (void)noWiFiAlert;
+- (void)noPrintingAlert;
+- (void)noPrinterSelectAlert;
 
 @end
 

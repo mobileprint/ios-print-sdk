@@ -223,7 +223,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     
     [self configurePrintButton];
     if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
-        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+        [[HPPPWiFiReachability sharedInstance] noPrintingAlert];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEstablished:) name:kHPPPWiFiConnectionEstablished object:nil];
@@ -449,7 +449,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
             }];
         }
     } else {
-        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+        [[HPPPWiFiReachability sharedInstance] noPrinterSelectAlert];
     }
 }
 
@@ -1118,7 +1118,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 - (void)connectionLost:(NSNotification *)notification
 {
     [self configurePrintButton];
-    [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+    [[HPPPWiFiReachability sharedInstance] noPrintingAlert];
 }
 
 - (void)configurePrintButton

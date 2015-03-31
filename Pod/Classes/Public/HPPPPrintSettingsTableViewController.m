@@ -167,7 +167,7 @@
                 }];
             }
         } else {
-            [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+            [[HPPPWiFiReachability sharedInstance] noPrinterSelectAlert];
         }
     }
 }

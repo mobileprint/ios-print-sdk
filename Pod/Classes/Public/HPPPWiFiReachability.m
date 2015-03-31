@@ -47,10 +47,20 @@ NSString * const kHPPPWiFiConnectionLost = @"kHPPPWiFiConnectionLost";
     self.connected = (NotReachable != [self.reachability currentReachabilityStatus]);
 }
 
-- (void)noWiFiAlert
+- (void)noPrintingAlert
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Printing Requires Wi-Fi"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wi-Fi Required"
                                                     message:@"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)noPrinterSelectAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wi-Fi Required"
+                                                    message:@"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings."
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];

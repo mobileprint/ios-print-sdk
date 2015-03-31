@@ -401,7 +401,7 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
             }];
         }
     } else {
-        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+        [[HPPPWiFiReachability sharedInstance] noPrinterSelectAlert];
     }
 }
 
@@ -420,7 +420,7 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 {
     [self configurePrintAllCell];
     if ([self showWarning]) {
-        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+        [[HPPPWiFiReachability sharedInstance] noPrintingAlert];
     }
 }
 
