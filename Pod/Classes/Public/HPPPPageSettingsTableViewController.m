@@ -52,6 +52,8 @@
 
 #define LAST_PRINTER_USED_SETTING @"lastPrinterUsed"
 #define LAST_PRINTER_USED_ID_SETTING @"lastPrinterIdUsed"
+#define LAST_PRINTER_USED_MODEL_SETTING @"lastPrinterUsedModel"
+#define LAST_PRINTER_USED_LOCATION_SETTING @"lastPrinterUsedLocation"
 #define LAST_SIZE_USED_SETTING @"lastSizeUsed"
 #define LAST_TYPE_USED_SETTING @"lastTypeUsed"
 #define LAST_FILTER_USED_SETTING @"lastFilterUsed"
@@ -337,6 +339,12 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         self.currentPrintSettings.printerUrl = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING]];
         self.currentPrintSettings.printerId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_ID_SETTING];
     }
+    
+    NSString *lastModel = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_MODEL_SETTING];
+    self.currentPrintSettings.printerModel = lastModel;
+
+    NSString *lastLocation = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_LOCATION_SETTING];
+    self.currentPrintSettings.printerLocation = lastLocation;
     
     if (IS_OS_8_OR_LATER) {
         NSNumber *lastFilterUsed = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_FILTER_USED_SETTING];
@@ -923,6 +931,16 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     self.currentPrintSettings.printerModel = printer.makeAndModel;
 }
 
+- (void)savePrinterInfo
+{
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.currentPrintSettings.printerUrl.absoluteString forKey:LAST_PRINTER_USED_URL_SETTING];
+    [defaults setObject:self.currentPrintSettings.printerName forKey:LAST_PRINTER_USED_SETTING];
+    [defaults setObject:self.currentPrintSettings.printerId forKey:LAST_PRINTER_USED_ID_SETTING];
+    [defaults setObject:self.currentPrintSettings.printerModel forKey:LAST_PRINTER_USED_MODEL_SETTING];
+    [defaults setObject:self.currentPrintSettings.printerLocation forKey:LAST_PRINTER_USED_LOCATION_SETTING];
+    [defaults synchronize];
+}
 
 #pragma mark - UIAlertViewDelegate
 
@@ -945,13 +963,11 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 {
     self.currentPrintSettings.printerName = printSettings.printerName;
     self.currentPrintSettings.printerUrl = printSettings.printerUrl;
+    self.currentPrintSettings.printerModel = printSettings.printerModel;
+    self.currentPrintSettings.printerLocation = printSettings.printerLocation;
     self.currentPrintSettings.printerIsAvailable = printSettings.printerIsAvailable;
     
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:printSettings.printerUrl.absoluteString forKey:LAST_PRINTER_USED_URL_SETTING];
-    [defaults setObject:printSettings.printerName forKey:LAST_PRINTER_USED_SETTING];
-    [defaults setObject:printSettings.printerId forKey:LAST_PRINTER_USED_ID_SETTING];
-    [defaults synchronize];
+    [self savePrinterInfo];
     
     [self paperSizeTableViewController:(HPPPPaperSizeTableViewController *)printSettingsTableViewController didSelectPaper:printSettings.paper];
     
@@ -1048,15 +1064,9 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     
     if (selectedPrinter != nil){
         NSLog(@"Selected Printer: %@", selectedPrinter.URL);
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:selectedPrinter.URL.absoluteString forKey:LAST_PRINTER_USED_URL_SETTING];
-        [defaults setObject:selectedPrinter.displayName forKey:LAST_PRINTER_USED_SETTING];
-        [defaults setObject:self.currentPrintSettings.printerId forKey:LAST_PRINTER_USED_ID_SETTING];
-        [defaults synchronize];
-        
         self.currentPrintSettings.printerIsAvailable = YES;
         [self setPrinterDetails:selectedPrinter];
+        [self savePrinterInfo];
         [self updatePageSettingsUI];
         [self updatePrintSettingsUI];
     }
@@ -1091,9 +1101,6 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     BOOL available = [[notification.userInfo objectForKey:kHPPPPrinterAvailableKey] boolValue];
     
     if ( available ) {
-        UIPrinter *printerFromUrl = [notification.userInfo objectForKey:kHPPPPrinterKey];
-        
-        [self setPrinterDetails:printerFromUrl];
         [self printerIsAvailable];
     } else {
         [self printerNotAvailable];
