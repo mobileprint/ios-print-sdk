@@ -96,15 +96,6 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
     return !(([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) || ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted));
 }
 
-- (UIViewController *)hostViewController
-{
-    if (nil == _hostViewController) {
-        _hostViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    }
-    
-    return _hostViewController;
-}
-
 #pragma mark - Notifications
 
 - (void)handlePrintJobAddedToQueueNotification:(NSNotification *)notification
@@ -280,6 +271,15 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 
 #pragma mark - Notifications methods
 
+- (void)showPrintJobsTableViewController
+{
+    UIViewController *viewController = [self keyWindowTopMostController];
+    
+    if (![viewController isKindOfClass:[HPPPPrintJobsTableViewController class]]) {
+        [HPPPPrintJobsTableViewController presentAnimated:YES usingController:viewController andCompletion:nil];
+    }
+}
+
 - (void)handleNotification:(UILocalNotification *)notification action:(NSString *)action
 {
     if ([notification.category isEqualToString:kPrintCategoryIdentifier]) {
@@ -287,7 +287,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
             [self fireNotificationLater];
             NSLog(@"Notification will fire again in %d seconds", (kSecondsInOneHour / 2));
         } else if ([action isEqualToString:kPrintActionIdentifier]) {
-            [HPPPPrintJobsTableViewController presentAnimated:YES usingController:self.hostViewController andCompletion:nil];
+            [self showPrintJobsTableViewController];
         }
     }
 }
@@ -295,8 +295,23 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 - (void)handleNotification:(UILocalNotification *)notification
 {
     if ([notification.category isEqualToString:kPrintCategoryIdentifier]) {
-        [HPPPPrintJobsTableViewController presentAnimated:YES usingController:self.hostViewController andCompletion:nil];
+        [self showPrintJobsTableViewController];
     }
+}
+
+- (UIViewController *)keyWindowTopMostController
+{
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    
+    if ([topController isKindOfClass:[UINavigationController class]]) {
+        topController = ((UINavigationController *)topController).topViewController;
+    }
+    
+    return topController;
 }
 
 #pragma mark - User Notifications methods
