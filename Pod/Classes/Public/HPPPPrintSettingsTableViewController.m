@@ -251,6 +251,8 @@
         self.selectedPrinterLabel.text = selectedPrinter.displayName;
         self.printSettings.printerName = selectedPrinter.displayName;
         self.printSettings.printerUrl = selectedPrinter.URL;
+        self.printSettings.printerModel = selectedPrinter.makeAndModel;
+        self.printSettings.printerLocation = selectedPrinter.displayLocation;
         self.printSettings.printerIsAvailable = YES;
         
         [self updatePrinterAvailability];
