@@ -179,7 +179,6 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     self.numberOfCopiesStepper.value = DEFAULT_NUMBER_OF_COPIES;
     self.numberOfCopiesStepper.tintColor = self.hppp.tableViewCellLinkLabelColor;
     
-    
     [self reloadPaperSelectionSection];
     
     [self prepareUiForIosVersion];
@@ -203,10 +202,6 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         [self configurePageView];
     }
     
-    if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
-        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
-    }
-    
     if (IS_OS_8_OR_LATER) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:kHPPPPrinterAvailabilityNotification object:nil];
         
@@ -225,6 +220,11 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self configurePrintButton];
+    if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEstablished:) name:kHPPPWiFiConnectionEstablished object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionLost:) name:kHPPPWiFiConnectionLost object:nil];
@@ -1108,19 +1108,28 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     }
 }
 
-#pragma mark - HPPPWiFiReachability notifications
+#pragma mark - Wi-Fi handling
 
 - (void)connectionEstablished:(NSNotification *)notification
 {
-    self.printCell.userInteractionEnabled = YES;
-    self.printLabel.textColor = [HPPP sharedInstance].tableViewCellPrintLabelColor;
+    [self configurePrintButton];
 }
 
 - (void)connectionLost:(NSNotification *)notification
 {
-    self.printCell.userInteractionEnabled = NO;
-    self.printLabel.textColor = [UIColor grayColor];
+    [self configurePrintButton];
     [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
+}
+
+- (void)configurePrintButton
+{
+    if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+        self.printCell.userInteractionEnabled = YES;
+        self.printLabel.textColor = [HPPP sharedInstance].tableViewCellPrintLabelColor;
+    } else {
+        self.printCell.userInteractionEnabled = NO;
+        self.printLabel.textColor = [UIColor grayColor];
+    }
 }
 
 @end
