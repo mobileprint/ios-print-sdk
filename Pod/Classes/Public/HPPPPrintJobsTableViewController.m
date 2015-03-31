@@ -64,10 +64,6 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
-        [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
-    }
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaultPrinterLabel:) name:kHPPPDefaultPrinterAddedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaultPrinterLabel:) name:kHPPPDefaultPrinterRemovedNotification object:nil];
 }
@@ -262,7 +258,7 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     UITableViewRowAction *actionPrint =
     [UITableViewRowAction
      rowActionWithStyle:UITableViewRowActionStyleNormal
-     title:@" Print "
+     title:@"Print"
      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
          NSLog(@"Print!");
          
@@ -362,28 +358,27 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 {
     self.printAllCell.textLabel.textAlignment = NSTextAlignmentCenter;
     self.printAllCell.textLabel.font = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelFontAttribute];
+    NSString *text = @"Print queue is empty";
+    BOOL enabled = NO;
+    UIColor *color = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute];
     NSUInteger jobCount = [[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs] count];
-    if (jobCount == 0) {
-        self.printAllCell.textLabel.text = @"Print queue is empty";
-        self.printAllCell.userInteractionEnabled = NO;
-        self.printAllCell.textLabel.textColor = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute];
-    } else {
-        BOOL enabled = NO;
-        UIColor *color = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute];
+    if (jobCount > 0) {
+        text = @"No Wi-Fi connection";
         if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
             enabled = YES;
             color = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelColorAttribute];
-        }
-        self.printAllCell.userInteractionEnabled = enabled;
-        self.printAllCell.textLabel.textColor = color;
-        if (1 == jobCount) {
-            self.printAllCell.textLabel.text = @"Print";
-        } else if (2 == jobCount) {
-            self.printAllCell.textLabel.text = @"Print both";
-        } else {
-            self.printAllCell.textLabel.text = [NSString stringWithFormat:@"Print all %lu", (unsigned long)jobCount];
+            if (1 == jobCount) {
+                text = @"Print";
+            } else if (2 == jobCount) {
+                text = @"Print both";
+            } else {
+                text = [NSString stringWithFormat:@"Print all %lu", (unsigned long)jobCount];
+            }
         }
     }
+    self.printAllCell.userInteractionEnabled = enabled;
+    self.printAllCell.textLabel.textColor = color;
+    self.printAllCell.textLabel.text = text;
 }
 
 #pragma mark - Default printer
@@ -424,9 +419,20 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 - (void)connectionChanged:(NSNotification *)notification
 {
     [self configurePrintAllCell];
-    if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+    if ([self showWarning]) {
         [[HPPPWiFiReachability sharedInstance] noWiFiAlert];
     }
+}
+
+- (BOOL)showWarning
+{
+    BOOL warn = NO;
+    NSUInteger jobCount = [[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs] count];
+    BOOL noWiFi = ![[HPPPWiFiReachability sharedInstance] isWifiConnected];
+    if (jobCount > 0 && noWiFi) {
+        warn = YES;
+    }
+    return warn;
 }
 
 @end
