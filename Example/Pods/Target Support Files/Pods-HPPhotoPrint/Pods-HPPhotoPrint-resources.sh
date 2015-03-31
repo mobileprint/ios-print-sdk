@@ -49,6 +49,7 @@ install_resource()
 }
           install_resource "../../Pod/Assets/HPPPDoNoEnter.png"
                     install_resource "../../Pod/Assets/HPPPDoNoEnter@2x.png"
+                    install_resource "../../Pod/Assets/HPPPGear@2x.png"
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowDown@2x.png"
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowLeft@2x.png"
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowRight@2x.png"

@@ -1113,13 +1113,20 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Print Queue" id="cyX-UA-U7U">
-                        <barButtonItem key="backBarButtonItem" title=" " id="pRB-Of-4oD"/>
+                        <barButtonItem key="leftBarButtonItem" image="HPPPGear.png" id="HNR-wF-lqT" userLabel="Settings">
+                            <connections>
+                                <action selector="settingsButtonTapped:" destination="eKk-9e-x6C" id="8hR-i5-n8c"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="PWt-Fr-zQK">
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="eKk-9e-x6C" id="4t5-8x-PpC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="settingsButton" destination="HNR-wF-lqT" id="pJO-GJ-ajn"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0yQ-5y-ljO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1180,6 +1187,9 @@
             <point key="canvasLocation" x="5014" y="660"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="HPPPGear.png" width="25" height="25"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="4eJ-bv-9qP"/>
         <segue reference="E8A-CH-mPX"/>
