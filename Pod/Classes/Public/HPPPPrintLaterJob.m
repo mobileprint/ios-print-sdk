@@ -37,7 +37,7 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
     NSMutableDictionary *serializeImages = [NSMutableDictionary dictionary];
     
     for (NSString *printJobId in self.images.allKeys) {
-        NSData *imageData = UIImageJPEGRepresentation([self.images objectForKey:printJobId], 1);
+        NSData *imageData = UIImageJPEGRepresentation([self.images objectForKey:printJobId], 1.0f);
         [serializeImages setObject:imageData forKey:printJobId];
     }
     
@@ -60,7 +60,7 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
         NSMutableDictionary *serializeImages = [NSMutableDictionary dictionary];
         for (NSString *printJobId in decodedImages.allKeys) {
             NSData *imageData = [decodedImages objectForKey:printJobId];
-            UIImage *image = [UIImage imageWithData:imageData];
+            UIImage *image = [UIImage imageWithData:imageData scale:[[UIScreen mainScreen] scale]];
             [serializeImages setObject:image forKey:printJobId];
         }
         
