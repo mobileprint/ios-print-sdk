@@ -30,7 +30,6 @@ NSString * const kHPPPPrintActivity = @"HPPPPrintActivity";
 @interface HPPPAnalyticsManager ()
 
 @property (nonatomic, strong, readonly) NSString *userUniqueIdentifier;
-@property (nonatomic, strong, readonly) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -53,8 +52,6 @@ NSString * const kHPPPPrintActivity = @"HPPPPrintActivity";
 - (void)setupSettings
 {
     _userUniqueIdentifier = [[UIDevice currentDevice].identifierForVendor UUIDString];
-    _dateFormatter = [[NSDateFormatter alloc] init] ;
-    [_dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
 }
 
 - (NSURL *)metricsServerURL
@@ -76,7 +73,6 @@ NSString * const kHPPPPrintActivity = @"HPPPPrintActivity";
     NSString *completeVersion = [NSString stringWithFormat:@"%@ (%@)", version, build];
     NSString *osVersion = [[UIDevice currentDevice] systemVersion];
     NSString *displayName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-    NSString *formattedTime = [self.dateFormatter stringFromDate:[NSDate date]];
     NSDictionary *metrics = @{
                               @"device_brand" : [self nonNullString:kHPPPManufacturer],
                               @"device_id" : [self nonNullString:self.userUniqueIdentifier],
@@ -85,7 +81,6 @@ NSString * const kHPPPPrintActivity = @"HPPPPrintActivity";
                               @"os_type" : [self nonNullString:kHPPPOSType],
                               @"os_version" : [self nonNullString:osVersion],
                               @"product_name" : [self nonNullString:displayName],
-                              @"timestamp" : [self nonNullString:formattedTime],
                               @"version" : [self nonNullString:completeVersion],
                               @"wifi_ssid": [HPPPAnalyticsManager wifiName]
                               };
