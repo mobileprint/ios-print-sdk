@@ -12,6 +12,7 @@
 
 #import "HPPPPrinter.h"
 #import "HPPP.h"
+#import "HPPPDefaultSettingsManager.h"
 
 @interface HPPPPrinter ()
 
@@ -38,9 +39,10 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             
             NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
-            NSLog(@"Searching for printer %@", lastPrinterUrl);
             
-            if( nil != lastPrinterUrl ) {
+            if (nil != lastPrinterUrl) {
+                NSLog(@"Searching for last printer used %@", lastPrinterUrl);
+
                 UIPrinter *printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:lastPrinterUrl]];
                 [printerFromUrl contactPrinter:^(BOOL available) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -61,13 +63,15 @@
 
 - (void)checkDefaultPrinterAvailabilityWithCompletion:(void(^)(BOOL available))completion
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+    // This check is called when the region of the printer is crossed, if the app is not active iOS will wake it up for a short period of time to perform some actions, so it has to be fast...
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
-        NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
-        NSLog(@"Searching for printer %@", lastPrinterUrl);
+        NSString *defaultPrinterUrl = [HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl;
         
-        if( nil != lastPrinterUrl ) {
-            UIPrinter *printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:lastPrinterUrl]];
+        if (nil != defaultPrinterUrl) {
+            NSLog(@"Searching for default printer %@", defaultPrinterUrl);
+            
+            UIPrinter *printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:defaultPrinterUrl]];
             [printerFromUrl contactPrinter:^(BOOL available) {
                 completion(available);
             }];
