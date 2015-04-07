@@ -233,7 +233,11 @@
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
             label.font = self.hppp.tableViewFooterWarningLabelFont;
             label.textColor = self.hppp.tableViewFooterWarningLabelColor;
-            label.text = @"Recent printer not currently available";
+            if (self.useDefaultPrinter) {
+                label.text = @"Default printer not currently available";
+            } else {
+                label.text = @"Recent printer not currently available";
+            }
             [footer addSubview:label];
         }
     }
