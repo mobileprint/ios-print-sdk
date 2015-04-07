@@ -189,9 +189,8 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
         NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
-        if (numberOfJobs > 1) {
-            self.printLabel.text = [NSString stringWithFormat:@"Print all %ld with selected settings", (long)numberOfJobs];
-        }
+        
+        self.printLabel.text = [self stringFromNumberOfImages:numberOfJobs copies:1];
     }
     
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
@@ -575,6 +574,12 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     self.numberOfCopies = sender.value;
     
     self.numberOfCopiesLabel.text = [NSString stringWithFormat:@"%ld %@", (long)self.numberOfCopies, (self.numberOfCopies == 1) ? @"copy" : @"copies"];
+    
+    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
+        NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+        
+        self.printLabel.text = [self stringFromNumberOfImages:numberOfJobs copies:self.numberOfCopies];
+    }
 }
 
 #pragma mark - Switch actions
@@ -824,6 +829,27 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
             [self printCompleted:printController isCompleted:completed printError:error];
         }];
     }
+}
+
+- (NSString *)stringFromNumberOfImages:(NSInteger)numberOfImages copies:(NSInteger)copies
+{
+    NSString *result = nil;
+    
+    NSInteger total = numberOfImages * copies;
+    
+    switch (total) {
+        case 1:
+            result = @"Print";
+            break;
+        case 2:
+            result = @"Print both with selected settings";
+            break;
+        default:
+            result = [NSString stringWithFormat:@"Print all %ld with selected settings", (long)total];
+            break;
+    }
+    
+    return result;
 }
 
 - (void)createPrintJob:(UIPrintInteractionController *)controller
