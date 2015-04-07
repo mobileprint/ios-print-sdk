@@ -1077,13 +1077,13 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOy-Vq-y3c" userLabel="Name Label">
-                                            <rect key="frame" x="58" y="10" width="534" height="21"/>
+                                            <rect key="frame" x="58" y="10" width="534" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PcL-qz-1ME" userLabel="Date Label">
-                                            <rect key="frame" x="58" y="34" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PcL-qz-1ME" userLabel="Date Label">
+                                            <rect key="frame" x="58" y="35" width="42" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -1113,6 +1113,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Print Queue" id="cyX-UA-U7U">
+                        <barButtonItem key="backBarButtonItem" title=" " id="r4W-fJ-gm9"/>
                         <barButtonItem key="leftBarButtonItem" image="HPPPGear.png" id="HNR-wF-lqT" userLabel="Settings">
                             <connections>
                                 <action selector="settingsButtonTapped:" destination="eKk-9e-x6C" id="8hR-i5-n8c"/>

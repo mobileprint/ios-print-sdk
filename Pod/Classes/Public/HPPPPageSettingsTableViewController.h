@@ -101,4 +101,8 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  */
 - (void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion;
 
+@optional
+- (NSInteger)pageSettingsTableViewControllerRequestNumberOfImagesToPrint;
+- (NSArray *)pageSettingsTableViewControllerRequestImagesForPaper:(HPPPPaper *)paper;
+
 @end

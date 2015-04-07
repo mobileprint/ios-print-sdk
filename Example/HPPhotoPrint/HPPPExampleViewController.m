@@ -194,6 +194,11 @@
     UIImage *image5x7 = [UIImage imageNamed:@"sample2-portrait.jpg"];
     UIImage *imageLetter = image4x5;
 
+    UIImage *image4x5_2 = [UIImage imageNamed:@"sample-landscape.jpg"];
+    UIImage *image4x6_2 = [UIImage imageNamed:@"sample-landscape.jpg"];
+    UIImage *image5x7_2 = [UIImage imageNamed:@"sample-landscape.jpg"];
+    UIImage *imageLetter_2 = image4x5_2;
+    
     printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
     printLaterJob = [[HPPPPrintLaterJob alloc] init];
     printLaterJob.id = printLaterJobNextAvailableId;
@@ -210,10 +215,10 @@
     printLaterJob.id = printLaterJobNextAvailableId;
     printLaterJob.name = @"Dude";
     printLaterJob.date = [NSDate date];
-    printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
-                             [HPPPPaper titleFromSize:Size4x6] : image4x6,
-                             [HPPPPaper titleFromSize:Size5x7] : image5x7,
-                             [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
+    printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5_2,
+                             [HPPPPaper titleFromSize:Size4x6] : image4x6_2,
+                             [HPPPPaper titleFromSize:Size5x7] : image5x7_2,
+                             [HPPPPaper titleFromSize:SizeLetter] : imageLetter_2};
     [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:printLaterJob];
     
     printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
