@@ -579,6 +579,8 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
         
         self.printLabel.text = [self stringFromNumberOfImages:numberOfJobs copies:self.numberOfCopies];
+    } else {
+        self.printLabel.text = [self stringFromNumberOfImages:1 copies:self.numberOfCopies];
     }
 }
 
