@@ -252,6 +252,14 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.pageViewController.pageView;
+        
+        if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
+            NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+            if (numberOfJobs > 1) {
+                self.pageView.mutipleImages = YES;
+            }
+        }
+        
         self.pageView.image = self.image;
         
         __weak HPPPPageSettingsTableViewController *weakSelf = self;
@@ -308,6 +316,14 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 {
     if (!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.tableViewCellPageView;
+        
+        if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
+            NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+            if (numberOfJobs > 1) {
+                self.pageView.mutipleImages = YES;
+            }
+        }
+        
         self.pageView.image = self.image;
         
         __weak HPPPPageSettingsTableViewController *weakSelf = self;

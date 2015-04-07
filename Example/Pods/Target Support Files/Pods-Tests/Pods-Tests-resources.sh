@@ -54,6 +54,7 @@ install_resource()
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowLeft@2x.png"
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowRight@2x.png"
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowUp@2x.png"
+                    install_resource "../../Pod/Assets/HPPPMultipage.png"
                     install_resource "../../Pod/Assets/HPPPPrint@2x~ipad.png"
                     install_resource "../../Pod/Assets/HPPPPrint@2x~iphone.png"
                     install_resource "../../Pod/Assets/HPPPPrintLater@2x~ipad.png"

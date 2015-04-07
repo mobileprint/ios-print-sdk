@@ -34,6 +34,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleWidthContraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleHeightContraint;
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *multipleImagesImageView;
 
 @end
 
@@ -44,6 +45,10 @@
     _image = image;
     self.imageView.image = image;
     self.blackAndWhiteImage = nil;
+    
+    if (self.isMultipleImages) {
+        self.multipleImagesImageView.hidden = NO;
+    }
 }
 
 - (void)setFilterWithImage:(UIImage *)image completion:(void (^)(void))completion

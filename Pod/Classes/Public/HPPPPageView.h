@@ -18,6 +18,7 @@
 @interface HPPPPageView : HPPPView
 
 @property (strong, nonatomic) UIImage *image;
+@property (assign, nonatomic, getter=isMultipleImages) BOOL mutipleImages;
 
 - (void)setColorWithCompletion:(void (^)(void))completion;
 - (void)setBlackAndWhiteWithCompletion:(void (^)(void))completion;
