@@ -57,7 +57,7 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  * @abstract Use the default printer instead of the last printer
  * @description Normally, the last printer used is pre-populated when the page settings are displayed. Set this to YES to attempt to use the default printer instead
  */
-@property (nonatomic, assign) BOOL useDefaultPrinter;
+@property (nonatomic, assign) BOOL printFromQueue;
 
 @end
 

@@ -14,7 +14,7 @@
 
 @implementation HPPP (ViewController)
 
-+ (UIViewController *)activityViewControllerWithOwner:(id<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>)owner andImage:(UIImage *)image useDefaultPrinter:(BOOL)useDefaultPrinter
++ (UIViewController *)activityViewControllerWithOwner:(id<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>)owner andImage:(UIImage *)image fromQueue:(BOOL)fromQueue
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
     
@@ -31,7 +31,7 @@
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
         pageSettingsTableViewController.delegate = owner;
         pageSettingsTableViewController.dataSource = owner;
-        pageSettingsTableViewController.useDefaultPrinter = useDefaultPrinter;
+        pageSettingsTableViewController.printFromQueue = fromQueue;
         
         pageSettingsTableViewController.image = image;
         pageSettingsTableViewController.pageViewController = pageViewController;
@@ -47,7 +47,7 @@
         pageSettingsTableViewController.image = image;
         pageSettingsTableViewController.delegate = owner;
         pageSettingsTableViewController.dataSource = owner;
-        pageSettingsTableViewController.useDefaultPrinter = useDefaultPrinter;
+        pageSettingsTableViewController.printFromQueue = fromQueue;
 
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;

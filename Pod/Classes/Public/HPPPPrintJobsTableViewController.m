@@ -111,7 +111,7 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     self.selectedPrintJob = printJobs[0];
     self.selectedPrintJobs = printJobs;
     
-    UIViewController *vc = [HPPP activityViewControllerWithOwner:self andImage:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] useDefaultPrinter:YES];
+    UIViewController *vc = [HPPP activityViewControllerWithOwner:self andImage:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] fromQueue:YES];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
     } else {
@@ -280,6 +280,10 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
          [weakSelf.tableView setEditing:NO animated:YES];
          [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:printLaterJob];
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:kHPPPQueueDeleteAction, kHPPPPrintQueueJobsKey:@[printLaterJob] }];
+         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
+             [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:@{ kHPPPOfframpKey:kHPPPQueueDeleteAction }];
+         }
      }];
     
     [actions addObject:actionDelete];
@@ -301,6 +305,8 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 
 -(void)pageSettingsTableViewControllerDidFinishPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
 {
+    NSString *action = self.selectedPrintJobs.count > 1 ? kHPPPQueuePrintAllAction : kHPPPQueuePrintAction;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:action, kHPPPPrintQueueJobsKey:self.selectedPrintJobs }];
     NSLog(@"Finished Print Job!");
 }
 

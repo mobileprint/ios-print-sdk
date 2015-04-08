@@ -25,7 +25,9 @@ NSString * const kHPPPManufacturer = @"Apple";
 NSString * const kHPPPNoNetwork = @"NO-WIFI";
 NSString * const kHPPPNoPrint = @"No Print";
 NSString * const kHPPPOfframpKey = @"off_ramp";
-NSString * const kHPPPPrintActivity = @"HPPPPrintActivity";
+NSString * const kHPPPQueuePrintAction = @"PrintFromQueue";
+NSString * const kHPPPQueuePrintAllAction = @"PrintAllFromQueue";
+NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
 
 @interface HPPPAnalyticsManager ()
 
@@ -90,7 +92,7 @@ NSString * const kHPPPPrintActivity = @"HPPPPrintActivity";
 
 - (NSDictionary *)printMetricsForOfframp:(NSString *)offramp
 {
-    if ([offramp isEqualToString:kHPPPPrintActivity]) {
+    if ([[HPPP sharedInstance] printingOfframp:offramp]) {
         return [HPPP sharedInstance].lastOptionsUsed;
     } else {
         return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -166,7 +168,7 @@ NSString * const kHPPPPrintActivity = @"HPPPPrintActivity";
     }
 }
 
-# pragma mark - Helpers
+#pragma mark - Helpers
 
 - (NSString *)nonNullString:(NSString *)value
 {

@@ -97,6 +97,27 @@ extern NSString * const kHPPPPrinterAvailableKey;
 extern NSString * const kHPPPPrinterKey;
 
 /*!
+ * @abstract Notifies subscribers that a print queue operation was completed (print or delete)
+ * @seealso kHPPPPrintQueueActionKey
+ * @seealso kHPPPPrintQueueJobsKey
+ */
+extern NSString * const kHPPPPrintQueueNotification;
+
+/*!
+ * @abstract Used to retrieve the action performed on the job
+ * @seealso kHPPPPrintQueueNotification
+ * @seealso kHPPPPrintQueueJobsKey
+ */
+extern NSString * const kHPPPPrintQueueActionKey;
+
+/*!
+ * @abstract Used to retrieve the HPPPPrintLater job that was printed or deleted
+ * @seealso kHPPPPrintQueueNotification
+ * @seealso kHPPPPrintQueueActionKey
+ */
+extern NSString * const kHPPPPrintQueueJobsKey;
+
+/*!
  * @abstract Used to retrieve last paper size used
  * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the paper size used.
  * @seealso lastOptionsUsed
@@ -345,6 +366,11 @@ extern NSString * const kHPPPNumberOfCopies;
  * @description Allows customization of the view fonts and colors of the print later screens.
  */
 @property (strong, nonatomic) HPPPAttributedString *attributedString;
+
+/*!
+ * @abstract Indicates if an offramp is a printing offramp
+ */
+- (BOOL)printingOfframp:(NSString *)offramp;
 
 /*!
  * @abstract Used to access the singleton instance of this class

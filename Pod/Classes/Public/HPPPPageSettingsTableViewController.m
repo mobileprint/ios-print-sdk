@@ -351,7 +351,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     self.currentPrintSettings.paper = [self lastPaperUsed];
     
     HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
-    if (self.useDefaultPrinter && [settings isDefaultPrinterSet]) {
+    if (self.printFromQueue && [settings isDefaultPrinterSet]) {
         self.currentPrintSettings.printerName = settings.defaultPrinterName;
         self.currentPrintSettings.printerUrl = [NSURL URLWithString:settings.defaultPrinterUrl];
         self.currentPrintSettings.printerId = nil;
@@ -745,7 +745,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
                 UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
                 label.font = self.hppp.tableViewFooterWarningLabelFont;
                 label.textColor = self.hppp.tableViewFooterWarningLabelColor;
-                if (self.useDefaultPrinter) {
+                if (self.printFromQueue) {
                     label.text = @"Default printer not currently available";
                 } else {
                     label.text = @"Recent printer not currently available";
@@ -933,8 +933,20 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         }
         
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
-            NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:kHPPPPrintActivity, kHPPPOfframpKey, nil];
-            [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:options];
+            NSInteger numberOfJobs = 1;
+            NSString *offramp = NSStringFromClass([HPPPPrintActivity class]);
+            if (self.printFromQueue) {
+                offramp = kHPPPQueuePrintAction;
+                if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
+                    numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+                    if (numberOfJobs > 1) {
+                        offramp = kHPPPQueuePrintAllAction;
+                    }
+                }
+            }
+            for (int count = 0; count < numberOfJobs; count++) {
+                [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:@{ kHPPPOfframpKey:offramp }];
+            }
         }
     }
     
@@ -1147,7 +1159,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         
         HPPPPrintSettingsTableViewController *vc = (HPPPPrintSettingsTableViewController *)segue.destinationViewController;
         vc.printSettings = self.currentPrintSettings;
-        vc.useDefaultPrinter = self.useDefaultPrinter;
+        vc.useDefaultPrinter = self.printFromQueue;
         vc.delegate = self;
     } else if ([segue.identifier isEqualToString:@"PaperSizeSegue"]) {
         
