@@ -14,9 +14,9 @@
 
 @interface HPPPPrintPageRenderer : UIPrintPageRenderer
 
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, assign) NSInteger numberOfPages;
+@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, assign) NSInteger numberOfCopies;
 
-- (id)initWithImage:(UIImage *)image;
+- (id)initWithImages:(NSArray *)images;
 
 @end

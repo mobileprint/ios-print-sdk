@@ -19,6 +19,7 @@
 
 @property (nonatomic, weak) id<HPPPPrintSettingsTableViewControllerDelegate> delegate;
 @property (nonatomic, strong) HPPPPrintSettings *printSettings;
+@property (nonatomic, assign) BOOL useDefaultPrinter;
 
 @end
 

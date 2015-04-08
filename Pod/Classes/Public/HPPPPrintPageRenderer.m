@@ -20,12 +20,12 @@
 
 @implementation HPPPPrintPageRenderer
 
-- (id)initWithImage:(UIImage *)image
+- (id)initWithImages:(NSArray *)images
 {
     self = [super init];
     
     if (self) {
-        self.image = image;
+        self.images = images;
     }
     
     return self;
@@ -33,32 +33,34 @@
 
 - (NSInteger)numberOfPages
 {
-    return _numberOfPages;
+    return self.numberOfCopies * self.images.count;
 }
 
 #pragma mark - UIPrintPageRenderer overrides
 
 - (void)drawContentForPageAtIndex:(NSInteger)index inRect:(CGRect)contentRect
 {
+    UIImage *image = self.images[(int) (index / self.numberOfCopies)];
+    
     if ([HPPP sharedInstance].zoomAndCrop) {
         // Check content rect and if is smaller than the size of the image, we need to resize the image (cropping it). Otherwise we center the image in the content rect
-        UIImage *image = nil;
-        if ((contentRect.size.height < self.image.size.height) || (contentRect.size.width < self.image.size.width)) {
-            image = [self.image HPPPCropImageResize:contentRect.size];
+        UIImage *resizeImage = nil;
+        if ((contentRect.size.height < image.size.height) || (contentRect.size.width < image.size.width)) {
+            resizeImage = [image HPPPCropImageResize:contentRect.size];
         } else {
-            image = self.image;
+            resizeImage = image;
         }
         
-        float width = image.size.width;
-        float height = image.size.height;
+        float width = resizeImage.size.width;
+        float height = resizeImage.size.height;
         
         float x = (contentRect.size.width - width) / 2.0f;
         float y = (contentRect.size.height - height) / 2.0f;
         
-        [image drawInRect:CGRectMake(x, y, width, height)];
+        [resizeImage drawInRect:CGRectMake(x, y, width, height)];
     } else {
-        float width = self.image.size.width;
-        float height = self.image.size.height;
+        float width = image.size.width;
+        float height = image.size.height;
         float scaleX = contentRect.size.width / width;
         
         if ( scaleX < 1.0f || (scaleX > 1.0f && scaleX <= MAXIMUM_ENLARGEMENT)) {
@@ -72,7 +74,7 @@
             y = (contentRect.size.height - height) / 2.0f;
         }
         
-        [self.image drawInRect:CGRectMake (x + contentRect.origin.x, y + contentRect.origin.y, width, height)];
+        [image drawInRect:CGRectMake (x + contentRect.origin.x, y + contentRect.origin.y, width, height)];
     }
 }
 

@@ -34,6 +34,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleWidthContraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleHeightContraint;
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *multipleImagesImageView;
 
 @end
 
@@ -44,6 +45,10 @@
     _image = image;
     self.imageView.image = image;
     self.blackAndWhiteImage = nil;
+    
+    if (self.isMultipleImages) {
+        self.multipleImagesImageView.hidden = NO;
+    }
 }
 
 - (void)setFilterWithImage:(UIImage *)image completion:(void (^)(void))completion
@@ -136,6 +141,9 @@
             self.imageWidthConstraint.constant = computedImageSize.width;
             self.imageHeightConstraint.constant = computedImageSize.height;
             
+            if (self.isMultipleImages) {
+                self.multipleImagesImageView.image = [UIImage imageNamed:@"HPPPMultipage"];
+            }
         } else {
             if (paperSize.width == 8.5f) {
                 self.ruleView.widthLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperWidthTitle];
@@ -143,12 +151,20 @@
 
                 self.paperWidthConstraint.constant = computedPaperSize.width;
                 self.paperHeightConstraint.constant = computedPaperSize.height;
+                
+                if (self.isMultipleImages) {
+                    self.multipleImagesImageView.image = [UIImage imageNamed:@"HPPPMultipage"];
+                }
             } else {
                 self.ruleView.widthLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperHeightTitle];
                 self.ruleView.heightLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperWidthTitle];
 
                 self.paperWidthConstraint.constant = computedPaperSize.height;
                 self.paperHeightConstraint.constant = computedPaperSize.width;
+                
+                if (self.isMultipleImages) {
+                    self.multipleImagesImageView.image = [UIImage imageNamed:@"HPPPMultipageLandscape"];
+                }
             }
             
             self.imageWidthConstraint.constant = computedImageSize.height;

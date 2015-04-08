@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HPPPPageView">
@@ -11,6 +11,7 @@
                 <outlet property="imageHeightConstraint" destination="11U-Xf-bZG" id="TMr-Um-ici"/>
                 <outlet property="imageView" destination="NIM-fT-Vb5" id="HQq-wS-bPo"/>
                 <outlet property="imageWidthConstraint" destination="wt5-Ba-7FR" id="mkr-Q2-bo1"/>
+                <outlet property="multipleImagesImageView" destination="RF8-X8-RSr" id="WOm-Pv-Uyf"/>
                 <outlet property="paperHeightConstraint" destination="SLS-le-Fsw" id="eEc-yg-0vB"/>
                 <outlet property="paperView" destination="oDh-a3-O5v" id="69v-fL-fhq"/>
                 <outlet property="paperWidthConstraint" destination="TpX-3K-anH" id="mxf-7V-NRb"/>
@@ -30,6 +31,9 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQY-dn-dJf" userLabel="RuleView" customClass="HPPPRuleView">
                             <rect key="frame" x="24" y="46" width="252" height="332"/>
                             <subviews>
+                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HPPPMultipage.png" translatesAutoresizingMaskIntoConstraints="NO" id="RF8-X8-RSr" userLabel="MultipleImagesImageView">
+                                    <rect key="frame" x="-20" y="-20" width="200" height="280"/>
+                                </imageView>
                                 <view clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oDh-a3-O5v" userLabel="PaperView">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="280"/>
                                     <subviews>
@@ -55,8 +59,12 @@
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="oDh-a3-O5v" secondAttribute="bottom" constant="52" id="17H-WU-mv8"/>
                                 <constraint firstAttribute="height" constant="332" id="6fb-cg-r2p"/>
+                                <constraint firstItem="oDh-a3-O5v" firstAttribute="width" secondItem="RF8-X8-RSr" secondAttribute="width" id="824-PV-31z"/>
+                                <constraint firstItem="oDh-a3-O5v" firstAttribute="top" secondItem="RF8-X8-RSr" secondAttribute="top" constant="20" id="ADQ-l9-VLF"/>
                                 <constraint firstAttribute="trailing" secondItem="oDh-a3-O5v" secondAttribute="trailing" constant="52" id="C79-P1-lhY"/>
+                                <constraint firstItem="oDh-a3-O5v" firstAttribute="leading" secondItem="RF8-X8-RSr" secondAttribute="leading" constant="20" id="PXQ-hd-zZQ"/>
                                 <constraint firstAttribute="width" constant="252" id="RF9-tz-0gK"/>
+                                <constraint firstItem="oDh-a3-O5v" firstAttribute="height" secondItem="RF8-X8-RSr" secondAttribute="height" id="l0P-97-H7l"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -79,6 +87,9 @@
             <point key="canvasLocation" x="197" y="307.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="HPPPMultipage.png" width="326" height="475"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

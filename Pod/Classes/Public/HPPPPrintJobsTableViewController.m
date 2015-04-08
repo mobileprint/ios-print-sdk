@@ -24,8 +24,8 @@
 
 @interface HPPPPrintJobsTableViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
 
-//@property (unsafe_unretained, nonatomic) IBOutlet UIView *printAllFooterView;
 @property (strong, nonatomic) HPPPPrintLaterJob *selectedPrintJob;
+@property (strong, nonatomic) NSArray *selectedPrintJobs;
 @property (strong, nonatomic) UILabel *defaultPrinterLabel;
 @property (weak, nonatomic) UITableViewCell *printAllCell;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
@@ -88,10 +88,6 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kHPPPWiFiConnectionLost object:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 + (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:nil];
@@ -105,13 +101,15 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 
 #pragma mark - Actions
 
-- (IBAction)cancelButtonTapped:(id)sender {
+- (IBAction)cancelButtonTapped:(id)sender
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)printJob:(HPPPPrintLaterJob *)printJob
+- (void)printJobs:(NSArray *)printJobs
 {
-    self.selectedPrintJob = printJob;
+    self.selectedPrintJob = printJobs[0];
+    self.selectedPrintJobs = printJobs;
     
     UIViewController *vc = [HPPP activityViewControllerWithOwner:self andImage:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] useDefaultPrinter:YES];
     if( [vc class] == [UINavigationController class] ) {
@@ -123,11 +121,13 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (kPrintAllSectionIndex == section) {
         return 1;
     } else {
@@ -136,7 +136,8 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *cell = nil;
     HPPP *hppp = [HPPP sharedInstance];
     
@@ -175,9 +176,8 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     return cell;
 }
 
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     BOOL canEdit = NO;
     
     if( kPrintJobSectionIndex == indexPath.section ) {
@@ -187,7 +187,8 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     return canEdit;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     // Must override this to enable swipe buttons. Do NOT delete!
 }
 
@@ -204,15 +205,16 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     NSLog(@"%ld - %ld", (long)indexPath.section, (long)indexPath.row);
     
     if( indexPath.section == kPrintAllSectionIndex ) {
-        [[[UIAlertView alloc] initWithTitle:@"Print Dreams" message:@"You can dream about printing all of your jobs at once, but when you wake up you're going to be bummed!!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
-    }
-    else {
         if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
-            [self printJob:[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row]];
+            [self printJobs:[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs]];
+        }
+    } else {
+        if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+            HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row];
+            [self printJobs:@[printLaterJob]];
         }
     }
 }
@@ -247,11 +249,11 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     return view;
 }
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     __weak HPPPPrintJobsTableViewController *weakSelf = self;
     
-    HPPPPrintLaterJob *job = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row];
+    HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row];
     
     NSMutableArray *actions = [NSMutableArray array];
     
@@ -264,7 +266,7 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
          
          [weakSelf.tableView setEditing:NO animated:YES];
          
-         [self printJob:job];
+         [self printJobs:@[printLaterJob]];
      }];
     
     actionPrint.backgroundColor = [UIColor HPPPHPBlueColor];
@@ -276,7 +278,7 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
          NSLog(@"Delete!");
          [weakSelf.tableView setEditing:NO animated:YES];
-         [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:job];
+         [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:printLaterJob];
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
      }];
     
@@ -310,16 +312,42 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 
 #pragma mark - HPPPPageSettingsTableViewControllerDataSource
 
--(void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
+- (void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
 {
-    NSString* imageKey = [HPPPPaper titleFromSize:paper.paperSize];
+    NSString *imageKey = [HPPPPaper titleFromSize:paper.paperSize];
     
     NSLog(@"Retrieving image for size: %@", imageKey);
     
-    if( completion ) {
+    if (completion) {
         UIImage *image = [self.selectedPrintJob.images objectForKey:imageKey];
         completion(image);
     }
+}
+
+- (NSInteger)pageSettingsTableViewControllerRequestNumberOfImagesToPrint
+{
+    NSInteger printJobsCount = 1;
+    
+    if (self.selectedPrintJobs) {
+        printJobsCount = self.selectedPrintJobs.count;
+    }
+    
+    return printJobsCount;
+}
+
+- (NSArray *)pageSettingsTableViewControllerRequestImagesForPaper:(HPPPPaper *)paper
+{
+    NSString *imageKey = [HPPPPaper titleFromSize:paper.paperSize];
+    
+    NSLog(@"Retrieving images for size: %@", imageKey);
+    
+    NSMutableArray *images = [NSMutableArray arrayWithCapacity:self.selectedPrintJobs.count];
+    
+    for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
+        [images addObject:[printJob.images objectForKey:imageKey]];
+    }
+    
+    return images.copy;
 }
 
 #pragma mark - Default printer label

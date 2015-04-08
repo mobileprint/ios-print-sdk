@@ -155,7 +155,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     
     self.paperTypeSelectedLabel.font = self.hppp.tableViewCellValueFont;
     self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
-
+    
     self.numberOfCopiesLabel.font = self.hppp.tableViewCellLabelFont;
     self.numberOfCopiesLabel.textColor = self.hppp.tableViewCellLabelColor;
     
@@ -164,7 +164,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     
     self.pageViewCell.backgroundColor = [UIColor HPPPHPGrayBackgroundColor];
     
-    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:Size4x6  paperType:Photo];
+    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:Size4x6 paperType:Photo];
     self.currentPrintSettings = [HPPPPrintSettings alloc];
     self.currentPrintSettings.paper = paper;
     self.currentPrintSettings.printerName = kHPPPSelectPrinterPrompt;
@@ -186,6 +186,12 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     [self updatePrintSettingsUI];
     [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
     [self updatePageSettingsUI];
+    
+    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
+        NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+        
+        self.printLabel.text = [self stringFromNumberOfImages:numberOfJobs copies:1];
+    }
     
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
         self.spinner = [self.pageView HPPPAddSpinner];
@@ -245,6 +251,14 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.pageViewController.pageView;
+        
+        if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
+            NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+            if (numberOfJobs > 1) {
+                self.pageView.mutipleImages = YES;
+            }
+        }
+        
         self.pageView.image = self.image;
         
         __weak HPPPPageSettingsTableViewController *weakSelf = self;
@@ -301,6 +315,14 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 {
     if (!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.tableViewCellPageView;
+        
+        if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
+            NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+            if (numberOfJobs > 1) {
+                self.pageView.mutipleImages = YES;
+            }
+        }
+        
         self.pageView.image = self.image;
         
         __weak HPPPPageSettingsTableViewController *weakSelf = self;
@@ -341,7 +363,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     
     NSString *lastModel = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterModelSetting];
     self.currentPrintSettings.printerModel = lastModel;
-
+    
     NSString *lastLocation = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterLocationSetting];
     self.currentPrintSettings.printerLocation = lastLocation;
     
@@ -422,7 +444,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     self.printSettingsDetailLabel.text = [NSString stringWithFormat:@"%@, %@ %@", self.paperSizeSelectedLabel.text, self.paperTypeSelectedLabel.text, displayedPrinterName];
 }
 
-- (UIPrintInteractionController*)getSharedPrintInteractionController
+- (UIPrintInteractionController *)getSharedPrintInteractionController
 {
     UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
     
@@ -552,6 +574,14 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     self.numberOfCopies = sender.value;
     
     self.numberOfCopiesLabel.text = [NSString stringWithFormat:@"%ld %@", (long)self.numberOfCopies, (self.numberOfCopies == 1) ? @"copy" : @"copies"];
+    
+    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
+        NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+        
+        self.printLabel.text = [self stringFromNumberOfImages:numberOfJobs copies:self.numberOfCopies];
+    } else {
+        self.printLabel.text = [self stringFromNumberOfImages:1 copies:self.numberOfCopies];
+    }
 }
 
 #pragma mark - Switch actions
@@ -715,7 +745,11 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
                 UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
                 label.font = self.hppp.tableViewFooterWarningLabelFont;
                 label.textColor = self.hppp.tableViewFooterWarningLabelColor;
-                label.text = @"Recent printer not currently available";
+                if (self.useDefaultPrinter) {
+                    label.text = @"Default printer not currently available";
+                } else {
+                    label.text = @"Recent printer not currently available";
+                }
                 [footer addSubview:label];
             }
         }
@@ -762,7 +796,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 {
     if (IS_OS_8_OR_LATER) {
         if (self.currentPrintSettings.printerUrl == nil ||
-            !self.currentPrintSettings.printerIsAvailable  ){
+            !self.currentPrintSettings.printerIsAvailable ) {
             [self showPrinterSelection:tableView withCompletion:^(BOOL userDidSelect){
                 if (userDidSelect) {
                     [self doPrint];
@@ -778,7 +812,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 
 - (void)doPrint
 {
-    if (self.currentPrintSettings.printerUrl != nil){
+    if (self.currentPrintSettings.printerUrl != nil) {
         UIPrintInteractionController *controller = [self getSharedPrintInteractionController];
         
         if (!controller) {
@@ -790,7 +824,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         
         [self createPrintJob:controller];
         
-        UIPrinter* printer = [UIPrinter printerWithURL:self.currentPrintSettings.printerUrl];
+        UIPrinter *printer = [UIPrinter printerWithURL:self.currentPrintSettings.printerUrl];
         
         [controller printToPrinter:printer completionHandler:^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
             
@@ -799,18 +833,29 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     }
 }
 
+- (NSString *)stringFromNumberOfImages:(NSInteger)numberOfImages copies:(NSInteger)copies
+{
+    NSString *result = nil;
+    
+    if (numberOfImages == 1) {
+        result = @"Print";
+    } else {
+        NSInteger total = numberOfImages * copies;
+        
+        if (total == 2) {
+            result = @"Print both with selected settings";
+        } else {
+            result = [NSString stringWithFormat:@"Print all %ld with selected settings", (long)total];
+        }
+    }
+    
+    return result;
+}
+
 - (void)createPrintJob:(UIPrintInteractionController *)controller
 {
     // Obtain a printInfo so that we can set our printing defaults.
     UIPrintInfo *printInfo = [UIPrintInfo printInfo];
-    
-    UIImage *image = nil;
-    
-    if ([self.image HPPPIsPortraitImage] || (self.currentPrintSettings.paper.paperSize == SizeLetter)) {
-        image = self.image;
-    } else {
-        image = [self.image HPPPRotate];
-    }
     
     // The path to the image may or may not be a good name for our print job
     // but that's all we've got.
@@ -819,8 +864,6 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     } else {
         printInfo.jobName = HPPP_DEFAULT_PRINT_JOB_NAME;
     }
-    
-    
     
     printInfo.printerID = self.currentPrintSettings.printerId;
     
@@ -839,8 +882,33 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         printInfo.outputType = UIPrintInfoOutputGrayscale;
     }
     
-    HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImage:image];
-    renderer.numberOfPages = self.numberOfCopies;
+    HPPPPrintPageRenderer *renderer;
+    
+    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
+        NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+        if (numberOfJobs > 1) {
+            if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImagesForPaper:)]) {
+                NSMutableArray *images = [self.dataSource pageSettingsTableViewControllerRequestImagesForPaper:self.currentPrintSettings.paper].mutableCopy;
+                
+                // Check if the images needs rotation for printing
+                for (NSInteger i = 0; i < images.count; i++) {
+                    UIImage *image = images[i];
+                    
+                    if (![image HPPPIsPortraitImage] && !(self.currentPrintSettings.paper.paperSize == SizeLetter)) {
+                        [images replaceObjectAtIndex:i withObject:[image HPPPRotate]];
+                    }
+                }
+                
+                renderer = [[HPPPPrintPageRenderer alloc] initWithImages:images];
+            }
+        }
+    }
+    
+    if (!renderer) {
+        renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[self.image]];
+    }
+    
+    renderer.numberOfCopies = self.numberOfCopies;
     controller.printPageRenderer = renderer;
     
     // Use this printInfo for this print job.
@@ -863,13 +931,13 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
             [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
         }
-    
+        
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
             NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:kHPPPPrintActivity, kHPPPOfframpKey, nil];
             [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:options];
         }
     }
-
+    
     if (IS_IPAD) {
         self.cancelBarButtonItem.enabled = YES;
     }
@@ -1079,6 +1147,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         
         HPPPPrintSettingsTableViewController *vc = (HPPPPrintSettingsTableViewController *)segue.destinationViewController;
         vc.printSettings = self.currentPrintSettings;
+        vc.useDefaultPrinter = self.useDefaultPrinter;
         vc.delegate = self;
     } else if ([segue.identifier isEqualToString:@"PaperSizeSegue"]) {
         
