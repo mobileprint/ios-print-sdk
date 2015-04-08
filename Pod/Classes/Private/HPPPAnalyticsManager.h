@@ -14,6 +14,7 @@
 
 extern NSString * const kHPPPOfframpKey;
 extern NSString * const kHPPPQueuePrintAction;
+extern NSString * const kHPPPQueuePrintAllAction;
 extern NSString * const kHPPPQueueDeleteAction;
 
 + (HPPPAnalyticsManager *)sharedManager;

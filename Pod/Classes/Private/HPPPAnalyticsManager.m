@@ -26,6 +26,7 @@ NSString * const kHPPPNoNetwork = @"NO-WIFI";
 NSString * const kHPPPNoPrint = @"No Print";
 NSString * const kHPPPOfframpKey = @"off_ramp";
 NSString * const kHPPPQueuePrintAction = @"PrintFromQueue";
+NSString * const kHPPPQueuePrintAllAction = @"PrintAllFromQueue";
 NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
 
 @interface HPPPAnalyticsManager ()
