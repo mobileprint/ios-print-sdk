@@ -130,7 +130,9 @@
             HPPP *hppp = [HPPP sharedInstance];
             NSLog(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
             if (self.extendedMetricsSwitch.on) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self userInfo:[self photoSourceMetrics]];
+                NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ @"off_ramp":activityType }];
+                [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self userInfo:metrics];
             }
             
             if (IS_OS_8_OR_LATER) {

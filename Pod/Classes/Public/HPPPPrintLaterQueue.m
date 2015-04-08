@@ -10,7 +10,10 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPPrintLaterQueue.h"
+#import "HPPPPrintLaterActivity.h"
+#import "HPPPAnalyticsManager.h"
 
 NSString * const kHPPPPrintJobAddedToQueueNotification = @"kHPPPPrintJobAddedToQueueNotification";
 NSString * const kHPPPAllPrintJobsRemovedFromQueueNotification = @"kHPPPAllPrintJobsRemovedFromQueueNotification";
@@ -77,6 +80,9 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     
     if (success) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobAddedToQueueNotification object:self userInfo:nil];
+        if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
+            [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:@{ kHPPPOfframpKey:NSStringFromClass([HPPPPrintLaterActivity class]) }];
+        }
     }
     
     return success;

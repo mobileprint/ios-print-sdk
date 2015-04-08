@@ -135,7 +135,11 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
 
 - (BOOL)printingOfframp:(NSString *)offramp
 {
-    return [offramp isEqualToString:NSStringFromClass([HPPPPrintActivity class])] || [offramp isEqualToString:kHPPPQueuePrintAction] || [offramp isEqualToString:kHPPPQueuePrintAllAction];
+    return
+        [offramp isEqualToString:NSStringFromClass([HPPPPrintActivity class])] ||
+        [offramp isEqualToString:NSStringFromClass([HPPPPrintLaterActivity class])] ||
+        [offramp isEqualToString:kHPPPQueuePrintAction] ||
+        [offramp isEqualToString:kHPPPQueuePrintAllAction];
 }
 
 #pragma mark - Getter methods
