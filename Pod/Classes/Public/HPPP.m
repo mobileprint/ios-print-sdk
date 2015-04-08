@@ -40,6 +40,10 @@ NSString * const kHPPPShareCompletedNotification = @"kHPPPShareCompletedNotifica
 NSString * const kHPPPTrackableScreenNotification = @"kHPPPTrackableScreenNotification";
 NSString * const kHPPPTrackableScreenNameKey = @"screen-name";
 
+NSString * const kHPPPPrintQueueNotification = @"kHPPPPrintQueueNotification";
+NSString * const kHPPPPrintQueueActionKey = @"kHPPPPrintQueueActionKey";
+NSString * const kHPPPPrintQueueJobKey = @"kHPPPPrintQueueJobKey";
+
 NSString * const kHPPPPrinterAvailabilityNotification = @"kHPPPPrinterAvailabilityNotification";
 NSString * const kHPPPPrinterAvailableKey = @"availability";
 NSString * const kHPPPPrinterKey = @"printer";
@@ -106,16 +110,6 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)handleShareCompletedNotification:(NSNotification *)notification
-{
-    NSString *offramp = [notification.userInfo objectForKey:kHPPPOfframpKey];
-    if ([offramp isEqualToString:kHPPPPrintActivity]  && self.handlePrintMetricsAutomatically) {
-        // The client app must disable automatic print metric handling in order to post print metrics via the notification system
-        return;
-    }
-    [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:notification.userInfo];
-}
-
 - (BOOL)hideBlackAndWhiteOption
 {
     BOOL retVal = YES;
@@ -125,6 +119,23 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     }
     
     return retVal;
+}
+
+#pragma mark - Metrics 
+
+- (void)handleShareCompletedNotification:(NSNotification *)notification
+{
+    NSString *offramp = [notification.userInfo objectForKey:kHPPPOfframpKey];
+    if (([self printingOfframp:offramp] || [offramp isEqualToString:kHPPPQueueDeleteAction])  && self.handlePrintMetricsAutomatically) {
+        // The client app must disable automatic print metric handling in order to post print metrics via the notification system
+        return;
+    }
+    [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:notification.userInfo];
+}
+
+- (BOOL)printingOfframp:(NSString *)offramp
+{
+    return [offramp isEqualToString:NSStringFromClass([HPPPPrintActivity class])] || [offramp isEqualToString:kHPPPQueuePrintAction];
 }
 
 #pragma mark - Getter methods

@@ -16,6 +16,6 @@
 
 @interface HPPP (ViewController)
 
-+ (UIViewController *)activityViewControllerWithOwner:(id<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>)owner andImage:(UIImage *)image useDefaultPrinter:(BOOL)useDefaultPrinter;
++ (UIViewController *)activityViewControllerWithOwner:(id<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>)owner andImage:(UIImage *)image fromQueue:(BOOL)fromQueue;
 
 @end

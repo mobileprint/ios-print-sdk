@@ -13,7 +13,8 @@
 @interface HPPPAnalyticsManager : NSObject
 
 extern NSString * const kHPPPOfframpKey;
-extern NSString * const kHPPPPrintActivity;
+extern NSString * const kHPPPQueuePrintAction;
+extern NSString * const kHPPPQueueDeleteAction;
 
 + (HPPPAnalyticsManager *)sharedManager;
 

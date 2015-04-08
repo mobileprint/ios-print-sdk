@@ -53,7 +53,7 @@
 
 - (UIViewController *)activityViewController
 {
-    return [HPPP activityViewControllerWithOwner:self andImage:self.image useDefaultPrinter:NO];
+    return [HPPP activityViewControllerWithOwner:self andImage:self.image fromQueue:NO];
 }
 
 #pragma mark - PGSelectPaperSizeViewControllerDataSource
