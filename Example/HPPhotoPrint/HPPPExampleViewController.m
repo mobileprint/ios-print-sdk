@@ -59,6 +59,13 @@
                                          ];
     
     [self populatePrintQueue];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintQueueNotification:) name:kHPPPPrintQueueNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (IBAction)shareBarButtonItemTap:(id)sender
@@ -91,7 +98,9 @@
                                  [HPPPPaper titleFromSize:Size4x6] : image4x6,
                                  [HPPPPaper titleFromSize:Size5x7] : image5x7,
                                  [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
-        
+        if (self.extendedMetricsSwitch.on) {
+            printLaterJob.extra = [self photoSourceMetrics];
+        }
         printLaterActivity.printLaterJob = printLaterJob;
         applicationActivities = @[printActivity, printLaterActivity];
     } else {
@@ -121,12 +130,7 @@
             HPPP *hppp = [HPPP sharedInstance];
             NSLog(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
             if (self.extendedMetricsSwitch.on) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                                                                 activityType, @"off_ramp",
-                                                                                                                                 self.photoSourceTextField.text, @"photo_source",
-                                                                                                                                 self.userIDTextField.text, @"user_id",
-                                                                                                                                 self.userNameTextField.text, @"user_name",
-                                                                                                                                 nil]];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self userInfo:[self photoSourceMetrics]];
             }
             
             if (IS_OS_8_OR_LATER) {
@@ -178,6 +182,29 @@
 - (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
 {
     return YES;
+}
+
+#pragma mark - Metrics examples
+
+- (NSDictionary *)photoSourceMetrics
+{
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            self.photoSourceTextField.text, @"photo_source",
+            self.userIDTextField.text, @"user_id",
+            self.userNameTextField.text, @"user_name", nil];
+}
+
+- (void)handlePrintQueueNotification:(NSNotification *)notification
+{
+    if (self.extendedMetricsSwitch.on) {
+        NSArray *jobs = [notification.object objectForKey:kHPPPPrintQueueJobsKey];
+        NSString *action = [notification.object objectForKey:kHPPPPrintQueueActionKey];
+        for (HPPPPrintLaterJob *job in jobs) {
+            NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ @"off_ramp":action }];
+            [metrics addEntriesFromDictionary:job.extra];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self userInfo:metrics];
+        }
+    }
 }
 
 #pragma mark - DEBUG

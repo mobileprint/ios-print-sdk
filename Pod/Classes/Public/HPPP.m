@@ -42,7 +42,7 @@ NSString * const kHPPPTrackableScreenNameKey = @"screen-name";
 
 NSString * const kHPPPPrintQueueNotification = @"kHPPPPrintQueueNotification";
 NSString * const kHPPPPrintQueueActionKey = @"kHPPPPrintQueueActionKey";
-NSString * const kHPPPPrintQueueJobKey = @"kHPPPPrintQueueJobKey";
+NSString * const kHPPPPrintQueueJobsKey = @"kHPPPPrintQueueJobsKey";
 
 NSString * const kHPPPPrinterAvailabilityNotification = @"kHPPPPrinterAvailabilityNotification";
 NSString * const kHPPPPrinterAvailableKey = @"availability";

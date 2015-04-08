@@ -280,7 +280,7 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
          [weakSelf.tableView setEditing:NO animated:YES];
          [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:printLaterJob];
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:kHPPPQueueDeleteAction, kHPPPPrintQueueJobKey:printLaterJob }];
+         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:kHPPPQueueDeleteAction, kHPPPPrintQueueJobsKey:@[printLaterJob] }];
          if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
              [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:@{ kHPPPOfframpKey:kHPPPQueueDeleteAction }];
          }
@@ -305,7 +305,7 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 
 -(void)pageSettingsTableViewControllerDidFinishPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:kHPPPQueuePrintAction, kHPPPPrintQueueJobKey:self.selectedPrintJob }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:kHPPPQueuePrintAction, kHPPPPrintQueueJobsKey:self.selectedPrintJobs }];
     NSLog(@"Finished Print Job!");
 }
 

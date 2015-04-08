@@ -99,14 +99,14 @@ extern NSString * const kHPPPPrinterKey;
 /*!
  * @abstract Notifies subscribers that a print queue operation was completed (print or delete)
  * @seealso kHPPPPrintQueueActionKey
- * @seealso kHPPPPrintQueueJobKey
+ * @seealso kHPPPPrintQueueJobsKey
  */
 extern NSString * const kHPPPPrintQueueNotification;
 
 /*!
  * @abstract Used to retrieve the action performed on the job
  * @seealso kHPPPPrintQueueNotification
- * @seealso kHPPPPrintQueueJobKey
+ * @seealso kHPPPPrintQueueJobsKey
  */
 extern NSString * const kHPPPPrintQueueActionKey;
 
@@ -115,7 +115,7 @@ extern NSString * const kHPPPPrintQueueActionKey;
  * @seealso kHPPPPrintQueueNotification
  * @seealso kHPPPPrintQueueActionKey
  */
-extern NSString * const kHPPPPrintQueueJobKey;
+extern NSString * const kHPPPPrintQueueJobsKey;
 
 /*!
  * @abstract Used to retrieve last paper size used
