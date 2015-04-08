@@ -155,7 +155,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     
     self.paperTypeSelectedLabel.font = self.hppp.tableViewCellValueFont;
     self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
-
+    
     self.numberOfCopiesLabel.font = self.hppp.tableViewCellLabelFont;
     self.numberOfCopiesLabel.textColor = self.hppp.tableViewCellLabelColor;
     
@@ -363,7 +363,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     
     NSString *lastModel = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterModelSetting];
     self.currentPrintSettings.printerModel = lastModel;
-
+    
     NSString *lastLocation = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterLocationSetting];
     self.currentPrintSettings.printerLocation = lastLocation;
     
@@ -837,18 +837,16 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 {
     NSString *result = nil;
     
-    NSInteger total = numberOfImages * copies;
-    
-    switch (total) {
-        case 1:
-            result = @"Print";
-            break;
-        case 2:
+    if (numberOfImages == 1) {
+        result = @"Print";
+    } else {
+        NSInteger total = numberOfImages * copies;
+        
+        if (total == 2) {
             result = @"Print both with selected settings";
-            break;
-        default:
+        } else {
             result = [NSString stringWithFormat:@"Print all %ld with selected settings", (long)total];
-            break;
+        }
     }
     
     return result;
@@ -933,13 +931,13 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
             [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
         }
-    
+        
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
             NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:kHPPPPrintActivity, kHPPPOfframpKey, nil];
             [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:options];
         }
     }
-
+    
     if (IS_IPAD) {
         self.cancelBarButtonItem.enabled = YES;
     }
