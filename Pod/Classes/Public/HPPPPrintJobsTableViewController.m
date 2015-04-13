@@ -305,9 +305,11 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 
 -(void)pageSettingsTableViewControllerDidFinishPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
 {
+    NSLog(@"Finished Print Job!");
     NSString *action = self.selectedPrintJobs.count > 1 ? kHPPPQueuePrintAllAction : kHPPPQueuePrintAction;
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:action, kHPPPPrintQueueJobsKey:self.selectedPrintJobs }];
-    NSLog(@"Finished Print Job!");
+    
+    [pageSettingsTableViewController.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)pageSettingsTableViewControllerDidCancelPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
