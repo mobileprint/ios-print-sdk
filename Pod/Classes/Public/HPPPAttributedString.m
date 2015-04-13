@@ -17,47 +17,38 @@
 // Print Later Screen
 NSString *const HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute = @"HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute";
 NSString *const HPPPAddPrintLaterJobScreenAddToPrintQColorAttribute = @"HPPPAddPrintLaterJobScreenAddToPrintQColorAttribute";;
-NSString *const HPPPAddPrintLaterJobScreenNotificationDescriptionFontAttribute = @"HPPPAddPrintLaterJobScreenNotificationDescriptionFontAttribute";
-NSString *const HPPPAddPrintLaterJobScreenNotificationDescriptionColorAttribute = @"HPPPAddPrintLaterJobScreenNotificationDescriptionColorAttribute";
 NSString *const HPPPAddPrintLaterJobScreenJobNameFontAttribute = @"HPPPAddPrintLaterJobScreenJobNameFontAttribute";
-NSString *const HPPPAddPrintLaterJobScreenJobNameColorAttribute = @"HPPPAddPrintLaterJobScreenJobNameColorAttribute";
-NSString *const HPPPAddPrintLaterJobScreenDateFontAttribute = @"HPPPAddPrintLaterJobScreenDateFontAttribute";
-NSString *const HPPPAddPrintLaterJobScreenDateColorAttribute = @"HPPPAddPrintLaterJobScreenDateColorAttribute";
-NSString *const HPPPAddPrintLaterJobScreenPrinterNameTitleFontAttribute = @"HPPPAddPrintLaterJobScreenPrinterNameTitleFontAttribute";
-NSString *const HPPPAddPrintLaterJobScreenPrinterNameTitleColorAttribute = @"HPPPAddPrintLaterJobScreenPrinterNameTitleColorAttribute";
-NSString *const HPPPAddPrintLaterJobScreenPrinterNameFontAttribute = @"HPPPAddPrintLaterJobScreenPrinterNameFontAttribute";
-NSString *const HPPPAddPrintLaterJobScreenPrinterNameColorAttribute = @"HPPPAddPrintLaterJobScreenPrinterNameColorAttribute";
+NSString *const HPPPAddPrintLaterJobScreenJobNameColorActiveAttribute = @"HPPPAddPrintLaterJobScreenJobNameColorActiveAttribute";
+NSString *const HPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute = @"HPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute";
+NSString *const HPPPAddPrintLaterJobScreenSubitemTitleFontAttribute = @"HPPPAddPrintLaterJobScreenSubitemTitleFontAttribute";
+NSString *const HPPPAddPrintLaterJobScreenSubitemTitleColorAttribute = @"HPPPAddPrintLaterJobScreenSubitemTitleColorAttribute";
+NSString *const HPPPAddPrintLaterJobScreenSubitemFontAttribute = @"HPPPAddPrintLaterJobScreenSubitemFontAttribute";
+NSString *const HPPPAddPrintLaterJobScreenSubitemColorAttribute = @"HPPPAddPrintLaterJobScreenSubitemColorAttribute";
+NSString *const HPPPAddPrintLaterJobScreenDoneButtonAttribute = @"HPPPAddPrintLaterJobScreenDoneButtonAttribute";
 
 #define DEFAULT_ADD_TO_PRINT_Q_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
 #define DEFAULT_ADD_TO_PRINT_Q_COLOR [UIColor HPPPHPBlueColor]
 
-#define DEFAULT_NOTIFICATION_DESCRIPTION_FONT [UIFont fontWithName:@"Helvetica Neue" size:16]
-#define DEFAULT_NOTIFICATION_DESCRIPTION_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
+#define DEFAULT_JOB_NAME_FONT [UIFont fontWithName:@"Helvetica Neue" size:24]
+#define DEFAULT_JOB_NAME_ACTIVE_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
+#define DEFAULT_JOB_NAME_INACTIVE_COLOR [UIColor colorWithRed:0x76 / 255.0f green:0x76 / 255.0f blue:0x76 / 255.0f alpha:1.0f]
 
-#define DEFAULT_JOB_NAME_FONT [UIFont fontWithName:@"HelveticaNeue-Bold" size:24]
-#define DEFAULT_JOB_NAME_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
+#define DEFAULT_SUBITEM_TITLE_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
+#define DEFAULT_SUBITEM_TITLE_COLOR [UIColor colorWithRed:0x76 / 255.0f green:0x76 / 255.0f blue:0x76 / 255.0f alpha:1.0f]
 
-#define DEFAULT_DATE_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
-#define DEFAULT_DATE_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
-
-#define DEFAULT_PRINTER_NAME_TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Bold" size:22]
-#define DEFAULT_PRINTER_NAME_TITLE_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
-
-#define DEFAULT_PRINTER_NAME_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
-#define DEFAULT_PRINTER_NAME_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
+#define DEFAULT_SUBITEM_VALUE_FONT [UIFont fontWithName:@"Helvetica Neue" size:16]
+#define DEFAULT_SUBITEM_VALUE_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
 
 #define DEFAULT_ADD_PRINT_LATER_JOB_SCREEN_ATTRIBUTES @{HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute:DEFAULT_ADD_TO_PRINT_Q_FONT, \
                                                         HPPPAddPrintLaterJobScreenAddToPrintQColorAttribute:DEFAULT_ADD_TO_PRINT_Q_COLOR, \
-                                                        HPPPAddPrintLaterJobScreenNotificationDescriptionFontAttribute:DEFAULT_NOTIFICATION_DESCRIPTION_FONT, \
-                                                        HPPPAddPrintLaterJobScreenNotificationDescriptionColorAttribute:DEFAULT_NOTIFICATION_DESCRIPTION_COLOR, \
                                                         HPPPAddPrintLaterJobScreenJobNameFontAttribute:DEFAULT_JOB_NAME_FONT, \
-                                                        HPPPAddPrintLaterJobScreenJobNameColorAttribute:DEFAULT_JOB_NAME_COLOR, \
-                                                        HPPPAddPrintLaterJobScreenDateFontAttribute:DEFAULT_DATE_FONT, \
-                                                        HPPPAddPrintLaterJobScreenDateColorAttribute:DEFAULT_DATE_COLOR, \
-                                                        HPPPAddPrintLaterJobScreenPrinterNameTitleFontAttribute:DEFAULT_PRINTER_NAME_TITLE_FONT, \
-                                                        HPPPAddPrintLaterJobScreenPrinterNameTitleColorAttribute:DEFAULT_PRINTER_NAME_TITLE_COLOR, \
-                                                        HPPPAddPrintLaterJobScreenPrinterNameFontAttribute:DEFAULT_PRINTER_NAME_FONT, \
-                                                        HPPPAddPrintLaterJobScreenPrinterNameColorAttribute:DEFAULT_PRINTER_NAME_COLOR}
+                                                        HPPPAddPrintLaterJobScreenJobNameColorActiveAttribute:DEFAULT_JOB_NAME_ACTIVE_COLOR, \
+                                                        HPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute:DEFAULT_JOB_NAME_INACTIVE_COLOR, \
+                                                        HPPPAddPrintLaterJobScreenSubitemTitleFontAttribute:DEFAULT_SUBITEM_TITLE_FONT, \
+                                                        HPPPAddPrintLaterJobScreenSubitemTitleColorAttribute:DEFAULT_SUBITEM_TITLE_COLOR, \
+                                                        HPPPAddPrintLaterJobScreenSubitemFontAttribute:DEFAULT_SUBITEM_VALUE_FONT, \
+                                                        HPPPAddPrintLaterJobScreenSubitemColorAttribute:DEFAULT_SUBITEM_VALUE_COLOR, \
+                                                        HPPPAddPrintLaterJobScreenDoneButtonAttribute:[self doneButton]}
 
 
 // Print Queue Screen
@@ -108,6 +99,17 @@ NSString *const HPPPPrintQueueScreenJobDateColorAttribute = @"HPPPPrintQueueScre
     }
     
     return _addPrintLaterJobScreenAttributes;
+}
+
+- (UIButton *)doneButton
+{
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 34)];
+    [button setTitle:@"Done" forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont fontWithName:@"System" size:18];
+    button.titleLabel.textAlignment = NSTextAlignmentRight;
+    [button setTitleColor:[UIColor HPPPHPBlueColor] forState:UIControlStateNormal];
+    
+    return button;
 }
 
 - (NSDictionary *)printQueueScreenAttributes

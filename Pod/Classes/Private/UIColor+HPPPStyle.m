@@ -24,4 +24,9 @@
     return [UIColor colorWithRed:0x00/255.0 green:0x96/255.0 blue:0xD6/255.0 alpha:1.0];
 }
 
++ (UIColor *)HPPPHPTabBarSelectedColor
+{
+    return [UIColor colorWithRed:0x40/255.0f green:0x46/255.0f blue:0x4D/255.0f alpha:1.0f];
+}
+
 @end
