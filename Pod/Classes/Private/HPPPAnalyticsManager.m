@@ -58,12 +58,14 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
 
 - (NSURL *)metricsServerURL
 {
-#ifdef APP_STORE_BUILD
-    NSString *urlString = [NSString stringWithFormat:@"https://%@:%@@%@", kHPPPMetricsUsername, kHPPPMetricsPassword, kHPPPMetricsServer];
-#else
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%@@%@", kHPPPMetricsUsername, kHPPPMetricsPassword, kHPPPMetricsServerTestBuilds];
-#endif
-    return [NSURL URLWithString:urlString];
+    NSURL *productionURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@:%@@%@", kHPPPMetricsUsername, kHPPPMetricsPassword, kHPPPMetricsServer]];
+    NSURL *testURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@@%@", kHPPPMetricsUsername, kHPPPMetricsPassword, kHPPPMetricsServerTestBuilds]];
+    NSString *provisionPath = [[NSBundle mainBundle] pathForResource:@"embedded" ofType:@"mobileprovision"];
+    NSURL *metricsURL = testURL;
+    if (!provisionPath && !TARGET_IPHONE_SIMULATOR) {
+        metricsURL = productionURL;
+    }
+    return metricsURL;
 }
 
 #pragma mark - Gather metrics
