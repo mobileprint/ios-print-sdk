@@ -17,5 +17,6 @@
 
 + (UIColor *)HPPPHPGrayBackgroundColor;
 + (UIColor *)HPPPHPBlueColor;
++ (UIColor *)HPPPHPTabBarSelectedColor;
 
 @end
