@@ -908,7 +908,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Printer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P2c-gs-D5D">
-                                                    <rect key="frame" x="140" y="102" width="60" height="25"/>
+                                                    <rect key="frame" x="140" y="88" width="60" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="C4P-Bu-7Ei"/>
                                                     </constraints>
@@ -917,7 +917,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edmo's 7520" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBz-ee-1oy">
-                                                    <rect key="frame" x="200" y="102" width="390" height="25"/>
+                                                    <rect key="frame" x="200" y="88" width="390" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="8JP-58-KsT"/>
                                                     </constraints>
@@ -926,7 +926,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Network" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMe-9C-MtU">
-                                                    <rect key="frame" x="140" y="141" width="60" height="25"/>
+                                                    <rect key="frame" x="140" y="113" width="60" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="0kb-Lr-3dA"/>
                                                     </constraints>
@@ -959,7 +959,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HP Work" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGn-cT-AN9">
-                                                    <rect key="frame" x="200" y="141" width="390" height="25"/>
+                                                    <rect key="frame" x="200" y="113" width="390" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="WJo-ZY-75n"/>
                                                     </constraints>
@@ -972,13 +972,13 @@
                                                 <constraint firstItem="fGn-cT-AN9" firstAttribute="trailing" secondItem="Fkh-3N-vvp" secondAttribute="trailing" id="58A-E4-4sN"/>
                                                 <constraint firstItem="Fkh-3N-vvp" firstAttribute="leading" secondItem="QMa-iS-7gw" secondAttribute="trailing" id="5jF-yu-Mgi"/>
                                                 <constraint firstItem="D6l-iR-R4U" firstAttribute="top" secondItem="ftk-JF-UNC" secondAttribute="top" id="95Y-40-6Lk"/>
-                                                <constraint firstItem="P2c-gs-D5D" firstAttribute="top" secondItem="QMa-iS-7gw" secondAttribute="bottom" constant="14" id="Dgp-sW-GdS"/>
+                                                <constraint firstItem="P2c-gs-D5D" firstAttribute="top" secondItem="QMa-iS-7gw" secondAttribute="bottom" id="Dgp-sW-GdS"/>
                                                 <constraint firstItem="lMe-9C-MtU" firstAttribute="leading" secondItem="QMa-iS-7gw" secondAttribute="leading" id="F2d-Jx-h9t"/>
                                                 <constraint firstItem="lMe-9C-MtU" firstAttribute="leading" secondItem="P2c-gs-D5D" secondAttribute="leading" id="HNJ-z3-mc9"/>
                                                 <constraint firstAttribute="bottom" secondItem="D6l-iR-R4U" secondAttribute="bottom" id="KqJ-bp-maM"/>
                                                 <constraint firstItem="fGn-cT-AN9" firstAttribute="trailing" secondItem="9zv-Ol-bt2" secondAttribute="trailing" id="NRC-ja-XlV"/>
                                                 <constraint firstItem="QMa-iS-7gw" firstAttribute="top" secondItem="9zv-Ol-bt2" secondAttribute="bottom" constant="8" id="T4g-o8-tv5"/>
-                                                <constraint firstItem="lMe-9C-MtU" firstAttribute="top" secondItem="P2c-gs-D5D" secondAttribute="bottom" constant="14" id="Uah-9Q-GEr"/>
+                                                <constraint firstItem="lMe-9C-MtU" firstAttribute="top" secondItem="P2c-gs-D5D" secondAttribute="bottom" id="Uah-9Q-GEr"/>
                                                 <constraint firstAttribute="trailing" secondItem="9zv-Ol-bt2" secondAttribute="trailing" constant="10" id="WBR-XR-WsX"/>
                                                 <constraint firstItem="P2c-gs-D5D" firstAttribute="centerY" secondItem="WBz-ee-1oy" secondAttribute="centerY" id="bpQ-kP-f0Z"/>
                                                 <constraint firstItem="9zv-Ol-bt2" firstAttribute="top" secondItem="ftk-JF-UNC" secondAttribute="top" constant="10" id="exd-45-fK0"/>
