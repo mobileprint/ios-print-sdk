@@ -15,6 +15,7 @@
 #import "HPPPPrintLaterJob.h"
 
 extern NSString * const kHPPPPrintJobAddedToQueueNotification;
+extern NSString * const kHPPPPrintJobRemovedFromQueueNotification;
 extern NSString * const kHPPPAllPrintJobsRemovedFromQueueNotification;
 
 
