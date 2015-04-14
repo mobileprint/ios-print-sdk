@@ -17,12 +17,12 @@
 #import "HPPPDefaultSettingsManager.h"
 #import "UIColor+HPPPStyle.h"
 
-@interface HPPPAddPrintLaterJobTableViewController () <UITextFieldDelegate>
+@interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *addToPrintQLabel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UITextView *nameTextView;
 @property (weak, nonatomic) IBOutlet UILabel *dateTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printerNameTitleLabel;
@@ -59,9 +59,9 @@
     
     self.addToPrintQLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute];
     self.addToPrintQLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenAddToPrintQColorAttribute];
-    
-    self.nameTextField.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenJobNameFontAttribute];
-    self.nameTextField.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute];
+
+    self.nameTextView.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenJobNameFontAttribute];
+    self.nameTextView.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute];
     
     self.dateTitleLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemTitleFontAttribute];
     self.dateTitleLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemTitleColorAttribute];
@@ -81,11 +81,13 @@
     self.printerLocationLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemFontAttribute];
     self.printerLocationLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemColorAttribute];
     
-    self.nameTextField.text = self.printLaterJob.name;
-    self.nameTextField.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.nameTextField.layer.borderWidth = 2.0f;
-    self.nameTextField.delegate = self;
-    self.nameTextField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+    self.nameTextView.text = self.printLaterJob.name;
+    self.nameTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.nameTextView.layer.borderWidth = 2.0f;
+    self.nameTextView.delegate = self;
+    self.nameTextView.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+    self.nameTextView.textContainer.maximumNumberOfLines = 1;
+    self.nameTextView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init] ;
     [dateFormatter setDateFormat:[HPPP sharedInstance].defaultDateFormat];
@@ -147,9 +149,9 @@
     
     if (cell == self.addToPrintQCell) {
         
-        [self.nameTextField resignFirstResponder];
+        [self.nameTextView resignFirstResponder];
         
-        self.printLaterJob.name = self.nameTextField.text;
+        self.printLaterJob.name = self.nameTextView.text;
         
         BOOL result = [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob];
         
@@ -174,7 +176,7 @@
 
 - (void)doneButtonTapped:(id)sender
 {
-    [self.nameTextField resignFirstResponder];
+    [self.nameTextView resignFirstResponder];
     [self setNavigationBarEditing:NO];
 }
 
@@ -200,14 +202,14 @@
 
     [UIView animateWithDuration:0.4f
                      animations:^{
-                         self.nameTextField.textColor = nameTextFieldColor;
+                         self.nameTextView.textColor = nameTextFieldColor;
                          self.navigationItem.title = navigationBarTitle;
                      }];
 }
 
 #pragma mark - UITextFieldDelegate
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
+- (void)textViewDidBeginEditing:(UITextView *)textView
 {
     [self setNavigationBarEditing:YES];
 }
