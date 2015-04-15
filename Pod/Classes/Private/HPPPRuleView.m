@@ -12,6 +12,27 @@
 
 #import "HPPPRuleView.h"
 
+@interface HPPPRuleView ()
+
+@property (strong, nonatomic) IBOutlet UIView *heightView;
+@property (strong, nonatomic) IBOutlet UIView *widthView;
+
+@end
+
 @implementation HPPPRuleView
+
+-(void) showRulers:(BOOL)showRulers;
+{
+    if( showRulers ) {
+        self.widthView.hidden = FALSE;
+        self.heightView.hidden = FALSE;
+        self.sizeLabel.hidden = TRUE;
+    }
+    else {
+        self.widthView.hidden = TRUE;
+        self.heightView.hidden = TRUE;
+        self.sizeLabel.hidden = FALSE;
+    }
+}
 
 @end

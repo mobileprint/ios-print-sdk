@@ -26,6 +26,8 @@
         [[HPPPPrintLaterManager sharedInstance] handleNotification:localNotification];
     }
     
+    [HPPP sharedInstance].showRulers = FALSE;
+    
     return YES;
 }
 

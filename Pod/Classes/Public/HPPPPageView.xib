@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -14,6 +14,8 @@
                 <outlet property="multipleImagesImageView" destination="RF8-X8-RSr" id="WOm-Pv-Uyf"/>
                 <outlet property="paperHeightConstraint" destination="SLS-le-Fsw" id="eEc-yg-0vB"/>
                 <outlet property="paperView" destination="oDh-a3-O5v" id="69v-fL-fhq"/>
+                <outlet property="paperViewHorizConstraint" destination="C79-P1-lhY" id="Wn7-h6-eYA"/>
+                <outlet property="paperViewVertConstraint" destination="17H-WU-mv8" id="8Pf-ze-dmr"/>
                 <outlet property="paperWidthConstraint" destination="TpX-3K-anH" id="mxf-7V-NRb"/>
                 <outlet property="ruleHeightContraint" destination="6fb-cg-r2p" id="8uw-x5-8qA"/>
                 <outlet property="ruleView" destination="CQY-dn-dJf" id="VH7-3Y-tyP"/>

@@ -18,5 +18,8 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *heightLabel;
 @property (strong, nonatomic) IBOutlet UILabel *widthLabel;
+@property (strong, nonatomic) IBOutlet UILabel *sizeLabel;
+
+-(void) showRulers:(BOOL)showRulers;
 
 @end
