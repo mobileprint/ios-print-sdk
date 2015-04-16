@@ -18,7 +18,6 @@
 #import "UIView+HPPPAnimation.h"
 
 #define PREVIEW_CONTAINER_SCALE 0.9f
-static int RULER_SPACE = 52.0f;
 
 @interface HPPPPageView ()
 
@@ -40,6 +39,12 @@ static int RULER_SPACE = 52.0f;
 
 @end
 
+@interface HPPPPageView()
+{
+    int paperViewOffsetForRulers;
+}
+@end
+
 @implementation HPPPPageView
 
 - (void)setImage:(UIImage *)image
@@ -53,10 +58,10 @@ static int RULER_SPACE = 52.0f;
     }
     
     if( [[HPPP sharedInstance] showRulers] ) {
+        paperViewOffsetForRulers = 52.0;
         [self.ruleView showRulers:TRUE];
     } else {
-        RULER_SPACE = 0.0f;
-
+        paperViewOffsetForRulers = 0.0f;
         [self.ruleView showRulers:FALSE];
         
         self.paperViewHorizConstraint.constant = (self.ruleView.frame.size.width - self.paperView.frame.size.width)/2;
@@ -215,8 +220,8 @@ static int RULER_SPACE = 52.0f;
 
 - (CGSize)paperSizeWithWidth:(CGFloat)width height:(CGFloat)height containerSize:(CGSize)containerSize containerScale:(CGFloat)containerScale
 {
-    containerSize.height -= RULER_SPACE;
-    containerSize.width -= RULER_SPACE;
+    containerSize.height -= paperViewOffsetForRulers;
+    containerSize.width -= paperViewOffsetForRulers;
     
     containerSize.height *= containerScale;
     containerSize.width *= containerScale;
