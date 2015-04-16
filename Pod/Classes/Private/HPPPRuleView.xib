@@ -15,7 +15,9 @@
             <connections>
                 <outlet property="heightLabel" destination="pW6-sq-90O" id="7ma-5Z-zis"/>
                 <outlet property="heightView" destination="hKY-Un-Rb0" id="aPR-Gc-9zB"/>
+                <outlet property="horizontalRulerViewHeightConstraint" destination="l6c-At-2t6" id="SeR-8Q-vsj"/>
                 <outlet property="sizeLabel" destination="dbC-7x-pm0" id="wcN-it-Wna"/>
+                <outlet property="verticalRulerViewWidthConstraint" destination="1NU-tW-f7F" id="iXL-ki-7wO"/>
                 <outlet property="widthLabel" destination="scG-Vp-qJo" id="atx-cY-Qde"/>
                 <outlet property="widthView" destination="3uS-bC-9zI" id="pxI-cI-pSO"/>
             </connections>

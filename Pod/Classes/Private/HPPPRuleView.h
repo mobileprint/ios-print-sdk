@@ -22,4 +22,7 @@
 
 -(void) showRulers:(BOOL)showRulers;
 
+-(CGFloat)verticalRulerWidth;
+-(CGFloat)horizontalRulerHeight;
+
 @end

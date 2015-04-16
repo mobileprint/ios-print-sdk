@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) IBOutlet UIView *heightView;
 @property (strong, nonatomic) IBOutlet UIView *widthView;
+@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *verticalRulerViewWidthConstraint;
+@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *horizontalRulerViewHeightConstraint;
 
 @end
 
@@ -33,6 +35,16 @@
         self.heightView.hidden = TRUE;
         self.sizeLabel.hidden = FALSE;
     }
+}
+
+-(CGFloat)verticalRulerWidth
+{
+    return self.verticalRulerViewWidthConstraint.constant;
+}
+
+-(CGFloat)horizontalRulerHeight
+{
+    return self.horizontalRulerViewHeightConstraint.constant;
 }
 
 @end

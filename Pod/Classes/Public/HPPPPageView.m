@@ -39,12 +39,6 @@
 
 @end
 
-@interface HPPPPageView()
-{
-    int paperViewOffsetForRulers;
-}
-@end
-
 @implementation HPPPPageView
 
 - (void)setImage:(UIImage *)image
@@ -58,10 +52,8 @@
     }
     
     if( [[HPPP sharedInstance] showRulers] ) {
-        paperViewOffsetForRulers = 52.0;
         [self.ruleView showRulers:TRUE];
     } else {
-        paperViewOffsetForRulers = 0.0f;
         [self.ruleView showRulers:FALSE];
         
         self.paperViewHorizConstraint.constant = (self.ruleView.frame.size.width - self.paperView.frame.size.width)/2;
@@ -220,8 +212,10 @@
 
 - (CGSize)paperSizeWithWidth:(CGFloat)width height:(CGFloat)height containerSize:(CGSize)containerSize containerScale:(CGFloat)containerScale
 {
-    containerSize.height -= paperViewOffsetForRulers;
-    containerSize.width -= paperViewOffsetForRulers;
+    if( [[HPPP sharedInstance] showRulers] ) {
+        containerSize.height -= (self.ruleView.horizontalRulerHeight + 2);
+        containerSize.width -= (self.ruleView.verticalRulerWidth + 2);
+    }
     
     containerSize.height *= containerScale;
     containerSize.width *= containerScale;
