@@ -188,6 +188,12 @@
         if (animated) {
             UIView *curlTargetView = self.paperView;
             
+            // if we don't call the completion handler here, the user will not be able to
+            //  interact with the screen until the page curl animation finishes
+            if (completion) {
+                completion();
+            }
+
             if (paperSize.paperSize == Size4x5) {
                 curlTargetView = self.imageView;
             }
@@ -199,11 +205,7 @@
             [curlView curlView:curlTargetView cylinderPosition:CGPointMake(curlTargetView.frame.size.width - 40, curlTargetView.frame.size.height - 40) cylinderAngle:M_PI_2 + M_PI_4 cylinderRadius:10 animatedWithDuration:0.6f completion:^{
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    [curlView uncurlAnimatedWithDuration:0.6f completion:^{
-                        if (completion) {
-                            completion();
-                        }
-                    }];
+                    [curlView uncurlAnimatedWithDuration:0.6f completion:nil];
                 });
             }];
         } else {
