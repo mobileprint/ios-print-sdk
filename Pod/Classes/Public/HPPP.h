@@ -332,6 +332,12 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (strong, nonatomic) NSString *defaultDateFormat;
 
 /*!
+ * @abstract If TRUE, rulers will be displayed beneath and to the right of the preview image to show the image size.
+ * @discussion The default value is FALSE, which causes the size to be specified in a label centered beneath the image.
+ */
+@property (assign, nonatomic) BOOL showRulers;
+
+/*!
  * @abstract A dictionary of the most recent print options used
  * @discussion If the last print job was successful this property contains a dictionary of various options used for the job. If the last print job failed or was canceled then this property contains an empty dictionary.
  * @seealso kHPPPBlackAndWhiteFilterId

@@ -18,7 +18,6 @@
 #import "UIView+HPPPAnimation.h"
 
 #define PREVIEW_CONTAINER_SCALE 0.9f
-#define RULER_SPACE 52.0f
 
 @interface HPPPPageView ()
 
@@ -35,6 +34,8 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleWidthContraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleHeightContraint;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *multipleImagesImageView;
+@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *paperViewHorizConstraint;
+@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *paperViewVertConstraint;
 
 @end
 
@@ -48,6 +49,15 @@
     
     if (self.isMultipleImages) {
         self.multipleImagesImageView.hidden = NO;
+    }
+    
+    if( [[HPPP sharedInstance] showRulers] ) {
+        [self.ruleView showRulers:TRUE];
+    } else {
+        [self.ruleView showRulers:FALSE];
+        
+        self.paperViewHorizConstraint.constant = (self.ruleView.frame.size.width - self.paperView.frame.size.width)/2;
+        self.paperViewVertConstraint.constant = (self.ruleView.frame.size.height - self.paperView.frame.size.height)/2;
     }
 }
 
@@ -114,6 +124,7 @@
     HPPP *hppp = [HPPP sharedInstance];
     self.ruleView.widthLabel.font = hppp.rulesLabelFont;
     self.ruleView.heightLabel.font = hppp.rulesLabelFont;
+    self.ruleView.sizeLabel.font = hppp.tableViewCellValueFont;
     
     CGSize computedPaperSize = [self paperSizeWithWidth:paperSize.width height:paperSize.height containerSize:self.containerView.frame.size containerScale:PREVIEW_CONTAINER_SCALE];
     
@@ -131,10 +142,11 @@
     
     [self HPPPAnimateConstraintsWithDuration:0.5f constraints:^{
         
-        if ([self.image HPPPIsPortraitImage]) {
-            self.ruleView.widthLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperWidthTitle];
-            self.ruleView.heightLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperHeightTitle];
+        self.ruleView.widthLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperWidthTitle];
+        self.ruleView.heightLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperHeightTitle];
+        self.ruleView.sizeLabel.text = [NSString stringWithFormat:@"%@ x %@", paperSize.paperWidthTitle, paperSize.paperHeightTitle];
 
+        if ([self.image HPPPIsPortraitImage]) {
             self.paperWidthConstraint.constant = computedPaperSize.width;
             self.paperHeightConstraint.constant = computedPaperSize.height;
             
@@ -146,9 +158,6 @@
             }
         } else {
             if (paperSize.width == 8.5f) {
-                self.ruleView.widthLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperWidthTitle];
-                self.ruleView.heightLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperHeightTitle];
-
                 self.paperWidthConstraint.constant = computedPaperSize.width;
                 self.paperHeightConstraint.constant = computedPaperSize.height;
                 
@@ -158,6 +167,7 @@
             } else {
                 self.ruleView.widthLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperHeightTitle];
                 self.ruleView.heightLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperWidthTitle];
+                self.ruleView.sizeLabel.text = [NSString stringWithFormat:@"%@ x %@", paperSize.paperHeightTitle, paperSize.paperWidthTitle];
 
                 self.paperWidthConstraint.constant = computedPaperSize.height;
                 self.paperHeightConstraint.constant = computedPaperSize.width;
@@ -206,8 +216,10 @@
 
 - (CGSize)paperSizeWithWidth:(CGFloat)width height:(CGFloat)height containerSize:(CGSize)containerSize containerScale:(CGFloat)containerScale
 {
-    containerSize.height -= RULER_SPACE;
-    containerSize.width -= RULER_SPACE;
+    if( [[HPPP sharedInstance] showRulers] ) {
+        containerSize.height -= (self.ruleView.horizontalRulerHeight + 2);
+        containerSize.width -= (self.ruleView.verticalRulerWidth + 2);
+    }
     
     containerSize.height *= containerScale;
     containerSize.width *= containerScale;
