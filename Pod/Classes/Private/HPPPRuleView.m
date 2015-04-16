@@ -16,8 +16,8 @@
 
 @property (strong, nonatomic) IBOutlet UIView *heightView;
 @property (strong, nonatomic) IBOutlet UIView *widthView;
-@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *verticalRulerViewWidthConstraint;
-@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *horizontalRulerViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalRulerViewWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalRulerViewHeightConstraint;
 
 @end
 
