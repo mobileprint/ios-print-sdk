@@ -731,7 +731,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Page Settings" id="tyb-xP-2ia">
                         <barButtonItem key="backBarButtonItem" title=" " id="2DA-dI-8xn" userLabel="Bar Button Item - Hide Back Buttom Text"/>
-                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="w3y-3p-k4Q">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="w3y-3p-k4Q">
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="Ddr-Or-99s" id="lb0-4h-0jm"/>
                             </connections>
