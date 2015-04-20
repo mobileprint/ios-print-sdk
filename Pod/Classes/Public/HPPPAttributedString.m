@@ -104,7 +104,7 @@ NSString *const HPPPPrintQueueScreenJobDateColorAttribute = @"HPPPPrintQueueScre
 
 - (UIButton *)doneButton
 {
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 34)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, 34)];
     [button setTitle:HPPPLocalizedString(@"Done", nil) forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont fontWithName:@"System" size:18];
     button.titleLabel.textAlignment = NSTextAlignmentRight;
