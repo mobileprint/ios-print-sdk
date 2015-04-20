@@ -27,7 +27,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hKY-Un-Rb0" userLabel="Vertical Rule View">
+                <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hKY-Un-Rb0" userLabel="Vertical Rule View">
                     <rect key="frame" x="270" y="0.0" width="50" height="519"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dod-4w-Ntm" userLabel="Top Line View" customClass="HPPPDashedLineView">
@@ -96,7 +96,7 @@
                         <constraint firstAttribute="bottom" secondItem="bqv-R4-y88" secondAttribute="bottom" id="vdR-7d-HT0"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3uS-bC-9zI" userLabel="Horizontal Rule View">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3uS-bC-9zI" userLabel="Horizontal Rule View">
                     <rect key="frame" x="0.0" y="519" width="271" height="50"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IrD-ul-Y1U" userLabel="Left Line View" customClass="HPPPDashedLineView">
@@ -165,7 +165,7 @@
                         <constraint firstItem="e7P-g3-h2m" firstAttribute="leading" secondItem="3uS-bC-9zI" secondAttribute="leading" constant="5" id="v7P-2J-L3G"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="4x6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbC-7x-pm0" userLabel="SizeLabel">
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="4x6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbC-7x-pm0" userLabel="SizeLabel">
                     <rect key="frame" x="139" y="547" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="highlightedColor"/>

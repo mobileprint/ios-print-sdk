@@ -59,6 +59,8 @@
         self.paperViewHorizConstraint.constant = (self.ruleView.frame.size.width - self.paperView.frame.size.width)/2;
         self.paperViewVertConstraint.constant = (self.ruleView.frame.size.height - self.paperView.frame.size.height)/2;
     }
+    
+    self.isAnimating = FALSE;
 }
 
 - (void)setFilterWithImage:(UIImage *)image completion:(void (^)(void))completion
@@ -186,8 +188,16 @@
         
     } completion:^(BOOL finished) {
         if (animated) {
+            self.isAnimating = TRUE;
+            
             UIView *curlTargetView = self.paperView;
             
+            // if we don't call the completion handler here, the user will not be able to
+            //  interact with the screen until the page curl animation finishes
+            if (completion) {
+                completion();
+            }
+
             if (paperSize.paperSize == Size4x5) {
                 curlTargetView = self.imageView;
             }
@@ -200,9 +210,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [curlView uncurlAnimatedWithDuration:0.6f completion:^{
-                        if (completion) {
-                            completion();
-                        }
+                        self.isAnimating = FALSE;
                     }];
                 });
             }];

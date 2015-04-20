@@ -19,6 +19,7 @@
 
 @property (strong, nonatomic) UIImage *image;
 @property (assign, nonatomic, getter=isMultipleImages) BOOL mutipleImages;
+@property (assign, nonatomic) BOOL isAnimating;
 
 - (void)setColorWithCompletion:(void (^)(void))completion;
 - (void)setBlackAndWhiteWithCompletion:(void (^)(void))completion;
