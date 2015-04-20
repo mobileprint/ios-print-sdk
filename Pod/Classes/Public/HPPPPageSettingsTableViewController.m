@@ -707,11 +707,13 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     cell.selected = NO;
     
     if (indexPath.section == SUPPORT_SECTION) {
-        HPPPSupportAction *action = self.hppp.supportActions[indexPath.row];
-        if (action.url) {
-            [[UIApplication sharedApplication] openURL:action.url];
-        } else {
-            [self presentViewController:action.viewController animated:YES completion:nil];
+        if( !self.pageView.isAnimating ) {
+            HPPPSupportAction *action = self.hppp.supportActions[indexPath.row];
+            if (action.url) {
+                [[UIApplication sharedApplication] openURL:action.url];
+            } else {
+                [self presentViewController:action.viewController animated:YES completion:nil];
+            }
         }
     } else if (cell == self.selectPrinterCell) {
         [self showPrinterSelection:tableView withCompletion:nil];
