@@ -53,6 +53,8 @@ CGFloat const kPrintJobHeight = 60.0f;
 {
     [super viewDidLoad];
     
+    self.title = HPPPLocalizedString(@"Print Queue", nil);
+    
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterManager *printLaterManager = [HPPPPrintLaterManager sharedInstance];
         

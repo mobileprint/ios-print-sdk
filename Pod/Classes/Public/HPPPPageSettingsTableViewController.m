@@ -120,6 +120,8 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 {
     [super viewDidLoad];
     
+    self.title = HPPPLocalizedString(@"Page Settings", nil);
+    
     self.hppp = [HPPP sharedInstance];
     self.defaultSettingsManager = [HPPPDefaultSettingsManager sharedInstance];
     
@@ -134,37 +136,46 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     
     self.printLabel.font = self.hppp.tableViewCellPrintLabelFont;
     self.printLabel.textColor = self.hppp.tableViewCellPrintLabelColor;
+    self.printLabel.text = HPPPLocalizedString(@"Print", nil);
     
     self.printSettingsLabel.font = self.hppp.tableViewCellLabelFont;
     self.printSettingsLabel.textColor = self.hppp.tableViewCellLabelColor;
-    
+    self.printSettingsLabel.text = HPPPLocalizedString(@"Settings", nil);
+
     self.printSettingsDetailLabel.font = self.hppp.tableViewSettingsCellValueFont;
     self.printSettingsDetailLabel.textColor = self.hppp.tableViewSettingsCellValueColor;
     
     self.selectPrinterLabel.font = self.hppp.tableViewCellLabelFont;
     self.selectPrinterLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.selectPrinterLabel.text = HPPPLocalizedString(@"Printer", nil);
     
     self.selectedPrinterLabel.font = self.hppp.tableViewCellValueFont;
     self.selectedPrinterLabel.textColor = self.hppp.tableViewCellValueColor;
+    self.selectedPrinterLabel.text = HPPPLocalizedString(@"Select Printer", nil);
     
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperSizeLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.paperSizeLabel.text = HPPPLocalizedString(@"Paper Size", nil);
     
     self.paperSizeSelectedLabel.font = self.hppp.tableViewCellValueFont;
     self.paperSizeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
     
     self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperTypeLabel.textColor = self.hppp.tableViewCellLabelColor;
-    
+    self.paperTypeLabel.text = HPPPLocalizedString(@"Paper Type", nil);
+
     self.paperTypeSelectedLabel.font = self.hppp.tableViewCellValueFont;
     self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
+    self.paperTypeSelectedLabel.text = HPPPLocalizedString(@"Plain Paper", nil);
     
     self.numberOfCopiesLabel.font = self.hppp.tableViewCellLabelFont;
     self.numberOfCopiesLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.numberOfCopiesLabel.text = HPPPLocalizedString(@"1 copy", nil);
     
     self.filterLabel.font = self.hppp.tableViewCellLabelFont;
     self.filterLabel.textColor = self.hppp.tableViewCellLabelColor;
-    
+    self.filterLabel.text = HPPPLocalizedString(@"Black & White mode", nil);
+
     self.pageViewCell.backgroundColor = [UIColor HPPPHPGrayBackgroundColor];
     
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:Size4x6 paperType:Photo];

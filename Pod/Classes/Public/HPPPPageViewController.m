@@ -12,7 +12,7 @@
 
 #import "HPPP.h"
 #import "HPPPPageViewController.h"
-
+#import "NSBundle+Localizable.h"
 
 @implementation HPPPPageViewController
 
@@ -20,6 +20,8 @@
 {
     [super viewDidLoad];
     
+    self.title = HPPPLocalizedString(@"Preview", nil);
+
     self.pageView.image = self.image;
 }
 

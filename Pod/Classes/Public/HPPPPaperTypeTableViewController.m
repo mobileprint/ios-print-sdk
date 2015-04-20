@@ -13,6 +13,8 @@
 #import "HPPPPaperTypeTableViewController.h"
 #import "HPPP.h"
 #import "HPPPPaper.h"
+#import "NSBundle+Localizable.h"
+
 
 NSString * const kPaperTypeScreenName = @"Paper Type Screen";
 
@@ -29,13 +31,20 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
 {
     [super viewDidLoad];
     
+    self.title = HPPPLocalizedString(@"Paper Type", nil);
+    
     self.hppp = [HPPP sharedInstance];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    NSArray *localizeTitleArray = @[HPPPLocalizedString(@"Plain Paper", nil), HPPPLocalizedString(@"Photo Paper", nil)];
+    
+    NSInteger i = 0;
     for (UITableViewCell *cell in self.paperTypeCells) {
         cell.textLabel.font = self.hppp.tableViewCellLabelFont;
         cell.textLabel.textColor = self.hppp.tableViewCellLabelColor;
+        cell.textLabel.text = [localizeTitleArray objectAtIndex:i];
+        i ++;
         
         if ([cell.textLabel.text isEqualToString:self.currentPaper.typeTitle]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;

@@ -50,6 +50,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = HPPPLocalizedString(@"Print Settings", nil);
+    
     self.hppp = [HPPP sharedInstance];
     
     self.selectedPrinterLabel.text = self.printSettings.printerName;
@@ -59,18 +61,21 @@
     
     self.printerLabel.font = self.hppp.tableViewCellLabelFont;
     self.printerLabel.textColor = self.hppp.tableViewCellLabelColor;
-    
+    self.printerLabel.text = HPPPLocalizedString(@"Printer", nil);
+
     self.selectedPrinterLabel.font = self.hppp.tableViewCellValueFont;
     self.selectedPrinterLabel.textColor = self.hppp.tableViewCellValueColor;
     
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperSizeLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.paperSizeLabel.text = HPPPLocalizedString(@"Paper Size", nil);
     
     self.selectedPaperSizeLabel.font = self.hppp.tableViewCellValueFont;
     self.selectedPaperSizeLabel.textColor = self.hppp.tableViewCellValueColor;
     
     self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperTypeLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.paperTypeLabel.text = HPPPLocalizedString(@"Paper Type", nil);
     
     self.selectedPaperTypeLabel.font = self.hppp.tableViewCellValueFont;
     self.selectedPaperTypeLabel.textColor = self.hppp.tableViewCellValueColor;

@@ -31,6 +31,8 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
 {
     [super viewDidLoad];
     
+    self.title = HPPPLocalizedString(@"Paper Size", nil);
+    
     self.hppp = [HPPP sharedInstance];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
