@@ -120,7 +120,7 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
     [metrics addEntriesFromDictionary:options];
     
     NSData *bodyData = [self postBodyWithValues:metrics];
-    NSString *bodyLength = [NSString stringWithFormat: @"%ld", (long)[bodyData length]];
+    NSString *bodyLength = [NSString stringWithFormat:@"%ld", (long)[bodyData length]];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[self metricsServerURL]];
     [urlRequest setHTTPMethod:@"POST"];
     [urlRequest setHTTPBody:bodyData];
@@ -136,9 +136,9 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
 {
     NSMutableArray *content = [NSMutableArray array];
     for (NSString * key in values) {
-        [content addObject:[NSString stringWithFormat: @"%@=%@", key, values[key]]];
+        [content addObject:[NSString stringWithFormat:@"%@=%@", key, values[key]]];
     }
-    NSString *body = [content componentsJoinedByString: @"&"];
+    NSString *body = [content componentsJoinedByString:@"&"];
     return [body dataUsingEncoding:NSUTF8StringEncoding];
 }
 

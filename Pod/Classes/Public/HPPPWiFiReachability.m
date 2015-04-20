@@ -12,6 +12,7 @@
 
 #import "HPPPWiFiReachability.h"
 #import "HPPP.h"
+#import "NSBundle+Localizable.h"
 
 @interface HPPPWiFiReachability ()
 
@@ -49,20 +50,20 @@ NSString * const kHPPPWiFiConnectionLost = @"kHPPPWiFiConnectionLost";
 
 - (void)noPrintingAlert
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wi-Fi Required"
-                                                    message:@"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings."
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:HPPPLocalizedString(@"Wi-Fi Required", ni)
+                                                    message:HPPPLocalizedString(@"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings.", nil)
                                                    delegate:nil
-                                          cancelButtonTitle:@"OK"
+                                          cancelButtonTitle:HPPPLocalizedString(@"OK", nil)
                                           otherButtonTitles:nil];
     [alert show];
 }
 
 - (void)noPrinterSelectAlert
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wi-Fi Required"
-                                                    message:@"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings."
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:HPPPLocalizedString(@"Wi-Fi Required", nil)
+                                                    message:HPPPLocalizedString(@"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings.", nil)
                                                    delegate:nil
-                                          cancelButtonTitle:@"OK"
+                                          cancelButtonTitle:HPPPLocalizedString(@"OK", nil)
                                           otherButtonTitles:nil];
     [alert show];
 }

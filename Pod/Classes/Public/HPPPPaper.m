@@ -11,11 +11,12 @@
 //
 
 #import "HPPPPaper.h"
+#import "NSBundle+Localizable.h"
 
 #define MAXIMUM_ENLARGEMENT 1.25f
 #define INVALID_PAPER -1;
-#define TYPE_PLAIN_TITLE @"Plain Paper"
-#define TYPE_PHOTO_TITLE @"Photo Paper"
+#define TYPE_PLAIN_TITLE HPPPLocalizedString(@"Plain Paper", nil)
+#define TYPE_PHOTO_TITLE HPPPLocalizedString(@"Photo Paper", nil)
 #define SIZE_4_X_5_TITLE @"4 x 5"
 #define SIZE_4_X_6_TITLE @"4 x 6"
 #define SIZE_5_X_7_TITLE @"5 x 7"

@@ -18,6 +18,7 @@
 #import "HPPPPaperTypeTableViewController.h"
 #import "HPPPWiFiReachability.h"
 #import "UITableView+HPPPHeader.h"
+#import "NSBundle+Localizable.h"
 
 #define PRINTER_SELECTION_SECTION 0
 #define PAPER_SELECTION_SECTION 1
@@ -234,9 +235,9 @@
             label.font = self.hppp.tableViewFooterWarningLabelFont;
             label.textColor = self.hppp.tableViewFooterWarningLabelColor;
             if (self.useDefaultPrinter) {
-                label.text = @"Default printer not currently available";
+                label.text = HPPPLocalizedString(@"Default printer not currently available", nil);
             } else {
-                label.text = @"Recent printer not currently available";
+                label.text = HPPPLocalizedString(@"Recent printer not currently available", nil);
             }
             [footer addSubview:label];
         }

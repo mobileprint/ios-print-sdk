@@ -13,6 +13,7 @@
 #import "HPPPPrintLaterActivity.h"
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPAddPrintLaterJobTableViewController.h"
+#import "NSBundle+Localizable.h"
 
 @interface HPPPPrintLaterActivity () <HPPPAddPrintLaterJobTableViewControllerDelegate>
 
@@ -27,7 +28,7 @@
 
 - (NSString *)activityTitle
 {
-    return @"Print Queue";
+    return HPPPLocalizedString(@"Print Queue", nil);
 }
 
 - (UIImage *)_activityImage

@@ -29,6 +29,7 @@
 #import "UIView+HPPPAnimation.h"
 #import "UIImage+HPPPResize.h"
 #import "UIColor+HPPPStyle.h"
+#import "NSBundle+Localizable.h"
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 
@@ -49,6 +50,13 @@
 #define PAPER_TYPE_ROW_INDEX 1
 #define PRINT_SETTINGS_ROW_INDEX 0
 #define FILTER_ROW_INDEX 0
+
+#define HPPP_DEFAULT_PRINT_JOB_NAME HPPPLocalizedString(@"Photo", nil)
+
+#define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
+#define kPageSettingsScreenName HPPPLocalizedString(@"Paper Settings Screen", nil)
+#define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", nil)
+
 
 @interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
 
@@ -100,11 +108,6 @@ NSString * const kHPPPLastPrinterLocationSetting = @"kHPPPLastPrinterLocationSet
 NSString * const kHPPPLastPaperSizeSetting = @"kHPPPLastPaperSizeSetting";
 NSString * const kHPPPLastPaperTypeSetting = @"kHPPPLastPaperTypeSetting";
 NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
-
-NSString * const kHPPPSelectPrinterPrompt = @"Select Printer";
-
-NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
-NSString * const kPrinterDetailsNotAvailable = @"Not Available";
 
 int const kSaveDefaultPrinterIndex = 1;
 
@@ -573,7 +576,7 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
 {
     self.numberOfCopies = sender.value;
     
-    self.numberOfCopiesLabel.text = [NSString stringWithFormat:@"%ld %@", (long)self.numberOfCopies, (self.numberOfCopies == 1) ? @"copy" : @"copies"];
+    self.numberOfCopiesLabel.text = [NSString stringWithFormat:@"%ld %@", (long)self.numberOfCopies, (self.numberOfCopies == 1) ? HPPPLocalizedString(@"copy", nil) : HPPPLocalizedString(@"copies", nil)];
     
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
         NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
@@ -748,9 +751,9 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
                 label.font = self.hppp.tableViewFooterWarningLabelFont;
                 label.textColor = self.hppp.tableViewFooterWarningLabelColor;
                 if (self.printFromQueue) {
-                    label.text = @"Default printer not currently available";
+                    label.text = HPPPLocalizedString(@"Default printer not currently available", nil);
                 } else {
-                    label.text = @"Recent printer not currently available";
+                    label.text = HPPPLocalizedString(@"Recent printer not currently available", nil);
                 }
                 [footer addSubview:label];
             }
@@ -840,14 +843,14 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
     NSString *result = nil;
     
     if (numberOfImages == 1) {
-        result = @"Print";
+        result = HPPPLocalizedString(@"Print", nil);
     } else {
         NSInteger total = numberOfImages * copies;
         
         if (total == 2) {
-            result = @"Print both with selected settings";
+            result = HPPPLocalizedString(@"Print both with selected settings", nil);
         } else {
-            result = [NSString stringWithFormat:@"Print all %ld with selected settings", (long)total];
+            result = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %ld with selected settings", nil), (long)total];
         }
     }
     
@@ -964,13 +967,13 @@ NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterR
         return;
     }
     
-    NSString *message = [NSString stringWithFormat:@"Would you like to set the following as this app's default printer?\n\n'%@'", self.currentPrintSettings.printerName];
+    NSString *message = [NSString stringWithFormat:HPPPLocalizedString(@"Would you like to set the following as this app's default printer?\n\n'%@'", nil), self.currentPrintSettings.printerName];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                     message:message
                                                    delegate:self
-                                          cancelButtonTitle:@"No, thanks"
-                                          otherButtonTitles:@"Yes", nil];
+                                          cancelButtonTitle:HPPPLocalizedString(@"No, thanks", nil)
+                                          otherButtonTitles:HPPPLocalizedString(@"Yes", nil), nil];
     [alert show];
 }
 

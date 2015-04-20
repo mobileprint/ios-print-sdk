@@ -16,6 +16,7 @@
 #import "HPPP.h"
 #import "HPPPDefaultSettingsManager.h"
 #import "UIColor+HPPPStyle.h"
+#import "NSBundle+Localizable.h"
 
 @interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate>
 
@@ -185,7 +186,7 @@
     HPPP *hppp = [HPPP sharedInstance];
 
     UIColor *barTintColor = self.navigationBarTintColor;
-    NSString *navigationBarTitle = @"Add Print";
+    NSString *navigationBarTitle = HPPPLocalizedString(@"Add Print", nil);
     UIBarButtonItem *rightBarButtonItem = self.cancelButtonItem;
     
     UIColor *nameTextFieldColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute];

@@ -17,7 +17,7 @@
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPDefaultSettingsManager.h"
 #import "HPPPPrintJobsTableViewController.h"
-
+#import "NSBundle+Localizable.h"
 
 const int kSecondsInOneHour = (60 * 60);
 const CLLocationDistance kDefaultPrinterRadiusInMeters = 20.0f;
@@ -79,7 +79,11 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
         self.locationManager.activityType = CLActivityTypeOtherNavigation;
         
         if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
-            [[[UIAlertView alloc] initWithTitle:@"Monitoring not available" message:@"Your device does not support the region monitoring, it is not possible to fire alarms base on position" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil] show];
+            [[[UIAlertView alloc] initWithTitle:HPPPLocalizedString(@"Monitoring not available", nil)
+                                        message:HPPPLocalizedString(@"Your device does not support the region monitoring, it is not possible to fire alarms base on position", nil)
+                                       delegate:nil
+                              cancelButtonTitle:nil
+                              otherButtonTitles:nil] show];
         }
         
         if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
@@ -164,7 +168,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
     
     localNotification.soundName = UILocalNotificationDefaultSoundName;
-    localNotification.alertBody = @"Printer available. Projects waiting...";
+    localNotification.alertBody = HPPPLocalizedString(@"Printer available. Projects waiting...", nil);
     [localNotification setHasAction:NO];
     
     localNotification.category = kPrintCategoryIdentifier;
@@ -322,13 +326,13 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
         UIMutableUserNotificationAction *laterAction = [[UIMutableUserNotificationAction alloc] init];
         laterAction.identifier = kLaterActionIdentifier;
         laterAction.activationMode = UIUserNotificationActivationModeBackground;
-        laterAction.title = @"Later";
+        laterAction.title = HPPPLocalizedString(@"Later", nil);
         laterAction.destructive = NO;
         
         UIMutableUserNotificationAction *printAction = [[UIMutableUserNotificationAction alloc] init];
         printAction.identifier = kPrintActionIdentifier;
         printAction.activationMode = UIUserNotificationActivationModeForeground;
-        printAction.title = @"Print";
+        printAction.title = HPPPLocalizedString(@"Print", nil);
         printAction.destructive = NO;
         
         UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];

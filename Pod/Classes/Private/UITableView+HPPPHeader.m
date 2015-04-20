@@ -13,6 +13,7 @@
 #import "HPPP.h"
 #import "UITableView+HPPPHeader.h"
 #import "UIColor+HPPPHexString.h"
+#import "NSBundle+Localizable.h"
 
 #define TITLE_LEFT_OFFSET 10.0f
 #define TITLE_HEIGHT 30.0f
@@ -24,7 +25,7 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width, HEADER_HEIGHT)];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(TITLE_LEFT_OFFSET, HEADER_HEIGHT - TITLE_HEIGHT, self.frame.size.width, TITLE_HEIGHT)];
-    titleLabel.text = @"SUPPORT:";
+    titleLabel.text =  HPPPLocalizedString(@"SUPPORT:", nil);
     titleLabel.font = [HPPP sharedInstance].tableViewSupportHeaderLabelFont;
     titleLabel.textColor = [HPPP sharedInstance].tableViewSupportHeaderLabelColor;
     
