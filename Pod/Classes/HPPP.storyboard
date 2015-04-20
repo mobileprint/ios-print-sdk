@@ -1127,7 +1127,7 @@
                                 <action selector="settingsButtonTapped:" destination="eKk-9e-x6C" id="8hR-i5-n8c"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="PWt-Fr-zQK">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="PWt-Fr-zQK">
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="eKk-9e-x6C" id="4t5-8x-PpC"/>
                             </connections>

@@ -54,7 +54,6 @@
 #define HPPP_DEFAULT_PRINT_JOB_NAME HPPPLocalizedString(@"Photo", nil)
 
 #define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
-#define kPageSettingsScreenName HPPPLocalizedString(@"Paper Settings Screen", nil)
 #define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", nil)
 
 
@@ -113,6 +112,7 @@ int const kSaveDefaultPrinterIndex = 1;
 
 NSString * const kHPPPDefaultPrinterAddedNotification = @"kHPPPDefaultPrinterAddedNotification";
 NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterRemovedNotification";
+NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 #pragma mark - UIView
 
