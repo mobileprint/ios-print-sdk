@@ -13,7 +13,7 @@
 #import "HPPPPrintLaterActivity.h"
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPAddPrintLaterJobTableViewController.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 @interface HPPPPrintLaterActivity () <HPPPAddPrintLaterJobTableViewControllerDelegate>
 

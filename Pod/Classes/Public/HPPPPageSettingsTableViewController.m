@@ -29,7 +29,7 @@
 #import "UIView+HPPPAnimation.h"
 #import "UIImage+HPPPResize.h"
 #import "UIColor+HPPPStyle.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 

@@ -13,7 +13,7 @@
 #import <UIKit/UIKit.h>
 #import "HPPPAttributedString.h"
 #import "UIColor+HPPPStyle.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 // Print Later Screen
 NSString *const HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute = @"HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute";

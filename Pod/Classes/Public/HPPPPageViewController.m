@@ -12,7 +12,7 @@
 
 #import "HPPP.h"
 #import "HPPPPageViewController.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 @implementation HPPPPageViewController
 

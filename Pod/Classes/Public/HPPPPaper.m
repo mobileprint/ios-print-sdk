@@ -11,7 +11,7 @@
 //
 
 #import "HPPPPaper.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 #define MAXIMUM_ENLARGEMENT 1.25f
 #define INVALID_PAPER -1;

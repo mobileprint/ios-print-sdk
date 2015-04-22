@@ -12,7 +12,7 @@
 
 #import "HPPPWiFiReachability.h"
 #import "HPPP.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 @interface HPPPWiFiReachability ()
 

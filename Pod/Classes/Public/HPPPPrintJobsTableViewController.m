@@ -21,7 +21,7 @@
 #import "HPPPAnalyticsManager.h"
 #import "HPPPWiFiReachability.h"
 #import "UIColor+HPPPStyle.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 #define kNoDefaultPrinterMessage HPPPLocalizedString(@"No default printer", nil)
 

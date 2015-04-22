@@ -13,7 +13,7 @@
 #import "HPPP.h"
 #import "UITableView+HPPPHeader.h"
 #import "UIColor+HPPPHexString.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 #define TITLE_LEFT_OFFSET 10.0f
 #define TITLE_HEIGHT 30.0f

@@ -15,7 +15,7 @@
 #import "HPPPPaper.h"
 #import "UIColor+HPPPStyle.h"
 #import "UITableView+HPPPHeader.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 NSString * const kPaperSizeScreenName = @"Paper Size Screen";
 
