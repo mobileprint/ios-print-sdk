@@ -31,7 +31,7 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
 {
     [super viewDidLoad];
     
-    self.title = HPPPLocalizedString(@"Paper Size", nil);
+    self.title = HPPPLocalizedString(@"Paper Size", @"Title of the Paper Size screen");
     
     self.hppp = [HPPP sharedInstance];
     
@@ -84,7 +84,7 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
     
-    NSString *typeTitle = (SizeLetter == [HPPPPaper sizeFromTitle:selectedCell.textLabel.text] ? self.currentPaper.typeTitle : HPPPLocalizedString(@"Photo Paper", nil));
+    NSString *typeTitle = (SizeLetter == [HPPPPaper sizeFromTitle:selectedCell.textLabel.text] ? self.currentPaper.typeTitle : HPPPLocalizedString(@"Photo Paper", @"Option of paper type"));
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSizeTitle:selectedCell.textLabel.text paperTypeTitle:typeTitle];
     
     [self.navigationController popViewControllerAnimated:YES];

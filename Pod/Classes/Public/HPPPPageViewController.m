@@ -20,7 +20,7 @@
 {
     [super viewDidLoad];
     
-    self.title = HPPPLocalizedString(@"Preview", nil);
+    self.title = HPPPLocalizedString(@"Preview", @"Title of the Preview Screen");
 
     self.pageView.image = self.image;
 }

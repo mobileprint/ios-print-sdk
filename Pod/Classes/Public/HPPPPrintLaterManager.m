@@ -79,7 +79,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
         self.locationManager.activityType = CLActivityTypeOtherNavigation;
         
         if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
-            [[[UIAlertView alloc] initWithTitle:HPPPLocalizedString(@"Monitoring not available", nil)
+            [[[UIAlertView alloc] initWithTitle:HPPPLocalizedString(@"Monitoring not available", @"Monitoring of regions (location) not available")
                                         message:HPPPLocalizedString(@"Your device does not support the region monitoring, it is not possible to fire alarms base on position", nil)
                                        delegate:nil
                               cancelButtonTitle:nil
@@ -168,7 +168,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
     
     localNotification.soundName = UILocalNotificationDefaultSoundName;
-    localNotification.alertBody = HPPPLocalizedString(@"Printer available. Projects waiting...", nil);
+    localNotification.alertBody = HPPPLocalizedString(@"Printer available. Projects waiting...", @"The printer is available and there are print later jobs in the print queue");
     [localNotification setHasAction:NO];
     
     localNotification.category = kPrintCategoryIdentifier;
@@ -326,13 +326,13 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
         UIMutableUserNotificationAction *laterAction = [[UIMutableUserNotificationAction alloc] init];
         laterAction.identifier = kLaterActionIdentifier;
         laterAction.activationMode = UIUserNotificationActivationModeBackground;
-        laterAction.title = HPPPLocalizedString(@"Later", nil);
+        laterAction.title = HPPPLocalizedString(@"Later", @"Option of the push notification to send another push notification later");
         laterAction.destructive = NO;
         
         UIMutableUserNotificationAction *printAction = [[UIMutableUserNotificationAction alloc] init];
         printAction.identifier = kPrintActionIdentifier;
         printAction.activationMode = UIUserNotificationActivationModeForeground;
-        printAction.title = HPPPLocalizedString(@"Print", nil);
+        printAction.title = HPPPLocalizedString(@"Print", @"Option of the push notification to print the print later job");
         printAction.destructive = NO;
         
         UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];

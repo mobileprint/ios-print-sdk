@@ -28,7 +28,7 @@
 
 - (NSString *)activityTitle
 {
-    return HPPPLocalizedString(@"Print Queue", nil);
+    return HPPPLocalizedString(@"Print Queue", @"Activity title of the print queue when the share button is tapped");
 }
 
 - (UIImage *)_activityImage

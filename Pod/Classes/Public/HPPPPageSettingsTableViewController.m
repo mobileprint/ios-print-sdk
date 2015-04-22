@@ -51,10 +51,10 @@
 #define PRINT_SETTINGS_ROW_INDEX 0
 #define FILTER_ROW_INDEX 0
 
-#define HPPP_DEFAULT_PRINT_JOB_NAME HPPPLocalizedString(@"Photo", nil)
+#define HPPP_DEFAULT_PRINT_JOB_NAME HPPPLocalizedString(@"Photo", @"Default job name of the print send to the printer")
 
 #define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
-#define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", nil)
+#define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", @"Printer details not available")
 
 
 @interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
@@ -120,7 +120,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 {
     [super viewDidLoad];
     
-    self.title = HPPPLocalizedString(@"Page Settings", nil);
+    self.title = HPPPLocalizedString(@"Page Settings", @"Title of the Page Settings Screen");
     
     self.hppp = [HPPP sharedInstance];
     self.defaultSettingsManager = [HPPPDefaultSettingsManager sharedInstance];
@@ -136,7 +136,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     self.printLabel.font = self.hppp.tableViewCellPrintLabelFont;
     self.printLabel.textColor = self.hppp.tableViewCellPrintLabelColor;
-    self.printLabel.text = HPPPLocalizedString(@"Print", nil);
+    self.printLabel.text = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
     
     self.printSettingsLabel.font = self.hppp.tableViewCellLabelFont;
     self.printSettingsLabel.textColor = self.hppp.tableViewCellLabelColor;
@@ -587,7 +587,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 {
     self.numberOfCopies = sender.value;
     
-    self.numberOfCopiesLabel.text = [NSString stringWithFormat:@"%ld %@", (long)self.numberOfCopies, (self.numberOfCopies == 1) ? HPPPLocalizedString(@"copy", nil) : HPPPLocalizedString(@"copies", nil)];
+    self.numberOfCopiesLabel.text = (self.numberOfCopies == 1) ? HPPPLocalizedString(@"1 copy", nil) : [NSString stringWithFormat:HPPPLocalizedString(@"%ld copies", @"Number of copies"), (long)self.numberOfCopies];
     
     if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
         NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
@@ -854,14 +854,14 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     NSString *result = nil;
     
     if (numberOfImages == 1) {
-        result = HPPPLocalizedString(@"Print", nil);
+        result = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
     } else {
         NSInteger total = numberOfImages * copies;
         
         if (total == 2) {
-            result = HPPPLocalizedString(@"Print both with selected settings", nil);
+            result = HPPPLocalizedString(@"Print both with selected settings", @"Caption of the button for printing");
         } else {
-            result = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %ld with selected settings", nil), (long)total];
+            result = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %ld with selected settings", @"Caption of the button for printing"), (long)total];
         }
     }
     

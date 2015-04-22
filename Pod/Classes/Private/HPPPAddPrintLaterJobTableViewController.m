@@ -44,7 +44,7 @@
 {
     [super viewDidLoad];
 
-    self.title = HPPPLocalizedString(@"Add Print", nil);
+    self.title = HPPPLocalizedString(@"Add Print", @"Title of the Add Print to the Print Later Queue Screen");
 
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterManager *printLaterManager = [HPPPPrintLaterManager sharedInstance];

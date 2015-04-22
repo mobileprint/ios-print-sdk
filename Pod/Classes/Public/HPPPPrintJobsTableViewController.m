@@ -264,7 +264,7 @@ CGFloat const kPrintJobHeight = 60.0f;
     UITableViewRowAction *actionPrint =
     [UITableViewRowAction
      rowActionWithStyle:UITableViewRowActionStyleNormal
-     title:HPPPLocalizedString(@"Print", ni)
+     title:HPPPLocalizedString(@"Print", @"Caption of the button for printing")
      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
          NSLog(@"Print!");
          
@@ -278,7 +278,7 @@ CGFloat const kPrintJobHeight = 60.0f;
     UITableViewRowAction *actionDelete =
     [UITableViewRowAction
      rowActionWithStyle:UITableViewRowActionStyleDestructive
-     title:HPPPLocalizedString(@"Delete", nil)
+     title:HPPPLocalizedString(@"Delete", @"Caption of the button for deleting a print later job")
      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
          NSLog(@"Delete!");
          [weakSelf.tableView setEditing:NO animated:YES];
@@ -408,11 +408,11 @@ CGFloat const kPrintJobHeight = 60.0f;
             enabled = YES;
             color = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelColorAttribute];
             if (1 == jobCount) {
-                text = HPPPLocalizedString(@"Print", nil);
+                text = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
             } else if (2 == jobCount) {
-                text = HPPPLocalizedString(@"Print both", nil);
+                text = HPPPLocalizedString(@"Print both", @"Caption of the button for printing");
             } else {
-                text = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %lu", ni), (unsigned long)jobCount];
+                text = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %lu", @"Caption of the button for printing"), (unsigned long)jobCount];
             }
         }
     }

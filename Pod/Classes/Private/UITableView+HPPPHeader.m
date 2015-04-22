@@ -25,7 +25,7 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width, HEADER_HEIGHT)];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(TITLE_LEFT_OFFSET, HEADER_HEIGHT - TITLE_HEIGHT, self.frame.size.width, TITLE_HEIGHT)];
-    titleLabel.text =  HPPPLocalizedString(@"SUPPORT:", nil);
+    titleLabel.text =  HPPPLocalizedString(@"SUPPORT:", @"Title of a table section");
     titleLabel.font = [HPPP sharedInstance].tableViewSupportHeaderLabelFont;
     titleLabel.textColor = [HPPP sharedInstance].tableViewSupportHeaderLabelColor;
     

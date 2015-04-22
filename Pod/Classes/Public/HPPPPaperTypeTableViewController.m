@@ -31,13 +31,13 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
 {
     [super viewDidLoad];
     
-    self.title = HPPPLocalizedString(@"Paper Type", nil);
+    self.title = HPPPLocalizedString(@"Paper Type", @"Title of the Paper Type screen");
     
     self.hppp = [HPPP sharedInstance];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    NSArray *localizeTitleArray = @[HPPPLocalizedString(@"Plain Paper", nil), HPPPLocalizedString(@"Photo Paper", nil)];
+    NSArray *localizeTitleArray = @[HPPPLocalizedString(@"Plain Paper", @"Option of paper type"), HPPPLocalizedString(@"Photo Paper", @"Option of paper type")];
     
     NSInteger i = 0;
     for (UITableViewCell *cell in self.paperTypeCells) {

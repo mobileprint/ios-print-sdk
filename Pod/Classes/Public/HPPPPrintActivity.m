@@ -32,7 +32,7 @@
 
 - (NSString *)activityTitle
 {
-    return HPPPLocalizedString(@"Print", nil);
+    return HPPPLocalizedString(@"Print", @"Activity title of the print when the share button is tapped");
 }
 
 - (UIImage *)_activityImage

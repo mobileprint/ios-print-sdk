@@ -50,7 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = HPPPLocalizedString(@"Print Settings", nil);
+    self.title = HPPPLocalizedString(@"Print Settings", @"Title of the Print Settings screen");
     
     self.hppp = [HPPP sharedInstance];
     
