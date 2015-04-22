@@ -18,6 +18,7 @@
 #import "HPPPPaperTypeTableViewController.h"
 #import "HPPPWiFiReachability.h"
 #import "UITableView+HPPPHeader.h"
+#import "NSBundle+Localizable.h"
 
 #define PRINTER_SELECTION_SECTION 0
 #define PAPER_SELECTION_SECTION 1
@@ -49,6 +50,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = HPPPLocalizedString(@"Print Settings", @"Title of the Print Settings screen");
+    
     self.hppp = [HPPP sharedInstance];
     
     self.selectedPrinterLabel.text = self.printSettings.printerName;
@@ -58,18 +61,21 @@
     
     self.printerLabel.font = self.hppp.tableViewCellLabelFont;
     self.printerLabel.textColor = self.hppp.tableViewCellLabelColor;
-    
+    self.printerLabel.text = HPPPLocalizedString(@"Printer", nil);
+
     self.selectedPrinterLabel.font = self.hppp.tableViewCellValueFont;
     self.selectedPrinterLabel.textColor = self.hppp.tableViewCellValueColor;
     
     self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperSizeLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.paperSizeLabel.text = HPPPLocalizedString(@"Paper Size", nil);
     
     self.selectedPaperSizeLabel.font = self.hppp.tableViewCellValueFont;
     self.selectedPaperSizeLabel.textColor = self.hppp.tableViewCellValueColor;
     
     self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperTypeLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.paperTypeLabel.text = HPPPLocalizedString(@"Paper Type", nil);
     
     self.selectedPaperTypeLabel.font = self.hppp.tableViewCellValueFont;
     self.selectedPaperTypeLabel.textColor = self.hppp.tableViewCellValueColor;
@@ -234,9 +240,9 @@
             label.font = self.hppp.tableViewFooterWarningLabelFont;
             label.textColor = self.hppp.tableViewFooterWarningLabelColor;
             if (self.useDefaultPrinter) {
-                label.text = @"Default printer not currently available";
+                label.text = HPPPLocalizedString(@"Default printer not currently available", nil);
             } else {
-                label.text = @"Recent printer not currently available";
+                label.text = HPPPLocalizedString(@"Recent printer not currently available", nil);
             }
             [footer addSubview:label];
         }

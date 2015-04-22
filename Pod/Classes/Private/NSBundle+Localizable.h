@@ -10,19 +10,15 @@
 // the license agreement.
 //
 
-#import "HPPP.h"
-#import "HPPPPageViewController.h"
-#import "NSBundle+Localizable.h"
+#import <Foundation/Foundation.h>
 
-@implementation HPPPPageViewController
+#define HP_PHOTO_PRINT_LOCALIZATION_BUNDLE_NAME @"HPPhotoPrintLocalizable"
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.title = HPPPLocalizedString(@"Preview", @"Title of the Preview Screen");
+#define HPPPLocalizedString(key, comment) \
+NSLocalizedStringFromTableInBundle(key, nil, [NSBundle localizableBundle], comment)
 
-    self.pageView.image = self.image;
-}
+@interface NSBundle (Localizable)
+
++ (NSBundle *)localizableBundle;
 
 @end

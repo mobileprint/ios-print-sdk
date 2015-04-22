@@ -15,6 +15,7 @@
 #import "HPPP+ViewController.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
+#import "NSBundle+Localizable.h"
 
 @interface HPPPPrintActivity () <HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
 
@@ -31,7 +32,7 @@
 
 - (NSString *)activityTitle
 {
-    return @"Print";
+    return HPPPLocalizedString(@"Print", @"Activity title of the print when the share button is tapped");
 }
 
 - (UIImage *)_activityImage

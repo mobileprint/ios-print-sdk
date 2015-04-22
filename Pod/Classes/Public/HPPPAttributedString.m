@@ -13,6 +13,7 @@
 #import <UIKit/UIKit.h>
 #import "HPPPAttributedString.h"
 #import "UIColor+HPPPStyle.h"
+#import "NSBundle+Localizable.h"
 
 // Print Later Screen
 NSString *const HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute = @"HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute";
@@ -103,8 +104,8 @@ NSString *const HPPPPrintQueueScreenJobDateColorAttribute = @"HPPPPrintQueueScre
 
 - (UIButton *)doneButton
 {
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 34)];
-    [button setTitle:@"Done" forState:UIControlStateNormal];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, 34)];
+    [button setTitle:HPPPLocalizedString(@"Done", nil) forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont fontWithName:@"System" size:18];
     button.titleLabel.textAlignment = NSTextAlignmentRight;
     [button setTitleColor:[UIColor HPPPHPBlueColor] forState:UIControlStateNormal];

@@ -21,6 +21,9 @@
 #import "HPPPAnalyticsManager.h"
 #import "HPPPWiFiReachability.h"
 #import "UIColor+HPPPStyle.h"
+#import "NSBundle+Localizable.h"
+
+#define kNoDefaultPrinterMessage HPPPLocalizedString(@"No default printer", nil)
 
 @interface HPPPPrintJobsTableViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
 
@@ -43,13 +46,14 @@ CGFloat const kPrintInfoHeight = 35.0f;
 CGFloat const kPrintInfoInset = 10.0f;
 CGFloat const kPrintAllHeight = 44.0f;
 CGFloat const kPrintJobHeight = 60.0f;
-NSString * const kNoDefaultPrinterMessage = @"No default printer";
 
 #pragma mark - Life cycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = HPPPLocalizedString(@"Print Queue", nil);
     
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterManager *printLaterManager = [HPPPPrintLaterManager sharedInstance];
@@ -260,7 +264,7 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     UITableViewRowAction *actionPrint =
     [UITableViewRowAction
      rowActionWithStyle:UITableViewRowActionStyleNormal
-     title:@"Print"
+     title:HPPPLocalizedString(@"Print", @"Caption of the button for printing")
      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
          NSLog(@"Print!");
          
@@ -274,7 +278,7 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
     UITableViewRowAction *actionDelete =
     [UITableViewRowAction
      rowActionWithStyle:UITableViewRowActionStyleDestructive
-     title:@"Delete"
+     title:HPPPLocalizedString(@"Delete", @"Caption of the button for deleting a print later job")
      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
          NSLog(@"Delete!");
          [weakSelf.tableView setEditing:NO animated:YES];
@@ -394,21 +398,21 @@ NSString * const kNoDefaultPrinterMessage = @"No default printer";
 {
     self.printAllCell.textLabel.textAlignment = NSTextAlignmentCenter;
     self.printAllCell.textLabel.font = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelFontAttribute];
-    NSString *text = @"Print queue is empty";
+    NSString *text = HPPPLocalizedString(@"Print queue is empty", nil);
     BOOL enabled = NO;
     UIColor *color = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute];
     NSUInteger jobCount = [[[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs] count];
     if (jobCount > 0) {
-        text = @"No Wi-Fi connection";
+        text = HPPPLocalizedString(@"No Wi-Fi connection", nil);
         if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
             enabled = YES;
             color = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllLabelColorAttribute];
             if (1 == jobCount) {
-                text = @"Print";
+                text = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
             } else if (2 == jobCount) {
-                text = @"Print both";
+                text = HPPPLocalizedString(@"Print both", @"Caption of the button for printing");
             } else {
-                text = [NSString stringWithFormat:@"Print all %lu", (unsigned long)jobCount];
+                text = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %lu", @"Caption of the button for printing"), (unsigned long)jobCount];
             }
         }
     }

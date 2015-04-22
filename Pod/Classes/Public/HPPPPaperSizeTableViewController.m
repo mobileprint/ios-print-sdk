@@ -15,6 +15,7 @@
 #import "HPPPPaper.h"
 #import "UIColor+HPPPStyle.h"
 #import "UITableView+HPPPHeader.h"
+#import "NSBundle+Localizable.h"
 
 NSString * const kPaperSizeScreenName = @"Paper Size Screen";
 
@@ -29,6 +30,8 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = HPPPLocalizedString(@"Paper Size", @"Title of the Paper Size screen");
     
     self.hppp = [HPPP sharedInstance];
     
@@ -81,7 +84,7 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
     
-    NSString *typeTitle = (SizeLetter == [HPPPPaper sizeFromTitle:selectedCell.textLabel.text] ? self.currentPaper.typeTitle : @"Photo Paper");
+    NSString *typeTitle = (SizeLetter == [HPPPPaper sizeFromTitle:selectedCell.textLabel.text] ? self.currentPaper.typeTitle : HPPPLocalizedString(@"Photo Paper", @"Option of paper type"));
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSizeTitle:selectedCell.textLabel.text paperTypeTitle:typeTitle];
     
     [self.navigationController popViewControllerAnimated:YES];

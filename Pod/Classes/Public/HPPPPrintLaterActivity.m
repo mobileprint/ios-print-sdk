@@ -13,6 +13,7 @@
 #import "HPPPPrintLaterActivity.h"
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPAddPrintLaterJobTableViewController.h"
+#import "NSBundle+Localizable.h"
 
 @interface HPPPPrintLaterActivity () <HPPPAddPrintLaterJobTableViewControllerDelegate>
 
@@ -27,7 +28,7 @@
 
 - (NSString *)activityTitle
 {
-    return @"Print Queue";
+    return HPPPLocalizedString(@"Print Queue", @"Activity title of the print queue when the share button is tapped");
 }
 
 - (UIImage *)_activityImage

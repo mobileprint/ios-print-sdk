@@ -39,9 +39,6 @@
 
 #define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
 
-#define HPPP_DEFAULT_PRINT_JOB_NAME @"Photo"
-
-
 extern NSString * const kLaterActionIdentifier;
 extern NSString * const kPrintActionIdentifier;
 extern NSString * const kPrintCategoryIdentifier;
