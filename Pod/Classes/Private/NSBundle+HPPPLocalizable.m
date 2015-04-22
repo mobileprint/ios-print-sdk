@@ -10,7 +10,7 @@
 // the license agreement.
 //
 
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 @implementation NSBundle (Localizable)
 

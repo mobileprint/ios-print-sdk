@@ -17,7 +17,7 @@
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPDefaultSettingsManager.h"
 #import "HPPPPrintJobsTableViewController.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 const int kSecondsInOneHour = (60 * 60);
 const CLLocationDistance kDefaultPrinterRadiusInMeters = 20.0f;

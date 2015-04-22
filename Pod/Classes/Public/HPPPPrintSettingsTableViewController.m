@@ -18,7 +18,7 @@
 #import "HPPPPaperTypeTableViewController.h"
 #import "HPPPWiFiReachability.h"
 #import "UITableView+HPPPHeader.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 #define PRINTER_SELECTION_SECTION 0
 #define PAPER_SELECTION_SECTION 1

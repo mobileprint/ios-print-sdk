@@ -16,7 +16,7 @@
 #import "HPPP.h"
 #import "HPPPDefaultSettingsManager.h"
 #import "UIColor+HPPPStyle.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 @interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate>
 

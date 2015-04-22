@@ -13,7 +13,7 @@
 #import "HPPPPaperTypeTableViewController.h"
 #import "HPPP.h"
 #import "HPPPPaper.h"
-#import "NSBundle+Localizable.h"
+#import "NSBundle+HPPPLocalizable.h"
 
 
 NSString * const kPaperTypeScreenName = @"Paper Type Screen";
