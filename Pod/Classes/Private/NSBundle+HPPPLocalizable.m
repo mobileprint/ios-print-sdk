@@ -12,9 +12,9 @@
 
 #import "NSBundle+HPPPLocalizable.h"
 
-@implementation NSBundle (Localizable)
+@implementation NSBundle (HPPPLocalizable)
 
-+ (NSBundle *)localizableBundle
++ (NSBundle *)HPPPLocalizableBundle
 {
     static dispatch_once_t once;
     static NSBundle *bundle = nil;

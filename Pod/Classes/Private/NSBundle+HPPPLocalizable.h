@@ -15,10 +15,10 @@
 #define HP_PHOTO_PRINT_LOCALIZATION_BUNDLE_NAME @"HPPhotoPrintLocalizable"
 
 #define HPPPLocalizedString(key, comment) \
-NSLocalizedStringFromTableInBundle(key, nil, [NSBundle localizableBundle], comment)
+NSLocalizedStringFromTableInBundle(key, nil, [NSBundle HPPPLocalizableBundle], comment)
 
-@interface NSBundle (Localizable)
+@interface NSBundle (HPPPLocalizable)
 
-+ (NSBundle *)localizableBundle;
++ (NSBundle *)HPPPLocalizableBundle;
 
 @end
