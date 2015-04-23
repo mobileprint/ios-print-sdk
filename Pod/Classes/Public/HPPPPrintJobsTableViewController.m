@@ -32,7 +32,7 @@
 @property (strong, nonatomic) UILabel *defaultPrinterLabel;
 @property (weak, nonatomic) UITableViewCell *printAllCell;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
-@property (unsafe_unretained, nonatomic) IBOutlet UIBarButtonItem *doneBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBarButtonItem;
 
 @end
 

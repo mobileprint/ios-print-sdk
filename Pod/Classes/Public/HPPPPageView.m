@@ -33,9 +33,9 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleWidthContraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleHeightContraint;
-@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *multipleImagesImageView;
-@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *paperViewHorizConstraint;
-@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *paperViewVertConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *multipleImagesImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *paperViewHorizConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *paperViewVertConstraint;
 
 @end
 
