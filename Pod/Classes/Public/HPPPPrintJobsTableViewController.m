@@ -32,6 +32,7 @@
 @property (strong, nonatomic) UILabel *defaultPrinterLabel;
 @property (weak, nonatomic) UITableViewCell *printAllCell;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBarButtonItem;
 
 @end
 
@@ -54,6 +55,7 @@ CGFloat const kPrintJobHeight = 60.0f;
     [super viewDidLoad];
     
     self.title = HPPPLocalizedString(@"Print Queue", nil);
+    self.doneBarButtonItem.title = HPPPLocalizedString(@"Done", nil);
     
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterManager *printLaterManager = [HPPPPrintLaterManager sharedInstance];
@@ -167,8 +169,9 @@ CGFloat const kPrintJobHeight = 60.0f;
         jobCell.jobNameLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameFontAttribute];
         jobCell.jobNameLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameColorAttribute];
         
+        NSString *formatString = [NSDateFormatter dateFormatFromTemplate:[HPPP sharedInstance].defaultDateFormat options:0 locale:[NSLocale currentLocale]];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMMM d, h:mma"];
+        [formatter setDateFormat:formatString];
         
         jobCell.jobDateLabel.text = [formatter stringFromDate:job.date];
         jobCell.jobDateLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateFontAttribute];

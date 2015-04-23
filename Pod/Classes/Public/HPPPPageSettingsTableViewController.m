@@ -141,7 +141,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.printSettingsLabel.font = self.hppp.tableViewCellLabelFont;
     self.printSettingsLabel.textColor = self.hppp.tableViewCellLabelColor;
     self.printSettingsLabel.text = HPPPLocalizedString(@"Settings", nil);
-
+    
     self.printSettingsDetailLabel.font = self.hppp.tableViewSettingsCellValueFont;
     self.printSettingsDetailLabel.textColor = self.hppp.tableViewSettingsCellValueColor;
     
@@ -163,7 +163,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
     self.paperTypeLabel.textColor = self.hppp.tableViewCellLabelColor;
     self.paperTypeLabel.text = HPPPLocalizedString(@"Paper Type", nil);
-
+    
     self.paperTypeSelectedLabel.font = self.hppp.tableViewCellValueFont;
     self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
     self.paperTypeSelectedLabel.text = HPPPLocalizedString(@"Plain Paper", nil);
@@ -175,7 +175,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.filterLabel.font = self.hppp.tableViewCellLabelFont;
     self.filterLabel.textColor = self.hppp.tableViewCellLabelColor;
     self.filterLabel.text = HPPPLocalizedString(@"Black & White mode", nil);
-
+    
     self.pageViewCell.backgroundColor = [UIColor HPPPHPGrayBackgroundColor];
     
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:Size4x6 paperType:Photo];
@@ -859,9 +859,9 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
         NSInteger total = numberOfImages * copies;
         
         if (total == 2) {
-            result = HPPPLocalizedString(@"Print both with selected settings", @"Caption of the button for printing");
+            result = HPPPLocalizedString(@"Print both", @"Caption of the button for printing");
         } else {
-            result = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %ld with selected settings", @"Caption of the button for printing"), (long)total];
+            result = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %lu", @"Caption of the button for printing"), (long)total];
         }
     }
     

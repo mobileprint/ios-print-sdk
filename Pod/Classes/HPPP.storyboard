@@ -1127,13 +1127,14 @@
                                 <action selector="settingsButtonTapped:" destination="eKk-9e-x6C" id="8hR-i5-n8c"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="PWt-Fr-zQK">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="PWt-Fr-zQK">
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="eKk-9e-x6C" id="4t5-8x-PpC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doneBarButtonItem" destination="PWt-Fr-zQK" id="MBU-LC-GE0"/>
                         <outlet property="settingsButton" destination="HNR-wF-lqT" id="pJO-GJ-ajn"/>
                     </connections>
                 </tableViewController>
@@ -1200,7 +1201,7 @@
         <image name="HPPPGear.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="E8A-CH-mPX"/>
-        <segue reference="4eJ-bv-9qP"/>
+        <segue reference="OHc-hu-xz3"/>
+        <segue reference="gpl-F0-UT5"/>
     </inferredMetricsTieBreakers>
 </document>
