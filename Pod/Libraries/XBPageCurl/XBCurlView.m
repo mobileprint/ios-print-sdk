@@ -8,6 +8,7 @@
 
 #import "XBCurlView.h"
 #import "CGPointAdditions.h"
+#import "HPPPLogger.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kCylinderPositionAnimationName @"cylinderPosition"

@@ -19,6 +19,7 @@
 #import "HPPPSupportAction.h"
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPAttributedString.h"
+#import "HPPPLogger.h"
 
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 

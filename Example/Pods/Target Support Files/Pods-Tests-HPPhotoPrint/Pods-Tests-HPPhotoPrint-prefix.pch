@@ -3,7 +3,3 @@
 #endif
 
 #import "Pods-Tests-environment.h"
-
-#ifdef __OBJC__
-    #import "HPPPLogger.h"
-#endif

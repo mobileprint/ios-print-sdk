@@ -11,6 +11,7 @@
 //
 
 #import "UIColor+HPPPHexString.h"
+#import "HPPPLogger.h"
 
 
 @implementation UIColor(HPPPHexString)
