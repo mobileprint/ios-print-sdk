@@ -51,18 +51,4 @@ int ddLogLevel = LOG_LEVEL_INFO;
     ddLogLevel = (int)logLevel;
 }
 
-- (NSMutableArray *)errorLogData
-{
-    NSUInteger maximumLogFilesToReturn = self.fileLogger.logFileManager.maximumNumberOfLogFiles;
-    NSMutableArray *errorLogFiles = [NSMutableArray arrayWithCapacity:maximumLogFilesToReturn];
-    
-    NSArray *sortedLogFileInfos = [self.fileLogger.logFileManager sortedLogFileInfos];
-    for (int i = 0; i < MIN(sortedLogFileInfos.count, maximumLogFilesToReturn); i++) {
-        DDLogFileInfo *logFileInfo = [sortedLogFileInfos objectAtIndex:i];
-        NSData *fileData = [NSData dataWithContentsOfFile:logFileInfo.filePath];
-        [errorLogFiles addObject:fileData];
-    }
-    return errorLogFiles;
-}
-
 @end

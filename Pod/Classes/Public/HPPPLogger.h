@@ -18,13 +18,9 @@ extern int ddLogLevel;
 
 @interface HPPPLogger : NSObject
 
-@property (strong, nonatomic) DDFileLogger *fileLogger;
-
 + (id)sharedInstance;
 
 - (void)configureLogging;
-- (NSMutableArray *)errorLogData;
-
--(void)setDdLogLevel:(NSInteger)logLevel;
+- (void)setDdLogLevel:(NSInteger)logLevel;
 
 @end
