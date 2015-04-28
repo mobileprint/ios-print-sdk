@@ -55,7 +55,7 @@
 #import "HPPPReachability.h"
 
 
-NSString *kReachabilityChangedNotification = @"kNetworkReachabilityChangedNotification";
+NSString *kHPPPReachabilityChangedNotification = @"kHPPPNetworkReachabilityChangedNotification";
 
 
 #pragma mark - Supporting functions
@@ -91,7 +91,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
     HPPPReachability* noteObject = (__bridge HPPPReachability *)info;
     // Post a notification to notify the client that the network reachability changed.
-    [[NSNotificationCenter defaultCenter] postNotificationName: kReachabilityChangedNotification object: noteObject];
+    [[NSNotificationCenter defaultCenter] postNotificationName: kHPPPReachabilityChangedNotification object: noteObject];
 }
 
 
