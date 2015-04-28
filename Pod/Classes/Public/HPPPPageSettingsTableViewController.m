@@ -546,7 +546,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     UIPrintInteractionController *controller = [self getSharedPrintInteractionController];
     
     if (!controller) {
-        NSLog(@"Couldn't get shared UIPrintInteractionController!");
+        HPPPLogError(@"Couldn't get shared UIPrintInteractionController!");
         return;
     }
     
@@ -832,7 +832,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
         UIPrintInteractionController *controller = [self getSharedPrintInteractionController];
         
         if (!controller) {
-            NSLog(@"Couldn't get shared UIPrintInteractionController!");
+            HPPPLogError(@"Couldn't get shared UIPrintInteractionController!");
             return;
         }
         
@@ -936,7 +936,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     [self setLastOptionsUsedWithPrintController:printController];
     
     if (error) {
-        NSLog(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
+        HPPPLogError(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
     }
     
     if (completed) {
@@ -1158,7 +1158,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     UIPrinter* selectedPrinter = printerPickerController.selectedPrinter;
     
     if (selectedPrinter != nil){
-        NSLog(@"Selected Printer: %@", selectedPrinter.URL);
+        HPPPLogInfo(@"Selected Printer: %@", selectedPrinter.URL);
         self.currentPrintSettings.printerIsAvailable = YES;
         [self setPrinterDetails:selectedPrinter];
         [self savePrinterInfo];

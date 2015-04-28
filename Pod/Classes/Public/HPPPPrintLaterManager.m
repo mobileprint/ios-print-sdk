@@ -88,7 +88,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
         
         if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
             if ([self.defaultSettingsManager isDefaultPrinterSet]) {
-                NSLog(@"Print jobs in the queue and default printer set");
+                HPPPLogInfo(@"Print jobs in the queue and default printer set");
                 [self.locationManager startUpdatingLocation];
             }
         }
@@ -107,7 +107,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
     if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 1) {
         // It is the first one, so add the monitoring
         if ([self.defaultSettingsManager isDefaultPrinterSet]) {
-            NSLog(@"First print job added and default printer set");
+            HPPPLogInfo(@"First print job added and default printer set");
             [self.locationManager startUpdatingLocation];
             [self addMonitoringForDefaultPrinter];
         }
@@ -117,7 +117,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 - (void)handleAllPrintJobsRemovedFromQueueNotification:(NSNotification *)notification
 {
     if ([self.defaultSettingsManager isDefaultPrinterSet]) {
-        NSLog(@"All print jobs removed and default printer set");
+        HPPPLogInfo(@"All print jobs removed and default printer set");
         [self removeMonitoringForDefaultPrinter];
         [self.locationManager stopUpdatingLocation];
     }
@@ -126,7 +126,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 - (void)handleDefaultPrinterAddedNotification:(NSNotification *)notification
 {
     if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
-        NSLog(@"Default printer added and print jobs in the queue");
+        HPPPLogInfo(@"Default printer added and print jobs in the queue");
         [self.locationManager startUpdatingLocation];
         [self addMonitoringForDefaultPrinter];
     }
@@ -135,7 +135,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 - (void)handleDefaultPrinterRemovedNotification:(NSNotification *)notification
 {
     if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
-        NSLog(@"Default printer removed and print jobs in the queue");
+        HPPPLogInfo(@"Default printer removed and print jobs in the queue");
         [self removeMonitoringForDefaultPrinter];
         [self.locationManager stopUpdatingLocation];
     }
@@ -145,7 +145,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 
 - (void)addMonitoringForDefaultPrinter
 {
-    NSLog(@"Adding monitoring for default printer");
+    HPPPLogInfo(@"Adding monitoring for default printer");
     CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:self.defaultSettingsManager.defaultPrinterCoordinate radius:kDefaultPrinterRadiusInMeters identifier:kDefaultPrinterRegionIdentifier];
     
     [self.locationManager startMonitoringForRegion:region];
@@ -153,7 +153,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 
 - (void)removeMonitoringForDefaultPrinter
 {
-    NSLog(@"Removing monitoring for default printer");
+    HPPPLogInfo(@"Removing monitoring for default printer");
     for (CLRegion *region in self.locationManager.monitoredRegions) {
         if ([self isDefaultPrinterRegion:region]) {
             [self.locationManager stopMonitoringForRegion:region];
@@ -213,7 +213,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 {
     static BOOL contactingPrinter = NO;
     
-    NSLog(@"Location updated: (old %f %f) (new %f %f)", oldLocation.coordinate.latitude, oldLocation.coordinate.longitude, newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+    HPPPLogInfo(@"Location updated: (old %f %f) (new %f %f)", oldLocation.coordinate.latitude, oldLocation.coordinate.longitude, newLocation.coordinate.latitude, newLocation.coordinate.longitude);
     
     if (!contactingPrinter) {
         // There are many reason why we want to do this...
@@ -243,7 +243,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    NSLog(@"Region entered: %@", region.identifier);
+    HPPPLogInfo(@"Region entered: %@", region.identifier);
     
     if ([self isDefaultPrinterRegion:region]) {
         [self fireNotificationIfPrinterIsAvailable];
@@ -252,23 +252,23 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    NSLog(@"Region exited: %@", region.identifier);
+    HPPPLogInfo(@"Region exited: %@", region.identifier);
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
 {
-    NSLog(@"Region Fail: %@", region.identifier);
+    HPPPLogInfo(@"Region Fail: %@", region.identifier);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    NSLog(@"Status %d", status);
+    HPPPLogInfo(@"Status %d", status);
     
     if (status == kCLAuthorizationStatusDenied) {
-        NSLog(@"Current location permission denied");
+        HPPPLogError(@"Current location permission denied");
         [[HPPPPrintLaterManager sharedInstance] initUserNotifications];
     } else if ((status == kCLAuthorizationStatusAuthorizedAlways) || (status == kCLAuthorizationStatusAuthorizedWhenInUse)) {
-        NSLog(@"Current location permission granted");
+        HPPPLogInfo(@"Current location permission granted");
         [[HPPPPrintLaterManager sharedInstance] initUserNotifications];
     }
 }
@@ -289,7 +289,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
     if ([notification.category isEqualToString:kPrintCategoryIdentifier]) {
         if ([action isEqualToString:kLaterActionIdentifier]) {
             [self fireNotificationLater];
-            NSLog(@"Notification will fire again in %d seconds", (kSecondsInOneHour / 2));
+            HPPPLogInfo(@"Notification will fire again in %d seconds", (kSecondsInOneHour / 2));
         } else if ([action isEqualToString:kPrintActionIdentifier]) {
             [self showPrintJobsTableViewController];
         }

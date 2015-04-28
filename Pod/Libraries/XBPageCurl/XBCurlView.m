@@ -387,7 +387,7 @@ void ImageProviderReleaseData(void *info, const void *data, size_t size);
     GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     
     if (status != GL_FRAMEBUFFER_COMPLETE) {
-        NSLog(@"Failed to create framebuffer: 0x%X", status);
+        HPPPLogError(@"Failed to create framebuffer: 0x%X", status);
         return NO;
     }
     
@@ -404,7 +404,7 @@ void ImageProviderReleaseData(void *info, const void *data, size_t size);
         status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
         
         if (status != GL_FRAMEBUFFER_COMPLETE) {
-            NSLog(@"Failed to create multisamping framebuffer: 0x%X", status);
+            HPPPLogError(@"Failed to create multisamping framebuffer: 0x%X", status);
             return NO;
         }
         
@@ -722,7 +722,7 @@ void ImageProviderReleaseData(void *info, const void *data, size_t size);
         char errorMsg[2048];
         glGetShaderInfoLog(shader, sizeof(errorMsg), NULL, errorMsg);
         NSString *errorString = [NSString stringWithCString:errorMsg encoding:NSUTF8StringEncoding];
-        NSLog(@"Failed to compile %@: %@", filename, errorString);
+        HPPPLogError(@"Failed to compile %@: %@", filename, errorString);
         glDeleteShader(shader);
         return 0;
     }
@@ -1275,7 +1275,7 @@ void ImageProviderReleaseData(void *info, const void *data, size_t size);
 #ifdef DEBUG
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {
-        NSLog(@"OpenGL error: 0x%X", error);
+        HPPPLogError(@"OpenGL error: 0x%X", error);
     }
 #endif
 }

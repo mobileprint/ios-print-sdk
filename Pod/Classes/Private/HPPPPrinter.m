@@ -41,7 +41,7 @@
             NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
             
             if (nil != lastPrinterUrl) {
-                NSLog(@"Searching for last printer used %@", lastPrinterUrl);
+                HPPPLogInfo(@"Searching for last printer used %@", lastPrinterUrl);
 
                 UIPrinter *printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:lastPrinterUrl]];
                 [printerFromUrl contactPrinter:^(BOOL available) {
@@ -69,7 +69,7 @@
         NSString *defaultPrinterUrl = [HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl;
         
         if (nil != defaultPrinterUrl) {
-            NSLog(@"Searching for default printer %@", defaultPrinterUrl);
+            HPPPLogInfo(@"Searching for default printer %@", defaultPrinterUrl);
             
             UIPrinter *printerFromUrl = [UIPrinter printerWithURL:[NSURL URLWithString:defaultPrinterUrl]];
             [printerFromUrl contactPrinter:^(BOOL available) {

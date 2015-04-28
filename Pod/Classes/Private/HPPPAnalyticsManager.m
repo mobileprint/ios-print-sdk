@@ -152,21 +152,21 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
             NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
             if (statusCode != 200) {
-                NSLog(@"HPPhotoPrint METRICS:  Response code = %ld", (long)statusCode);
+                HPPPLogError(@"HPPhotoPrint METRICS:  Response code = %ld", (long)statusCode);
                 return;
             }
         }
         NSError *error;
         NSDictionary *returnDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
         if (returnDictionary) {
-            NSLog(@"HPPhotoPrint METRICS:  Result = %@", returnDictionary);
+            HPPPLogInfo(@"HPPhotoPrint METRICS:  Result = %@", returnDictionary);
         } else {
-            NSLog(@"HPPhotoPrint METRICS:  Parse Error = %@", error);
+            HPPPLogError(@"HPPhotoPrint METRICS:  Parse Error = %@", error);
             NSString *returnString = [[NSString alloc] initWithBytes:[responseData bytes] length:[responseData length] encoding:NSUTF8StringEncoding];
-            NSLog(@"HPPhotoPrint METRICS:  Return string = %@", returnString);
+            HPPPLogInfo(@"HPPhotoPrint METRICS:  Return string = %@", returnString);
         }
     } else {
-        NSLog(@"HPPhotoPrint METRICS:  Connection error = %@", connectionError);
+        HPPPLogError(@"HPPhotoPrint METRICS:  Connection error = %@", connectionError);
     }
 }
 
