@@ -100,6 +100,8 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
         self.attributedString = [[HPPPAttributedString alloc] init];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleShareCompletedNotification:) name:kHPPPShareCompletedNotification object:nil];
+        
+        [[HPPPLogger sharedInstance] configureLogging];
     }
     
     return self;

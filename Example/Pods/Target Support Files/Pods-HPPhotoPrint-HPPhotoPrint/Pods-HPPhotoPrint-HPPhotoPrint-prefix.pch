@@ -3,3 +3,7 @@
 #endif
 
 #import "Pods-HPPhotoPrint-environment.h"
+
+#ifdef __OBJC__
+    #import "HPPPLogger.h"
+#endif

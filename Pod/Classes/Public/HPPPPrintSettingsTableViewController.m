@@ -165,11 +165,11 @@
                                         inView:tableView
                                       animated:YES
                              completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                                 NSLog(@"closed printer picker");
+                                 HPPPLogInfo(@"closed printer picker");
                              }];
             } else {
                 [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                    NSLog(@"closed printer picker");
+                    HPPPLogInfo(@"closed printer picker");
                 }];
             }
         } else {

@@ -212,7 +212,7 @@ CGFloat const kPrintJobHeight = 60.0f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%ld - %ld", (long)indexPath.section, (long)indexPath.row);
+    HPPPLogVerbose(@"%ld - %ld", (long)indexPath.section, (long)indexPath.row);
     
     if( indexPath.section == kPrintAllSectionIndex ) {
         if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
@@ -269,7 +269,7 @@ CGFloat const kPrintJobHeight = 60.0f;
      rowActionWithStyle:UITableViewRowActionStyleNormal
      title:HPPPLocalizedString(@"Print", @"Caption of the button for printing")
      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-         NSLog(@"Print!");
+         HPPPLogInfo(@"Print!");
          
          [weakSelf.tableView setEditing:NO animated:YES];
          
@@ -283,7 +283,7 @@ CGFloat const kPrintJobHeight = 60.0f;
      rowActionWithStyle:UITableViewRowActionStyleDestructive
      title:HPPPLocalizedString(@"Delete", @"Caption of the button for deleting a print later job")
      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-         NSLog(@"Delete!");
+         HPPPLogInfo(@"Delete!");
          [weakSelf.tableView setEditing:NO animated:YES];
          [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:printLaterJob];
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -312,7 +312,7 @@ CGFloat const kPrintJobHeight = 60.0f;
 
 -(void)pageSettingsTableViewControllerDidFinishPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
 {
-    NSLog(@"Finished Print Job!");
+    HPPPLogInfo(@"Finished Print Job!");
     NSString *action = self.selectedPrintJobs.count > 1 ? kHPPPQueuePrintAllAction : kHPPPQueuePrintAction;
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:action, kHPPPPrintQueueJobsKey:self.selectedPrintJobs }];
     
@@ -321,7 +321,7 @@ CGFloat const kPrintJobHeight = 60.0f;
 
 -(void)pageSettingsTableViewControllerDidCancelPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
 {
-    NSLog(@"Cancelled Print Job!");
+    HPPPLogInfo(@"Cancelled Print Job!");
     [pageSettingsTableViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -331,7 +331,7 @@ CGFloat const kPrintJobHeight = 60.0f;
 {
     NSString *imageKey = [HPPPPaper titleFromSize:paper.paperSize];
     
-    NSLog(@"Retrieving image for size: %@", imageKey);
+    HPPPLogInfo(@"Retrieving image for size: %@", imageKey);
     
     if (completion) {
         UIImage *image = [self.selectedPrintJob.images objectForKey:imageKey];
@@ -354,7 +354,7 @@ CGFloat const kPrintJobHeight = 60.0f;
 {
     NSString *imageKey = [HPPPPaper titleFromSize:paper.paperSize];
     
-    NSLog(@"Retrieving images for size: %@", imageKey);
+    HPPPLogInfo(@"Retrieving images for size: %@", imageKey);
     
     NSMutableArray *images = [NSMutableArray arrayWithCapacity:self.selectedPrintJobs.count];
     
