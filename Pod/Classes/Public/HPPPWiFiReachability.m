@@ -42,7 +42,7 @@ NSString * const kHPPPWiFiConnectionLost = @"kHPPPWiFiConnectionLost";
 
 - (void)startMonitoring
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kHPPPReachabilityChangedNotification object:nil];
     self.reachability = [HPPPReachability reachabilityForLocalWiFi];
     [self.reachability startNotifier];
     self.connected = (NotReachable != [self.reachability currentReachabilityStatus]);
