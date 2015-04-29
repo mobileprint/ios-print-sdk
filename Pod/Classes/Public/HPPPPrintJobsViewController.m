@@ -62,8 +62,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
             [printLaterManager initUserNotifications];
         }
     }
-    
-    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [self initJobsCounterLabel];
@@ -239,9 +238,9 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     UIImage *checkMarkImage = nil;
     
     if ([self.mutableCheckMarkedPrintJobs containsObject:[NSNumber numberWithInteger:0]]) {
-        checkMarkImage = [UIImage imageNamed:@"Active_Circle"];
+        checkMarkImage = [UIImage imageNamed:@"HPPPActiveCircle"];
     } else {
-        checkMarkImage = [UIImage imageNamed:@"Inactive_Circle"];
+        checkMarkImage = [UIImage imageNamed:@"HPPPInactiveCircle"];
     }
     
     UIImageView *checkMarkImageView = [[UIImageView alloc] initWithImage:checkMarkImage];
@@ -259,12 +258,12 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     UIImage *checkMarkImage = nil;
     if (![self.mutableCheckMarkedPrintJobs containsObject:rowIndex]) {
         [self.mutableCheckMarkedPrintJobs addObject:rowIndex];
-        checkMarkImage = [UIImage imageNamed:@"Active_Circle"];
+        checkMarkImage = [UIImage imageNamed:@"HPPPActiveCircle"];
         
         [self setJobsCounterLabel];
     } else {
         [self.mutableCheckMarkedPrintJobs removeObject:rowIndex];
-        checkMarkImage = [UIImage imageNamed:@"Inactive_Circle"];
+        checkMarkImage = [UIImage imageNamed:@"HPPPInactiveCircle"];
         
         [self setJobsCounterLabel];
     }

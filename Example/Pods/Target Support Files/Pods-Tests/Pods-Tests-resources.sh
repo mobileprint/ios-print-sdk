@@ -47,10 +47,12 @@ install_resource()
       ;;
   esac
 }
-          install_resource "../../Pod/Assets/Active_Circle@2x.png"
+          install_resource "../../Pod/Assets/HPPPActiveCircle@2x.png"
                     install_resource "../../Pod/Assets/HPPPDoNoEnter.png"
                     install_resource "../../Pod/Assets/HPPPDoNoEnter@2x.png"
                     install_resource "../../Pod/Assets/HPPPGear@2x.png"
+                    install_resource "../../Pod/Assets/HPPPInactiveCircle@2x.png"
+                    install_resource "../../Pod/Assets/HPPPMagnify@2x.png"
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowDown@2x.png"
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowLeft@2x.png"
                     install_resource "../../Pod/Assets/HPPPMeasurementArrowRight@2x.png"
@@ -61,8 +63,6 @@ install_resource()
                     install_resource "../../Pod/Assets/HPPPPrint@2x~iphone.png"
                     install_resource "../../Pod/Assets/HPPPPrintLater@2x~ipad.png"
                     install_resource "../../Pod/Assets/HPPPPrintLater@2x~iphone.png"
-                    install_resource "../../Pod/Assets/Inactive_Circle@2x.png"
-                    install_resource "../../Pod/Assets/magnify.png"
                     install_resource "../../Pod/Classes/Private/HPPPRuleView.xib"
                     install_resource "../../Pod/Classes/Public/HPPPPageView.xib"
                     install_resource "../../Pod/Classes/Public/HPPPPrintJobsActionView.xib"
