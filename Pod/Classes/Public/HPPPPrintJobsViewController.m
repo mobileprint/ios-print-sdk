@@ -20,10 +20,11 @@
 #import "HPPPPaper.h"
 #import "HPPPAnalyticsManager.h"
 #import "HPPPWiFiReachability.h"
+#import "HPPPPrintJobsActionView.h"
 #import "UIColor+HPPPStyle.h"
 #import "NSBundle+HPPPLocalizable.h"
 
-@interface HPPPPrintJobsViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
+@interface HPPPPrintJobsViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource, HPPPPrintJobsActionViewDelegate>
 
 @property (strong, nonatomic) HPPPPrintLaterJob *selectedPrintJob;
 @property (strong, nonatomic) NSArray *selectedPrintJobs;
@@ -31,6 +32,7 @@
 @property (strong, nonatomic) NSMutableArray *mutableCheckMarkedPrintJobs;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBarButtonItem;
+@property (weak, nonatomic) IBOutlet HPPPPrintJobsActionView *printJobsActionView;
 
 @end
 
@@ -43,6 +45,10 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.view.backgroundColor = self.tableView.backgroundColor;
+    
+    self.printJobsActionView.delegate = self;
     
     self.title = HPPPLocalizedString(@"Print Queue", nil);
     self.doneBarButtonItem.title = HPPPLocalizedString(@"Done", nil);
@@ -63,10 +69,28 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     [self initJobsCounterLabel];
     
     NSInteger numberOfPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs];
-    self.mutableCheckMarkedPrintJobs = [NSMutableArray arrayWithCapacity:numberOfPrintLaterJobs];
     
-    if (numberOfPrintLaterJobs == 1) {
-        [self.mutableCheckMarkedPrintJobs addObject:[NSNumber numberWithInteger:0]];
+    if (numberOfPrintLaterJobs == 0) {
+        self.printJobsActionView.hidden = YES;
+    } else {
+        self.mutableCheckMarkedPrintJobs = [NSMutableArray arrayWithCapacity:numberOfPrintLaterJobs];
+        
+        if (numberOfPrintLaterJobs == 1) {
+            [self.mutableCheckMarkedPrintJobs addObject:[NSNumber numberWithInteger:0]];
+            
+            [self setJobsCounterLabel];
+            
+            [self.printJobsActionView.selectAllButton setTitle:HPPPLocalizedString(@"Unselect All", nil) forState:UIControlStateNormal];
+            
+            [self.printJobsActionView hideSelectAllButton];
+        }
+        
+        if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+            [self.printJobsActionView hideNextButton];
+        }
+        
+        [self setDeleteButtonStatus];
+        [self setNextButtonStatus];
     }
 }
 
@@ -184,6 +208,48 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 
 #pragma mark - UITableViewDelegate
 
+- (void)setSelectAllButtonStatus
+{
+    if (self.mutableCheckMarkedPrintJobs.count > 0) {
+        self.printJobsActionView.selectAllState = NO;
+    } else {
+        self.printJobsActionView.selectAllState = YES;
+    }
+    
+    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 1) {
+        [self.printJobsActionView hideSelectAllButton];
+    }
+}
+
+- (void)setNextButtonStatus
+{
+    if (self.mutableCheckMarkedPrintJobs.count == 0) {
+        self.printJobsActionView.nextButton.enabled = NO;
+    } else {
+        self.printJobsActionView.nextButton.enabled = YES;
+    }
+}
+
+- (void)setDeleteButtonStatus
+{
+    if (self.mutableCheckMarkedPrintJobs.count == 0) {
+        self.printJobsActionView.deleteButton.enabled = NO;
+    } else {
+        self.printJobsActionView.deleteButton.enabled = YES;
+    }
+}
+
+- (void)setJobsCounterLabel
+{
+    NSInteger numberOfPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs];
+    
+    if (self.mutableCheckMarkedPrintJobs.count == 0) {
+        self.jobsCounterLabel.text = [NSString stringWithFormat:(numberOfPrintLaterJobs == 1) ? HPPPLocalizedString(@"%d Print", nil) : HPPPLocalizedString(@"%d Prints", nil), numberOfPrintLaterJobs];
+    } else {
+        self.jobsCounterLabel.text = [NSString stringWithFormat:(numberOfPrintLaterJobs == 1) ? HPPPLocalizedString(@"%d/%d Print", nil) : HPPPLocalizedString(@"%d/%d Prints", nil), self.mutableCheckMarkedPrintJobs.count, numberOfPrintLaterJobs];
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSNumber *rowIndex = [NSNumber numberWithInteger:indexPath.row];
@@ -192,14 +258,22 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     if (![self.mutableCheckMarkedPrintJobs containsObject:rowIndex]) {
         [self.mutableCheckMarkedPrintJobs addObject:rowIndex];
         checkMarkImage = [UIImage imageNamed:@"Active_Circle"];
+        
+        [self setJobsCounterLabel];
     } else {
         [self.mutableCheckMarkedPrintJobs removeObject:rowIndex];
         checkMarkImage = [UIImage imageNamed:@"Inactive_Circle"];
+        
+        [self setJobsCounterLabel];
     }
-
+    
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     UIImageView *check = [[UIImageView alloc] initWithImage:checkMarkImage];
     cell.accessoryView = check;
+
+    [self setDeleteButtonStatus];
+    [self setNextButtonStatus];
+    [self setSelectAllButtonStatus];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -219,8 +293,8 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 10.0f, self.view.frame.size.width, 44.0f)];
     textLabel.textAlignment = NSTextAlignmentCenter;
-    textLabel.font = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllDisabledLabelFontAttribute];
-    textLabel.textColor = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute];
+    textLabel.font = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenNoWifiLabelFontAttribute];
+    textLabel.textColor = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenNoWifiLabelColorAttribute];
     textLabel.backgroundColor = [UIColor whiteColor];
     textLabel.layer.borderWidth = 0.5f;
     textLabel.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -237,34 +311,6 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     [view addSubview:textLabel];
     
     return view;
-}
-
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    __weak HPPPPrintJobsViewController *weakSelf = self;
-    
-    HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row];
-    
-    NSMutableArray *actions = [NSMutableArray array];
-    
-    UITableViewRowAction *actionDelete =
-    [UITableViewRowAction
-     rowActionWithStyle:UITableViewRowActionStyleDestructive
-     title:HPPPLocalizedString(@"Delete", @"Caption of the button for deleting a print later job")
-     handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-         NSLog(@"Delete!");
-         [weakSelf.tableView setEditing:NO animated:YES];
-         [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:printLaterJob];
-         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:kHPPPQueueDeleteAction, kHPPPPrintQueueJobsKey:@[printLaterJob] }];
-         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
-             [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:@{ kHPPPOfframpKey:kHPPPQueueDeleteAction }];
-         }
-     }];
-    
-    [actions addObject:actionDelete];
-    
-    return actions;
 }
 
 #pragma mark - HPPPPageSettingsTableViewControllerDelegate
@@ -324,14 +370,79 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     return images.copy;
 }
 
-#pragma mark - Print all button
+#pragma mark - HPPPPrintJobsActionViewDelegate
 
+- (void)printJobsActionViewDidTapSelectAllButton:(HPPPPrintJobsActionView *)printJobsActionView
+{
+    [self.mutableCheckMarkedPrintJobs removeAllObjects];
+    
+    if (self.printJobsActionView.selectAllState) {
+        
+        NSInteger numberOfPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs];
+        for (NSInteger i = 0; i < numberOfPrintLaterJobs; i++) {
+            [self.mutableCheckMarkedPrintJobs addObject:[NSNumber numberWithInteger:i]];
+        }
+    }
+    
+    [self.tableView reloadData];
+    
+    [self setJobsCounterLabel];
+
+    [self setDeleteButtonStatus];
+    [self setNextButtonStatus];
+    [self setSelectAllButtonStatus];
+}
+
+- (void)printJobsActionViewDidTapDeleteButton:(HPPPPrintJobsActionView *)printJobsActionView
+{
+    NSArray *allPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
+    
+    NSArray *checkMarkedPrintJobs = self.mutableCheckMarkedPrintJobs.copy;
+    
+    for (NSNumber *index in checkMarkedPrintJobs) {
+        HPPPPrintLaterJob *printLaterJob = allPrintLaterJobs[index.integerValue];
+        [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:printLaterJob];
+        [self.mutableCheckMarkedPrintJobs removeObject:index];
+    }
+    
+    [self.tableView reloadData];
+
+    [self setJobsCounterLabel];
+
+    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 0) {
+        self.printJobsActionView.hidden = YES;
+    } else {
+        [self setDeleteButtonStatus];
+        [self setNextButtonStatus];
+        [self setSelectAllButtonStatus];
+    }
+}
+
+- (void)printJobsActionViewDidTapNextButton:(HPPPPrintJobsActionView *)printJobsActionView
+{
+    NSMutableArray *jobs = [NSMutableArray arrayWithCapacity:self.mutableCheckMarkedPrintJobs.count];
+    
+    NSArray *allPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
+    
+    for (NSNumber *index in self.mutableCheckMarkedPrintJobs) {
+        HPPPPrintLaterJob *printLaterJob = allPrintLaterJobs[index.integerValue];
+        [jobs addObject:printLaterJob];
+    }
+    
+    [self printJobs:jobs];
+}
 
 #pragma mark - HPPPWiFiReachability notification
 
 - (void)connectionChanged:(NSNotification *)notification
 {
     [self.tableView reloadData];
+    
+    if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+        [self.printJobsActionView showNextButton];
+    } else {
+        [self.printJobsActionView hideNextButton];
+    }
     
     if ([self showWarning]) {
         [[HPPPWiFiReachability sharedInstance] noPrintingAlert];

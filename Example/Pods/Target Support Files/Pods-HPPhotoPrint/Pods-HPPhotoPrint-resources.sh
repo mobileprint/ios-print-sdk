@@ -65,6 +65,7 @@ install_resource()
                     install_resource "../../Pod/Assets/magnify.png"
                     install_resource "../../Pod/Classes/Private/HPPPRuleView.xib"
                     install_resource "../../Pod/Classes/Public/HPPPPageView.xib"
+                    install_resource "../../Pod/Classes/Public/HPPPPrintJobsActionView.xib"
                     install_resource "../../Pod/Classes/HPPP.storyboard"
                     install_resource "../../Pod/Libraries/XBPageCurl/Resources/BackPageGradient.png"
                     install_resource "../../Pod/Libraries/XBPageCurl/Resources/BackFragmentShader.glsl"
