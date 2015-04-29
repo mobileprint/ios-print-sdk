@@ -135,11 +135,55 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     }];
 }
 
-#pragma mark - Actions
+#pragma mark - Button actions
 
 - (IBAction)doneButtonTapped:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Utils
+
+- (void)setSelectAllButtonStatus
+{
+    if (self.mutableCheckMarkedPrintJobs.count > 0) {
+        self.printJobsActionView.selectAllState = NO;
+    } else {
+        self.printJobsActionView.selectAllState = YES;
+    }
+    
+    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 1) {
+        [self.printJobsActionView hideSelectAllButton];
+    }
+}
+
+- (void)setNextButtonStatus
+{
+    if (self.mutableCheckMarkedPrintJobs.count == 0) {
+        self.printJobsActionView.nextButton.enabled = NO;
+    } else {
+        self.printJobsActionView.nextButton.enabled = YES;
+    }
+}
+
+- (void)setDeleteButtonStatus
+{
+    if (self.mutableCheckMarkedPrintJobs.count == 0) {
+        self.printJobsActionView.deleteButton.enabled = NO;
+    } else {
+        self.printJobsActionView.deleteButton.enabled = YES;
+    }
+}
+
+- (void)setJobsCounterLabel
+{
+    NSInteger numberOfPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs];
+    
+    if (self.mutableCheckMarkedPrintJobs.count == 0) {
+        self.jobsCounterLabel.text = [NSString stringWithFormat:(numberOfPrintLaterJobs == 1) ? HPPPLocalizedString(@"%d Print", nil) : HPPPLocalizedString(@"%d Prints", nil), numberOfPrintLaterJobs];
+    } else {
+        self.jobsCounterLabel.text = [NSString stringWithFormat:(numberOfPrintLaterJobs == 1) ? HPPPLocalizedString(@"%d/%d Print", nil) : HPPPLocalizedString(@"%d/%d Prints", nil), self.mutableCheckMarkedPrintJobs.count, numberOfPrintLaterJobs];
+    }
 }
 
 - (void)printJobs:(NSArray *)printJobs
@@ -207,48 +251,6 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 }
 
 #pragma mark - UITableViewDelegate
-
-- (void)setSelectAllButtonStatus
-{
-    if (self.mutableCheckMarkedPrintJobs.count > 0) {
-        self.printJobsActionView.selectAllState = NO;
-    } else {
-        self.printJobsActionView.selectAllState = YES;
-    }
-    
-    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 1) {
-        [self.printJobsActionView hideSelectAllButton];
-    }
-}
-
-- (void)setNextButtonStatus
-{
-    if (self.mutableCheckMarkedPrintJobs.count == 0) {
-        self.printJobsActionView.nextButton.enabled = NO;
-    } else {
-        self.printJobsActionView.nextButton.enabled = YES;
-    }
-}
-
-- (void)setDeleteButtonStatus
-{
-    if (self.mutableCheckMarkedPrintJobs.count == 0) {
-        self.printJobsActionView.deleteButton.enabled = NO;
-    } else {
-        self.printJobsActionView.deleteButton.enabled = YES;
-    }
-}
-
-- (void)setJobsCounterLabel
-{
-    NSInteger numberOfPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs];
-    
-    if (self.mutableCheckMarkedPrintJobs.count == 0) {
-        self.jobsCounterLabel.text = [NSString stringWithFormat:(numberOfPrintLaterJobs == 1) ? HPPPLocalizedString(@"%d Print", nil) : HPPPLocalizedString(@"%d Prints", nil), numberOfPrintLaterJobs];
-    } else {
-        self.jobsCounterLabel.text = [NSString stringWithFormat:(numberOfPrintLaterJobs == 1) ? HPPPLocalizedString(@"%d/%d Print", nil) : HPPPLocalizedString(@"%d/%d Prints", nil), self.mutableCheckMarkedPrintJobs.count, numberOfPrintLaterJobs];
-    }
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
