@@ -11,7 +11,6 @@
 //
 
 #import "HPPPDefaultSettingsManager.h"
-#import "HPPPLogger.h"
 
 NSString * const kDefaultPrinterNameKey = @"kDefaultPrinterNameKey";
 NSString * const kDefaultPrinterURLKey = @"kDefaultPrinterURLKey";
