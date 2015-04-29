@@ -10,17 +10,8 @@
 // the license agreement.
 //
 
-#import "HPPPLog.h"
-
-#ifdef DEBUG
-int ddLogLevel = LOG_LEVEL_VERBOSE;
-#else
-int ddLogLevel = LOG_LEVEL_INFO;
-#endif
-
 #import <DDASLLogger.h>
 #import <DDTTYLogger.h>
-#import "HPPPLogger.h"
 
 @interface HPPPLogger()
 
@@ -44,11 +35,6 @@ int ddLogLevel = LOG_LEVEL_INFO;
     // Which log level(s) should be included in the logs?
     [DDLog addLogger:[DDASLLogger sharedInstance] withLogLevel:LOG_LEVEL_VERBOSE];
     [DDLog addLogger:[DDTTYLogger sharedInstance] withLogLevel:LOG_LEVEL_VERBOSE];
-}
-
--(void)setDdLogLevel:(NSInteger)logLevel
-{
-    ddLogLevel = (int)logLevel;
 }
 
 @end

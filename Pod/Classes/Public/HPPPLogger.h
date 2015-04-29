@@ -14,13 +14,10 @@
 #import "HPPPLog.h"
 #import "DDFileLogger.h"
 
-extern int ddLogLevel;
-
 @interface HPPPLogger : NSObject
 
 + (id)sharedInstance;
 
 - (void)configureLogging;
-- (void)setDdLogLevel:(NSInteger)logLevel;
 
 @end
