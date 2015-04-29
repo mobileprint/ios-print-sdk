@@ -65,7 +65,7 @@
         [self.dataSource printActivityRequestImageForPaper:paper withCompletion:completion];
     } else {
         if (completion) {
-            completion(nil);
+            completion(self.image);
         }
     }
 }

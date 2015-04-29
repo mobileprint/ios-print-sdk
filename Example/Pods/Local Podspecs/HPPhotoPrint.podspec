@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "HPPhotoPrint"
-  s.version          = "1.2.6"
+  s.version          = "1.2.7"
   s.summary          = "AirPrint photo printing with preview."
   s.description      = <<-DESC
                        Select paper size, printer, view preview and send to print throught AirPrint.
@@ -30,7 +30,8 @@ Pod::Spec.new do |s|
 
   s.public_header_files = ['Pod/Classes/Public/**/*.h', 'Pod/Libraries/Reachability/*.h']
   s.private_header_files = ['Pod/Classes/Private/**/*.h','Pod/Libraries/XBPageCurl/*.h']
-  s.prefix_header_contents = '#ifdef __OBJC__
+  s.prefix_header_contents = '
+#ifdef __OBJC__
 
 #import "HPPPLogger.h"
 
@@ -39,6 +40,7 @@ Pod::Spec.new do |s|
     #else
         static const int ddLogLevel = LOG_LEVEL_WARN;
     #endif
+
 #endif'
   s.frameworks = ['Foundation', 'UIKit']
   s.dependency 'CocoaLumberjack', '1.9.1'
