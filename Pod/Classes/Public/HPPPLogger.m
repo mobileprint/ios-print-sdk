@@ -37,4 +37,9 @@
     [DDLog addLogger:[DDTTYLogger sharedInstance] withLogLevel:LOG_LEVEL_VERBOSE];
 }
 
+- (int)loggingContext
+{
+    return HPPP_LOG_CONTEXT;
+}
+
 @end
