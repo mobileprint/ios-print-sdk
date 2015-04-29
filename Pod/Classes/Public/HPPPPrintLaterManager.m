@@ -16,7 +16,7 @@
 #import "HPPPPrinter.h"
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPDefaultSettingsManager.h"
-#import "HPPPPrintJobsTableViewController.h"
+#import "HPPPPrintJobsViewController.h"
 #import "NSBundle+HPPPLocalizable.h"
 
 const int kSecondsInOneHour = (60 * 60);
@@ -279,8 +279,8 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 {
     UIViewController *viewController = [self keyWindowTopMostController];
     
-    if (![viewController isKindOfClass:[HPPPPrintJobsTableViewController class]]) {
-        [HPPPPrintJobsTableViewController presentAnimated:YES usingController:viewController andCompletion:nil];
+    if (![viewController isKindOfClass:[HPPPPrintJobsViewController class]]) {
+        [HPPPPrintJobsViewController presentAnimated:YES usingController:viewController andCompletion:nil];
     }
 }
 

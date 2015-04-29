@@ -23,8 +23,8 @@ extern NSString *const HPPPAddPrintLaterJobScreenSubitemFontAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenSubitemColorAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenDoneButtonAttribute;
 
-extern NSString *const HPPPPrintQueueScreenPrintAllLabelFontAttribute;
-extern NSString *const HPPPPrintQueueScreenPrintAllLabelColorAttribute;
+extern NSString *const HPPPPrintQueueScreenPrintsCounterLabelFontAttribute;
+extern NSString *const HPPPPrintQueueScreenPrintsCounterLabelColorAttribute;
 extern NSString *const HPPPPrintQueueScreenPrintAllDisabledLabelFontAttribute;
 extern NSString *const HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute;
 extern NSString *const HPPPPrintQueueScreenPrinterInfoFontAttribute;

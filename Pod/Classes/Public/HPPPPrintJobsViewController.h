@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HPPPPrintJobsTableViewController : UITableViewController
+@interface HPPPPrintJobsViewController : UIViewController
 
 + (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion;
 

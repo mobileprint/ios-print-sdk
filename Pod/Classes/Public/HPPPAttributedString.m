@@ -53,8 +53,8 @@ NSString *const HPPPAddPrintLaterJobScreenDoneButtonAttribute = @"HPPPAddPrintLa
 
 
 // Print Queue Screen
-NSString *const HPPPPrintQueueScreenPrintAllLabelFontAttribute = @"HPPPPrintQueueScreenPrintAllLabelFontAttribute";
-NSString *const HPPPPrintQueueScreenPrintAllLabelColorAttribute = @"HPPPPrintQueueScreenPrintAllLabelColorAttribute";
+NSString *const HPPPPrintQueueScreenPrintsCounterLabelFontAttribute = @"HPPPPrintQueueScreenPrintsCounterLabelFontAttribute";
+NSString *const HPPPPrintQueueScreenPrintsCounterLabelColorAttribute = @"HPPPPrintQueueScreenPrintsCounterLabelColorAttribute";
 NSString *const HPPPPrintQueueScreenPrintAllDisabledLabelFontAttribute = @"HPPPPrintQueueScreenPrintAllDisabledLabelFontAttribute";
 NSString *const HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute = @"HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute";
 NSString *const HPPPPrintQueueScreenPrinterInfoFontAttribute = @"HPPPPrintQueueScreenPrinterInfoFontAttribute";
@@ -64,8 +64,8 @@ NSString *const HPPPPrintQueueScreenJobNameColorAttribute = @"HPPPPrintQueueScre
 NSString *const HPPPPrintQueueScreenJobDateFontAttribute = @"HPPPPrintQueueScreenJobDateFontAttribute";
 NSString *const HPPPPrintQueueScreenJobDateColorAttribute = @"HPPPPrintQueueScreenJobDateColorAttribute";
 
-#define DEFAULT_PRINT_Q_PRINT_ALL_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
-#define DEFAULT_PRINT_Q_PRINT_ALL_COLOR [UIColor HPPPHPBlueColor]
+#define DEFAULT_PRINT_Q_PRINTS_COUNTER_FONT [UIFont fontWithName:@"Helvetica Neue" size:14]
+#define DEFAULT_PRINT_Q_PRINTS_COUNTER_COLOR [UIColor whiteColor]
 
 #define DEFAULT_PRINT_Q_PRINT_ALL_DISABLED_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:18]
 #define DEFAULT_PRINT_Q_PRINT_ALL_DISABLED_COLOR [UIColor colorWithRed:0x88 / 255.0f green:0x88 / 255.0f blue:0x88 / 255.0f alpha:1.0f]
@@ -79,8 +79,8 @@ NSString *const HPPPPrintQueueScreenJobDateColorAttribute = @"HPPPPrintQueueScre
 #define DEFAULT_PRINT_Q_JOB_DATE_FONT [UIFont fontWithName:@"Helvetica Neue" size:12]
 #define DEFAULT_PRINT_Q_JOB_DATE_COLOR [UIColor colorWithRed:0x88 / 255.0f green:0x88 / 255.0f blue:0x88 / 255.0f alpha:1.0f]
 
-#define DEFAULT_PRINT_Q_SCREEN_ATTRIBUTES @{HPPPPrintQueueScreenPrintAllLabelFontAttribute:DEFAULT_PRINT_Q_PRINT_ALL_FONT, \
-                                            HPPPPrintQueueScreenPrintAllLabelColorAttribute:DEFAULT_PRINT_Q_PRINT_ALL_COLOR, \
+#define DEFAULT_PRINT_Q_SCREEN_ATTRIBUTES @{HPPPPrintQueueScreenPrintsCounterLabelFontAttribute:DEFAULT_PRINT_Q_PRINTS_COUNTER_FONT, \
+                                            HPPPPrintQueueScreenPrintsCounterLabelColorAttribute:DEFAULT_PRINT_Q_PRINTS_COUNTER_COLOR, \
                                             HPPPPrintQueueScreenPrintAllDisabledLabelFontAttribute:DEFAULT_PRINT_Q_PRINT_ALL_DISABLED_FONT, \
                                             HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute:DEFAULT_PRINT_Q_PRINT_ALL_DISABLED_COLOR, \
                                             HPPPPrintQueueScreenPrinterInfoFontAttribute:DEFAULT_PRINT_Q_PRINTER_INFO_FONT, \
