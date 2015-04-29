@@ -19,5 +19,6 @@
 + (id)sharedInstance;
 
 - (void)configureLogging;
+- (int)loggingContext;
 
 @end
