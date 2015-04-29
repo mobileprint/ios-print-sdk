@@ -1,5 +1,11 @@
 PODS:
-  - HPPhotoPrint (1.2.3)
+  - CocoaLumberjack (1.9.1):
+    - CocoaLumberjack/Extensions (= 1.9.1)
+  - CocoaLumberjack/Core (1.9.1)
+  - CocoaLumberjack/Extensions (1.9.1):
+    - CocoaLumberjack/Core
+  - HPPhotoPrint (1.2.8):
+    - CocoaLumberjack (= 1.9.1)
 
 DEPENDENCIES:
   - HPPhotoPrint (from `../`)
@@ -9,6 +15,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  HPPhotoPrint: 38b27be7187d9fd3ef9b8585a2a35f9d5f147908
+  CocoaLumberjack: e9b828e64142be63c1c130517b33aa5e235d2413
+  HPPhotoPrint: 20fc8f9283b7aa25fb876e17ae415911885fe000
 
 COCOAPODS: 0.35.0

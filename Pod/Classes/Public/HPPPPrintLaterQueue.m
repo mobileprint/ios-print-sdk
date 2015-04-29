@@ -160,7 +160,7 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
                                    withIntermediateDirectories:NO
                                                     attributes:nil
                                                          error:&error]) {
-        NSLog(@"Create directory error: %@", error);
+        HPPPLogError(@"Create directory error: %@", error);
         success = NO;
     }
     
@@ -174,7 +174,7 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     NSString *filePath = [path stringByAppendingPathComponent:fileName];
     NSError *error = nil;
     if (![[NSFileManager defaultManager] removeItemAtPath:filePath error:&error]) {
-        NSLog(@"Delete file error: %@", error);
+        HPPPLogError(@"Delete file error: %@", error);
         success = NO;
     }
     
@@ -190,7 +190,7 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     for (NSString *filename in files)  {
         NSError *error = nil;
         if (![fileManager removeItemAtPath:[path stringByAppendingPathComponent:filename] error:&error]) {
-            NSLog(@"Delete file error: %@", error);
+            HPPPLogError(@"Delete file error: %@", error);
             success = NO;
         }
     }

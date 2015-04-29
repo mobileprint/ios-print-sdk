@@ -319,7 +319,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 
 -(void)pageSettingsTableViewControllerDidFinishPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
 {
-    NSLog(@"Finished Print Job!");
+    HPPPLogInfo(@"Finished Print Job!");
     NSString *action = self.selectedPrintJobs.count > 1 ? kHPPPQueuePrintAllAction : kHPPPQueuePrintAction;
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:action, kHPPPPrintQueueJobsKey:self.selectedPrintJobs }];
     
@@ -328,7 +328,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 
 -(void)pageSettingsTableViewControllerDidCancelPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
 {
-    NSLog(@"Cancelled Print Job!");
+    HPPPLogInfo(@"Cancelled Print Job!");
     [pageSettingsTableViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -338,7 +338,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 {
     NSString *imageKey = [HPPPPaper titleFromSize:paper.paperSize];
     
-    NSLog(@"Retrieving image for size: %@", imageKey);
+    HPPPLogInfo(@"Retrieving image for size: %@", imageKey);
     
     if (completion) {
         UIImage *image = [self.selectedPrintJob.images objectForKey:imageKey];
@@ -361,7 +361,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 {
     NSString *imageKey = [HPPPPaper titleFromSize:paper.paperSize];
     
-    NSLog(@"Retrieving images for size: %@", imageKey);
+    HPPPLogInfo(@"Retrieving images for size: %@", imageKey);
     
     NSMutableArray *images = [NSMutableArray arrayWithCapacity:self.selectedPrintJobs.count];
     

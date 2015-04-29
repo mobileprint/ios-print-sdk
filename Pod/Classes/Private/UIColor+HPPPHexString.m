@@ -45,7 +45,7 @@
             blue  = [self colorComponentFrom:colorString start:6 length:2];
             break;
         default:
-            NSLog(@"Invalid color value: Color value %@ is invalid. It should be a hex value of the form #RBG, #ARGB, #RRGGBB, or #AARRGGBB", hexString);
+            HPPPLogError(@"Invalid color value: Color value %@ is invalid. It should be a hex value of the form #RBG, #ARGB, #RRGGBB, or #AARRGGBB", hexString);
             alpha = 1.0f;
             red   = 0.0f;
             green = 0.0f;
