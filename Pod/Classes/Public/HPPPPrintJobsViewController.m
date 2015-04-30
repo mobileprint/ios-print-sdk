@@ -104,7 +104,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 
 - (void)initJobsCounterLabel
 {
-    self.jobsCounterLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 70.0f, 22.0f)];
+    self.jobsCounterLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 22.0f)];
     HPPP *hppp = [HPPP sharedInstance];
     self.jobsCounterLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintsCounterLabelFontAttribute];
     self.jobsCounterLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintsCounterLabelColorAttribute];
