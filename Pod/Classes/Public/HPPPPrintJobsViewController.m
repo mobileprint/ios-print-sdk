@@ -405,28 +405,40 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 
 - (void)printJobsActionViewDidTapDeleteButton:(HPPPPrintJobsActionView *)printJobsActionView
 {
-    NSArray *allPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
-    
     NSArray *checkMarkedPrintJobs = self.mutableCheckMarkedPrintJobs.copy;
     
-    for (NSNumber *index in checkMarkedPrintJobs) {
-        HPPPPrintLaterJob *printLaterJob = allPrintLaterJobs[index.integerValue];
-        [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:printLaterJob];
-        [self.mutableCheckMarkedPrintJobs removeObject:index];
-    }
+    NSString *message = (checkMarkedPrintJobs.count > 1) ? [NSString stringWithFormat:HPPPLocalizedString(@"Are you sure you want to delete %d Prints?", nil), checkMarkedPrintJobs.count] : HPPPLocalizedString(@"Are you sure you want to delete 1 Print?", nil);
     
-    [self.tableView reloadData];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:HPPPLocalizedString(@"Delete Print", nil)
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [self setJobsCounterLabel];
+    [alertController addAction:[UIAlertAction actionWithTitle:HPPPLocalizedString(@"Delete", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        NSArray *allPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
+        
+        for (NSNumber *index in checkMarkedPrintJobs) {
+            HPPPPrintLaterJob *printLaterJob = allPrintLaterJobs[index.integerValue];
+            [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:printLaterJob];
+            [self.mutableCheckMarkedPrintJobs removeObject:index];
+        }
+        
+        [self.tableView reloadData];
+        
+        [self setJobsCounterLabel];
+        
+        if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 0) {
+            self.printJobsActionView.hidden = YES;
+            self.emptyPrintQueueLabel.hidden = NO;
+        } else {
+            [self setDeleteButtonStatus];
+            [self setNextButtonStatus];
+            [self setSelectAllButtonStatus];
+        }
+    }]];
     
-    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 0) {
-        self.printJobsActionView.hidden = YES;
-        self.emptyPrintQueueLabel.hidden = NO;
-    } else {
-        [self setDeleteButtonStatus];
-        [self setNextButtonStatus];
-        [self setSelectAllButtonStatus];
-    }
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)printJobsActionViewDidTapNextButton:(HPPPPrintJobsActionView *)printJobsActionView
@@ -487,5 +499,3 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 }
 
 @end
-
-
