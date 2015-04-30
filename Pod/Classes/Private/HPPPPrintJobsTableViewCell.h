@@ -12,10 +12,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol HPPPPrintJobsTableViewCellDelegate;
+
 @interface HPPPPrintJobsTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *jobThumbnailImageView;
 @property (weak, nonatomic) IBOutlet UILabel *jobNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *jobDateLabel;
+@property (weak, nonatomic) id<HPPPPrintJobsTableViewCellDelegate> delegate;
+
+@end
+
+@protocol HPPPPrintJobsTableViewCellDelegate <NSObject>
+
+- (void)printJobsTableViewCellDidTapImage:(HPPPPrintJobsTableViewCell *)printJobsTableViewCell;
 
 @end

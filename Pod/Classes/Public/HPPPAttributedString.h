@@ -23,16 +23,26 @@ extern NSString *const HPPPAddPrintLaterJobScreenSubitemFontAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenSubitemColorAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenDoneButtonAttribute;
 
-extern NSString *const HPPPPrintQueueScreenPrintAllLabelFontAttribute;
-extern NSString *const HPPPPrintQueueScreenPrintAllLabelColorAttribute;
-extern NSString *const HPPPPrintQueueScreenPrintAllDisabledLabelFontAttribute;
-extern NSString *const HPPPPrintQueueScreenPrintAllDisabledLabelColorAttribute;
-extern NSString *const HPPPPrintQueueScreenPrinterInfoFontAttribute;
-extern NSString *const HPPPPrintQueueScreenPrinterInfoColorAttribute;
+extern NSString *const HPPPPrintQueueScreenPrintsCounterLabelFontAttribute;
+extern NSString *const HPPPPrintQueueScreenPrintsCounterLabelColorAttribute;
+extern NSString *const HPPPPrintQueueScreenNoWifiLabelFontAttribute;
+extern NSString *const HPPPPrintQueueScreenNoWifiLabelColorAttribute;
+extern NSString *const HPPPPrintQueueScreenActionButtonsFontAttribute;
+extern NSString *const HPPPPrintQueueScreenActionButtonsEnableColorAttribute;
+extern NSString *const HPPPPrintQueueScreenActionButtonsDisableColorAttribute;
+extern NSString *const HPPPPrintQueueScreenActionButtonsSeparatorColorAttribute;
 extern NSString *const HPPPPrintQueueScreenJobNameFontAttribute;
 extern NSString *const HPPPPrintQueueScreenJobNameColorAttribute;
 extern NSString *const HPPPPrintQueueScreenJobDateFontAttribute;
 extern NSString *const HPPPPrintQueueScreenJobDateColorAttribute;
+extern NSString *const HPPPPrintQueueScreenEmptyQueueFontAttribute;
+extern NSString *const HPPPPrintQueueScreenEmptyQueueColorAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewJobNameFontAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewJobNameColorAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewJobDateFontAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewJobDateColorAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewDoneButtonFontAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewDoneButtonColorAttribute;
 
 @interface HPPPAttributedString : NSObject
 

@@ -14,7 +14,7 @@
 #import <HPPPWiFiReachability.h>
 #import "HPPPExampleViewController.h"
 #import "HPPPWiFiReachability.h"
-#import "HPPPPrintJobsTableViewController.h"
+#import "HPPPPrintJobsViewController.h"
 
 @interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintActivityDataSource>
 
@@ -143,7 +143,7 @@
             }
             
             if ([activityType isEqualToString:@"HPPPPrintLaterActivity"]) {
-                [HPPPPrintJobsTableViewController presentAnimated:YES usingController:self andCompletion:nil];
+                [HPPPPrintJobsViewController presentAnimated:YES usingController:self andCompletion:nil];
             }
         } else {
             NSLog(@"completionHandler - didn't succeed.");
@@ -166,7 +166,7 @@
 
 - (IBAction)showPrintLaterJobsButtonTapped:(id)sender
 {
-    [HPPPPrintJobsTableViewController presentAnimated:YES usingController:self andCompletion:nil];
+    [HPPPPrintJobsViewController presentAnimated:YES usingController:self andCompletion:nil];
 }
 
 #pragma mark - HPPPPrintActivityDataSource

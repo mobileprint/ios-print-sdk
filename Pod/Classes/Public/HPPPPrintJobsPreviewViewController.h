@@ -12,8 +12,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HPPPPrintJobsTableViewController : UITableViewController
+@interface HPPPPrintJobsPreviewViewController : UIViewController
 
-+ (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion;
+@property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *date;
 
 @end
