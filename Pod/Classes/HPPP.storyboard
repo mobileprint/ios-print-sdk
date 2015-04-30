@@ -1216,8 +1216,8 @@
                                     <outletCollection property="gestureRecognizers" destination="pjk-eF-3EK" appends="YES" id="zZO-YV-199"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fIA-lB-GJ6">
-                                <rect key="frame" x="540" y="20" width="60" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fIA-lB-GJ6">
+                                <rect key="frame" x="532" y="20" width="60" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="bRA-3K-pXP"/>
                                     <constraint firstAttribute="width" constant="60" id="eoj-Pg-Kaa"/>
@@ -1252,7 +1252,7 @@
                             <constraint firstItem="eEf-wn-6E6" firstAttribute="leading" secondItem="ouv-UG-1DO" secondAttribute="leading" constant="10" id="hiq-M8-cxS"/>
                             <constraint firstItem="YHP-ns-t1c" firstAttribute="leading" secondItem="ouv-UG-1DO" secondAttribute="leading" id="ijD-Og-ffg"/>
                             <constraint firstItem="mqG-z8-T7D" firstAttribute="leading" secondItem="ouv-UG-1DO" secondAttribute="leading" id="pps-Jo-r8g"/>
-                            <constraint firstAttribute="trailing" secondItem="fIA-lB-GJ6" secondAttribute="trailing" id="ucr-8m-Llt"/>
+                            <constraint firstAttribute="trailing" secondItem="fIA-lB-GJ6" secondAttribute="trailing" constant="8" id="ucr-8m-Llt"/>
                         </constraints>
                     </view>
                     <connections>
