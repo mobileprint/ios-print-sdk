@@ -1082,9 +1082,6 @@
                                                         <constraint firstAttribute="width" constant="62" id="jOv-VL-Wdd"/>
                                                         <constraint firstAttribute="height" constant="74" id="vom-tg-Tuk"/>
                                                     </constraints>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="prq-eB-O4h" appends="YES" id="O7C-zs-wkI"/>
-                                                    </connections>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucp-AD-mDT" userLabel="Name Label">
                                                     <rect key="frame" x="70" y="16" width="483" height="21"/>
@@ -1165,18 +1162,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FK4-YK-euS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="prq-eB-O4h">
-                    <connections>
-                        <segue destination="VlZ-4Q-MoV" kind="presentation" identifier="PreviewSegue" id="6gn-GO-TpC"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="5834" y="694"/>
         </scene>
         <!--Print Jobs Preview View Controller-->
         <scene sceneID="e02-4X-Q1c">
             <objects>
-                <viewController id="VlZ-4Q-MoV" customClass="HPPPPrintJobsPreviewViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HPPPPrintJobsPreviewViewController" id="VlZ-4Q-MoV" customClass="HPPPPrintJobsPreviewViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gpu-PD-UGM"/>
                         <viewControllerLayoutGuide type="bottom" id="4bx-r4-9IH"/>
@@ -1325,7 +1317,7 @@
         <image name="HPPPMagnify.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OHc-hu-xz3"/>
         <segue reference="gpl-F0-UT5"/>
+        <segue reference="4eJ-bv-9qP"/>
     </inferredMetricsTieBreakers>
 </document>

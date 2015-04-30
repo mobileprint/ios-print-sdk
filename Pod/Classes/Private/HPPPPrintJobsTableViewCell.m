@@ -14,4 +14,19 @@
 
 @implementation HPPPPrintJobsTableViewCell
 
+- (void)awakeFromNib
+{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageTap:)];
+    tap.cancelsTouchesInView = YES;
+    tap.numberOfTapsRequired = 1;
+    [self.jobThumbnailImageView addGestureRecognizer:tap];
+}
+
+- (void)handleImageTap:(UIGestureRecognizer *)gestureRecognizer
+{
+    if ([self.delegate respondsToSelector:@selector(printJobsTableViewCellDidTapImage:)]) {
+        [self.delegate printJobsTableViewCellDidTapImage:self];
+    }
+}
+
 @end

@@ -15,5 +15,7 @@
 @interface HPPPPrintJobsPreviewViewController : UIViewController
 
 @property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *date;
 
 @end

@@ -25,7 +25,7 @@
 #import "UIColor+HPPPStyle.h"
 #import "NSBundle+HPPPLocalizable.h"
 
-@interface HPPPPrintJobsViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource, HPPPPrintJobsActionViewDelegate>
+@interface HPPPPrintJobsViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource, HPPPPrintJobsActionViewDelegate, HPPPPrintJobsTableViewCellDelegate>
 
 @property (strong, nonatomic) HPPPPrintLaterJob *selectedPrintJob;
 @property (strong, nonatomic) NSArray *selectedPrintJobs;
@@ -63,7 +63,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
             [printLaterManager initUserNotifications];
         }
     }
-
+    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [self initJobsCounterLabel];
@@ -221,6 +221,8 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     HPPPPrintJobsTableViewCell *jobCell = (HPPPPrintJobsTableViewCell *)cell;
     HPPPPrintLaterJob *job = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row];
     
+    jobCell.delegate = self;
+    
     jobCell.jobNameLabel.text = job.name;
     jobCell.jobNameLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameFontAttribute];
     jobCell.jobNameLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameColorAttribute];
@@ -272,7 +274,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     UIImageView *check = [[UIImageView alloc] initWithImage:checkMarkImage];
     cell.accessoryView = check;
-
+    
     [self setDeleteButtonStatus];
     [self setNextButtonStatus];
     [self setSelectAllButtonStatus];
@@ -389,7 +391,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     [self.tableView reloadData];
     
     [self setJobsCounterLabel];
-
+    
     [self setDeleteButtonStatus];
     [self setNextButtonStatus];
     [self setSelectAllButtonStatus];
@@ -408,9 +410,9 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     }
     
     [self.tableView reloadData];
-
+    
     [self setJobsCounterLabel];
-
+    
     if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 0) {
         self.printJobsActionView.hidden = YES;
     } else {
@@ -432,6 +434,21 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     }
     
     [self printJobs:jobs];
+}
+
+#pragma mark - HPPPPrintJobsTableViewCellDelegate
+
+- (void)printJobsTableViewCellDidTapImage:(HPPPPrintJobsTableViewCell *)printJobsTableViewCell
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:nil];
+    HPPPPrintJobsPreviewViewController *vc = (HPPPPrintJobsPreviewViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPrintJobsPreviewViewController"];
+    
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    vc.image = printJobsTableViewCell.jobThumbnailImageView.image;
+    vc.name = printJobsTableViewCell.jobNameLabel.text;
+    vc.date = printJobsTableViewCell.jobDateLabel.text;
+    
+    [self presentViewController:vc animated:NO completion:nil];
 }
 
 #pragma mark - HPPPWiFiReachability notification
@@ -460,20 +477,6 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
         warn = YES;
     }
     return warn;
-}
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"PreviewSegue"]) {        
-        HPPPPrintJobsPreviewViewController *vc = (HPPPPrintJobsPreviewViewController *)segue.destinationViewController;
-        vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        //vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        UITapGestureRecognizer *tapGestureRecognizer = sender;
-        UIImageView *imageView = (UIImageView *)tapGestureRecognizer.view;
-        vc.image = imageView.image;
-    }
 }
 
 @end

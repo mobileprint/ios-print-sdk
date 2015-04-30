@@ -43,6 +43,9 @@
     self.printJobDateLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewJobDateFontAttribute];
     self.printJobDateLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewJobDateColorAttribute];
     
+    self.printJobNameLabel.text = self.name;
+    self.printJobDateLabel.text = self.date;
+    
     self.view.alpha = 0.0f;
 }
 
