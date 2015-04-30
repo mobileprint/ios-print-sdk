@@ -28,6 +28,9 @@
     
     [HPPP sharedInstance].showRulers = FALSE;
     
+    self.logger = [[HPPPExampleLogger alloc] init];
+    [[HPPPLogger sharedInstance] setDelegate:self.logger];
+    
     return YES;
 }
 

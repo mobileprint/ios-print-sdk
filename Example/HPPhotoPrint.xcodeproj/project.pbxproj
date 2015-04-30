@@ -26,6 +26,7 @@
 		E32115DC1A38B9E60079144C /* HPPPLearnMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DB1A38B9E60079144C /* HPPPLearnMoreViewController.m */; };
 		E32115E01A38BCE50079144C /* HPPPLearnMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DE1A38BCE50079144C /* HPPPLearnMoreView.m */; };
 		E32115E11A38BCE50079144C /* HPPPLearnMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32115DF1A38BCE50079144C /* HPPPLearnMoreView.xib */; };
+		F16A57BA1AF2B0EA00F7265E /* HPPPExampleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F16A57B91AF2B0EA00F7265E /* HPPPExampleLogger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,8 @@
 		E32115DF1A38BCE50079144C /* HPPPLearnMoreView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HPPPLearnMoreView.xib; sourceTree = "<group>"; };
 		EE7EBCBC7723D10BF4D13C7F /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F081076366F4C76425844536 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		F16A57B81AF2B0EA00F7265E /* HPPPExampleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPExampleLogger.h; sourceTree = "<group>"; };
+		F16A57B91AF2B0EA00F7265E /* HPPPExampleLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPExampleLogger.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +152,8 @@
 				E32115DB1A38B9E60079144C /* HPPPLearnMoreViewController.m */,
 				6003F5A5195388D20070C39A /* HPPPExampleViewController.h */,
 				6003F5A6195388D20070C39A /* HPPPExampleViewController.m */,
+				F16A57B81AF2B0EA00F7265E /* HPPPExampleLogger.h */,
+				F16A57B91AF2B0EA00F7265E /* HPPPExampleLogger.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -384,6 +389,7 @@
 				6003F59E195388D20070C39A /* HPPPAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* HPPPExampleViewController.m in Sources */,
 				E32115E01A38BCE50079144C /* HPPPLearnMoreView.m in Sources */,
+				F16A57BA1AF2B0EA00F7265E /* HPPPExampleLogger.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

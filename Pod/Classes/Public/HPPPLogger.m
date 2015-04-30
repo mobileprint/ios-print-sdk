@@ -10,16 +10,11 @@
 // the license agreement.
 //
 
-#import <DDASLLogger.h>
-#import <DDTTYLogger.h>
-
-@interface HPPPLogger()
-
-@end
+#import "HPPPLogger.h"
 
 @implementation HPPPLogger
 
-+ (id)sharedInstance
++ (HPPPLogger *)sharedInstance
 {
     static HPPPLogger *sharedInstance = nil;
     static dispatch_once_t onceToken;
@@ -30,16 +25,50 @@
     return sharedInstance;
 }
 
-- (void)configureLogging
+- (void) logError:(NSString*)msg
 {
-    // Which log level(s) should be included in the logs?
-    [DDLog addLogger:[DDASLLogger sharedInstance] withLogLevel:LOG_LEVEL_VERBOSE];
-    [DDLog addLogger:[DDTTYLogger sharedInstance] withLogLevel:LOG_LEVEL_VERBOSE];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(logError:)]) {
+        [self.delegate logError:msg];
+    } else {
+        NSLog(@"%@", msg);
+    }
 }
 
-- (int)loggingContext
+- (void) logWarn:(NSString*)msg
 {
-    return HPPP_LOG_CONTEXT;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(logWarn:)]) {
+        [self.delegate logWarn:msg];
+    } else {
+        NSLog(@"%@", msg);
+    }
 }
+
+- (void) logInfo:(NSString*)msg
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(logInfo:)]) {
+        [self.delegate logInfo:msg];
+    } else {
+        NSLog(@"%@", msg);
+    }
+}
+
+- (void) logDebug:(NSString*)msg
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(logDebug:)]) {
+        [self.delegate logDebug:msg];
+    } else {
+        NSLog(@"%@", msg);
+    }
+}
+
+- (void) logVerbose:(NSString*)msg
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(logVerbose:)]) {
+        [self.delegate logVerbose:msg];
+    } else {
+        NSLog(@"%@", msg);
+    }
+}
+
 
 @end
