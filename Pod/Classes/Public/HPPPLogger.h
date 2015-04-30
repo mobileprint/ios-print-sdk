@@ -10,15 +10,27 @@
 // the license agreement.
 //
 
-#import <DDLog.h>
-#import "HPPPLog.h"
-#import "DDFileLogger.h"
+#define HPPPLogError(frmt, ...)     [[HPPPLogger sharedInstance] logError:[NSString stringWithFormat:frmt, ##__VA_ARGS__]]
+#define HPPPLogWarn(frmt, ...)      [[HPPPLogger sharedInstance] logWarn:[NSString stringWithFormat:frmt, ##__VA_ARGS__]]
+#define HPPPLogInfo(frmt, ...)      [[HPPPLogger sharedInstance] logInfo:[NSString stringWithFormat:frmt, ##__VA_ARGS__]]
+#define HPPPLogDebug(frmt, ...)     [[HPPPLogger sharedInstance] logDebug:[NSString stringWithFormat:frmt, ##__VA_ARGS__]]
+#define HPPPLogVerbose(frmt, ...)   [[HPPPLogger sharedInstance] logVerbose:[NSString stringWithFormat:frmt, ##__VA_ARGS__]]
 
-@interface HPPPLogger : NSObject
+@protocol HPPPLoggerDelegate <NSObject>
 
-+ (id)sharedInstance;
-
-- (void)configureLogging;
-- (int)loggingContext;
+- (void) logError:(NSString*)msg;
+- (void) logWarn:(NSString*)msg;
+- (void) logInfo:(NSString*)msg;
+- (void) logDebug:(NSString*)msg;
+- (void) logVerbose:(NSString*)msg;
 
 @end
+
+@interface HPPPLogger : NSObject <HPPPLoggerDelegate>
+
++ (HPPPLogger *)sharedInstance;
+
+@property (nonatomic, weak) id<HPPPLoggerDelegate> delegate;
+
+@end
+

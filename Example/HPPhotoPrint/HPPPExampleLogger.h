@@ -10,12 +10,10 @@
 // the license agreement.
 //
 
-#import <UIKit/UIKit.h>
-#import "HPPPExampleLogger.h"
 
-@interface HPPPAppDelegate : UIResponder <UIApplicationDelegate>
+#import <Foundation/Foundation.h>
+#import <HPPPLogger.h>
 
-@property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) HPPPExampleLogger* logger;
+@interface HPPPExampleLogger : NSObject <HPPPLoggerDelegate>
 
 @end

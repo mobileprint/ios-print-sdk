@@ -8,10 +8,4 @@
 
 #import "HPPPLogger.h"
 
-    #if DEBUG
-        static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-    #else
-        static const int ddLogLevel = LOG_LEVEL_WARN;
-    #endif
-
 #endif

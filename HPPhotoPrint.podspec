@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "HPPhotoPrint"
-  s.version          = "1.2.9"
+  s.version          = "1.2.10"
   s.summary          = "AirPrint photo printing with preview."
   s.description      = <<-DESC
                        Select paper size, printer, view preview and send to print throught AirPrint.
@@ -35,15 +35,8 @@ Pod::Spec.new do |s|
 
 #import "HPPPLogger.h"
 
-    #if DEBUG
-        static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-    #else
-        static const int ddLogLevel = LOG_LEVEL_WARN;
-    #endif
-
 #endif'
   s.frameworks = ['Foundation', 'UIKit']
-  s.dependency 'CocoaLumberjack', '1.9.1'
   # s.dependency 'AFNetworking', '~> 2.3'
 
 end
