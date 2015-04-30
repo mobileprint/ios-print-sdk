@@ -1067,7 +1067,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="75" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="fBy-0S-xRO">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="PrintJobCell" rowHeight="75" id="oKq-Ov-FRL" userLabel="Print Job Cell" customClass="HPPPPrintJobsTableViewCell">
                                         <rect key="frame" x="10" y="10" width="600" height="60"/>
@@ -1075,12 +1075,16 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oKq-Ov-FRL" id="Om7-I7-r4M">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8lB-uI-16w" userLabel="Thumbnail Image">
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8lB-uI-16w" userLabel="Thumbnail Image">
                                                     <rect key="frame" x="0.0" y="0.0" width="62" height="74"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="62" id="jOv-VL-Wdd"/>
                                                         <constraint firstAttribute="height" constant="74" id="vom-tg-Tuk"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="prq-eB-O4h" appends="YES" id="O7C-zs-wkI"/>
+                                                    </connections>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucp-AD-mDT" userLabel="Name Label">
                                                     <rect key="frame" x="70" y="16" width="483" height="21"/>
@@ -1161,8 +1165,106 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FK4-YK-euS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="prq-eB-O4h">
+                    <connections>
+                        <segue destination="VlZ-4Q-MoV" kind="presentation" identifier="PreviewSegue" id="6gn-GO-TpC"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="5834" y="694"/>
+        </scene>
+        <!--Print Jobs Preview View Controller-->
+        <scene sceneID="e02-4X-Q1c">
+            <objects>
+                <viewController id="VlZ-4Q-MoV" customClass="HPPPPrintJobsPreviewViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gpu-PD-UGM"/>
+                        <viewControllerLayoutGuide type="bottom" id="4bx-r4-9IH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ouv-UG-1DO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 25, 11:15" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHP-ns-t1c">
+                                <rect key="frame" x="0.0" y="529" width="600" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="QOp-Rv-BFb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Print #1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqG-z8-T7D">
+                                <rect key="frame" x="0.0" y="500" width="600" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="QFA-js-eYt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tch-xU-OrL">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="pjk-eF-3EK" appends="YES" id="zZO-YV-199"/>
+                                </connections>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fIA-lB-GJ6">
+                                <rect key="frame" x="540" y="20" width="60" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="bRA-3K-pXP"/>
+                                    <constraint firstAttribute="width" constant="60" id="eoj-Pg-Kaa"/>
+                                </constraints>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButtonTapped:" destination="VlZ-4Q-MoV" eventType="touchUpInside" id="VQc-bO-lQj"/>
+                                </connections>
+                            </button>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eEf-wn-6E6">
+                                <rect key="frame" x="10" y="77" width="580" height="402"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="eEf-wn-6E6" secondAttribute="trailing" constant="10" id="1M1-1d-DXu"/>
+                            <constraint firstItem="4bx-r4-9IH" firstAttribute="top" secondItem="tch-xU-OrL" secondAttribute="bottom" id="5DI-cR-xzl"/>
+                            <constraint firstItem="YHP-ns-t1c" firstAttribute="top" secondItem="mqG-z8-T7D" secondAttribute="bottom" constant="8" id="7Zw-RY-sfS"/>
+                            <constraint firstAttribute="trailing" secondItem="tch-xU-OrL" secondAttribute="trailing" id="Fdt-Ku-RNH"/>
+                            <constraint firstItem="mqG-z8-T7D" firstAttribute="top" secondItem="eEf-wn-6E6" secondAttribute="bottom" constant="21" id="I0p-WT-hnD"/>
+                            <constraint firstItem="tch-xU-OrL" firstAttribute="leading" secondItem="ouv-UG-1DO" secondAttribute="leading" id="IQD-a2-Zb0"/>
+                            <constraint firstAttribute="trailing" secondItem="mqG-z8-T7D" secondAttribute="trailing" id="Nxs-OO-r6U"/>
+                            <constraint firstItem="fIA-lB-GJ6" firstAttribute="top" secondItem="gpu-PD-UGM" secondAttribute="bottom" id="Smb-es-c6P"/>
+                            <constraint firstItem="tch-xU-OrL" firstAttribute="top" secondItem="ouv-UG-1DO" secondAttribute="top" id="Wvh-CV-dII"/>
+                            <constraint firstItem="4bx-r4-9IH" firstAttribute="top" secondItem="YHP-ns-t1c" secondAttribute="bottom" constant="50" id="aIG-gn-7Ku"/>
+                            <constraint firstItem="eEf-wn-6E6" firstAttribute="top" secondItem="fIA-lB-GJ6" secondAttribute="bottom" constant="13" id="dpS-xf-MsY"/>
+                            <constraint firstAttribute="trailing" secondItem="YHP-ns-t1c" secondAttribute="trailing" id="dwO-aW-FMT"/>
+                            <constraint firstItem="eEf-wn-6E6" firstAttribute="leading" secondItem="ouv-UG-1DO" secondAttribute="leading" constant="10" id="hiq-M8-cxS"/>
+                            <constraint firstItem="YHP-ns-t1c" firstAttribute="leading" secondItem="ouv-UG-1DO" secondAttribute="leading" id="ijD-Og-ffg"/>
+                            <constraint firstItem="mqG-z8-T7D" firstAttribute="leading" secondItem="ouv-UG-1DO" secondAttribute="leading" id="pps-Jo-r8g"/>
+                            <constraint firstAttribute="trailing" secondItem="fIA-lB-GJ6" secondAttribute="trailing" id="ucr-8m-Llt"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="doneButton" destination="fIA-lB-GJ6" id="bAD-Wr-T0K"/>
+                        <outlet property="imageView" destination="eEf-wn-6E6" id="soH-r8-9xg"/>
+                        <outlet property="printJobDateLabel" destination="YHP-ns-t1c" id="0sa-38-8jG"/>
+                        <outlet property="printJobNameLabel" destination="mqG-z8-T7D" id="oyT-Z4-O8J"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IbK-3R-xcA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="pjk-eF-3EK">
+                    <connections>
+                        <action selector="outsideImageTapped:" destination="VlZ-4Q-MoV" id="qfc-NG-Dce"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="6523" y="694"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NP4-Wd-ylJ">

@@ -35,6 +35,12 @@ extern NSString *const HPPPPrintQueueScreenJobNameFontAttribute;
 extern NSString *const HPPPPrintQueueScreenJobNameColorAttribute;
 extern NSString *const HPPPPrintQueueScreenJobDateFontAttribute;
 extern NSString *const HPPPPrintQueueScreenJobDateColorAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewJobNameFontAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewJobNameColorAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewJobDateFontAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewJobDateColorAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewDoneButtonFontAttribute;
+extern NSString *const HPPPPrintQueueScreenPreviewDoneButtonColorAttribute;
 
 @interface HPPPAttributedString : NSObject
 

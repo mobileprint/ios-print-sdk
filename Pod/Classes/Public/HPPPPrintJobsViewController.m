@@ -15,12 +15,13 @@
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
-#import "HPPP+ViewController.h"
 #import "HPPPDefaultSettingsManager.h"
 #import "HPPPPaper.h"
 #import "HPPPAnalyticsManager.h"
 #import "HPPPWiFiReachability.h"
 #import "HPPPPrintJobsActionView.h"
+#import "HPPPPrintJobsPreviewViewController.h"
+#import "HPPP+ViewController.h"
 #import "UIColor+HPPPStyle.h"
 #import "NSBundle+HPPPLocalizable.h"
 
@@ -459,6 +460,20 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
         warn = YES;
     }
     return warn;
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"PreviewSegue"]) {        
+        HPPPPrintJobsPreviewViewController *vc = (HPPPPrintJobsPreviewViewController *)segue.destinationViewController;
+        vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        //vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        UITapGestureRecognizer *tapGestureRecognizer = sender;
+        UIImageView *imageView = (UIImageView *)tapGestureRecognizer.view;
+        vc.image = imageView.image;
+    }
 }
 
 @end
