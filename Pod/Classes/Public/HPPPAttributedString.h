@@ -35,6 +35,8 @@ extern NSString *const HPPPPrintQueueScreenJobNameFontAttribute;
 extern NSString *const HPPPPrintQueueScreenJobNameColorAttribute;
 extern NSString *const HPPPPrintQueueScreenJobDateFontAttribute;
 extern NSString *const HPPPPrintQueueScreenJobDateColorAttribute;
+extern NSString *const HPPPPrintQueueScreenEmptyQueueFontAttribute;
+extern NSString *const HPPPPrintQueueScreenEmptyQueueColorAttribute;
 extern NSString *const HPPPPrintQueueScreenPreviewJobNameFontAttribute;
 extern NSString *const HPPPPrintQueueScreenPreviewJobNameColorAttribute;
 extern NSString *const HPPPPrintQueueScreenPreviewJobDateFontAttribute;

@@ -34,6 +34,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBarButtonItem;
 @property (weak, nonatomic) IBOutlet HPPPPrintJobsActionView *printJobsActionView;
+@property (weak, nonatomic) IBOutlet UILabel *emptyPrintQueueLabel;
 
 @end
 
@@ -50,6 +51,12 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     self.view.backgroundColor = self.tableView.backgroundColor;
     
     self.printJobsActionView.delegate = self;
+    
+    HPPP *hppp = [HPPP sharedInstance];
+    
+    self.emptyPrintQueueLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenEmptyQueueFontAttribute];
+    self.emptyPrintQueueLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenEmptyQueueColorAttribute];
+    
     
     self.title = HPPPLocalizedString(@"Print Queue", nil);
     self.doneBarButtonItem.title = HPPPLocalizedString(@"Done", nil);
@@ -72,6 +79,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     if (numberOfPrintLaterJobs == 0) {
         self.printJobsActionView.hidden = YES;
+        self.emptyPrintQueueLabel.hidden = NO;
     } else {
         self.mutableCheckMarkedPrintJobs = [NSMutableArray arrayWithCapacity:numberOfPrintLaterJobs];
         
@@ -283,7 +291,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     CGFloat height = 0.0f;
-    if (![[HPPPWiFiReachability sharedInstance] isWifiConnected] || [[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 0) {
+    if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
         height = 64.0f;
     }
     return height;
@@ -304,9 +312,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     textLabel.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
     NSString *text = nil;
-    if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 0) {
-        text = HPPPLocalizedString(@"Print queue is empty", nil);
-    } else if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+    if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
         text = HPPPLocalizedString(@"No Wi-Fi connection", nil);
     }
     
@@ -415,6 +421,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 0) {
         self.printJobsActionView.hidden = YES;
+        self.emptyPrintQueueLabel.hidden = NO;
     } else {
         [self setDeleteButtonStatus];
         [self setNextButtonStatus];

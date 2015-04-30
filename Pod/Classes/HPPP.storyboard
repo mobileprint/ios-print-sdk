@@ -1134,11 +1134,23 @@
                                     <constraint firstAttribute="height" constant="44" id="eOv-fs-cLG"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Print queue is empty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5b-Sn-6KB">
+                                <rect key="frame" x="0.0" y="258" width="600" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Nkq-x0-P3X"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerY" secondItem="I5b-Sn-6KB" secondAttribute="centerY" id="BeY-u2-ka8"/>
                             <constraint firstItem="fBy-0S-xRO" firstAttribute="top" secondItem="HRt-n8-mIh" secondAttribute="bottom" id="NRP-iS-zFw"/>
                             <constraint firstItem="Be5-ac-LwD" firstAttribute="top" secondItem="fBy-0S-xRO" secondAttribute="bottom" id="NXf-yK-Def"/>
+                            <constraint firstItem="I5b-Sn-6KB" firstAttribute="leading" secondItem="Mvg-Su-mHP" secondAttribute="leading" id="QlI-rI-xVQ"/>
+                            <constraint firstAttribute="trailing" secondItem="I5b-Sn-6KB" secondAttribute="trailing" id="SMv-61-me1"/>
                             <constraint firstItem="AYr-EM-mPN" firstAttribute="top" secondItem="Be5-ac-LwD" secondAttribute="bottom" id="U9C-ux-uAP"/>
                             <constraint firstItem="fBy-0S-xRO" firstAttribute="leading" secondItem="Mvg-Su-mHP" secondAttribute="leading" id="lDW-63-6Yn"/>
                             <constraint firstAttribute="trailing" secondItem="fBy-0S-xRO" secondAttribute="trailing" id="un1-eg-Shw"/>
@@ -1157,6 +1169,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doneBarButtonItem" destination="xuz-Ku-aGc" id="OTi-Df-abY"/>
+                        <outlet property="emptyPrintQueueLabel" destination="I5b-Sn-6KB" id="mJJ-ac-7oW"/>
                         <outlet property="printJobsActionView" destination="Be5-ac-LwD" id="4Cg-LK-9S3"/>
                         <outlet property="tableView" destination="fBy-0S-xRO" id="Pjk-Bs-UO6"/>
                     </connections>

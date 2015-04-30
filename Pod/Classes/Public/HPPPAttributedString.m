@@ -65,6 +65,8 @@ NSString *const HPPPPrintQueueScreenJobNameFontAttribute = @"HPPPPrintQueueScree
 NSString *const HPPPPrintQueueScreenJobNameColorAttribute = @"HPPPPrintQueueScreenJobNameColorAttribute";
 NSString *const HPPPPrintQueueScreenJobDateFontAttribute = @"HPPPPrintQueueScreenJobDateFontAttribute";
 NSString *const HPPPPrintQueueScreenJobDateColorAttribute = @"HPPPPrintQueueScreenJobDateColorAttribute";
+NSString *const HPPPPrintQueueScreenEmptyQueueFontAttribute = @"HPPPPrintQueueScreenEmptyQueueFontAttribute";
+NSString *const HPPPPrintQueueScreenEmptyQueueColorAttribute = @"HPPPPrintQueueScreenEmptyQueueColorAttribute";
 NSString *const HPPPPrintQueueScreenPreviewJobNameFontAttribute = @"HPPPPrintQueueScreenPreviewJobNameFontAttribute";
 NSString *const HPPPPrintQueueScreenPreviewJobNameColorAttribute = @"HPPPPrintQueueScreenPreviewJobNameColorAttribute";
 NSString *const HPPPPrintQueueScreenPreviewJobDateFontAttribute = @"HPPPPrintQueueScreenPreviewJobDateFontAttribute";
@@ -89,6 +91,9 @@ NSString *const HPPPPrintQueueScreenPreviewDoneButtonColorAttribute = @"HPPPPrin
 #define DEFAULT_PRINT_Q_JOB_DATE_FONT [UIFont fontWithName:@"Helvetica Neue" size:12]
 #define DEFAULT_PRINT_Q_JOB_DATE_COLOR [UIColor colorWithRed:0x88 / 255.0f green:0x88 / 255.0f blue:0x88 / 255.0f alpha:1.0f]
 
+#define DEFAULT_PRINT_Q_JOB_EMPTY_QUEUE_FONT [UIFont fontWithName:@"Helvetica Neue" size:12]
+#define DEFAULT_PRINT_Q_JOB_EMPTY_QUEUE_COLOR [UIColor colorWithRed:0x88 / 255.0f green:0x88 / 255.0f blue:0x88 / 255.0f alpha:1.0f]
+
 #define DEFAULT_PRINT_Q_PREVIEW_JOB_NAME_FONT [UIFont fontWithName:@"Helvetica Neue" size:14]
 #define DEFAULT_PRINT_Q_PREVIEW_JOB_NAME_COLOR [UIColor whiteColor]
 
@@ -111,6 +116,8 @@ NSString *const HPPPPrintQueueScreenPreviewDoneButtonColorAttribute = @"HPPPPrin
                                             HPPPPrintQueueScreenJobNameColorAttribute:DEFAULT_PRINT_Q_JOB_NAME_COLOR, \
                                             HPPPPrintQueueScreenJobDateFontAttribute:DEFAULT_PRINT_Q_JOB_DATE_FONT, \
                                             HPPPPrintQueueScreenJobDateColorAttribute:DEFAULT_PRINT_Q_JOB_DATE_COLOR, \
+                                            HPPPPrintQueueScreenEmptyQueueFontAttribute:DEFAULT_PRINT_Q_JOB_EMPTY_QUEUE_FONT, \
+                                            HPPPPrintQueueScreenEmptyQueueColorAttribute:DEFAULT_PRINT_Q_JOB_EMPTY_QUEUE_COLOR, \
                                             HPPPPrintQueueScreenPreviewJobNameFontAttribute:DEFAULT_PRINT_Q_PREVIEW_JOB_NAME_FONT, \
                                             HPPPPrintQueueScreenPreviewJobNameColorAttribute:DEFAULT_PRINT_Q_PREVIEW_JOB_NAME_COLOR, \
                                             HPPPPrintQueueScreenPreviewJobDateFontAttribute:DEFAULT_PRINT_Q_PREVIEW_JOB_DATE_FONT, \
