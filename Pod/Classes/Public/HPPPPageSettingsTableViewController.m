@@ -922,7 +922,15 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     }
     
     if (!renderer) {
-        renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[self.image]];
+        UIImage *image = nil;
+        
+        if ([self.image HPPPIsPortraitImage] || (self.currentPrintSettings.paper.paperSize == SizeLetter)) {
+            image = self.image;
+        } else {
+            image = [self.image HPPPRotate];
+        }
+        
+        renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[image]];
     }
     
     renderer.numberOfCopies = self.numberOfCopies;
