@@ -15,7 +15,10 @@
 #import "UIColor+HPPPStyle.h"
 #import "NSBundle+HPPPLocalizable.h"
 
+@implementation HPPPAttributedString
+
 // Print Later Screen
+
 NSString *const HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute = @"HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute";
 NSString *const HPPPAddPrintLaterJobScreenAddToPrintQColorAttribute = @"HPPPAddPrintLaterJobScreenAddToPrintQColorAttribute";;
 NSString *const HPPPAddPrintLaterJobScreenJobNameFontAttribute = @"HPPPAddPrintLaterJobScreenJobNameFontAttribute";
@@ -41,18 +44,18 @@ NSString *const HPPPAddPrintLaterJobScreenDoneButtonAttribute = @"HPPPAddPrintLa
 #define DEFAULT_SUBITEM_VALUE_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
 
 #define DEFAULT_ADD_PRINT_LATER_JOB_SCREEN_ATTRIBUTES @{HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute:DEFAULT_ADD_TO_PRINT_Q_FONT, \
-                                                        HPPPAddPrintLaterJobScreenAddToPrintQColorAttribute:DEFAULT_ADD_TO_PRINT_Q_COLOR, \
-                                                        HPPPAddPrintLaterJobScreenJobNameFontAttribute:DEFAULT_JOB_NAME_FONT, \
-                                                        HPPPAddPrintLaterJobScreenJobNameColorActiveAttribute:DEFAULT_JOB_NAME_ACTIVE_COLOR, \
-                                                        HPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute:DEFAULT_JOB_NAME_INACTIVE_COLOR, \
-                                                        HPPPAddPrintLaterJobScreenSubitemTitleFontAttribute:DEFAULT_SUBITEM_TITLE_FONT, \
-                                                        HPPPAddPrintLaterJobScreenSubitemTitleColorAttribute:DEFAULT_SUBITEM_TITLE_COLOR, \
-                                                        HPPPAddPrintLaterJobScreenSubitemFontAttribute:DEFAULT_SUBITEM_VALUE_FONT, \
-                                                        HPPPAddPrintLaterJobScreenSubitemColorAttribute:DEFAULT_SUBITEM_VALUE_COLOR, \
-                                                        HPPPAddPrintLaterJobScreenDoneButtonAttribute:[self doneButton]}
-
+HPPPAddPrintLaterJobScreenAddToPrintQColorAttribute:DEFAULT_ADD_TO_PRINT_Q_COLOR, \
+HPPPAddPrintLaterJobScreenJobNameFontAttribute:DEFAULT_JOB_NAME_FONT, \
+HPPPAddPrintLaterJobScreenJobNameColorActiveAttribute:DEFAULT_JOB_NAME_ACTIVE_COLOR, \
+HPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute:DEFAULT_JOB_NAME_INACTIVE_COLOR, \
+HPPPAddPrintLaterJobScreenSubitemTitleFontAttribute:DEFAULT_SUBITEM_TITLE_FONT, \
+HPPPAddPrintLaterJobScreenSubitemTitleColorAttribute:DEFAULT_SUBITEM_TITLE_COLOR, \
+HPPPAddPrintLaterJobScreenSubitemFontAttribute:DEFAULT_SUBITEM_VALUE_FONT, \
+HPPPAddPrintLaterJobScreenSubitemColorAttribute:DEFAULT_SUBITEM_VALUE_COLOR, \
+HPPPAddPrintLaterJobScreenDoneButtonAttribute:[self doneButton]}
 
 // Print Queue Screen
+
 NSString *const HPPPPrintQueueScreenPrintsCounterLabelFontAttribute = @"HPPPPrintQueueScreenPrintsCounterLabelFontAttribute";
 NSString *const HPPPPrintQueueScreenPrintsCounterLabelColorAttribute = @"HPPPPrintQueueScreenPrintsCounterLabelColorAttribute";
 NSString *const HPPPPrintQueueScreenNoWifiLabelFontAttribute = @"HPPPPrintQueueScreenNoWifiLabelFontAttribute";
@@ -105,28 +108,25 @@ NSString *const HPPPPrintQueueScreenPreviewDoneButtonColorAttribute = @"HPPPPrin
 
 
 #define DEFAULT_PRINT_Q_SCREEN_ATTRIBUTES @{HPPPPrintQueueScreenPrintsCounterLabelFontAttribute:DEFAULT_PRINT_Q_PRINTS_COUNTER_FONT, \
-                                            HPPPPrintQueueScreenPrintsCounterLabelColorAttribute:DEFAULT_PRINT_Q_PRINTS_COUNTER_COLOR, \
-                                            HPPPPrintQueueScreenNoWifiLabelFontAttribute:DEFAULT_PRINT_Q_NO_WIFI_FONT, \
-                                            HPPPPrintQueueScreenNoWifiLabelColorAttribute:DEFAULT_PRINT_Q_NO_WIFI_COLOR, \
-                                            HPPPPrintQueueScreenActionButtonsFontAttribute:DEFAULT_PRINT_Q_ACTION_BUTTONS_FONT, \
-                                            HPPPPrintQueueScreenActionButtonsEnableColorAttribute:DEFAULT_PRINT_Q_ACTION_BUTTONS_ENABLE_COLOR, \
-                                            HPPPPrintQueueScreenActionButtonsDisableColorAttribute:DEFAULT_PRINT_Q_ACTION_BUTTONS_DISABLE_COLOR, \
-                                            HPPPPrintQueueScreenActionButtonsSeparatorColorAttribute:DEFAULT_PRINT_Q_ACTION_BUTTONS_SEPARATOR_COLOR, \
-                                            HPPPPrintQueueScreenJobNameFontAttribute:DEFAULT_PRINT_Q_JOB_NAME_FONT, \
-                                            HPPPPrintQueueScreenJobNameColorAttribute:DEFAULT_PRINT_Q_JOB_NAME_COLOR, \
-                                            HPPPPrintQueueScreenJobDateFontAttribute:DEFAULT_PRINT_Q_JOB_DATE_FONT, \
-                                            HPPPPrintQueueScreenJobDateColorAttribute:DEFAULT_PRINT_Q_JOB_DATE_COLOR, \
-                                            HPPPPrintQueueScreenEmptyQueueFontAttribute:DEFAULT_PRINT_Q_JOB_EMPTY_QUEUE_FONT, \
-                                            HPPPPrintQueueScreenEmptyQueueColorAttribute:DEFAULT_PRINT_Q_JOB_EMPTY_QUEUE_COLOR, \
-                                            HPPPPrintQueueScreenPreviewJobNameFontAttribute:DEFAULT_PRINT_Q_PREVIEW_JOB_NAME_FONT, \
-                                            HPPPPrintQueueScreenPreviewJobNameColorAttribute:DEFAULT_PRINT_Q_PREVIEW_JOB_NAME_COLOR, \
-                                            HPPPPrintQueueScreenPreviewJobDateFontAttribute:DEFAULT_PRINT_Q_PREVIEW_JOB_DATE_FONT, \
-                                            HPPPPrintQueueScreenPreviewJobDateColorAttribute:DEFAULT_PRINT_Q_PREVIEW_JOB_DATE_COLOR, \
-                                            HPPPPrintQueueScreenPreviewDoneButtonFontAttribute:DEFAULT_PRINT_Q_PREVIEW_DONE_BUTTON_FONT, \
-                                            HPPPPrintQueueScreenPreviewDoneButtonColorAttribute:DEFAULT_PRINT_Q_PREVIEW_DONE_BUTTON_COLOR}
-
-
-@implementation HPPPAttributedString
+HPPPPrintQueueScreenPrintsCounterLabelColorAttribute:DEFAULT_PRINT_Q_PRINTS_COUNTER_COLOR, \
+HPPPPrintQueueScreenNoWifiLabelFontAttribute:DEFAULT_PRINT_Q_NO_WIFI_FONT, \
+HPPPPrintQueueScreenNoWifiLabelColorAttribute:DEFAULT_PRINT_Q_NO_WIFI_COLOR, \
+HPPPPrintQueueScreenActionButtonsFontAttribute:DEFAULT_PRINT_Q_ACTION_BUTTONS_FONT, \
+HPPPPrintQueueScreenActionButtonsEnableColorAttribute:DEFAULT_PRINT_Q_ACTION_BUTTONS_ENABLE_COLOR, \
+HPPPPrintQueueScreenActionButtonsDisableColorAttribute:DEFAULT_PRINT_Q_ACTION_BUTTONS_DISABLE_COLOR, \
+HPPPPrintQueueScreenActionButtonsSeparatorColorAttribute:DEFAULT_PRINT_Q_ACTION_BUTTONS_SEPARATOR_COLOR, \
+HPPPPrintQueueScreenJobNameFontAttribute:DEFAULT_PRINT_Q_JOB_NAME_FONT, \
+HPPPPrintQueueScreenJobNameColorAttribute:DEFAULT_PRINT_Q_JOB_NAME_COLOR, \
+HPPPPrintQueueScreenJobDateFontAttribute:DEFAULT_PRINT_Q_JOB_DATE_FONT, \
+HPPPPrintQueueScreenJobDateColorAttribute:DEFAULT_PRINT_Q_JOB_DATE_COLOR, \
+HPPPPrintQueueScreenEmptyQueueFontAttribute:DEFAULT_PRINT_Q_JOB_EMPTY_QUEUE_FONT, \
+HPPPPrintQueueScreenEmptyQueueColorAttribute:DEFAULT_PRINT_Q_JOB_EMPTY_QUEUE_COLOR, \
+HPPPPrintQueueScreenPreviewJobNameFontAttribute:DEFAULT_PRINT_Q_PREVIEW_JOB_NAME_FONT, \
+HPPPPrintQueueScreenPreviewJobNameColorAttribute:DEFAULT_PRINT_Q_PREVIEW_JOB_NAME_COLOR, \
+HPPPPrintQueueScreenPreviewJobDateFontAttribute:DEFAULT_PRINT_Q_PREVIEW_JOB_DATE_FONT, \
+HPPPPrintQueueScreenPreviewJobDateColorAttribute:DEFAULT_PRINT_Q_PREVIEW_JOB_DATE_COLOR, \
+HPPPPrintQueueScreenPreviewDoneButtonFontAttribute:DEFAULT_PRINT_Q_PREVIEW_DONE_BUTTON_FONT, \
+HPPPPrintQueueScreenPreviewDoneButtonColorAttribute:DEFAULT_PRINT_Q_PREVIEW_DONE_BUTTON_COLOR}
 
 - (NSDictionary *)addPrintLaterJobScreenAttributes
 {

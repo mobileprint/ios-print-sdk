@@ -21,7 +21,7 @@
 
 /*!
  * @abstract The icon displayed in the action row
- * @description This icon is displayed in the left side of the table view row for this support action
+ * @discussion This icon is displayed in the left side of the table view row for this support action
  * @seealso title
  * @seealso url
  * @seealso viewController
@@ -30,7 +30,7 @@
 
 /*!
  * @abstract The title displayed in the action row
- * @description This title is displayed in the table view row for this support action
+ * @discussion This title is displayed in the table view row for this support action
  * @seealso icon
  * @seealso url
  * @seealso viewController
@@ -39,7 +39,7 @@
 
 /*!
  * @abstract The URL to open for this action
- * @description If this value is provided then tapping the action will open this URL in Safari. You may provide a URL or a view controller, but not both.
+ * @discussion If this value is provided then tapping the action will open this URL in Safari. You may provide a URL or a view controller, but not both.
  * @seealso icon
  * @seealso title
  * @seealso viewController
@@ -48,7 +48,7 @@
 
 /*!
  * @abstract The view controller to open for this action
- * @description If this value is provided then tapping the action will open this view controller modally. In order to show navigation correctly you must embed your view controller in a navigation controller. You may provide a URL or a view controller, but not both.
+ * @discussion If this value is provided then tapping the action will open this view controller modally. In order to show navigation correctly you must embed your view controller in a navigation controller. You may provide a URL or a view controller, but not both.
  * @seealso icon
  * @seealso title
  * @seealso url

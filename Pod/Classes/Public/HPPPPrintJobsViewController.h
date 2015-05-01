@@ -12,6 +12,9 @@
 
 #import <UIKit/UIKit.h>
 
+/*!
+ * @abstract Controller that manages the list of print jobs
+ */
 @interface HPPPPrintJobsViewController : UIViewController
 
 + (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion;

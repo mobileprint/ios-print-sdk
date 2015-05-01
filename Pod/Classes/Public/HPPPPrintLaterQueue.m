@@ -15,15 +15,6 @@
 #import "HPPPPrintLaterActivity.h"
 #import "HPPPAnalyticsManager.h"
 
-NSString * const kHPPPPrintJobAddedToQueueNotification = @"kHPPPPrintJobAddedToQueueNotification";
-NSString * const kHPPPPrintJobRemovedFromQueueNotification = @"kHPPPPrintJobRemovedFromQueueNotification";
-NSString * const kHPPPAllPrintJobsRemovedFromQueueNotification = @"kHPPPAllPrintJobsRemovedFromQueueNotification";
-
-
-#define PRINT_LATER_JOBS_DIRECTORY_NAME @"PrintLaterJobs"
-
-NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAvailableId";
-
 @interface HPPPPrintLaterQueue()
 
 @property (nonatomic, strong) NSString *printLaterJobsDirectoryPath;
@@ -31,6 +22,14 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
 @end
 
 @implementation HPPPPrintLaterQueue
+
+NSString * const kHPPPPrintJobAddedToQueueNotification = @"kHPPPPrintJobAddedToQueueNotification";
+NSString * const kHPPPPrintJobRemovedFromQueueNotification = @"kHPPPPrintJobRemovedFromQueueNotification";
+NSString * const kHPPPAllPrintJobsRemovedFromQueueNotification = @"kHPPPAllPrintJobsRemovedFromQueueNotification";
+
+#define PRINT_LATER_JOBS_DIRECTORY_NAME @"PrintLaterJobs"
+
+NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAvailableId";
 
 + (HPPPPrintLaterQueue *)sharedInstance
 {

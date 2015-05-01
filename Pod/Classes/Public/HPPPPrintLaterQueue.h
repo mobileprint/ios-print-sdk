@@ -14,12 +14,14 @@
 #import <UIKit/UIKit.h>
 #import "HPPPPrintLaterJob.h"
 
+/*!
+ * @abstract Represents the list of queued print jobs
+ */
+@interface HPPPPrintLaterQueue : NSObject
+
 extern NSString * const kHPPPPrintJobAddedToQueueNotification;
 extern NSString * const kHPPPPrintJobRemovedFromQueueNotification;
 extern NSString * const kHPPPAllPrintJobsRemovedFromQueueNotification;
-
-
-@interface HPPPPrintLaterQueue : NSObject
 
 + (HPPPPrintLaterQueue *)sharedInstance;
 - (NSString *)retrievePrintLaterJobNextAvailableId;

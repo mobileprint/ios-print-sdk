@@ -15,6 +15,9 @@
 
 @protocol HPPPPrintJobsActionViewDelegate;
 
+/*!
+ * @abstract View containing buttons for acting on one or more print jobs
+ */
 @interface HPPPPrintJobsActionView : HPPPView
 
 @property (weak, nonatomic) id<HPPPPrintJobsActionViewDelegate> delegate;
@@ -30,7 +33,9 @@
 
 @end
 
-
+/*!
+ * @abstract Protocol for handling print job actions
+ */
 @protocol HPPPPrintJobsActionViewDelegate <NSObject>
 
 - (void)printJobsActionViewDidTapSelectAllButton:(HPPPPrintJobsActionView *)printJobsActionView;

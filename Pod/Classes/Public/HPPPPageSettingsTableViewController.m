@@ -16,7 +16,6 @@
 #import "HPPPPaper.h"
 #import "HPPPPrintPageRenderer.h"
 #import "HPPPPrintSettings.h"
-#import "HPPPDefaultSettingsManager.h"
 #import "HPPPPageView.h"
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPPPaperTypeTableViewController.h"
@@ -24,6 +23,7 @@
 #import "HPPPWiFiReachability.h"
 #import "HPPPPrinter.h"
 #import "HPPPPrintLaterManager.h"
+#import "HPPPDefaultSettingsManager.h"
 #import "UITableView+HPPPHeader.h"
 #import "UIColor+HPPPHexString.h"
 #import "UIView+HPPPAnimation.h"
@@ -60,7 +60,6 @@
 @interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) HPPPPageView *pageView;
-@property (strong, nonatomic) HPPPDefaultSettingsManager *defaultSettingsManager;
 @property (strong, nonatomic) HPPPPrintSettings *currentPrintSettings;
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
 @property (weak, nonatomic) IBOutlet HPPPPageView *tableViewCellPageView;
@@ -123,7 +122,6 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.title = HPPPLocalizedString(@"Page Settings", @"Title of the Page Settings Screen");
     
     self.hppp = [HPPP sharedInstance];
-    self.defaultSettingsManager = [HPPPDefaultSettingsManager sharedInstance];
     
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
@@ -973,7 +971,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 - (void)displaySaveAsDefaultPrinter
 {
-    NSString *defaultPrinterUrl = [self.defaultSettingsManager defaultPrinterUrl];
+    NSString *defaultPrinterUrl = [[HPPPDefaultSettingsManager sharedInstance] defaultPrinterUrl];
     if (defaultPrinterUrl != nil) {
         return;
     }
@@ -1043,10 +1041,10 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 {
     if( kSaveDefaultPrinterIndex == buttonIndex ) {
         
-        self.defaultSettingsManager.defaultPrinterName = self.currentPrintSettings.printerName;
-        self.defaultSettingsManager.defaultPrinterUrl = self.currentPrintSettings.printerUrl.absoluteString;
-        self.defaultSettingsManager.defaultPrinterNetwork = [HPPPAnalyticsManager wifiName];
-        self.defaultSettingsManager.defaultPrinterCoordinate = [[HPPPPrintLaterManager sharedInstance] retrieveCurrentLocation];
+        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterName = self.currentPrintSettings.printerName;
+        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl = self.currentPrintSettings.printerUrl.absoluteString;
+        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterNetwork = [HPPPAnalyticsManager wifiName];
+        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate = [[HPPPPrintLaterManager sharedInstance] retrieveCurrentLocation];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPDefaultPrinterAddedNotification object:self userInfo:nil];
     }

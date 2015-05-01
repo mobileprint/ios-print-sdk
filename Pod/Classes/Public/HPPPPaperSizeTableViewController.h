@@ -16,6 +16,9 @@
 
 @protocol HPPPPaperSizeTableViewControllerDelegate;
 
+/*!
+ * @abstract Controls paper size table view selection
+ */
 @interface HPPPPaperSizeTableViewController : UITableViewController
 
 @property (nonatomic, weak) id<HPPPPaperSizeTableViewControllerDelegate> delegate;
@@ -23,7 +26,9 @@
 
 @end
 
-
+/*!
+ * @abstract Protocol used to indicate paper was selected
+ */
 @protocol HPPPPaperSizeTableViewControllerDelegate <NSObject>
 
 - (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper;

@@ -15,14 +15,14 @@
 
 /*!
  * @abstract Represents the paper used to print
- * @description This class represents the paper used by the printer. It includes both the size of the media (e.g. 4 x 6 inch paper) as well as the type (e.g. photo paper).
+ * @discussion This class represents the paper used by the printer. It includes both the size of the media (e.g. 4 x 6 inch paper) as well as the type (e.g. photo paper).
  */
 @interface HPPPPaper : NSObject
 
 /*!
  * @abstract List of supported paper sizes
  * @const Size4x5 4" by 5" photo sticker media
- * @const Size4x5 4" by 6" photo paper
+ * @const Size4x6 4" by 6" photo paper
  * @const Size5x7 5" by 7" photo paper
  * @const SizeLetter Stander 8.5" x 11" letter paper
  */
@@ -116,7 +116,7 @@ typedef enum {
 
 /*!
  * @abstract Retrieves the title for a given paper size
- * @description This method asserts that the size given is a valid paper size. An exception is raised if an invalid size is passed.
+ * @discussion This method asserts that the size given is a valid paper size. An exception is raised if an invalid size is passed.
  * @returns Display title for the paper size
  * @seealso PaperSize
  * @seealso sizeFromTitle:

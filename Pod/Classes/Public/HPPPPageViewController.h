@@ -14,12 +14,12 @@
 #import <UIKit/UIKit.h>
 #import "HPPPPageView.h"
 
-@protocol HPPPPageViewControllerDelegate;
-
+/*!
+ * @abstract Controls the graphical preview portion of the print preview
+ */
 @interface HPPPPageViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet HPPPPageView *pageView;
 @property (strong, nonatomic) UIImage *image;
-@property (nonatomic, weak) id<HPPPPageViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet HPPPPageView *pageView;
 
 @end

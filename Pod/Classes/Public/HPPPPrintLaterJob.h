@@ -12,7 +12,9 @@
 
 #import <Foundation/Foundation.h>
 
-
+/*!
+ * @abstract Represents a single print job
+ */
 @interface HPPPPrintLaterJob : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSDictionary *images; // Dictionary with UIImages (key = the paper size title, object = UIImage)

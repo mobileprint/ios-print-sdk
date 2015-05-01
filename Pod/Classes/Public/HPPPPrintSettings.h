@@ -13,6 +13,9 @@
 #import <Foundation/Foundation.h>
 #import "HPPPPaper.h"
 
+/*!
+ * @abstract Represents a the settings used to print
+ */
 @interface HPPPPrintSettings : NSObject
 
 @property (strong, nonatomic) NSURL *printerUrl;

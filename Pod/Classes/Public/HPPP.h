@@ -185,7 +185,8 @@ extern NSString * const kHPPPNumberOfCopies;
 /*!
  * @abstract Indicates whether the paper size option should be hidden
  * @discussion If this value is true, the paper size option is hidden on the print preview page and the default paper size is used. The default values is false (not hidden).
- * @seealso defaultPaperSize
+ * @seealso defaultPaperWidth
+ * @seealso defaultPaperHeight
  */
 @property (assign, nonatomic) BOOL hidePaperSizeOption;
 
@@ -246,79 +247,79 @@ extern NSString * const kHPPPNumberOfCopies;
 
 /*!
  * @abstract Font used for the print label
- * @description Used for the print label on the print preview page.
+ * @discussion Used for the print label on the print preview page.
  */
 @property (strong, nonatomic) UIFont *tableViewCellPrintLabelFont;
 
 /*!
  * @abstract Color used for the print label
- * @description Used for the print label on the print preview page.
+ * @discussion Used for the print label on the print preview page.
  */
 @property (strong, nonatomic) UIColor *tableViewCellPrintLabelColor;
 
 /*!
  * @abstract Font used for the support header label
- * @description Used for the support header label warning on the print preview page.
+ * @discussion Used for the support header label warning on the print preview page.
  */
 @property (strong, nonatomic) UIFont *tableViewSupportHeaderLabelFont;
 
 /*!
  * @abstract Color used for the support header label
- * @description Used for the support header label warning on the print preview page.
+ * @discussion Used for the support header label warning on the print preview page.
  */
 @property (strong, nonatomic) UIColor *tableViewSupportHeaderLabelColor;
 
 /*!
  * @abstract Font used for the footer label warning
- * @description Used for the footer label warning on the print preview page.
+ * @discussion Used for the footer label warning on the print preview page.
  */
 @property (strong, nonatomic) UIFont *tableViewFooterWarningLabelFont;
 
 /*!
  * @abstract Color used for the footer label warning
- * @description Used for the footer label warning on the print preview page.
+ * @discussion Used for the footer label warning on the print preview page.
  */
 @property (strong, nonatomic) UIColor *tableViewFooterWarningLabelColor;
 
 /*!
  * @abstract Font used for the label of properties
- * @description Used for the name of properties on the print preview page (e.g. Paper Size, Paper Type).
+ * @discussion Used for the name of properties on the print preview page (e.g. Paper Size, Paper Type).
  */
 @property (strong, nonatomic) UIFont *tableViewCellLabelFont;
 
 /*!
  * @abstract Color used for the label of properties
- * @description Used for the name of properties on the print preview page (e.g. Paper Size, Paper Type).
+ * @discussion Used for the name of properties on the print preview page (e.g. Paper Size, Paper Type).
  */
 @property (strong, nonatomic) UIColor *tableViewCellLabelColor;
 
 /*!
  * @abstract Font used for the value of properties
- * @description Used for the value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
+ * @discussion Used for the value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
  */
 @property (strong, nonatomic) UIFont *tableViewCellValueFont;
 
 /*!
  * @abstract Color used for the value of properties
- * @description Used for the currently selected value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
+ * @discussion Used for the currently selected value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
  */
 @property (strong, nonatomic) UIColor *tableViewCellValueColor;
 
 /*!
  * @abstract Font used for the settings value of properties
- * @description Used for the value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
+ * @discussion Used for the value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
  */
 @property (strong, nonatomic) UIFont *tableViewSettingsCellValueFont;
 
 /*!
  * @abstract Color used for the settings value of properties
- * @description Used for the currently selected value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
+ * @discussion Used for the currently selected value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
  */
 @property (strong, nonatomic) UIColor *tableViewSettingsCellValueColor;
 
 /*!
  * @abstract Color used for action link text
- * @description Used for one or more action links shown at the bottom of the print preview page
+ * @discussion Used for one or more action links shown at the bottom of the print preview page
  */
 @property (strong, nonatomic) UIColor *tableViewCellLinkLabelColor;
 
@@ -352,7 +353,7 @@ extern NSString * const kHPPPNumberOfCopies;
  * @property supportActions
  * @abstract An array of support actions to display on the print preview page
  * @discussion This is an array of @link HPPPSupportAction @/link objects, each describing a single support action. Support actions include an icon and a title and are displayed in a support section at the bottom of the print preview page. An action can either open a URL or present a view controller.
- * @seealso kHPPPSupportAction
+ * @seealso HPPPSupportAction
  */
 @property (strong, nonatomic) NSArray *supportActions;
 
@@ -366,7 +367,7 @@ extern NSString * const kHPPPNumberOfCopies;
 
 /*!
  * @property attributedString
- * @description Allows customization of the view fonts and colors of the print later screens.
+ * @discussion Allows customization of the view fonts and colors of the print later screens.
  */
 @property (strong, nonatomic) HPPPAttributedString *attributedString;
 
