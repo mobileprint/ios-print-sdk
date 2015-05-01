@@ -12,6 +12,11 @@
 
 #import <Foundation/Foundation.h>
 
+/*!
+ * @abstract Class used to specify custom styles
+ */
+@interface HPPPAttributedString : NSObject
+
 extern NSString *const HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenAddToPrintQColorAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenJobNameFontAttribute;
@@ -22,7 +27,6 @@ extern NSString *const HPPPAddPrintLaterJobScreenSubitemTitleColorAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenSubitemFontAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenSubitemColorAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenDoneButtonAttribute;
-
 extern NSString *const HPPPPrintQueueScreenPrintsCounterLabelFontAttribute;
 extern NSString *const HPPPPrintQueueScreenPrintsCounterLabelColorAttribute;
 extern NSString *const HPPPPrintQueueScreenNoWifiLabelFontAttribute;
@@ -44,13 +48,17 @@ extern NSString *const HPPPPrintQueueScreenPreviewJobDateColorAttribute;
 extern NSString *const HPPPPrintQueueScreenPreviewDoneButtonFontAttribute;
 extern NSString *const HPPPPrintQueueScreenPreviewDoneButtonColorAttribute;
 
-@interface HPPPAttributedString : NSObject
-
 /*!
  * @abstract Fonts and colors use in the Add Print Later Job Screen
- * @description Used to set the fonts and colors of the Add Print Later Job Screen
+ * @discussion Used to set the fonts and colors of the Add Print Later Job Screen
  */
 @property (strong, nonatomic) NSDictionary *addPrintLaterJobScreenAttributes;
+
+
+/*!
+ * @abstract Fonts and colors use in the Print Queue List Screen
+ * @discussion Used to set the fonts and colors of the Print Queue List Screen
+ */
 @property (strong, nonatomic) NSDictionary *printQueueScreenAttributes;
 
 @end

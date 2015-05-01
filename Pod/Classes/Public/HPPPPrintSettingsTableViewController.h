@@ -15,6 +15,9 @@
 
 @protocol HPPPPrintSettingsTableViewControllerDelegate;
 
+/*!
+ * @abstract Controls the view that allows user to configure print settings
+ */
 @interface HPPPPrintSettingsTableViewController : UITableViewController
 
 @property (nonatomic, weak) id<HPPPPrintSettingsTableViewControllerDelegate> delegate;
@@ -23,7 +26,9 @@
 
 @end
 
-
+/*!
+ * @abstract Protocol that is used to notify when print settings are changed
+ */
 @protocol HPPPPrintSettingsTableViewControllerDelegate <NSObject>
 
 - (void)printSettingsTableViewController:(HPPPPrintSettingsTableViewController *)paperTypeTableViewController didChangePrintSettings:(HPPPPrintSettings *)printSettings;

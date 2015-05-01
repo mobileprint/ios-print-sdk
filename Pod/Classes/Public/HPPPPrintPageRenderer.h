@@ -12,6 +12,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+/*!
+ * @abstract Renders the print image(s) onto the page
+ */
 @interface HPPPPrintPageRenderer : UIPrintPageRenderer
 
 @property (nonatomic, strong) NSArray *images;

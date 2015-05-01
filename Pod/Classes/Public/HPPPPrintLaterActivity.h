@@ -14,12 +14,15 @@
 #import <UIKit/UIKit.h>
 #import "HPPPPrintLaterJob.h"
 
+/*!
+ * @abstract The activity class that implements the print later sharing activity
+ * @discussion This class subclasses UIActivity to provide a custom sharing activity. The activity allows the user to add a job to their print queue for printing later.
+ */
 @interface HPPPPrintLaterActivity : UIActivity
 
 /*!
  * @abstract Provides the print later job
- * @description The client app must create the print later job and set it to the activity. The class HPPPPrintLaterQueue provides a method called retrievePrintLaterJobNextAvailableId to get an id, otherwise the client app can use their own ids.
- * @seealso HPPPPrintLaterJob, HPPPPrintLaterQueue
+ * @discussion The client app must create the print later job and set it to the activity. The class HPPPPrintLaterQueue provides a method called retrievePrintLaterJobNextAvailableId to get an id, otherwise the client app can use their own ids.
  */
 @property (nonatomic, strong) HPPPPrintLaterJob *printLaterJob;
 

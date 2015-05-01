@@ -24,11 +24,9 @@ const CLLocationDistance kDefaultPrinterRadiusInMeters = 20.0f;
 NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER";
 NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermissionSetKey";
 
-
 @interface HPPPPrintLaterManager() <CLLocationManagerDelegate>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) HPPPDefaultSettingsManager *defaultSettingsManager;
 
 @end
 
@@ -49,8 +47,6 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 {
     self = [super init];
     if (self) {
-        self.defaultSettingsManager = [HPPPDefaultSettingsManager sharedInstance];
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintJobAddedToQueueNotification:) name:kHPPPPrintJobAddedToQueueNotification object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAllPrintJobsRemovedFromQueueNotification:) name:kHPPPAllPrintJobsRemovedFromQueueNotification object:nil];
@@ -87,7 +83,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
         }
         
         if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
-            if ([self.defaultSettingsManager isDefaultPrinterSet]) {
+            if ([[HPPPDefaultSettingsManager sharedInstance] isDefaultPrinterSet]) {
                 HPPPLogInfo(@"Print jobs in the queue and default printer set");
                 [self.locationManager startUpdatingLocation];
             }
@@ -106,7 +102,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 {
     if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] == 1) {
         // It is the first one, so add the monitoring
-        if ([self.defaultSettingsManager isDefaultPrinterSet]) {
+        if ([[HPPPDefaultSettingsManager sharedInstance] isDefaultPrinterSet]) {
             HPPPLogInfo(@"First print job added and default printer set");
             [self.locationManager startUpdatingLocation];
             [self addMonitoringForDefaultPrinter];
@@ -116,7 +112,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 
 - (void)handleAllPrintJobsRemovedFromQueueNotification:(NSNotification *)notification
 {
-    if ([self.defaultSettingsManager isDefaultPrinterSet]) {
+    if ([[HPPPDefaultSettingsManager sharedInstance] isDefaultPrinterSet]) {
         HPPPLogInfo(@"All print jobs removed and default printer set");
         [self removeMonitoringForDefaultPrinter];
         [self.locationManager stopUpdatingLocation];
@@ -146,7 +142,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 - (void)addMonitoringForDefaultPrinter
 {
     HPPPLogInfo(@"Adding monitoring for default printer");
-    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:self.defaultSettingsManager.defaultPrinterCoordinate radius:kDefaultPrinterRadiusInMeters identifier:kDefaultPrinterRegionIdentifier];
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:[HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate radius:kDefaultPrinterRadiusInMeters identifier:kDefaultPrinterRegionIdentifier];
     
     [self.locationManager startMonitoringForRegion:region];
 }

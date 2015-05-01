@@ -14,6 +14,9 @@
 #import <UIKit/UIKit.h>
 #import "HPPPReachability.h"
 
+/*!
+ * @abstract Class that provides Wi-Fi utility methods
+ */
 @interface HPPPWiFiReachability : NSObject
 
 extern NSString * const kHPPPWiFiConnectionEstablished;

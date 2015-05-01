@@ -12,6 +12,9 @@
 
 #import <UIKit/UIKit.h>
 
+/*!
+ * @abstract Controller that manages the preview view of a given print job
+ */
 @interface HPPPPrintJobsPreviewViewController : UIViewController
 
 @property (strong, nonatomic) UIImage *image;

@@ -16,6 +16,9 @@
 
 @protocol HPPPPaperTypeTableViewControllerDelegate;
 
+/*!
+ * @abstract Controls paper type table view selection
+ */
 @interface HPPPPaperTypeTableViewController : UITableViewController
 
 @property (nonatomic, weak) id<HPPPPaperTypeTableViewControllerDelegate> delegate;
@@ -23,7 +26,9 @@
 
 @end
 
-
+/*!
+ * @abstract Protocol used to indicate paper type was selected
+ */
 @protocol HPPPPaperTypeTableViewControllerDelegate <NSObject>
 
 - (void)paperTypeTableViewController:(HPPPPaperTypeTableViewController *)paperTypeTableViewController didSelectPaper:(HPPPPaper *)paper;

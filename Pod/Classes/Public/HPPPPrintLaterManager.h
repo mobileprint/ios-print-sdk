@@ -14,11 +14,15 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+/*!
+ * @abstract Class that manages the print later feature
+ * @discussion This class handles aspect of the print later feature including permissions and notifications.
+ */
 @interface HPPPPrintLaterManager : NSObject
 
 /*!
  * @property printLaterUserNotificationCategory
- * @description UIUserNotificationCategory to register in the clients for push notifications of the print later. The clients must do the registration because it may happen that the client have other notification categories to register, and all the registration must be do at the same time, otherwise the new category will override the previous one.
+ * @discussion UIUserNotificationCategory to register in the clients for push notifications of the print later. The clients must do the registration because it may happen that the client have other notification categories to register, and all the registration must be do at the same time, otherwise the new category will override the previous one.
  */
 @property (strong, nonatomic) UIUserNotificationCategory *printLaterUserNotificationCategory;
 

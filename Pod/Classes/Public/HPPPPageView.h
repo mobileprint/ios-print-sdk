@@ -15,6 +15,9 @@
 #import "HPPPView.h"
 #import "HPPPPaper.h"
 
+/*!
+ * @abstract View that represents the graphical preview portion of the print preview
+ */
 @interface HPPPPageView : HPPPView
 
 @property (strong, nonatomic) UIImage *image;

@@ -16,6 +16,9 @@
 #define HPPPLogDebug(frmt, ...)     [[HPPPLogger sharedInstance] logDebug:[NSString stringWithFormat:frmt, ##__VA_ARGS__]]
 #define HPPPLogVerbose(frmt, ...)   [[HPPPLogger sharedInstance] logVerbose:[NSString stringWithFormat:frmt, ##__VA_ARGS__]]
 
+/*!
+ * @abstract Protocol used for delegating logging to the client app
+ */
 @protocol HPPPLoggerDelegate <NSObject>
 
 - (void) logError:(NSString*)msg;
@@ -26,6 +29,9 @@
 
 @end
 
+/*!
+ * @abstract Class that manages logging
+ */
 @interface HPPPLogger : NSObject <HPPPLoggerDelegate>
 
 + (HPPPLogger *)sharedInstance;

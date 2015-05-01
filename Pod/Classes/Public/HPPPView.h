@@ -13,6 +13,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+/*!
+ * @abstract Basic view class used for xib-based views
+ */
 @interface HPPPView : UIView
 
 - (void)initWithXibName:(NSString *)xibName;
