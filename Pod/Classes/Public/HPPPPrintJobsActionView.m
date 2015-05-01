@@ -48,6 +48,12 @@
 
     UIColor *separatorColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenActionButtonsSeparatorColorAttribute];
 
+    UIFont *font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenActionButtonsFontAttribute];
+    
+    self.selectAllButton.titleLabel.font = font;
+    self.deleteButton.titleLabel.font = font;
+    self.nextButton.titleLabel.font = font;
+    
     [self.selectAllButton setTitleColor:enableColor forState:UIControlStateNormal];
     [self.selectAllButton setTitle:HPPPLocalizedString(@"Select All", nil) forState:UIControlStateNormal];
 

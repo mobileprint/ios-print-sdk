@@ -1208,16 +1208,8 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tch-xU-OrL">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="pjk-eF-3EK" appends="YES" id="zZO-YV-199"/>
-                                </connections>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fIA-lB-GJ6">
-                                <rect key="frame" x="540" y="20" width="60" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fIA-lB-GJ6">
+                                <rect key="frame" x="532" y="20" width="60" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="bRA-3K-pXP"/>
                                     <constraint firstAttribute="width" constant="60" id="eoj-Pg-Kaa"/>
@@ -1231,8 +1223,16 @@
                                 </connections>
                             </button>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eEf-wn-6E6">
-                                <rect key="frame" x="10" y="77" width="580" height="402"/>
+                                <rect key="frame" x="10" y="89" width="580" height="376"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tch-xU-OrL">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="pjk-eF-3EK" appends="YES" id="zZO-YV-199"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -1241,18 +1241,18 @@
                             <constraint firstItem="4bx-r4-9IH" firstAttribute="top" secondItem="tch-xU-OrL" secondAttribute="bottom" id="5DI-cR-xzl"/>
                             <constraint firstItem="YHP-ns-t1c" firstAttribute="top" secondItem="mqG-z8-T7D" secondAttribute="bottom" constant="8" id="7Zw-RY-sfS"/>
                             <constraint firstAttribute="trailing" secondItem="tch-xU-OrL" secondAttribute="trailing" id="Fdt-Ku-RNH"/>
-                            <constraint firstItem="mqG-z8-T7D" firstAttribute="top" secondItem="eEf-wn-6E6" secondAttribute="bottom" constant="21" id="I0p-WT-hnD"/>
+                            <constraint firstItem="mqG-z8-T7D" firstAttribute="top" secondItem="eEf-wn-6E6" secondAttribute="bottom" constant="35" id="I0p-WT-hnD"/>
                             <constraint firstItem="tch-xU-OrL" firstAttribute="leading" secondItem="ouv-UG-1DO" secondAttribute="leading" id="IQD-a2-Zb0"/>
                             <constraint firstAttribute="trailing" secondItem="mqG-z8-T7D" secondAttribute="trailing" id="Nxs-OO-r6U"/>
                             <constraint firstItem="fIA-lB-GJ6" firstAttribute="top" secondItem="gpu-PD-UGM" secondAttribute="bottom" id="Smb-es-c6P"/>
                             <constraint firstItem="tch-xU-OrL" firstAttribute="top" secondItem="ouv-UG-1DO" secondAttribute="top" id="Wvh-CV-dII"/>
                             <constraint firstItem="4bx-r4-9IH" firstAttribute="top" secondItem="YHP-ns-t1c" secondAttribute="bottom" constant="50" id="aIG-gn-7Ku"/>
-                            <constraint firstItem="eEf-wn-6E6" firstAttribute="top" secondItem="fIA-lB-GJ6" secondAttribute="bottom" constant="13" id="dpS-xf-MsY"/>
+                            <constraint firstItem="eEf-wn-6E6" firstAttribute="top" secondItem="fIA-lB-GJ6" secondAttribute="bottom" constant="25" id="dpS-xf-MsY"/>
                             <constraint firstAttribute="trailing" secondItem="YHP-ns-t1c" secondAttribute="trailing" id="dwO-aW-FMT"/>
                             <constraint firstItem="eEf-wn-6E6" firstAttribute="leading" secondItem="ouv-UG-1DO" secondAttribute="leading" constant="10" id="hiq-M8-cxS"/>
                             <constraint firstItem="YHP-ns-t1c" firstAttribute="leading" secondItem="ouv-UG-1DO" secondAttribute="leading" id="ijD-Og-ffg"/>
                             <constraint firstItem="mqG-z8-T7D" firstAttribute="leading" secondItem="ouv-UG-1DO" secondAttribute="leading" id="pps-Jo-r8g"/>
-                            <constraint firstAttribute="trailing" secondItem="fIA-lB-GJ6" secondAttribute="trailing" id="ucr-8m-Llt"/>
+                            <constraint firstAttribute="trailing" secondItem="fIA-lB-GJ6" secondAttribute="trailing" constant="8" id="ucr-8m-Llt"/>
                         </constraints>
                     </view>
                     <connections>
