@@ -535,7 +535,10 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 {
     if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidCancelPrintFlow:)]) {
         [self.delegate pageSettingsTableViewControllerDidCancelPrintFlow:self];
+    } else {
+        HPPPLogWarn(@"No HPPPPageSettingsTableViewControllerDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
     }
+
 }
 
 - (void)displaySystemPrintFromView:(UIView *)view
@@ -944,6 +947,9 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
         
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
             [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
+        }
+        else {
+            HPPPLogWarn(@"No HPPPPageSettingsTableViewControllerDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
         }
         
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
