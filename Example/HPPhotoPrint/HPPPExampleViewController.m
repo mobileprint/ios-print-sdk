@@ -165,7 +165,7 @@
     
 }
 
-- (IBAction)showPrintFlowTapped:(id)sender {
+- (IBAction)showPrintNowTapped:(id)sender {
     UIViewController *vc = [[HPPP sharedInstance] activityViewControllerWithDelegate:self dataSource:self image:[UIImage imageNamed:@"sample2-portrait.jpg"] fromQueue:NO];
     [self presentViewController:vc animated:YES completion:nil];
 }
