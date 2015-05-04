@@ -538,7 +538,6 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     } else {
         HPPPLogWarn(@"No HPPPPageSettingsTableViewControllerDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
     }
-
 }
 
 - (void)displaySystemPrintFromView:(UIView *)view
@@ -950,7 +949,10 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     if (completed) {
         if (IS_OS_8_OR_LATER) {
-            [self displaySaveAsDefaultPrinter];
+            NSString *defaultPrinterUrl = [[HPPPDefaultSettingsManager sharedInstance] defaultPrinterUrl];
+            if (defaultPrinterUrl == nil) {
+                [self displaySaveAsDefaultPrinter];;
+            }
         }
         
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
@@ -985,11 +987,6 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 - (void)displaySaveAsDefaultPrinter
 {
-    NSString *defaultPrinterUrl = [[HPPPDefaultSettingsManager sharedInstance] defaultPrinterUrl];
-    if (defaultPrinterUrl != nil) {
-        return;
-    }
-    
     NSString *message = [NSString stringWithFormat:HPPPLocalizedString(@"Would you like to set the following as this app's default printer?\n\n'%@'", nil), self.currentPrintSettings.printerName];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
@@ -1081,6 +1078,13 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     [self paperTypeTableViewController:(HPPPPaperTypeTableViewController *)printSettingsTableViewController didSelectPaper:printSettings.paper];
     
     [self reloadPrinterSelectionSection];
+    
+    if (self.printFromQueue && IS_OS_8_OR_LATER) {
+        NSString *defaultPrinterUrl = [[HPPPDefaultSettingsManager sharedInstance] defaultPrinterUrl];
+        if (defaultPrinterUrl != nil) {
+            [self displaySaveAsDefaultPrinter];
+        }
+    }
 }
 
 #pragma mark - HPPPPaperSizeTableViewControllerDelegate
