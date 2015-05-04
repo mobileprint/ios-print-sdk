@@ -135,7 +135,8 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
         [printLaterJobs addObject:printLaterJob];
     }
     
-    return printLaterJobs.copy;
+    // Last one added first in the list
+    return [[printLaterJobs reverseObjectEnumerator] allObjects];
 }
 
 - (NSInteger)retrieveNumberOfPrintLaterJobs
