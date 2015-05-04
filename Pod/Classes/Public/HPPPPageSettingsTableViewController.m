@@ -123,7 +123,11 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     self.hppp = [HPPP sharedInstance];
     
-    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    if (self.navigationController) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    } else {
+        [[HPPPLogger sharedInstance] logWarn:@"HPPPPageSettingsTableViewController is intended to be embedded in navigation controller. Navigation problems and othe unexpected behavior may occur if used without a navigation controller."];
+    }
     
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
