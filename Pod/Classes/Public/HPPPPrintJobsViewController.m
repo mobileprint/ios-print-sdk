@@ -10,6 +10,7 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPPrintJobsViewController.h"
 #import "HPPPPrintJobsTableViewCell.h"
 #import "HPPPPrintLaterQueue.h"
@@ -21,7 +22,6 @@
 #import "HPPPWiFiReachability.h"
 #import "HPPPPrintJobsActionView.h"
 #import "HPPPPrintJobsPreviewViewController.h"
-#import "HPPP+ViewController.h"
 #import "UIColor+HPPPStyle.h"
 #import "NSBundle+HPPPLocalizable.h"
 
@@ -199,7 +199,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     self.selectedPrintJob = printJobs[0];
     self.selectedPrintJobs = printJobs;
     
-    UIViewController *vc = [HPPP activityViewControllerWithOwner:self andImage:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] fromQueue:YES];
+    UIViewController *vc = [[HPPP sharedInstance] activityViewControllerWithDelegate:self dataSource:self image:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] fromQueue:YES];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
     } else {

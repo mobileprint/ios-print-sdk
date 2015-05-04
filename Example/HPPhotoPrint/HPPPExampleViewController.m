@@ -15,8 +15,9 @@
 #import "HPPPExampleViewController.h"
 #import "HPPPWiFiReachability.h"
 #import "HPPPPrintJobsViewController.h"
+#import "HPPPPageSettingsTableViewController.h"
 
-@interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintActivityDataSource>
+@interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintActivityDataSource, HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
@@ -164,9 +165,45 @@
     
 }
 
-- (IBAction)showPrintLaterJobsButtonTapped:(id)sender
+- (IBAction)showPrintNowTapped:(id)sender {
+    UIViewController *vc = [[HPPP sharedInstance] activityViewControllerWithDelegate:self dataSource:self image:[UIImage imageNamed:@"sample2-portrait.jpg"] fromQueue:NO];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (IBAction)showPrintQueueTapped:(id)sender
 {
     [HPPPPrintJobsViewController presentAnimated:YES usingController:self andCompletion:nil];
+}
+
+#pragma mark - HPPPPageSettingsTableViewControllerDelegate
+
+- (void)pageSettingsTableViewControllerDidFinishPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
+{
+    [pageSettingsTableViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)pageSettingsTableViewControllerDidCancelPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
+{
+    [pageSettingsTableViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - HPPPPageSettingsTableViewControllerDataSource
+
+- (void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
+{
+    if (completion) {
+        completion([UIImage imageNamed:@"sample2-portrait.jpg"]);
+    }
+}
+
+- (NSInteger)pageSettingsTableViewControllerRequestNumberOfImagesToPrint
+{
+    return 1;
+}
+
+- (NSArray *)pageSettingsTableViewControllerRequestImagesForPaper:(HPPPPaper *)paper
+{
+    return @[ [UIImage imageNamed:@"sample2-portrait.jpg"] ];
 }
 
 #pragma mark - HPPPPrintActivityDataSource

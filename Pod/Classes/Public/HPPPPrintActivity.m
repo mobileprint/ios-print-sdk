@@ -11,8 +11,8 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPPrintActivity.h"
-#import "HPPP+ViewController.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
 #import "NSBundle+HPPPLocalizable.h"
@@ -54,7 +54,7 @@
 
 - (UIViewController *)activityViewController
 {
-    return [HPPP activityViewControllerWithOwner:self andImage:self.image fromQueue:NO];
+    return [[HPPP sharedInstance] activityViewControllerWithDelegate:self dataSource:self image:self.image fromQueue:NO];
 }
 
 #pragma mark - PGSelectPaperSizeViewControllerDataSource
