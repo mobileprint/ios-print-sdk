@@ -56,7 +56,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     self.emptyPrintQueueLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenEmptyQueueFontAttribute];
     self.emptyPrintQueueLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenEmptyQueueColorAttribute];
-    
+    self.emptyPrintQueueLabel.text = HPPPLocalizedString(@"Print queue is empty", nil);
     
     self.title = HPPPLocalizedString(@"Print Queue", nil);
     self.doneBarButtonItem.title = HPPPLocalizedString(@"Done", nil);
