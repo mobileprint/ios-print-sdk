@@ -54,8 +54,8 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     HPPP *hppp = [HPPP sharedInstance];
     
-    self.emptyPrintQueueLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenEmptyQueueFontAttribute];
-    self.emptyPrintQueueLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenEmptyQueueColorAttribute];
+    self.emptyPrintQueueLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenEmptyQueueFontAttribute];
+    self.emptyPrintQueueLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenEmptyQueueColorAttribute];
     self.emptyPrintQueueLabel.text = HPPPLocalizedString(@"Print queue is empty", nil);
     
     self.title = HPPPLocalizedString(@"Print Queue", nil);
@@ -106,8 +106,8 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 {
     self.jobsCounterLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 22.0f)];
     HPPP *hppp = [HPPP sharedInstance];
-    self.jobsCounterLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintsCounterLabelFontAttribute];
-    self.jobsCounterLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintsCounterLabelColorAttribute];
+    self.jobsCounterLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintsCounterLabelFontAttribute];
+    self.jobsCounterLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintsCounterLabelColorAttribute];
     self.jobsCounterLabel.text = [NSString stringWithFormat:HPPPLocalizedString(@"%d Prints", nil), [[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs]];
     UIBarButtonItem *jobsCounterBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.jobsCounterLabel];
     [self.navigationItem setLeftBarButtonItem:jobsCounterBarButtonItem];
@@ -232,16 +232,16 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     jobCell.delegate = self;
     
     jobCell.jobNameLabel.text = job.name;
-    jobCell.jobNameLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameFontAttribute];
-    jobCell.jobNameLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameColorAttribute];
+    jobCell.jobNameLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameFontAttribute];
+    jobCell.jobNameLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameColorAttribute];
     
     NSString *formatString = [NSDateFormatter dateFormatFromTemplate:[HPPP sharedInstance].defaultDateFormat options:0 locale:[NSLocale currentLocale]];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:formatString];
     
     jobCell.jobDateLabel.text = [formatter stringFromDate:job.date];
-    jobCell.jobDateLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateFontAttribute];
-    jobCell.jobDateLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateColorAttribute];
+    jobCell.jobDateLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateFontAttribute];
+    jobCell.jobDateLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateColorAttribute];
     
     NSString *paperSizeTitle = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
     jobCell.jobThumbnailImageView.image = [job.images objectForKey:paperSizeTitle];
@@ -305,8 +305,8 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 10.0f, self.view.frame.size.width, 44.0f)];
     textLabel.textAlignment = NSTextAlignmentCenter;
-    textLabel.font = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenNoWifiLabelFontAttribute];
-    textLabel.textColor = [[HPPP sharedInstance].attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenNoWifiLabelColorAttribute];
+    textLabel.font = [[HPPP sharedInstance].appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenNoWifiLabelFontAttribute];
+    textLabel.textColor = [[HPPP sharedInstance].appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenNoWifiLabelColorAttribute];
     textLabel.backgroundColor = [UIColor whiteColor];
     textLabel.layer.borderWidth = 0.5f;
     textLabel.layer.borderColor = [UIColor lightGrayColor].CGColor;

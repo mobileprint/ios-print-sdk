@@ -18,7 +18,7 @@
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPSupportAction.h"
 #import "HPPPPrintLaterQueue.h"
-#import "HPPPAttributedString.h"
+#import "HPPPAppearance.h"
 
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 
@@ -350,7 +350,6 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (strong, nonatomic) NSDictionary *lastOptionsUsed;
 
 /*!
- * @property supportActions
  * @abstract An array of support actions to display on the print preview page
  * @discussion This is an array of @link HPPPSupportAction @/link objects, each describing a single support action. Support actions include an icon and a title and are displayed in a support section at the bottom of the print preview page. An action can either open a URL or present a view controller.
  * @seealso HPPPSupportAction
@@ -358,7 +357,6 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (strong, nonatomic) NSArray *supportActions;
 
 /*!
- * @property handlePrintMetricsAutomatically
  * @abstract Causes the HPPrintProvider pod to handle metrics for the print activity.
  * @discussion Defaults to YES. If set to NO, the pod will not send metrics for the print activity automatically. However, the client application can still record print metrics using the notification kHPPPShareCompletedNotification.
  * @seealso kHPPPShareCompletedNotification
@@ -366,10 +364,10 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (assign, nonatomic) BOOL handlePrintMetricsAutomatically;
 
 /*!
- * @property attributedString
- * @discussion Allows customization of the view fonts and colors of the print later screens.
+ * @abstract Used to customize look and feel
+ * @discussion Allows customization of the look and feel of the print later screens (e.g. fonts, colors, buttons, etc.).
  */
-@property (strong, nonatomic) HPPPAttributedString *attributedString;
+@property (strong, nonatomic) HPPPAppearance *appearance;
 
 /*!
  * @abstract Indicates if an offramp is a printing offramp

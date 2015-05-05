@@ -19,7 +19,15 @@
  */
 @interface HPPPPageViewController : UIViewController
 
+/*!
+ * @abstract The preview image to display
+ * @discussion Note that the preview displays a single image even when multiple print jobs are being printed.
+ */
 @property (strong, nonatomic) UIImage *image;
+
+/*!
+ * @abstract The HPPPPageView that this controller owns
+ */
 @property (weak, nonatomic) IBOutlet HPPPPageView *pageView;
 
 @end

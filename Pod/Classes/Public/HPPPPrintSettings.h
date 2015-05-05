@@ -18,12 +18,46 @@
  */
 @interface HPPPPrintSettings : NSObject
 
+/*!
+ * @abstract The URL of the printer
+ * @discussion Typically this is used only in iOS 8 when printing directly to the printer with no iOS AirPrint dialog
+ * @availability iOS 8 and later
+ */
 @property (strong, nonatomic) NSURL *printerUrl;
+
+/*!
+ * @abstract The ID of the printer
+ * @discussion This is the value returned by iOS after printing is complete
+ */
 @property (strong, nonatomic) NSString *printerId;
+
+/*!
+ * @abstract The display name of the printer
+ * @availability iOS 8 and later
+ */
 @property (strong, nonatomic) NSString *printerName;
+
+/*!
+ * @abstract The display location of the printer
+ * @availability iOS 8 and later
+ */
 @property (strong, nonatomic) NSString *printerLocation;
+
+/*!
+ * @abstract The printer model
+ * @availability iOS 8 and later
+ */
 @property (strong, nonatomic) NSString *printerModel;
+
+/*!
+ * @abstract Inidicates whether or not the printer was contacted successfully
+ * @availability iOS 8 and later
+ */
 @property (assign, nonatomic) BOOL printerIsAvailable;
+
+/*!
+ * @abstract The paper to use for printing
+ */
 @property (strong, nonatomic) HPPPPaper *paper;
 
 @end

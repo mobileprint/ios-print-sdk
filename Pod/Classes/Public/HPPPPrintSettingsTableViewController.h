@@ -20,8 +20,22 @@
  */
 @interface HPPPPrintSettingsTableViewController : UITableViewController
 
+/*!
+ * @abstract Delegate used to indicate when print settings are changed by the user
+ * @seealso HPPPPrintSettingsTableViewControllerDelegate
+ */
 @property (nonatomic, weak) id<HPPPPrintSettingsTableViewControllerDelegate> delegate;
+
+/*!
+ * @abstract Represents the current print settings
+ * @seealso HPPPPrintSettings
+ */
 @property (nonatomic, strong) HPPPPrintSettings *printSettings;
+
+/*!
+ * @abstract A boolean indicating if the default printer should be used
+ * @discussion If the default printer is not used then the last printer will be used instead (if available)
+ */
 @property (nonatomic, assign) BOOL useDefaultPrinter;
 
 @end

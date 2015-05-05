@@ -12,10 +12,19 @@
 
 #import <Foundation/Foundation.h>
 
+
+/*!
+ * @abstract Class used for checking printer availability
+ */
 @interface HPPPPrinter : NSObject
 
+/*!
+ * @abstract Used to access the singleton instance of this class
+ */
 + (HPPPPrinter *)sharedInstance;
+
 - (void)checkLastPrinterUsedAvailability;
+
 - (void)checkDefaultPrinterAvailabilityWithCompletion:(void(^)(BOOL available))completion;
 
 @end

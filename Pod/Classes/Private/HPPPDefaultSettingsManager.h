@@ -13,8 +13,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+/*!
+ * @abstract Class used to remember default settings
+ */
 @interface HPPPDefaultSettingsManager : NSObject
 
+/*!
+ * @abstract Used to access the singleton instance of this class
+ */
 + (HPPPDefaultSettingsManager *)sharedInstance;
 
 /*!

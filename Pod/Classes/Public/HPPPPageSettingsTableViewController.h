@@ -15,9 +15,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import "HPPPPageViewController.h"
 
-extern NSString * const kHPPPDefaultPrinterAddedNotification;
-extern NSString * const kHPPPDefaultPrinterRemovedNotification;
-
 @protocol HPPPPageSettingsTableViewControllerDelegate;
 @protocol HPPPPageSettingsTableViewControllerDataSource;
 
@@ -26,6 +23,16 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  * @discussion This class implements the view controller used for displaying the print preview screen and associated page settings used for printing.
  */
 @interface HPPPPageSettingsTableViewController : UITableViewController
+
+/*!
+ * @abstract Notification sent when a default printer is added
+ */
+extern NSString * const kHPPPDefaultPrinterAddedNotification;
+
+/*!
+ * @abstract Notification sent when a default printer is removed
+ */
+extern NSString * const kHPPPDefaultPrinterRemovedNotification;
 
 /*!
  * @abstract The image used for printing
@@ -102,7 +109,20 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
 - (void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion;
 
 @optional
+
+/*!
+ * @abstract Called to request the total number of print jobs to print
+ * @return The number of jobs to print
+ * @seealso pageSettingsTableViewControllerRequestImagesForPaper:
+ */
 - (NSInteger)pageSettingsTableViewControllerRequestNumberOfImagesToPrint;
+
+/*!
+ * @abstract Called to request the images for each job
+ * @param paper The type and size of paper being requested
+ * @return An array of images for this paper size/type, one image per job
+ * @seealso pageSettingsTableViewControllerRequestNumberOfImagesToPrint
+ */
 - (NSArray *)pageSettingsTableViewControllerRequestImagesForPaper:(HPPPPaper *)paper;
 
 @end

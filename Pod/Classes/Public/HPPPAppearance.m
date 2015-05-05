@@ -11,11 +11,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HPPPAttributedString.h"
+#import "HPPPAppearance.h"
 #import "UIColor+HPPPStyle.h"
 #import "NSBundle+HPPPLocalizable.h"
 
-@implementation HPPPAttributedString
+@implementation HPPPAppearance
 
 // Print Later Screen
 

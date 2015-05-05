@@ -21,7 +21,15 @@
  */
 @interface HPPPPaperSizeTableViewController : UITableViewController
 
+/*!
+ * @abstract A delegate that is called when the user selects paper
+ * @seealso HPPPPaperSizeTableViewControllerDelegate
+ */
 @property (nonatomic, weak) id<HPPPPaperSizeTableViewControllerDelegate> delegate;
+
+/*!
+ * @abstract The current paper (if any) that is selected
+ */
 @property (nonatomic, strong) HPPPPaper *currentPaper;
 
 @end
@@ -31,6 +39,11 @@
  */
 @protocol HPPPPaperSizeTableViewControllerDelegate <NSObject>
 
+/*!
+ * @abstract Called when the user selects a paper size
+ * @param paperSizeTableViewController The paper size controller
+ * @param paper The paper that was selected
+ */
 - (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper;
 
 @end
