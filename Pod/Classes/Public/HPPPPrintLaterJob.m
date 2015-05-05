@@ -15,12 +15,8 @@
 NSString * const kHPPPPrintLaterJobId = @"kHPPPPrintLaterJobId";
 NSString * const kHPPPPrintLaterJobName = @"kHPPPPrintLaterJobName";
 NSString * const kHPPPPrintLaterJobDate = @"kHPPPPrintLaterJobDate";
-NSString * const kHPPPPrintLaterJobPrinterName = @"kHPPPPrintLaterJobPrinterName";
-NSString * const kHPPPPrintLaterJobPrinterLocation = @"kHPPPPrintLaterJobPrinterLocation";
-NSString * const kHPPPPrintLaterJobPrinterURL = @"kHPPPPrintLaterJobPrinterURL";
 NSString * const kHPPPPrintLaterJobImages = @"kHPPPPrintLaterJobImages";
 NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
-
 
 @implementation HPPPPrintLaterJob
 
@@ -29,9 +25,6 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
     [encoder encodeObject:self.id forKey:kHPPPPrintLaterJobId];
     [encoder encodeObject:self.name forKey:kHPPPPrintLaterJobName];
     [encoder encodeObject:self.date forKey:kHPPPPrintLaterJobDate];
-    [encoder encodeObject:self.printerName forKey:kHPPPPrintLaterJobPrinterName];
-    [encoder encodeObject:self.printerLocation forKey:kHPPPPrintLaterJobPrinterLocation];
-    [encoder encodeObject:self.printerURL forKey:kHPPPPrintLaterJobPrinterURL];
     
     // UIImages don't implement the protocol necessary for serialization, so they must be change to NSDatas
     NSMutableDictionary *serializeImages = [NSMutableDictionary dictionary];
@@ -51,9 +44,6 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
         self.id = [decoder decodeObjectForKey:kHPPPPrintLaterJobId];
         self.name = [decoder decodeObjectForKey:kHPPPPrintLaterJobName];
         self.date = [decoder decodeObjectForKey:kHPPPPrintLaterJobDate];
-        self.printerName = [decoder decodeObjectForKey:kHPPPPrintLaterJobPrinterName];
-        self.printerLocation = [decoder decodeObjectForKey:kHPPPPrintLaterJobPrinterLocation];
-        self.printerURL = [decoder decodeObjectForKey:kHPPPPrintLaterJobPrinterURL];
         
         NSDictionary *decodedImages = [decoder decodeObjectForKey:kHPPPPrintLaterJobImages];
         
@@ -73,7 +63,7 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"id: %@ \nname: %@ \ndate: %@ \nprinter name: %@\nprinter location: %@ \nprinter URL: %@ \n", self.id, self.name, self.date, self.printerName, self.printerLocation, self.printerURL];
+    return [NSString stringWithFormat:@"id: %@ \nname: %@ \ndate: %@ \nextra: %@", self.id, self.name, self.date, self.extra];
 }
 
 @end

@@ -18,8 +18,16 @@
  */
 @interface HPPPView : UIView
 
+/*!
+ * @abstract Create the view with the given xib name
+ * @param xibName The name of the xib
+ */
 - (void)initWithXibName:(NSString *)xibName;
 
+/*!
+ * @abstract Used to retrieve the name of the xib
+ * @return An NSString containing the name of the xib
+ */
 - (NSString *)xibName;
 
 @end

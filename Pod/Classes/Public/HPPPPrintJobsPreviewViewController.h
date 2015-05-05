@@ -17,8 +17,19 @@
  */
 @interface HPPPPrintJobsPreviewViewController : UIViewController
 
+/*!
+ * @abstract The job image to display in the preview
+ */
 @property (strong, nonatomic) UIImage *image;
+
+/*!
+ * @abstract The job name to display in the preview
+ */
 @property (strong, nonatomic) NSString *name;
+
+/*!
+ * @abstract The job date to display in the preview
+ */
 @property (strong, nonatomic) NSString *date;
 
 @end

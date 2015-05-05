@@ -15,7 +15,7 @@
 /*!
  * @abstract Class used to specify custom styles
  */
-@interface HPPPAttributedString : NSObject
+@interface HPPPAppearance : NSObject
 
 extern NSString *const HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute;
 extern NSString *const HPPPAddPrintLaterJobScreenAddToPrintQColorAttribute;

@@ -21,7 +21,15 @@
  */
 @interface HPPPPaperTypeTableViewController : UITableViewController
 
+/*!
+ * @abstract A delegate that is called when the user selects paper
+ * @seealso HPPPPaperTypeTableViewControllerDelegate
+ */
 @property (nonatomic, weak) id<HPPPPaperTypeTableViewControllerDelegate> delegate;
+
+/*!
+ * @abstract The current paper (if any) that is selected
+ */
 @property (nonatomic, strong) HPPPPaper *currentPaper;
 
 @end
@@ -31,6 +39,11 @@
  */
 @protocol HPPPPaperTypeTableViewControllerDelegate <NSObject>
 
+/*!
+ * @abstract Called when the user selects a paper type
+ * @param paperTypeTableViewController The paper type controller
+ * @param paper The paper that was selected
+ */
 - (void)paperTypeTableViewController:(HPPPPaperTypeTableViewController *)paperTypeTableViewController didSelectPaper:(HPPPPaper *)paper;
 
 @end

@@ -19,13 +19,35 @@
  */
 @interface HPPPWiFiReachability : NSObject
 
+/*!
+ * @abstract Notification used to indicate when Wi-Fi connection is established
+ */
 extern NSString * const kHPPPWiFiConnectionEstablished;
+
+/*!
+ * @abstract Notification used to indicate when Wi-Fi connection is lost
+ */
 extern NSString * const kHPPPWiFiConnectionLost;
 
+/*!
+ * @abstract Used to access the singleton instance of this class
+ */
 + (HPPPWiFiReachability *)sharedInstance;
 
+/*!
+ * @abstract Indicates whether or not Wi-Fi is connected
+ * @return YES or NO
+ */
 - (BOOL)isWifiConnected;
+
+/*!
+ * @abstract Displays a modal alert indicating that printing is unavailable
+ */
 - (void)noPrintingAlert;
+
+/*!
+ * @abstract Displays a modal alert indicating that printer selection is unavailable
+ */
 - (void)noPrinterSelectAlert;
 
 @end

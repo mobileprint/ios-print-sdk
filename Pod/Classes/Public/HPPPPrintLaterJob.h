@@ -14,17 +14,37 @@
 
 /*!
  * @abstract Represents a single print job
+ * @seealso HPPPPrintLaterActivity
  */
 @interface HPPPPrintLaterJob : NSObject <NSCoding>
 
+/*!
+ * @abstract Dictionary of images for the print job
+ * @discussion The dictionary should contain a UIImage for each paper size. The key for each image is the paper size title as an NSString object.
+ */
 @property (strong, nonatomic) NSDictionary *images; // Dictionary with UIImages (key = the paper size title, object = UIImage)
 
+/*!
+ * @abstract ID of the print job
+ * @discussion Use the retrievePrintLaterJobNextAvailableId method of HPPPPrintLaterQueue to obtain the next available ID
+ * @seealso HPPPPrintLaterQueue
+ */
 @property (strong, nonatomic) NSString *id;
+
+/*!
+ * @abstract Display name of the print job
+ */
 @property (strong, nonatomic) NSString *name;
+
+/*!
+ * @abstract Date of the print job
+ */
 @property (strong, nonatomic) NSDate *date;
-@property (strong, nonatomic) NSString *printerName;
-@property (strong, nonatomic) NSString *printerLocation;
-@property (strong, nonatomic) NSString *printerURL;
+
+/*!
+ * @abstract A dictionary of extra information to store with the print job
+ * @discussion The objects in this dictionary must be encodable with the NSCoding protocol
+ */
 @property (strong, nonatomic) NSDictionary *extra;
 
 @end

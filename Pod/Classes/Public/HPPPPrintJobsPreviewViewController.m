@@ -34,14 +34,14 @@
     HPPP *hppp = [HPPP sharedInstance];
     
     [self.doneButton setTitle:HPPPLocalizedString(@"Done", nil) forState:UIControlStateNormal];
-    self.doneButton.titleLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewDoneButtonFontAttribute];
-    [self.doneButton setTitleColor:[hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewDoneButtonColorAttribute] forState:UIControlStateNormal];
+    self.doneButton.titleLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewDoneButtonFontAttribute];
+    [self.doneButton setTitleColor:[hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewDoneButtonColorAttribute] forState:UIControlStateNormal];
     
-    self.printJobNameLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewJobNameFontAttribute];
-    self.printJobNameLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewJobNameColorAttribute];
+    self.printJobNameLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewJobNameFontAttribute];
+    self.printJobNameLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewJobNameColorAttribute];
     
-    self.printJobDateLabel.font = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewJobDateFontAttribute];
-    self.printJobDateLabel.textColor = [hppp.attributedString.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewJobDateColorAttribute];
+    self.printJobDateLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewJobDateFontAttribute];
+    self.printJobDateLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPreviewJobDateColorAttribute];
     
     self.printJobNameLabel.text = self.name;
     self.printJobDateLabel.text = self.date;

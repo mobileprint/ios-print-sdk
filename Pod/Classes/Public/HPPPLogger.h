@@ -21,10 +21,29 @@
  */
 @protocol HPPPLoggerDelegate <NSObject>
 
+/*!
+ * @abstract Log an error message
+ */
 - (void) logError:(NSString*)msg;
+
+/*!
+ * @abstract Log a warning message
+ */
 - (void) logWarn:(NSString*)msg;
+
+/*!
+ * @abstract Log an info message
+ */
 - (void) logInfo:(NSString*)msg;
+
+/*!
+ * @abstract Log a debug message
+ */
 - (void) logDebug:(NSString*)msg;
+
+/*!
+ * @abstract Log a detailed message
+ */
 - (void) logVerbose:(NSString*)msg;
 
 @end
@@ -34,8 +53,15 @@
  */
 @interface HPPPLogger : NSObject <HPPPLoggerDelegate>
 
+/*!
+ * @abstract Used to access the singleton instance of this class
+ */
 + (HPPPLogger *)sharedInstance;
 
+/*!
+ * @abstract An optional delegate used for logging
+ * @discussion If provided, this delegate is used to provide fine-grained logging. The client typically uses a library such as Lumberjack for this purpose.
+ */
 @property (nonatomic, weak) id<HPPPLoggerDelegate> delegate;
 
 @end

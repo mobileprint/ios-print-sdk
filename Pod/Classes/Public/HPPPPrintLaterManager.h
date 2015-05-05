@@ -26,14 +26,45 @@
  */
 @property (strong, nonatomic) UIUserNotificationCategory *printLaterUserNotificationCategory;
 
+/*!
+ * @abstract Boolean indicating whether or not the notification permission has already been set
+ */
 @property (assign, nonatomic) BOOL userNotificationsPermissionSet;
+
+/*!
+ * @abstract Boolean indicating whether or not the location permission has already been set
+ */
 @property (assign, nonatomic) BOOL currentLocationPermissionSet;
 
+/*!
+ * @abstract Used to access the singleton instance of this class
+ */
 + (HPPPPrintLaterManager *)sharedInstance;
+
+/*!
+ * @abstract Sets up the location manager to monitor location
+ */
 - (void)initLocationManager;
+
+/*!
+ * @abstract Retrieves the current device GPS location
+ */
 - (CLLocationCoordinate2D)retrieveCurrentLocation;
+
+/*!
+ * @abstract Handles when the user taps an action button on the notification dialog
+ */
 - (void)handleNotification:(UILocalNotification *)notification action:(NSString *)action;
+
+/*!
+ * @abstract Handles when the user taps the notification itself
+ * @discussion This method is called when the user taps the notification body itself rather than one of the specific action buttons
+ */
 - (void)handleNotification:(UILocalNotification *)notification;
+
+/*!
+ * @abstract Sets up the notification system
+ */
 - (void)initUserNotifications;
 
 @end
