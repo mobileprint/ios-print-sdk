@@ -75,7 +75,7 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     BOOL success = [NSKeyedArchiver archiveRootObject:printLaterJob toFile:fileName];
     
     if (success) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobAddedToQueueNotification object:self userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobAddedToQueueNotification object:printLaterJob userInfo:nil];
         
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
             [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:@{ kHPPPOfframpKey:NSStringFromClass([HPPPPrintLaterActivity class]) }];
@@ -90,7 +90,7 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     BOOL success = [self deleteFile:printLaterJob.id atPath:self.printLaterJobsDirectoryPath];
     
     if (success) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobRemovedFromQueueNotification object:self userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobRemovedFromQueueNotification object:printLaterJob userInfo:nil];
         
         if ([self retrieveNumberOfPrintLaterJobs] == 0) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPAllPrintJobsRemovedFromQueueNotification object:self userInfo:nil];
