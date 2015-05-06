@@ -363,20 +363,23 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.currentPrintSettings.paper = [self lastPaperUsed];
     
     HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
-    if (self.printFromQueue && [settings isDefaultPrinterSet]) {
+    NSString *lastModel;
+    NSString *lastLocation;
+    if( [settings isDefaultPrinterSet] ) {
         self.currentPrintSettings.printerName = settings.defaultPrinterName;
         self.currentPrintSettings.printerUrl = [NSURL URLWithString:settings.defaultPrinterUrl];
         self.currentPrintSettings.printerId = nil;
+        lastModel = settings.defaultPrinterModel;
+        lastLocation = settings.defaultPrinterLocation;
     } else {
         self.currentPrintSettings.printerName = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterNameSetting];
         self.currentPrintSettings.printerUrl = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING]];
         self.currentPrintSettings.printerId = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterIDSetting];
+        lastModel = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterModelSetting];
+        lastLocation = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterLocationSetting];
     }
     
-    NSString *lastModel = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterModelSetting];
     self.currentPrintSettings.printerModel = lastModel;
-    
-    NSString *lastLocation = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterLocationSetting];
     self.currentPrintSettings.printerLocation = lastLocation;
     
     if (IS_OS_8_OR_LATER) {
@@ -949,9 +952,14 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     }
     
     if (completed) {
-        if (IS_OS_8_OR_LATER) {
-            [self displaySaveAsDefaultPrinter];
-        }
+        
+        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterName = self.currentPrintSettings.printerName;
+        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl = self.currentPrintSettings.printerUrl.absoluteString;
+        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterNetwork = [HPPPAnalyticsManager wifiName];
+        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate = [[HPPPPrintLaterManager sharedInstance] retrieveCurrentLocation];
+        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterModel = self.currentPrintSettings.printerModel;
+        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterLocation = self.currentPrintSettings.printerLocation;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPDefaultPrinterAddedNotification object:self userInfo:nil];
         
         if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
             [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
@@ -981,23 +989,6 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     if (IS_IPAD) {
         self.cancelBarButtonItem.enabled = YES;
     }
-}
-
-- (void)displaySaveAsDefaultPrinter
-{
-    NSString *defaultPrinterUrl = [[HPPPDefaultSettingsManager sharedInstance] defaultPrinterUrl];
-    if (defaultPrinterUrl != nil) {
-        return;
-    }
-    
-    NSString *message = [NSString stringWithFormat:HPPPLocalizedString(@"Would you like to set the following as this app's default printer?\n\n'%@'", nil), self.currentPrintSettings.printerName];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                    message:message
-                                                   delegate:self
-                                          cancelButtonTitle:HPPPLocalizedString(@"No, thanks", nil)
-                                          otherButtonTitles:HPPPLocalizedString(@"Yes", nil), nil];
-    [alert show];
 }
 
 - (void)setLastOptionsUsedWithPrintController:(UIPrintInteractionController *)printController;
@@ -1047,21 +1038,6 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     [defaults setObject:self.currentPrintSettings.printerModel forKey:kHPPPLastPrinterModelSetting];
     [defaults setObject:self.currentPrintSettings.printerLocation forKey:kHPPPLastPrinterLocationSetting];
     [defaults synchronize];
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if( kSaveDefaultPrinterIndex == buttonIndex ) {
-        
-        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterName = self.currentPrintSettings.printerName;
-        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl = self.currentPrintSettings.printerUrl.absoluteString;
-        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterNetwork = [HPPPAnalyticsManager wifiName];
-        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate = [[HPPPPrintLaterManager sharedInstance] retrieveCurrentLocation];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPDefaultPrinterAddedNotification object:self userInfo:nil];
-    }
 }
 
 #pragma mark - HPPPPrintSettingsTableViewControllerDelegate

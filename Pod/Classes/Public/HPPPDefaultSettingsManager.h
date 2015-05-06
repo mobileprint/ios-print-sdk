@@ -28,9 +28,19 @@
 @property (strong, nonatomic) NSString *defaultPrinterUrl;
 
 /*!
- * @abstract Returns the printer Network of the default printer.
+ * @abstract Returns the network of the default printer.
  */
 @property (strong, nonatomic) NSString *defaultPrinterNetwork;
+
+/*!
+ * @abstract Returns the model of the default printer.
+ */
+@property (strong, nonatomic) NSString *defaultPrinterModel;
+
+/*!
+ * @abstract Returns the location of the default printer.
+ */
+@property (strong, nonatomic) NSString *defaultPrinterLocation;
 
 /*!
  * @abstract Returns the coordinate of the default printer.
