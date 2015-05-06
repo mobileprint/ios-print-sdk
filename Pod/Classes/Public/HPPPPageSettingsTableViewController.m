@@ -363,25 +363,20 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     self.currentPrintSettings.paper = [self lastPaperUsed];
     
     HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
-    NSString *lastModel;
-    NSString *lastLocation;
     if( [settings isDefaultPrinterSet] ) {
         self.currentPrintSettings.printerName = settings.defaultPrinterName;
         self.currentPrintSettings.printerUrl = [NSURL URLWithString:settings.defaultPrinterUrl];
         self.currentPrintSettings.printerId = nil;
-        lastModel = settings.defaultPrinterModel;
-        lastLocation = settings.defaultPrinterLocation;
+        self.currentPrintSettings.printerModel = settings.defaultPrinterModel;
+        self.currentPrintSettings.printerLocation = settings.defaultPrinterLocation;
     } else {
         self.currentPrintSettings.printerName = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterNameSetting];
         self.currentPrintSettings.printerUrl = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING]];
         self.currentPrintSettings.printerId = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterIDSetting];
-        lastModel = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterModelSetting];
-        lastLocation = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterLocationSetting];
+        self.currentPrintSettings.printerModel = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterModelSetting];
+        self.currentPrintSettings.printerLocation = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterLocationSetting];
     }
-    
-    self.currentPrintSettings.printerModel = lastModel;
-    self.currentPrintSettings.printerLocation = lastLocation;
-    
+
     if (IS_OS_8_OR_LATER) {
         NSNumber *lastFilterUsed = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastFilterSetting];
         if (lastFilterUsed != nil) {
