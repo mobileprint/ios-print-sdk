@@ -33,7 +33,7 @@
     [super viewDidLoad];
     
     [HPPP sharedInstance].printJobName = @"Print POD Example";
-
+    
     [HPPP sharedInstance].initialPaperSize = Size5x7;
     [HPPP sharedInstance].defaultPaperWidth = 5.0f;
     [HPPP sharedInstance].defaultPaperHeight = 7.0f;
@@ -55,7 +55,10 @@
                                          [HPPPPaper titleFromSize:SizeLetter]
                                          ];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(printJobAddedNotification:) name:kHPPPPrintJobAddedToQueueNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintQueueNotification:) name:kHPPPPrintQueueNotification object:nil];
+
+    [self populatePrintQueue];
 }
 
 - (void)dealloc
@@ -84,7 +87,7 @@
         UIImage *image4x6 = [UIImage imageNamed:@"sample2-portrait.jpg"];
         UIImage *image5x7 = [UIImage imageNamed:@"sample2-portrait.jpg"];
         UIImage *imageLetter = image4x5;
-
+        
         printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
         HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
         printLaterJob.id = printLaterJobNextAvailableId;
@@ -154,7 +157,7 @@
 }
 
 - (IBAction)showPrintNowTapped:(id)sender {
-    UIViewController *vc = [[HPPP sharedInstance] activityViewControllerWithDelegate:self dataSource:self image:[UIImage imageNamed:@"sample2-portrait.jpg"] fromQueue:NO];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[UIImage imageNamed:@"sample2-portrait.jpg"] fromQueue:NO];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -224,5 +227,71 @@
         }
     }
 }
+
+#pragma mark - Adding and removing jobs
+
+- (void)printJobAddedNotification:(NSNotification *)notification
+{
+    HPPPPrintLaterJob *job = (HPPPPrintLaterJob *)notification.object;
+    UIImage *image = [job.images objectForKey:@"4 x 6"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.lastPrintLaterJobSavedImageView.image = image;
+    });
+}
+
+#pragma mark - DEBUG
+
+- (void)populatePrintQueue
+{
+    [[HPPP sharedInstance] clearQueue];
+    
+    NSString *printLaterJobNextAvailableId = nil;
+    HPPPPrintLaterJob *printLaterJob = nil;
+    
+    UIImage *image4x5 = [UIImage imageNamed:@"sample2-portrait.jpg"];
+    UIImage *image4x6 = [UIImage imageNamed:@"sample2-portrait.jpg"];
+    UIImage *image5x7 = [UIImage imageNamed:@"sample2-portrait.jpg"];
+    UIImage *imageLetter = image4x5;
+    
+    UIImage *image4x5_2 = [UIImage imageNamed:@"sample-landscape.jpg"];
+    UIImage *image4x6_2 = [UIImage imageNamed:@"sample-landscape.jpg"];
+    UIImage *image5x7_2 = [UIImage imageNamed:@"sample-landscape.jpg"];
+    UIImage *imageLetter_2 = image4x5_2;
+    
+    printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
+    printLaterJob = [[HPPPPrintLaterJob alloc] init];
+    printLaterJob.id = printLaterJobNextAvailableId;
+    printLaterJob.name = @"Einstein";
+    printLaterJob.date = [NSDate date];
+    printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
+                             [HPPPPaper titleFromSize:Size4x6] : image4x6,
+                             [HPPPPaper titleFromSize:Size5x7] : image5x7,
+                             [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
+    [[HPPP sharedInstance] addJobToQueue:printLaterJob];
+    
+    printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
+    printLaterJob = [[HPPPPrintLaterJob alloc] init];
+    printLaterJob.id = printLaterJobNextAvailableId;
+    printLaterJob.name = @"Dude";
+    printLaterJob.date = [NSDate date];
+    printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5_2,
+                             [HPPPPaper titleFromSize:Size4x6] : image4x6_2,
+                             [HPPPPaper titleFromSize:Size5x7] : image5x7_2,
+                             [HPPPPaper titleFromSize:SizeLetter] : imageLetter_2};
+    [[HPPP sharedInstance] addJobToQueue:printLaterJob];
+    
+    printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
+    printLaterJob = [[HPPPPrintLaterJob alloc] init];
+    printLaterJob.id = printLaterJobNextAvailableId;
+    printLaterJob.name = @"Awesome";
+    printLaterJob.date = [NSDate date];
+    printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
+                             [HPPPPaper titleFromSize:Size4x6] : image4x6,
+                             [HPPPPaper titleFromSize:Size5x7] : image5x7,
+                             [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
+    [[HPPP sharedInstance] addJobToQueue:printLaterJob];
+    
+}
+
 
 @end

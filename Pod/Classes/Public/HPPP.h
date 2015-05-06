@@ -444,6 +444,16 @@ extern NSString * const kHPPPNumberOfCopies;
 - (NSString *)nextPrintJobId;
 
 /*!
+ * @abstract Add a print job to the print queue
+ */
+- (void)addJobToQueue:(HPPPPrintLaterJob *)job;
+
+/*!
+ * @abstract Removes all jobs from the print queue
+ */
+- (void)clearQueue;
+
+/*!
  * @abstract Indicates whether or not Wi-Fi is connected
  * @return YES or NO
  */
