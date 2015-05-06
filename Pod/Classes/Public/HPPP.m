@@ -359,6 +359,16 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     return [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
 }
 
+- (void)clearQueue
+{
+    [[HPPPPrintLaterQueue sharedInstance] deleteAllPrintLaterJobs];
+}
+
+- (void)addJobToQueue:(HPPPPrintLaterJob *)job
+{
+    [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:job];
+}
+
 - (BOOL)isWifiConnected
 {
     return [[HPPPWiFiReachability sharedInstance] isWifiConnected];
