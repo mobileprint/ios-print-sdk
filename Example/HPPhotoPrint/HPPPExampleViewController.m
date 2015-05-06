@@ -159,7 +159,8 @@
 }
 
 - (IBAction)showPrintNowTapped:(id)sender {
-    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[self randomImage] fromQueue:NO];
+    self.image = [self randomImage];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:self.image fromQueue:NO];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
