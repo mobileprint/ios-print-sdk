@@ -11,20 +11,23 @@
 //
 
 #import <Foundation/Foundation.h>
-
-
-/*!
- * @abstract Class used for checking printer availability
- */
-@interface HPPPPrinter : NSObject
+#import <UIKit/UIKit.h>
 
 /*!
- * @abstract Used to access the singleton instance of this class
+ * @abstract Basic view class used for xib-based views
  */
-+ (HPPPPrinter *)sharedInstance;
+@interface HPPPView : UIView
 
-- (void)checkLastPrinterUsedAvailability;
+/*!
+ * @abstract Create the view with the given xib name
+ * @param xibName The name of the xib
+ */
+- (void)initWithXibName:(NSString *)xibName;
 
-- (void)checkDefaultPrinterAvailabilityWithCompletion:(void(^)(BOOL available))completion;
+/*!
+ * @abstract Used to retrieve the name of the xib
+ * @return An NSString containing the name of the xib
+ */
+- (NSString *)xibName;
 
 @end

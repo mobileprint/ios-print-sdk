@@ -17,6 +17,7 @@
 #import "HPPPDefaultSettingsManager.h"
 #import "UIColor+HPPPStyle.h"
 #import "NSBundle+HPPPLocalizable.h"
+#import "HPPPPrintLaterManager.h"
 
 @interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate>
 
@@ -60,33 +61,33 @@
     
     HPPP *hppp = [HPPP sharedInstance];
     
-    self.addToPrintQLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenAddToPrintQFontAttribute];
-    self.addToPrintQLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenAddToPrintQColorAttribute];
+    self.addToPrintQLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQFontAttribute];
+    self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQColorAttribute];
     self.addToPrintQLabel.text = HPPPLocalizedString(@"Add to Print Queue", nil);
 
-    self.nameTextView.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenJobNameFontAttribute];
-    self.nameTextView.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute];
+    self.nameTextView.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameFontAttribute];
+    self.nameTextView.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute];
     
-    self.dateTitleLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemTitleFontAttribute];
-    self.dateTitleLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemTitleColorAttribute];
+    self.dateTitleLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleFontAttribute];
+    self.dateTitleLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleColorAttribute];
     self.dateTitleLabel.text = HPPPLocalizedString(@"Date", nil);
 
-    self.dateLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemFontAttribute];
-    self.dateLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemColorAttribute];
+    self.dateLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemFontAttribute];
+    self.dateLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemColorAttribute];
     
-    self.printerNameTitleLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemTitleFontAttribute];
-    self.printerNameTitleLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemTitleColorAttribute];
+    self.printerNameTitleLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleFontAttribute];
+    self.printerNameTitleLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleColorAttribute];
     self.printerNameTitleLabel.text = HPPPLocalizedString(@"Printer", nil);
     
-    self.printerNameLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemFontAttribute];
-    self.printerNameLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemColorAttribute];
+    self.printerNameLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemFontAttribute];
+    self.printerNameLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemColorAttribute];
     
-    self.printerLocationTitleLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemTitleFontAttribute];
-    self.printerLocationTitleLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemTitleColorAttribute];
+    self.printerLocationTitleLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleFontAttribute];
+    self.printerLocationTitleLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleColorAttribute];
     self.printerLocationTitleLabel.text = HPPPLocalizedString(@"Network", nil);
     
-    self.printerLocationLabel.font = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemFontAttribute];
-    self.printerLocationLabel.textColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenSubitemColorAttribute];
+    self.printerLocationLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemFontAttribute];
+    self.printerLocationLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemColorAttribute];
     
     self.nameTextView.text = self.printLaterJob.name;
     self.nameTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -105,7 +106,7 @@
     
     [self preparePrinterDisplayValues];
     
-    UIButton *doneButton = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenDoneButtonAttribute];
+    UIButton *doneButton = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenDoneButtonAttribute];
     
     [doneButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
     
@@ -195,13 +196,13 @@
     NSString *navigationBarTitle = HPPPLocalizedString(@"Add Print", nil);
     UIBarButtonItem *rightBarButtonItem = self.cancelButtonItem;
     
-    UIColor *nameTextFieldColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute];
+    UIColor *nameTextFieldColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute];
 
     if (editing) {
         navigationBarTitle = nil;
         barTintColor = [UIColor HPPPHPTabBarSelectedColor];
         rightBarButtonItem = self.doneButtonItem;
-        nameTextFieldColor = [hppp.attributedString.addPrintLaterJobScreenAttributes objectForKey:HPPPAddPrintLaterJobScreenJobNameColorActiveAttribute];
+        nameTextFieldColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameColorActiveAttribute];
     }
     
     self.navigationController.navigationBar.barTintColor = barTintColor;

@@ -23,6 +23,7 @@
 /*!
  * @abstract Provides the print later job
  * @discussion The client app must create the print later job and set it to the activity. The class HPPPPrintLaterQueue provides a method called retrievePrintLaterJobNextAvailableId to get an id, otherwise the client app can use their own ids.
+ * @seealso HPPPPrintLaterJob
  */
 @property (nonatomic, strong) HPPPPrintLaterJob *printLaterJob;
 

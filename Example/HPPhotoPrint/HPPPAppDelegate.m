@@ -23,7 +23,7 @@
     UILocalNotification *localNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotification) {
         NSLog(@"App starts to run because of a notification");
-        [[HPPPPrintLaterManager sharedInstance] handleNotification:localNotification];
+        [[HPPP sharedInstance] handleNotification:localNotification];
     }
     
     [HPPP sharedInstance].showRulers = FALSE;
@@ -65,7 +65,7 @@
 {
     if (application.applicationState == UIApplicationStateInactive) {
         NSLog(@"Receive local notification while the app was inactive and the user tap in the notification (instead of the action).");
-        [[HPPPPrintLaterManager sharedInstance] handleNotification:notification];
+        [[HPPP sharedInstance] handleNotification:notification];
     } else if (application.applicationState == UIApplicationStateActive) {
         NSLog(@"Receive local notification while the app was active.");
     }
@@ -75,7 +75,7 @@
 {
     NSLog(@"Action %@", identifier);
     
-    [[HPPPPrintLaterManager sharedInstance] handleNotification:notification action:identifier];
+    [[HPPP sharedInstance] handleNotification:notification action:identifier];
     
     completionHandler();
 }

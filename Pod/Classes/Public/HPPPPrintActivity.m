@@ -11,13 +11,11 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPPrintActivity.h"
-#import "HPPP+ViewController.h"
-#import "HPPPPageSettingsTableViewController.h"
-#import "HPPPPageViewController.h"
 #import "NSBundle+HPPPLocalizable.h"
 
-@interface HPPPPrintActivity () <HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource>
+@interface HPPPPrintActivity ()
 
 @property (strong, nonatomic) UIImage *image;
 
@@ -54,36 +52,7 @@
 
 - (UIViewController *)activityViewController
 {
-    return [HPPP activityViewControllerWithOwner:self andImage:self.image fromQueue:NO];
-}
-
-#pragma mark - PGSelectPaperSizeViewControllerDataSource
-
-- (void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
-{
-    if ([self.dataSource respondsToSelector:@selector(printActivityRequestImageForPaper:withCompletion:)]) {
-        [self.dataSource printActivityRequestImageForPaper:paper withCompletion:completion];
-    } else {
-        if (completion) {
-            completion(self.image);
-        }
-    }
-}
-
-#pragma mark - PGSelectPaperSizeViewControllerDelegate
-
-- (void)pageSettingsTableViewControllerDidFinishPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
-{
-    dispatch_async(dispatch_get_main_queue(), ^ {
-        [self activityDidFinish:YES];
-    });
-}
-
-- (void)pageSettingsTableViewControllerDidCancelPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
-{
-    dispatch_async(dispatch_get_main_queue(), ^ {
-        [self activityDidFinish:NO];
-    });
+    return [[HPPP sharedInstance] printViewControllerWithDelegate:self.printDelegate dataSource:self.printDataSource image:self.image fromQueue:NO];
 }
 
 @end

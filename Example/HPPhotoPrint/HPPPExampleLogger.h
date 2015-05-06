@@ -12,7 +12,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import <HPPPLogger.h>
+#import <HPPP.h>
 
 @interface HPPPExampleLogger : NSObject <HPPPLoggerDelegate>
 

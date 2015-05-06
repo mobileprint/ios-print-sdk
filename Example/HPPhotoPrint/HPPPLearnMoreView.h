@@ -10,8 +10,6 @@
 // the license agreement.
 //
 
-#import <HPPPView.h>
-
-@interface HPPPLearnMoreView : HPPPView
+@interface HPPPLearnMoreView : UIView
 
 @end
