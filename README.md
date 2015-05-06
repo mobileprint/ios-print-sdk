@@ -238,7 +238,7 @@ In this case you create an [`HPPPAppearance`](http://hppp.herokuapp.com/HPPPAppe
 
 ##### Print Layout
 
-If the image to be printed has does not match the size of the paper to be printed on, then one of two behaviors can be configured. This behavior is controlled via the [`zoomAndCrop`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/zoomAndCrop) property of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
+If the image to be printed does not match the size of the paper to be printed on, then one of two behaviors can be configured. This behavior is controlled via the [`zoomAndCrop`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/zoomAndCrop) property of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
 
 If [`zoomAndCrop`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/zoomAndCrop) is set to `YES`, the image aspect ratio is maintained but the image is reduced or enlarged so that it just fills the entire page. 
 Some top/bottom or left/right cropping of the image may occur. 
