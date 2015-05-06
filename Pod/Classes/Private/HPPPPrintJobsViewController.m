@@ -14,6 +14,7 @@
 #import "HPPPPrintJobsViewController.h"
 #import "HPPPPrintJobsTableViewCell.h"
 #import "HPPPPrintLaterQueue.h"
+#import "HPPPPrintLaterManager.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
 #import "HPPPDefaultSettingsManager.h"
@@ -25,7 +26,7 @@
 #import "UIColor+HPPPStyle.h"
 #import "NSBundle+HPPPLocalizable.h"
 
-@interface HPPPPrintJobsViewController ()<HPPPPageSettingsTableViewControllerDelegate, HPPPPageSettingsTableViewControllerDataSource, HPPPPrintJobsActionViewDelegate, HPPPPrintJobsTableViewCellDelegate>
+@interface HPPPPrintJobsViewController ()<HPPPPrintDelegate, HPPPPrintDataSource, HPPPPrintJobsActionViewDelegate, HPPPPrintJobsTableViewCellDelegate>
 
 @property (strong, nonatomic) HPPPPrintLaterJob *selectedPrintJob;
 @property (strong, nonatomic) NSArray *selectedPrintJobs;
@@ -54,8 +55,8 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     HPPP *hppp = [HPPP sharedInstance];
     
-    self.emptyPrintQueueLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenEmptyQueueFontAttribute];
-    self.emptyPrintQueueLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenEmptyQueueColorAttribute];
+    self.emptyPrintQueueLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenEmptyQueueFontAttribute];
+    self.emptyPrintQueueLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenEmptyQueueColorAttribute];
     self.emptyPrintQueueLabel.text = HPPPLocalizedString(@"Print queue is empty", nil);
     
     self.title = HPPPLocalizedString(@"Print Queue", nil);
@@ -106,8 +107,8 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 {
     self.jobsCounterLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 22.0f)];
     HPPP *hppp = [HPPP sharedInstance];
-    self.jobsCounterLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintsCounterLabelFontAttribute];
-    self.jobsCounterLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenPrintsCounterLabelColorAttribute];
+    self.jobsCounterLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPrintsCounterLabelFontAttribute];
+    self.jobsCounterLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPrintsCounterLabelColorAttribute];
     self.jobsCounterLabel.text = [NSString stringWithFormat:HPPPLocalizedString(@"%d Prints", nil), [[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs]];
     UIBarButtonItem *jobsCounterBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.jobsCounterLabel];
     [self.navigationItem setLeftBarButtonItem:jobsCounterBarButtonItem];
@@ -199,7 +200,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     self.selectedPrintJob = printJobs[0];
     self.selectedPrintJobs = printJobs;
     
-    UIViewController *vc = [[HPPP sharedInstance] activityViewControllerWithDelegate:self dataSource:self image:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] fromQueue:YES];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] fromQueue:YES];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
     } else {
@@ -232,16 +233,16 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     jobCell.delegate = self;
     
     jobCell.jobNameLabel.text = job.name;
-    jobCell.jobNameLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameFontAttribute];
-    jobCell.jobNameLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobNameColorAttribute];
+    jobCell.jobNameLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobNameFontAttribute];
+    jobCell.jobNameLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobNameColorAttribute];
     
     NSString *formatString = [NSDateFormatter dateFormatFromTemplate:[HPPP sharedInstance].defaultDateFormat options:0 locale:[NSLocale currentLocale]];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:formatString];
     
     jobCell.jobDateLabel.text = [formatter stringFromDate:job.date];
-    jobCell.jobDateLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateFontAttribute];
-    jobCell.jobDateLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenJobDateColorAttribute];
+    jobCell.jobDateLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobDateFontAttribute];
+    jobCell.jobDateLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobDateColorAttribute];
     
     NSString *paperSizeTitle = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
     jobCell.jobThumbnailImageView.image = [job.images objectForKey:paperSizeTitle];
@@ -305,8 +306,8 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 10.0f, self.view.frame.size.width, 44.0f)];
     textLabel.textAlignment = NSTextAlignmentCenter;
-    textLabel.font = [[HPPP sharedInstance].appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenNoWifiLabelFontAttribute];
-    textLabel.textColor = [[HPPP sharedInstance].appearance.printQueueScreenAttributes objectForKey:HPPPPrintQueueScreenNoWifiLabelColorAttribute];
+    textLabel.font = [[HPPP sharedInstance].appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenNoWifiLabelFontAttribute];
+    textLabel.textColor = [[HPPP sharedInstance].appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenNoWifiLabelColorAttribute];
     textLabel.backgroundColor = [UIColor whiteColor];
     textLabel.layer.borderWidth = 0.5f;
     textLabel.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -323,26 +324,26 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     return view;
 }
 
-#pragma mark - HPPPPageSettingsTableViewControllerDelegate
+#pragma mark - HPPPPrintDelegate
 
--(void)pageSettingsTableViewControllerDidFinishPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
+- (void)didFinishPrintFlow:(UIViewController *)printViewController;
 {
     HPPPLogInfo(@"Finished Print Job!");
     NSString *action = self.selectedPrintJobs.count > 1 ? kHPPPQueuePrintAllAction : kHPPPQueuePrintAction;
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:action, kHPPPPrintQueueJobsKey:self.selectedPrintJobs }];
     
-    [pageSettingsTableViewController.navigationController popViewControllerAnimated:YES];
+    [printViewController.navigationController popViewControllerAnimated:YES];
 }
 
--(void)pageSettingsTableViewControllerDidCancelPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
+- (void)didCancelPrintFlow:(UIViewController *)printViewController;
 {
     HPPPLogInfo(@"Cancelled Print Job!");
-    [pageSettingsTableViewController dismissViewControllerAnimated:YES completion:nil];
+    [printViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - HPPPPageSettingsTableViewControllerDataSource
+#pragma mark - HPPPPrintDataSource
 
-- (void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
+- (void)imageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion;
 {
     NSString *imageKey = [HPPPPaper titleFromSize:paper.paperSize];
     
@@ -354,7 +355,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     }
 }
 
-- (NSInteger)pageSettingsTableViewControllerRequestNumberOfImagesToPrint
+- (NSInteger)numberOfImages
 {
     NSInteger printJobsCount = 1;
     
@@ -365,7 +366,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     return printJobsCount;
 }
 
-- (NSArray *)pageSettingsTableViewControllerRequestImagesForPaper:(HPPPPaper *)paper
+- (NSArray *)imagesForPaper:(HPPPPaper *)paper
 {
     NSString *imageKey = [HPPPPaper titleFromSize:paper.paperSize];
     

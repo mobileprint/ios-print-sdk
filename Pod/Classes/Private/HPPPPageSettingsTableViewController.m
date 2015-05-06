@@ -30,6 +30,7 @@
 #import "UIImage+HPPPResize.h"
 #import "UIColor+HPPPStyle.h"
 #import "NSBundle+HPPPLocalizable.h"
+#import "HPPPSupportAction.h"
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 
@@ -203,16 +204,16 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
     [self updatePageSettingsUI];
     
-    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
-        NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+    if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfImages];
         
         self.printLabel.text = [self stringFromNumberOfImages:numberOfJobs copies:1];
     }
     
-    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
+    if ([self.dataSource respondsToSelector:@selector(imageForPaper:withCompletion:)]) {
         self.spinner = [self.pageView HPPPAddSpinner];
         self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-        [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:self.currentPrintSettings.paper withCompletion:^(UIImage *image) {
+        [self.dataSource imageForPaper:self.currentPrintSettings.paper withCompletion:^(UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.spinner removeFromSuperview];
                 if (image) {
@@ -268,8 +269,8 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.pageViewController.pageView;
         
-        if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
-            NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+        if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
+            NSInteger numberOfJobs = [self.dataSource numberOfImages];
             if (numberOfJobs > 1) {
                 self.pageView.mutipleImages = YES;
             }
@@ -332,8 +333,8 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     if (!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.tableViewCellPageView;
         
-        if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
-            NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+        if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
+            NSInteger numberOfJobs = [self.dataSource numberOfImages];
             if (numberOfJobs > 1) {
                 self.pageView.mutipleImages = YES;
             }
@@ -537,10 +538,10 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 - (IBAction)cancelButtonTapped:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidCancelPrintFlow:)]) {
-        [self.delegate pageSettingsTableViewControllerDidCancelPrintFlow:self];
+    if ([self.delegate respondsToSelector:@selector(didCancelPrintFlow:)]) {
+        [self.delegate didCancelPrintFlow:self];
     } else {
-        HPPPLogWarn(@"No HPPPPageSettingsTableViewControllerDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
+        HPPPLogWarn(@"No HPPPPrintDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
     }
 }
 
@@ -593,8 +594,8 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     self.numberOfCopiesLabel.text = (self.numberOfCopies == 1) ? HPPPLocalizedString(@"1 copy", nil) : [NSString stringWithFormat:HPPPLocalizedString(@"%ld copies", @"Number of copies"), (long)self.numberOfCopies];
     
-    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
-        NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+    if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfImages];
         
         self.printLabel.text = [self stringFromNumberOfImages:numberOfJobs copies:self.numberOfCopies];
     } else {
@@ -904,11 +905,11 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     HPPPPrintPageRenderer *renderer;
     
-    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
-        NSInteger numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+    if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfImages];
         if (numberOfJobs > 1) {
-            if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImagesForPaper:)]) {
-                NSMutableArray *images = [self.dataSource pageSettingsTableViewControllerRequestImagesForPaper:self.currentPrintSettings.paper].mutableCopy;
+            if ([self.dataSource respondsToSelector:@selector(imagesForPaper:)]) {
+                NSMutableArray *images = [self.dataSource imagesForPaper:self.currentPrintSettings.paper].mutableCopy;
                 
                 // Check if the images needs rotation for printing
                 for (NSInteger i = 0; i < images.count; i++) {
@@ -959,11 +960,11 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
             }
         }
         
-        if ([self.delegate respondsToSelector:@selector(pageSettingsTableViewControllerDidFinishPrintFlow:)]) {
-            [self.delegate pageSettingsTableViewControllerDidFinishPrintFlow:self];
+        if ([self.delegate respondsToSelector:@selector(didFinishPrintFlow:)]) {
+            [self.delegate didFinishPrintFlow:self];
         }
         else {
-            HPPPLogWarn(@"No HPPPPageSettingsTableViewControllerDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
+            HPPPLogWarn(@"No HPPPPrintDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
         }
         
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
@@ -971,8 +972,8 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
             NSString *offramp = NSStringFromClass([HPPPPrintActivity class]);
             if (self.printFromQueue) {
                 offramp = kHPPPQueuePrintAction;
-                if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestNumberOfImagesToPrint)]) {
-                    numberOfJobs = [self.dataSource pageSettingsTableViewControllerRequestNumberOfImagesToPrint];
+                if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
+                    numberOfJobs = [self.dataSource numberOfImages];
                     if (numberOfJobs > 1) {
                         offramp = kHPPPQueuePrintAllAction;
                     }
@@ -1113,10 +1114,10 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     [defaults setObject:[NSNumber numberWithInteger:self.currentPrintSettings.paper.paperSize] forKey:kHPPPLastPaperSizeSetting];
     [defaults synchronize];
     
-    if ([self.dataSource respondsToSelector:@selector(pageSettingsTableViewControllerRequestImageForPaper:withCompletion:)]) {
+    if ([self.dataSource respondsToSelector:@selector(imageForPaper:withCompletion:)]) {
         self.spinner = [self.pageView HPPPAddSpinner];
         self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-        [self.dataSource pageSettingsTableViewControllerRequestImageForPaper:paper withCompletion:^(UIImage *image) {
+        [self.dataSource imageForPaper:paper withCompletion:^(UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (image) {
                     self.image = image;

@@ -17,6 +17,7 @@
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPDefaultSettingsManager.h"
 #import "HPPPPrintJobsViewController.h"
+#import "HPPPPageSettingsTableViewController.h"
 #import "NSBundle+HPPPLocalizable.h"
 
 const int kSecondsInOneHour = (60 * 60);

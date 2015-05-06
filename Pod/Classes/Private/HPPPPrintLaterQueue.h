@@ -20,21 +20,6 @@
 @interface HPPPPrintLaterQueue : NSObject
 
 /*!
- * @abstract The notification sent when a job is added to the print queue
- */
-extern NSString * const kHPPPPrintJobAddedToQueueNotification;
-
-/*!
- * @abstract The notification sent when a job is removed from the print queue
- */
-extern NSString * const kHPPPPrintJobRemovedFromQueueNotification;
-
-/*!
- * @abstract The notification sent when all jobs are removed from the print queue
- */
-extern NSString * const kHPPPAllPrintJobsRemovedFromQueueNotification;
-
-/*!
  * @abstract Used to access the singleton instance of this class
  */
 + (HPPPPrintLaterQueue *)sharedInstance;

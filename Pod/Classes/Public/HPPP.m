@@ -13,7 +13,10 @@
 #import "HPPP.h"
 #import "HPPPAnalyticsManager.h"
 #import "HPPPPrintLaterManager.h"
-
+#import "HPPPPrintLaterQueue.h"
+#import "HPPPPrintJobsViewController.h"
+#import "HPPPPageSettingsTableViewController.h"
+#import "HPPPWiFiReachability.h"
 
 #define DEFAULT_RULES_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:10]
 #define DEFAULT_TABLE_VIEW_CELL_PRINT_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
@@ -43,6 +46,10 @@ NSString * const kHPPPTrackableScreenNameKey = @"screen-name";
 NSString * const kHPPPPrintQueueNotification = @"kHPPPPrintQueueNotification";
 NSString * const kHPPPPrintQueueActionKey = @"kHPPPPrintQueueActionKey";
 NSString * const kHPPPPrintQueueJobsKey = @"kHPPPPrintQueueJobsKey";
+
+NSString * const kHPPPPrintJobAddedToQueueNotification = @"kHPPPPrintJobAddedToQueueNotification";
+NSString * const kHPPPPrintJobRemovedFromQueueNotification = @"kHPPPPrintJobRemovedFromQueueNotification";
+NSString * const kHPPPAllPrintJobsRemovedFromQueueNotification = @"kHPPPAllPrintJobsRemovedFromQueueNotification";
 
 NSString * const kHPPPPrinterAvailabilityNotification = @"kHPPPPrinterAvailabilityNotification";
 NSString * const kHPPPPrinterAvailableKey = @"availability";
@@ -279,7 +286,7 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     }
 }
 
-- (UIViewController *)activityViewControllerWithDelegate:(id<HPPPPageSettingsTableViewControllerDelegate>)delegate dataSource:(id<HPPPPageSettingsTableViewControllerDataSource>)dataSource image:(UIImage *)image fromQueue:(BOOL)fromQueue
+- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource image:(UIImage *)image fromQueue:(BOOL)fromQueue
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
     
@@ -320,6 +327,41 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
         
         return navigationController;
     }
+}
+
+- (UIUserNotificationCategory *)printLaterUserNotificationCategory
+{
+    return [[HPPPPrintLaterManager sharedInstance] printLaterUserNotificationCategory];
+}
+
+- (void)handleNotification:(UILocalNotification *)notification
+{
+    [[HPPPPrintLaterManager sharedInstance] handleNotification:notification];
+}
+
+- (void)handleNotification:(UILocalNotification *)notification action:(NSString *)action
+{
+    [[HPPPPrintLaterManager sharedInstance] handleNotification:notification action:action];
+}
+
+- (void)presentPrintQueueFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
+{
+    [HPPPPrintJobsViewController presentAnimated:animated usingController:controller andCompletion:completion];
+}
+
+- (NSInteger)numberOfJobsInQueue
+{
+    return [[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs];
+}
+
+- (NSString *)nextPrintJobId
+{
+    return [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
+}
+
+- (BOOL)isWifiConnected
+{
+    return [[HPPPWiFiReachability sharedInstance] isWifiConnected];
 }
 
 @end
