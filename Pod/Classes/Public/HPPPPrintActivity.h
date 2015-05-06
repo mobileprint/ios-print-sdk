@@ -13,7 +13,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@protocol HPPPPrintDelegate;
 @protocol HPPPPrintDataSource;
 
 /*!
@@ -23,17 +22,10 @@
 @interface HPPPPrintActivity : UIActivity
 
 /*!
- * @abstract Storess the print delegate to be used during the activity
- * @discussion Set this property to an object implementing the HPPPPrintDelegate protocol. This will be used to handle print finish and cancel events.
- * @seealso HPPPPrintDelegate
- */
-@property (weak, nonatomic) id<HPPPPrintDelegate>printDelegate;
-
-/*!
  * @abstract Storess the print data source to be used during the activity
  * @discussion Set this property to an object implementing the HPPPPrintDataSource protocol. This will be used to provide custom images for each paper size.
  * @seealso HPPPPrintDataSource
  */
-@property (weak, nonatomic) id<HPPPPrintDataSource>printDataSource;
+@property (weak, nonatomic) id<HPPPPrintDataSource>dataSource;
 
 @end

@@ -101,8 +101,7 @@ You must provide a single printable image as part of the initial sharing setup, 
 - (IBAction)shareBarButtonItemTap:(id)sender
 {
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
-    printActivity.printDelegate = self;
-    printActivity.printDataSource = self;
+    printActivity.dataSource = self;
     NSArray *applicationActivities = @[printActivity];
     UIImage *printableItem = [UIImage imageNamed:@"sample-portrait.jpg"];
     NSArray *activitiesItems = @[printableItem];

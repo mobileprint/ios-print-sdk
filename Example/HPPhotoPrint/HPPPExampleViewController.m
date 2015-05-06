@@ -78,8 +78,7 @@
     NSLog(@"Bundle %@", bundlePath);
     
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
-    printActivity.printDelegate = self;
-    printActivity.printDataSource = self;
+    printActivity.dataSource = self;
     
     NSArray *applicationActivities = nil;
     if (IS_OS_8_OR_LATER) {
