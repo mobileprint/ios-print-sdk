@@ -14,7 +14,6 @@
 
 /*!
  * @abstract Represents a single print job
- * @seealso HPPPPrintLaterActivity
  */
 @interface HPPPPrintLaterJob : NSObject <NSCoding>
 
@@ -27,7 +26,6 @@
 /*!
  * @abstract ID of the print job
  * @discussion Use the retrievePrintLaterJobNextAvailableId method of HPPPPrintLaterQueue to obtain the next available ID
- * @seealso HPPPPrintLaterQueue
  */
 @property (strong, nonatomic) NSString *id;
 

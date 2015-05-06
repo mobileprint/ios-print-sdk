@@ -12,13 +12,13 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "HPPPAppearance.h"
+#import "HPPPPaper.h"
 #import "HPPPPrintActivity.h"
 #import "HPPPPrintLaterActivity.h"
-#import "HPPPPrintLaterManager.h"
-#import "HPPPPageSettingsTableViewController.h"
+#import "HPPPPrintLaterJob.h"
 #import "HPPPSupportAction.h"
-#import "HPPPPrintLaterQueue.h"
-#import "HPPPAppearance.h"
+#import "HPPPLogger.h"
 
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 
@@ -42,6 +42,9 @@
 extern NSString * const kLaterActionIdentifier;
 extern NSString * const kPrintActionIdentifier;
 extern NSString * const kPrintCategoryIdentifier;
+
+@protocol HPPPPrintDelegate;
+@protocol HPPPPrintDataSource;
 
 /*!
  * @abstract Main HP Photo Print manager class
@@ -99,6 +102,21 @@ extern NSString * const kHPPPPrinterKey;
  * @seealso kHPPPPrintQueueJobsKey
  */
 extern NSString * const kHPPPPrintQueueNotification;
+
+/*!
+ * @abstract The notification sent when a job is added to the print queue
+ */
+extern NSString * const kHPPPPrintJobAddedToQueueNotification;
+
+/*!
+ * @abstract The notification sent when a job is removed from the print queue
+ */
+extern NSString * const kHPPPPrintJobRemovedFromQueueNotification;
+
+/*!
+ * @abstract The notification sent when all jobs are removed from the print queue
+ */
+extern NSString * const kHPPPAllPrintJobsRemovedFromQueueNotification;
 
 /*!
  * @abstract Used to retrieve the action performed on the job
@@ -379,17 +397,120 @@ extern NSString * const kHPPPNumberOfCopies;
 /*!
  * @abstract Prepares a view controller suitable for the device and OS
  * @description This method prepares a view controller for displaying the print flow. It takes into consideration the device type and OS and prepares either a split view controller (iPad with iOS 8 or above) or a standard view controller. Both types are wrapped in a navigation controller. The controller returned is suitable for using with the UIActivity method 'activityViewController'.
- * @param delegate An optional delegate object that implements the HPPPPageSettingsTableViewControllerDelegate protocol
- * @param dataSource An optional data source object that implements the HPPPPageSettingsTableViewControllerDataSource protocol
+ * @param delegate An optional delegate object that implements the HPPPPrintDelegate protocol
+ * @param dataSource An optional data source object that implements the HPPPPrintDataSource protocol
  * @param image The initial image to use for the print preview
  * @param fromQueue A boolean value indicating if this job is being printed from the print queue
  * @return The view controller that the client should present
  */
-- (UIViewController *)activityViewControllerWithDelegate:(id<HPPPPageSettingsTableViewControllerDelegate>)delegate dataSource:(id<HPPPPageSettingsTableViewControllerDataSource>)dataSource image:(UIImage *)image fromQueue:(BOOL)fromQueue;
+- (UIViewController *)activityViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource image:(UIImage *)image fromQueue:(BOOL)fromQueue;
+
+/*!
+ * @abstract User notification category used for print reminder
+ * @discussion UIUserNotificationCategory to register in the clients for push notifications of the print later. The clients must do the registration because it may happen that the client have other notification categories to register, and all the registration must be do at the same time, otherwise the new category will override the previous one.
+ */
+- (UIUserNotificationCategory *)printLaterUserNotificationCategory;
+
+/*!
+ * @abstract Handles when the user taps an action button on the notification dialog
+ */
+- (void)handleNotification:(UILocalNotification *)notification;
+
+/*!
+ * @abstract Handles when the user taps the notification itself
+ * @discussion This method is called when the user taps the notification body itself rather than one of the specific action buttons
+ */
+- (void)handleNotification:(UILocalNotification *)notification action:(NSString *)action;
+
+/*!
+ * @abstract Displays the list of print jobs modally
+ * @discussion This method prepares an instance of a view controller with the contents of the print queue and displays it modally.
+ * @param controller The controller used as the parent for displaying the modal view controller
+ * @param animated A boolean indicating whether or not to animate the display
+ * @param completion A block to call when the display animation is complete
+ */
+- (void)presentPrintQueueFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion;
+
+/*!
+ * @abstract Retrieves the total number of jobs currently in the print queue
+ * @return An integer representing the number of jobs
+ */
+- (NSInteger)numberOfJobsInQueue;
+
+/*!
+ * @abstract Used to get the next available job ID
+ * @return The next available job ID
+ */
+- (NSString *)nextPrintJobId;
+
+/*!
+ * @abstract Indicates whether or not Wi-Fi is connected
+ * @return YES or NO
+ */
+- (BOOL)isWifiConnected;
 
 /*!
  * @abstract Used to access the singleton instance of this class
  */
 + (HPPP *)sharedInstance;
+
+@end
+
+/*!
+ * @abstract Defines a delegate protocal for reporting print events
+ * @seealso HPPPPrintDataSource
+ */
+@protocol HPPPPrintDelegate <NSObject>
+
+/*!
+ * @abstract Called when the print flow finishes successfully
+ * @discussion This delegate method is called when the print flow finishes successfully. This means that the print job was sent to the printer without error. It does not mean that the job was completed and printed without error, just that the job was queued successfully. Errors such as out-of-paper could still occur after this method is called.
+ * @param printViewController The view controller calling the method
+ * @returns Nothing
+ * @seealso didCancelPrintFlow:
+ */
+- (void)didFinishPrintFlow:(UIViewController *)printViewController;
+
+/*!
+ * @abstract Called when the print flow is canceled
+ * @discussion This method is called when the print flow is canceled by the user. If the print job is queued successfully but subsequently canceled by the user in the Print Center, this method is not called.
+ * @param printViewController The view controller calling the method
+ * @returns Nothing
+ * @seealso didFinishPrintFlow:
+ */
+- (void)didCancelPrintFlow:(UIViewController *)printViewController;
+
+@end
+
+/*!
+ * @abstract Defines a data source protocal for requesting the printable image
+ * @seealso HPPPPrintDelegate
+ */
+@protocol HPPPPrintDataSource <NSObject>
+
+/*!
+ * @abstract Called when a new printable image is needed
+ * @discussion This method is called when initiating the print flow or whenever relevant parameters are changed (e.g. page size).
+ * @param paper The @link HPPPPaper @/link object that the image will be laid out on
+ * @seealso HPPPPaper
+ */
+- (void)imageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion;
+
+@optional
+
+/*!
+ * @abstract Called to request the total number of print jobs to print
+ * @return The number of jobs to print
+ * @seealso imagesForPaper:
+ */
+- (NSInteger)numberOfImages;
+
+/*!
+ * @abstract Called to request the images for each job
+ * @param paper The type and size of paper being requested
+ * @return An array of images for this paper size/type, one image per job
+ * @seealso numberOfImages
+ */
+- (NSArray *)imagesForPaper:(HPPPPaper *)paper;
 
 @end

@@ -14,4 +14,58 @@
 
 @implementation HPPPLearnMoreView
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self initWithXibName:[self xibName]];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self initWithXibName:[self xibName]];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initWithXibName:[self xibName]];
+    }
+    
+    return self;
+}
+
+- (void)initWithXibName:(NSString *)xibName
+{
+    UIView *containerView = [[[NSBundle mainBundle] loadNibNamed:xibName owner:self options:nil] lastObject];
+    
+    [containerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    [self addSubview:containerView];
+    
+    [self addConstraints:[NSLayoutConstraint
+                          constraintsWithVisualFormat:@"H:|[containerView]|"
+                          options:NSLayoutFormatDirectionLeadingToTrailing
+                          metrics:nil
+                          views:NSDictionaryOfVariableBindings(containerView)]];
+    [self addConstraints:[NSLayoutConstraint
+                          constraintsWithVisualFormat:@"V:|[containerView]|"
+                          options:NSLayoutFormatDirectionLeadingToTrailing
+                          metrics:nil
+                          views:NSDictionaryOfVariableBindings(containerView)]];
+    self.backgroundColor = [UIColor clearColor];
+}
+
+- (NSString *)xibName
+{
+    return NSStringFromClass(self.class);
+}
+
 @end

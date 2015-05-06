@@ -12,9 +12,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "HPPPPaper.h"
 
-@protocol HPPPPrintActivityDataSource;
+@protocol HPPPPrintDelegate;
+@protocol HPPPPrintDataSource;
 
 /*!
  * @abstract The activity class that implements the print sharing activity
@@ -23,25 +23,17 @@
 @interface HPPPPrintActivity : UIActivity
 
 /*!
- * @abstract Provides the printable image asset
- * @discussion The data source is used to provide an image to use for printing. A new image is requested when the sharing activity view is shown.
- * @seealso HPPPPrintActivityDataSource
+ * @abstract Storess the print delegate to be used during the activity
+ * @discussion Set this property to an object implementing the HPPPPrintDelegate protocol. This will be used to handle print finish and cancel events.
+ * @seealso HPPPPrintDelegate
  */
-@property (nonatomic, weak) id<HPPPPrintActivityDataSource> dataSource;
-
-@end
+@property (weak, nonatomic) id<HPPPPrintDelegate>printDelegate;
 
 /*!
- * @abstract Defines a data source protocal for requesting the printable image
+ * @abstract Storess the print data source to be used during the activity
+ * @discussion Set this property to an object implementing the HPPPPrintDataSource protocol. This will be used to provide custom images for each paper size.
+ * @seealso HPPPPrintDataSource
  */
-@protocol HPPPPrintActivityDataSource <NSObject>
-
-/*!
- * @abstract Called when a new printable image is needed
- * @discussion This method is called when initiating the print flow or whenever relevant parameters are changed (e.g. page size).
- * @param paper The @link HPPPPaper @/link object that the image will be laid out on
- * @seealso HPPPPaper
- */
-- (void)printActivityRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion;
+@property (weak, nonatomic) id<HPPPPrintDataSource>printDataSource;
 
 @end
