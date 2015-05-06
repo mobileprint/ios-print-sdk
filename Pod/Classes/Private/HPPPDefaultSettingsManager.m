@@ -17,6 +17,8 @@ NSString * const kDefaultPrinterURLKey = @"kDefaultPrinterURLKey";
 NSString * const kDefaultPrinterNetworkKey = @"kDefaultPrinterNetworkKey";
 NSString * const kDefaultPrinterLatitudeCoordinateKey = @"kDefaultPrinterLatitudeCoordinateKey";
 NSString * const kDefaultPrinterLongitudeCoordinateKey = @"kDefaultPrinterLongitudeCoordinateKey";
+NSString * const kDefaultPrinterModelKey = @"kDefaultPrinterModelKey";
+NSString * const kDefaultPrinterLocationKey = @"kDefaultPrinterLocationKey";
 
 @implementation HPPPDefaultSettingsManager
 
@@ -87,6 +89,30 @@ NSString * const kDefaultPrinterLongitudeCoordinateKey = @"kDefaultPrinterLongit
     [defaults synchronize];
     
     HPPPLogInfo(@"DEFAULT PRINTER COORDINATES:\nlat:%f\nlon:%f", defaultPrinterCoordinate.latitude, defaultPrinterCoordinate.longitude);
+}
+
+- (NSString *)defaultPrinterModel
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultPrinterModelKey];
+}
+
+-(void)setDefaultPrinterModel:(NSString *)defaultPrinterModel
+{
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:defaultPrinterModel forKey:kDefaultPrinterModelKey];
+    [defaults synchronize];
+}
+
+- (NSString *)defaultPrinterLocation
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kDefaultPrinterLocationKey];
+}
+
+-(void)setDefaultPrinterLocation:(NSString *)defaultPrinterLocation
+{
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:defaultPrinterLocation forKey:kDefaultPrinterLocationKey];
+    [defaults synchronize];
 }
 
 - (BOOL)isDefaultPrinterSet

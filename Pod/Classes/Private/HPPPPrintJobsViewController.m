@@ -17,7 +17,6 @@
 #import "HPPPPrintLaterManager.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
-#import "HPPPDefaultSettingsManager.h"
 #import "HPPPPaper.h"
 #import "HPPPAnalyticsManager.h"
 #import "HPPPWiFiReachability.h"
