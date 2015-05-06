@@ -10,6 +10,7 @@
 // the license agreement.
 //
 
+#import <stdlib.h>
 #import <HPPP.h>
 #import "HPPPExampleViewController.h"
 
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *photoSourceTextField;
 @property (weak, nonatomic) IBOutlet UITextField *userIDTextField;
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
+@property (strong, nonatomic) UIImage *image;
 
 @end
 
@@ -83,15 +85,16 @@
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
         
-        UIImage *image4x5 = [UIImage imageNamed:@"sample2-portrait.jpg"];
-        UIImage *image4x6 = [UIImage imageNamed:@"sample2-portrait.jpg"];
-        UIImage *image5x7 = [UIImage imageNamed:@"sample2-portrait.jpg"];
-        UIImage *imageLetter = image4x5;
+        self.image = [self randomImage];
+        UIImage *image4x5 = self.image;
+        UIImage *image4x6 = self.image;
+        UIImage *image5x7 = self.image;
+        UIImage *imageLetter = self.image;
         
         printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
         HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
         printLaterJob.id = printLaterJobNextAvailableId;
-        printLaterJob.name = @"Einstein";
+        printLaterJob.name = @"Add from Share";
         printLaterJob.date = [NSDate date];
         printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
                                  [HPPPPaper titleFromSize:Size4x6] : image4x6,
@@ -106,7 +109,7 @@
         applicationActivities = @[printActivity];
     }
     
-    UIImage *card = [UIImage imageNamed:@"sample-portrait.jpg"];
+    UIImage *card = [self randomImage];
     NSArray *activitiesItems = @[card];
     
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activitiesItems applicationActivities:applicationActivities];
@@ -157,7 +160,7 @@
 }
 
 - (IBAction)showPrintNowTapped:(id)sender {
-    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[UIImage imageNamed:@"sample2-portrait.jpg"] fromQueue:NO];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[self randomImage] fromQueue:NO];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -183,7 +186,7 @@
 - (void)imageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
 {
     if (completion) {
-        completion([UIImage imageNamed:@"sample2-portrait.jpg"]);
+        completion(self.image);
     }
 }
 
@@ -194,7 +197,7 @@
 
 - (NSArray *)imagesForPaper:(HPPPPaper *)paper
 {
-    return @[ [UIImage imageNamed:@"sample2-portrait.jpg"] ];
+    return @[ self.image ];
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate
@@ -245,53 +248,31 @@
 {
     [[HPPP sharedInstance] clearQueue];
     
-    NSString *printLaterJobNextAvailableId = nil;
-    HPPPPrintLaterJob *printLaterJob = nil;
+    int jobCount = 5;
     
-    UIImage *image4x5 = [UIImage imageNamed:@"sample2-portrait.jpg"];
-    UIImage *image4x6 = [UIImage imageNamed:@"sample2-portrait.jpg"];
-    UIImage *image5x7 = [UIImage imageNamed:@"sample2-portrait.jpg"];
-    UIImage *imageLetter = image4x5;
-    
-    UIImage *image4x5_2 = [UIImage imageNamed:@"sample-landscape.jpg"];
-    UIImage *image4x6_2 = [UIImage imageNamed:@"sample-landscape.jpg"];
-    UIImage *image5x7_2 = [UIImage imageNamed:@"sample-landscape.jpg"];
-    UIImage *imageLetter_2 = image4x5_2;
-    
-    printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
-    printLaterJob = [[HPPPPrintLaterJob alloc] init];
-    printLaterJob.id = printLaterJobNextAvailableId;
-    printLaterJob.name = @"Einstein";
-    printLaterJob.date = [NSDate date];
-    printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
-                             [HPPPPaper titleFromSize:Size4x6] : image4x6,
-                             [HPPPPaper titleFromSize:Size5x7] : image5x7,
-                             [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
-    [[HPPP sharedInstance] addJobToQueue:printLaterJob];
-    
-    printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
-    printLaterJob = [[HPPPPrintLaterJob alloc] init];
-    printLaterJob.id = printLaterJobNextAvailableId;
-    printLaterJob.name = @"Dude";
-    printLaterJob.date = [NSDate date];
-    printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5_2,
-                             [HPPPPaper titleFromSize:Size4x6] : image4x6_2,
-                             [HPPPPaper titleFromSize:Size5x7] : image5x7_2,
-                             [HPPPPaper titleFromSize:SizeLetter] : imageLetter_2};
-    [[HPPP sharedInstance] addJobToQueue:printLaterJob];
-    
-    printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
-    printLaterJob = [[HPPPPrintLaterJob alloc] init];
-    printLaterJob.id = printLaterJobNextAvailableId;
-    printLaterJob.name = @"Awesome";
-    printLaterJob.date = [NSDate date];
-    printLaterJob.images = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
-                             [HPPPPaper titleFromSize:Size4x6] : image4x6,
-                             [HPPPPaper titleFromSize:Size5x7] : image5x7,
-                             [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
-    [[HPPP sharedInstance] addJobToQueue:printLaterJob];
-    
+    for (int idx = 0; idx < jobCount; idx++) {
+        
+        NSString *jobID = [[HPPP sharedInstance] nextPrintJobId];
+        UIImage *image = [self randomImage];
+        HPPPPrintLaterJob *job = [[HPPPPrintLaterJob alloc] init];
+        job.id = jobID;
+        job.name = [NSString stringWithFormat:@"Print Job #%d", idx + 1];
+        job.date = [NSDate date];
+        job.images = @{[HPPPPaper titleFromSize:Size4x5] : image,
+                                 [HPPPPaper titleFromSize:Size4x6] : image,
+                                 [HPPPPaper titleFromSize:Size5x7] : image,
+                                 [HPPPPaper titleFromSize:SizeLetter] : image};
+        [[HPPP sharedInstance] addJobToQueue:job];
+    }
 }
 
+- (UIImage *)randomImage
+{
+    int numberOfSampleImages = 10;
+    int picNumber = arc4random_uniform(numberOfSampleImages) + 1;
+    NSString *picName = [NSString stringWithFormat:@"sample%d.jpg", picNumber];
+    UIImage *image = [UIImage imageNamed:picName];
+    return image;
+}
 
 @end
