@@ -245,8 +245,8 @@ Some top/bottom or left/right cropping of the image may occur.
 This behavior is identical to the [`UIViewContentModeScaleAspectFill`](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/c/tdef/UIViewContentMode) content mode setting of `UIView`.
 
 If [`zoomAndCrop`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/zoomAndCrop) is set to `NO`, the image layout on the page depends on the ratio of the page width to the image width.
-If this ratio is less than 1.25 then the image is reduced or enlarged so that its width is exactly equal to the page width. Then the top edge of the image is aligned with the top edge of the page. The bottom of the image may be cropped.
-If the ratio is greater than 1.25 then image is simply centered horizontally and vertically on the page.
+If this ratio is less than 1.25 then the image is reduced or enlarged so that its width is exactly equal to the page width. Then the top edge of the image is aligned with the top edge of the page. The bottom of the image may be cropped or there may be empty space left at the bottom of the print.
+If the ratio is greater than 1.25 then the image is simply centered horizontally and vertically on the page.
 
 > __Note:__ The reason for this unique behavior has to do with the custom needs of an internal HP app.
 
