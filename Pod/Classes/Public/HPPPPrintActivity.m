@@ -15,7 +15,7 @@
 #import "HPPPPrintActivity.h"
 #import "NSBundle+HPPPLocalizable.h"
 
-@interface HPPPPrintActivity ()
+@interface HPPPPrintActivity () <HPPPPrintDelegate>
 
 @property (strong, nonatomic) UIImage *image;
 
@@ -52,7 +52,23 @@
 
 - (UIViewController *)activityViewController
 {
-    return [[HPPP sharedInstance] printViewControllerWithDelegate:self.printDelegate dataSource:self.printDataSource image:self.image fromQueue:NO];
+    return [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self.dataSource image:self.image fromQueue:NO];
+}
+
+#pragma mark - HPPPPrintDelegate
+
+- (void)didFinishPrintFlow:(UIViewController *)printViewController
+{
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self activityDidFinish:YES];
+    });
+}
+
+- (void)didCancelPrintFlow:(UIViewController *)printViewController
+{
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self activityDidFinish:NO];
+    });
 }
 
 @end
