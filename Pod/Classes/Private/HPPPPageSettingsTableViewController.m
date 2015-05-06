@@ -1056,13 +1056,6 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     [self paperTypeTableViewController:(HPPPPaperTypeTableViewController *)printSettingsTableViewController didSelectPaper:printSettings.paper];
     
     [self reloadPrinterSelectionSection];
-    
-    if (self.printFromQueue && IS_OS_8_OR_LATER) {
-        NSString *defaultPrinterUrl = [[HPPPDefaultSettingsManager sharedInstance] defaultPrinterUrl];
-        if (defaultPrinterUrl != nil) {
-            [self displaySaveAsDefaultPrinter];
-        }
-    }
 }
 
 #pragma mark - HPPPPaperSizeTableViewControllerDelegate
