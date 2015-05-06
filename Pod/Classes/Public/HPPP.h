@@ -403,7 +403,7 @@ extern NSString * const kHPPPNumberOfCopies;
  * @param fromQueue A boolean value indicating if this job is being printed from the print queue
  * @return The view controller that the client should present
  */
-- (UIViewController *)activityViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource image:(UIImage *)image fromQueue:(BOOL)fromQueue;
+- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource image:(UIImage *)image fromQueue:(BOOL)fromQueue;
 
 /*!
  * @abstract User notification category used for print reminder

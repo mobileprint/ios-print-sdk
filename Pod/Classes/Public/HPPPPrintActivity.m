@@ -52,7 +52,7 @@
 
 - (UIViewController *)activityViewController
 {
-    return [[HPPP sharedInstance] activityViewControllerWithDelegate:self.printDelegate dataSource:self.printDataSource image:self.image fromQueue:NO];
+    return [[HPPP sharedInstance] printViewControllerWithDelegate:self.printDelegate dataSource:self.printDataSource image:self.image fromQueue:NO];
 }
 
 @end

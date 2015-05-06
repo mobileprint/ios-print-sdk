@@ -200,7 +200,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     self.selectedPrintJob = printJobs[0];
     self.selectedPrintJobs = printJobs;
     
-    UIViewController *vc = [[HPPP sharedInstance] activityViewControllerWithDelegate:self dataSource:self image:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] fromQueue:YES];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] fromQueue:YES];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
     } else {

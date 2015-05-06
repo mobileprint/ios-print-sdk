@@ -286,7 +286,7 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     }
 }
 
-- (UIViewController *)activityViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource image:(UIImage *)image fromQueue:(BOOL)fromQueue
+- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource image:(UIImage *)image fromQueue:(BOOL)fromQueue
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
     
