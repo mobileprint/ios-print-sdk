@@ -37,7 +37,7 @@ Reference documentation can be found at http://hppp.herokuapp.com. This includes
 
 ## Installation
 
-The __HPPhotoPrint__ pod is not yet available publicly (i.e. via cocoapods.org). To install the pod you must have read access to this repo ([hp\_photo\_print](https://github.com/IPGPTP/hp_photo_print)) as well as HP's private pod trunk ([hp\_mss\_pods](https://github.com/IPGPTP/hp_mss_pods)). To request access send an email to hp-mobile-dev@hp.com.
+The __HPPhotoPrint__ pod is not yet available publicly (i.e. via [cocoapods.org](http://cocoapods.org)). To install the pod you must have read access to this repo ([hp\_photo\_print](https://github.com/IPGPTP/hp_photo_print)) as well as HP's private pod trunk ([hp\_mss\_pods](https://github.com/IPGPTP/hp_mss_pods)). To request access send an email to hp-mobile-dev@hp.com.
 
 Add the private pod trunk as a source in your `Podfile`. It is important that this entry is before the source for the public Cocoapod trunk:
 
@@ -45,7 +45,7 @@ Add the private pod trunk as a source in your `Podfile`. It is important that th
 
 Add an entry for the __HPPhotoPrint__ pod with the desired version number:
 
-    pod 'HPPhotoPrint', '1.2.16'
+    pod 'HPPhotoPrint', '2.0.2'
 
 On the command line, switch to the directory containing the `Podfile` and run the install command:
 
@@ -64,7 +64,7 @@ pod 'GoogleAnalytics-iOS-SDK'
 pod 'TTTAttributedLabel', '~> 1.10.1'
 pod 'XMLDictionary', '~> 1.4.0'
 pod 'CocoaLumberjack', '1.9.1'
-pod 'HPPhotoPrint', '1.2.16'
+pod 'HPPhotoPrint', '2.0.2'
 pod 'ZipArchive', '1.4.0'
 
 xcodeproj 'MyProject/MyProject.xcodeproj'
@@ -101,6 +101,8 @@ You must provide a single printable image as part of the initial sharing setup, 
 - (IBAction)shareBarButtonItemTap:(id)sender
 {
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
+    printActivity.printDelegate = self;
+    printActivity.printDataSource = self;
     NSArray *applicationActivities = @[printActivity];
     UIImage *printableItem = [UIImage imageNamed:@"sample-portrait.jpg"];
     NSArray *activitiesItems = @[printableItem];
@@ -121,13 +123,13 @@ You must provide a single printable image as part of the initial sharing setup, 
 #### View Controller
 
 To present the print workflow directly without using the sharing view, obtain and present the printing view controller. 
-You can obtain the view controller configured for your device and iOS version using the [utility method](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instm/HPPP/activityViewControllerWithDelegate:dataSource:image:fromQueue:) provided by the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class.
+You can obtain the view controller configured for your device and iOS version using the [utility method](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instm/HPPP/printViewControllerWithDelegate:dataSource:image:fromQueue:) provided by the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class.
 You must provide an initial image and optional delegate and data source (described below).
 
 ```objc
 
 - (IBAction)printButtonTapped:(id)sender {
-    UIViewController *vc = [[HPPP sharedInstance] activityViewControllerWithDelegate:self dataSource:self image:[UIImage imageNamed:@"sample2-portrait.jpg"] fromQueue:NO];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[UIImage imageNamed:@"sample2-portrait.jpg"] fromQueue:NO];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -135,48 +137,47 @@ You must provide an initial image and optional delegate and data source (describ
 
 #### Delegate
 
-The printing delegate ([`HPPPPageSettingsTableViewControllerDelegate`](http://hppp.herokuapp.com/HPPPPageSettingsTableViewController_h/Protocols/HPPPPageSettingsTableViewControllerDelegate/index.html)) allows you to respond when the print flow is completed or canceled.
+The printing delegate ([`HPPPPrintDelegate`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDelegate/index.html)) allows you to respond when the print flow is completed or canceled.
 If you want to dismiss the printing view controller after printing is complete, use this delegate.
 
 > __Note:__ The print flow completes when the job is sent to the print and queued. This does not mean that the job has actually finished printing on the printer. There is ability to notify when the job is fully complete, only when it is queued for printing.
 
 ```objc
 
-- (void)pageSettingsTableViewControllerDidFinishPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
+- (void)didFinishPrintFlow:(UIViewController *)printViewController;
 {
-    [pageSettingsTableViewController dismissViewControllerAnimated:YES completion:nil];
+    [printViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)pageSettingsTableViewControllerDidCancelPrintFlow:(HPPPPageSettingsTableViewController *)pageSettingsTableViewController
+- (void)didCancelPrintFlow:(UIViewController *)printViewController;
 {
-    [pageSettingsTableViewController dismissViewControllerAnimated:YES completion:nil];
+    [printViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 ```
 
 #### Data Source
 
-You can provide an optional data source that allows you control what gets printed for any given paper size. 
+You can optionally provide a printing data source by implementing the [`HPPPPrintDataSource`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html) protocol. This allows you to control what gets printed for any given paper size. 
 When you implement this protocol you will get a request for a new printable image each time the user selects a different paper size.
-Depending on whether you use the sharing panel or show the printing view controller directly, you must implement [`HPPPPrintActivityDataSource`](http://hppp.herokuapp.com/HPPPPrintActivity_h/Protocols/HPPPPrintActivityDataSource/index.html) or [`HPPPPageSettingsTableViewControllerDataSource`](http://hppp.herokuapp.com/HPPPPageSettingsTableViewController_h/Protocols/HPPPPageSettingsTableViewControllerDataSource/index.html) respectively.
 
-> __Note:__ If you implement this protocol, you must implement the single-image method. If your app supports multi-image print jobs then you must implement all three methods in the protocol
+> __Note:__ If you implement this protocol, you _must_ implement the single-image method. If your app supports multi-image print jobs then you _must_ implement all three methods in the protocol
 
 ```objc
 
-- (void)pageSettingsTableViewControllerRequestImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
+- (void)imageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
 {
     if (completion) {
         completion([UIImage imageNamed:@"sample2-portrait.jpg"]);
     }
 }
 
-- (NSInteger)pageSettingsTableViewControllerRequestNumberOfImagesToPrint
+- (NSInteger)numberOfImagesToPrint
 {
     return 1;
 }
 
-- (NSArray *)pageSettingsTableViewControllerRequestImagesForPaper:(HPPPPaper *)paper
+- (NSArray *)imagesForPaper:(HPPPPaper *)paper
 {
     return @[ [UIImage imageNamed:@"sample2-portrait.jpg"] ];
 }
@@ -185,8 +186,8 @@ Depending on whether you use the sharing panel or show the printing view control
 
 #### Customization
 
-The appearance of the priting views can be customized setting [properties] on the shared instance of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
-See the properties [documentation](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#HeaderDoc_props) for a full list. 
+The appearance of the priting views can be customized setting properties on the shared instance of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
+See the [properties](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#HeaderDoc_props) documention for a complete list. 
 This setup is typically done in the app delegate at startup.
 
 ```objc
@@ -248,7 +249,7 @@ If [`zoomAndCrop`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//ap
 If this ratio is less than 1.25 then the image is reduced or enlarged so that its width is exactly equal to the page width. Then the top edge of the image is aligned with the top edge of the page. The bottom of the image may be cropped or there may be empty space left at the bottom of the print.
 If the ratio is greater than 1.25 then the image is simply centered horizontally and vertically on the page.
 
-> __Note:__ The reason for this unique behavior has to do with the custom needs of an internal HP app.
+> __Note:__ The reason for this unique behavior has to do with the custom needs of a proprietary HP app.
 
 ### Print Later Workflow
 
@@ -259,18 +260,18 @@ Similar to printing, the print later workflow can be accessed via the share pane
 
 #### Print Job
 
-To add a job to the print queue you must prepare an instance of `HPPPPrintLaterJob`. You must provide at least one image to be printed later. 
+To add a job to the print queue you must prepare an instance of [`HPPPPrintLaterJob`](http://hppp.herokuapp.com/HPPPPrintLaterJob_h/Classes/HPPPPrintLaterJob/index.html). You must provide at least one image to be printed later. 
 However, if your job requires a custom image for each paper size, you must provide the image for each paper size at the time the print job is created and added to the print queue. 
-The print queue manager will manage the data sourcing interface required at the time of printing by the [`HPPPPageSettingsTableViewControllerDataSource`](http://hppp.herokuapp.com/HPPPPageSettingsTableViewController_h/Protocols/HPPPPageSettingsTableViewControllerDataSource/index.html). 
-A print job requires a unique ID which can be obtained via the utility method [`retrievePrintLaterJobNextAvailableId`](http://hppp.herokuapp.com/HPPPPrintLaterQueue_h/Classes/HPPPPrintLaterQueue/index.html#//apple_ref/occ/instm/HPPPPrintLaterQueue/retrievePrintLaterJobNextAvailableId).
+The print queue system will handle the data sourcing interface at the time the job is printed. It does this by using the [`HPPPPrintDataSource`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html) protocol to query the print job for paper-specific images. 
+A print job requires a unique ID which can be obtained via the utility method [`nextPrintJobId`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instm/HPPP/nextPrintJobId).
 
 ```objc
 
 - (HPPPPrintLaterJob *)createJobWithImage:(UIImage *)image
 {
-    NSString *printLaterJobNextAvailableId = [[HPPPPrintLaterQueue sharedInstance] retrievePrintLaterJobNextAvailableId];
+    NSString *jobID = [[HPPP sharedInstance] nextPrintJobId];
     HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
-    printLaterJob.id = printLaterJobNextAvailableId;
+    printLaterJob.id = jobID;
     printLaterJob.name = @"My Job";
     printLaterJob.date = [NSDate date];
     printLaterJob.images = @{ [HPPPPaper titleFromSize:Size4x6]:image };
@@ -313,13 +314,13 @@ In this case, the HPPPPrintLaterActivity is configured and added to the act.
 
 It is also possible to directly show the current list of jobs to be printed later (i.e. print queue). 
 This is useful if you have a button in your app that allows the user to view their queue. 
-Use the utility [method](http://hppp.herokuapp.com/HPPPPrintJobsViewController_h/Classes/HPPPPrintJobsViewController/index.html#//apple_ref/occ/clm/HPPPPrintJobsViewController/presentAnimated:usingController:andCompletion:) on the [`HPPPPrintJobsViewController`](http://hppp.herokuapp.com/HPPPPrintJobsViewController_h/Classes/HPPPPrintJobsViewController/index.html) class
+Use the utility method [presentPrintQueueFromController:animated:completion:](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instm/HPPP/presentPrintQueueFromController:animated:completion:)
 
 ```objc
 
 - (IBAction)showPrintQueueTapped:(id)sender
 {
-    [HPPPPrintJobsViewController presentAnimated:YES usingController:self andCompletion:nil];
+    [[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
 }
 
 ``` 
