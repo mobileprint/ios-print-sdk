@@ -83,11 +83,18 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
                               otherButtonTitles:nil] show];
         }
         
+        HPPPLogInfo(@"Checking for printLater jobs...");
         if ([[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs] > 0) {
+            HPPPLogInfo(@"Print jobs in queue, checking for default printer...");
             if ([[HPPPDefaultSettingsManager sharedInstance] isDefaultPrinterSet]) {
-                HPPPLogInfo(@"Print jobs in the queue and default printer set");
+                HPPPLogInfo(@"Print jobs in the queue and default printer set.  Updating location.");
                 [self.locationManager startUpdatingLocation];
+            } else {
+                HPPPLogInfo(@"No default printer.  Location will not be updated.");
             }
+        }
+        else {
+            HPPPLogInfo(@"No printLater jobs.");
         }
     }
 }
@@ -142,17 +149,22 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 
 - (void)addMonitoringForDefaultPrinter
 {
-    HPPPLogInfo(@"Adding monitoring for default printer");
     CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:[HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate radius:kDefaultPrinterRadiusInMeters identifier:kDefaultPrinterRegionIdentifier];
+
+    HPPPLogInfo(@"Adding monitoring for default printer region: %@", region);
     
     [self.locationManager startMonitoringForRegion:region];
 }
 
 - (void)removeMonitoringForDefaultPrinter
 {
-    HPPPLogInfo(@"Removing monitoring for default printer");
+    HPPPLogInfo(@"Removing monitoring...");
+    
     for (CLRegion *region in self.locationManager.monitoredRegions) {
         if ([self isDefaultPrinterRegion:region]) {
+
+            HPPPLogInfo(@"Removing monitoring for default printer");
+            
             [self.locationManager stopMonitoringForRegion:region];
         }
     }

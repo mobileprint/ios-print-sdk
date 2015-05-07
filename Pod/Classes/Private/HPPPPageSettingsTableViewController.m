@@ -323,6 +323,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 - (void)refreshPrinterStatus:(NSTimer *)timer
 {
+    HPPPLogInfo(@"Printer status timer fired");
     [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
 }
 
@@ -1181,6 +1182,8 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 
 - (void)handleDidCheckPrinterAvailability:(NSNotification *)notification
 {
+    HPPPLogInfo(@"handleDidCheckPrinterAvailability: %@", notification);
+    
     BOOL available = [[notification.userInfo objectForKey:kHPPPPrinterAvailableKey] boolValue];
     
     if ( available ) {
