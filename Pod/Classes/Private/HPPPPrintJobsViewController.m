@@ -409,9 +409,11 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     NSString *message = (checkMarkedPrintJobs.count > 1) ? [NSString stringWithFormat:HPPPLocalizedString(@"Are you sure you want to delete %d Prints?", nil), checkMarkedPrintJobs.count] : HPPPLocalizedString(@"Are you sure you want to delete 1 Print?", nil);
     
+    UIAlertControllerStyle style = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
+
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:HPPPLocalizedString(@"Delete Print from Print Queue", nil)
                                                                              message:message
-                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+                                                                      preferredStyle:style];
     
     [alertController addAction:[UIAlertAction actionWithTitle:HPPPLocalizedString(@"Delete", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         NSArray *allPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
