@@ -176,10 +176,16 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 // Method call when the region is entered and there are jobs in the print queue
 - (void)fireNotificationIfPrinterIsAvailable
 {
+    HPPPLogInfo(@"Default printer region entered.  Checking status of printer.");
+    
     [[HPPPPrinter sharedInstance] checkDefaultPrinterAvailabilityWithCompletion:^(BOOL available) {
         if (available) {
+            HPPPLogInfo(@"Printer available.  Presenting notification");
             UILocalNotification *localNotification = [self localNotification];
             [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+        }
+        else {
+            HPPPLogInfo(@"Printer not available");
         }
     }];
 }
@@ -259,14 +265,18 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    HPPPLogInfo(@"Status %d", status);
-    
     if (status == kCLAuthorizationStatusDenied) {
         HPPPLogError(@"Current location permission denied");
         [[HPPPPrintLaterManager sharedInstance] initUserNotifications];
     } else if ((status == kCLAuthorizationStatusAuthorizedAlways) || (status == kCLAuthorizationStatusAuthorizedWhenInUse)) {
         HPPPLogInfo(@"Current location permission granted");
         [[HPPPPrintLaterManager sharedInstance] initUserNotifications];
+    } else if (status == kCLAuthorizationStatusNotDetermined) {
+        HPPPLogInfo(@"Location status: kCLAuthorizationStatusNotDetermined");
+    } else if (status == kCLAuthorizationStatusRestricted) {
+        HPPPLogInfo(@"Location status: kCLAuthorizationStatusRestricted");
+    } else {
+        HPPPLogInfo(@"Unrecognized location status: %d", status);
     }
 }
 
