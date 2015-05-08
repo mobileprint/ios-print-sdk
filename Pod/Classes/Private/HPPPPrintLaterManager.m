@@ -356,7 +356,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
         
         UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];
         category.identifier = kPrintCategoryIdentifier;
-        [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextDefault];
+        [category setActions:@[laterAction] forContext:UIUserNotificationActionContextDefault];
         [category setActions:@[laterAction, printAction] forContext:UIUserNotificationActionContextMinimal];
         
         _printLaterUserNotificationCategory = category.copy;
