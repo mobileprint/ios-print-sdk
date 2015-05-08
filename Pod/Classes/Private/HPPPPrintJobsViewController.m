@@ -217,7 +217,6 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
-    HPPP *hppp = [HPPP sharedInstance];
     
     cell = [tableView dequeueReusableCellWithIdentifier:kPrintJobCellIdentifier];
     if (!cell) {
@@ -231,20 +230,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     jobCell.delegate = self;
     
-    jobCell.jobNameLabel.text = job.name;
-    jobCell.jobNameLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobNameFontAttribute];
-    jobCell.jobNameLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobNameColorAttribute];
-    
-    NSString *formatString = [NSDateFormatter dateFormatFromTemplate:[HPPP sharedInstance].defaultDateFormat options:0 locale:[NSLocale currentLocale]];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:formatString];
-    
-    jobCell.jobDateLabel.text = [formatter stringFromDate:job.date];
-    jobCell.jobDateLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobDateFontAttribute];
-    jobCell.jobDateLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobDateColorAttribute];
-    
-    NSString *paperSizeTitle = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
-    jobCell.jobThumbnailImageView.image = [job.images objectForKey:paperSizeTitle];
+    jobCell.printLaterJob = job;
     
     UIImage *checkMarkImage = nil;
     
@@ -301,7 +287,6 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 64.0f)];
     view.backgroundColor = self.tableView.backgroundColor;
-    
     
     UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 10.0f, self.view.frame.size.width, 44.0f)];
     textLabel.textAlignment = NSTextAlignmentCenter;
@@ -410,7 +395,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     NSString *message = (checkMarkedPrintJobs.count > 1) ? [NSString stringWithFormat:HPPPLocalizedString(@"Are you sure you want to delete %d Prints?", nil), checkMarkedPrintJobs.count] : HPPPLocalizedString(@"Are you sure you want to delete 1 Print?", nil);
     
     UIAlertControllerStyle style = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
-
+    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:HPPPLocalizedString(@"Delete Print from Print Queue", nil)
                                                                              message:message
                                                                       preferredStyle:style];
@@ -465,9 +450,8 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     HPPPPrintJobsPreviewViewController *vc = (HPPPPrintJobsPreviewViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPrintJobsPreviewViewController"];
     
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    vc.image = printJobsTableViewCell.jobThumbnailImageView.image;
-    vc.name = printJobsTableViewCell.jobNameLabel.text;
-    vc.date = printJobsTableViewCell.jobDateLabel.text;
+    
+    vc.printLaterJob = printJobsTableViewCell.printLaterJob;
     
     [self presentViewController:vc animated:NO completion:nil];
 }

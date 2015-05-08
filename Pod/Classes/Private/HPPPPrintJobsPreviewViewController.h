@@ -11,25 +11,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPPPPrintLaterJob.h"
 
 /*!
  * @abstract Controller that manages the preview view of a given print job
  */
 @interface HPPPPrintJobsPreviewViewController : UIViewController
 
-/*!
- * @abstract The job image to display in the preview
- */
-@property (strong, nonatomic) UIImage *image;
-
-/*!
- * @abstract The job name to display in the preview
- */
-@property (strong, nonatomic) NSString *name;
-
-/*!
- * @abstract The job date to display in the preview
- */
-@property (strong, nonatomic) NSString *date;
+@property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
 
 @end

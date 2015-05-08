@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UILabel *printJobNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printJobDateLabel;
+@property (strong, nonatomic) NSDateFormatter *formatter;
 
 @end
 
@@ -28,8 +29,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.imageView.image = self.image;
     
     HPPP *hppp = [HPPP sharedInstance];
     
@@ -43,10 +42,16 @@
     self.printJobDateLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPreviewJobDateFontAttribute];
     self.printJobDateLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPreviewJobDateColorAttribute];
     
-    self.printJobNameLabel.text = self.name;
-    self.printJobDateLabel.text = self.date;
+    NSString *formatString = [NSDateFormatter dateFormatFromTemplate:[HPPP sharedInstance].defaultDateFormat options:0 locale:[NSLocale currentLocale]];
+    self.formatter = [[NSDateFormatter alloc] init];
+    [self.formatter setDateFormat:formatString];
     
     self.view.alpha = 0.0f;
+    
+    self.printJobNameLabel.text = self.printLaterJob.name;
+    self.printJobDateLabel.text = [self.formatter stringFromDate:self.printLaterJob.date];
+    NSString *paperSizeTitle = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
+    self.imageView.image = [self.printLaterJob.images objectForKey:paperSizeTitle];
 }
 
 -(void)viewDidAppear:(BOOL)animated
