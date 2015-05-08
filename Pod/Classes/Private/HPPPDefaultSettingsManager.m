@@ -82,20 +82,7 @@ NSString * const kDefaultPrinterLocationKey = @"kDefaultPrinterLocationKey";
 }
 
 -(void)setDefaultPrinterCoordinate:(CLLocationCoordinate2D)defaultPrinterCoordinate
-{
-#if TARGET_IPHONE_SIMULATOR
-    // This allows us to test geo-fencing even on the simulator
-    //   Go to the simulator's "Debug" menu
-    //   Select "Location"
-    //   Select "Custom location..."
-    //   Enter something other than lat = 10, long = 10 to exit the region
-    //   Enter lat = 10, long = 10 to re-enter the region
-    if( 0 == defaultPrinterCoordinate.latitude && 0 == defaultPrinterCoordinate.longitude ) {
-        defaultPrinterCoordinate.latitude  = 10;
-        defaultPrinterCoordinate.longitude = 10;
-    }
-#endif
-    
+{   
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setFloat:defaultPrinterCoordinate.latitude forKey:kDefaultPrinterLatitudeCoordinateKey];
     [defaults setFloat:defaultPrinterCoordinate.longitude forKey:kDefaultPrinterLongitudeCoordinateKey];
