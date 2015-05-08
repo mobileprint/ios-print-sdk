@@ -47,7 +47,10 @@
 
 @implementation HPPPPrintSettingsTableViewController
 
-- (void)viewDidLoad {
+@dynamic refreshControl;
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.title = HPPPLocalizedString(@"Print Settings", @"Title of the Print Settings screen");

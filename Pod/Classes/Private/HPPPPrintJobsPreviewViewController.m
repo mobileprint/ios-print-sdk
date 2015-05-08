@@ -26,6 +26,8 @@
 
 @implementation HPPPPrintJobsPreviewViewController
 
+extern NSString * const kHPPPLastPaperSizeSetting;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,7 +52,7 @@
     
     self.printJobNameLabel.text = self.printLaterJob.name;
     self.printJobDateLabel.text = [self.formatter stringFromDate:self.printLaterJob.date];
-    NSString *paperSizeTitle = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
+    NSString *paperSizeTitle = [HPPPPaper titleFromSize:[self lastPaperUsed]];
     self.imageView.image = [self.printLaterJob.images objectForKey:paperSizeTitle];
 }
 
@@ -74,6 +76,8 @@
     [self dismissViewController];
 }
 
+#pragma mark - Utils
+
 - (void)dismissViewController
 {
     [UIView animateWithDuration:0.5f animations:^{
@@ -83,6 +87,21 @@
         [self dismissViewControllerAnimated:NO completion:nil];
         
     }];
+}
+
+- (PaperSize)lastPaperUsed
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSNumber *lastSizeUsed = [defaults objectForKey:kHPPPLastPaperSizeSetting];
+    
+    PaperSize paperSize = [HPPP sharedInstance].initialPaperSize;
+    
+    if (lastSizeUsed) {
+        paperSize = (PaperSize)[lastSizeUsed integerValue];
+    }
+    
+    return paperSize;
 }
 
 @end

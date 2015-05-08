@@ -100,6 +100,8 @@
 
 @implementation HPPPPageSettingsTableViewController
 
+@dynamic refreshControl;
+
 NSString * const kHPPPLastPrinterNameSetting = @"kHPPPLastPrinterNameSetting";
 NSString * const kHPPPLastPrinterIDSetting = @"kHPPPLastPrinterIDSetting";
 NSString * const kHPPPLastPrinterModelSetting = @"kHPPPLastPrinterModelSetting";
