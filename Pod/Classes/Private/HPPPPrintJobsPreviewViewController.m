@@ -13,6 +13,7 @@
 #import "HPPPPrintJobsPreviewViewController.h"
 #import "HPPP.h"
 #import "NSBundle+HPPPLocalizable.h"
+#import "UIView+HPPPBackground.h"
 
 @interface HPPPPrintJobsPreviewViewController ()
 
@@ -52,11 +53,11 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     
     self.printJobNameLabel.text = self.printLaterJob.name;
     self.printJobDateLabel.text = [self.formatter stringFromDate:self.printLaterJob.date];
-    NSString *paperSizeTitle = [HPPPPaper titleFromSize:[self lastPaperUsed]];
-    self.imageView.image = [self.printLaterJob.images objectForKey:paperSizeTitle];
+    
+    self.imageView.image = [self imageForPaperSize:[self lastPaperUsed]];
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
@@ -102,6 +103,49 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     }
     
     return paperSize;
+}
+
+- (CGSize)paperSizeWithWidth:(CGFloat)width height:(CGFloat)height containerSize:(CGSize)containerSize
+{
+    CGFloat scaleX = containerSize.width / width;
+    CGFloat scaleY = containerSize.height / height;
+    
+    CGSize finalSizeScale;
+    
+    CGFloat scale = fminf(scaleX, scaleY);
+    
+    finalSizeScale = CGSizeMake(scale, scale);
+    
+    return CGSizeMake(finalSizeScale.width * width, finalSizeScale.height * height);
+}
+
+- (UIImage *)imageForPaperSize:(PaperSize)paperSize
+{
+    NSString *paperSizeTitle = [HPPPPaper titleFromSize:paperSize];
+    
+    UIImage *image = nil;
+    
+    if (paperSize != SizeLetter) {
+        image = [self.printLaterJob.images objectForKey:paperSizeTitle];
+    } else {
+        HPPP *hppp = [HPPP sharedInstance];
+        
+        CGSize computedPaperSize = [self paperSizeWithWidth:8.5f height:11.0f containerSize:self.imageView.frame.size];
+        
+        CGSize computedImageSize = CGSizeMake(computedPaperSize.width * hppp.defaultPaperWidth / 8.5f, computedPaperSize.height * hppp.defaultPaperHeight / 11.0f);
+        
+        UIView *paperView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, computedPaperSize.width, computedPaperSize.height)];
+        paperView.backgroundColor = [UIColor whiteColor];
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((computedPaperSize.width / 2) - (computedImageSize.width / 2), (computedPaperSize.height / 2) - (computedImageSize.height / 2), computedImageSize.width, computedImageSize.height)];
+        
+        imageView.image = [self.printLaterJob.images objectForKey:paperSizeTitle];
+        
+        [paperView addSubview:imageView];
+        image = [paperView HPPPScreenshotImage];
+    }
+    
+    return image;
 }
 
 @end
