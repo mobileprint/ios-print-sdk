@@ -167,10 +167,6 @@
                     self.multipleImagesImageView.image = [UIImage imageNamed:@"HPPPMultipage"];
                 }
             } else {
-                self.ruleView.widthLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperHeightTitle];
-                self.ruleView.heightLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperWidthTitle];
-                self.ruleView.sizeLabel.text = [NSString stringWithFormat:@"%@ x %@", paperSize.paperHeightTitle, paperSize.paperWidthTitle];
-
                 self.paperWidthConstraint.constant = computedPaperSize.height;
                 self.paperHeightConstraint.constant = computedPaperSize.width;
                 
