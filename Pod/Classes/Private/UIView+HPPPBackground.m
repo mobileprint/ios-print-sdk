@@ -10,14 +10,20 @@
 // the license agreement.
 //
 
-#import <UIKit/UIKit.h>
-#import "HPPPPrintLaterJob.h"
+#import "UIView+HPPPBackground.h"
 
-/*!
- * @abstract Controller that manages the preview view of a given print job
- */
-@interface HPPPPrintJobsPreviewViewController : UIViewController
+@implementation UIView (HPPPBackground)
 
-@property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
+- (UIImage *)HPPPScreenshotImage
+{
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0);
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return img;
+}
 
 @end

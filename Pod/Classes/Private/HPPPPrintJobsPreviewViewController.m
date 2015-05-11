@@ -13,6 +13,7 @@
 #import "HPPPPrintJobsPreviewViewController.h"
 #import "HPPP.h"
 #import "NSBundle+HPPPLocalizable.h"
+#import "UIView+HPPPBackground.h"
 
 @interface HPPPPrintJobsPreviewViewController ()
 
@@ -20,16 +21,17 @@
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UILabel *printJobNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printJobDateLabel;
+@property (strong, nonatomic) NSDateFormatter *formatter;
 
 @end
 
 @implementation HPPPPrintJobsPreviewViewController
 
+extern NSString * const kHPPPLastPaperSizeSetting;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.imageView.image = self.image;
     
     HPPP *hppp = [HPPP sharedInstance];
     
@@ -43,13 +45,19 @@
     self.printJobDateLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPreviewJobDateFontAttribute];
     self.printJobDateLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPreviewJobDateColorAttribute];
     
-    self.printJobNameLabel.text = self.name;
-    self.printJobDateLabel.text = self.date;
+    NSString *formatString = [NSDateFormatter dateFormatFromTemplate:[HPPP sharedInstance].defaultDateFormat options:0 locale:[NSLocale currentLocale]];
+    self.formatter = [[NSDateFormatter alloc] init];
+    [self.formatter setDateFormat:formatString];
     
     self.view.alpha = 0.0f;
+    
+    self.printJobNameLabel.text = self.printLaterJob.name;
+    self.printJobDateLabel.text = [self.formatter stringFromDate:self.printLaterJob.date];
+    
+    self.imageView.image = [self imageForPaperSize:[self lastPaperUsed]];
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
@@ -69,6 +77,8 @@
     [self dismissViewController];
 }
 
+#pragma mark - Utils
+
 - (void)dismissViewController
 {
     [UIView animateWithDuration:0.5f animations:^{
@@ -78,6 +88,64 @@
         [self dismissViewControllerAnimated:NO completion:nil];
         
     }];
+}
+
+- (PaperSize)lastPaperUsed
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSNumber *lastSizeUsed = [defaults objectForKey:kHPPPLastPaperSizeSetting];
+    
+    PaperSize paperSize = [HPPP sharedInstance].initialPaperSize;
+    
+    if (lastSizeUsed) {
+        paperSize = (PaperSize)[lastSizeUsed integerValue];
+    }
+    
+    return paperSize;
+}
+
+- (CGSize)paperSizeWithWidth:(CGFloat)width height:(CGFloat)height containerSize:(CGSize)containerSize
+{
+    CGFloat scaleX = containerSize.width / width;
+    CGFloat scaleY = containerSize.height / height;
+    
+    CGSize finalSizeScale;
+    
+    CGFloat scale = fminf(scaleX, scaleY);
+    
+    finalSizeScale = CGSizeMake(scale, scale);
+    
+    return CGSizeMake(finalSizeScale.width * width, finalSizeScale.height * height);
+}
+
+- (UIImage *)imageForPaperSize:(PaperSize)paperSize
+{
+    NSString *paperSizeTitle = [HPPPPaper titleFromSize:paperSize];
+    
+    UIImage *image = nil;
+    
+    if (paperSize != SizeLetter) {
+        image = [self.printLaterJob.images objectForKey:paperSizeTitle];
+    } else {
+        HPPP *hppp = [HPPP sharedInstance];
+        
+        CGSize computedPaperSize = [self paperSizeWithWidth:8.5f height:11.0f containerSize:self.imageView.frame.size];
+        
+        CGSize computedImageSize = CGSizeMake(computedPaperSize.width * hppp.defaultPaperWidth / 8.5f, computedPaperSize.height * hppp.defaultPaperHeight / 11.0f);
+        
+        UIView *paperView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, computedPaperSize.width, computedPaperSize.height)];
+        paperView.backgroundColor = [UIColor whiteColor];
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((computedPaperSize.width / 2) - (computedImageSize.width / 2), (computedPaperSize.height / 2) - (computedImageSize.height / 2), computedImageSize.width, computedImageSize.height)];
+        
+        imageView.image = [self.printLaterJob.images objectForKey:paperSizeTitle];
+        
+        [paperView addSubview:imageView];
+        image = [paperView HPPPScreenshotImage];
+    }
+    
+    return image;
 }
 
 @end

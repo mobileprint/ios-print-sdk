@@ -11,13 +11,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HPPPPrintLaterJob.h"
 
-/*!
- * @abstract Controller that manages the preview view of a given print job
- */
-@interface HPPPPrintJobsPreviewViewController : UIViewController
+@interface UIView (HPPPBackground)
 
-@property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
+- (UIImage *)HPPPScreenshotImage;
 
 @end

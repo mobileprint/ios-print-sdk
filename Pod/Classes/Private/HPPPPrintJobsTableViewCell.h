@@ -11,14 +11,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPPPPrintLaterJob.h"
 
 @protocol HPPPPrintJobsTableViewCellDelegate;
 
 @interface HPPPPrintJobsTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *jobThumbnailImageView;
-@property (weak, nonatomic) IBOutlet UILabel *jobNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *jobDateLabel;
+@property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
 @property (weak, nonatomic) id<HPPPPrintJobsTableViewCellDelegate> delegate;
 
 @end
