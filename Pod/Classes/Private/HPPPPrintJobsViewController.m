@@ -199,7 +199,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     self.selectedPrintJob = printJobs[0];
     self.selectedPrintJobs = printJobs;
     
-    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:Size4x6]] fromQueue:YES];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]] fromQueue:YES];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
     } else {
@@ -335,6 +335,11 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     if (completion) {
         UIImage *image = [self.selectedPrintJob.images objectForKey:imageKey];
+        
+        if (image == nil) {
+            image = [self.selectedPrintJob.images objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+        }
+        
         completion(image);
     }
 }
@@ -359,7 +364,13 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     NSMutableArray *images = [NSMutableArray arrayWithCapacity:self.selectedPrintJobs.count];
     
     for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
-        [images addObject:[printJob.images objectForKey:imageKey]];
+        UIImage *image = [printJob.images objectForKey:imageKey];
+        
+        if (image == nil) {
+            image = [printJob.images objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+        }
+        
+        [images addObject:image];
     }
     
     return images.copy;

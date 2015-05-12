@@ -44,9 +44,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     self.title = HPPPLocalizedString(@"Add Print", @"Title of the Add Print to the Print Later Queue Screen");
-
+    
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterManager *printLaterManager = [HPPPPrintLaterManager sharedInstance];
         
@@ -64,14 +64,14 @@
     self.addToPrintQLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQFontAttribute];
     self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQColorAttribute];
     self.addToPrintQLabel.text = HPPPLocalizedString(@"Add to Print Queue", nil);
-
+    
     self.nameTextView.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameFontAttribute];
     self.nameTextView.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute];
     
     self.dateTitleLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleFontAttribute];
     self.dateTitleLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleColorAttribute];
     self.dateTitleLabel.text = HPPPLocalizedString(@"Date", nil);
-
+    
     self.dateLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemFontAttribute];
     self.dateLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemColorAttribute];
     
@@ -96,7 +96,7 @@
     self.nameTextView.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
     self.nameTextView.textContainer.maximumNumberOfLines = 1;
     self.nameTextView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
-
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init] ;
     [dateFormatter setDateFormat:[HPPP sharedInstance].defaultDateFormat];
     self.dateLabel.text = [dateFormatter stringFromDate:self.printLaterJob.date];
@@ -161,15 +161,22 @@
         
         self.printLaterJob.name = self.nameTextView.text;
         
-        BOOL result = [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob];
+        NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
+        UIImage *image = [self.printLaterJob.images objectForKey:titleForInitialPaperSize];
         
-        if (result) {
-            if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidFinishPrintFlow:)]) {
-                [self.delegate addPrintLaterJobTableViewControllerDidFinishPrintFlow:self];
-            }
+        if (image == nil) {
+            HPPPLogError(@"At least the image for the initial paper size (%@) must be provided", titleForInitialPaperSize);
         } else {
-            if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidCancelPrintFlow:)]) {
-                [self.delegate addPrintLaterJobTableViewControllerDidCancelPrintFlow:self];
+            BOOL result = [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob];
+            
+            if (result) {
+                if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidFinishPrintFlow:)]) {
+                    [self.delegate addPrintLaterJobTableViewControllerDidFinishPrintFlow:self];
+                }
+            } else {
+                if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidCancelPrintFlow:)]) {
+                    [self.delegate addPrintLaterJobTableViewControllerDidCancelPrintFlow:self];
+                }
             }
         }
     }
@@ -191,13 +198,13 @@
 - (void)setNavigationBarEditing:(BOOL)editing
 {
     HPPP *hppp = [HPPP sharedInstance];
-
+    
     UIColor *barTintColor = self.navigationBarTintColor;
     NSString *navigationBarTitle = HPPPLocalizedString(@"Add Print", nil);
     UIBarButtonItem *rightBarButtonItem = self.cancelButtonItem;
     
     UIColor *nameTextFieldColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute];
-
+    
     if (editing) {
         navigationBarTitle = nil;
         barTintColor = [UIColor HPPPHPTabBarSelectedColor];
@@ -207,7 +214,7 @@
     
     self.navigationController.navigationBar.barTintColor = barTintColor;
     [self.navigationItem setRightBarButtonItem:rightBarButtonItem animated:YES];
-
+    
     [UIView animateWithDuration:0.4f
                      animations:^{
                          self.nameTextView.textColor = nameTextFieldColor;
