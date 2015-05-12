@@ -234,7 +234,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     UIImage *checkMarkImage = nil;
     
-    if ([self.mutableCheckMarkedPrintJobs containsObject:[NSNumber numberWithInteger:0]]) {
+    if ([self.mutableCheckMarkedPrintJobs containsObject:[NSNumber numberWithInteger:indexPath.row]]) {
         checkMarkImage = [UIImage imageNamed:@"HPPPActiveCircle"];
     } else {
         checkMarkImage = [UIImage imageNamed:@"HPPPInactiveCircle"];
