@@ -55,7 +55,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     self.printJobNameLabel.text = self.printLaterJob.name;
     self.printJobDateLabel.text = [self.formatter stringFromDate:self.printLaterJob.date];
     
-    self.imageView.image = [self imageForPaperSize:[self lastPaperUsed]];
+    self.imageView.image = [self previewImageForPaperSize:[self lastPaperUsed]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -120,7 +120,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     return CGSizeMake(finalSizeScale.width * width, finalSizeScale.height * height);
 }
 
-- (UIImage *)imageForPaperSize:(PaperSize)paperSize
+- (UIImage *)previewImageForPaperSize:(PaperSize)paperSize
 {
     HPPP *hppp = [HPPP sharedInstance];
     
@@ -128,13 +128,17 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     
     UIImage *image = nil;
     
-    UIImage *paperSizeImage = [self.printLaterJob.images objectForKey:paperSizeTitle];
+    id printingItem = [self.printLaterJob.printingItems objectForKey:paperSizeTitle];
     
-    if (paperSizeImage == nil) {
-        paperSizeImage = [self.printLaterJob.images objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+    if (printingItem == nil) {
+        printingItem = [self.printLaterJob.printingItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
     }
     
-    if (paperSize != SizeLetter) {
+    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:Plain];
+    UIImage *paperSizeImage = [[HPPP sharedInstance] previewImageForPrintingItem:printingItem andPaper:paper];
+    CGPDFDocumentRef pdf = [[HPPP sharedInstance] printingItemAsPdf:printingItem];
+
+    if (pdf || paperSize != SizeLetter) {
         image = paperSizeImage;
     } else {
         CGSize computedPaperSize = [self paperSizeWithWidth:8.5f height:11.0f containerSize:self.imageView.frame.size];
@@ -159,6 +163,8 @@ extern NSString * const kHPPPLastPaperSizeSetting;
         image = [paperView HPPPScreenshotImage];
     }
     
+    CGPDFDocumentRelease(pdf);
+
     return image;
 }
 

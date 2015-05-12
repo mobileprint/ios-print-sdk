@@ -101,8 +101,7 @@
     [dateFormatter setDateFormat:[HPPP sharedInstance].defaultDateFormat];
     self.dateLabel.text = [dateFormatter stringFromDate:self.printLaterJob.date];
     
-    NSString *paperSizeTitle = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
-    self.imageView.image = [self.printLaterJob.images objectForKey:paperSizeTitle];
+    self.imageView.image = [self.printLaterJob previewImage];
     
     [self preparePrinterDisplayValues];
     
@@ -162,10 +161,10 @@
         self.printLaterJob.name = self.nameTextView.text;
         
         NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
-        UIImage *image = [self.printLaterJob.images objectForKey:titleForInitialPaperSize];
+        id printingItem = [self.printLaterJob.printingItems objectForKey:titleForInitialPaperSize];
         
-        if (image == nil) {
-            HPPPLogError(@"At least the image for the initial paper size (%@) must be provided", titleForInitialPaperSize);
+        if (printingItem == nil) {
+            HPPPLogError(@"At least the printing item for the initial paper size (%@) must be provided", titleForInitialPaperSize);
         } else {
             BOOL result = [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob];
             

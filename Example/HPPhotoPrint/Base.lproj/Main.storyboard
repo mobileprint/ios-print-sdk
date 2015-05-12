@@ -89,12 +89,30 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEB-hS-bWa">
-                                <rect key="frame" x="16" y="291" width="152" height="30"/>
-                                <state key="normal" title="Show Print Now">
+                                <rect key="frame" x="16" y="291" width="85" height="30"/>
+                                <state key="normal" title="Print Image">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showPrintNowTapped:" destination="XCd-sr-pZM" eventType="touchUpInside" id="vwp-ji-Rpu"/>
+                                    <action selector="printImageTapped:" destination="XCd-sr-pZM" eventType="touchUpInside" id="Sje-zJ-0al"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="was-N0-IXd">
+                                <rect key="frame" x="119" y="291" width="85" height="30"/>
+                                <state key="normal" title="Print PDF">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="printPdfTapped:" destination="XCd-sr-pZM" eventType="touchUpInside" id="eKR-pe-3cE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTL-Nr-uyq">
+                                <rect key="frame" x="210" y="291" width="85" height="30"/>
+                                <state key="normal" title="Share PDF">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sharePdfTapped:" destination="XCd-sr-pZM" eventType="touchUpInside" id="a0b-wc-RgJ"/>
                                 </connections>
                             </button>
                         </subviews>
