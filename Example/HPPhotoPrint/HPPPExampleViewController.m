@@ -12,6 +12,7 @@
 
 #import <stdlib.h>
 #import <HPPP.h>
+#import <HPPPPrintLaterHelperViewController.h>
 #import "HPPPExampleViewController.h"
 
 @interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource>
@@ -59,7 +60,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(printJobAddedNotification:) name:kHPPPPrintJobAddedToQueueNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintQueueNotification:) name:kHPPPPrintQueueNotification object:nil];
-
+    
     [self populatePrintQueue];
 }
 
@@ -157,8 +158,19 @@
     }
     
 }
+- (IBAction)showPrintLaterHelperTapped:(id)sender
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
+    
+    UINavigationController *nc = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPrintLaterHelperNavigationController"];
+    
+//    HPPPPrintLaterHelperViewController *vc = (HPPPPrintLaterHelperViewController *)nc.topViewController;
+    
+    [self presentViewController:nc animated:YES completion:nil];
+}
 
-- (IBAction)showPrintNowTapped:(id)sender {
+- (IBAction)showPrintNowTapped:(id)sender
+{
     self.image = [self randomImage];
     UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:self.image fromQueue:NO];
     [self presentViewController:vc animated:YES completion:nil];
@@ -259,9 +271,9 @@
         job.name = [NSString stringWithFormat:@"Print Job #%d", idx + 1];
         job.date = [NSDate date];
         job.images = @{[HPPPPaper titleFromSize:Size4x5] : image,
-                                 [HPPPPaper titleFromSize:Size4x6] : image,
-                                 [HPPPPaper titleFromSize:Size5x7] : image,
-                                 [HPPPPaper titleFromSize:SizeLetter] : image};
+                       [HPPPPaper titleFromSize:Size4x6] : image,
+                       [HPPPPaper titleFromSize:Size5x7] : image,
+                       [HPPPPaper titleFromSize:SizeLetter] : image};
         [[HPPP sharedInstance] addJobToQueue:job];
     }
 }
