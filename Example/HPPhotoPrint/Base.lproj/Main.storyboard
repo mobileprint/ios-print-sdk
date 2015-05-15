@@ -70,7 +70,7 @@
                                 <rect key="frame" x="189" y="123" width="51" height="31"/>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tl8-AE-L6L">
-                                <rect key="frame" x="16" y="323" width="152" height="30"/>
+                                <rect key="frame" x="16" y="358" width="152" height="30"/>
                                 <state key="normal" title="Show Print Queue">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -79,11 +79,11 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X5R-vY-ISa">
-                                <rect key="frame" x="16" y="391" width="240" height="128"/>
+                                <rect key="frame" x="16" y="426" width="240" height="128"/>
                                 <color key="backgroundColor" red="0.08235294118" green="0.47058823529999999" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last print later job saved:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcW-oL-rZn">
-                                <rect key="frame" x="16" y="362" width="195" height="21"/>
+                                <rect key="frame" x="16" y="397" width="195" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -98,7 +98,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="was-N0-IXd">
-                                <rect key="frame" x="119" y="291" width="85" height="30"/>
+                                <rect key="frame" x="150" y="291" width="85" height="30"/>
                                 <state key="normal" title="Print PDF">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -107,12 +107,21 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTL-Nr-uyq">
-                                <rect key="frame" x="210" y="291" width="85" height="30"/>
+                                <rect key="frame" x="150" y="320" width="85" height="30"/>
                                 <state key="normal" title="Share PDF">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="sharePdfTapped:" destination="XCd-sr-pZM" eventType="touchUpInside" id="a0b-wc-RgJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVI-2g-fjV">
+                                <rect key="frame" x="16" y="320" width="107" height="30"/>
+                                <state key="normal" title="Share Image">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="shareImageTapped:" destination="XCd-sr-pZM" eventType="touchUpInside" id="pta-UV-JK9"/>
                                 </connections>
                             </button>
                         </subviews>

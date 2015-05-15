@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (strong, nonatomic) id printingItem;
 @property (assign, nonatomic) BOOL sharingInProgress;
+@property (strong, nonatomic) NSDictionary *imageFiles;
+@property (strong, nonatomic) NSArray *pdfFiles;
 
 @end
 
@@ -60,8 +62,28 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(printJobAddedNotification:) name:kHPPPPrintJobAddedToQueueNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintQueueNotification:) name:kHPPPPrintQueueNotification object:nil];
-
+    
     [self populatePrintQueue];
+    
+    self.imageFiles = @{
+                        @"Green Path":@"sample1",
+                        @"Flowers":@"sample2",
+                        @"Cat":@"sample6",
+                        @"Dog":@"sample7",
+                        @"Quality":@"sample5",
+                        @"Soccer":@"sample3",
+                        @"Universe":@"sample8"
+                        };
+    
+    self.pdfFiles = @[
+                      @"1 Page",
+                      @"1 Page (landscape)",
+                      @"2 Pages",
+                      @"4 Pages",
+                      @"6 Pages (landscape)",
+                      @"10 Pages"
+                      ];
+    
 }
 
 - (void)dealloc
@@ -98,9 +120,9 @@
         printLaterJob.name = @"Add from Share";
         printLaterJob.date = [NSDate date];
         printLaterJob.printingItems = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
-                                 [HPPPPaper titleFromSize:Size4x6] : image4x6,
-                                 [HPPPPaper titleFromSize:Size5x7] : image5x7,
-                                 [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
+                                        [HPPPPaper titleFromSize:Size4x6] : image4x6,
+                                        [HPPPPaper titleFromSize:Size5x7] : image5x7,
+                                        [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
         if (self.extendedMetricsSwitch.on) {
             printLaterJob.extra = [self photoSourceMetrics];
         }
@@ -167,9 +189,13 @@
 }
 
 - (IBAction)printImageTapped:(id)sender {
-    self.printingItem = [self randomImage];
-    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printingItem:self.printingItem previewImage:self.printingItem fromQueue:NO];
-    [self presentViewController:vc animated:YES completion:nil];
+    self.sharingInProgress = NO;
+    [self selectImage];
+}
+
+- (IBAction)shareImageTapped:(id)sender {
+    self.sharingInProgress = YES;
+    [self selectImage];
 }
 
 - (IBAction)printPdfTapped:(id)sender {
@@ -289,9 +315,9 @@
         job.name = [NSString stringWithFormat:@"Print Job #%d", idx + 1];
         job.date = [NSDate date];
         job.printingItems = @{[HPPPPaper titleFromSize:Size4x5] : image,
-                                 [HPPPPaper titleFromSize:Size4x6] : image,
-                                 [HPPPPaper titleFromSize:Size5x7] : image,
-                                 [HPPPPaper titleFromSize:SizeLetter] : image};
+                              [HPPPPaper titleFromSize:Size4x6] : image,
+                              [HPPPPaper titleFromSize:Size5x7] : image,
+                              [HPPPPaper titleFromSize:SizeLetter] : image};
         [[HPPP sharedInstance] addJobToQueue:job];
     }
 }
@@ -305,18 +331,56 @@
     return image;
 }
 
+#pragma mark - Image
+
+- (void)selectImage {
+    
+    NSString *title = NSLocalizedString(@"Choose an Image", nil);
+    NSString *cancelButtonLabel = NSLocalizedString(@"Cancel", nil);
+    
+    if (NSClassFromString(@"UIAlertController") != nil) {
+        UIAlertControllerStyle style = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:NSLocalizedString(@"Please select a sample PDF that you would like to use.", nil) preferredStyle:style];
+        
+        [self.imageFiles enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            [alertController addAction:[UIAlertAction actionWithTitle:key style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [self doImageActivityWithFile:obj];
+            }]];
+        }];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:cancelButtonLabel style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
+        actionSheet.title = title;
+        actionSheet.delegate = self;
+        [self.imageFiles enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            [actionSheet addButtonWithTitle:key];
+        }];
+        actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:cancelButtonLabel];
+        [actionSheet showInView:self.view];
+    }
+    
+}
+
+- (void)doImageActivityWithFile:(NSString *)file
+{
+    NSString *filename = [NSString stringWithFormat:@"%@.jpg", file];
+    UIImage *image = [UIImage imageNamed:filename];
+    self.printingItem = image;
+    if (self.sharingInProgress) {
+        [self shareItem];
+    } else {
+        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printingItem:image previewImage:image fromQueue:NO];
+        [self presentViewController:vc animated:YES completion:nil];
+    }
+}
+
 #pragma mark - PDF
 
 - (void)selectPDF {
-    
-    NSArray *pdfFiles = @[
-                          @"1 Page",
-                          @"1 Page (landscape)",
-                          @"2 Pages",
-                          @"4 Pages",
-                          @"6 Pages (landscape)",
-                          @"10 Pages"
-                          ];
     
     NSString *title = NSLocalizedString(@"Choose a PDF", nil);
     NSString *cancelButtonLabel = NSLocalizedString(@"Cancel", nil);
@@ -326,7 +390,7 @@
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:NSLocalizedString(@"Please select a sample PDF that you would like to use.", nil) preferredStyle:style];
         
-        for (NSString *file in pdfFiles) {
+        for (NSString *file in self.pdfFiles) {
             [alertController addAction:[UIAlertAction actionWithTitle:file style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 [self doPdfActivityWithFile:file];
             }]];
@@ -339,7 +403,7 @@
         UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
         actionSheet.title = title;
         actionSheet.delegate = self;
-        for (NSString *file in pdfFiles) {
+        for (NSString *file in self.pdfFiles) {
             [actionSheet addButtonWithTitle:file];
         }
         actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:cancelButtonLabel];
@@ -366,8 +430,16 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    
     NSString *file = [actionSheet buttonTitleAtIndex:buttonIndex];
-    [self doPdfActivityWithFile:file];
+    if ([actionSheet.title isEqualToString:@"Choose an Image"]) {
+        [self doImageActivityWithFile:[self.imageFiles objectForKey:file]];
+    } else {
+        [self doPdfActivityWithFile:file];
+    }
 }
 
 @end
