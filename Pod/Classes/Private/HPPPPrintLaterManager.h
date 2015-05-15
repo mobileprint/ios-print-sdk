@@ -14,6 +14,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+extern const CLLocationDistance kDefaultPrinterRadiusInMeters;
+
 /*!
  * @abstract Class that manages the print later feature
  * @discussion This class handles aspect of the print later feature including permissions and notifications.
@@ -67,5 +69,7 @@
  * @abstract Sets up the notification system
  */
 - (void)initUserNotifications;
+
+- (BOOL)isDefaultPrinterRegion:(CLRegion *)region;
 
 @end

@@ -12,21 +12,28 @@
 
 #import <MapKit/MapKit.h>
 #import "HPPPPrintLaterHelperViewController.h"
+#import "HPPPDefaultSettingsManager.h"
+#import "HPPPPrintLaterManager.h"
+#import "HPPPPrinter.h"
 
-#define DEFAULT_SPAN_X 0.00725
-#define DEFAULT_SPAN_Y 0.00725
+#define DEFAULT_SPAN_X 0.01
+#define DEFAULT_SPAN_Y 0.02
 
 @interface HPPPPrintLaterHelperViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (weak, nonatomic) IBOutlet UIButton *currentLocationButton;
+@property (weak, nonatomic) IBOutlet UILabel *printerNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *printerCoordinatesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *radiusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *enableLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentLocationCoordinatesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *notificationReceivedView;
 
 @end
 
 
 @implementation HPPPPrintLaterHelperViewController
-
 
 #pragma mark - Init
 
@@ -55,26 +62,40 @@
 {
     [super viewDidLoad];
     
-    self.currentLocationButton.layer.borderWidth = 1.0f;
-    self.currentLocationButton.layer.cornerRadius = self.currentLocationButton.frame.size.width / 2;
-    self.currentLocationButton.layer.borderColor = [UIColor blackColor].CGColor;
-    self.currentLocationButton.hidden = YES;
-    
     [self initLocationManager];
     
     [self initMapView];
     
+    BOOL defaultPrinterMonitored = NO;
+    
     for (CLRegion *region in self.locationManager.monitoredRegions) {
-        MKPointAnnotation *ann = [[MKPointAnnotation alloc] init];
-        ann.title = @"Printer";
-        ann.subtitle = @"Default Printer";
-        ann.coordinate = region.center;
-        [self.mapView addAnnotation:ann];
-        
-        MKCircle *circle = [MKCircle circleWithCenterCoordinate:region.center radius:region.radius];
-        [self.mapView addOverlay:circle];
+        if ([[HPPPPrintLaterManager sharedInstance] isDefaultPrinterRegion:region]) {
+            MKPointAnnotation *ann = [[MKPointAnnotation alloc] init];
+            ann.title = [self defaultPrinterName];
+            ann.coordinate = region.center;
+            [self.mapView addAnnotation:ann];
+            
+            MKCircle *circle = [MKCircle circleWithCenterCoordinate:region.center radius:region.radius];
+            [self.mapView addOverlay:circle];
+            
+            defaultPrinterMonitored = YES;
+        }
     }
+    
+    HPPPDefaultSettingsManager *defaultSettingsManager = [HPPPDefaultSettingsManager sharedInstance];
+    self.printerNameLabel.text = [self defaultPrinterName];
+    self.printerCoordinatesLabel.text = [NSString stringWithFormat:@"%f, %f", defaultSettingsManager.defaultPrinterCoordinate.latitude, defaultSettingsManager.defaultPrinterCoordinate.longitude];
+    self.radiusLabel.text = [NSString stringWithFormat:@"%.02f meters", kDefaultPrinterRadiusInMeters];
+    self.enableLabel.text = defaultPrinterMonitored ? @"YES" : @"NO";
 }
+
+-(void)dealloc
+{
+    [self.locationManager stopUpdatingLocation];
+    self.locationManager = nil;
+}
+
+#pragma mark - Action buttons
 
 - (IBAction)doneButtonTapped:(id)sender
 {
@@ -83,9 +104,16 @@
 
 #pragma marks - Utils
 
-- (void)centerInCoordinate:(CLLocationCoordinate2D)coordinate
+- (NSString *)defaultPrinterName
 {
-    [self.mapView setCenterCoordinate:coordinate animated:YES];
+    HPPPDefaultSettingsManager *defaultSettingsManager = [HPPPDefaultSettingsManager sharedInstance];
+    
+    NSString *defaultPrinterName = @"Not Set";
+    if (defaultSettingsManager.defaultPrinterName != nil) {
+        defaultPrinterName = defaultSettingsManager.defaultPrinterName;
+    }
+    
+    return defaultPrinterName;
 }
 
 - (void)centerInCoordinate:(CLLocationCoordinate2D)coordinate spanX:(CLLocationDegrees)spanX spanY:(CLLocationDegrees)spanY
@@ -95,6 +123,8 @@
     region.span = MKCoordinateSpanMake(spanX, spanY);
     [self.mapView setRegion:region animated:YES];
 }
+
+#pragma mark - MKMapViewDelegate
 
 - (MKOverlayView *)mapView:(MKMapView *)map viewForOverlay:(id <MKOverlay>)overlay
 {
@@ -113,23 +143,30 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    NSLog(@"Location updated: (old %f %f) (new %f %f)", oldLocation.coordinate.latitude, oldLocation.coordinate.longitude, newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+    self.currentLocationCoordinatesLabel.text = [NSString stringWithFormat:@"%f, %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude];
 }
-
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    NSLog(@"Region entered: %@", region.identifier);
-}
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
-    NSLog(@"Region exited: %@", region.identifier);
-}
-
-- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
-{
-    NSLog(@"Region Fail: %@", region.identifier);
+    if ([[HPPPPrintLaterManager sharedInstance] isDefaultPrinterRegion:region]) {
+        
+        [[HPPPPrinter sharedInstance] checkDefaultPrinterAvailabilityWithCompletion:^(BOOL available) {
+            
+            if (available) {
+                self.notificationReceivedView.text = @"Notification received";
+            } else {
+                self.notificationReceivedView.text = @"Notification not received because can't contact the printer";
+            }
+            
+            [UIView animateWithDuration:1.0f animations:^{
+                self.notificationReceivedView.alpha = 1.0f;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:1.0f delay:4.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.notificationReceivedView.alpha = 0.0f;
+                } completion:nil];
+            }];
+        }];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
