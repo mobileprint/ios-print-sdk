@@ -17,7 +17,8 @@
 
 @interface HPPPPrintActivity () <HPPPPrintDelegate>
 
-@property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) id printingItem;
+@property (strong, nonatomic) UIImage *previewImage;
 
 @end
 
@@ -41,18 +42,29 @@
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
 {
     for (id obj in activityItems) {
-        if ([obj isKindOfClass:[UIImage class]]) {
-            self.image = obj;
-            return YES;
+        if ([[HPPP sharedInstance] printingItemAsImage:obj]) {
+            self.printingItem = obj;
+            self.previewImage = obj;
+            break;
+        } else if ([[HPPP sharedInstance] printingItemAsPdf:obj]) {
+            HPPPPaper *initialPaper = [[HPPPPaper alloc] initWithPaperSize:[HPPP sharedInstance].initialPaperSize paperType:Plain];
+            self.printingItem = obj;
+            self.previewImage = [[HPPP sharedInstance] imageForPDF:obj width:initialPaper.width height:initialPaper.height dpi:72.0f];
+            break;
         }
     }
     
-    return NO;
+    if (!self.printingItem) {
+        HPPPLogInfo(@"Unable to perform print activity on any of the items in the activity item array: %@", activityItems);
+    }
+    
+    return (nil != self.printingItem);
 }
+
 
 - (UIViewController *)activityViewController
 {
-    return [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self.dataSource image:self.image fromQueue:NO];
+    return [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self.dataSource printingItem:self.printingItem previewImage:self.previewImage fromQueue:NO];
 }
 
 #pragma mark - HPPPPrintDelegate

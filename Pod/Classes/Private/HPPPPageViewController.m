@@ -23,6 +23,7 @@
     self.title = HPPPLocalizedString(@"Preview", @"Title of the Preview Screen");
 
     self.pageView.image = self.image;
+    self.pageView.printingItem  = self.printingItem;
 }
 
 @end

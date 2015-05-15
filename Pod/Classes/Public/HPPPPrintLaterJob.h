@@ -21,7 +21,7 @@
  * @abstract Dictionary of images for the print job
  * @discussion The dictionary should contain a UIImage for each paper size. The key for each image is the paper size title as an NSString object.
  */
-@property (strong, nonatomic) NSDictionary *images; // Dictionary with UIImages (key = the paper size title, object = UIImage)
+@property (strong, nonatomic) NSDictionary *printingItems; // Dictionary with printing items (key = the paper size title, object = printing item)
 
 /*!
  * @abstract ID of the print job
@@ -44,5 +44,7 @@
  * @discussion The objects in this dictionary must be encodable with the NSCoding protocol
  */
 @property (strong, nonatomic) NSDictionary *extra;
+
+- (UIImage *)previewImage;
 
 @end
