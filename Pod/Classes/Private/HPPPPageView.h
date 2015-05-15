@@ -14,18 +14,11 @@
 #import <UIKit/UIKit.h>
 #import "HPPPView.h"
 #import "HPPPPaper.h"
-
+#import "HPPPPrintItem.h"
 /*!
  * @abstract View that represents the graphical preview portion of the print preview
  */
 @interface HPPPPageView : HPPPView
-
-
-/*!
- * @abstract The preview image to display
- * @discussion Note that the preview displays a single image even when multiple print jobs are being printed.
- */
-@property (strong, nonatomic) UIImage *image;
 
 /*!
  * @abstract Indicates whether or not there are multiple images being printed
@@ -40,7 +33,7 @@
 /*!
  * @abstract The actual data to be printed (e.g. image, PDF, etc.)
  */
-@property (strong, nonatomic) id printingItem;
+@property (strong, nonatomic) HPPPPrintItem *printItem;
 
 /*!
  * @abstract Sets the preview to color mode

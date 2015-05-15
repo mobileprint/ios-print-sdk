@@ -13,6 +13,7 @@
 #import "HPPPPrintJobsPreviewViewController.h"
 #import "HPPP.h"
 #import "HPPPPaper.h"
+#import "HPPPPrintItem.h"
 #import "NSBundle+HPPPLocalizable.h"
 #import "UIView+HPPPBackground.h"
 
@@ -128,17 +129,16 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     
     UIImage *image = nil;
     
-    id printingItem = [self.printLaterJob.printingItems objectForKey:paperSizeTitle];
+    HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:paperSizeTitle];
     
-    if (printingItem == nil) {
-        printingItem = [self.printLaterJob.printingItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+    if (printItem == nil) {
+        printItem = [self.printLaterJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
     }
     
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:Plain];
-    UIImage *paperSizeImage = [[HPPP sharedInstance] previewImageForPrintingItem:printingItem andPaper:paper];
-    CGPDFDocumentRef pdf = [[HPPP sharedInstance] printingItemAsPdf:printingItem];
+    UIImage *paperSizeImage = [printItem previewImageForPaper:paper];
 
-    if (pdf || paperSize != SizeLetter) {
+    if (DefaultPrintRenderer == printItem.renderer || paperSize != SizeLetter) {
         image = paperSizeImage;
     } else {
         CGSize computedPaperSize = [self paperSizeWithWidth:8.5f height:11.0f containerSize:self.imageView.frame.size];
@@ -162,8 +162,6 @@ extern NSString * const kHPPPLastPaperSizeSetting;
         [paperView addSubview:imageView];
         image = [paperView HPPPScreenshotImage];
     }
-    
-    CGPDFDocumentRelease(pdf);
 
     return image;
 }
