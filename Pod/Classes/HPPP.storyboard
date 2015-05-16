@@ -1318,6 +1318,16 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 mts away" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwS-gJ-NF6" userLabel="CurrentLocationLabel">
+                                <rect key="frame" x="16" y="181" width="568" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="reG-gt-k1e"/>
+                                    <constraint firstAttribute="height" constant="21" id="ssp-tO-kqi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTIFICATION RECEIVED" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6I-WY-X21">
                                 <rect key="frame" x="0.0" y="258" width="600" height="42"/>
                                 <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1332,7 +1342,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dvD-Dd-gkP" firstAttribute="leading" secondItem="RN2-eI-bn4" secondAttribute="leading" id="115-RV-0dV"/>
+                            <constraint firstItem="VwS-gJ-NF6" firstAttribute="leading" secondItem="RN2-eI-bn4" secondAttribute="leading" constant="16" id="Bal-Y3-2Wu"/>
                             <constraint firstAttribute="trailing" secondItem="c6I-WY-X21" secondAttribute="trailing" id="C6j-zg-UdN"/>
+                            <constraint firstAttribute="trailing" secondItem="VwS-gJ-NF6" secondAttribute="trailing" constant="16" id="FeB-jc-yjP"/>
                             <constraint firstItem="8rL-vu-1zZ" firstAttribute="top" secondItem="RN2-eI-bn4" secondAttribute="top" id="GlO-nx-CGC"/>
                             <constraint firstAttribute="trailing" secondItem="uFT-h2-dwM" secondAttribute="trailing" constant="16" id="Pbc-MV-Lc2"/>
                             <constraint firstItem="uFT-h2-dwM" firstAttribute="top" secondItem="8rL-vu-1zZ" secondAttribute="bottom" constant="8" id="TRJ-z9-IeR"/>
@@ -1340,6 +1352,7 @@
                             <constraint firstAttribute="trailing" secondItem="dvD-Dd-gkP" secondAttribute="trailing" id="WK4-1G-UDs"/>
                             <constraint firstItem="c6I-WY-X21" firstAttribute="leading" secondItem="RN2-eI-bn4" secondAttribute="leading" id="hyO-kr-bdv"/>
                             <constraint firstItem="dvD-Dd-gkP" firstAttribute="top" secondItem="8rL-vu-1zZ" secondAttribute="bottom" id="kau-tp-S4f"/>
+                            <constraint firstItem="VwS-gJ-NF6" firstAttribute="top" secondItem="uFT-h2-dwM" secondAttribute="bottom" constant="2" id="mBM-pL-Xf0"/>
                             <constraint firstAttribute="centerY" secondItem="c6I-WY-X21" secondAttribute="centerY" constant="-11" id="qbh-CP-QF8"/>
                             <constraint firstItem="2Bg-UV-zOq" firstAttribute="top" secondItem="dvD-Dd-gkP" secondAttribute="bottom" id="rj0-8P-CRs"/>
                             <constraint firstAttribute="trailing" secondItem="8rL-vu-1zZ" secondAttribute="trailing" id="sKx-Xu-ldt"/>
@@ -1356,6 +1369,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="currentLocationCoordinatesLabel" destination="uFT-h2-dwM" id="nH8-bu-M87"/>
+                        <outlet property="distanceLabel" destination="VwS-gJ-NF6" id="FMj-Az-6e0"/>
                         <outlet property="enableLabel" destination="f79-jy-KSJ" id="doa-Mx-lhn"/>
                         <outlet property="mapView" destination="dvD-Dd-gkP" id="W8w-uH-kd4"/>
                         <outlet property="notificationReceivedView" destination="c6I-WY-X21" id="F4E-Ci-L1v"/>

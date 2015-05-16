@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *radiusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *enableLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentLocationCoordinatesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *notificationReceivedView;
 
 @end
@@ -44,8 +45,8 @@
     
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = 5.0f;
-    self.locationManager.activityType = CLActivityTypeOtherNavigation;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.activityType = CLActivityTypeFitness;
     
     [self.locationManager startUpdatingLocation];
 }
@@ -144,6 +145,14 @@
            fromLocation:(CLLocation *)oldLocation
 {
     self.currentLocationCoordinatesLabel.text = [NSString stringWithFormat:@"%f, %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude];
+    
+    CLLocationCoordinate2D defaultPrinterCoordinates = [HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate;
+    
+    CLLocation *defaultPrinterLocation = [[CLLocation alloc] initWithLatitude:defaultPrinterCoordinates.latitude longitude:defaultPrinterCoordinates.longitude];
+    
+    CLLocationDistance distance = [newLocation distanceFromLocation:defaultPrinterLocation];
+    
+    self.distanceLabel.text = [NSString stringWithFormat:@"%.02f meters away", distance];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
