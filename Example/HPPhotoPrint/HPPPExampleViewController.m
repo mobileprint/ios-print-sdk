@@ -216,13 +216,6 @@
     [self selectPDF];
 }
 
-- (IBAction)showPrintNowTapped:(id)sender 
-{
-    self.printingItem = [self randomImage];
-    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:self.image fromQueue:NO];
-    [self presentViewController:vc animated:YES completion:nil];
-}
-
 - (IBAction)sharePdfTapped:(id)sender 
 {
     self.sharingInProgress = YES;
