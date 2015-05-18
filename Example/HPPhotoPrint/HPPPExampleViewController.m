@@ -12,6 +12,7 @@
 
 #import <stdlib.h>
 #import <HPPP.h>
+#import <HPPPPrintLaterHelperViewController.h>
 #import "HPPPExampleViewController.h"
 
 @interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, UIActionSheetDelegate>
@@ -182,28 +183,48 @@
 
 #pragma mark - Button actions
 
+- (IBAction)showPrintLaterHelperTapped:(id)sender
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
+    
+    UINavigationController *nc = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPrintLaterHelperNavigationController"];
+    
+    [self presentViewController:nc animated:YES completion:nil];
+}
+
 - (IBAction)shareBarButtonItemTap:(id)sender
 {
     self.printingItem = [self randomImage];
     [self shareItem];
 }
 
-- (IBAction)printImageTapped:(id)sender {
+- (IBAction)printImageTapped:(id)sender 
+{
     self.sharingInProgress = NO;
     [self selectImage];
 }
 
-- (IBAction)shareImageTapped:(id)sender {
+- (IBAction)shareImageTapped:(id)sender 
+{
     self.sharingInProgress = YES;
     [self selectImage];
 }
 
-- (IBAction)printPdfTapped:(id)sender {
+- (IBAction)printPdfTapped:(id)sender 
+{
     self.sharingInProgress = NO;
     [self selectPDF];
 }
 
-- (IBAction)sharePdfTapped:(id)sender {
+- (IBAction)showPrintNowTapped:(id)sender 
+{
+    self.printingItem = [self randomImage];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:self.image fromQueue:NO];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (IBAction)sharePdfTapped:(id)sender 
+{
     self.sharingInProgress = YES;
     [self selectPDF];
 }
@@ -314,6 +335,7 @@
         job.id = jobID;
         job.name = [NSString stringWithFormat:@"Print Job #%d", idx + 1];
         job.date = [NSDate date];
+
         job.printingItems = @{[HPPPPaper titleFromSize:Size4x5] : image,
                               [HPPPPaper titleFromSize:Size4x6] : image,
                               [HPPPPaper titleFromSize:Size5x7] : image,
