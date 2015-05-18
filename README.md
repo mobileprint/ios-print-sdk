@@ -128,7 +128,7 @@ You must provide an initial image and optional delegate and data source (describ
 ```objc
 
 - (IBAction)printButtonTapped:(id)sender {
-    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[UIImage imageNamed:@"sample2-portrait.jpg"] fromQueue:NO];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[UIImage imageNamed:@"sample.jpg"] fromQueue:NO];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -164,28 +164,28 @@ When you implement this protocol you will get a request for a new printable imag
 
 ```objc
 
-- (void)imageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
+- (void)printingItemForPaper:(HPPPPaper *)paper withCompletion:(void (^)(id))completion
 {
     if (completion) {
-        completion([UIImage imageNamed:@"sample2-portrait.jpg"]);
+        completion([UIImage imageNamed:@"sample.jpg"]);
     }
 }
 
-- (NSInteger)numberOfImagesToPrint
+- (NSInteger)numberOfPrintingItems
 {
     return 1;
 }
 
-- (NSArray *)imagesForPaper:(HPPPPaper *)paper
+- (NSArray *)printingItemsForPaper:(HPPPPaper *)paper
 {
-    return @[ [UIImage imageNamed:@"sample2-portrait.jpg"] ];
+    return @[ [UIImage imageNamed:@"sample.jpg"] ];
 }
 
 ```
 
 #### Customization
 
-The appearance of the priting views can be customized setting properties on the shared instance of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
+The appearance of the printing views can be customized setting properties on the shared instance of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
 See the [properties](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#HeaderDoc_props) documention for a complete list. 
 This setup is typically done in the app delegate at startup.
 

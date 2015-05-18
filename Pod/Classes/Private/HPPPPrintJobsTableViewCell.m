@@ -52,8 +52,7 @@
     
     self.jobDateLabel.text = [self.formatter stringFromDate:job.date];
     
-    NSString *paperSizeTitle = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
-    self.jobThumbnailImageView.image = [job.images objectForKey:paperSizeTitle];
+    self.jobThumbnailImageView.image = [job previewImage];
 }
 
 - (void)handleImageTap:(UIGestureRecognizer *)gestureRecognizer

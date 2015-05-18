@@ -33,10 +33,16 @@ extern NSString * const kHPPPDefaultPrinterAddedNotification;
 extern NSString * const kHPPPDefaultPrinterRemovedNotification;
 
 /*!
- * @abstract The image used for printing
- * @discussion This image is used for both displaying in the print preview and in the actual print job itself.
+ * @abstract The item to be printed
+ * @discussion This item is used in the actual print job.
  */
-@property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) id printingItem;
+
+/*!
+ * @abstract The image used for a print preview
+ * @discussion This image is used for displaying the print preview.
+ */
+@property (strong, nonatomic) UIImage *previewImage;
 
 /*!
  * @abstract Notified when print events occur

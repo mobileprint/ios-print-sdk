@@ -30,12 +30,17 @@
 /*!
  * @abstract Indicates whether or not there are multiple images being printed
  */
-@property (assign, nonatomic, getter=isMultipleImages) BOOL mutipleImages;
+@property (assign, nonatomic, getter=isMultipleImages) BOOL multipleImages;
 
 /*!
  * @abstract Indicates if the page curl animation is still in progress
  */
 @property (assign, nonatomic) BOOL isAnimating;
+
+/*!
+ * @abstract The actual data to be printed (e.g. image, PDF, etc.)
+ */
+@property (strong, nonatomic) id printingItem;
 
 /*!
  * @abstract Sets the preview to color mode
@@ -56,5 +61,7 @@
  * @param completion A block to be called when the paper transition is complete
  */
 - (void)setPaperSize:(HPPPPaper *)paperSize animated:(BOOL)animated completion:(void (^)(void))completion;
+
+
 
 @end

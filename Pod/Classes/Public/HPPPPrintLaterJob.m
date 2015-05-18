@@ -10,6 +10,7 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPPrintLaterJob.h"
 
 NSString * const kHPPPPrintLaterJobId = @"kHPPPPrintLaterJobId";
@@ -29,9 +30,12 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
     // UIImages don't implement the protocol necessary for serialization, so they must be change to NSDatas
     NSMutableDictionary *serializeImages = [NSMutableDictionary dictionary];
     
-    for (NSString *printJobId in self.images.allKeys) {
-        NSData *imageData = UIImageJPEGRepresentation([self.images objectForKey:printJobId], 1.0f);
-        [serializeImages setObject:imageData forKey:printJobId];
+    for (NSString *printJobId in self.printingItems.allKeys) {
+        NSData *data = [self.printingItems objectForKey:printJobId];
+        if ([data isKindOfClass:[UIImage class]]) {
+            data = UIImageJPEGRepresentation((UIImage *)data, [[UIScreen mainScreen] scale]);
+        }
+        [serializeImages setObject:data forKey:printJobId];
     }
     
     [encoder encodeObject:serializeImages.copy forKey:kHPPPPrintLaterJobImages];
@@ -49,16 +53,23 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
         
         NSMutableDictionary *serializeImages = [NSMutableDictionary dictionary];
         for (NSString *printJobId in decodedImages.allKeys) {
-            NSData *imageData = [decodedImages objectForKey:printJobId];
-            UIImage *image = [UIImage imageWithData:imageData scale:[[UIScreen mainScreen] scale]];
-            [serializeImages setObject:image forKey:printJobId];
+            NSData *data = [decodedImages objectForKey:printJobId];
+            [serializeImages setObject:data forKey:printJobId];
         }
         
-        self.images = serializeImages.copy;
+        self.printingItems = serializeImages.copy;
         self.extra = [decoder decodeObjectForKey:kHPPPPrintLaterJobExtra];
     }
     
     return self;
+}
+
+- (UIImage *)previewImage
+{
+    HPPPPaper *initialPaper = [[HPPPPaper alloc] initWithPaperSize:[HPPP sharedInstance].initialPaperSize paperType:Plain];
+    id printingItem = [self.printingItems objectForKey:initialPaper.sizeTitle];
+    
+    return [[HPPP sharedInstance] previewImageForPrintingItem:printingItem andPaper:initialPaper];
 }
 
 - (NSString *)description

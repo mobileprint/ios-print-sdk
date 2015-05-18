@@ -96,6 +96,8 @@
 @property (nonatomic, strong) HPPP *hppp;
 @property (nonatomic, assign) NSInteger numberOfCopies;
 
+@property (strong, nonatomic) NSMutableArray *itemsToPrint;
+
 @end
 
 @implementation HPPPPageSettingsTableViewController
@@ -206,27 +208,13 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
     [self updatePageSettingsUI];
     
-    if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
-        NSInteger numberOfJobs = [self.dataSource numberOfImages];
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
         
-        self.printLabel.text = [self stringFromNumberOfImages:numberOfJobs copies:1];
+        self.printLabel.text = [self stringFromNumberOfPrintingItems:numberOfJobs copies:1];
     }
     
-    if ([self.dataSource respondsToSelector:@selector(imageForPaper:withCompletion:)]) {
-        self.spinner = [self.pageView HPPPAddSpinner];
-        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-        [self.dataSource imageForPaper:self.currentPrintSettings.paper withCompletion:^(UIImage *image) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.spinner removeFromSuperview];
-                if (image) {
-                    self.image = image;
-                    [self configurePageView];
-                }
-            });
-        }];
-    } else {
-        [self configurePageView];
-    }
+    [self changePaper];
     
     if (IS_OS_8_OR_LATER) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:kHPPPPrinterAvailabilityNotification object:nil];
@@ -270,15 +258,9 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.pageViewController.pageView;
-        
-        if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
-            NSInteger numberOfJobs = [self.dataSource numberOfImages];
-            if (numberOfJobs > 1) {
-                self.pageView.mutipleImages = YES;
-            }
-        }
-        
-        self.pageView.image = self.image;
+        [self checkForMultipleImages];
+        self.pageView.image = self.previewImage;
+        self.pageView.printingItem = self.printingItem;
         
         __weak HPPPPageSettingsTableViewController *weakSelf = self;
         
@@ -335,16 +317,9 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 {
     if (!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.tableViewCellPageView;
-        
-        if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
-            NSInteger numberOfJobs = [self.dataSource numberOfImages];
-            if (numberOfJobs > 1) {
-                self.pageView.mutipleImages = YES;
-            }
-        }
-        
-        self.pageView.image = self.image;
-        
+        [self checkForMultipleImages];
+        self.pageView.image = self.previewImage;
+        self.pageView.printingItem = self.printingItem;
         __weak HPPPPageSettingsTableViewController *weakSelf = self;
         [self setPaperSize:self.pageView animated:YES completion:^{
             if (!weakSelf.hppp.hideBlackAndWhiteOption) {
@@ -358,6 +333,55 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
         }];
     }
 }
+
+- (void)checkForMultipleImages
+{
+    BOOL multipleImages = NO;
+    
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
+        if (numberOfJobs > 1) {
+            multipleImages = YES;
+        }
+    }
+    
+    CGPDFDocumentRef pdf = [[HPPP sharedInstance] printingItemAsPdf:self.printingItem];
+    if (pdf) {
+        size_t pages = CGPDFDocumentGetNumberOfPages(pdf);
+        if (pages > 1) {
+            multipleImages = YES;
+        }
+    }
+    CGPDFDocumentRelease(pdf);
+    
+    self.pageView.multipleImages = multipleImages;
+}
+
+- (void)changePaper
+{
+    if ([self.dataSource respondsToSelector:@selector(printingItemForPaper:withCompletion:)] && [self.dataSource respondsToSelector:@selector(previewImageForPaper:withCompletion:)]) {
+        self.spinner = [self.pageView HPPPAddSpinner];
+        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        [self.dataSource printingItemForPaper:self.currentPrintSettings.paper withCompletion:^(id printingItem) {
+            [self.dataSource previewImageForPaper:self.currentPrintSettings.paper withCompletion:^(UIImage *previewImage) {
+                if (printingItem && previewImage) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.spinner removeFromSuperview];
+                        self.printingItem = printingItem;
+                        self.previewImage = previewImage;
+                        [self configurePageView];
+                    });
+                } else {
+                    HPPPLogError(@"Missing printing item or preview image");
+                }
+            }];
+        }];
+    } else {
+        [self configurePageView];
+    }
+}
+
+
 
 - (void)setSelectedPaper:(HPPPPaper *)selectedPaperSize
 {
@@ -558,7 +582,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     controller.showsNumberOfCopies = NO;
     
-    [self createPrintJob:controller];
+    [self prepareController:controller forPrintingItem:self.printingItem];
     
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
         
@@ -595,12 +619,12 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     self.numberOfCopiesLabel.text = (self.numberOfCopies == 1) ? HPPPLocalizedString(@"1 copy", nil) : [NSString stringWithFormat:HPPPLocalizedString(@"%ld copies", @"Number of copies"), (long)self.numberOfCopies];
     
-    if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
-        NSInteger numberOfJobs = [self.dataSource numberOfImages];
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
         
-        self.printLabel.text = [self stringFromNumberOfImages:numberOfJobs copies:self.numberOfCopies];
+        self.printLabel.text = [self stringFromNumberOfPrintingItems:numberOfJobs copies:self.numberOfCopies];
     } else {
-        self.printLabel.text = [self stringFromNumberOfImages:1 copies:self.numberOfCopies];
+        self.printLabel.text = [self stringFromNumberOfPrintingItems:1 copies:self.numberOfCopies];
     }
 }
 
@@ -821,60 +845,71 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
             !self.currentPrintSettings.printerIsAvailable ) {
             [self showPrinterSelection:tableView withCompletion:^(BOOL userDidSelect){
                 if (userDidSelect) {
-                    [self doPrint];
+                    [self startPrinting];
                 }
             }];
         } else {
-            [self doPrint];
+            [self startPrinting];
         }
     } else {
         [self displaySystemPrintFromView:self.printCell];
     }
 }
 
-- (void)doPrint
+- (void)startPrinting
+{
+    self.itemsToPrint = [self collectPrintingItems];
+    id firstItem = [self.itemsToPrint firstObject];
+    [self.itemsToPrint removeObject:firstItem];
+    [self doPrintWithPrintingItem:firstItem];
+}
+
+- (NSMutableArray *)collectPrintingItems
+{
+    NSMutableArray *items = nil;
+    
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
+        if (numberOfJobs > 1) {
+            if ([self.dataSource respondsToSelector:@selector(printingItemsForPaper:)]) {
+                items = [self.dataSource printingItemsForPaper:self.currentPrintSettings.paper].mutableCopy;
+            }
+        }
+    }
+    
+    if (nil == items) {
+        items = [NSMutableArray arrayWithObjects:self.printingItem, nil];
+    }
+    
+    return items;
+}
+
+- (void)doPrintWithPrintingItem:(id)printingItem
 {
     if (self.currentPrintSettings.printerUrl != nil) {
         UIPrintInteractionController *controller = [self getSharedPrintInteractionController];
-        
         if (!controller) {
             HPPPLogError(@"Couldn't get shared UIPrintInteractionController!");
             return;
         }
-        
         controller.showsNumberOfCopies = NO;
-        
-        [self createPrintJob:controller];
-        
+        [self prepareController:controller forPrintingItem:printingItem];
         UIPrinter *printer = [UIPrinter printerWithURL:self.currentPrintSettings.printerUrl];
-        
         [controller printToPrinter:printer completionHandler:^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
-            
-            [self printCompleted:printController isCompleted:completed printError:error];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                id nextItem = [self.itemsToPrint firstObject];
+                if (nextItem) {
+                    [self.itemsToPrint removeObject:nextItem];
+                    [self doPrintWithPrintingItem:nextItem];
+                } else {
+                    [self printCompleted:printController isCompleted:completed printError:error];
+                }
+            });
         }];
     }
 }
 
-- (NSString *)stringFromNumberOfImages:(NSInteger)numberOfImages copies:(NSInteger)copies
-{
-    NSString *result = nil;
-    
-    if (numberOfImages == 1) {
-        result = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
-    } else {
-        NSInteger total = numberOfImages * copies;
-        
-        if (total == 2) {
-            result = HPPPLocalizedString(@"Print both", @"Caption of the button for printing");
-        } else {
-            result = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %lu", @"Caption of the button for printing"), (long)total];
-        }
-    }
-    
-    return result;
-}
-
-- (void)createPrintJob:(UIPrintInteractionController *)controller
+- (void)prepareController:(UIPrintInteractionController *)controller forPrintingItem:(id)printingItem
 {
     // Obtain a printInfo so that we can set our printing defaults.
     UIPrintInfo *printInfo = [UIPrintInfo printInfo];
@@ -904,45 +939,50 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
         printInfo.outputType = UIPrintInfoOutputGrayscale;
     }
     
-    HPPPPrintPageRenderer *renderer;
-    
-    if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
-        NSInteger numberOfJobs = [self.dataSource numberOfImages];
-        if (numberOfJobs > 1) {
-            if ([self.dataSource respondsToSelector:@selector(imagesForPaper:)]) {
-                NSMutableArray *images = [self.dataSource imagesForPaper:self.currentPrintSettings.paper].mutableCopy;
-                
-                // Check if the images needs rotation for printing
-                for (NSInteger i = 0; i < images.count; i++) {
-                    UIImage *image = images[i];
-                    
-                    if (![image HPPPIsPortraitImage] && !(self.currentPrintSettings.paper.paperSize == SizeLetter)) {
-                        [images replaceObjectAtIndex:i withObject:[image HPPPRotate]];
-                    }
-                }
-                
-                renderer = [[HPPPPrintPageRenderer alloc] initWithImages:images];
-            }
-        }
-    }
-    
-    if (!renderer) {
-        UIImage *image = nil;
-        
-        if ([self.image HPPPIsPortraitImage] || (self.currentPrintSettings.paper.paperSize == SizeLetter)) {
-            image = self.image;
+    UIImage *image = [[HPPP sharedInstance] printingItemAsImage:printingItem];
+    if (image) {
+        HPPPPrintPageRenderer *renderer;
+        UIImage *rotatedImage = nil;
+        if ([image HPPPIsPortraitImage] || (self.currentPrintSettings.paper.paperSize == SizeLetter)) {
+            rotatedImage = image;
         } else {
-            image = [self.image HPPPRotate];
+            rotatedImage = [image HPPPRotate];
         }
-        
-        renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[image]];
+        renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[rotatedImage]];
+        renderer.numberOfCopies = self.numberOfCopies;
+        controller.printPageRenderer = renderer;
+    } else {
+        if (1 == self.numberOfCopies) {
+            controller.printingItem = printingItem;
+        } else {
+            NSMutableArray *items = [NSMutableArray array];
+            for (int idx = 0; idx < self.numberOfCopies; idx++) {
+                [items addObject:printingItem];
+            }
+            controller.printingItems = items;
+        }
     }
     
-    renderer.numberOfCopies = self.numberOfCopies;
-    controller.printPageRenderer = renderer;
-    
-    // Use this printInfo for this print job.
     controller.printInfo = printInfo;
+}
+
+- (NSString *)stringFromNumberOfPrintingItems:(NSInteger)numberOfPrintingItems copies:(NSInteger)copies
+{
+    NSString *result = nil;
+    
+    if (numberOfPrintingItems == 1) {
+        result = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
+    } else {
+        NSInteger total = numberOfPrintingItems * copies;
+        
+        if (total == 2) {
+            result = HPPPLocalizedString(@"Print both", @"Caption of the button for printing");
+        } else {
+            result = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %lu", @"Caption of the button for printing"), (long)total];
+        }
+    }
+    
+    return result;
 }
 
 - (void)printCompleted:(UIPrintInteractionController *)printController isCompleted:(BOOL)completed printError:(NSError *)error
@@ -975,8 +1015,8 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
             NSString *offramp = NSStringFromClass([HPPPPrintActivity class]);
             if (self.printFromQueue) {
                 offramp = kHPPPQueuePrintAction;
-                if ([self.dataSource respondsToSelector:@selector(numberOfImages)]) {
-                    numberOfJobs = [self.dataSource numberOfImages];
+                if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+                    numberOfJobs = [self.dataSource numberOfPrintingItems];
                     if (numberOfJobs > 1) {
                         offramp = kHPPPQueuePrintAllAction;
                     }
@@ -1083,31 +1123,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     [defaults setObject:[NSNumber numberWithInteger:self.currentPrintSettings.paper.paperSize] forKey:kHPPPLastPaperSizeSetting];
     [defaults synchronize];
     
-    if ([self.dataSource respondsToSelector:@selector(imageForPaper:withCompletion:)]) {
-        self.spinner = [self.pageView HPPPAddSpinner];
-        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-        [self.dataSource imageForPaper:paper withCompletion:^(UIImage *image) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (image) {
-                    self.image = image;
-                    self.pageView.image = image;
-                    __weak HPPPPageSettingsTableViewController *weakSelf = self;
-                    [self setPaperSize:self.pageView animated:(!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) completion:^{
-                        if (weakSelf.blackAndWhiteModeSwitch.on) {
-                            weakSelf.tableView.userInteractionEnabled = NO;
-                            [weakSelf.pageView setBlackAndWhiteWithCompletion:^{
-                                weakSelf.tableView.userInteractionEnabled = YES;
-                            }];
-                        }
-                    }];
-                }
-                
-                [self.spinner removeFromSuperview];
-            });
-        }];
-    } else {
-        [self setPaperSize:self.pageView animated:(!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) completion:nil];
-    }
+    [self changePaper];
 }
 
 - (void)setPaperSize:(HPPPPageView *)pageView animated:(BOOL)animated completion:(void (^)(void))completion

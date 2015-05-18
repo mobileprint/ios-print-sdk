@@ -30,4 +30,9 @@
  */
 @property (weak, nonatomic) IBOutlet HPPPPageView *pageView;
 
+/*!
+ * @abstract The actual data to be printed (e.g. image, PDF, etc.)
+ */
+@property (strong, nonatomic) id printingItem;
+
 @end
