@@ -17,7 +17,7 @@
 #import "HPPPPrinter.h"
 
 #define DEFAULT_SPAN_X 0.01
-#define DEFAULT_SPAN_Y 0.02
+#define DEFAULT_SPAN_Y 0.01
 
 @interface HPPPPrintLaterHelperViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
