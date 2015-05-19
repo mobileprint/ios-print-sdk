@@ -46,8 +46,8 @@
     
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = kCLDistanceFilterNone;
-    self.locationManager.activityType = CLActivityTypeFitness;
+    self.locationManager.distanceFilter = 5.0f;
+    self.locationManager.activityType = CLActivityTypeOtherNavigation;
     
     [self.locationManager startUpdatingLocation];
 }
