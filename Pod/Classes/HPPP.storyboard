@@ -1178,7 +1178,7 @@
             </objects>
             <point key="canvasLocation" x="5834" y="694"/>
         </scene>
-        <!--Print Later Helper View Controller-->
+        <!--Print Later Helper-->
         <scene sceneID="r51-ZA-pXs">
             <objects>
                 <viewController id="Elz-2d-N8r" customClass="HPPPPrintLaterHelperViewController" sceneMemberID="viewController">
@@ -1205,6 +1205,9 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Printer name: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJ9-NZ-OiW">
                                         <rect key="frame" x="8" y="32" width="110" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="6h2-9S-kf3"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1318,11 +1321,22 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 mts away" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwS-gJ-NF6" userLabel="CurrentLocationLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 mts away" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwS-gJ-NF6" userLabel="DistanceAwayLabel">
                                 <rect key="frame" x="16" y="181" width="568" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="reG-gt-k1e"/>
                                     <constraint firstAttribute="height" constant="21" id="ssp-tO-kqi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inside Region" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Whm-BY-ixU" userLabel="InsideRegionLabel">
+                                <rect key="frame" x="16" y="206" width="568" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="21" id="GNV-Ng-v6r"/>
+                                    <constraint firstAttribute="height" constant="21" id="HzE-MV-0dy"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="oXc-hx-GOg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1342,6 +1356,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dvD-Dd-gkP" firstAttribute="leading" secondItem="RN2-eI-bn4" secondAttribute="leading" id="115-RV-0dV"/>
+                            <constraint firstItem="Whm-BY-ixU" firstAttribute="leading" secondItem="RN2-eI-bn4" secondAttribute="leading" constant="16" id="8mq-NK-LKR"/>
                             <constraint firstItem="VwS-gJ-NF6" firstAttribute="leading" secondItem="RN2-eI-bn4" secondAttribute="leading" constant="16" id="Bal-Y3-2Wu"/>
                             <constraint firstAttribute="trailing" secondItem="c6I-WY-X21" secondAttribute="trailing" id="C6j-zg-UdN"/>
                             <constraint firstAttribute="trailing" secondItem="VwS-gJ-NF6" secondAttribute="trailing" constant="16" id="FeB-jc-yjP"/>
@@ -1350,17 +1365,19 @@
                             <constraint firstItem="uFT-h2-dwM" firstAttribute="top" secondItem="8rL-vu-1zZ" secondAttribute="bottom" constant="8" id="TRJ-z9-IeR"/>
                             <constraint firstItem="uFT-h2-dwM" firstAttribute="leading" secondItem="RN2-eI-bn4" secondAttribute="leading" constant="16" id="W6G-TS-wxu"/>
                             <constraint firstAttribute="trailing" secondItem="dvD-Dd-gkP" secondAttribute="trailing" id="WK4-1G-UDs"/>
+                            <constraint firstItem="Whm-BY-ixU" firstAttribute="top" secondItem="VwS-gJ-NF6" secondAttribute="bottom" constant="4" id="ho2-M9-KYY"/>
                             <constraint firstItem="c6I-WY-X21" firstAttribute="leading" secondItem="RN2-eI-bn4" secondAttribute="leading" id="hyO-kr-bdv"/>
                             <constraint firstItem="dvD-Dd-gkP" firstAttribute="top" secondItem="8rL-vu-1zZ" secondAttribute="bottom" id="kau-tp-S4f"/>
                             <constraint firstItem="VwS-gJ-NF6" firstAttribute="top" secondItem="uFT-h2-dwM" secondAttribute="bottom" constant="2" id="mBM-pL-Xf0"/>
                             <constraint firstAttribute="centerY" secondItem="c6I-WY-X21" secondAttribute="centerY" constant="-11" id="qbh-CP-QF8"/>
                             <constraint firstItem="2Bg-UV-zOq" firstAttribute="top" secondItem="dvD-Dd-gkP" secondAttribute="bottom" id="rj0-8P-CRs"/>
                             <constraint firstAttribute="trailing" secondItem="8rL-vu-1zZ" secondAttribute="trailing" id="sKx-Xu-ldt"/>
+                            <constraint firstAttribute="trailing" secondItem="Whm-BY-ixU" secondAttribute="trailing" constant="16" id="wwN-gz-3QV"/>
                             <constraint firstItem="8rL-vu-1zZ" firstAttribute="leading" secondItem="RN2-eI-bn4" secondAttribute="leading" id="zps-E5-Hr5"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="N3l-AL-ua2">
+                    <navigationItem key="navigationItem" title="Print Later Helper" id="N3l-AL-ua2">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="5gl-tf-MEt">
                             <connections>
                                 <action selector="doneButtonTapped:" destination="Elz-2d-N8r" id="SDZ-Em-YSI"/>
@@ -1371,6 +1388,7 @@
                         <outlet property="currentLocationCoordinatesLabel" destination="uFT-h2-dwM" id="nH8-bu-M87"/>
                         <outlet property="distanceLabel" destination="VwS-gJ-NF6" id="FMj-Az-6e0"/>
                         <outlet property="enableLabel" destination="f79-jy-KSJ" id="doa-Mx-lhn"/>
+                        <outlet property="insideRegionLabel" destination="Whm-BY-ixU" id="il1-qt-PFR"/>
                         <outlet property="mapView" destination="dvD-Dd-gkP" id="W8w-uH-kd4"/>
                         <outlet property="notificationReceivedView" destination="c6I-WY-X21" id="F4E-Ci-L1v"/>
                         <outlet property="printerCoordinatesLabel" destination="zEs-zx-gfP" id="wZe-oT-jOf"/>

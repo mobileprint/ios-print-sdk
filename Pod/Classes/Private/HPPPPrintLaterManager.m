@@ -21,7 +21,7 @@
 #import "NSBundle+HPPPLocalizable.h"
 
 const int kSecondsInOneHour = (60 * 60);
-const CLLocationDistance kDefaultPrinterRadiusInMeters = 20.0f;
+const CLLocationDistance kDefaultPrinterRadiusInMeters = 150.0f;
 NSString * const kDefaultPrinterRegionIdentifier = @"DEFAULT_PRINTER_IDENTIFIER";
 NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermissionSetKey";
 

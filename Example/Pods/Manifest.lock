@@ -1,5 +1,5 @@
 PODS:
-  - HPPhotoPrint (2.1.2)
+  - HPPhotoPrint (2.1.3)
 
 DEPENDENCIES:
   - HPPhotoPrint (from `../`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  HPPhotoPrint: 748fcbc83f24fb359b09bf2eefc8b6bc91a58d5b
+  HPPhotoPrint: c052cb72b694ea9a6c781658ef8d1b082b969f78
 
 COCOAPODS: 0.35.0
