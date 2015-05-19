@@ -37,9 +37,17 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *paperViewHorizConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *paperViewVertConstraint;
 
+@property (strong, nonatomic) UIImage *image;
+
 @end
 
 @implementation HPPPPageView
+
+- (void)setPrintItem:(HPPPPrintItem *)printItem
+{
+    _printItem = printItem;
+    self.image = [printItem defaultPreviewImage];
+}
 
 - (void)setImage:(UIImage *)image
 {
@@ -132,9 +140,7 @@
     
     CGSize computedImageSize;
     
-    CGPDFDocumentRef pdf = [[HPPP sharedInstance] printingItemAsPdf:self.printingItem];
-    
-    if (pdf || (((paperSize.width != hppp.defaultPaperWidth) || (paperSize.height != hppp.defaultPaperHeight)) && (paperSize.paperSize != SizeLetter))) {
+    if (DefaultPrintRenderer == self.printItem.renderer || (((paperSize.width != hppp.defaultPaperWidth) || (paperSize.height != hppp.defaultPaperHeight)) && (paperSize.paperSize != SizeLetter))) {
         if (hppp.zoomAndCrop) {
             computedImageSize = CGSizeMake(computedPaperSize.height * hppp.defaultPaperWidth / hppp.defaultPaperHeight, computedPaperSize.height);
         } else {
@@ -143,8 +149,6 @@
     } else {
         computedImageSize = CGSizeMake(computedPaperSize.width * hppp.defaultPaperWidth / paperSize.width, computedPaperSize.height * hppp.defaultPaperHeight / paperSize.height);
     }
-
-    CGPDFDocumentRelease(pdf);
     
     [self HPPPAnimateConstraintsWithDuration:0.5f constraints:^{
         

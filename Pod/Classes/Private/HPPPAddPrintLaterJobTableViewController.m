@@ -161,9 +161,9 @@
         self.printLaterJob.name = self.nameTextView.text;
         
         NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
-        id printingItem = [self.printLaterJob.printingItems objectForKey:titleForInitialPaperSize];
+        HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:titleForInitialPaperSize];
         
-        if (printingItem == nil) {
+        if (printItem == nil) {
             HPPPLogError(@"At least the printing item for the initial paper size (%@) must be provided", titleForInitialPaperSize);
         } else {
             BOOL result = [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob];

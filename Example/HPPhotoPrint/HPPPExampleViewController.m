@@ -14,6 +14,8 @@
 #import <HPPP.h>
 #import <HPPPPrintLaterHelperViewController.h>
 #import "HPPPExampleViewController.h"
+#import "HPPPPrintItem.h"
+#import "HPPPPrintItemFactory.h"
 
 @interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, UIActionSheetDelegate>
 
@@ -25,7 +27,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *photoSourceTextField;
 @property (weak, nonatomic) IBOutlet UITextField *userIDTextField;
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
-@property (strong, nonatomic) id printingItem;
+@property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (assign, nonatomic) BOOL sharingInProgress;
 @property (strong, nonatomic) NSDictionary *imageFiles;
 @property (strong, nonatomic) NSArray *pdfFiles;
@@ -109,21 +111,15 @@
     NSArray *applicationActivities = nil;
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
-        
-        UIImage *image4x5 = self.printingItem;
-        UIImage *image4x6 = self.printingItem;
-        UIImage *image5x7 = self.printingItem;
-        UIImage *imageLetter = self.printingItem;
-        
         printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
         HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
         printLaterJob.id = printLaterJobNextAvailableId;
         printLaterJob.name = @"Add from Share";
         printLaterJob.date = [NSDate date];
-        printLaterJob.printingItems = @{[HPPPPaper titleFromSize:Size4x5] : image4x5,
-                                        [HPPPPaper titleFromSize:Size4x6] : image4x6,
-                                        [HPPPPaper titleFromSize:Size5x7] : image5x7,
-                                        [HPPPPaper titleFromSize:SizeLetter] : imageLetter};
+        printLaterJob.printItems = @{[HPPPPaper titleFromSize:Size4x5] : self.printItem,
+                                        [HPPPPaper titleFromSize:Size4x6] : self.printItem,
+                                        [HPPPPaper titleFromSize:Size5x7] : self.printItem,
+                                        [HPPPPaper titleFromSize:SizeLetter] : self.printItem};
         if (self.extendedMetricsSwitch.on) {
             printLaterJob.extra = [self photoSourceMetrics];
         }
@@ -133,7 +129,7 @@
         applicationActivities = @[printActivity];
     }
     
-    NSArray *activitiesItems = @[self.printingItem];
+    NSArray *activitiesItems = @[self.printItem];
     
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activitiesItems applicationActivities:applicationActivities];
     
@@ -194,7 +190,7 @@
 
 - (IBAction)shareBarButtonItemTap:(id)sender
 {
-    self.printingItem = [self randomImage];
+    self.printItem = [HPPPPrintItemFactory printItemWithAsset:[self randomImage]];
     [self shareItem];
 }
 
@@ -241,22 +237,21 @@
 
 #pragma mark - HPPPPrintDataSource
 
-- (void)printingItemForPaper:(HPPPPaper *)paper withCompletion:(void (^)(id))completion
+- (void)printingItemForPaper:(HPPPPaper *)paper withCompletion:(void (^)(HPPPPrintItem *))completion
 {
     if (completion) {
-        completion(self.printingItem);
+        completion(self.printItem);
     }
 }
 
 - (void)previewImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
 {
     if (completion) {
-        if ([[HPPP sharedInstance] printingItemAsImage:self.printingItem] ){
-            completion(self.printingItem);
-        } else if ([[HPPP sharedInstance] printingItemAsPdf:self.printingItem]) {
-            completion([[HPPP sharedInstance] imageForPDF:self.printingItem width:8.5f height:11.0f dpi:72.0f]);
+        UIImage *image = [self.printItem previewImageForPaper:paper];
+        if (image) {
+            completion(image);
         } else {
-            HPPPLogError(@"Unable to determine preview image for printing item %@", self.printingItem);
+            HPPPLogError(@"Unable to determine preview image for printing item %@", self.printItem);
         }
     }
 }
@@ -268,7 +263,7 @@
 
 - (NSArray *)printingItemsForPaper:(HPPPPaper *)paper
 {
-    return @[ self.printingItem ];
+    return @[ self.printItem ];
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate
@@ -323,16 +318,15 @@
     for (int idx = 0; idx < jobCount; idx++) {
         
         NSString *jobID = [[HPPP sharedInstance] nextPrintJobId];
-        UIImage *image = [self randomImage];
+        HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:[self randomImage]];
         HPPPPrintLaterJob *job = [[HPPPPrintLaterJob alloc] init];
         job.id = jobID;
         job.name = [NSString stringWithFormat:@"Print Job #%d", idx + 1];
         job.date = [NSDate date];
-
-        job.printingItems = @{[HPPPPaper titleFromSize:Size4x5] : image,
-                              [HPPPPaper titleFromSize:Size4x6] : image,
-                              [HPPPPaper titleFromSize:Size5x7] : image,
-                              [HPPPPaper titleFromSize:SizeLetter] : image};
+        job.printItems = @{[HPPPPaper titleFromSize:Size4x5] : printItem,
+                              [HPPPPaper titleFromSize:Size4x6] : printItem,
+                              [HPPPPaper titleFromSize:Size5x7] : printItem,
+                              [HPPPPaper titleFromSize:SizeLetter] : printItem};
         [[HPPP sharedInstance] addJobToQueue:job];
     }
 }
@@ -383,12 +377,11 @@
 - (void)doImageActivityWithFile:(NSString *)file
 {
     NSString *filename = [NSString stringWithFormat:@"%@.jpg", file];
-    UIImage *image = [UIImage imageNamed:filename];
-    self.printingItem = image;
+    self.printItem = [HPPPPrintItemFactory printItemWithAsset:[UIImage imageNamed:filename]];
     if (self.sharingInProgress) {
         [self shareItem];
     } else {
-        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printingItem:image previewImage:image fromQueue:NO];
+        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:self.printItem fromQueue:NO];
         [self presentViewController:vc animated:YES completion:nil];
     }
 }
@@ -430,13 +423,12 @@
 - (void)doPdfActivityWithFile:(NSString *)file
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:@"pdf"];
-    NSData *pdf = [NSData dataWithContentsOfFile:path];
+    HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:[NSData dataWithContentsOfFile:path]];
     if (self.sharingInProgress) {
-        self.printingItem = pdf;
+        self.printItem = printItem;
         [self shareItem];
     } else {
-        UIImage *preview = [[HPPP sharedInstance] imageForPDF:pdf width:8.5f height:11.0f dpi:72.0f];
-        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:nil printingItem:pdf previewImage:preview fromQueue:NO];
+        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:nil printItem:printItem fromQueue:NO];
         [self presentViewController:vc animated:YES completion:nil];
     }
 }
