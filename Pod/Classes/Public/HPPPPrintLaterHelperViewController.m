@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentLocationCoordinatesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *notificationReceivedView;
+@property (weak, nonatomic) IBOutlet UILabel *insideRegionLabel;
 
 @end
 
@@ -153,6 +154,10 @@
     CLLocationDistance distance = [newLocation distanceFromLocation:defaultPrinterLocation];
     
     self.distanceLabel.text = [NSString stringWithFormat:@"%.02f meters away", distance];
+    
+    for (CLRegion *region in self.locationManager.monitoredRegions) {
+        [self.locationManager requestStateForRegion:region];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
@@ -163,8 +168,18 @@
             
             if (available) {
                 self.notificationReceivedView.text = @"Notification received";
+                [[[UIAlertView alloc] initWithTitle:@"Push notification"
+                                            message:@"Entering printer region. Notification received."
+                                           delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil] show];
             } else {
                 self.notificationReceivedView.text = @"Notification not received because can't contact the printer";
+                [[[UIAlertView alloc] initWithTitle:@"Push notification"
+                                            message:@"Entering printer region. Notification not received because can't contact the printer."
+                                           delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil] show];
             }
             
             [UIView animateWithDuration:1.0f animations:^{
@@ -175,6 +190,37 @@
                 } completion:nil];
             }];
         }];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
+{
+    if ([[HPPPPrintLaterManager sharedInstance] isDefaultPrinterRegion:region]) {
+        [[[UIAlertView alloc] initWithTitle:@"Push notification"
+                                    message:@"Exiting printer region."
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
+{
+    if (state != CLRegionStateInside) {
+        self.insideRegionLabel.text = @"Ouside region";
+    } else {
+        self.insideRegionLabel.text = @"Inside region";
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
+{
+    if ([[HPPPPrintLaterManager sharedInstance] isDefaultPrinterRegion:region]) {
+        [[[UIAlertView alloc] initWithTitle:@"Push notification"
+                                    message:@"Fail to monitor printer region."
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
     }
 }
 
