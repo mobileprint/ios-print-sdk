@@ -54,8 +54,8 @@
         float width = resizeImage.size.width;
         float height = resizeImage.size.height;
         
-        float x = (contentRect.size.width - width) / 2.0f;
-        float y = (contentRect.size.height - height) / 2.0f;
+        float x = contentRect.origin.x + (contentRect.size.width - width) / 2.0f;
+        float y = contentRect.origin.y + (contentRect.size.height - height) / 2.0f;
         
         [resizeImage drawInRect:CGRectMake(x, y, width, height)];
     } else {
