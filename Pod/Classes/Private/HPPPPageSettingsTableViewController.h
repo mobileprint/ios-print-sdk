@@ -36,13 +36,7 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  * @abstract The item to be printed
  * @discussion This item is used in the actual print job.
  */
-@property (strong, nonatomic) id printingItem;
-
-/*!
- * @abstract The image used for a print preview
- * @discussion This image is used for displaying the print preview.
- */
-@property (strong, nonatomic) UIImage *previewImage;
+@property (strong, nonatomic) HPPPPrintItem *printItem;
 
 /*!
  * @abstract Notified when print events occur

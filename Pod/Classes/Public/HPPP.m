@@ -287,7 +287,7 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     }
 }
 
-- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printingItem:(id)printingItem previewImage:(UIImage *)previewImage fromQueue:(BOOL)fromQueue
+- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
     
@@ -298,17 +298,14 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
         UINavigationController *detailsNavigationController = pageSettingsSplitViewController.viewControllers[1];
         detailsNavigationController.navigationBar.translucent = NO;
         HPPPPageViewController *pageViewController = (HPPPPageViewController *)detailsNavigationController.topViewController;
-        pageViewController.image = previewImage;
-        pageViewController.printingItem = printingItem;
+        pageViewController.printItem = printItem;
         UINavigationController *masterNavigationController = pageSettingsSplitViewController.viewControllers[0];
         masterNavigationController.navigationBar.translucent = NO;
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
         pageSettingsTableViewController.delegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
         pageSettingsTableViewController.printFromQueue = fromQueue;
-        
-        pageSettingsTableViewController.printingItem = printingItem;
-        pageSettingsTableViewController.previewImage = previewImage;
+        pageSettingsTableViewController.printItem = printItem;
         pageSettingsTableViewController.pageViewController = pageViewController;
         pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
         
@@ -319,8 +316,7 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
         // "you must always install the view from a UISplitViewController object as the root view of your application’s window. [...] Split view controllers cannot be presented modally."
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPageSettingsTableViewController"];
         
-        pageSettingsTableViewController.printingItem = printingItem;
-        pageSettingsTableViewController.previewImage = previewImage;
+        pageSettingsTableViewController.printItem = printItem;
         pageSettingsTableViewController.delegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
         pageSettingsTableViewController.printFromQueue = fromQueue;
@@ -376,87 +372,6 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
 - (BOOL)isWifiConnected
 {
     return [[HPPPWiFiReachability sharedInstance] isWifiConnected];
-}
-
-// The following is adaptaed from:  http://stackoverflow.com/questions/4107850/how-can-i-programatically-generate-a-thumbnail-of-a-pdf-with-the-iphone-sdk
-- (UIImage *)imageForPDF:(NSData *)pdfData width:(CGFloat)width height:(CGFloat)height dpi:(CGFloat)dpi
-{
-    CGPDFDocumentRef pdf = [self printingItemAsPdf:pdfData];
-    
-    if (!pdf) {
-        return nil;
-    }
-    
-    CGPDFPageRef page;
-    
-    CGRect aRect = CGRectMake(0, 0, width * dpi, height * dpi);
-    UIGraphicsBeginImageContext(aRect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    UIImage* previewImage;
-    
-    
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 0.0, aRect.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
-    
-    CGContextSetGrayFillColor(context, 1.0, 1.0);
-    CGContextFillRect(context, aRect);
-    
-    
-    // Grab the first PDF page
-    page = CGPDFDocumentGetPage(pdf, 1);
-    CGRect pageSize = CGPDFPageGetBoxRect(page, kCGPDFMediaBox);
-    CGFloat angle = pageSize.size.width > pageSize.size.height ? -90 : 0;
-    CGAffineTransform pdfTransform = CGPDFPageGetDrawingTransform(page, kCGPDFMediaBox, aRect, angle, true); // future page layout... check kCGPDFCropBox size
-    // And apply the transform.
-    CGContextConcatCTM(context, pdfTransform);
-    
-    CGContextDrawPDFPage(context, page);
-    
-    // Create the new UIImage from the context
-    previewImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    CGContextRestoreGState(context);
-    
-    UIGraphicsEndImageContext();
-    CGPDFDocumentRelease(pdf);
-    
-    return previewImage;
-}
-
-- (UIImage *)printingItemAsImage:(id)printingItem;
-{
-    UIImage *image = nil;
-
-    if ( [printingItem isKindOfClass:[UIImage class]]) {
-        image = printingItem;
-    } else if ([printingItem isKindOfClass:[NSData class]]) {
-        image = [UIImage imageWithData:printingItem scale:[[UIScreen mainScreen] scale]];
-    } else {
-        HPPPLogWarn(@"Unkown data type for printing item: %@", printingItem);
-    }
-    
-    return image;
-}
-
-- (CGPDFDocumentRef)printingItemAsPdf:(id)printingItem;
-{
-    CGPDFDocumentRef pdf = nil;
-    if ([printingItem isKindOfClass:[NSData class]]) {
-        CFDataRef pdfDataRef = (CFDataRef)CFBridgingRetain(printingItem);
-        CGDataProviderRef provider = CGDataProviderCreateWithCFData(pdfDataRef);
-        pdf = CGPDFDocumentCreateWithProvider(provider);
-    }
-    return pdf;
-}
-
-- (UIImage *)previewImageForPrintingItem:(id)printingItem andPaper:(HPPPPaper *)paper
-{
-    UIImage *previewImage = [[HPPP sharedInstance] printingItemAsImage:printingItem];
-    if (nil == previewImage) {
-        previewImage = [[HPPP sharedInstance] imageForPDF:printingItem width:paper.width height:paper.height dpi:72.0f];
-    }
-    return previewImage;
 }
 
 @end

@@ -11,22 +11,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "HPPPPageView.h"
+#import "HPPPPrintItem.h"
 
-/*!
- * @abstract Controls the graphical preview portion of the print preview
- */
-@interface HPPPPageViewController : UIViewController
+@interface HPPPPrintItemFactory : NSObject
 
-/*!
- * @abstract The HPPPPageView that this controller owns
- */
-@property (weak, nonatomic) IBOutlet HPPPPageView *pageView;
-
-/*!
- * @abstract The actual data to be printed (e.g. image, PDF, etc.)
- */
-@property (strong, nonatomic) HPPPPrintItem *printItem;
++ (HPPPPrintItem *)printItemWithAsset:(id)asset;
 
 @end

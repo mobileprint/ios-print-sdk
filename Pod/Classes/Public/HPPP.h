@@ -20,6 +20,8 @@
 #import "HPPPSupportAction.h"
 #import "HPPPLogger.h"
 
+@class HPPPPrintItem;
+
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -404,7 +406,7 @@ extern NSString * const kHPPPNumberOfCopies;
  * @param fromQueue A boolean value indicating if this job is being printed from the print queue
  * @return The view controller that the client should present
  */
-- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printingItem:(id)printingItem previewImage:(UIImage *)previewImage fromQueue:(BOOL)fromQueue;
+- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue;
 
 /*!
  * @abstract User notification category used for print reminder
@@ -461,35 +463,6 @@ extern NSString * const kHPPPNumberOfCopies;
 - (BOOL)isWifiConnected;
 
 /*!
- * @abstract Creates an image based on a PDF document
- * @return Image representing the first page of the PDF or nil if data is not a PDF
- */
-- (UIImage *)imageForPDF:(NSData *)pdfData width:(CGFloat)width height:(CGFloat)height dpi:(CGFloat)dpi;
-
-/*!
- * @abstract Attempts to convert the printing item to an image
- * @return A UIImage object if the conversion was successful, nil otherwise
- */
-- (UIImage *)printingItemAsImage:(id)printingItem;
-
-
-/*!
- * @abstract Attempts to convert the printing item to a PDF
- * @discussion CGPDFDocumentRelease() must be called on the CGPDFDocumentRef returned by this method.
- * @return A CGPDFDocumentRef to the PDF document, nil if the printingItem is not a PDF
- */
-- (CGPDFDocumentRef)printingItemAsPdf:(id)printingItem;
-
-/*!
- * @abstract Obtains the preview image for a printing item
- * @discussion Uses the paper size to produce the appropriate preview image for a printing item
- * @param printingItem The printing item
- * @param paper Used to determine the desired size of the preview item
- * @return A UIImage to use as a preview image for the printingItem
- */
-- (UIImage *)previewImageForPrintingItem:(id)printingItem andPaper:(HPPPPaper *)paper;
-
-/*!
  * @abstract Used to access the singleton instance of this class
  */
 + (HPPP *)sharedInstance;
@@ -523,7 +496,7 @@ extern NSString * const kHPPPNumberOfCopies;
 @end
 
 /*!
- * @abstract Defines a data source protocal for requesting the printable image
+ * @abstract Defines a data source protocol for requesting the printable image
  * @seealso HPPPPrintDelegate
  */
 @protocol HPPPPrintDataSource <NSObject>
@@ -534,7 +507,7 @@ extern NSString * const kHPPPNumberOfCopies;
  * @param paper The @link HPPPPaper @/link object that the item will be laid out on
  * @seealso HPPPPaper
  */
-- (void)printingItemForPaper:(HPPPPaper *)paper withCompletion:(void (^)(id printingItem))completion;
+- (void)printingItemForPaper:(HPPPPaper *)paper withCompletion:(void (^)(HPPPPrintItem * printItem))completion;
 
 /*!
  * @abstract Called when a new preview image is needed

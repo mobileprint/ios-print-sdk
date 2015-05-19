@@ -12,6 +12,7 @@
 
 #import "HPPP.h"
 #import "HPPPPrintLaterJob.h"
+#import "HPPPPrintItem.h"
 
 NSString * const kHPPPPrintLaterJobId = @"kHPPPPrintLaterJobId";
 NSString * const kHPPPPrintLaterJobName = @"kHPPPPrintLaterJobName";
@@ -26,19 +27,7 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
     [encoder encodeObject:self.id forKey:kHPPPPrintLaterJobId];
     [encoder encodeObject:self.name forKey:kHPPPPrintLaterJobName];
     [encoder encodeObject:self.date forKey:kHPPPPrintLaterJobDate];
-    
-    // UIImages don't implement the protocol necessary for serialization, so they must be change to NSDatas
-    NSMutableDictionary *serializeImages = [NSMutableDictionary dictionary];
-    
-    for (NSString *printJobId in self.printingItems.allKeys) {
-        NSData *data = [self.printingItems objectForKey:printJobId];
-        if ([data isKindOfClass:[UIImage class]]) {
-            data = UIImageJPEGRepresentation((UIImage *)data, [[UIScreen mainScreen] scale]);
-        }
-        [serializeImages setObject:data forKey:printJobId];
-    }
-    
-    [encoder encodeObject:serializeImages.copy forKey:kHPPPPrintLaterJobImages];
+    [encoder encodeObject:self.printItems forKey:kHPPPPrintLaterJobImages];
     [encoder encodeObject:self.extra forKey:kHPPPPrintLaterJobExtra];
 }
 
@@ -48,16 +37,7 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
         self.id = [decoder decodeObjectForKey:kHPPPPrintLaterJobId];
         self.name = [decoder decodeObjectForKey:kHPPPPrintLaterJobName];
         self.date = [decoder decodeObjectForKey:kHPPPPrintLaterJobDate];
-        
-        NSDictionary *decodedImages = [decoder decodeObjectForKey:kHPPPPrintLaterJobImages];
-        
-        NSMutableDictionary *serializeImages = [NSMutableDictionary dictionary];
-        for (NSString *printJobId in decodedImages.allKeys) {
-            NSData *data = [decodedImages objectForKey:printJobId];
-            [serializeImages setObject:data forKey:printJobId];
-        }
-        
-        self.printingItems = serializeImages.copy;
+        self.printItems = [decoder decodeObjectForKey:kHPPPPrintLaterJobImages];
         self.extra = [decoder decodeObjectForKey:kHPPPPrintLaterJobExtra];
     }
     
@@ -67,9 +47,9 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
 - (UIImage *)previewImage
 {
     HPPPPaper *initialPaper = [[HPPPPaper alloc] initWithPaperSize:[HPPP sharedInstance].initialPaperSize paperType:Plain];
-    id printingItem = [self.printingItems objectForKey:initialPaper.sizeTitle];
+    HPPPPrintItem *printItem = [self.printItems objectForKey:initialPaper.sizeTitle];
     
-    return [[HPPP sharedInstance] previewImageForPrintingItem:printingItem andPaper:initialPaper];
+    return [printItem previewImageForPaper:initialPaper];
 }
 
 - (NSString *)description

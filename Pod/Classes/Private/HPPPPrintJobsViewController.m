@@ -198,8 +198,8 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 {
     self.selectedPrintJob = printJobs[0];
     self.selectedPrintJobs = printJobs;
-    UIImage *image = [self.selectedPrintJob.printingItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
-    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printingItem:image previewImage:nil fromQueue:YES];
+    HPPPPrintItem *printItem = [self.selectedPrintJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:YES];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
     } else {
@@ -327,28 +327,28 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 
 #pragma mark - HPPPPrintDataSource
 
-- (void)printingItemForPaper:(HPPPPaper *)paper withCompletion:(void (^)(id printingItem))completion;
+- (void)printingItemForPaper:(HPPPPaper *)paper withCompletion:(void (^)(HPPPPrintItem *printItem))completion;
 {
     NSString *imageKey = [HPPPPaper titleFromSize:paper.paperSize];
     
     HPPPLogInfo(@"Retrieving image for size: %@", imageKey);
     
     if (completion) {
-        UIImage *image = [self.selectedPrintJob.printingItems objectForKey:imageKey];
+        HPPPPrintItem *printItem = [self.selectedPrintJob.printItems objectForKey:imageKey];
         
-        if (image == nil) {
-            image = [self.selectedPrintJob.printingItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+        if (printItem == nil) {
+            printItem = [self.selectedPrintJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
         }
         
-        completion(image);
+        completion(printItem);
     }
 }
 
 - (void)previewImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *))completion
 {
     if (completion) {
-        [self printingItemForPaper:paper withCompletion:^(id printingItem) {
-            completion([[HPPP sharedInstance] previewImageForPrintingItem:printingItem andPaper:paper]);
+        [self printingItemForPaper:paper withCompletion:^(HPPPPrintItem *printItem) {
+            completion([printItem previewImageForPaper:paper]);
         }];
      }
 }
@@ -370,19 +370,19 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     
     HPPPLogInfo(@"Retrieving images for size: %@", imageKey);
     
-    NSMutableArray *images = [NSMutableArray arrayWithCapacity:self.selectedPrintJobs.count];
+    NSMutableArray *printItems = [NSMutableArray arrayWithCapacity:self.selectedPrintJobs.count];
     
     for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
-        UIImage *image = [printJob.printingItems objectForKey:imageKey];
+        HPPPPrintItem *printItem = [printJob.printItems objectForKey:imageKey];
         
-        if (image == nil) {
-            image = [printJob.printingItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+        if (printItem == nil) {
+            printItem = [printJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
         }
         
-        [images addObject:image];
+        [printItems addObject:printItem];
     }
     
-    return images.copy;
+    return printItems.copy;
 }
 
 #pragma mark - HPPPPrintJobsActionViewDelegate

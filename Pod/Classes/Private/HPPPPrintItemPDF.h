@@ -10,19 +10,10 @@
 // the license agreement.
 //
 
-#import "HPPP.h"
-#import "HPPPPageViewController.h"
-#import "NSBundle+HPPPLocalizable.h"
+#import "HPPPPrintItem.h"
 
-@implementation HPPPPageViewController
+@interface HPPPPrintItemPDF : HPPPPrintItem
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.title = HPPPLocalizedString(@"Preview", @"Title of the Preview Screen");
-
-    self.pageView.printItem  = self.printItem;
-}
+- (id)initWithData:(NSData *)data;
 
 @end
