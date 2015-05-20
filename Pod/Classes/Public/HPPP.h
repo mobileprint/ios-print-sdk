@@ -227,24 +227,24 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (strong, nonatomic) NSArray *paperSizes;
 
 /*!
- * @abstract Initial paper size
+ * @abstract Default paper size
  * @discussion A value from the @link PaperSize @/link enum specifying the default paper size to use. This value is used to set the initial selection for paper size. It is also used as the value for paper size when the paper size selection is hidden. Default initial value is @link Size5x7 @/link .
  * @seealso hidePaperSizeOption
  * @seealso PaperSize
  */
-@property (assign, nonatomic) PaperSize initialPaperSize;
+@property (assign, nonatomic) PaperSize defaultPaperSize;
 
 /*!
  * @abstract Default paper width
- * @discussion Default width using for zoom and crop and for centering in case of letter paper size.
+ * @discussion Default width using for zoom and crop and for centering in case of letter paper size.  This value cannot be manipulated.  It is derived from defaultPaperSize.
  */
-@property (assign, nonatomic) float defaultPaperWidth;
+@property (assign, readonly, nonatomic) float defaultPaperWidth;
 
 /*!
  * @abstract Default paper height
- * @discussion Default width using for zoom and crop and for centering in case of letter paper size.
+ * @discussion Default width using for zoom and crop and for centering in case of letter paper size.  This value cannot be manipulated.  It is derived from defaultPaperSize.
  */
-@property (assign, nonatomic) float defaultPaperHeight;
+@property (assign, readonly, nonatomic) float defaultPaperHeight;
 
 /*!
  * @abstract Zoom and crop

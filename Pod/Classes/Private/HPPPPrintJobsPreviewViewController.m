@@ -98,7 +98,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     
     NSNumber *lastSizeUsed = [defaults objectForKey:kHPPPLastPaperSizeSetting];
     
-    PaperSize paperSize = [HPPP sharedInstance].initialPaperSize;
+    PaperSize paperSize = [HPPP sharedInstance].defaultPaperSize;
     
     if (lastSizeUsed) {
         paperSize = (PaperSize)[lastSizeUsed integerValue];
@@ -132,7 +132,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:paperSizeTitle];
     
     if (printItem == nil) {
-        printItem = [self.printLaterJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+        printItem = [self.printLaterJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaperSize]];
     }
     
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:Plain];

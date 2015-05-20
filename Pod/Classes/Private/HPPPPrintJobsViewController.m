@@ -198,7 +198,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
 {
     self.selectedPrintJob = printJobs[0];
     self.selectedPrintJobs = printJobs;
-    HPPPPrintItem *printItem = [self.selectedPrintJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+    HPPPPrintItem *printItem = [self.selectedPrintJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaperSize]];
     UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:YES];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
@@ -337,7 +337,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
         HPPPPrintItem *printItem = [self.selectedPrintJob.printItems objectForKey:imageKey];
         
         if (printItem == nil) {
-            printItem = [self.selectedPrintJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+            printItem = [self.selectedPrintJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaperSize]];
         }
         
         completion(printItem);
@@ -376,7 +376,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
         HPPPPrintItem *printItem = [printJob.printItems objectForKey:imageKey];
         
         if (printItem == nil) {
-            printItem = [printJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+            printItem = [printJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaperSize]];
         }
         
         [printItems addObject:printItem];
