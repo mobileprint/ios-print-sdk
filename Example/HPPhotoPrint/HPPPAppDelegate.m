@@ -12,6 +12,7 @@
 
 #import <HPPP.h>
 #import "HPPPAppDelegate.h"
+#import <DBChooser/DBChooser.h>
 
 @implementation HPPPAppDelegate
 
@@ -86,6 +87,18 @@
 {
     NSString *screenName = [notification.userInfo objectForKey:kHPPPTrackableScreenNameKey];
     NSLog(@"Entering in screen: %@", screenName);
+}
+
+#pragma mark - URL handler
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if ([[DBChooser defaultChooser] handleOpenURL:url]) {
+        // This was a Chooser response and handleOpenURL automatically ran the completion block
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end

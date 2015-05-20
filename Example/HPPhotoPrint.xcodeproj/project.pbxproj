@@ -21,7 +21,8 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		65C0652E1B0BF26200E56D83 /* HPPPSelectImageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C0652D1B0BF26200E56D83 /* HPPPSelectImageTableViewController.m */; };
+		650858461B0C352900B0C70F /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650858451B0C352900B0C70F /* DBChooser.framework */; };
+		65C0652E1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C0652D1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m */; };
 		65FFC9B31B03B0A400DCE2B4 /* 1 Page (landscape).pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AD1B03B0A400DCE2B4 /* 1 Page (landscape).pdf */; };
 		65FFC9B41B03B0A400DCE2B4 /* 1 Page.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AE1B03B0A400DCE2B4 /* 1 Page.pdf */; };
 		65FFC9B51B03B0A400DCE2B4 /* 2 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AF1B03B0A400DCE2B4 /* 2 Pages.pdf */; };
@@ -70,8 +71,9 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		65C0652C1B0BF26200E56D83 /* HPPPSelectImageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPSelectImageTableViewController.h; sourceTree = "<group>"; };
-		65C0652D1B0BF26200E56D83 /* HPPPSelectImageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPSelectImageTableViewController.m; sourceTree = "<group>"; };
+		650858451B0C352900B0C70F /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
+		65C0652C1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPSelectPrintItemTableViewController.h; sourceTree = "<group>"; };
+		65C0652D1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPSelectPrintItemTableViewController.m; sourceTree = "<group>"; };
 		65FFC9AD1B03B0A400DCE2B4 /* 1 Page (landscape).pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "1 Page (landscape).pdf"; sourceTree = "<group>"; };
 		65FFC9AE1B03B0A400DCE2B4 /* 1 Page.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "1 Page.pdf"; sourceTree = "<group>"; };
 		65FFC9AF1B03B0A400DCE2B4 /* 2 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "2 Pages.pdf"; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			files = (
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
+				650858461B0C352900B0C70F /* DBChooser.framework in Frameworks */,
 				E35DD5981B0666F400E9BC97 /* MapKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
 				AEBDAE10899722AFD450C051 /* libPods-HPPhotoPrint.a in Frameworks */,
@@ -147,6 +150,7 @@
 		6003F58C195388D20070C39A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				650858451B0C352900B0C70F /* DBChooser.framework */,
 				E35DD5971B0666F400E9BC97 /* MapKit.framework */,
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
@@ -174,8 +178,8 @@
 				6003F5A6195388D20070C39A /* HPPPExampleViewController.m */,
 				F16A57B81AF2B0EA00F7265E /* HPPPExampleLogger.h */,
 				F16A57B91AF2B0EA00F7265E /* HPPPExampleLogger.m */,
-				65C0652C1B0BF26200E56D83 /* HPPPSelectImageTableViewController.h */,
-				65C0652D1B0BF26200E56D83 /* HPPPSelectImageTableViewController.m */,
+				65C0652C1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.h */,
+				65C0652D1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -429,7 +433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65C0652E1B0BF26200E56D83 /* HPPPSelectImageTableViewController.m in Sources */,
+				65C0652E1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m in Sources */,
 				E32115DC1A38B9E60079144C /* HPPPLearnMoreViewController.m in Sources */,
 				6003F59E195388D20070C39A /* HPPPAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* HPPPExampleViewController.m in Sources */,
@@ -565,6 +569,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HPPhotoPrint/HPPhotoPrint-Prefix.pch";
 				INFOPLIST_FILE = "HPPhotoPrint/HPPhotoPrint-Info.plist";
@@ -580,6 +588,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HPPhotoPrint/HPPhotoPrint-Prefix.pch";
 				INFOPLIST_FILE = "HPPhotoPrint/HPPhotoPrint-Info.plist";
