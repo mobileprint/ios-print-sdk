@@ -11,17 +11,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPPPPrintItem.h"
 
-@protocol HPPPSelectImageTableViewControllerDelegate;
+@protocol HPPPSelectPrintItemTableViewControllerDelegate;
 
-@interface HPPPSelectImageTableViewController : UITableViewController
+@interface HPPPSelectPrintItemTableViewController : UITableViewController
 
-@property (weak, nonatomic) id<HPPPSelectImageTableViewControllerDelegate>delegate;
+@property (weak, nonatomic) id<HPPPSelectPrintItemTableViewControllerDelegate>delegate;
 
 @end
 
-@protocol HPPPSelectImageTableViewControllerDelegate <NSObject>
+@protocol HPPPSelectPrintItemTableViewControllerDelegate <NSObject>
 
-- (void)didSelectImage:(UIImage *)image;
+- (void)didSelectPrintItem:(HPPPPrintItem *)printItem;
 
 @end

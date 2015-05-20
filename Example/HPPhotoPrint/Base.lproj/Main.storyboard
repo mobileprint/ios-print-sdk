@@ -70,7 +70,7 @@
                                 <rect key="frame" x="189" y="123" width="51" height="31"/>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tl8-AE-L6L">
-                                <rect key="frame" x="16" y="358" width="152" height="30"/>
+                                <rect key="frame" x="16" y="327" width="152" height="30"/>
                                 <state key="normal" title="Show Print Queue">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -78,46 +78,18 @@
                                     <action selector="showPrintQueueTapped:" destination="XCd-sr-pZM" eventType="touchUpInside" id="jO8-nb-NDY"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X5R-vY-ISa">
-                                <rect key="frame" x="16" y="426" width="240" height="128"/>
-                                <color key="backgroundColor" red="0.08235294118" green="0.47058823529999999" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last print later job saved:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcW-oL-rZn">
-                                <rect key="frame" x="16" y="397" width="195" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEB-hS-bWa">
-                                <rect key="frame" x="16" y="291" width="85" height="30"/>
-                                <state key="normal" title="Print Image">
+                                <rect key="frame" x="16" y="289" width="85" height="30"/>
+                                <state key="normal" title="Print Item">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="4NB-0N-deo" kind="presentation" identifier="Select Image" id="vuh-cl-qQ4"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="was-N0-IXd">
-                                <rect key="frame" x="150" y="291" width="85" height="30"/>
-                                <state key="normal" title="Print PDF">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="printPdfTapped:" destination="XCd-sr-pZM" eventType="touchUpInside" id="eKR-pe-3cE"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTL-Nr-uyq">
-                                <rect key="frame" x="150" y="320" width="85" height="30"/>
-                                <state key="normal" title="Share PDF">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sharePdfTapped:" destination="XCd-sr-pZM" eventType="touchUpInside" id="a0b-wc-RgJ"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVI-2g-fjV">
-                                <rect key="frame" x="16" y="320" width="107" height="30"/>
-                                <state key="normal" title="Share Image">
+                                <rect key="frame" x="131" y="289" width="107" height="30"/>
+                                <state key="normal" title="Share Item">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -125,7 +97,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sgj-wf-NIF">
-                                <rect key="frame" x="150" y="358" width="164" height="30"/>
+                                <rect key="frame" x="16" y="365" width="164" height="30"/>
                                 <state key="normal" title="Show Print Later Helper">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -133,6 +105,16 @@
                                     <action selector="showPrintLaterHelperTapped:" destination="XCd-sr-pZM" eventType="touchUpInside" id="hxv-dn-T7X"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X5R-vY-ISa">
+                                <rect key="frame" x="16" y="432" width="240" height="128"/>
+                                <color key="backgroundColor" red="0.08235294118" green="0.47058823529999999" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last print later job saved:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcW-oL-rZn">
+                                <rect key="frame" x="16" y="403" width="195" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -157,14 +139,14 @@
             </objects>
             <point key="canvasLocation" x="5474" y="-1068"/>
         </scene>
-        <!--Select Image Table View Controller-->
+        <!--Select Print Item Table View Controller-->
         <scene sceneID="iqy-6J-Swk">
             <objects>
-                <tableViewController id="4g9-gD-rbP" customClass="HPPPSelectImageTableViewController" sceneMemberID="viewController">
+                <tableViewController id="4g9-gD-rbP" customClass="HPPPSelectPrintItemTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="UFp-Z7-SmB">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Image Cell" textLabel="3Mz-K5-1rp" detailTextLabel="4Ol-Iz-bx5" style="IBUITableViewCellStyleSubtitle" id="XAf-fe-DZ6">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -174,13 +156,13 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Mz-K5-1rp">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Ol-Iz-bx5">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>

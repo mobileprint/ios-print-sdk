@@ -16,9 +16,9 @@
 #import "HPPPExampleViewController.h"
 #import "HPPPPrintItem.h"
 #import "HPPPPrintItemFactory.h"
-#import "HPPPSelectImageTableViewController.h"
+#import "HPPPSelectPrintItemTableViewController.h"
 
-@interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, UIActionSheetDelegate, HPPPSelectImageTableViewControllerDelegate>
+@interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
@@ -195,30 +195,6 @@
     [self shareItem];
 }
 
-- (IBAction)printImageTapped:(id)sender 
-{
-    self.sharingInProgress = NO;
-    [self selectImage];
-}
-
-- (IBAction)shareImageTapped:(id)sender 
-{
-    self.sharingInProgress = YES;
-    [self selectImage];
-}
-
-- (IBAction)printPdfTapped:(id)sender 
-{
-    self.sharingInProgress = NO;
-    [self selectPDF];
-}
-
-- (IBAction)sharePdfTapped:(id)sender 
-{
-    self.sharingInProgress = YES;
-    [self selectPDF];
-}
-
 - (IBAction)showPrintQueueTapped:(id)sender
 {
     [[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
@@ -231,7 +207,7 @@
     self.sharingInProgress = ([segue.identifier isEqualToString:@"Share Image"]);
     if ([segue.identifier isEqualToString:@"Select Image"] || [segue.identifier isEqualToString:@"Share Image"]) {
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-        HPPPSelectImageTableViewController *vc = (HPPPSelectImageTableViewController *)navController.topViewController;
+        HPPPSelectPrintItemTableViewController *vc = (HPPPSelectPrintItemTableViewController *)navController.topViewController;
         vc.delegate = self;
     }
 }
@@ -346,102 +322,35 @@
 
 - (UIImage *)randomImage
 {
-    int numberOfSampleImages = 10;
-    int picNumber = arc4random_uniform(numberOfSampleImages) + 1;
-    NSString *picName = [NSString stringWithFormat:@"sample%d.jpg", picNumber];
+    NSArray *sampleImages = @[
+                              @"Baloons",
+                              @"Cat",
+                              @"Dog",
+                              @"Earth",
+                              @"Flowers",
+                              @"Focus on Quality",
+                              @"Galaxy",
+                              @"Garden Path",
+                              @"Quality Seal",
+                              @"Soccer Ball"
+                              ];
+    int picNumber = arc4random_uniform((unsigned int)sampleImages.count);
+    NSString *picName = [NSString stringWithFormat:@"%@.jpg", [sampleImages objectAtIndex:picNumber]];
     UIImage *image = [UIImage imageNamed:picName];
     return image;
 }
 
-#pragma mark - Image
+#pragma mark - HPPPSelectPrintItemTableViewControllerDelegate
 
-- (void)selectImage {
-    
-    NSString *title = NSLocalizedString(@"Choose an Image", nil);
-    NSString *cancelButtonLabel = NSLocalizedString(@"Cancel", nil);
-    
-    if (NSClassFromString(@"UIAlertController") != nil) {
-        UIAlertControllerStyle style = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
-        
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:NSLocalizedString(@"Please select a sample PDF that you would like to use.", nil) preferredStyle:style];
-        
-        [self.imageFiles enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            [alertController addAction:[UIAlertAction actionWithTitle:key style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [self doImageActivityWithFile:obj];
-            }]];
-        }];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:cancelButtonLabel style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-    else {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
-        actionSheet.title = title;
-        actionSheet.delegate = self;
-        [self.imageFiles enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            [actionSheet addButtonWithTitle:key];
-        }];
-        actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:cancelButtonLabel];
-        [actionSheet showInView:self.view];
-    }
-    
-}
-
-- (void)doImageActivityWithImage:(UIImage *)image
+- (void)didSelectPrintItem:(HPPPPrintItem *)printItem
 {
-    self.printItem = [HPPPPrintItemFactory printItemWithAsset:image];
-    if (self.sharingInProgress) {
-        [self shareItem];
-    } else {
-        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:self.printItem fromQueue:NO];
-        [self presentViewController:vc animated:YES completion:nil];
-    }
+    [self doActivityWithPrintItem:printItem];
 }
 
-- (void)doImageActivityWithFile:(NSString *)file
+#pragma mark - Activity
+
+- (void)doActivityWithPrintItem:(HPPPPrintItem *)printItem
 {
-    NSString *filename = [NSString stringWithFormat:@"%@.jpg", file];
-    [self doImageActivityWithImage:[UIImage imageNamed:filename]];
-}
-
-#pragma mark - PDF
-
-- (void)selectPDF {
-    
-    NSString *title = NSLocalizedString(@"Choose a PDF", nil);
-    NSString *cancelButtonLabel = NSLocalizedString(@"Cancel", nil);
-    
-    if (NSClassFromString(@"UIAlertController") != nil) {
-        UIAlertControllerStyle style = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
-        
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:NSLocalizedString(@"Please select a sample PDF that you would like to use.", nil) preferredStyle:style];
-        
-        for (NSString *file in self.pdfFiles) {
-            [alertController addAction:[UIAlertAction actionWithTitle:file style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [self doPdfActivityWithFile:file];
-            }]];
-        }
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:cancelButtonLabel style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-    else {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
-        actionSheet.title = title;
-        actionSheet.delegate = self;
-        for (NSString *file in self.pdfFiles) {
-            [actionSheet addButtonWithTitle:file];
-        }
-        actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:cancelButtonLabel];
-        [actionSheet showInView:self.view];
-    }
-    
-}
-
-- (void)doPdfActivityWithFile:(NSString *)file
-{
-    NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:@"pdf"];
-    HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:[NSData dataWithContentsOfFile:path]];
     if (self.sharingInProgress) {
         self.printItem = printItem;
         [self shareItem];
@@ -449,29 +358,6 @@
         UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:nil printItem:printItem fromQueue:NO];
         [self presentViewController:vc animated:YES completion:nil];
     }
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == actionSheet.cancelButtonIndex) {
-        return;
-    }
-    
-    NSString *file = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([actionSheet.title isEqualToString:@"Choose an Image"]) {
-        [self doImageActivityWithFile:[self.imageFiles objectForKey:file]];
-    } else {
-        [self doPdfActivityWithFile:file];
-    }
-}
-
-#pragma mark - HPPPSelectPhotoTableViewControllerDelegate
-
-- (void)didSelectImage:(UIImage *)image
-{
-    [self doImageActivityWithImage:image];
 }
 
 @end
