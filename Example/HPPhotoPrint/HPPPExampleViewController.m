@@ -16,8 +16,9 @@
 #import "HPPPExampleViewController.h"
 #import "HPPPPrintItem.h"
 #import "HPPPPrintItemFactory.h"
+#import "HPPPSelectImageTableViewController.h"
 
-@interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, UIActionSheetDelegate>
+@interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, UIActionSheetDelegate, HPPPSelectImageTableViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
@@ -223,6 +224,18 @@
     [[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
 }
 
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    self.sharingInProgress = ([segue.identifier isEqualToString:@"Share Image"]);
+    if ([segue.identifier isEqualToString:@"Select Image"] || [segue.identifier isEqualToString:@"Share Image"]) {
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        HPPPSelectImageTableViewController *vc = (HPPPSelectImageTableViewController *)navController.topViewController;
+        vc.delegate = self;
+    }
+}
+
 #pragma mark - HPPPPrintDelegate
 
 - (void)didFinishPrintFlow:(UIViewController *)printViewController;
@@ -374,16 +387,21 @@
     
 }
 
-- (void)doImageActivityWithFile:(NSString *)file
+- (void)doImageActivityWithImage:(UIImage *)image
 {
-    NSString *filename = [NSString stringWithFormat:@"%@.jpg", file];
-    self.printItem = [HPPPPrintItemFactory printItemWithAsset:[UIImage imageNamed:filename]];
+    self.printItem = [HPPPPrintItemFactory printItemWithAsset:image];
     if (self.sharingInProgress) {
         [self shareItem];
     } else {
         UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:self.printItem fromQueue:NO];
         [self presentViewController:vc animated:YES completion:nil];
     }
+}
+
+- (void)doImageActivityWithFile:(NSString *)file
+{
+    NSString *filename = [NSString stringWithFormat:@"%@.jpg", file];
+    [self doImageActivityWithImage:[UIImage imageNamed:filename]];
 }
 
 #pragma mark - PDF
@@ -447,6 +465,13 @@
     } else {
         [self doPdfActivityWithFile:file];
     }
+}
+
+#pragma mark - HPPPSelectPhotoTableViewControllerDelegate
+
+- (void)didSelectImage:(UIImage *)image
+{
+    [self doImageActivityWithImage:image];
 }
 
 @end
