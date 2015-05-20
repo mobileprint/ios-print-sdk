@@ -64,6 +64,8 @@
 {
     [super viewDidLoad];
     
+    self.insideRegionLabel.text = @"";
+    
     [self initLocationManager];
     
     [self initMapView];
@@ -164,31 +166,20 @@
 {
     if ([[HPPPPrintLaterManager sharedInstance] isDefaultPrinterRegion:region]) {
         
-        [[HPPPPrinter sharedInstance] checkDefaultPrinterAvailabilityWithCompletion:^(BOOL available) {
-            
-            if (available) {
-                self.notificationReceivedView.text = @"Notification received";
-                [[[UIAlertView alloc] initWithTitle:@"Push notification"
-                                            message:@"Entering printer region. Notification received."
-                                           delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil] show];
-            } else {
-                self.notificationReceivedView.text = @"Notification not received because can't contact the printer";
-                [[[UIAlertView alloc] initWithTitle:@"Push notification"
-                                            message:@"Entering printer region. Notification not received because can't contact the printer."
-                                           delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil] show];
-            }
-            
-            [UIView animateWithDuration:1.0f animations:^{
-                self.notificationReceivedView.alpha = 1.0f;
-            } completion:^(BOOL finished) {
-                [UIView animateWithDuration:1.0f delay:4.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    self.notificationReceivedView.alpha = 0.0f;
-                } completion:nil];
-            }];
+        self.notificationReceivedView.text = @"Notification received";
+        
+        [[[UIAlertView alloc] initWithTitle:@"Push notification"
+                                    message:@"Entering printer region. Notification received."
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+                
+        [UIView animateWithDuration:1.0f animations:^{
+            self.notificationReceivedView.alpha = 1.0f;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:1.0f delay:4.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.notificationReceivedView.alpha = 0.0f;
+            } completion:nil];
         }];
     }
 }

@@ -150,7 +150,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 - (void)addMonitoringForDefaultPrinter
 {
     CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:[HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate radius:kDefaultPrinterRadiusInMeters identifier:kDefaultPrinterRegionIdentifier];
-
+    
     HPPPLogInfo(@"Adding monitoring for default printer region: %@", region);
     
     [self.locationManager startMonitoringForRegion:region];
@@ -162,7 +162,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
     
     for (CLRegion *region in self.locationManager.monitoredRegions) {
         if ([self isDefaultPrinterRegion:region]) {
-
+            
             HPPPLogInfo(@"Removing monitoring for default printer");
             
             [self.locationManager stopMonitoringForRegion:region];
@@ -177,7 +177,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
     
     localNotification.soundName = UILocalNotificationDefaultSoundName;
-    localNotification.alertBody = HPPPLocalizedString(@"Printer available. Projects waiting...", @"The printer is available and there are print later jobs in the print queue");
+    localNotification.alertBody = HPPPLocalizedString(@"Printer nearby. Projects waiting to be printed...", @"The printer is available and there are print later jobs in the print queue");
     [localNotification setHasAction:NO];
     
     localNotification.category = kPrintCategoryIdentifier;
@@ -186,20 +186,11 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 }
 
 // Method call when the region is entered and there are jobs in the print queue
-- (void)fireNotificationIfPrinterIsAvailable
+- (void)fireNotification
 {
-    HPPPLogInfo(@"Default printer region entered.  Checking status of printer.");
-    
-    [[HPPPPrinter sharedInstance] checkDefaultPrinterAvailabilityWithCompletion:^(BOOL available) {
-        if (available) {
-            HPPPLogInfo(@"Printer available.  Presenting notification");
-            UILocalNotification *localNotification = [self localNotification];
-            [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-        }
-        else {
-            HPPPLogInfo(@"Printer not available");
-        }
-    }];
+    HPPPLogInfo(@"Default printer region entered. Presenting notification");
+    UILocalNotification *localNotification = [self localNotification];
+    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
 }
 
 - (BOOL)isDefaultPrinterRegion:(CLRegion *)region
@@ -261,7 +252,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
     HPPPLogInfo(@"Region entered: %@", region.identifier);
     
     if ([self isDefaultPrinterRegion:region]) {
-        [self fireNotificationIfPrinterIsAvailable];
+        [self fireNotification];
     }
 }
 
