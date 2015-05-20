@@ -204,11 +204,17 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    self.sharingInProgress = ([segue.identifier isEqualToString:@"Share Image"]);
-    if ([segue.identifier isEqualToString:@"Select Image"] || [segue.identifier isEqualToString:@"Share Image"]) {
+    if ([segue.identifier isEqualToString:@"Print Item"] || [segue.identifier isEqualToString:@"Share Item"]) {
+        NSString *title = @"Print Item";
+        self.sharingInProgress = NO;
+        if ([segue.identifier isEqualToString:@"Share Item"]) {
+            title = @"Share Item";
+            self.sharingInProgress = YES;
+        }
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
         HPPPSelectPrintItemTableViewController *vc = (HPPPSelectPrintItemTableViewController *)navController.topViewController;
         vc.delegate = self;
+        vc.navigationItem.title = title;
     }
 }
 

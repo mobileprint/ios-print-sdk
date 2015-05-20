@@ -87,8 +87,11 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
         cell.detailTextLabel.text = @"Choose an image or PDF file";
         cell.imageView.image = [UIImage imageNamed:@"dropbox.png"];
     } else if (kHPPPSelectImagePDFSection == indexPath.section) {
+        HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:[self pdfFromIndexPath:indexPath]];
+        CGSize sizeInPixels = [printItem sizeInUnits:Pixels];
+        CGSize sizeInInches = [printItem sizeInUnits:Inches];
         cell.textLabel.text = [self.pdfList objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text = @"100 x 100";
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f x %.0f  (%.1f\" x %.1f\")", sizeInPixels.width, sizeInPixels.height, sizeInInches.width, sizeInInches.height];
         cell.imageView.image = [UIImage imageNamed:@"pdf.png"];
     }
     else {
@@ -113,9 +116,7 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
     if (kHPPPSelectImageDropboxSection == indexPath.section) {
         [self selectItemFromDropBox];
     } else if (kHPPPSelectImagePDFSection == indexPath.section) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:[self.pdfList objectAtIndex:indexPath.row] ofType:@"pdf"];
-        NSData *data = [NSData dataWithContentsOfFile:path];
-        [self didSelectPrintAsset:data];
+        [self didSelectPrintAsset:[self pdfFromIndexPath:indexPath]];
     }
     else {
         [self didSelectPrintAsset:[self imageFromIndexPath:indexPath]];
@@ -159,6 +160,12 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
     return @{ @"size":size, @"dpi":dpi, @"orientation":orientation };
 }
 
+- (NSData *)pdfFromIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:[self.pdfList objectAtIndex:indexPath.row] ofType:@"pdf"];
+    return [NSData dataWithContentsOfFile:path];
+}
+
 - (UIImage *)imageFromIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *imageInfo = [self imageInfoFromIndexPath:indexPath];
@@ -193,9 +200,11 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
 - (void)selectItemFromDropBox
 {
     [[DBChooser defaultChooser] openChooserForLinkType:DBChooserLinkTypeDirect fromViewController:self completion:^(NSArray *results) {
-        DBChooserResult *result = [results firstObject];
-        NSData *data = [NSData dataWithContentsOfURL:result.link];
-        [self didSelectPrintAsset:data];
+        if (results.count > 0) {
+            DBChooserResult *result = [results firstObject];
+            NSData *data = [NSData dataWithContentsOfURL:result.link];
+            [self didSelectPrintAsset:data];
+        }
     }];
 }
 

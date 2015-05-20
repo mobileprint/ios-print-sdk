@@ -84,7 +84,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="4NB-0N-deo" kind="presentation" identifier="Select Image" id="vuh-cl-qQ4"/>
+                                    <segue destination="4NB-0N-deo" kind="presentation" identifier="Print Item" id="vuh-cl-qQ4"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVI-2g-fjV">
@@ -93,7 +93,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="4NB-0N-deo" kind="presentation" identifier="Share Image" id="ETZ-1D-ckS"/>
+                                    <segue destination="4NB-0N-deo" kind="presentation" identifier="Share Item" id="ETZ-1D-ckS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sgj-wf-NIF">
@@ -298,6 +298,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vuh-cl-qQ4"/>
+        <segue reference="ETZ-1D-ckS"/>
     </inferredMetricsTieBreakers>
 </document>
