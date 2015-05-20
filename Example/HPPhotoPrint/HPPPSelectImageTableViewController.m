@@ -33,6 +33,7 @@ NSInteger const kHPPPSelectImageSampleSection = 3;
     self.sampleImages = @[
                           @"Baloons",
                           @"Cat",
+                          @"Dog",
                           @"Earth",
                           @"Flowers",
                           @"Focus on Quality",
