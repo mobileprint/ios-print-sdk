@@ -10,6 +10,7 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPSelectPrintItemTableViewController.h"
 #import <DBChooser/DBChooser.h>
 #import "HPPPPrintItemFactory.h"
@@ -21,6 +22,8 @@
 @property (strong, nonatomic) NSArray *orientationList;
 @property (strong, nonatomic) NSArray *sampleImages;
 @property (strong, nonatomic) NSArray *pdfList;
+@property (strong, nonatomic) NSArray *aspectRatioList;
+@property (assign, nonatomic) BOOL dropboxBusy;
 
 @end
 
@@ -33,6 +36,7 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.sizeList = @[ @"4x6", @"5x7", @"Letter" ];
+    self.aspectRatioList = @[ @"1.500", @"1.400", @"1.294" ];
     self.dpiList = @[ @"72dpi", @"300dpi" ];
     self.orientationList = @[ @"portrait", @"landscape" ];
     self.sampleImages = @[
@@ -83,23 +87,28 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Image Cell" forIndexPath:indexPath];
     if (kHPPPSelectImageDropboxSection == indexPath.section) {
-        cell.textLabel.text = @"Select from Dropbox...";
-        cell.detailTextLabel.text = @"Choose an image or PDF file";
-        cell.imageView.image = [UIImage imageNamed:@"dropbox.png"];
+        [self prepareDropboxCell:cell];
     } else if (kHPPPSelectImagePDFSection == indexPath.section) {
         HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:[self pdfFromIndexPath:indexPath]];
         CGSize sizeInPixels = [printItem sizeInUnits:Pixels];
         CGSize sizeInInches = [printItem sizeInUnits:Inches];
+        CGFloat aspectRatio = sizeInPixels.width / sizeInPixels.height;
+        if (aspectRatio < 1.0f) {
+            aspectRatio = sizeInPixels.height / sizeInPixels.width;
+        }
         cell.textLabel.text = [self.pdfList objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f x %.0f  (%.1f\" x %.1f\")", sizeInPixels.width, sizeInPixels.height, sizeInInches.width, sizeInInches.height];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f x %.0f   (%.1f\" x %.1f\", %.3f)", sizeInPixels.width, sizeInPixels.height, sizeInInches.width, sizeInInches.height, aspectRatio];
         cell.imageView.image = [UIImage imageNamed:@"pdf.png"];
     }
     else {
         UIImage *image = [self imageFromIndexPath:indexPath];
-        cell.imageView.image = image;
+        CGFloat aspectRatio = image.size.width / image.size.height;
+        if (aspectRatio < 1.0f) {
+            aspectRatio = image.size.height / image.size.width;
+        }cell.imageView.image = image;
         if (kHPPPSelectImageSampleSection == indexPath.section) {
             cell.textLabel.text = [self.sampleImages objectAtIndex:indexPath.row];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f x %.0f", image.size.width, image.size.height];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f x %.0f   (%.3f)", image.size.width, image.size.height, aspectRatio];
         } else {
             NSDictionary *imageInfo = [self imageInfoFromIndexPath:indexPath];
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", [imageInfo objectForKey:@"size"], [imageInfo objectForKey:@"orientation"]];
@@ -113,6 +122,8 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    cell.selected = NO;
     if (kHPPPSelectImageDropboxSection == indexPath.section) {
         [self selectItemFromDropBox];
     } else if (kHPPPSelectImagePDFSection == indexPath.section) {
@@ -132,7 +143,7 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
         title = @"PDF";
     } else if ([self imageSection:section]) {
         NSInteger sizeIndex = section - 1;
-        title = [NSString stringWithFormat:@"%@ SIZE", [self.sizeList objectAtIndex:sizeIndex]];
+        title = [NSString stringWithFormat:@"%@ SIZE   (%@)", [self.sizeList objectAtIndex:sizeIndex], [self.aspectRatioList objectAtIndex:sizeIndex]];
     }
     return title;
 }
@@ -180,14 +191,17 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
 
 - (void)didSelectPrintAsset:(id)printAsset
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        if ([self.delegate respondsToSelector:@selector(didSelectPrintItem:)]) {
-            HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:printAsset];
-            if (printItem) {
+    HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:printAsset];
+    if (printItem) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            if ([self.delegate respondsToSelector:@selector(didSelectPrintItem:)]) {
                 [self.delegate didSelectPrintItem:printItem];
             }
-        }
-    }];
+        }];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Unknown Item" message:@"The item selected cannot be printed." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+        HPPPLogWarn(@"Invalid print asset selected:  %@", printAsset);
+    }
 }
 
 - (BOOL)imageSection:(NSInteger)section
@@ -199,13 +213,38 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
 
 - (void)selectItemFromDropBox
 {
+    self.dropboxBusy = YES;
     [[DBChooser defaultChooser] openChooserForLinkType:DBChooserLinkTypeDirect fromViewController:self completion:^(NSArray *results) {
         if (results.count > 0) {
-            DBChooserResult *result = [results firstObject];
-            NSData *data = [NSData dataWithContentsOfURL:result.link];
-            [self didSelectPrintAsset:data];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                DBChooserResult *result = [results firstObject];
+                NSData *data = [NSData dataWithContentsOfURL:result.link];
+                self.dropboxBusy = NO;
+                [self didSelectPrintAsset:data];
+            });
+        } else {
+            self.dropboxBusy = NO;
         }
     }];
+}
+
+- (void)prepareDropboxCell:(UITableViewCell *)cell
+{
+    cell.imageView.image = [UIImage imageNamed:@"dropbox.png"];
+    if (self.dropboxBusy) {
+        cell.textLabel.text = @"Loading from Dropbox...";
+        cell.detailTextLabel.text = @"Please wait while file is downloaded";
+    } else {
+        cell.textLabel.text = @"Select from Dropbox...";
+        cell.detailTextLabel.text = @"Choose an image or PDF file";
+    }
+}
+
+- (void)setDropboxBusy:(BOOL)dropboxBusy
+{
+    _dropboxBusy = dropboxBusy;
+    self.tableView.userInteractionEnabled = !dropboxBusy;
+    [self.tableView reloadData];
 }
 
 @end

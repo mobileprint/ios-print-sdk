@@ -99,7 +99,7 @@
     CGContextFillRect(context, aRect);
 
     CGPDFPageRef page = CGPDFDocumentGetPage(self.pdfDocument, 1);
-    CGFloat angle = sizeInPixels.width > sizeInPixels.height ? -90 : 0;
+    CGFloat angle = 0; //sizeInPixels.width > sizeInPixels.height ? -90 : 0;
     CGAffineTransform pdfTransform = CGPDFPageGetDrawingTransform(page, kCGPDFMediaBox, aRect, angle, true);
     
     CGContextConcatCTM(context, pdfTransform);
