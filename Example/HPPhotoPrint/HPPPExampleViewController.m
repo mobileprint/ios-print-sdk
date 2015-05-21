@@ -42,11 +42,8 @@
     
     [HPPP sharedInstance].printJobName = @"Print POD Example";
     
-    [HPPP sharedInstance].initialPaperSize = Size5x7;
-    [HPPP sharedInstance].defaultPaperWidth = 5.0f;
-    [HPPP sharedInstance].defaultPaperHeight = 7.0f;
+    [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
     [HPPP sharedInstance].zoomAndCrop = YES;
-    [HPPP sharedInstance].defaultPaperType = Plain;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"PrintInstructions"];
