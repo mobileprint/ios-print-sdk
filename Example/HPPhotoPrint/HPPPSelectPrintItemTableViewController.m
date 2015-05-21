@@ -105,7 +105,8 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
         CGFloat aspectRatio = image.size.width / image.size.height;
         if (aspectRatio < 1.0f) {
             aspectRatio = image.size.height / image.size.width;
-        }cell.imageView.image = image;
+        }
+        cell.imageView.image = image;
         if (kHPPPSelectImageSampleSection == indexPath.section) {
             cell.textLabel.text = [self.sampleImages objectAtIndex:indexPath.row];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f x %.0f   (%.3f)", image.size.width, image.size.height, aspectRatio];
