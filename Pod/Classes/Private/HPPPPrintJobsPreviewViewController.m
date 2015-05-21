@@ -98,7 +98,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     
     NSNumber *lastSizeUsed = [defaults objectForKey:kHPPPLastPaperSizeSetting];
     
-    PaperSize paperSize = [HPPP sharedInstance].initialPaperSize;
+    PaperSize paperSize = [HPPP sharedInstance].defaultPaper.paperSize;
     
     if (lastSizeUsed) {
         paperSize = (PaperSize)[lastSizeUsed integerValue];
@@ -132,7 +132,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:paperSizeTitle];
     
     if (printItem == nil) {
-        printItem = [self.printLaterJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize]];
+        printItem = [self.printLaterJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
     }
     
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:Plain];
@@ -143,7 +143,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     } else {
         CGSize computedPaperSize = [self paperSizeWithWidth:8.5f height:11.0f containerSize:self.imageView.frame.size];
         
-        CGSize computedImageSize = CGSizeMake(computedPaperSize.width * hppp.defaultPaperWidth / 8.5f, computedPaperSize.height * hppp.defaultPaperHeight / 11.0f);
+        CGSize computedImageSize = CGSizeMake(computedPaperSize.width * hppp.defaultPaper.width / 8.5f, computedPaperSize.height * hppp.defaultPaper.height / 11.0f);
         
         CGSize finalComputedImageSize = computedImageSize;
         

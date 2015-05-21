@@ -227,38 +227,20 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (strong, nonatomic) NSArray *paperSizes;
 
 /*!
- * @abstract Initial paper size
- * @discussion A value from the @link PaperSize @/link enum specifying the default paper size to use. This value is used to set the initial selection for paper size. It is also used as the value for paper size when the paper size selection is hidden. Default initial value is @link Size5x7 @/link .
+ * @abstract Default paper
+ * @discussion An @link HPPPPaper @/link object specifying the default paper size and type to use. This object is used to set the initial selection for paper size and paper type. It is also used as the value for paper size when the paper size selection is hidden. Default initial value is @link Size5x7 @/link .  Note that paper type does not apply to all paper sizes (e.g. 4x6 always uses photo paper regardless what paper type is specified). Default value is @link Photo @/link .
  * @seealso hidePaperSizeOption
  * @seealso PaperSize
+ * @seealso hidePaperTypeOption
+ * @seealso PaperType
  */
-@property (assign, nonatomic) PaperSize initialPaperSize;
-
-/*!
- * @abstract Default paper width
- * @discussion Default width using for zoom and crop and for centering in case of letter paper size.
- */
-@property (assign, nonatomic) float defaultPaperWidth;
-
-/*!
- * @abstract Default paper height
- * @discussion Default width using for zoom and crop and for centering in case of letter paper size.
- */
-@property (assign, nonatomic) float defaultPaperHeight;
+@property (strong, nonatomic) HPPPPaper *defaultPaper;
 
 /*!
  * @abstract Zoom and crop
  * @discussion Specify if the image should zoom and crop in case the image size doesn't match with the paper size.
  */
 @property (assign, nonatomic) BOOL zoomAndCrop;
-
-/*!
- * @abstract Default paper type
- * @discussion A value from the @link PaperType @/link enum specifying the default paper type to use. This value is used to set the initial selection for paper type. It is also used as the value for paper type when the paper type selection is hidden. Note that paper type does not apply to all paper sizes (e.g. 4x6 always uses photo paper regardless what paper type is specified). Default value is @link Plain @/link .
- * @seealso hidePaperTypeOption
- * @seealso PaperType
- */
-@property (assign, nonatomic) PaperType defaultPaperType;
 
 /*!
  * @abstract Font used for the ruler labels

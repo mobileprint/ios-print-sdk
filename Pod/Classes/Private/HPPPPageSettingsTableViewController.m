@@ -185,9 +185,8 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     
     self.pageViewCell.backgroundColor = [UIColor HPPPHPGrayBackgroundColor];
     
-    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:[HPPP sharedInstance].initialPaperSize paperType:Photo];
     self.currentPrintSettings = [HPPPPrintSettings alloc];
-    self.currentPrintSettings.paper = paper;
+    self.currentPrintSettings.paper = [HPPP sharedInstance].defaultPaper;
     self.currentPrintSettings.printerName = kHPPPSelectPrinterPrompt;
     self.currentPrintSettings.printerIsAvailable = YES;
     
@@ -414,7 +413,7 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
     NSNumber *lastSizeUsed = [defaults objectForKey:kHPPPLastPaperSizeSetting];
     NSNumber *lastTypeUsed = [defaults objectForKey:kHPPPLastPaperTypeSetting];
     
-    PaperSize paperSize = (PaperSize)self.hppp.initialPaperSize;
+    PaperSize paperSize = (PaperSize)self.hppp.defaultPaper.paperSize;
     if (lastSizeUsed) {
         paperSize = (PaperSize)[lastSizeUsed integerValue];
     }

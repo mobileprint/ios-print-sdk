@@ -140,14 +140,14 @@
     
     CGSize computedImageSize;
     
-    if (DefaultPrintRenderer == self.printItem.renderer || (((paperSize.width != hppp.defaultPaperWidth) || (paperSize.height != hppp.defaultPaperHeight)) && (paperSize.paperSize != SizeLetter))) {
+    if (DefaultPrintRenderer == self.printItem.renderer || (((paperSize.width != hppp.defaultPaper.width) || (paperSize.height != hppp.defaultPaper.height)) && (paperSize.paperSize != SizeLetter))) {
         if (hppp.zoomAndCrop) {
-            computedImageSize = CGSizeMake(computedPaperSize.height * hppp.defaultPaperWidth / hppp.defaultPaperHeight, computedPaperSize.height);
+            computedImageSize = CGSizeMake(computedPaperSize.height * hppp.defaultPaper.width / hppp.defaultPaper.height, computedPaperSize.height);
         } else {
             computedImageSize = computedPaperSize;
         }
     } else {
-        computedImageSize = CGSizeMake(computedPaperSize.width * hppp.defaultPaperWidth / paperSize.width, computedPaperSize.height * hppp.defaultPaperHeight / paperSize.height);
+        computedImageSize = CGSizeMake(computedPaperSize.width * hppp.defaultPaper.width / paperSize.width, computedPaperSize.height * hppp.defaultPaper.height / paperSize.height);
     }
     
     [self HPPPAnimateConstraintsWithDuration:0.5f constraints:^{

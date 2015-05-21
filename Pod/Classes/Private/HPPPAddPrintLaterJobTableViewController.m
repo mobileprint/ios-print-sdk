@@ -160,7 +160,7 @@
         
         self.printLaterJob.name = self.nameTextView.text;
         
-        NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].initialPaperSize];
+        NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize];
         HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:titleForInitialPaperSize];
         
         if (printItem == nil) {
