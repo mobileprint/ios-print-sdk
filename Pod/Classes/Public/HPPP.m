@@ -94,9 +94,8 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
         
         self.handlePrintMetricsAutomatically = YES;
         self.lastOptionsUsed = [NSMutableDictionary dictionary];
-        self.defaultPaperSize = Size5x7;
+        self.defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
         self.zoomAndCrop = NO;
-        self.defaultPaperType = Photo;
         self.paperSizes = @[
                             [HPPPPaper titleFromSize:Size4x6],
                             [HPPPPaper titleFromSize:Size5x7],
@@ -328,15 +327,6 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
 }
 
 #pragma mark - Setter methods
-
-- (void) setDefaultPaperSize:(PaperSize)paperSize
-{
-    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:Plain];
-   
-    _defaultPaperSize = paperSize;
-    _defaultPaperWidth = paper.width;
-    _defaultPaperHeight = paper.height;
-}
 
 - (UIUserNotificationCategory *)printLaterUserNotificationCategory
 {
