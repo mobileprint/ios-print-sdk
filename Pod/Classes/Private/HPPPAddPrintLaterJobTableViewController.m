@@ -41,6 +41,8 @@
 
 @implementation HPPPAddPrintLaterJobTableViewController
 
+NSString * const kAddJobScreenName = @"Add Job Screen";
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -117,8 +119,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     self.navigationBarTintColor = self.navigationController.navigationBar.barTintColor;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kAddJobScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
 - (void)preparePrinterDisplayValues
