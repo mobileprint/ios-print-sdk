@@ -57,6 +57,7 @@
 #define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
 #define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", @"Printer details not available")
 
+typedef void (^PageCurlCompletionBlock)(void);
 
 @interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
 
@@ -97,6 +98,8 @@
 @property (nonatomic, assign) NSInteger numberOfCopies;
 
 @property (strong, nonatomic) NSMutableArray *itemsToPrint;
+
+@property (nonatomic, copy) PageCurlCompletionBlock pageCurlCompletionBlock;
 
 @end
 
@@ -269,6 +272,14 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
                     weakSelf.tableView.userInteractionEnabled = YES;
                 }];
             }
+        }];
+    }
+    
+    if (self.pageCurlCompletionBlock) {
+        [self.pageView setPaperSize:self.currentPrintSettings.paper animated:animated completion:^{
+            self.tableView.userInteractionEnabled = YES;
+            self.pageCurlCompletionBlock();
+            self.pageCurlCompletionBlock = nil;
         }];
     }
 }
@@ -1120,12 +1131,12 @@ NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
 {
     self.tableView.userInteractionEnabled = NO;
     
-    [pageView setPaperSize:self.currentPrintSettings.paper animated:animated completion:^{
-        self.tableView.userInteractionEnabled = YES;
-        if (completion) {
-            completion();
-        }
-    }];
+    // The completion block serves as our "dirty" flag... IE, needsPageCurl flag.  It can't be nil.
+    if (nil == completion) {
+        completion = ^(void){};
+    }
+    
+    self.pageCurlCompletionBlock = completion;
 }
 
 #pragma mark - HPPPPaperTypeTableViewControllerDelegate
