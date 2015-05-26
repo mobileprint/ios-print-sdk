@@ -12,35 +12,37 @@
 
 #import "HPPPPrintItem.h"
 #import "HPPPPrintItemFactory.h"
+#import "HPPPLayoutFactory.h"
 
 @implementation HPPPPrintItem
 
 CGFloat const kHPPPPointsPerInch = 72.0f;
 NSString * const kHPPPPrintAssetKey = @"kHPPPPrintAssetKey";
+NSString * const kHPPPLayoutKey = @"kHPPPLayoutKey";
 
 #pragma mark - Abstract methods
 
 - (CGSize)sizeInUnits:(HPPPUnits)units
 {
-    NSAssert(NO, @"HPPPPrintItem is intended to be an abstract class");
+    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
     return CGSizeMake(0, 0);
 }
 
 - (NSInteger)numberOfPages
 {
-    NSAssert(NO, @"HPPPPrintItem is intended to be an abstract class");
+    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
     return 0;
 }
 
 - (UIImage *)defaultPreviewImage
 {
-    NSAssert(NO, @"HPPPPrintItem is intended to be an abstract class");
+    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
     return nil;
 }
 
 - (UIImage *)previewImageForPaper:(HPPPPaper *)paper
 {
-    NSAssert(NO, @"HPPPPrintItem is intended to be an abstract class");
+    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
     return nil;
 }
 
@@ -54,7 +56,19 @@ NSString * const kHPPPPrintAssetKey = @"kHPPPPrintAssetKey";
 - (id)initWithCoder:(NSCoder *)decoder
 {
     id printAsset = [decoder decodeObjectForKey:kHPPPPrintAssetKey];
-    return [HPPPPrintItemFactory printItemWithAsset:printAsset];
+    HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:printAsset];
+    return printItem;
+}
+
+#pragma mark - Layout
+
+- (HPPPLayout *)layout
+{
+    if (!_layout) {
+        _layout = [HPPPLayoutFactory layoutWithType:kHPPPLayoutTypeDefault];
+    }
+    
+    return _layout;
 }
 
 @end

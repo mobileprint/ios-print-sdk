@@ -24,7 +24,6 @@
 /*!
  * @abstract Storess the print data source to be used during the activity
  * @discussion Set this property to an object implementing the HPPPPrintDataSource protocol. This will be used to provide custom images for each paper size.
- * @seealso HPPPPrintDataSource
  */
 @property (weak, nonatomic) id<HPPPPrintDataSource>dataSource;
 

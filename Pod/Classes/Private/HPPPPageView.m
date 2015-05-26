@@ -16,28 +16,19 @@
 #import "XBCurlView.h"
 #import "UIImage+HPPPResize.h"
 #import "UIView+HPPPAnimation.h"
+#import "HPPPLayoutPaperView.h"
+#import "HPPPLayoutFactory.h"
 
 #define PREVIEW_CONTAINER_SCALE 0.9f
 
 @interface HPPPPageView ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIView *paperView;
-@property (weak, nonatomic) IBOutlet HPPPRuleView *ruleView;
+@property (weak, nonatomic) IBOutlet HPPPLayoutPaperView *paperView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *sizeLabel;
 @property (strong, nonatomic) UIImage *blackAndWhiteImage;
-
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *paperWidthConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *paperHeightConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageWidthConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleWidthContraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *ruleHeightContraint;
-@property (weak, nonatomic) IBOutlet UIImageView *multipleImagesImageView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *paperViewHorizConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *paperViewVertConstraint;
-
 @property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) HPPPPaper *paper;
 
 @end
 
@@ -47,37 +38,25 @@
 {
     _printItem = printItem;
     self.image = [printItem defaultPreviewImage];
+    self.paperView.image = self.blackAndWhite ? [self createBlackAndWhiteImage] : self.image;
+    self.paperView.layout = _printItem.layout;
 }
 
 - (void)setImage:(UIImage *)image
 {
     _image = image;
-    self.imageView.image = image;
     self.blackAndWhiteImage = nil;
-    
-    if (self.isMultipleImages) {
-        self.multipleImagesImageView.hidden = NO;
-    }
-    
-    if( [[HPPP sharedInstance] showRulers] ) {
-        [self.ruleView showRulers:TRUE];
-    } else {
-        [self.ruleView showRulers:FALSE];
-        
-        self.paperViewHorizConstraint.constant = (self.ruleView.frame.size.width - self.paperView.frame.size.width)/2;
-        self.paperViewVertConstraint.constant = (self.ruleView.frame.size.height - self.paperView.frame.size.height)/2;
-    }
-    
     self.isAnimating = FALSE;
 }
 
 - (void)setFilterWithImage:(UIImage *)image completion:(void (^)(void))completion
 {
-    [UIView transitionWithView:self.imageView
+    [UIView transitionWithView:self.paperView
                       duration:0.25
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
-                        self.imageView.image = image;
+                        self.paperView.image = image;
+                        [self.paperView setNeedsDisplay];
                     }
                     completion:^(BOOL finished) {
                         if (completion) {
@@ -93,162 +72,119 @@
 
 - (void)setBlackAndWhiteWithCompletion:(void (^)(void))completion
 {
-    if (self.blackAndWhiteImage == nil) {
-        
-        UIActivityIndicatorView *spinner = [self.imageView HPPPAddSpinner];
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            @autoreleasepool {
-                CIImage *image = [[CIImage alloc] initWithCGImage:self.image.CGImage options:nil];
-                
-                CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
-                
-                [filter setValue:image forKey:kCIInputImageKey];
-                
-                CIImage *result = [filter valueForKey:kCIOutputImageKey];
-                CIContext *context = [CIContext contextWithOptions:nil];
-                CGImageRef cgImage = [context createCGImage:result fromRect:[result extent]];
-                
-                self.blackAndWhiteImage = [UIImage imageWithCGImage:cgImage
-                                                              scale:self.image.scale
-                                                        orientation:self.image.imageOrientation];
-                
-                CGImageRelease(cgImage);
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [spinner removeFromSuperview];
-                
-                [self setFilterWithImage:self.blackAndWhiteImage completion:completion];
-            });
+    UIActivityIndicatorView *spinner = [self.paperView HPPPAddSpinner];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [self createBlackAndWhiteImage];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [spinner removeFromSuperview];
+            [self setFilterWithImage:self.blackAndWhiteImage completion:completion];
         });
+    });
+}
+
+- (UIImage *)createBlackAndWhiteImage
+{
+    if (!self.blackAndWhiteImage) {
+        @autoreleasepool {
+            CIImage *image = [[CIImage alloc] initWithCGImage:self.image.CGImage options:nil];
+            
+            CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
+            
+            [filter setValue:image forKey:kCIInputImageKey];
+            
+            CIImage *result = [filter valueForKey:kCIOutputImageKey];
+            CIContext *context = [CIContext contextWithOptions:nil];
+            CGImageRef cgImage = [context createCGImage:result fromRect:[result extent]];
+            
+            self.blackAndWhiteImage = [UIImage imageWithCGImage:cgImage
+                                                          scale:self.image.scale
+                                                    orientation:self.image.imageOrientation];
+            
+            CGImageRelease(cgImage);
+        }
+    }
+    
+    return self.blackAndWhiteImage;
+}
+
+- (void)refreshLayout
+{
+    if (!self.paper) {
+        NSLog(@"Skipping paper layout due to no paper specified");
+        return;
+    }
+
+    HPPPLayout *paperLayout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationMatchContainer assetPosition:CGRectMake(5, 5, 90, 90)];
+    [HPPPLayout preparePaperView:self.paperView withPaper:self.paper];
+    [paperLayout layoutContentView:self.paperView inContainerView:self.containerView];
+    
+    [self layoutSizeLabel];
+}
+
+- (void)layoutSizeLabel
+{
+    NSMutableArray *labelConstraints = [NSMutableArray array];
+    for (NSLayoutConstraint *constraint in self.containerView.constraints) {
+        if (constraint.firstItem == self.sizeLabel || constraint.secondItem == self.sizeLabel) {
+            [labelConstraints addObject:constraint];
+        }
+    }
+    
+    if ([NSLayoutConstraint respondsToSelector:@selector(deactivateConstraints:)]) {
+        [NSLayoutConstraint deactivateConstraints:labelConstraints];
     } else {
-        [self setFilterWithImage:self.blackAndWhiteImage completion:completion];
+        [self.containerView removeConstraints:labelConstraints];
+    }
+    
+    NSDictionary *views = @{ @"sizeLabel":self.sizeLabel, @"paperView":self.paperView };
+    NSDictionary *values = @{ @"space":[NSNumber numberWithFloat:10.0f] };
+    
+    NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-space-[sizeLabel]-space-|" options:0 metrics:values views:views];
+    NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[paperView]-space-[sizeLabel]" options:0 metrics:values views:views];
+    labelConstraints = [NSMutableArray arrayWithArray:horizontalConstraints];
+    [labelConstraints addObjectsFromArray:verticalConstraints];
+    
+    if ([NSLayoutConstraint respondsToSelector:@selector(activateConstraints:)]) {
+        [NSLayoutConstraint activateConstraints:labelConstraints];
+    } else {
+        [self.containerView addConstraints:labelConstraints];
+    }
+    
+    [self.containerView setNeedsLayout];
+    [self.containerView layoutIfNeeded];
+}
+
+- (void)setPaperSize:(HPPPPaper *)paper animated:(BOOL)animated completion:(void (^)(void))completion
+{
+    self.sizeLabel.font = [HPPP sharedInstance].tableViewCellValueFont;
+    self.sizeLabel.text = [NSString stringWithFormat:@"%@ x %@", paper.paperWidthTitle, paper.paperHeightTitle];
+    
+    self.paper = paper;
+    [self refreshLayout];
+    
+    if (completion) {
+        completion();
+    }
+    
+    if (animated) {
+        [self applyCurl];
     }
 }
 
-- (void)setPaperSize:(HPPPPaper *)paperSize animated:(BOOL)animated completion:(void (^)(void))completion
+- (void)applyCurl
 {
-    HPPP *hppp = [HPPP sharedInstance];
-    self.ruleView.widthLabel.font = hppp.rulesLabelFont;
-    self.ruleView.heightLabel.font = hppp.rulesLabelFont;
-    self.ruleView.sizeLabel.font = hppp.tableViewCellValueFont;
-    
-    CGSize computedPaperSize = [self paperSizeWithWidth:paperSize.width height:paperSize.height containerSize:self.containerView.frame.size containerScale:PREVIEW_CONTAINER_SCALE];
-    
-    CGSize computedImageSize;
-    
-    if (DefaultPrintRenderer == self.printItem.renderer || (((paperSize.width != hppp.defaultPaper.width) || (paperSize.height != hppp.defaultPaper.height)) && (paperSize.paperSize != SizeLetter))) {
-        if (hppp.zoomAndCrop) {
-            computedImageSize = CGSizeMake(computedPaperSize.height * hppp.defaultPaper.width / hppp.defaultPaper.height, computedPaperSize.height);
-        } else {
-            computedImageSize = computedPaperSize;
-        }
-    } else {
-        computedImageSize = CGSizeMake(computedPaperSize.width * hppp.defaultPaper.width / paperSize.width, computedPaperSize.height * hppp.defaultPaper.height / paperSize.height);
-    }
-    
-    [self HPPPAnimateConstraintsWithDuration:0.5f constraints:^{
-        
-        self.ruleView.widthLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperWidthTitle];
-        self.ruleView.heightLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperHeightTitle];
-        self.ruleView.sizeLabel.text = [NSString stringWithFormat:@"%@ x %@", paperSize.paperWidthTitle, paperSize.paperHeightTitle];
-
-        if ([self.image HPPPIsPortraitImage]) {
-            self.paperWidthConstraint.constant = computedPaperSize.width;
-            self.paperHeightConstraint.constant = computedPaperSize.height;
-            
-            self.imageWidthConstraint.constant = computedImageSize.width;
-            self.imageHeightConstraint.constant = computedImageSize.height;
-            
-            if (self.isMultipleImages) {
-                self.multipleImagesImageView.image = [UIImage imageNamed:@"HPPPMultipage"];
-            }
-        } else {
-            if (paperSize.width == 8.5f) {
-                self.paperWidthConstraint.constant = computedPaperSize.width;
-                self.paperHeightConstraint.constant = computedPaperSize.height;
-                
-                if (self.isMultipleImages) {
-                    self.multipleImagesImageView.image = [UIImage imageNamed:@"HPPPMultipage"];
-                }
-            } else {
-                self.ruleView.widthLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperHeightTitle];
-                self.ruleView.heightLabel.text = [NSString stringWithFormat:@"%@″", paperSize.paperWidthTitle];
-
-                self.paperWidthConstraint.constant = computedPaperSize.height;
-                self.paperHeightConstraint.constant = computedPaperSize.width;
-                
-                if (self.isMultipleImages) {
-                    self.multipleImagesImageView.image = [UIImage imageNamed:@"HPPPMultipageLandscape"];
-                }
-            }
-            
-            self.imageWidthConstraint.constant = computedImageSize.height;
-            self.imageHeightConstraint.constant = computedImageSize.width;
-        }
-        
-        self.ruleHeightContraint.constant = self.paperHeightConstraint.constant + 50;
-        self.ruleWidthContraint.constant = self.paperWidthConstraint.constant + 50;
-        
-    } completion:^(BOOL finished) {
-        if (animated) {
-            self.isAnimating = TRUE;
-            
-            UIView *curlTargetView = self.paperView;
-            
-            // if we don't call the completion handler here, the user will not be able to
-            //  interact with the screen until the page curl animation finishes
-            if (completion) {
-                completion();
-            }
-
-            if (paperSize.paperSize == Size4x5) {
-                curlTargetView = self.imageView;
-            }
-            
-            XBCurlView *curlView = [[XBCurlView alloc] initWithFrame:curlTargetView.frame horizontalResolution:30 verticalResolution:42 antialiasing:NO];
-            
-            curlView.opaque = NO; //Transparency on the next page (so that the view behind curlView will appear)
-            curlView.pageOpaque = YES; //The page to be curled has no transparency
-            [curlView curlView:curlTargetView cylinderPosition:CGPointMake(curlTargetView.frame.size.width - 40, curlTargetView.frame.size.height - 40) cylinderAngle:M_PI_2 + M_PI_4 cylinderRadius:10 animatedWithDuration:0.6f completion:^{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [curlView uncurlAnimatedWithDuration:0.6f completion:^{
-                        self.isAnimating = FALSE;
-                    }];
-                });
+    self.isAnimating = TRUE;
+    UIView *curlTargetView = self.paperView;
+    XBCurlView *curlView = [[XBCurlView alloc] initWithFrame:curlTargetView.frame horizontalResolution:30 verticalResolution:42 antialiasing:NO];
+    curlView.opaque = NO; //Transparency on the next page (so that the view behind curlView will appear)
+    curlView.pageOpaque = YES; //The page to be curled has no transparency
+    [curlView curlView:curlTargetView cylinderPosition:CGPointMake(curlTargetView.frame.size.width - 40, curlTargetView.frame.size.height - 40) cylinderAngle:M_PI_2 + M_PI_4 cylinderRadius:10 animatedWithDuration:0.4f completion:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [curlView uncurlAnimatedWithDuration:0.4f completion:^{
+                self.isAnimating = FALSE;
             }];
-        } else {
-            if (completion) {
-                completion();
-            }
-        }
+        });
     }];
-}
-
-- (CGSize)paperSizeWithWidth:(CGFloat)width height:(CGFloat)height containerSize:(CGSize)containerSize containerScale:(CGFloat)containerScale
-{
-    if( [[HPPP sharedInstance] showRulers] ) {
-        containerSize.height -= (self.ruleView.horizontalRulerHeight + 2);
-        containerSize.width -= (self.ruleView.verticalRulerWidth + 2);
-    }
-    
-    containerSize.height *= containerScale;
-    containerSize.width *= containerScale;
-    
-    CGFloat scaleX = containerSize.width / width;
-    CGFloat scaleY = containerSize.height / height;
-    
-    CGSize finalSizeScale;
-    
-    CGFloat scale = fminf(scaleX, scaleY);
-    
-    finalSizeScale = CGSizeMake(scale, scale);
-    
-    return CGSizeMake(finalSizeScale.width * width, finalSizeScale.height * height);
 }
 
 @end

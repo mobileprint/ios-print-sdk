@@ -31,6 +31,7 @@
 #import "UIColor+HPPPStyle.h"
 #import "NSBundle+HPPPLocalizable.h"
 #import "HPPPSupportAction.h"
+#import "HPPPLayoutFactory.h"
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 
@@ -56,8 +57,6 @@
 
 #define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
 #define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", @"Printer details not available")
-
-typedef void (^HPPPPageCurlCompletionBlock)(void);
 
 @interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
 
@@ -98,8 +97,6 @@ typedef void (^HPPPPageCurlCompletionBlock)(void);
 @property (nonatomic, assign) NSInteger numberOfCopies;
 
 @property (strong, nonatomic) NSMutableArray *itemsToPrint;
-
-@property (nonatomic, copy) HPPPPageCurlCompletionBlock pageCurlCompletionBlock;
 
 @end
 
@@ -215,7 +212,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         
         self.printLabel.text = [self stringFromNumberOfPrintingItems:numberOfJobs copies:1];
     }
-    
+
     [self changePaper];
     
     if (IS_OS_8_OR_LATER) {
@@ -235,6 +232,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"viewWillAppear");
+
     [super viewWillAppear:animated];
     
     [self configurePrintButton];
@@ -256,32 +255,26 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    NSLog(@"viewDidAppear");
+
     [super viewDidAppear:animated];
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.pageViewController.pageView;
         [self checkForMultipleImages];
+        self.pageView.blackAndWhite = self.blackAndWhiteModeSwitch.on;
         self.pageView.printItem = self.printItem;
-        
-        __weak HPPPPageSettingsTableViewController *weakSelf = self;
-        
-        [self setPaperSize:self.pageView animated:NO completion:^{
-            if (weakSelf.blackAndWhiteModeSwitch.on) {
-                weakSelf.tableView.userInteractionEnabled = NO;
-                [weakSelf.pageView setBlackAndWhiteWithCompletion:^{
-                    weakSelf.tableView.userInteractionEnabled = YES;
-                }];
-            }
-        }];
     }
-    
-    if (self.pageCurlCompletionBlock) {
-        [self.pageView setPaperSize:self.currentPrintSettings.paper animated:animated completion:^{
-            self.tableView.userInteractionEnabled = YES;
-            self.pageCurlCompletionBlock();
-            self.pageCurlCompletionBlock = nil;
-        }];
-    }
+
+    [self.pageView setPaperSize:self.currentPrintSettings.paper animated:YES completion:^{
+        self.pageView.hidden = NO;
+        self.tableView.userInteractionEnabled = YES;
+    }];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [self.pageView refreshLayout];
 }
 
 - (void)dealloc
@@ -290,13 +283,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.refreshPrinterStatusTimer = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration
-{
-    if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
-        [self setPaperSize:self.pageView animated:NO completion:nil];
-    }
 }
 
 #pragma mark - Pull to refresh
@@ -327,18 +313,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     if (!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.tableViewCellPageView;
         [self checkForMultipleImages];
+        self.pageView.blackAndWhite = self.blackAndWhiteModeSwitch.on;
         self.pageView.printItem = self.printItem;
-        __weak HPPPPageSettingsTableViewController *weakSelf = self;
-        [self setPaperSize:self.pageView animated:YES completion:^{
-            if (!weakSelf.hppp.hideBlackAndWhiteOption) {
-                if (weakSelf.blackAndWhiteModeSwitch.on) {
-                    weakSelf.tableView.userInteractionEnabled = NO;
-                    [weakSelf.pageView setBlackAndWhiteWithCompletion:^{
-                        weakSelf.tableView.userInteractionEnabled = YES;
-                    }];
-                }
-            }
-        }];
     }
 }
 
@@ -943,13 +919,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         if (![printItem.printAsset isKindOfClass:[UIImage class]]) {
             HPPPLogWarn(@"Using custom print renderer with non-image class:  %@", self.printItem.printAsset);
         }
-
-        UIImage *rotatedImage = printItem.printAsset;
-        if (![rotatedImage HPPPIsPortraitImage] &&  !(self.currentPrintSettings.paper.paperSize == SizeLetter)) {
-            rotatedImage = [rotatedImage HPPPRotate];
-        }
-        
-        HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[rotatedImage]];
+        HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[printItem.printAsset] andLayout:printItem.layout];
         renderer.numberOfCopies = self.numberOfCopies;
         controller.printPageRenderer = renderer;
     } else {
@@ -1125,18 +1095,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     [defaults synchronize];
     
     [self changePaper];
-}
-
-- (void)setPaperSize:(HPPPPageView *)pageView animated:(BOOL)animated completion:(void (^)(void))completion
-{
-    self.tableView.userInteractionEnabled = NO;
-    
-    // The completion block serves as our "dirty" flag... IE, needsPageCurl flag.  It can't be nil.
-    if (nil == completion) {
-        completion = ^(void){};
-    }
-    
-    self.pageCurlCompletionBlock = completion;
 }
 
 #pragma mark - HPPPPaperTypeTableViewControllerDelegate

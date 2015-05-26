@@ -10,24 +10,13 @@
 // the license agreement.
 //
 
-#import "HPPP.h"
-#import "HPPPPageViewController.h"
-#import "NSBundle+HPPPLocalizable.h"
+#import "HPPPLayoutPaperView.h"
 
-@implementation HPPPPageViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.title = HPPPLocalizedString(@"Preview", @"Title of the Preview Screen");
+@implementation HPPPLayoutPaperView
 
-    self.pageView.printItem  = self.printItem;
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [self.pageView refreshLayout];
+- (void)drawRect:(CGRect)rect {
+    [self.layout drawContentImage:self.image inRect:rect];
 }
 
 @end

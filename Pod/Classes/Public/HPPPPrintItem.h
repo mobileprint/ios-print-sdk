@@ -13,7 +13,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "HPPPPaper.h"
+#import "HPPPLayout.h"
 
+// TODO: Needs documentation!!!
+
+/*!
+ * @abstract Represents an item to be printed
+ */
 @interface HPPPPrintItem : NSObject<NSCoding>
 
 extern CGFloat const kHPPPPointsPerInch;
@@ -31,6 +37,7 @@ typedef enum {
 
 @property (strong, nonatomic, readonly) id printAsset;
 @property (assign, nonatomic, readonly) HPPPPrintRenderer renderer;
+@property (strong, nonatomic) HPPPLayout *layout;
 
 - (CGSize)sizeInUnits:(HPPPUnits)units;
 - (NSInteger)numberOfPages;

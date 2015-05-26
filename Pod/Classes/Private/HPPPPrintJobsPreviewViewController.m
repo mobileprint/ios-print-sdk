@@ -14,16 +14,21 @@
 #import "HPPP.h"
 #import "HPPPPaper.h"
 #import "HPPPPrintItem.h"
+#import "HPPPLayoutPaperView.h"
+#import "HPPPLayoutFactory.h"
 #import "NSBundle+HPPPLocalizable.h"
 #import "UIView+HPPPBackground.h"
 
 @interface HPPPPrintJobsPreviewViewController ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UILabel *printJobNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printJobDateLabel;
 @property (strong, nonatomic) NSDateFormatter *formatter;
+@property (weak, nonatomic) IBOutlet HPPPLayoutPaperView *paperView;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *paperWidthConstraint;
+@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *paperHeightConstraint;
 
 @end
 
@@ -55,18 +60,27 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     
     self.printJobNameLabel.text = self.printLaterJob.name;
     self.printJobDateLabel.text = [self.formatter stringFromDate:self.printLaterJob.date];
-    
-    self.imageView.image = [self previewImageForPaperSize:[self lastPaperUsed]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
+    [self configurePaper];
+    
     [UIView animateWithDuration:0.5f animations:^{
         self.view.alpha = 1.0f;
         
     }];
+}
+
+- (void)configurePaper
+{
+    HPPPPaper *lastPaper = [[HPPPPaper alloc] initWithPaperSize:[self lastPaperUsed] paperType:Plain];
+    HPPPPrintItem *printItem = [self printItemForPaperSize:lastPaper.paperSize];
+    [HPPPLayout preparePaperView:self.paperView withPaper:lastPaper image:[printItem previewImageForPaper:lastPaper] layout:printItem.layout];
+    HPPPLayout *fitLayout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationMatchContainer assetPosition:CGRectMake(0, 0, 100, 100)];
+    [fitLayout layoutContentView:self.paperView inContainerView:self.containerView];
 }
 
 - (IBAction)doneButtonTapped:(id)sender
@@ -121,49 +135,14 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     return CGSizeMake(finalSizeScale.width * width, finalSizeScale.height * height);
 }
 
-- (UIImage *)previewImageForPaperSize:(PaperSize)paperSize
+- (HPPPPrintItem *)printItemForPaperSize:(PaperSize)paperSize
 {
-    HPPP *hppp = [HPPP sharedInstance];
-    
     NSString *paperSizeTitle = [HPPPPaper titleFromSize:paperSize];
-    
-    UIImage *image = nil;
-    
     HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:paperSizeTitle];
-    
     if (printItem == nil) {
         printItem = [self.printLaterJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
     }
-    
-    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:Plain];
-    UIImage *paperSizeImage = [printItem previewImageForPaper:paper];
-
-    if (DefaultPrintRenderer == printItem.renderer || paperSize != SizeLetter) {
-        image = paperSizeImage;
-    } else {
-        CGSize computedPaperSize = [self paperSizeWithWidth:8.5f height:11.0f containerSize:self.imageView.frame.size];
-        
-        CGSize computedImageSize = CGSizeMake(computedPaperSize.width * hppp.defaultPaper.width / 8.5f, computedPaperSize.height * hppp.defaultPaper.height / 11.0f);
-        
-        CGSize finalComputedImageSize = computedImageSize;
-        
-        if (paperSizeImage.size.width > paperSizeImage.size.height) {
-            finalComputedImageSize.height = computedImageSize.width;
-            finalComputedImageSize.width = computedImageSize.height;
-        }
-        
-        UIView *paperView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, computedPaperSize.width, computedPaperSize.height)];
-        paperView.backgroundColor = [UIColor whiteColor];
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((computedPaperSize.width / 2) - (finalComputedImageSize.width / 2), (computedPaperSize.height / 2) - (finalComputedImageSize.height / 2), finalComputedImageSize.width, finalComputedImageSize.height)];
-        
-        imageView.image = paperSizeImage;
-        
-        [paperView addSubview:imageView];
-        image = [paperView HPPPScreenshotImage];
-    }
-
-    return image;
+    return printItem;
 }
 
 @end
