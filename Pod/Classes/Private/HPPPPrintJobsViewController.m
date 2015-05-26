@@ -41,6 +41,7 @@
 @implementation HPPPPrintJobsViewController
 
 NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
+NSString * const kJobListScreenName = @"Job List Screen";
 
 #pragma mark - Life cycle
 
@@ -123,6 +124,7 @@ NSString * const kPrintJobCellIdentifier = @"PrintJobCell";
     [super viewWillAppear:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionEstablished object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionLost object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kJobListScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
 -  (void)viewWillDisappear:(BOOL)animated

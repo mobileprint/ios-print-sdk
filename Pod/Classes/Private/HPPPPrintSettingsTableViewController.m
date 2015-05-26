@@ -47,6 +47,8 @@
 
 @implementation HPPPPrintSettingsTableViewController
 
+NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
+
 @dynamic refreshControl;
 
 - (void)viewDidLoad
@@ -94,6 +96,13 @@
         [self.refreshControl addTarget:self action:@selector(startRefreshing:) forControlEvents:UIControlEventValueChanged];
         [self.tableView addSubview:self.refreshControl];
     }
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kPrintSettingsScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
 - (void)dealloc

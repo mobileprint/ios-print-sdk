@@ -116,7 +116,7 @@ int const kSaveDefaultPrinterIndex = 1;
 
 NSString * const kHPPPDefaultPrinterAddedNotification = @"kHPPPDefaultPrinterAddedNotification";
 NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterRemovedNotification";
-NSString * const kPageSettingsScreenName = @"Paper Settings Screen";
+NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 #pragma mark - UIView
 
