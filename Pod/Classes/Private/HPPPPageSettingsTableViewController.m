@@ -57,7 +57,7 @@
 #define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
 #define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", @"Printer details not available")
 
-typedef void (^PageCurlCompletionBlock)(void);
+typedef void (^HPPPPageCurlCompletionBlock)(void);
 
 @interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
 
@@ -99,7 +99,7 @@ typedef void (^PageCurlCompletionBlock)(void);
 
 @property (strong, nonatomic) NSMutableArray *itemsToPrint;
 
-@property (nonatomic, copy) PageCurlCompletionBlock pageCurlCompletionBlock;
+@property (nonatomic, copy) HPPPPageCurlCompletionBlock pageCurlCompletionBlock;
 
 @end
 
