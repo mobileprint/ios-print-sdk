@@ -28,6 +28,7 @@ CGFloat const kDefaultHeightPercent = 100.0f;
     if (self) {
         _orientation = orientation;
         _assetPosition = CGRectStandardize(position);
+        _allowContentRotation = YES;
     }
     return self;
 }
@@ -70,12 +71,14 @@ CGFloat const kDefaultHeightPercent = 100.0f;
     
     
     BOOL rotationNeeded = NO;
-    if (HPPPLayoutOrientationBestFit == self.orientation) {
-        rotationNeeded = !contentMatchesContainer;
-    } else if (HPPPLayoutOrientationPortrait == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsPortrait)) {
-        rotationNeeded = containerIsLandscape;
-    } else if (HPPPLayoutOrientationLandscape == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsLandscape)) {
-        rotationNeeded = containerIsPortrait;
+    if (self.allowContentRotation) {
+        if (HPPPLayoutOrientationBestFit == self.orientation) {
+            rotationNeeded = !contentMatchesContainer;
+        } else if (HPPPLayoutOrientationPortrait == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsPortrait)) {
+            rotationNeeded = containerIsLandscape;
+        } else if (HPPPLayoutOrientationLandscape == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsLandscape)) {
+            rotationNeeded = containerIsPortrait;
+        }
     }
     
     return rotationNeeded;

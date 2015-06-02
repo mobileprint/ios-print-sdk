@@ -18,7 +18,6 @@
 
 @implementation HPPPLayoutFactory
 
-HPPPLayoutType const kHPPPLayoutTypeDefault = HPPPLayoutTypeFit;
 NSString * const kHPPPLayoutTypeKey = @"kHPPPLayoutTypeKey";
 NSString * const kHPPPLayoutOrientationKey = @"kHPPPLayoutOrientationKey";
 NSString * const kHPPPLayoutPositionKey = @"kHPPPLayoutPositionKey";
@@ -32,11 +31,11 @@ NSString * const kHPPPLayoutPositionKey = @"kHPPPLayoutPositionKey";
 {
     HPPPLayout *layout = nil;
     
-    if (layoutType == HPPPLayoutTypeFill) {
+    if (HPPPLayoutTypeFill == layoutType || HPPPLayoutTypeDefault == layoutType) {
         layout = [[HPPPLayoutFill alloc] initWithOrientation:orientation andAssetPosition:assetPosition];
-    } else if (layoutType == HPPPLayoutTypeFit) {
+    } else if (HPPPLayoutTypeFit == layoutType) {
         layout = [[HPPPLayoutFit alloc] initWithOrientation:orientation andAssetPosition:assetPosition];
-    } else if (layoutType == HPPPLayoutTypeStretch) {
+    } else if (HPPPLayoutTypeStretch == layoutType) {
         layout = [[HPPPLayoutStretch alloc] initWithOrientation:orientation andAssetPosition:assetPosition];
     }
     

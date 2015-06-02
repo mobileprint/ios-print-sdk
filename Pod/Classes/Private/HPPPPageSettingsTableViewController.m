@@ -98,6 +98,8 @@
 
 @property (strong, nonatomic) NSMutableArray *itemsToPrint;
 
+@property (assign, nonatomic) BOOL showCurlOnAppear;
+
 @end
 
 @implementation HPPPPageSettingsTableViewController
@@ -213,6 +215,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         self.printLabel.text = [self stringFromNumberOfPrintingItems:numberOfJobs copies:1];
     }
 
+    self.showCurlOnAppear = YES;
+
     [self changePaper];
     
     if (IS_OS_8_OR_LATER) {
@@ -267,13 +271,19 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
 
     [self.pageView setPaperSize:self.currentPrintSettings.paper animated:YES completion:^{
-        self.pageView.hidden = NO;
+        [self.pageView showPageAnimated:YES completion:^{
+            if (self.showCurlOnAppear) {
+                [self.pageView curlPage];
+                self.showCurlOnAppear = NO;
+            }
+        }];
         self.tableView.userInteractionEnabled = YES;
     }];
 }
 
 - (void)viewDidLayoutSubviews
 {
+    [self.view layoutIfNeeded];
     [self.pageView refreshLayout];
 }
 
@@ -315,6 +325,11 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         [self checkForMultipleImages];
         self.pageView.blackAndWhite = self.blackAndWhiteModeSwitch.on;
         self.pageView.printItem = self.printItem;
+        self.showCurlOnAppear = YES;
+    } else {
+        [self.pageView setPaperSize:self.currentPrintSettings.paper animated:NO completion:^{
+            [self.pageView curlPage];
+        }];
     }
 }
 
@@ -346,6 +361,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.spinner removeFromSuperview];
                     self.printItem = printItem;
+                    self.pageView.printItem = printItem;
                     [self configurePageView];
                 });
             } else {

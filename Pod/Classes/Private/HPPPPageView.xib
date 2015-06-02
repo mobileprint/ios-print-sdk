@@ -17,8 +17,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="473"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qAD-sK-6D7" userLabel="ContainerView">
-                    <rect key="frame" x="10" y="25" width="300" height="398"/>
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qAD-sK-6D7" userLabel="ContainerView">
+                    <rect key="frame" x="20" y="25" width="280" height="398"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SIZE LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEd-ba-2UE" userLabel="Size Label">
                             <rect key="frame" x="103" y="393" width="94" height="21"/>
@@ -36,9 +36,9 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="qAD-sK-6D7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="25" id="Ecg-wN-C77"/>
-                <constraint firstItem="qAD-sK-6D7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Go1-mG-GbP"/>
+                <constraint firstItem="qAD-sK-6D7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="Go1-mG-GbP"/>
                 <constraint firstAttribute="bottom" secondItem="qAD-sK-6D7" secondAttribute="bottom" constant="50" id="PwN-G1-IP4"/>
-                <constraint firstAttribute="trailing" secondItem="qAD-sK-6D7" secondAttribute="trailing" constant="10" id="hia-iQ-KzN"/>
+                <constraint firstAttribute="trailing" secondItem="qAD-sK-6D7" secondAttribute="trailing" constant="20" id="hia-iQ-KzN"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

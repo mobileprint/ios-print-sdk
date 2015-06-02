@@ -91,5 +91,6 @@ typedef enum {
 
 @property (assign, nonatomic, readonly) CGRect assetPosition;
 @property (assign, nonatomic, readonly) HPPPLayoutOrientation orientation;
+@property (assign, nonatomic) BOOL allowContentRotation;
 
 @end

@@ -27,6 +27,7 @@
 
 - (void)viewDidLayoutSubviews
 {
+    [self.view layoutIfNeeded];
     [self.pageView refreshLayout];
 }
 
