@@ -114,6 +114,10 @@ CGFloat const kDefaultHeightPercent = 100.0f;
     } else {
         [containerView removeConstraints:contentConstraints];
     }
+
+    
+    [contentView removeConstraints:contentView.constraints];
+    [containerView removeConstraints:containerView.constraints];
     
     NSDictionary *views = @{ @"contentView":contentView, @"containerView":containerView };
     NSDictionary *values = @{
@@ -122,7 +126,7 @@ CGFloat const kDefaultHeightPercent = 100.0f;
                              @"width":[NSNumber numberWithFloat:frame.size.width],
                              @"height":[NSNumber numberWithFloat:frame.size.height]
                              };
-    
+
     NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-x-[contentView(width)]" options:0 metrics:values views:views];
     NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-y-[contentView(height)]" options:0 metrics:values views:views];
     contentConstraints = [NSMutableArray arrayWithArray:horizontalConstraints];
@@ -133,9 +137,9 @@ CGFloat const kDefaultHeightPercent = 100.0f;
     } else {
         [containerView addConstraints:contentConstraints];
     }
-    
+
     [contentView setNeedsDisplay];
-    [containerView setNeedsDisplay];
+    [containerView setNeedsLayout];
     [containerView layoutIfNeeded];
 }
 
