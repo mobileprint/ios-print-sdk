@@ -17,6 +17,7 @@
 #import "HPPPPrintItem.h"
 #import "HPPPPrintItemFactory.h"
 #import "HPPPSelectPrintItemTableViewController.h"
+#import "HPPPLayoutFactory.h"
 
 @interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate>
 
@@ -232,6 +233,7 @@
 - (void)printingItemForPaper:(HPPPPaper *)paper withCompletion:(void (^)(HPPPPrintItem *))completion
 {
     if (completion) {
+        self.printItem.layout = [self layoutForPaper:paper];
         completion(self.printItem);
     }
 }
@@ -255,6 +257,7 @@
 
 - (NSArray *)printingItemsForPaper:(HPPPPaper *)paper
 {
+    self.printItem.layout = [self layoutForPaper:paper];
     return @[ self.printItem ];
 }
 
@@ -354,13 +357,30 @@
 
 - (void)doActivityWithPrintItem:(HPPPPrintItem *)printItem
 {
+    self.printItem = printItem;
     if (self.sharingInProgress) {
-        self.printItem = printItem;
         [self shareItem];
     } else {
-        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:nil printItem:printItem fromQueue:NO];
+        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO];
         [self presentViewController:vc animated:YES completion:nil];
     }
+}
+
+#pragma mark - Layout
+
+- (HPPPLayout *)layoutForPaper:(HPPPPaper *)paper
+{
+    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit];
+    if (SizeLetter == paper.paperSize) {
+        HPPPPaper *letterPaper = [[HPPPPaper alloc] initWithPaperSize:SizeLetter paperType:Plain];
+        HPPPPaper *defaultPaper = [HPPP sharedInstance].defaultPaper;
+        CGFloat width = defaultPaper.width / letterPaper.width * 100.0f;
+        CGFloat height = defaultPaper.height / letterPaper.height * 100.0f;
+        CGFloat x = (100.0f - width) / 2.0f;
+        CGFloat y = (100.0f - height) / 2.0f;
+        layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationPortrait assetPosition:CGRectMake(x, y, width, height)];
+    }
+    return layout;
 }
 
 @end

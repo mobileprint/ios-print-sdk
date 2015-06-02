@@ -18,6 +18,7 @@
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPWiFiReachability.h"
 #import <CoreFoundation/CoreFoundation.h>
+#import "HPPPLayoutFactory.h"
 
 #define DEFAULT_RULES_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:10]
 #define DEFAULT_TABLE_VIEW_CELL_PRINT_LABEL_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
@@ -287,7 +288,6 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
 - (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
-    
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         UISplitViewController *pageSettingsSplitViewController = (UISplitViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPageSettingsSplitViewController"];

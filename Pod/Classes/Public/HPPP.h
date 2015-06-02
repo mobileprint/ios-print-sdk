@@ -205,15 +205,14 @@ extern NSString * const kHPPPNumberOfCopies;
 /*!
  * @abstract Indicates whether the paper size option should be hidden
  * @discussion If this value is true, the paper size option is hidden on the print preview page and the default paper size is used. The default values is false (not hidden).
- * @seealso defaultPaperWidth
- * @seealso defaultPaperHeight
+ * @seealso defaultPaper
  */
 @property (assign, nonatomic) BOOL hidePaperSizeOption;
 
 /*!
  * @abstract Indicates whether the paper type option should be hidden
  * @discussion If this value is true, the paper type option is hidden on the print preview page and the default paper type is used if applicable (e.g. 4x6 always uses photo paper regardless of the value of the default paper type). The default value is false (not hidden).
- * @seealso defaultPaperType
+ * @seealso defaultPaper
  */
 @property (assign, nonatomic) BOOL hidePaperTypeOption;
 
@@ -332,12 +331,6 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (strong, nonatomic) NSString *defaultDateFormat;
 
 /*!
- * @abstract If TRUE, rulers will be displayed beneath and to the right of the preview image to show the image size.
- * @discussion The default value is FALSE, which causes the size to be specified in a label centered beneath the image.
- */
-@property (assign, nonatomic) BOOL showRulers;
-
-/*!
  * @abstract A dictionary of the most recent print options used
  * @discussion If the last print job was successful this property contains a dictionary of various options used for the job. If the last print job failed or was canceled then this property contains an empty dictionary.
  * @seealso kHPPPBlackAndWhiteFilterId
@@ -383,8 +376,7 @@ extern NSString * const kHPPPNumberOfCopies;
  * @description This method prepares a view controller for displaying the print flow. It takes into consideration the device type and OS and prepares either a split view controller (iPad with iOS 8 or above) or a standard view controller. Both types are wrapped in a navigation controller. The controller returned is suitable for using with the UIActivity method 'activityViewController'.
  * @param delegate An optional delegate object that implements the HPPPPrintDelegate protocol
  * @param dataSource An optional data source object that implements the HPPPPrintDataSource protocol
- * @param printingItem The item to print
- * @param previewImage The initial image to use for the print preview
+ * @param printItem The item to print
  * @param fromQueue A boolean value indicating if this job is being printed from the print queue
  * @return The view controller that the client should present
  */

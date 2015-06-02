@@ -15,6 +15,8 @@
 #import "HPPPView.h"
 #import "HPPPPaper.h"
 #import "HPPPPrintItem.h"
+#import "HPPPLayout.h"
+
 /*!
  * @abstract View that represents the graphical preview portion of the print preview
  */
@@ -55,6 +57,8 @@
  */
 - (void)setPaperSize:(HPPPPaper *)paperSize animated:(BOOL)animated completion:(void (^)(void))completion;
 
-
+// TODO: needs documentation
+- (void)refreshLayout;
+@property (assign, nonatomic) BOOL blackAndWhite;
 
 @end

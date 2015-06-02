@@ -352,7 +352,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
         [self printingItemForPaper:paper withCompletion:^(HPPPPrintItem *printItem) {
             completion([printItem previewImageForPaper:paper]);
         }];
-     }
+    }
 }
 
 - (NSInteger)numberOfPrintingItems
@@ -470,11 +470,8 @@ NSString * const kJobListScreenName = @"Job List Screen";
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:nil];
     HPPPPrintJobsPreviewViewController *vc = (HPPPPrintJobsPreviewViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPrintJobsPreviewViewController"];
-    
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    
     vc.printLaterJob = printJobsTableViewCell.printLaterJob;
-    
     [self presentViewController:vc animated:NO completion:nil];
 }
 

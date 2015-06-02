@@ -20,7 +20,6 @@
 /*!
  * @abstract Dictionary of print items for the print job
  * @discussion The dictionary should contain a print item for each paper size. The key for each image is the paper size title as an NSString object.
- * @seealso HPPPPrintItem
  */
 @property (strong, nonatomic) NSDictionary *printItems; // Dictionary with printing items (key = the paper size title, object = printing item)
 

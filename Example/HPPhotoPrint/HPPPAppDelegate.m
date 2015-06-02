@@ -26,9 +26,7 @@
         NSLog(@"App starts to run because of a notification");
         [[HPPP sharedInstance] handleNotification:localNotification];
     }
-    
-    [HPPP sharedInstance].showRulers = FALSE;
-    
+        
     self.logger = [[HPPPExampleLogger alloc] init];
     [[HPPPLogger sharedInstance] setDelegate:self.logger];
     

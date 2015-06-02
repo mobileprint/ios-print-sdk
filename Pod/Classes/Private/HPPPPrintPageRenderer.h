@@ -11,6 +11,7 @@
 //
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "HPPPLayout.h"
 
 /*!
  * @abstract Renders the print image(s) onto the page
@@ -32,6 +33,6 @@
 /*!
  * @abstract Initializes the renderer with an array of images to print
  */
-- (id)initWithImages:(NSArray *)images;
+- (id)initWithImages:(NSArray *)images andLayout:(HPPPLayout *)layout;
 
 @end

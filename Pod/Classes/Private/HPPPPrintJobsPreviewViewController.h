@@ -12,6 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HPPPPrintLaterJob.h"
+#import "HPPPLayout.h"
 
 /*!
  * @abstract Controller that manages the preview view of a given print job
