@@ -24,7 +24,8 @@
 typedef enum {
     HPPPLayoutTypeFill,
     HPPPLayoutTypeFit,
-    HPPPLayoutTypeStretch
+    HPPPLayoutTypeStretch,
+    HPPPLayoutTypeUnknown
 } HPPPLayoutType;
 
 extern HPPPLayoutType const kHPPPLayoutTypeDefault;
@@ -44,5 +45,9 @@ extern HPPPLayoutType const kHPPPLayoutTypeDefault;
  * @seealso HPPPLayoutType
  */
 + (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType orientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)assetPosition;
+
+// TODO: document!
++ (void)encodeLayout:(HPPPLayout *)layout WithCoder:(NSCoder *)encoder;
++ (id)initLayoutWithCoder:(NSCoder *)decoder;
 
 @end

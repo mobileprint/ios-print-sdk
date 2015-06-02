@@ -95,7 +95,7 @@
 
 #pragma mark - NSCoding
 
-- (void)encodeWithCoder:(NSCoder *)encoder
+- (void)encodeAssetWithCoder:(NSCoder *)encoder
 {
     NSData *imageData = UIImageJPEGRepresentation(self.printImage, [[UIScreen mainScreen] scale]);
     [encoder encodeObject:imageData forKey:kHPPPPrintAssetKey];

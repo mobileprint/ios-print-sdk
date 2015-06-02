@@ -18,7 +18,6 @@
 
 CGFloat const kHPPPPointsPerInch = 72.0f;
 NSString * const kHPPPPrintAssetKey = @"kHPPPPrintAssetKey";
-NSString * const kHPPPLayoutKey = @"kHPPPLayoutKey";
 
 #pragma mark - Abstract methods
 
@@ -50,14 +49,27 @@ NSString * const kHPPPLayoutKey = @"kHPPPLayoutKey";
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
-    [encoder encodeObject:self.printAsset forKey:kHPPPPrintAssetKey];
+    [self encodeAssetWithCoder:encoder];
+    [HPPPLayoutFactory encodeLayout:self.layout WithCoder:encoder];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
-    id printAsset = [decoder decodeObjectForKey:kHPPPPrintAssetKey];
+    id printAsset = [self initAssetWithCoder:decoder];
     HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:printAsset];
+    printItem.layout = [HPPPLayoutFactory initLayoutWithCoder:decoder];
     return printItem;
+}
+
+
+- (void)encodeAssetWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:self.printAsset forKey:kHPPPPrintAssetKey];
+}
+
+- (id)initAssetWithCoder:(NSCoder *)decoder
+{
+    return [decoder decodeObjectForKey:kHPPPPrintAssetKey];
 }
 
 #pragma mark - Layout

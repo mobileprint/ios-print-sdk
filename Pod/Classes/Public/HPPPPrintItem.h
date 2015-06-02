@@ -44,4 +44,7 @@ typedef enum {
 - (UIImage *)defaultPreviewImage;
 - (UIImage *)previewImageForPaper:(HPPPPaper *)paper;
 
+- (void)encodeAssetWithCoder:(NSCoder *)encoder;
+- (id)initAssetWithCoder:(NSCoder *)decoder;
+
 @end
