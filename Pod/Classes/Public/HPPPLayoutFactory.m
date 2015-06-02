@@ -19,6 +19,9 @@
 @implementation HPPPLayoutFactory
 
 HPPPLayoutType const kHPPPLayoutTypeDefault = HPPPLayoutTypeFit;
+NSString * const kHPPPLayoutTypeKey = @"kHPPPLayoutTypeKey";
+NSString * const kHPPPLayoutOrientationKey = @"kHPPPLayoutOrientationKey";
+NSString * const kHPPPLayoutPositionKey = @"kHPPPLayoutPositionKey";
 
 + (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
 {
@@ -42,6 +45,42 @@ HPPPLayoutType const kHPPPLayoutTypeDefault = HPPPLayoutTypeFit;
     }
     
     return layout;
+}
+
+#pragma mark - NSCoding support
+
++ (void)encodeLayout:(HPPPLayout *)layout WithCoder:(NSCoder *)encoder
+{
+    HPPPLayoutType type = [HPPPLayoutFactory layoutTypeFromLayout:layout];
+    if (HPPPLayoutTypeUnknown != type) {
+        [encoder encodeObject:[NSNumber numberWithInt:type] forKey:kHPPPLayoutTypeKey];
+        [encoder encodeObject:[NSNumber numberWithInt:layout.orientation] forKey:kHPPPLayoutOrientationKey];
+        NSDictionary *position = (__bridge NSDictionary *)CGRectCreateDictionaryRepresentation(layout.assetPosition);
+        [encoder encodeObject:position forKey:kHPPPLayoutPositionKey];
+    }
+}
+
++ (id)initLayoutWithCoder:(NSCoder *)decoder
+{
+    HPPPLayoutType type = [[decoder decodeObjectForKey:kHPPPLayoutTypeKey] intValue];
+    HPPPLayoutOrientation orientation = [[decoder decodeObjectForKey:kHPPPLayoutOrientationKey] intValue];
+    CFDictionaryRef positionDictionary = (__bridge CFDictionaryRef)[decoder decodeObjectForKey:kHPPPLayoutPositionKey];
+    CGRect positionRect;
+    CGRectMakeWithDictionaryRepresentation(positionDictionary, &positionRect);
+    return [self layoutWithType:type orientation:orientation assetPosition:positionRect];
+}
+
++ (HPPPLayoutType)layoutTypeFromLayout:(HPPPLayout *)layout
+{
+    HPPPLayoutType type = HPPPLayoutTypeUnknown;
+    if ([layout isKindOfClass:[HPPPLayoutStretch class]]) {
+        type = HPPPLayoutTypeStretch;
+    } else if ([layout isKindOfClass:[HPPPLayoutFill class]]) {
+        type = HPPPLayoutTypeFill;
+    } else if ([layout isKindOfClass:[HPPPLayoutFit class]]) {
+        type = HPPPLayoutTypeFit;
+    }
+    return type;
 }
 
 @end

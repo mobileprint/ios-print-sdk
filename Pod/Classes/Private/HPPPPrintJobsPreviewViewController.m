@@ -74,8 +74,14 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     }];
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [self configurePaper];
+}
+
 - (void)configurePaper
 {
+    [self.view layoutIfNeeded];
     HPPPPaper *lastPaper = [[HPPPPaper alloc] initWithPaperSize:[self lastPaperUsed] paperType:Plain];
     HPPPPrintItem *printItem = [self printItemForPaperSize:lastPaper.paperSize];
     [HPPPLayout preparePaperView:self.paperView withPaper:lastPaper image:[printItem previewImageForPaper:lastPaper] layout:printItem.layout];

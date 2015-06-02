@@ -18,6 +18,7 @@
 #import "HPPPPrintItemFactory.h"
 #import "HPPPSelectPrintItemTableViewController.h"
 #import "HPPPLayoutFactory.h"
+#import "HPPPPaper.h"
 
 @interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate>
 
@@ -115,10 +116,7 @@
         printLaterJob.id = printLaterJobNextAvailableId;
         printLaterJob.name = @"Add from Share";
         printLaterJob.date = [NSDate date];
-        printLaterJob.printItems = @{[HPPPPaper titleFromSize:Size4x5] : self.printItem,
-                                        [HPPPPaper titleFromSize:Size4x6] : self.printItem,
-                                        [HPPPPaper titleFromSize:Size5x7] : self.printItem,
-                                        [HPPPPaper titleFromSize:SizeLetter] : self.printItem};
+        printLaterJob.printItems = [self printItemsForAsset:self.printItem.printAsset];
         if (self.extendedMetricsSwitch.on) {
             printLaterJob.extra = [self photoSourceMetrics];
         }
@@ -313,15 +311,13 @@
     for (int idx = 0; idx < jobCount; idx++) {
         
         NSString *jobID = [[HPPP sharedInstance] nextPrintJobId];
-        HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:[self randomImage]];
+        
         HPPPPrintLaterJob *job = [[HPPPPrintLaterJob alloc] init];
         job.id = jobID;
         job.name = [NSString stringWithFormat:@"Print Job #%d", idx + 1];
         job.date = [NSDate date];
-        job.printItems = @{[HPPPPaper titleFromSize:Size4x5] : printItem,
-                              [HPPPPaper titleFromSize:Size4x6] : printItem,
-                              [HPPPPaper titleFromSize:Size5x7] : printItem,
-                              [HPPPPaper titleFromSize:SizeLetter] : printItem};
+        job.printItems = [self printItemsForAsset:[self randomImage]];
+    
         [[HPPP sharedInstance] addJobToQueue:job];
     }
 }
@@ -381,6 +377,19 @@
         layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationPortrait assetPosition:CGRectMake(x, y, width, height)];
     }
     return layout;
+}
+
+- (NSDictionary *)printItemsForAsset:(id)asset
+{
+    NSArray *sizes = @[ @"4 x 5", @"4 x 6", @"5 x 7", @"8.5 x 11" ];
+    NSMutableDictionary *printItems = [NSMutableDictionary dictionary];
+    for (NSString *size in sizes) {
+        HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:asset];
+        HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSizeTitle:size paperTypeTitle:@"Plain Paper"];
+        printItem.layout = [self layoutForPaper:paper];
+        [printItems addEntriesFromDictionary:@{ paper.sizeTitle: printItem }];
+    }
+    return printItems;
 }
 
 @end
