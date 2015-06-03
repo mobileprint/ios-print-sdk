@@ -61,4 +61,8 @@
 - (void)refreshLayout;
 @property (assign, nonatomic) BOOL blackAndWhite;
 
+- (void)showPageAnimated:(BOOL)animated completion:(void (^)(void))completion;
+
+- (void)curlPage;
+
 @end

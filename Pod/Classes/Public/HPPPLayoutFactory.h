@@ -25,10 +25,9 @@ typedef enum {
     HPPPLayoutTypeFill,
     HPPPLayoutTypeFit,
     HPPPLayoutTypeStretch,
+    HPPPLayoutTypeDefault,
     HPPPLayoutTypeUnknown
 } HPPPLayoutType;
-
-extern HPPPLayoutType const kHPPPLayoutTypeDefault;
 
 /*!
  * @abstract Creates a layout of the given type

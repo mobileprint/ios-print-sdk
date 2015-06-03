@@ -77,7 +77,7 @@ NSString * const kHPPPPrintAssetKey = @"kHPPPPrintAssetKey";
 - (HPPPLayout *)layout
 {
     if (!_layout) {
-        _layout = [HPPPLayoutFactory layoutWithType:kHPPPLayoutTypeDefault];
+        _layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit];
     }
     
     return _layout;

@@ -366,15 +366,17 @@
 
 - (HPPPLayout *)layoutForPaper:(HPPPPaper *)paper
 {
-    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit];
+    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFill];
     if (SizeLetter == paper.paperSize) {
         HPPPPaper *letterPaper = [[HPPPPaper alloc] initWithPaperSize:SizeLetter paperType:Plain];
         HPPPPaper *defaultPaper = [HPPP sharedInstance].defaultPaper;
-        CGFloat width = defaultPaper.width / letterPaper.width * 100.0f;
-        CGFloat height = defaultPaper.height / letterPaper.height * 100.0f;
+        CGFloat maxDimension = fmaxf(defaultPaper.width, defaultPaper.height);
+        CGFloat width = maxDimension / letterPaper.width * 100.0f;
+        CGFloat height = maxDimension / letterPaper.height * 100.0f;
         CGFloat x = (100.0f - width) / 2.0f;
         CGFloat y = (100.0f - height) / 2.0f;
         layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationPortrait assetPosition:CGRectMake(x, y, width, height)];
+        layout.allowContentRotation = NO;
     }
     return layout;
 }

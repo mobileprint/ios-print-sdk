@@ -114,10 +114,10 @@
         return;
     }
 
-    HPPPLayout *paperLayout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationMatchContainer assetPosition:CGRectMake(5, 5, 90, 90)];
+    HPPPLayout *paperLayout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationMatchContainer assetPosition:CGRectMake(0, 0, 100, 100)];
     [HPPPLayout preparePaperView:self.paperView withPaper:self.paper];
     [paperLayout layoutContentView:self.paperView inContainerView:self.containerView];
-    
+        
     [self layoutSizeLabel];
 }
 
@@ -160,18 +160,15 @@
     self.sizeLabel.text = [NSString stringWithFormat:@"%@ x %@", paper.paperWidthTitle, paper.paperHeightTitle];
     
     self.paper = paper;
+    
     [self refreshLayout];
     
     if (completion) {
         completion();
     }
-    
-    if (animated) {
-        [self applyCurl];
-    }
 }
 
-- (void)applyCurl
+- (void)curlPage
 {
     self.isAnimating = TRUE;
     UIView *curlTargetView = self.paperView;
@@ -185,6 +182,26 @@
             }];
         });
     }];
+}
+
+- (void)showPageAnimated:(BOOL)animated completion:(void (^)(void))completion;
+{
+    if (animated) {
+        [self layoutIfNeeded];
+        [UIView animateWithDuration:0.2f animations:^{
+            self.containerView.alpha = 1.0f;
+            [self layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            if (completion) {
+                completion();
+            }
+        }];
+    } else {
+        self.containerView.alpha = 1.0f;
+        if (completion) {
+            completion();
+        }
+    }
 }
 
 @end

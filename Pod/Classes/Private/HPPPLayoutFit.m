@@ -24,9 +24,9 @@
         contentImage = [image HPPPRotate];
         contentRect = CGRectMake(0, 0, contentImage.size.width, contentImage.size.height);
     }
+
     [contentImage drawInRect:[self computeRectWithContentRect:contentRect andContainerRect:containerRect]];
 }
-
 
 - (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView
 {
