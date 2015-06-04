@@ -20,6 +20,8 @@
  * @const HPPPLayoutTypeFill Specifies a layout that uses the minimum content size possible that completely fills the page and maintains the aspect ratio, i.e. fills the page with the content
  * @const HPPPLayoutTypeFit Specifies a layout that uses the maximum content size possible without cropping or changing the aspect ratio, i.e. fits the content to the page
  * @const HPPPLayoutTypeStretch Specifies a layout that exactly fills the content rectangle by reducing or enlarging the image asset and changing the aspect ration as required.
+ * @const HPPPLayoutTypeDefault Indicates that the default layout should be used
+ * @const HPPPLayoutTypeUnknown Indicates an unknown or unspecfied layout
  */
 typedef enum {
     HPPPLayoutTypeFill,
@@ -45,8 +47,16 @@ typedef enum {
  */
 + (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType orientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)assetPosition;
 
-// TODO: document!
+/*!
+ * @abstract Used to persist the layout
+ * @discussion Typically this method is used with the NSCoder protocol to save the layout to the file system
+ */
 + (void)encodeLayout:(HPPPLayout *)layout WithCoder:(NSCoder *)encoder;
+
+/*!
+ * @abstract Used to restore the layout
+ * @discussion Typically this method is used with the NSCoder protocol to retrieve the layout to the file system
+ */
 + (id)initLayoutWithCoder:(NSCoder *)decoder;
 
 @end

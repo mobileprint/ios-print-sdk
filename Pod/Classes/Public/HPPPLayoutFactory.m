@@ -21,6 +21,7 @@
 NSString * const kHPPPLayoutTypeKey = @"kHPPPLayoutTypeKey";
 NSString * const kHPPPLayoutOrientationKey = @"kHPPPLayoutOrientationKey";
 NSString * const kHPPPLayoutPositionKey = @"kHPPPLayoutPositionKey";
+NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
 
 + (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
 {
@@ -54,8 +55,8 @@ NSString * const kHPPPLayoutPositionKey = @"kHPPPLayoutPositionKey";
     if (HPPPLayoutTypeUnknown != type) {
         [encoder encodeObject:[NSNumber numberWithInt:type] forKey:kHPPPLayoutTypeKey];
         [encoder encodeObject:[NSNumber numberWithInt:layout.orientation] forKey:kHPPPLayoutOrientationKey];
-        NSDictionary *position = (__bridge NSDictionary *)CGRectCreateDictionaryRepresentation(layout.assetPosition);
-        [encoder encodeObject:position forKey:kHPPPLayoutPositionKey];
+        [encoder encodeBool:layout.allowContentRotation forKey:kHPPPLayoutAllowRotationKey];
+        [encoder encodeCGRect:layout.assetPosition forKey:kHPPPLayoutPositionKey];
     }
 }
 
@@ -63,10 +64,10 @@ NSString * const kHPPPLayoutPositionKey = @"kHPPPLayoutPositionKey";
 {
     HPPPLayoutType type = [[decoder decodeObjectForKey:kHPPPLayoutTypeKey] intValue];
     HPPPLayoutOrientation orientation = [[decoder decodeObjectForKey:kHPPPLayoutOrientationKey] intValue];
-    CFDictionaryRef positionDictionary = (__bridge CFDictionaryRef)[decoder decodeObjectForKey:kHPPPLayoutPositionKey];
-    CGRect positionRect;
-    CGRectMakeWithDictionaryRepresentation(positionDictionary, &positionRect);
-    return [self layoutWithType:type orientation:orientation assetPosition:positionRect];
+    CGRect positionRect = [decoder decodeCGRectForKey:kHPPPLayoutPositionKey];
+    HPPPLayout *layout = [self layoutWithType:type orientation:orientation assetPosition:positionRect];
+    layout.allowContentRotation = [decoder decodeBoolForKey:kHPPPLayoutAllowRotationKey];
+    return layout;
 }
 
 + (HPPPLayoutType)layoutTypeFromLayout:(HPPPLayout *)layout

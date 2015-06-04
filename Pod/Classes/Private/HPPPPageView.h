@@ -38,6 +38,11 @@
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 
 /*!
+ * @abstract Indicates whether or not image should be shown in black and white
+ */
+@property (assign, nonatomic) BOOL blackAndWhite;
+
+/*!
  * @abstract Sets the preview to color mode
  * @param completion A block to be called when animation to color completes
  */
@@ -57,12 +62,20 @@
  */
 - (void)setPaperSize:(HPPPPaper *)paperSize animated:(BOOL)animated completion:(void (^)(void))completion;
 
-// TODO: needs documentation
+/*!
+ * @abstract Redraws the page layout
+ */
 - (void)refreshLayout;
-@property (assign, nonatomic) BOOL blackAndWhite;
 
+
+/*!
+ * @abstract Shows the page with a fade-in effect
+ */
 - (void)showPageAnimated:(BOOL)animated completion:(void (^)(void))completion;
 
+/*!
+ * @abstract Initiates the page curl
+ */
 - (void)curlPage;
 
 @end

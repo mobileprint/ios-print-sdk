@@ -85,10 +85,7 @@ typedef enum {
 // TODO: needs documentation
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper;
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper image:(UIImage *)image layout:(HPPPLayout *)layout;
-
-// TODO: needs documentation
 - (void)applyConstraintsWithFrame:(CGRect)frame toContentView:(UIView *)contentView inContainerView:(UIView *)containerView;
-
 @property (assign, nonatomic, readonly) CGRect assetPosition;
 @property (assign, nonatomic, readonly) HPPPLayoutOrientation orientation;
 @property (assign, nonatomic) BOOL allowContentRotation;
