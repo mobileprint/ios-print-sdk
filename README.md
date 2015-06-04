@@ -9,23 +9,23 @@
 - [Documentation](#documentation)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Print Workflow](#print-workflow)
-- [Share Activity (Print)](#share-activity-print)
-- [View Controller](#view-controller)
-- [Delegate](#delegate)
-- [Data Source](#data-source)
-- [Customization](#customization)
-- [Appearance](#appearance)
-- [Print Layout](#print-layout)
-- [Print Later Workflow](#print-later-workflow)
-- [Print Job](#print-job)
-- [Share Activity (Add Job)](#share-activity-add-job)
-- [Show Print Queue](#show-print-queue)
-- [Printer Notifications](#printer-notifications)
-- [Project Capabilities](#project-capabilities)
-- [Entries in `plist` File](#entries-in-plist-file)
-- [App Delegate](#app-delegate)
-- [Registering Notifications](#registering-notifications)
+    - [Print Workflow](#print-workflow)
+        - [Share Activity (Print)](#share-activity-print)
+        - [View Controller](#view-controller)
+        - [Delegate](#delegate)
+        - [Data Source](#data-source)
+        - [Customization](#customization)
+            - [Appearance](#appearance)
+            - [Print Layout](#print-layout)
+    - [Print Later Workflow](#print-later-workflow)
+        - [Print Job](#print-job)
+        - [Share Activity (Add Job)](#share-activity-add-job)
+        - [Show Print Queue](#show-print-queue)
+    - [Printer Notifications](#printer-notifications)
+        - [Project Capabilities](#project-capabilities)
+        - [Entries in `plist` File](#entries-in-plist-file)
+        - [App Delegate](#app-delegate)
+        - [Registering Notifications](#registering-notifications)
 - [Author](#author)
 - [License](#license)
 
@@ -41,19 +41,19 @@ The __HPPhotoPrint__ pod is not yet available publicly (i.e. via [cocoapods.org]
 
 Add the private pod trunk as a source in your `Podfile`. It is important that this entry is before the source for the public Cocoapod trunk:
 
-source 'https://github.com/IPGPTP/hp_mss_pods.git'
+    source 'https://github.com/IPGPTP/hp_mss_pods.git'
 
 Add an entry for the __HPPhotoPrint__ pod with the desired version number:
 
-pod 'HPPhotoPrint', '2.2.3'
+    pod 'HPPhotoPrint', '2.2.3'
 
 On the command line, switch to the directory containing the `Podfile` and run the install command:
 
-pod install
+    pod install
 
 The following is an example of a typical complete `Podfile`:
 
-```ruby
+ ```ruby
 
 platform :ios, '7.0'
 
@@ -100,21 +100,21 @@ You must provide a single printable image as part of the initial sharing setup, 
 
 - (IBAction)shareBarButtonItemTap:(id)sender
 {
-HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
-printActivity.dataSource = self;
-NSArray *applicationActivities = @[printActivity];
-UIImage *printableItem = [UIImage imageNamed:@"sample.jpg"];
-NSArray *activitiesItems = @[printableItem];
-UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activitiesItems applicationActivities:applicationActivities];
-activityViewController.excludedActivityTypes = @[UIActivityTypePrint];
-activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
-if (completed) {
-NSLog(@"Activity completed");
-} else {
-NSLog(@"Activity NOT completed");
-}
-};
-[self presentViewController:activityViewController animated:YES completion:nil];
+    HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
+    printActivity.dataSource = self;
+    NSArray *applicationActivities = @[printActivity];
+    UIImage *printableItem = [UIImage imageNamed:@"sample.jpg"];
+    NSArray *activitiesItems = @[printableItem];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activitiesItems applicationActivities:applicationActivities];
+    activityViewController.excludedActivityTypes = @[UIActivityTypePrint];
+    activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
+        if (completed) {
+            NSLog(@"Activity completed");
+        } else {
+            NSLog(@"Activity NOT completed");
+        }
+    };
+    [self presentViewController:activityViewController animated:YES completion:nil];
 }
 
 ```
@@ -128,8 +128,8 @@ You must provide an initial image and optional delegate and data source (describ
 ```objc
 
 - (IBAction)printButtonTapped:(id)sender {
-UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[UIImage imageNamed:@"sample.jpg"] fromQueue:NO];
-[self presentViewController:vc animated:YES completion:nil];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self image:[UIImage imageNamed:@"sample.jpg"] fromQueue:NO];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 ```
@@ -145,12 +145,12 @@ If you want to dismiss the printing view controller after printing is complete, 
 
 - (void)didFinishPrintFlow:(UIViewController *)printViewController;
 {
-[printViewController dismissViewControllerAnimated:YES completion:nil];
+    [printViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didCancelPrintFlow:(UIViewController *)printViewController;
 {
-[printViewController dismissViewControllerAnimated:YES completion:nil];
+    [printViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 ```
@@ -166,19 +166,19 @@ When you implement this protocol you will get a request for a new printable item
 
 - (void)printingItemForPaper:(HPPPPaper *)paper withCompletion:(void (^)(id))completion
 {
-if (completion) {
-completion([UIImage imageNamed:@"sample.jpg"]);
-}
+    if (completion) {
+        completion([UIImage imageNamed:@"sample.jpg"]);
+    }
 }
 
 - (NSInteger)numberOfPrintingItems
 {
-return 1;
+    return 1;
 }
 
 - (NSArray *)printingItemsForPaper:(HPPPPaper *)paper
 {
-return @[ [UIImage imageNamed:@"sample.jpg"] ];
+    return @[ [UIImage imageNamed:@"sample.jpg"] ];
 }
 
 ```
@@ -193,13 +193,13 @@ This setup is typically done in the app delegate at startup.
 
 + (void)setPrintOptions
 {
-[HPPP sharedInstance].tableViewCellLinkLabelColor = [UIColor blueColor];
-[HPPP sharedInstance].zoomAndCrop = NO;
-[HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
-[HPPP sharedInstance].hideBlackAndWhiteOption = FALSE;
-[HPPP sharedInstance].hidePaperSizeOption = FALSE;
-[HPPP sharedInstance].hidePaperTypeOption = FALSE;
-[HPPP sharedInstance].paperSizes = @[ [HPPPPaper titleFromSize:Size4x6], [HPPPPaper titleFromSize:Size5x7], [HPPPPaper titleFromSize:SizeLetter] ];
+    [HPPP sharedInstance].tableViewCellLinkLabelColor = [UIColor blueColor];
+    [HPPP sharedInstance].zoomAndCrop = NO;
+    [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
+    [HPPP sharedInstance].hideBlackAndWhiteOption = FALSE;
+    [HPPP sharedInstance].hidePaperSizeOption = FALSE;
+    [HPPP sharedInstance].hidePaperTypeOption = FALSE;
+    [HPPP sharedInstance].paperSizes = @[ [HPPPPaper titleFromSize:Size4x6], [HPPPPaper titleFromSize:Size5x7], [HPPPPaper titleFromSize:SizeLetter] ];
 }
 
 ```
@@ -214,21 +214,21 @@ In this case you create an [`HPPPAppearance`](http://hppp.herokuapp.com/HPPPAppe
 
 + (void)setPrintOptions
 {
-NSMutableDictionary *printQueueScreenAttributes = [NSMutableDictionary dictionaryWithDictionary:[HPPP sharedInstance].appearance.printQueueScreenAttributes];
-
-[printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:17] forKey:HPPPPrintQueueScreenEmptyQueueFontAttribute];
-[printQueueScreenAttributes setObject:[UIColor darkGrayColor] forKey:HPPPPrintQueueScreenEmptyQueueColorAttribute];
-
-[printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:20] forKey:HPPPPrintQueueScreenPreviewJobNameFontAttribute];
-[printQueueScreenAttributes setObject:[UIColor whiteColor] forKey:HPPPPrintQueueScreenPreviewJobNameColorAttribute];
-
-[printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:16] forKey:HPPPPrintQueueScreenPreviewJobDateFontAttribute];
-[printQueueScreenAttributes setObject:[UIColor whiteColor] forKey:HPPPPrintQueueScreenPreviewJobDateColorAttribute];
-
-[printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:16] forKey:HPPPPrintQueueScreenPreviewDoneButtonFontAttribute];
-[printQueueScreenAttributes setObject:[UIColor whiteColor] forKey:HPPPPrintQueueScreenPreviewDoneButtonColorAttribute];
-
-[HPPP sharedInstance].appearance.printQueueScreenAttributes = [NSDictionary dictionaryWithDictionary:printQueueScreenAttributes];
+    NSMutableDictionary *printQueueScreenAttributes = [NSMutableDictionary dictionaryWithDictionary:[HPPP sharedInstance].appearance.printQueueScreenAttributes];
+    
+    [printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:17] forKey:HPPPPrintQueueScreenEmptyQueueFontAttribute];
+    [printQueueScreenAttributes setObject:[UIColor darkGrayColor] forKey:HPPPPrintQueueScreenEmptyQueueColorAttribute];
+    
+    [printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:20] forKey:HPPPPrintQueueScreenPreviewJobNameFontAttribute];
+    [printQueueScreenAttributes setObject:[UIColor whiteColor] forKey:HPPPPrintQueueScreenPreviewJobNameColorAttribute];
+    
+    [printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:16] forKey:HPPPPrintQueueScreenPreviewJobDateFontAttribute];
+    [printQueueScreenAttributes setObject:[UIColor whiteColor] forKey:HPPPPrintQueueScreenPreviewJobDateColorAttribute];
+    
+    [printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:16] forKey:HPPPPrintQueueScreenPreviewDoneButtonFontAttribute];
+    [printQueueScreenAttributes setObject:[UIColor whiteColor] forKey:HPPPPrintQueueScreenPreviewDoneButtonColorAttribute];
+    
+    [HPPP sharedInstance].appearance.printQueueScreenAttributes = [NSDictionary dictionaryWithDictionary:printQueueScreenAttributes];
 }
 
 ```
@@ -243,10 +243,10 @@ Each [`HPPPPrintItem`](http://hppp.herokuapp.com/HPPPPrintItem_h/Classes/HPPPPri
 
 - (HPPPPrintItem *)createPrintItemWithAsset:(id)asset
 {
-HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:asset];
-HPPPLayout  *layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit];
-printItem.layout = layout;
-return printItem;
+    HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:asset];
+    HPPPLayout  *layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit];
+    printItem.layout = layout;
+    return printItem;
 }
 
 ```
@@ -269,12 +269,12 @@ A print job requires a unique ID which can be obtained via the utility method [`
 
 - (HPPPPrintLaterJob *)createJobWithImage:(UIImage *)image
 {
-NSString *jobID = [[HPPP sharedInstance] nextPrintJobId];
-HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
-printLaterJob.id = jobID;
-printLaterJob.name = @"My Job";
-printLaterJob.date = [NSDate date];
-printLaterJob.images = @{ [HPPPPaper titleFromSize:Size4x6]:image };
+    NSString *jobID = [[HPPP sharedInstance] nextPrintJobId];
+    HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
+    printLaterJob.id = jobID;
+    printLaterJob.name = @"My Job";
+    printLaterJob.date = [NSDate date];
+    printLaterJob.images = @{ [HPPPPaper titleFromSize:Size4x6]:image };
 }
 
 ```
@@ -290,22 +290,22 @@ In this case, the HPPPPrintLaterActivity is configured and added to the act.
 
 - (IBAction)shareBarButtonItemTap:(id)sender
 {
-HPPPPrintLaterJob *job = [self createJobWithImage:[UIImage imageNamed:@"sample.jpg"]];
-HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
-printLAterActivity.printLaterJob = job;
-NSArray *applicationActivities = @[printLaterActivity];
-UIImage *printableItem = [UIImage imageNamed:@"sample.jpg"]; // required but not used for print later
-NSArray *activitiesItems = @[printableItem];
-UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activitiesItems applicationActivities:applicationActivities];
-activityViewController.excludedActivityTypes = @[UIActivityTypePrint];
-activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
-if (completed) {
-NSLog(@"Activity completed");
-} else {
-NSLog(@"Activity NOT completed");
-}
-};
-[self presentViewController:activityViewController animated:YES completion:nil];
+    HPPPPrintLaterJob *job = [self createJobWithImage:[UIImage imageNamed:@"sample.jpg"]];
+    HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
+    printLAterActivity.printLaterJob = job;
+    NSArray *applicationActivities = @[printLaterActivity];
+    UIImage *printableItem = [UIImage imageNamed:@"sample.jpg"]; // required but not used for print later
+    NSArray *activitiesItems = @[printableItem];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activitiesItems applicationActivities:applicationActivities];
+    activityViewController.excludedActivityTypes = @[UIActivityTypePrint];
+    activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
+        if (completed) {
+            NSLog(@"Activity completed");
+        } else {
+            NSLog(@"Activity NOT completed");
+        }
+    };
+    [self presentViewController:activityViewController animated:YES completion:nil];
 }
 
 ```
@@ -320,7 +320,7 @@ Use the utility method [presentPrintQueueFromController:animated:completion:](ht
 
 - (IBAction)showPrintQueueTapped:(id)sender
 {
-[[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
+    [[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
 }
 
 ``` 
@@ -361,16 +361,16 @@ Notifications events are handled in the app delegate. Add the following two hand
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-if (application.applicationState == UIApplicationStateInactive) {
-[[HPPPPrintLaterManager sharedInstance] handleNotification:notification];
-} 
+    if (application.applicationState == UIApplicationStateInactive) {
+        [[HPPPPrintLaterManager sharedInstance] handleNotification:notification];
+    } 
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)())completionHandler
 {
-[[HPPPPrintLaterManager sharedInstance] handleNotification:notification action:identifier];
-
-completionHandler();
+    [[HPPPPrintLaterManager sharedInstance] handleNotification:notification action:identifier];
+    
+    completionHandler();
 }
 
 ```
