@@ -15,27 +15,22 @@
 
 @implementation HPPPLayout
 
-CGFloat const kDefaultLeftPercent = 0.0f;
-CGFloat const kDefaultTopPercent = 0.0f;
-CGFloat const kDefaultWidthPercent = 100.0f;
-CGFloat const kDefaultHeightPercent = 100.0f;
-
 #pragma mark - Initialization
 
-- (id)initWithOrientation:(HPPPLayoutOrientation)orientation andAssetPosition:(CGRect)position;
+- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position allowContentRotation:(BOOL)allowRotation;
 {
     self = [super init];
     if (self) {
         _orientation = orientation;
         _assetPosition = CGRectStandardize(position);
-        _allowContentRotation = YES;
+        _allowContentRotation = allowRotation;
     }
     return self;
 }
 
-+ (CGRect)defaultAssetPosition
++ (CGRect)completeFillRectangle
 {
-    return CGRectMake(kDefaultLeftPercent, kDefaultTopPercent, kDefaultWidthPercent, kDefaultHeightPercent);
+    return CGRectMake(0, 0, 100, 100);
 }
 
 - (CGRect)assetPositionForRect:(CGRect)rect
@@ -68,7 +63,6 @@ CGFloat const kDefaultHeightPercent = 100.0f;
     BOOL containerIsLandscape = !containerIsPortrait;
     
     BOOL contentMatchesContainer = ((contentIsPortrait && containerIsPortrait) || (contentIsLandscape && containerIsLandscape));
-    
     
     BOOL rotationNeeded = NO;
     if (self.allowContentRotation) {

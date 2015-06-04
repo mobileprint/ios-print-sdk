@@ -13,6 +13,9 @@
 #import <Foundation/Foundation.h>
 #import "HPPPLayout.h"
 
+/*!
+ * @abstract Factory class for creating layouts
+ */
 @interface HPPPLayoutFactory : NSObject
 
 /*!
@@ -34,6 +37,7 @@ typedef enum {
 /*!
  * @abstract Creates a layout of the given type
  * @param layoutType The type of layout to create
+ * @return The layout created or nil if not layout could be created
  * @seealso HPPPLayoutType
  */
 + (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType;
@@ -43,9 +47,11 @@ typedef enum {
  * @param layoutType The type of layout to create
  * @param orientation The orientation strategy used by the layout
  * @param assetPosition A CGRect of percentage-based values that locates the layout content rectangle on the page
+ * @param allowRotation A boolean specifying whether or not content is allowed to be rotated to optimize the layout
+ * @return The layout created or nil if not layout could be created
  * @seealso HPPPLayoutType
  */
-+ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType orientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)assetPosition;
++ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType orientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)assetPosition allowContentRotation:(BOOL)allowRotation;
 
 /*!
  * @abstract Used to persist the layout

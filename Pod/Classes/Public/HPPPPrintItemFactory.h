@@ -13,8 +13,16 @@
 #import <Foundation/Foundation.h>
 #import "HPPPPrintItem.h"
 
+/*!
+ * @abstract Factory class for creating print items
+ */
 @interface HPPPPrintItemFactory : NSObject
 
+/*!
+ * @abstract Creates a print item instance for a given asset
+ * @param asset The printable asset used to create the print item
+ * @return The print item or nil if no print item could be created with the asset given
+ */
 + (HPPPPrintItem *)printItemWithAsset:(id)asset;
 
 @end

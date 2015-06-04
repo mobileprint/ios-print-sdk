@@ -57,7 +57,9 @@ NSString * const kHPPPPrintAssetKey = @"kHPPPPrintAssetKey";
 {
     id printAsset = [self initAssetWithCoder:decoder];
     HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:printAsset];
-    printItem.layout = [HPPPLayoutFactory initLayoutWithCoder:decoder];
+    if (printItem) {
+        printItem.layout = [HPPPLayoutFactory initLayoutWithCoder:decoder];
+    }
     return printItem;
 }
 
