@@ -24,7 +24,6 @@
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
-@property (weak, nonatomic) IBOutlet UIImageView *lastPrintLaterJobSavedImageView;
 @property (weak, nonatomic) IBOutlet UISwitch *basicMetricsSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *extendedMetricsSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *photoSourceTextField;
@@ -34,10 +33,23 @@
 @property (assign, nonatomic) BOOL sharingInProgress;
 @property (strong, nonatomic) NSDictionary *imageFiles;
 @property (strong, nonatomic) NSArray *pdfFiles;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *layoutSegmentControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *orientationSegmentControl;
+@property (weak, nonatomic) IBOutlet UISwitch *allowRotationSwitch;
+@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *positionTextField;
 
 @end
 
 @implementation HPPPExampleViewController
+
+int const kLayoutDefaultIndex = 0;
+int const kLayoutFitIndex = 1;
+int const kLayoutFillIndex = 2;
+int const kLayoutStretchIndex = 3;
+
+int const kOrientationBest = 0;
+int const kOrientationPortrait = 1;
+int const kOrientationLandscape = 2;
 
 - (void)viewDidLoad
 {
@@ -63,7 +75,6 @@
                                          [HPPPPaper titleFromSize:SizeLetter]
                                          ];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(printJobAddedNotification:) name:kHPPPPrintJobAddedToQueueNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintQueueNotification:) name:kHPPPPrintQueueNotification object:nil];
     
     [self populatePrintQueue];
@@ -87,6 +98,7 @@
                       @"10 Pages"
                       ];
     
+    self.view.frame = CGRectMake(0, 0, 300, 10000);
 }
 
 - (void)dealloc
@@ -272,9 +284,9 @@
 - (NSDictionary *)photoSourceMetrics
 {
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            self.photoSourceTextField.text, @"photo_source",
-            self.userIDTextField.text, @"user_id",
-            self.userNameTextField.text, @"user_name", nil];
+            @"facebook", @"photo_source",
+            @"1234567890", @"user_id",
+            @"Samply McSampleson", @"user_name", nil];
 }
 
 - (void)handlePrintQueueNotification:(NSNotification *)notification
@@ -288,16 +300,6 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self userInfo:metrics];
         }
     }
-}
-
-#pragma mark - Adding and removing jobs
-
-- (void)printJobAddedNotification:(NSNotification *)notification
-{
-    HPPPPrintLaterJob *job = (HPPPPrintLaterJob *)notification.object;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.lastPrintLaterJobSavedImageView.image = [job previewImage];
-    });
 }
 
 #pragma mark - Print queue
@@ -366,18 +368,52 @@
 
 - (HPPPLayout *)layoutForPaper:(HPPPPaper *)paper
 {
-    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFill];
-    if (SizeLetter == paper.paperSize) {
-        HPPPPaper *letterPaper = [[HPPPPaper alloc] initWithPaperSize:SizeLetter paperType:Plain];
-        HPPPPaper *defaultPaper = [HPPP sharedInstance].defaultPaper;
-        CGFloat maxDimension = fmaxf(defaultPaper.width, defaultPaper.height);
-        CGFloat width = maxDimension / letterPaper.width * 100.0f;
-        CGFloat height = maxDimension / letterPaper.height * 100.0f;
-        CGFloat x = (100.0f - width) / 2.0f;
-        CGFloat y = (100.0f - height) / 2.0f;
-        layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationPortrait assetPosition:CGRectMake(x, y, width, height) allowContentRotation:NO];
+    BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && SizeLetter == paper.paperSize);
+    
+    HPPPLayoutOrientation orientation = HPPPLayoutOrientationBestFit;
+    if (defaultLetter || kOrientationPortrait == self.orientationSegmentControl.selectedSegmentIndex) {
+        orientation = HPPPLayoutOrientationPortrait;
+    } else if (kOrientationLandscape == self.orientationSegmentControl.selectedSegmentIndex) {
+        orientation = HPPPLayoutOrientationLandscape;
     }
-    return layout;
+    
+    CGRect position = [HPPPLayout completeFillRectangle];
+    if (defaultLetter) {
+        position = [self defaultLetterPosition];
+    } else {
+        CGFloat x = [((UITextField *)self.positionTextField[0]).text floatValue];
+        CGFloat y = [((UITextField *)self.positionTextField[1]).text floatValue];
+        CGFloat width = [((UITextField *)self.positionTextField[2]).text floatValue];
+        CGFloat height = [((UITextField *)self.positionTextField[3]).text floatValue];
+        if (width > 0 && height > 0) {
+            position = CGRectMake(x, y, width, height);
+        }
+    }
+    
+    BOOL allowRotation = !defaultLetter;
+    
+    HPPPLayoutType type = HPPPLayoutTypeDefault;
+    if (defaultLetter || kLayoutFitIndex == self.layoutSegmentControl.selectedSegmentIndex) {
+        type = HPPPLayoutTypeFit;
+    } else if (kLayoutFillIndex == self.layoutSegmentControl.selectedSegmentIndex) {
+        type = HPPPLayoutTypeFill;
+    } else if (kLayoutStretchIndex == self.layoutSegmentControl.selectedSegmentIndex) {
+        type = HPPPLayoutTypeStretch;
+    }
+    
+    return [HPPPLayoutFactory layoutWithType:type orientation:orientation assetPosition:position allowContentRotation:allowRotation];
+}
+
+- (CGRect)defaultLetterPosition
+{
+    HPPPPaper *letterPaper = [[HPPPPaper alloc] initWithPaperSize:SizeLetter paperType:Plain];
+    HPPPPaper *defaultPaper = [HPPP sharedInstance].defaultPaper;
+    CGFloat maxDimension = fmaxf(defaultPaper.width, defaultPaper.height);
+    CGFloat width = maxDimension / letterPaper.width * 100.0f;
+    CGFloat height = maxDimension / letterPaper.height * 100.0f;
+    CGFloat x = (100.0f - width) / 2.0f;
+    CGFloat y = (100.0f - height) / 2.0f;
+    return CGRectMake(x, y, width, height);
 }
 
 - (NSDictionary *)printItemsForAsset:(id)asset
