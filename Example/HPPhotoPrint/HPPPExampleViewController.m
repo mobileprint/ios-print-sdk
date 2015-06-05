@@ -375,8 +375,7 @@
         CGFloat height = maxDimension / letterPaper.height * 100.0f;
         CGFloat x = (100.0f - width) / 2.0f;
         CGFloat y = (100.0f - height) / 2.0f;
-        layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationPortrait assetPosition:CGRectMake(x, y, width, height)];
-        layout.allowContentRotation = NO;
+        layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationPortrait assetPosition:CGRectMake(x, y, width, height) allowContentRotation:NO];
     }
     return layout;
 }

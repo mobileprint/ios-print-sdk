@@ -114,7 +114,7 @@
         return;
     }
 
-    HPPPLayout *paperLayout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationMatchContainer assetPosition:CGRectMake(0, 0, 100, 100)];
+    HPPPLayout *paperLayout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit orientation:HPPPLayoutOrientationMatchContainer assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:YES];
     [HPPPLayout preparePaperView:self.paperView withPaper:self.paper];
     [paperLayout layoutContentView:self.paperView inContainerView:self.containerView];
         

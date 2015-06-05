@@ -1,6 +1,6 @@
 # HPPhotoPrint
 
-[![Version](https://img.shields.io/badge/pod-2.2.1-blue.svg)](http://hppp.herokuapp.com)
+[![Version](https://img.shields.io/badge/pod-2.2.3-blue.svg)](http://hppp.herokuapp.com)
 [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](http://hppp.herokuapp.com)
 [![Awesome](https://img.shields.io/badge/awesomeness-verified-green.svg)](http://hppp.herokuapp.com)
 
@@ -45,7 +45,7 @@ Add the private pod trunk as a source in your `Podfile`. It is important that th
 
 Add an entry for the __HPPhotoPrint__ pod with the desired version number:
 
-    pod 'HPPhotoPrint', '2.2.1'
+    pod 'HPPhotoPrint', '2.2.3'
 
 On the command line, switch to the directory containing the `Podfile` and run the install command:
 
@@ -64,7 +64,7 @@ pod 'GoogleAnalytics-iOS-SDK'
 pod 'TTTAttributedLabel', '~> 1.10.1'
 pod 'XMLDictionary', '~> 1.4.0'
 pod 'CocoaLumberjack', '1.9.1'
-pod 'HPPhotoPrint', '2.2.1'
+pod 'HPPhotoPrint', '2.2.3'
 pod 'ZipArchive', '1.4.0'
 
 xcodeproj 'MyProject/MyProject.xcodeproj'
@@ -158,7 +158,7 @@ If you want to dismiss the printing view controller after printing is complete, 
 #### Data Source
 
 You can optionally provide a printing data source by implementing the [`HPPPPrintDataSource`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html) protocol. This allows you to control what gets printed for any given paper size. 
-When you implement this protocol you will get a request for a new printable image each time the user selects a different paper size.
+When you implement this protocol you will get a request for a new printable item each time the user selects a different paper size. When preparing the item for the given paper size you can also specify a layout (see [Print Layout](#print-layout)).
 
 > __Note:__ If you implement this protocol, you _must_ implement the single-image method. If your app supports multi-image print jobs then you _must_ implement all three methods in the protocol
 
@@ -235,17 +235,21 @@ In this case you create an [`HPPPAppearance`](http://hppp.herokuapp.com/HPPPAppe
 
 ##### Print Layout
 
-If the image to be printed does not match the size of the paper to be printed on, then one of two behaviors can be configured. This behavior is controlled via the [`zoomAndCrop`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/zoomAndCrop) property of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
+Each [`HPPPPrintItem`](http://hppp.herokuapp.com/HPPPPrintItem_h/Classes/HPPPPrintItem/index.html) instance can be configured with a layout class that defines the strategy used to lay out the content on the page. The layout class is an instance of [`HPPPLayout`](http://hppp.herokuapp.com/HPPPLayout_h/Classes/HPPPLayout/index.html) and can be created using class methods in [`HPPPLayoutFactory`](http://hppp.herokuapp.com/HPPPLayoutFactory_h/Classes/HPPPLayoutFactory/index.html). See the documentation for [`HPPPLayoutType`](http://hppp.herokuapp.com/HPPPLayoutFactory_h/Classes/HPPPLayoutFactory/index.html#//apple_ref/occ/tdef/HPPPLayoutFactory/HPPPLayoutType) for information on available layout strategies.
 
-If [`zoomAndCrop`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/zoomAndCrop) is set to `YES`, the image aspect ratio is maintained but the image is reduced or enlarged so that it just fills the entire page. 
-Some top/bottom or left/right cropping of the image may occur. 
-This behavior is identical to the [`UIViewContentModeScaleAspectFill`](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/c/tdef/UIViewContentMode) content mode setting of `UIView`.
+> __Note:__ It is possible to specify different layouts for different paper sizes by implementing the [`HPPPPrintDataSource`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html) protocol and responding to the [`printingItemForPaper:withCompletion:`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/printingItemForPaper:withCompletion:) method.
 
-If [`zoomAndCrop`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/zoomAndCrop) is set to `NO`, the image layout on the page depends on the ratio of the page width to the image width.
-If this ratio is less than 1.25 then the image is reduced or enlarged so that its width is exactly equal to the page width. Then the top edge of the image is aligned with the top edge of the page. The bottom of the image may be cropped or there may be empty space left at the bottom of the print.
-If the ratio is greater than 1.25 then the image is simply centered horizontally and vertically on the page.
+```objc
 
-> __Note:__ The reason for this unique behavior has to do with the custom needs of a proprietary HP app.
+- (HPPPPrintItem *)createPrintItemWithAsset:(id)asset
+{
+    HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:asset];
+    HPPPLayout  *layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit];
+    printItem.layout = layout;
+    return printItem;
+}
+
+```
 
 ### Print Later Workflow
 

@@ -39,16 +39,20 @@ typedef enum {
  * @abstract Creates a layout with a specific asset position
  * @param position A CGRect of percentage-based values that locates the layout content rectangle on the page
  * @param orientation An HPPPLayoutOrientation value specifiying the orientation strategy to use
- * @discussion Note that the position of the asset on the page is specified as a rectangle with an origin and size. Both the origin (x, y) and the size (width, height) are specified in percentage of total page size. The origin can include negative values but the size should include only positive values. The iOS method CGRectStandardize will be used to ensure positive size values.
+ * @param allowRotation A boolean specifiying if content is allowed to be rotated to optimize layout
+ * @discussion Note that the iOS method CGRectStandardize will be used to ensure positive size values of the asset position rectangle.
+ * @seealso assetPosition
+ * @seealso orientation
+ * @seealso allowContentRotation
  */
-- (id)initWithOrientation:(HPPPLayoutOrientation)orientation andAssetPosition:(CGRect)position;
+- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position allowContentRotation:(BOOL)allowRotation;
 
 /*!
  * @abstract Draws the image onto a content rectangle
  * @param image The image asset to draw
  * @param rect The reference rectangle onto which the image is drawn.
  * @discussion The actual content rectangle used for layout will be computed using the rectangle passed in with the assetPosition percentages applied.
- * @seealso initWithOrientation:andAssetPosition:
+ * @seealso initWithOrientation:assetPosition:allowContentRotation:
  */
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect;
 
@@ -77,20 +81,61 @@ typedef enum {
 - (BOOL)rotationNeededForContent:(CGRect)contentRect withContainer:(CGRect)containerRect;
 
 /*!
- * @abstract The default asset position
- * @discussion The default is to fill the entire page with the asset. This means an asset position of origin 0%, 0% and size 100%, 100%.
+ * @abstract The asset position that fills the container completely
+ * @discussion This assetPosition will fill the entire page with the asset. This means an asset position of origin 0%, 0% and size 100%, 100%.
+ * @seealso assetPosition
  */
-+ (CGRect)defaultAssetPosition;
++ (CGRect)completeFillRectangle;
 
-// TODO: needs documentation
+/*!
+ * @abstract Sets paper view to its initial aspect ratio
+ * @param paperView The content paper view to prepare
+ * @param paper The HPPPPaper object that the paper view will represent
+ * @discussion Uses the image and layout to determine whether portrait or landscape is best for the paper orientation. Then sets paper to "unit dimensions" that represent the orientation and aspect ratio desired.
+ * @seealso preparePaperView:withPaper:image:layout:
+ */
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper;
+
+
+/*!
+ * @abstract Sets paper view to its initial aspect ratio and stores the image and layout
+ * @param paperView The content paper view to prepare
+ * @param paper The HPPPPaper object that the paper view will represent
+ * @param image The image to be laid out on the paper
+ * @param layout The layout to use for laying out content on the paper
+ * @discussion Stores the image and layout and uses them to determine whether portrait or landscape is best for the paper orientation. Then sets paper to "unit dimensions" that represent the orientation and aspect ratio desired.
+ * @seealso preparePaperView:withPaper:
+ */
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper image:(UIImage *)image layout:(HPPPLayout *)layout;
 
-// TODO: needs documentation
+
+/*!
+ * @abstract Applies the content position using layout constraints
+ * @param frame The desired content position within the container
+ * @param contentView The UIView representing the content
+ * @param containerView The UIView representing the container
+ */
 - (void)applyConstraintsWithFrame:(CGRect)frame toContentView:(UIView *)contentView inContainerView:(UIView *)containerView;
 
+/*!
+ * @abstract The adjusted postition of the content
+ * @discussion The position of the asset on the page is specified as a rectangle with an origin and size. Both the origin (x, y) and the size (width, height) are specified in percentage of total page size. The origin can include negative values but the size should include only positive values. The layout rectangle used when the layout is applied is computed as follows. The origin of the content is the origin of the container + the percentage of container width/height specified in the assetPosition origin. The content width/height is equal to the percentage of container width/height in assetPosition size.
+ */
 @property (assign, nonatomic, readonly) CGRect assetPosition;
+
+/*!
+ * @abstract The orientation of the layout
+ * @discussion This property controls how the layout handles content orientation relative to the container orientation.
+ * @seealso HPPPLayoutOrientation
+ * @seealso allowContentRotation
+ */
 @property (assign, nonatomic, readonly) HPPPLayoutOrientation orientation;
-@property (assign, nonatomic) BOOL allowContentRotation;
+
+/*!
+ * @abstract Specifies whether the layout allows the content to be rotated to optimize the orientation
+ * @seealso orientation
+ * @seealso HPPPLayoutOrientation
+ */
+@property (assign, nonatomic, readonly) BOOL allowContentRotation;
 
 @end

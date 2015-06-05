@@ -17,6 +17,10 @@
 
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
 {
+    if (1.0 != image.scale) {
+        HPPPLogWarn(@"Image scale of %.1f is not supported (use image scale 1.0)", image.scale);
+    }
+    
     CGRect containerRect = [self assetPositionForRect:rect];
     CGRect contentRect = CGRectMake(0, 0, image.size.width, image.size.height);
     UIImage *contentImage = image;
@@ -27,9 +31,9 @@
     
     CGRect croppingRect  = [self computeCroppingRectWithContentRect:contentRect andContainerRect:containerRect];
     CGImageRef imageRef = CGImageCreateWithImageInRect([contentImage CGImage], croppingRect);
-    UIImage *croppedImage   = [UIImage imageWithCGImage:imageRef];
+    UIImage *croppedImage   = [UIImage imageWithCGImage:imageRef scale:contentImage.scale orientation:contentImage.imageOrientation];
     CGImageRelease(imageRef);
-    
+
     [croppedImage drawInRect:containerRect];
 }
 
