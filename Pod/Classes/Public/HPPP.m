@@ -76,6 +76,7 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[HPPP alloc] init];
+        sharedInstance.interfaceOptions = [[HPPPInterfaceOptions alloc] init];
     });
     
     return sharedInstance;
@@ -285,7 +286,7 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
     }
 }
 
-- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue
+- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue;
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
     
@@ -317,7 +318,6 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
         pageSettingsTableViewController.delegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
         pageSettingsTableViewController.printFromQueue = fromQueue;
-        
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;
         navigationController.modalPresentationStyle = UIModalPresentationFormSheet;

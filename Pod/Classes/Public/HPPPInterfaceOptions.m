@@ -10,26 +10,22 @@
 // the license agreement.
 //
 
-#import "HPPP.h"
-#import "HPPPPageViewController.h"
-#import "NSBundle+HPPPLocalizable.h"
+#import "HPPPInterfaceOptions.h"
 
-@implementation HPPPPageViewController
+@implementation HPPPInterfaceOptions
 
-- (void)viewDidLoad
+- (id)init
 {
-    [super viewDidLoad];
-    
-    self.title = HPPPLocalizedString(@"Preview", @"Title of the Preview Screen");
-
-    self.pageView.printItem  = self.printItem;
+    self = [super init];
+    if (self)  {
+        self.multiPageMinimumGutter = 20;
+        self.multiPageMaximumGutter = 0;
+        self.multiPageBleed = 20;
+        self.multiPageBackgroundPageScale = 1.0;
+        self.multiPageDoubleTapEnabled = NO;
+        self.multiPageZoomOnSingleTap = NO;
+        self.multiPageZoomOnDoubleTap = NO;
+    }
+    return self;
 }
-
-- (void)viewDidLayoutSubviews
-{
-    [self.view layoutIfNeeded];
-    [self.pageView refreshLayout];
-    [self.multiPageView refreshLayout];
-}
-
 @end

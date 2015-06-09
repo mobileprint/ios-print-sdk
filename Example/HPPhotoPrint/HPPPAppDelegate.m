@@ -20,6 +20,12 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTrackableScreenNotification:) name:kHPPPTrackableScreenNotification object:nil];
     
+    [HPPP sharedInstance].interfaceOptions.multiPageMaximumGutter = 0;
+    [HPPP sharedInstance].interfaceOptions.multiPageBleed = 40;
+    [HPPP sharedInstance].interfaceOptions.multiPageBackgroundPageScale = 0.61803399;
+    [HPPP sharedInstance].interfaceOptions.multiPageDoubleTapEnabled = YES;
+    [HPPP sharedInstance].interfaceOptions.multiPageZoomOnDoubleTap = YES;
+    
     // Check if the app was opened by local notification
     UILocalNotification *localNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotification) {

@@ -22,6 +22,8 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		650858461B0C352900B0C70F /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650858451B0C352900B0C70F /* DBChooser.framework */; };
+		65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */; };
+		65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */; };
 		65C0652E1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C0652D1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m */; };
 		65FFC9B31B03B0A400DCE2B4 /* 1 Page (landscape).pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AD1B03B0A400DCE2B4 /* 1 Page (landscape).pdf */; };
 		65FFC9B41B03B0A400DCE2B4 /* 1 Page.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AE1B03B0A400DCE2B4 /* 1 Page.pdf */; };
@@ -72,6 +74,8 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		650858451B0C352900B0C70F /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
+		65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "44 Pages.pdf"; sourceTree = "<group>"; };
+		65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "51 Pages.pdf"; sourceTree = "<group>"; };
 		65C0652C1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPSelectPrintItemTableViewController.h; sourceTree = "<group>"; };
 		65C0652D1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPSelectPrintItemTableViewController.m; sourceTree = "<group>"; };
 		65FFC9AD1B03B0A400DCE2B4 /* 1 Page (landscape).pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "1 Page (landscape).pdf"; sourceTree = "<group>"; };
@@ -235,6 +239,8 @@
 				65FFC9B01B03B0A400DCE2B4 /* 4 Pages.pdf */,
 				65FFC9B11B03B0A400DCE2B4 /* 6 Pages (landscape).pdf */,
 				65FFC9B21B03B0A400DCE2B4 /* 10 Pages.pdf */,
+				65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */,
+				65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */,
 			);
 			name = PDF;
 			sourceTree = "<group>";
@@ -342,11 +348,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */,
 				65FFC9B31B03B0A400DCE2B4 /* 1 Page (landscape).pdf in Resources */,
 				65FFC9B81B03B0A400DCE2B4 /* 10 Pages.pdf in Resources */,
 				E32115E11A38BCE50079144C /* HPPPLearnMoreView.xib in Resources */,
 				65FFC9B71B03B0A400DCE2B4 /* 6 Pages (landscape).pdf in Resources */,
 				65FFC9B41B03B0A400DCE2B4 /* 1 Page.pdf in Resources */,
+				65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F5A1195388D20070C39A /* Main.storyboard in Resources */,
 				65FFC9B61B03B0A400DCE2B4 /* 4 Pages.pdf in Resources */,

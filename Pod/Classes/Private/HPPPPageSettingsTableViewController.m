@@ -32,6 +32,7 @@
 #import "NSBundle+HPPPLocalizable.h"
 #import "HPPPSupportAction.h"
 #import "HPPPLayoutFactory.h"
+#import "HPPPMultiPageView.h"
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 
@@ -99,6 +100,8 @@
 @property (strong, nonatomic) NSMutableArray *itemsToPrint;
 
 @property (assign, nonatomic) BOOL showCurlOnAppear;
+
+@property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
 
 @end
 
@@ -265,11 +268,15 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.pageView = self.pageViewController.pageView;
+        self.multiPageView = self.pageViewController.multiPageView;
+        [self configureMultiPageViewWithPrintItem:self.printItem];
         [self checkForMultipleImages];
         self.pageView.blackAndWhite = self.blackAndWhiteModeSwitch.on;
         self.pageView.printItem = self.printItem;
     }
-
+    
+    [self.multiPageView refreshLayout];
+    
     [self.pageView setPaperSize:self.currentPrintSettings.paper animated:YES completion:^{
         [self.pageView showPageAnimated:YES completion:^{
             if (self.showCurlOnAppear) {
@@ -285,6 +292,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     [self.view layoutIfNeeded];
     [self.pageView refreshLayout];
+    [self.multiPageView refreshLayout];
 }
 
 - (void)dealloc
@@ -528,6 +536,21 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     NSRange range = NSMakeRange(PAPER_SELECTION_SECTION, 1);
     NSIndexSet *sectionToReload = [NSIndexSet indexSetWithIndexesInRange:range];
     [self.tableView reloadSections:sectionToReload withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)setPrintItem:(HPPPPrintItem *)printItem
+{
+    _printItem = printItem;
+    [self configureMultiPageViewWithPrintItem:printItem];
+}
+
+- (void)configureMultiPageViewWithPrintItem:(HPPPPrintItem *)printItem
+{
+    if (self.currentPrintSettings.paper) {
+        [self.multiPageView setInterfaceOptions:[HPPP sharedInstance].interfaceOptions];
+        NSArray *images = [printItem previewImagesForPaper:self.currentPrintSettings.paper];
+        [self.multiPageView setPages:images paper:self.currentPrintSettings.paper layout:printItem.layout];
+    }
 }
 
 #pragma mark - Printer availability

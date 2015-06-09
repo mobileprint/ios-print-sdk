@@ -96,7 +96,6 @@ typedef enum {
  */
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper;
 
-
 /*!
  * @abstract Sets paper view to its initial aspect ratio and stores the image and layout
  * @param paperView The content paper view to prepare
@@ -108,6 +107,8 @@ typedef enum {
  */
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper image:(UIImage *)image layout:(HPPPLayout *)layout;
 
+// TODO: document
++ (HPPPLayoutOrientation)paperOrientationForimage:(UIImage *)image andLayout:(HPPPLayout *)layout;
 
 /*!
  * @abstract Applies the content position using layout constraints
