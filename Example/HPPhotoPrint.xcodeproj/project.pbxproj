@@ -38,6 +38,7 @@
 		E32115E01A38BCE50079144C /* HPPPLearnMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DE1A38BCE50079144C /* HPPPLearnMoreView.m */; };
 		E32115E11A38BCE50079144C /* HPPPLearnMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32115DF1A38BCE50079144C /* HPPPLearnMoreView.xib */; };
 		E35DD5981B0666F400E9BC97 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E35DD5971B0666F400E9BC97 /* MapKit.framework */; };
+		F14A1C5B1B28F594000C5855 /* PageRangeKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F14A1C521B28F594000C5855 /* PageRangeKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F16A57BA1AF2B0EA00F7265E /* HPPPExampleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F16A57B91AF2B0EA00F7265E /* HPPPExampleLogger.m */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +50,28 @@
 			remoteGlobalIDString = 6003F589195388D20070C39A;
 			remoteInfo = HPPhotoPrint;
 		};
+		F14A1C591B28F594000C5855 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6003F582195388D10070C39A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F14A1C511B28F594000C5855;
+			remoteInfo = PageRangeKeyboard;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F14A1C5F1B28F594000C5855 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F14A1C5B1B28F594000C5855 /* PageRangeKeyboard.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		080854DE6C4D61428EC1D8E8 /* libPods-HPPhotoPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HPPhotoPrint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +123,7 @@
 		E35DD5971B0666F400E9BC97 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		EE7EBCBC7723D10BF4D13C7F /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F081076366F4C76425844536 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		F14A1C521B28F594000C5855 /* PageRangeKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PageRangeKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F16A57B81AF2B0EA00F7265E /* HPPPExampleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPExampleLogger.h; sourceTree = "<group>"; };
 		F16A57B91AF2B0EA00F7265E /* HPPPExampleLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPExampleLogger.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,6 +153,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F14A1C4F1B28F594000C5855 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -150,6 +180,7 @@
 			children = (
 				6003F58A195388D20070C39A /* HPPhotoPrint.app */,
 				6003F5AE195388D20070C39A /* Tests.xctest */,
+				F14A1C521B28F594000C5855 /* PageRangeKeyboard.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -273,10 +304,12 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				542373FFA571279CCE085671 /* Copy Pods Resources */,
+				F14A1C5F1B28F594000C5855 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F14A1C5A1B28F594000C5855 /* PBXTargetDependency */,
 			);
 			name = HPPhotoPrint;
 			productName = HPPhotoPrint;
@@ -303,6 +336,23 @@
 			productReference = 6003F5AE195388D20070C39A /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F14A1C511B28F594000C5855 /* PageRangeKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F14A1C5E1B28F594000C5855 /* Build configuration list for PBXNativeTarget "PageRangeKeyboard" */;
+			buildPhases = (
+				F14A1C4E1B28F594000C5855 /* Sources */,
+				F14A1C4F1B28F594000C5855 /* Frameworks */,
+				F14A1C501B28F594000C5855 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PageRangeKeyboard;
+			productName = PageRangeKeyboard;
+			productReference = F14A1C521B28F594000C5855 /* PageRangeKeyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -326,6 +376,9 @@
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
+					F14A1C511B28F594000C5855 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
 				};
 			};
 			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "HPPhotoPrint" */;
@@ -344,6 +397,7 @@
 			targets = (
 				6003F589195388D20070C39A /* HPPhotoPrint */,
 				6003F5AD195388D20070C39A /* Tests */,
+				F14A1C511B28F594000C5855 /* PageRangeKeyboard */,
 			);
 		};
 /* End PBXProject section */
@@ -373,6 +427,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F14A1C501B28F594000C5855 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +526,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F14A1C4E1B28F594000C5855 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -472,6 +540,11 @@
 			isa = PBXTargetDependency;
 			target = 6003F589195388D20070C39A /* HPPhotoPrint */;
 			targetProxy = 6003F5B3195388D20070C39A /* PBXContainerItemProxy */;
+		};
+		F14A1C5A1B28F594000C5855 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F14A1C511B28F594000C5855 /* PageRangeKeyboard */;
+			targetProxy = F14A1C591B28F594000C5855 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -656,6 +729,43 @@
 			};
 			name = Release;
 		};
+		F14A1C5C1B28F594000C5855 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PageRangeKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F14A1C5D1B28F594000C5855 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = PageRangeKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -685,6 +795,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F14A1C5E1B28F594000C5855 /* Build configuration list for PBXNativeTarget "PageRangeKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F14A1C5C1B28F594000C5855 /* Debug */,
+				F14A1C5D1B28F594000C5855 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
