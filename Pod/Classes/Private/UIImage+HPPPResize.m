@@ -56,7 +56,7 @@
 
 - (UIImage *)HPPPRotate
 {
-    UIImage *image = [[UIImage alloc]initWithCGImage:self.CGImage
+    UIImage *image = [[UIImage alloc] initWithCGImage:self.CGImage
                                                scale:self.scale
                                          orientation:UIImageOrientationLeft];
     

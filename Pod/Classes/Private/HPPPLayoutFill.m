@@ -17,11 +17,11 @@
 
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
 {
-    if (1.0 != image.scale) {
-        HPPPLogWarn(@"Image scale of %.1f is not supported (use image scale 1.0)", image.scale);
-    }
+    // Have to disable asset position support until cropping with scaled image can be figured out -- jbt 6/11/15
+    // CGRect containerRect = [self assetPositionForRect:rect];
+    [self checkAssetPosition];
+    CGRect containerRect = rect;
     
-    CGRect containerRect = [self assetPositionForRect:rect];
     CGRect contentRect = CGRectMake(0, 0, image.size.width, image.size.height);
     UIImage *contentImage = image;
     if ([self rotationNeededForContent:contentRect withContainer:containerRect]) {
@@ -29,17 +29,19 @@
         contentRect = CGRectMake(0, 0, contentImage.size.width, contentImage.size.height);
     }
     
-    CGRect croppingRect  = [self computeCroppingRectWithContentRect:contentRect andContainerRect:containerRect];
-    CGImageRef imageRef = CGImageCreateWithImageInRect([contentImage CGImage], croppingRect);
-    UIImage *croppedImage   = [UIImage imageWithCGImage:imageRef scale:contentImage.scale orientation:contentImage.imageOrientation];
-    CGImageRelease(imageRef);
-
-    [croppedImage drawInRect:containerRect];
+    CGRect layoutRect = [self computeLayoutRectWithContentRect:contentRect andContainerRect:containerRect];
+    [contentImage drawInRect:layoutRect];
 }
 
 - (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView
 {
-    CGRect containerRect = [self assetPositionForRect:containerView.bounds];
+    [self checkAssetPosition];
+
+    // Have to disable asset position support until cropping with scaled image can be figured out -- jbt 6/11/15
+    // CGRect containerRect = [self assetPositionForRect:containerView.bounds];
+    [self checkAssetPosition];
+    CGRect containerRect = containerView.bounds;
+    
     CGRect contentRect = contentView.bounds;
     if ([self rotationNeededForContent:contentRect withContainer:containerRect]) {
         contentRect = CGRectMake(contentRect.origin.x, contentRect.origin.y, contentRect.size.height, contentRect.size.width);
@@ -95,6 +97,14 @@
     maskLayer.path = path;
     CGPathRelease(path);
     contentView.layer.mask = maskLayer;
+}
+
+// Have to disable asset position support until cropping with scaled image can be figured out -- jbt 6/11/15
+- (void)checkAssetPosition
+{
+    if (!CGRectEqualToRect(self.assetPosition, [HPPPLayout completeFillRectangle])) {
+        HPPPLogWarn(@"The HPPPLayoutFill layout type only supports the complete fill asset position (0, 0, 100, 100). The asset poisitoin specified will be ignored (%.1f, %.1f, %.1f, %.1f).", self.assetPosition.origin.x, self.assetPosition.origin.y, self.assetPosition.size.width, self.assetPosition.size.height);
+    }
 }
 
 @end
