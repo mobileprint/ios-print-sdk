@@ -18,6 +18,7 @@
 #import "UIColor+HPPPStyle.h"
 #import "NSBundle+HPPPLocalizable.h"
 #import "HPPPPrintLaterManager.h"
+#import "HPPPPageRangeView.h"
 
 @interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate>
 
@@ -33,6 +34,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *printerLocationLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *addToPrintQCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *pageRangeCell;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButtonItem;
 @property (strong, nonatomic) UIColor *navigationBarTintColor;
 @property (strong, nonatomic) UIBarButtonItem *doneButtonItem;
@@ -141,11 +143,15 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if( 3 == section ) {
+        return 3;
+    }
+    
     return 1;
 }
 
@@ -180,6 +186,18 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
                 }
             }
         }
+    } else if(cell == self.pageRangeCell) {
+        CGRect desiredFrame = self.tableView.frame;
+        desiredFrame.origin.y = 0;
+        
+        CGRect startingFrame = desiredFrame;
+        startingFrame.origin.y = self.view.frame.origin.y + self.view.frame.size.height;
+        
+        HPPPPageRangeView *pageRangeView = [[HPPPPageRangeView alloc] initWithFrame:startingFrame];
+        [self.view addSubview:pageRangeView];
+        [UIView animateWithDuration:0.6f animations:^{
+            pageRangeView.frame = desiredFrame;
+        }];
     }
 }
 
@@ -229,5 +247,8 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
 {
     [self setNavigationBarEditing:YES];
 }
+
+#pragma mark - Selection Handlers
+
 
 @end
