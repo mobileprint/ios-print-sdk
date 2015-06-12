@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIView *smokeyView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (strong, nonatomic) NSMutableArray *buttons;
-@property (strong, nonatomic) UIView *hackView;
 
 @end
 
@@ -108,10 +107,12 @@ static const NSString *kAllButtonText = @"ALL";
 
         [UIView animateWithDuration:0.6f animations:^{
             self.frame = desiredFrame;
-            self.hackView.frame = desiredFrame;
         } completion:^(BOOL finished) {
-            self.hackView = nil;
         }];
+        
+        if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
+            [self.delegate didSelectPageRange:self pageRange:self.textField.text];
+        }
         
     } else if( [kAllButtonText isEqualToString:button.titleLabel.text] ) {
         self.textField.text = [kAllButtonText copy];

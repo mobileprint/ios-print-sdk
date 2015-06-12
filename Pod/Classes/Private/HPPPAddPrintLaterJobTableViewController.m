@@ -194,6 +194,7 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
         startingFrame.origin.y = self.view.frame.origin.y + self.view.frame.size.height;
         
         HPPPPageRangeView *pageRangeView = [[HPPPPageRangeView alloc] initWithFrame:startingFrame];
+        pageRangeView.delegate = self;
         [self.view addSubview:pageRangeView];
         [UIView animateWithDuration:0.6f animations:^{
             pageRangeView.frame = desiredFrame;
@@ -249,6 +250,10 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
 }
 
 #pragma mark - Selection Handlers
-
+- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(NSString *)pageRange
+{
+    NSLog(@"Received page range: %@", pageRange);
+    self.pageRangeCell.detailTextLabel.text = pageRange;
+}
 
 @end

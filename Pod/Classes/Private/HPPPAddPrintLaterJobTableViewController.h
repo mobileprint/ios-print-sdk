@@ -12,10 +12,11 @@
 
 #import <UIKit/UIKit.h>
 #import "HPPPPrintLaterJob.h"
+#import "HPPPPageRangeView.h"
 
 @protocol HPPPAddPrintLaterJobTableViewControllerDelegate;
 
-@interface HPPPAddPrintLaterJobTableViewController : UITableViewController
+@interface HPPPAddPrintLaterJobTableViewController : UITableViewController <HPPPPageRangeViewDelegate>
 
 @property (nonatomic, weak) id<HPPPAddPrintLaterJobTableViewControllerDelegate> delegate;
 
