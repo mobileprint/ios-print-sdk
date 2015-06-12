@@ -35,8 +35,6 @@
 
 - (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView
 {
-    [self checkAssetPosition];
-
     // Have to disable asset position support until cropping with scaled image can be figured out -- jbt 6/11/15
     // CGRect containerRect = [self assetPositionForRect:containerView.bounds];
     [self checkAssetPosition];
