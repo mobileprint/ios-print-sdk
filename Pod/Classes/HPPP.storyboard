@@ -1052,27 +1052,24 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9De-cl-mbI" id="Lip-bS-aWw">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="SjD-VE-0fd">
-                                                    <rect key="frame" x="517" y="8" width="75" height="29"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="75" id="W2s-GP-TdA"/>
-                                                        <constraint firstAttribute="height" constant="28" id="xah-ou-Btf"/>
-                                                    </constraints>
-                                                    <segments>
-                                                        <segment title="-"/>
-                                                        <segment title="+"/>
-                                                    </segments>
-                                                </segmentedControl>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 Copy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="am6-UE-Ol9">
-                                                    <rect key="frame" x="18" y="11" width="56" height="21"/>
+                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="nqP-Za-1Zl">
+                                                    <rect key="frame" x="498" y="7" width="94" height="29"/>
+                                                    <connections>
+                                                        <action selector="didChangeNumCopies:" destination="T1V-lZ-COE" eventType="valueChanged" id="219-sF-CUU"/>
+                                                    </connections>
+                                                </stepper>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Copy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="am6-UE-Ol9">
+                                                    <rect key="frame" x="8" y="12" width="53" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="SjD-VE-0fd" firstAttribute="top" secondItem="Lip-bS-aWw" secondAttribute="topMargin" id="7fl-Yn-tC7"/>
-                                                <constraint firstItem="SjD-VE-0fd" firstAttribute="trailing" secondItem="Lip-bS-aWw" secondAttribute="trailingMargin" id="vNN-GO-D4g"/>
+                                                <constraint firstAttribute="centerY" secondItem="am6-UE-Ol9" secondAttribute="centerY" id="5VX-zA-RqR"/>
+                                                <constraint firstItem="nqP-Za-1Zl" firstAttribute="right" secondItem="Lip-bS-aWw" secondAttribute="rightMargin" id="OFe-rZ-HkJ"/>
+                                                <constraint firstItem="am6-UE-Ol9" firstAttribute="leading" secondItem="Lip-bS-aWw" secondAttribute="leadingMargin" id="Qr5-Mu-RkI"/>
+                                                <constraint firstAttribute="centerY" secondItem="nqP-Za-1Zl" secondAttribute="centerY" id="jCK-rm-Qmg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1113,10 +1110,13 @@
                                                         <constraint firstAttribute="height" constant="31" id="Apc-D5-1pz"/>
                                                         <constraint firstAttribute="width" constant="49" id="IZm-re-Xpg"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="didToggleBlackAndWhiteMode:" destination="T1V-lZ-COE" eventType="touchUpInside" id="DX5-mK-XDn"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="C6l-jh-fi5" firstAttribute="top" secondItem="IUV-MB-pLW" secondAttribute="topMargin" id="eoy-1v-nqh"/>
+                                                <constraint firstAttribute="centerY" secondItem="C6l-jh-fi5" secondAttribute="centerY" constant="-2" id="rJo-3q-RxI"/>
                                                 <constraint firstItem="C6l-jh-fi5" firstAttribute="trailing" secondItem="IUV-MB-pLW" secondAttribute="trailingMargin" id="wSs-Jk-KPq"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1140,11 +1140,14 @@
                     <connections>
                         <outlet property="addToPrintQCell" destination="z0N-Nu-Rvz" id="vub-XC-nwe"/>
                         <outlet property="addToPrintQLabel" destination="KWA-KL-Vys" id="mpf-nF-tux"/>
+                        <outlet property="blackAndWhiteSwitch" destination="C6l-jh-fi5" id="233-pc-gdp"/>
                         <outlet property="cancelButtonItem" destination="GmQ-eE-xh9" id="Cc9-hO-a5w"/>
                         <outlet property="dateLabel" destination="Fkh-3N-vvp" id="IhP-3o-gb8"/>
                         <outlet property="dateTitleLabel" destination="QMa-iS-7gw" id="b0y-ZP-tBG"/>
                         <outlet property="imageView" destination="D6l-iR-R4U" id="1AI-tL-4t4"/>
                         <outlet property="nameTextView" destination="43n-dk-dIz" id="9t4-lQ-Jvh"/>
+                        <outlet property="numCopiesLabel" destination="am6-UE-Ol9" id="WGj-0K-ZjI"/>
+                        <outlet property="numCopiesStepper" destination="nqP-Za-1Zl" id="jEJ-t9-TmJ"/>
                         <outlet property="pageRangeCell" destination="Rr3-06-P5I" id="Qnr-Fz-bQN"/>
                         <outlet property="printerLocationLabel" destination="fGn-cT-AN9" id="RNW-Oy-lUr"/>
                         <outlet property="printerLocationTitleLabel" destination="lMe-9C-MtU" id="k0s-Gj-zYQ"/>

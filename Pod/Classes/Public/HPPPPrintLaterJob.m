@@ -18,17 +18,37 @@ NSString * const kHPPPPrintLaterJobId = @"kHPPPPrintLaterJobId";
 NSString * const kHPPPPrintLaterJobName = @"kHPPPPrintLaterJobName";
 NSString * const kHPPPPrintLaterJobDate = @"kHPPPPrintLaterJobDate";
 NSString * const kHPPPPrintLaterJobImages = @"kHPPPPrintLaterJobImages";
+NSString * const kHPPPPrintLaterNumCopies = @"kHPPPPrintLaterNumCopies";
+NSString * const kHPPPPrintLaterPageRange = @"kHPPPPrintLaterPageRange";
+NSString * const kHPPPPrintLaterBlackAndWhite = @"kHPPPPrintLaterBlackAndWhite";
 NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
 
 @implementation HPPPPrintLaterJob
+
+- (id) init
+{
+    self = [super init];
+    
+    if( self ) {
+        self.numCopies = 1;
+        self.blackAndWhite = FALSE;
+        self.pageRange = @"";
+    }
+    
+    return self;
+}
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeObject:self.id forKey:kHPPPPrintLaterJobId];
     [encoder encodeObject:self.name forKey:kHPPPPrintLaterJobName];
     [encoder encodeObject:self.date forKey:kHPPPPrintLaterJobDate];
+    [encoder encodeObject:self.pageRange forKey:kHPPPPrintLaterPageRange];
     [encoder encodeObject:self.printItems forKey:kHPPPPrintLaterJobImages];
     [encoder encodeObject:self.extra forKey:kHPPPPrintLaterJobExtra];
+
+    [encoder encodeObject:[NSNumber numberWithInteger:self.numCopies] forKey:kHPPPPrintLaterNumCopies];
+    [encoder encodeObject:[NSNumber numberWithBool:self.blackAndWhite] forKey:kHPPPPrintLaterBlackAndWhite];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -37,8 +57,15 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
         self.id = [decoder decodeObjectForKey:kHPPPPrintLaterJobId];
         self.name = [decoder decodeObjectForKey:kHPPPPrintLaterJobName];
         self.date = [decoder decodeObjectForKey:kHPPPPrintLaterJobDate];
+        self.pageRange = [decoder decodeObjectForKey:kHPPPPrintLaterPageRange];
         self.printItems = [decoder decodeObjectForKey:kHPPPPrintLaterJobImages];
         self.extra = [decoder decodeObjectForKey:kHPPPPrintLaterJobExtra];
+
+        NSNumber *numCopies = [decoder decodeObjectForKey:kHPPPPrintLaterNumCopies];
+        self.numCopies = [numCopies integerValue];
+        
+        NSNumber *blackAndWhite = [decoder decodeObjectForKey:kHPPPPrintLaterBlackAndWhite];
+        self.blackAndWhite = [blackAndWhite boolValue];
     }
     
     return self;
@@ -54,7 +81,7 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"id: %@ \nname: %@ \ndate: %@ \nextra: %@", self.id, self.name, self.date, self.extra];
+    return [NSString stringWithFormat:@"id: %@ \nname: %@ \ndate: %@ \npageRange: %@ \nnumCopies: %ld \nblackAndWhite: %d\nextra: %@", self.id, self.name, self.date, self.pageRange, self.numCopies, self.blackAndWhite, self.extra];
 }
 
 @end

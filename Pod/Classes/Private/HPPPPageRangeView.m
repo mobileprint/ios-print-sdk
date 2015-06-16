@@ -64,7 +64,7 @@ static const NSString *kAllButtonText = @"ALL";
         button.backgroundColor = [UIColor whiteColor];
         [button addTarget:self action:@selector(onButtonDown:) forControlEvents:UIControlEventTouchUpInside];
 
-        if( [buttonText isEqualToString:@"ALL"] ) {
+        if( [buttonText isEqualToString:[kAllButtonText copy]] ) {
             button.frame = CGRectMake(col*buttonWidth, yOrigin + (row*buttonHeight), buttonWidth*2, buttonHeight);
             buttonOffset++;
         } else {
@@ -111,7 +111,7 @@ static const NSString *kAllButtonText = @"ALL";
         }];
         
         if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
-            [self.delegate didSelectPageRange:self pageRange:self.textField.text];
+            [self.delegate didSelectPageRange:self pageRange:[self scrubbedPageRange]];
         }
         
     } else if( [kAllButtonText isEqualToString:button.titleLabel.text] ) {
@@ -136,4 +136,20 @@ static const NSString *kAllButtonText = @"ALL";
     return NSMakeRange(location, length);
 }
 
+- (NSString *) scrubbedPageRange
+{
+    NSString *scrubbedRange = self.textField.text;
+    
+    if( [kAllButtonText isEqualToString:self.textField.text] ) {
+        scrubbedRange = @"";
+    } else {
+        
+        // TODO: verify validity of print range
+        //  - No dangling '-' or ','
+        //  - All pages are valid based on the document length
+        //  - properly order all ranges.  IE, '9-2' becomes '2-9'
+    }
+    
+    return scrubbedRange;
+}
 @end

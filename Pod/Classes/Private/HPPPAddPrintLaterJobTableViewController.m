@@ -34,7 +34,10 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *printerLocationLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *addToPrintQCell;
+@property (weak, nonatomic) IBOutlet UIStepper *numCopiesStepper;
+@property (weak, nonatomic) IBOutlet UILabel *numCopiesLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageRangeCell;
+@property (weak, nonatomic) IBOutlet UISwitch *blackAndWhiteSwitch;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButtonItem;
 @property (strong, nonatomic) UIColor *navigationBarTintColor;
 @property (strong, nonatomic) UIBarButtonItem *doneButtonItem;
@@ -106,6 +109,12 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
     self.dateLabel.text = [dateFormatter stringFromDate:self.printLaterJob.date];
     
     self.imageView.image = [self.printLaterJob previewImage];
+    [self setPageRangeLabelText];
+    self.blackAndWhiteSwitch.on = self.printLaterJob.blackAndWhite;
+    
+    self.numCopiesStepper.minimumValue = 1;
+    self.numCopiesStepper.value = self.printLaterJob.numCopies;
+    [self setNumCopiesText];
     
     [self preparePrinterDisplayValues];
     
@@ -253,7 +262,40 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
 - (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(NSString *)pageRange
 {
     NSLog(@"Received page range: %@", pageRange);
-    self.pageRangeCell.detailTextLabel.text = pageRange;
+        
+    self.printLaterJob.pageRange = pageRange;
+    [self setPageRangeLabelText];
 }
 
+- (IBAction)didChangeNumCopies:(id)sender {
+
+    self.printLaterJob.numCopies = self.numCopiesStepper.value;
+    
+    [self setNumCopiesText];
+}
+
+- (IBAction)didToggleBlackAndWhiteMode:(id)sender {
+    
+    self.printLaterJob.blackAndWhite = self.blackAndWhiteSwitch.on;
+}
+
+- (void)setNumCopiesText
+{
+    NSString *copyIdentifier = @"Copies";
+    
+    if( 1 == self.printLaterJob.numCopies ) {
+        copyIdentifier = @"Copy";
+    }
+
+    self.numCopiesLabel.text = [NSString stringWithFormat:@"%ld %@", self.printLaterJob.numCopies, copyIdentifier];
+}
+
+- (void)setPageRangeLabelText
+{
+    if( [self.printLaterJob.pageRange length] ) {
+        self.pageRangeCell.detailTextLabel.text = self.printLaterJob.pageRange;
+    } else {
+        self.pageRangeCell.detailTextLabel.text = @"All";
+    }
+}
 @end
