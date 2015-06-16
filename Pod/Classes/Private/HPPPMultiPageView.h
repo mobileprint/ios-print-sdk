@@ -24,6 +24,7 @@
 @property (strong, nonatomic) HPPPPaper *paper;
 @property (strong, nonatomic) HPPPLayout *layout;
 @property (weak, nonatomic) id<HPPPMultiPageViewDelege>delegate;
+@property (assign, nonatomic) BOOL blackAndWhite;
 
 - (void)setPages:(NSArray *)pages paper:(HPPPPaper *)paper layout:(HPPPLayout *)layout;
 - (void)changeToPage:(NSUInteger)pageNumber animated:(BOOL)animated;

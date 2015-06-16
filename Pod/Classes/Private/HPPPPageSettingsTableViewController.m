@@ -16,7 +16,7 @@
 #import "HPPPPaper.h"
 #import "HPPPPrintPageRenderer.h"
 #import "HPPPPrintSettings.h"
-#import "HPPPPageView.h"
+#import "HPPPPrintItem.h"
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPPPaperTypeTableViewController.h"
 #import "HPPPPrintSettingsTableViewController.h"
@@ -61,10 +61,8 @@
 
 @interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
 
-@property (weak, nonatomic) HPPPPageView *pageView;
 @property (strong, nonatomic) HPPPPrintSettings *currentPrintSettings;
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
-@property (weak, nonatomic) IBOutlet HPPPPageView *tableViewCellPageView;
 
 @property (weak, nonatomic) IBOutlet UIStepper *numberOfCopiesStepper;
 @property (weak, nonatomic) IBOutlet UISwitch *blackAndWhiteModeSwitch;
@@ -267,31 +265,16 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     [super viewDidAppear:animated];
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
-        self.pageView = self.pageViewController.pageView;
         self.multiPageView = self.pageViewController.multiPageView;
         [self configureMultiPageViewWithPrintItem:self.printItem];
-        [self checkForMultipleImages];
-        self.pageView.blackAndWhite = self.blackAndWhiteModeSwitch.on;
-        self.pageView.printItem = self.printItem;
     }
     
     [self.multiPageView refreshLayout];
-    
-    [self.pageView setPaperSize:self.currentPrintSettings.paper animated:YES completion:^{
-        [self.pageView showPageAnimated:YES completion:^{
-            if (self.showCurlOnAppear) {
-                [self.pageView curlPage];
-                self.showCurlOnAppear = NO;
-            }
-        }];
-        self.tableView.userInteractionEnabled = YES;
-    }];
 }
 
 - (void)viewDidLayoutSubviews
 {
     [self.view layoutIfNeeded];
-    [self.pageView refreshLayout];
     [self.multiPageView refreshLayout];
 }
 
@@ -326,62 +309,22 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 #pragma mark - Configure UI
 
-- (void)configurePageView
-{
-    if (!IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
-        self.pageView = self.tableViewCellPageView;
-        [self checkForMultipleImages];
-        self.pageView.blackAndWhite = self.blackAndWhiteModeSwitch.on;
-        self.pageView.printItem = self.printItem;
-        self.showCurlOnAppear = YES;
-    } else {
-        [self.pageView setPaperSize:self.currentPrintSettings.paper animated:NO completion:^{
-            [self.pageView curlPage];
-        }];
-    }
-}
-
-- (void)checkForMultipleImages
-{
-    BOOL multipleImages = NO;
-    
-    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
-        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
-        if (numberOfJobs > 1) {
-            multipleImages = YES;
-        }
-    }
-    
-    if ([self.printItem numberOfPages] > 1) {
-        multipleImages = YES;
-    }
-    
-    self.pageView.multipleImages = multipleImages;
-}
-
 - (void)changePaper
 {
     if ([self.dataSource respondsToSelector:@selector(printingItemForPaper:withCompletion:)] && [self.dataSource respondsToSelector:@selector(previewImageForPaper:withCompletion:)]) {
-        self.spinner = [self.pageView HPPPAddSpinner];
-        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [self.dataSource printingItemForPaper:self.currentPrintSettings.paper withCompletion:^(HPPPPrintItem *printItem) {
             if (printItem) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.spinner removeFromSuperview];
                     self.printItem = printItem;
-                    self.pageView.printItem = printItem;
-                    [self configurePageView];
                 });
             } else {
                 HPPPLogError(@"Missing printing item or preview image");
             }
         }];
     } else {
-        [self configurePageView];
+        [self configureMultiPageViewWithPrintItem:self.printItem];
     }
 }
-
-
 
 - (void)setSelectedPaper:(HPPPPaper *)selectedPaperSize
 {
@@ -547,6 +490,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 - (void)configureMultiPageViewWithPrintItem:(HPPPPrintItem *)printItem
 {
     if (self.currentPrintSettings.paper) {
+        self.multiPageView.blackAndWhite = self.blackAndWhiteModeSwitch.on;
         [self.multiPageView setInterfaceOptions:[HPPP sharedInstance].interfaceOptions];
         NSArray *images = [printItem previewImagesForPaper:self.currentPrintSettings.paper];
         [self.multiPageView setPages:images paper:self.currentPrintSettings.paper layout:printItem.layout];
@@ -647,23 +591,10 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (IBAction)blackAndWhiteSwitchToggled:(id)sender
 {
-    [self applyFilter];
-    
+    self.multiPageView.blackAndWhite = self.blackAndWhiteModeSwitch.on;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithInteger:self.blackAndWhiteModeSwitch.on] forKey:kHPPPLastFilterSetting];
     [defaults synchronize];
-}
-
-- (void)applyFilter
-{
-    if (self.blackAndWhiteModeSwitch.on) {
-        self.tableView.userInteractionEnabled = NO;
-        [self.pageView setBlackAndWhiteWithCompletion:^{
-            self.tableView.userInteractionEnabled = YES;
-        }];
-    } else {
-        [self.pageView setColorWithCompletion:nil];
-    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -766,13 +697,11 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     cell.selected = NO;
     
     if (indexPath.section == SUPPORT_SECTION) {
-        if( !self.pageView.isAnimating ) {
-            HPPPSupportAction *action = self.hppp.supportActions[indexPath.row];
-            if (action.url) {
-                [[UIApplication sharedApplication] openURL:action.url];
-            } else {
-                [self presentViewController:action.viewController animated:YES completion:nil];
-            }
+        HPPPSupportAction *action = self.hppp.supportActions[indexPath.row];
+        if (action.url) {
+            [[UIApplication sharedApplication] openURL:action.url];
+        } else {
+            [self presentViewController:action.viewController animated:YES completion:nil];
         }
     } else if (cell == self.selectPrinterCell) {
         [self showPrinterSelection:tableView withCompletion:nil];

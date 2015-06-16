@@ -15,6 +15,7 @@
 #import "HPPPPrintJobsTableViewCell.h"
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPPrintLaterManager.h"
+#import "HPPPPrintItem.h"
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPPageViewController.h"
 #import "HPPPPaper.h"

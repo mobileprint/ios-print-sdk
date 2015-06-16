@@ -17,10 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jrx-th-rRL" customClass="HPPPPageView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.96470588239999999" alpha="1" colorSpace="deviceRGB"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuE-bP-J3R" userLabel="Multi-Page View" customClass="HPPPMultiPageView">
                                 <rect key="frame" x="0.0" y="74" width="600" height="516"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -30,26 +26,13 @@
                         <constraints>
                             <constraint firstItem="nuE-bP-J3R" firstAttribute="leading" secondItem="py0-m1-91d" secondAttribute="leading" id="2UA-fn-Mh0"/>
                             <constraint firstItem="nuE-bP-J3R" firstAttribute="top" secondItem="pPR-ET-n9P" secondAttribute="bottom" constant="10" id="Btw-9D-f4V"/>
-                            <constraint firstAttribute="trailing" secondItem="jrx-th-rRL" secondAttribute="trailing" id="SlI-jT-8KP"/>
-                            <constraint firstItem="jrx-th-rRL" firstAttribute="top" secondItem="py0-m1-91d" secondAttribute="topMargin" id="U4p-qr-eEq"/>
-                            <constraint firstItem="09l-Ua-kaA" firstAttribute="top" secondItem="jrx-th-rRL" secondAttribute="bottom" id="br0-VB-iMy"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="jrx-th-rRL" secondAttribute="trailing" constant="-16" id="eXR-Zz-11A"/>
                             <constraint firstAttribute="trailing" secondItem="nuE-bP-J3R" secondAttribute="trailing" id="kaZ-N1-pbi"/>
                             <constraint firstItem="09l-Ua-kaA" firstAttribute="top" secondItem="nuE-bP-J3R" secondAttribute="bottom" constant="10" id="sgH-CC-Knt"/>
-                            <constraint firstItem="jrx-th-rRL" firstAttribute="leading" secondItem="py0-m1-91d" secondAttribute="leadingMargin" constant="-16" id="tbr-Gi-eNR"/>
-                            <constraint firstItem="jrx-th-rRL" firstAttribute="leading" secondItem="py0-m1-91d" secondAttribute="leading" id="vD3-B7-Lnd"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="eXR-Zz-11A"/>
-                                <exclude reference="tbr-Gi-eNR"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Preview" id="Qnb-ql-4PE"/>
                     <connections>
                         <outlet property="multiPageView" destination="nuE-bP-J3R" id="1u8-eq-Wl8"/>
-                        <outlet property="pageView" destination="jrx-th-rRL" id="L0W-Nh-oxZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y3S-FX-alu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -192,21 +175,13 @@
                                     <rect key="frame" x="0.0" y="10" width="600" height="338"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
-                                <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="seg-M4-fAu" customClass="HPPPPageView">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="358"/>
-                                    <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.96470588239999999" alpha="1" colorSpace="deviceRGB"/>
-                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="O09-Jj-DX6" secondAttribute="bottom" constant="10" id="5dM-U6-3SK"/>
-                                <constraint firstAttribute="trailing" secondItem="seg-M4-fAu" secondAttribute="trailing" id="DBj-Y8-Gh3"/>
                                 <constraint firstItem="O09-Jj-DX6" firstAttribute="leading" secondItem="kgV-PV-Qp9" secondAttribute="leading" id="PzF-Pc-e0u"/>
                                 <constraint firstAttribute="trailing" secondItem="O09-Jj-DX6" secondAttribute="trailing" id="SMA-KQ-tGT"/>
-                                <constraint firstItem="seg-M4-fAu" firstAttribute="leading" secondItem="kgV-PV-Qp9" secondAttribute="leading" id="UDe-fv-WbE"/>
-                                <constraint firstItem="seg-M4-fAu" firstAttribute="top" secondItem="kgV-PV-Qp9" secondAttribute="top" id="VX9-wI-XBa"/>
                                 <constraint firstItem="O09-Jj-DX6" firstAttribute="top" secondItem="kgV-PV-Qp9" secondAttribute="top" constant="10" id="cdM-PS-yfB"/>
-                                <constraint firstAttribute="bottom" secondItem="seg-M4-fAu" secondAttribute="bottom" id="my6-dF-4OC"/>
                             </constraints>
                         </view>
                         <sections>
@@ -778,7 +753,6 @@
                         <outlet property="selectPrinterCell" destination="pI4-Mn-HNA" id="8IA-pr-zPi"/>
                         <outlet property="selectPrinterLabel" destination="J11-Qr-KPS" id="7ai-cB-s5F"/>
                         <outlet property="selectedPrinterLabel" destination="8Xp-K5-RGo" id="C7A-BZ-zDU"/>
-                        <outlet property="tableViewCellPageView" destination="seg-M4-fAu" id="XHH-9X-3e1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="obw-U0-5ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
