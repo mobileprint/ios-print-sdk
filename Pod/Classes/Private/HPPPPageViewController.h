@@ -12,7 +12,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "HPPPPageView.h"
 #import "HPPPMultiPageView.h"
 
 /*!
@@ -21,9 +20,8 @@
 @interface HPPPPageViewController : UIViewController
 
 /*!
- * @abstract The HPPPPageView that this controller owns
+ * @abstract The HPPPMultiPageView that this controller owns
  */
-@property (weak, nonatomic) IBOutlet HPPPPageView *pageView;
 @property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
 
 /*!

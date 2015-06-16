@@ -21,14 +21,11 @@
     [super viewDidLoad];
     
     self.title = HPPPLocalizedString(@"Preview", @"Title of the Preview Screen");
-
-    self.pageView.printItem  = self.printItem;
 }
 
 - (void)viewDidLayoutSubviews
 {
     [self.view layoutIfNeeded];
-    [self.pageView refreshLayout];
     [self.multiPageView refreshLayout];
 }
 

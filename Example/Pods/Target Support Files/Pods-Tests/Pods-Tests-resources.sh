@@ -64,7 +64,6 @@ install_resource()
                     install_resource "../../Pod/Assets/HPPPPrintLater@2x~ipad.png"
                     install_resource "../../Pod/Assets/HPPPPrintLater@2x~iphone.png"
                     install_resource "../../Pod/Classes/Private/HPPPMultiPageView.xib"
-                    install_resource "../../Pod/Classes/Private/HPPPPageView.xib"
                     install_resource "../../Pod/Classes/Private/HPPPPrintJobsActionView.xib"
                     install_resource "../../Pod/Classes/Private/HPPPRuleView.xib"
                     install_resource "../../Pod/Classes/HPPP.storyboard"
