@@ -24,6 +24,7 @@
     [HPPP sharedInstance].interfaceOptions.multiPageBleed = 40;
     [HPPP sharedInstance].interfaceOptions.multiPageBackgroundPageScale = 0.61803399;
     [HPPP sharedInstance].interfaceOptions.multiPageDoubleTapEnabled = YES;
+    [HPPP sharedInstance].interfaceOptions.multiPageZoomOnSingleTap = NO;
     [HPPP sharedInstance].interfaceOptions.multiPageZoomOnDoubleTap = YES;
     
     // Check if the app was opened by local notification
