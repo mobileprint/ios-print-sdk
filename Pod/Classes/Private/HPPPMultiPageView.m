@@ -36,6 +36,7 @@
 @property (assign, nonatomic) BOOL zoomOnDoubleTap;
 @property (strong, nonatomic) UITapGestureRecognizer *singleTapRecognizer;
 @property (strong, nonatomic) UITapGestureRecognizer *doubleTapRecognizer;
+@property (strong, nonatomic) NSArray *blackAndWhitePageImages;
 
 @end
 
@@ -131,8 +132,14 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
 - (void)setPageImages:(NSArray *)pages
 {
     _pageImages = pages;
-    [self createPageViews];
-    [self layoutPagesIfNeeded];
+    _blackAndWhitePageImages = nil;
+    [self updatePages];
+}
+
+- (void)setBlackAndWhite:(BOOL)blackAndWhite
+{
+    _blackAndWhite = blackAndWhite;
+    [self updatePages];
 }
 
 #pragma mark - Pages
@@ -146,10 +153,11 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
 
 - (void)createPageViews
 {
+    NSArray *pageImages = self.blackAndWhite ? self.blackAndWhitePageImages : self.pageImages;
     [[self.scrollView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    for (int idx = 0; idx < self.pageImages.count; idx++) {
+    for (int idx = 0; idx < pageImages.count; idx++) {
         HPPPLayoutPaperView *paperView = [[HPPPLayoutPaperView alloc] init];
-        paperView.image = self.pageImages[idx];
+        paperView.image = pageImages[idx];
         paperView.layout = self.layout;
         paperView.backgroundColor = [UIColor whiteColor];
         HPPPLayoutPaperCellView *paperCell = [[HPPPLayoutPaperCellView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) paperView:paperView paper:self.paper];
@@ -165,6 +173,39 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
         CGFloat scrollWidth = self.scrollView.bounds.size.width;
         [self.scrollView setContentOffset:CGPointMake(scrollWidth * (pageNumber - 1), 0) animated:animated];
         [self changePageNumber:pageNumber];
+    }
+}
+
+- (void)updatePages
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        if (self.blackAndWhite) {
+            [self processBlackAndWhiteImages];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self createPageViews];
+            [self layoutPagesIfNeeded];
+        });
+    });
+}
+
+- (void)processBlackAndWhiteImages
+{
+    if (!self.blackAndWhitePageImages) {
+        NSMutableArray *pageImages = [NSMutableArray array];
+        for (UIImage *pageImage in self.pageImages) {
+            @autoreleasepool {
+                CIImage *image = [[CIImage alloc] initWithCGImage:pageImage.CGImage options:nil];
+                CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
+                [filter setValue:image forKey:kCIInputImageKey];
+                CIImage *result = [filter valueForKey:kCIOutputImageKey];
+                CIContext *context = [CIContext contextWithOptions:nil];
+                CGImageRef cgImage = [context createCGImage:result fromRect:[result extent]];
+                [pageImages addObject:[UIImage imageWithCGImage:cgImage scale:pageImage.scale orientation:pageImage.imageOrientation]];
+                CGImageRelease(cgImage);
+            }
+        }
+        self.blackAndWhitePageImages = pageImages;
     }
 }
 
@@ -412,6 +453,8 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
 
 - (void)showZoomViewAnimated:(BOOL)animated
 {
+    NSArray *pageImages = self.blackAndWhite ? self.blackAndWhitePageImages : self.pageImages;
+
     HPPPLayoutPaperCellView *zoomView = (HPPPLayoutPaperCellView *)[self viewWithTag:kHPPPPageBaseTag + self.currentPage - 1];
     UIView *containerView = [[UIApplication sharedApplication].windows firstObject];
 
@@ -431,7 +474,7 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
     
     CGRect pageRect = CGRectInset(self.zoomScrollView.bounds, kHPPPZoomInset, kHPPPZoomInset);
     HPPPLayoutPaperView *paperView = [[HPPPLayoutPaperView alloc] init];
-    paperView.image = self.pageImages[self.currentPage - 1];
+    paperView.image = pageImages[self.currentPage - 1];
     paperView.layout = self.layout;
     paperView.backgroundColor = [UIColor whiteColor];
     HPPPLayoutPaperCellView *paperCell = [[HPPPLayoutPaperCellView alloc] initWithFrame:pageRect paperView:paperView paper:self.paper];

@@ -490,6 +490,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 - (void)configureMultiPageViewWithPrintItem:(HPPPPrintItem *)printItem
 {
     if (self.currentPrintSettings.paper) {
+        self.multiPageView.blackAndWhite = self.blackAndWhiteModeSwitch.on;
         [self.multiPageView setInterfaceOptions:[HPPP sharedInstance].interfaceOptions];
         NSArray *images = [printItem previewImagesForPaper:self.currentPrintSettings.paper];
         [self.multiPageView setPages:images paper:self.currentPrintSettings.paper layout:printItem.layout];
@@ -590,21 +591,10 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (IBAction)blackAndWhiteSwitchToggled:(id)sender
 {
-    [self applyFilter];
-    
+    self.multiPageView.blackAndWhite = self.blackAndWhiteModeSwitch.on;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithInteger:self.blackAndWhiteModeSwitch.on] forKey:kHPPPLastFilterSetting];
     [defaults synchronize];
-}
-
-- (void)applyFilter
-{
-    if (self.blackAndWhiteModeSwitch.on) {
-        self.tableView.userInteractionEnabled = NO;
-        // TODO: set multipage view to black and white
-    } else {
-        // TODO: set multipage view to color
-    }
 }
 
 #pragma mark - UITableViewDataSource
