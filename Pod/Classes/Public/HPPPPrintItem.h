@@ -95,6 +95,12 @@ typedef enum {
  */
 - (UIImage *)previewImageForPaper:(HPPPPaper *)paper;
 
+/*!
+ * @abstract Retrieves the preview image for a given paper for each page of the print asset
+ * @param paper The paper that the print asset will be printed on. Determines the size and aspect ratio of the preview.
+ * @return An array of preview image
+ */
+- (NSArray *)previewImagesForPaper:(HPPPPaper *)paper;
 
 /*!
  * @abstract Used to serialize the print asset during encoding

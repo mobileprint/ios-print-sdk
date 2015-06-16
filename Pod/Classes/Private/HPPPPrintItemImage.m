@@ -93,6 +93,11 @@
     return [self defaultPreviewImage];
 }
 
+- (NSArray *)previewImagesForPaper:(HPPPPaper *)paper
+{
+    return @[ [self defaultPreviewImage] ];
+}
+
 #pragma mark - NSCoding
 
 - (void)encodeAssetWithCoder:(NSCoder *)encoder

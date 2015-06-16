@@ -19,6 +19,7 @@
 #import "HPPPPrintLaterJob.h"
 #import "HPPPSupportAction.h"
 #import "HPPPLogger.h"
+#import "HPPPInterfaceOptions.h"
 
 @class HPPPPrintItem;
 
@@ -365,6 +366,13 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (strong, nonatomic) HPPPAppearance *appearance;
 
 /*!
+ * @abstract Options used to configure the user interface
+ * @discussion Options are used to configure the UI and other behavior of the print activity
+ * @seealso HPPPOptions
+ */
+@property (strong, nonatomic) HPPPInterfaceOptions *interfaceOptions;
+
+/*!
  * @abstract Indicates if an offramp is a printing offramp
  * @description Identifies print-related offramps such as print, add to queue, and delete from queue.
  * @return YES or NO indicating if the offramp provided is a print-related offramp
@@ -377,7 +385,7 @@ extern NSString * const kHPPPNumberOfCopies;
  * @param delegate An optional delegate object that implements the HPPPPrintDelegate protocol
  * @param dataSource An optional data source object that implements the HPPPPrintDataSource protocol
  * @param printItem The item to print
- * @param fromQueue A boolean value indicating if this job is being printed from the print queue
+ * @param options A dictionary of options
  * @return The view controller that the client should present
  */
 - (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue;

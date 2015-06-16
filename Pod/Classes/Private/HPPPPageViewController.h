@@ -13,6 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "HPPPPageView.h"
+#import "HPPPMultiPageView.h"
 
 /*!
  * @abstract Controls the graphical preview portion of the print preview
@@ -23,6 +24,7 @@
  * @abstract The HPPPPageView that this controller owns
  */
 @property (weak, nonatomic) IBOutlet HPPPPageView *pageView;
+@property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
 
 /*!
  * @abstract The actual data to be printed (e.g. image, PDF, etc.)

@@ -81,13 +81,14 @@
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper
 {
     CGFloat paperAspectRatio = paper.width / paper.height;
+    HPPPLayoutOrientation orientation = [HPPPLayout paperOrientationForimage:paperView.image andLayout:paperView.layout];
     CGFloat height = 100.0f;
     CGFloat width = height * paperAspectRatio;
-    if (HPPPLayoutOrientationLandscape == paperView.layout.orientation || (HPPPLayoutOrientationPortrait != paperView.layout.orientation && paperView.image.size.width > paperView.image.size.height)) {
+    if (HPPPLayoutOrientationLandscape == orientation) {
         width = 100.f;
         height = width * paperAspectRatio;
     }
-    paperView.frame = CGRectMake(0, 0, width, height);;
+    paperView.frame = CGRectMake(0, 0, width, height);
 }
 
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper image:(UIImage *)image layout:(HPPPLayout *)layout
@@ -97,8 +98,20 @@
     [self preparePaperView:paperView withPaper:paper];
 }
 
++ (HPPPLayoutOrientation)paperOrientationForimage:(UIImage *)image andLayout:(HPPPLayout *)layout
+{
+    HPPPLayoutOrientation orientation = HPPPLayoutOrientationPortrait;
+    if (HPPPLayoutOrientationLandscape == layout.orientation || (HPPPLayoutOrientationPortrait != layout.orientation && image.size.width > image.size.height)) {
+        orientation = HPPPLayoutOrientationLandscape;
+    }
+    return orientation;
+}
+
 - (void)applyConstraintsWithFrame:(CGRect)frame toContentView:(UIView *)contentView inContainerView:(UIView *)containerView
 {
+    contentView.autoresizingMask = UIViewAutoresizingNone;
+    [contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
     NSMutableArray *contentConstraints = [NSMutableArray arrayWithArray:contentView.constraints];
     for (NSLayoutConstraint *constraint in containerView.constraints) {
         if (constraint.firstItem == contentView || constraint.secondItem == contentView) {
@@ -135,6 +148,9 @@
         [containerView addConstraints:contentConstraints];
     }
 
+    [containerView setNeedsUpdateConstraints];
+    [containerView updateConstraintsIfNeeded];
+    [contentView setNeedsLayout];
     [contentView setNeedsDisplay];
     [containerView setNeedsLayout];
     [containerView layoutIfNeeded];

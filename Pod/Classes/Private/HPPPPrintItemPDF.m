@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) NSData *pdfData;
 @property (assign, nonatomic) CGPDFDocumentRef pdfDocument;
+@property (strong, nonatomic) NSMutableDictionary *pageImages;
 
 @end
 
@@ -36,6 +37,7 @@
         if (self) {
             self.pdfData = data;
             self.pdfDocument = pdf;
+            self.pageImages = [NSMutableDictionary dictionary];
         }
         item = self;
     } else {
@@ -83,7 +85,7 @@
 #pragma mark - Preview image
 
 // The following is adaptaed from:  http://stackoverflow.com/questions/4107850/how-can-i-programatically-generate-a-thumbnail-of-a-pdf-with-the-iphone-sdk
-- (UIImage *)defaultPreviewImage
+- (UIImage *)previewImageForPage:(NSUInteger)pageNumber
 {
     CGSize sizeInPixels = [self sizeInUnits:Pixels];
     
@@ -98,7 +100,7 @@
     CGContextSetGrayFillColor(context, 1.0, 1.0);
     CGContextFillRect(context, aRect);
 
-    CGPDFPageRef page = CGPDFDocumentGetPage(self.pdfDocument, 1);
+    CGPDFPageRef page = CGPDFDocumentGetPage(self.pdfDocument, pageNumber);
     CGFloat angle = 0; //sizeInPixels.width > sizeInPixels.height ? -90 : 0;
     CGAffineTransform pdfTransform = CGPDFPageGetDrawingTransform(page, kCGPDFMediaBox, aRect, angle, true);
     
@@ -115,9 +117,29 @@
     return previewImage;
 }
 
+- (UIImage *)defaultPreviewImage
+{
+    return [self previewImageForPage:1];
+}
+
 - (UIImage *)previewImageForPaper:(HPPPPaper *)paper
 {
     return [self defaultPreviewImage];
+}
+
+- (NSArray *)previewImagesForPaper:(HPPPPaper *)paper
+{
+    NSArray *imagesForPaper = [self.pageImages objectForKey:paper.sizeTitle];
+    if (!imagesForPaper) {
+        NSUInteger pageCount = CGPDFDocumentGetNumberOfPages(self.pdfDocument);
+        NSMutableArray *images = [NSMutableArray array];
+        for (int page = 1; page <= pageCount; page++) {
+            [images addObject:[self previewImageForPage:page]];
+        }
+        imagesForPaper = images;
+        [self.pageImages addEntriesFromDictionary:@{ paper.sizeTitle:imagesForPaper }];
+    }
+    return imagesForPaper;
 }
 
 @end

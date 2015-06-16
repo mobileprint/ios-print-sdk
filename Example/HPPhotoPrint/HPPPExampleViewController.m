@@ -95,7 +95,9 @@ int const kOrientationLandscape = 2;
                       @"2 Pages",
                       @"4 Pages",
                       @"6 Pages (landscape)",
-                      @"10 Pages"
+                      @"10 Pages",
+                      @"44 Pages",
+                      @"51 Pages"
                       ];
     
     self.view.frame = CGRectMake(0, 0, 300, 10000);
@@ -104,6 +106,11 @@ int const kOrientationLandscape = 2;
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 #pragma mark - Sharing
@@ -119,7 +126,7 @@ int const kOrientationLandscape = 2;
     
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
     printActivity.dataSource = self;
-    
+
     NSArray *applicationActivities = nil;
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
@@ -319,7 +326,7 @@ int const kOrientationLandscape = 2;
         job.name = [NSString stringWithFormat:@"Print Job #%d", idx + 1];
         job.date = [NSDate date];
         job.printItems = [self printItemsForAsset:[self randomImage]];
-    
+        
         [[HPPP sharedInstance] addJobToQueue:job];
     }
 }
@@ -368,40 +375,45 @@ int const kOrientationLandscape = 2;
 
 - (HPPPLayout *)layoutForPaper:(HPPPPaper *)paper
 {
-    BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && SizeLetter == paper.paperSize);
-    
-    HPPPLayoutOrientation orientation = HPPPLayoutOrientationBestFit;
-    if (defaultLetter || kOrientationPortrait == self.orientationSegmentControl.selectedSegmentIndex) {
-        orientation = HPPPLayoutOrientationPortrait;
-    } else if (kOrientationLandscape == self.orientationSegmentControl.selectedSegmentIndex) {
-        orientation = HPPPLayoutOrientationLandscape;
-    }
-    
-    CGRect position = [HPPPLayout completeFillRectangle];
-    if (defaultLetter) {
-        position = [self defaultLetterPosition];
-    } else {
-        CGFloat x = [((UITextField *)self.positionTextField[0]).text floatValue];
-        CGFloat y = [((UITextField *)self.positionTextField[1]).text floatValue];
-        CGFloat width = [((UITextField *)self.positionTextField[2]).text floatValue];
-        CGFloat height = [((UITextField *)self.positionTextField[3]).text floatValue];
-        if (width > 0 && height > 0) {
-            position = CGRectMake(x, y, width, height);
+    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit];
+    if (DefaultPrintRenderer != self.printItem.renderer) {
+        BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && SizeLetter == paper.paperSize);
+        
+        HPPPLayoutOrientation orientation = HPPPLayoutOrientationBestFit;
+        if (defaultLetter || kOrientationPortrait == self.orientationSegmentControl.selectedSegmentIndex) {
+            orientation = HPPPLayoutOrientationPortrait;
+        } else if (kOrientationLandscape == self.orientationSegmentControl.selectedSegmentIndex) {
+            orientation = HPPPLayoutOrientationLandscape;
         }
+        
+        CGRect position = [HPPPLayout completeFillRectangle];
+        if (defaultLetter) {
+            position = [self defaultLetterPosition];
+        } else {
+            CGFloat x = [((UITextField *)self.positionTextField[0]).text floatValue];
+            CGFloat y = [((UITextField *)self.positionTextField[1]).text floatValue];
+            CGFloat width = [((UITextField *)self.positionTextField[2]).text floatValue];
+            CGFloat height = [((UITextField *)self.positionTextField[3]).text floatValue];
+            if (width > 0 && height > 0) {
+                position = CGRectMake(x, y, width, height);
+            }
+        }
+        
+        BOOL allowRotation = !defaultLetter;
+        
+        HPPPLayoutType type = HPPPLayoutTypeDefault;
+        if (defaultLetter || kLayoutFitIndex == self.layoutSegmentControl.selectedSegmentIndex || DefaultPrintRenderer == self.printItem.renderer) {
+            type = HPPPLayoutTypeFit;
+        } else if (kLayoutFillIndex == self.layoutSegmentControl.selectedSegmentIndex) {
+            type = HPPPLayoutTypeFill;
+        } else if (kLayoutStretchIndex == self.layoutSegmentControl.selectedSegmentIndex) {
+            type = HPPPLayoutTypeStretch;
+        }
+        
+        layout = [HPPPLayoutFactory layoutWithType:type orientation:orientation assetPosition:position allowContentRotation:allowRotation];
     }
     
-    BOOL allowRotation = !defaultLetter;
-    
-    HPPPLayoutType type = HPPPLayoutTypeDefault;
-    if (defaultLetter || kLayoutFitIndex == self.layoutSegmentControl.selectedSegmentIndex) {
-        type = HPPPLayoutTypeFit;
-    } else if (kLayoutFillIndex == self.layoutSegmentControl.selectedSegmentIndex) {
-        type = HPPPLayoutTypeFill;
-    } else if (kLayoutStretchIndex == self.layoutSegmentControl.selectedSegmentIndex) {
-        type = HPPPLayoutTypeStretch;
-    }
-    
-    return [HPPPLayoutFactory layoutWithType:type orientation:orientation assetPosition:position allowContentRotation:allowRotation];
+    return layout;
 }
 
 - (CGRect)defaultLetterPosition
