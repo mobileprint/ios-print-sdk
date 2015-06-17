@@ -453,6 +453,10 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
 
 - (void)showZoomViewAnimated:(BOOL)animated
 {
+    if (self.zoomScrollView) {
+        return;
+    }
+    
     NSArray *pageImages = self.blackAndWhite ? self.blackAndWhitePageImages : self.pageImages;
 
     HPPPLayoutPaperCellView *zoomView = (HPPPLayoutPaperCellView *)[self viewWithTag:kHPPPPageBaseTag + self.currentPage - 1];
