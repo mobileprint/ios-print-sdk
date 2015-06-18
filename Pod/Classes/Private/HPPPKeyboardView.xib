@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HPPPKeyboardView">
+            <connections>
+                <outlet property="containingView" destination="i5M-Pr-FkT" id="nvw-0D-Uiw"/>
+                <outlet property="smokeyView" destination="6iF-1j-kTx" id="nLp-2u-ie5"/>
+                <outlet property="smokeyViewHeightConstraint" destination="9L6-dD-Lp6" id="idI-A5-yxJ"/>
+                <outlet property="textField" destination="h3G-lq-Myz" id="mE6-31-WN2"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6iF-1j-kTx" userLabel="SmokeyView">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h3G-lq-Myz">
+                            <rect key="frame" x="0.0" y="570" width="600" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="600" id="9L6-dD-Lp6"/>
+                        <constraint firstAttribute="trailing" secondItem="h3G-lq-Myz" secondAttribute="trailing" id="VXx-g5-s16"/>
+                        <constraint firstItem="h3G-lq-Myz" firstAttribute="bottom" secondItem="6iF-1j-kTx" secondAttribute="bottom" id="Wki-yy-dbb"/>
+                        <constraint firstItem="h3G-lq-Myz" firstAttribute="leading" secondItem="6iF-1j-kTx" secondAttribute="leading" id="wmI-dC-RaQ"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="6iF-1j-kTx" secondAttribute="trailing" id="2P6-fB-wXa"/>
+                <constraint firstItem="6iF-1j-kTx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="GUc-6i-tVT"/>
+                <constraint firstAttribute="centerX" secondItem="6iF-1j-kTx" secondAttribute="centerX" id="oKz-D8-lpw"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

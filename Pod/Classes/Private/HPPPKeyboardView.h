@@ -13,19 +13,18 @@
 #import <UIKit/UIKit.h>
 #import "HPPPView.h"
 
-@protocol HPPPPageRangeViewDelegate;
+@protocol HPPPKeyboardViewDelegate;
 
-@interface HPPPPageRangeView : HPPPView
+@interface HPPPKeyboardView : HPPPView
 
-@property (weak, nonatomic) id<HPPPPageRangeViewDelegate> delegate;
+@property (strong, nonatomic) id<HPPPKeyboardViewDelegate> delegate;
 
-- (void)addButtons;
+- (void)displayKeyboard;
 - (void)finishEditing;
 
 @end
 
-
-@protocol HPPPPageRangeViewDelegate <NSObject>
+@protocol HPPPKeyboardViewDelegate <NSObject>
 @optional
-- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(NSString *)pageRange;
+- (void)didFinishEnteringText:(HPPPKeyboardView *)view text:(NSString *)text;
 @end

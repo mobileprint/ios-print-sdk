@@ -1,9 +1,13 @@
 //
-//  PageRangeCollectionViewController.m
-//  Pods
+// Hewlett-Packard Company
+// All rights reserved.
 //
-//  Created by Bozo on 6/10/15.
-//
+// This file, its contents, concepts, methods, behavior, and operation
+// (collectively the "Software") are protected by trade secret, patent,
+// and copyright laws. The use of the Software is governed by a license
+// agreement. Disclosure of the Software to third parties, in any form,
+// in whole or in part, is expressly prohibited except as authorized by
+// the license agreement.
 //
 
 #import "HPPPPageRangeView.h"
@@ -23,6 +27,13 @@ static const NSString *kBackButtonText = @"BACK";
 static const NSString *kCheckButtonText = @"CHECK";
 static const NSString *kAllButtonText = @"ALL";
 
+// TODO:
+// - Need icons for the "back" and "check" buttons
+// - Need to do a lot more validation on the user's input
+//    - Has the user entered a valid page range
+//    - Is the page range within the bounds of the document
+// - There's some gobbeldy-gook in the upper right corner of the screen
+
 - (void)initWithXibName:(NSString *)xibName
 {
     [super initWithXibName:xibName];
@@ -38,13 +49,13 @@ static const NSString *kAllButtonText = @"ALL";
 
 - (void)dealloc
 {
-    for( UIButton *button in self.buttons ) {
-        [button removeFromSuperview];
-    }
+    [self removeButtons];
 }
 
 - (void)addButtons
 {
+    [self removeButtons];
+    
     int buttonWidth = self.frame.size.width/4 + 1;
     int buttonHeight = .8 * buttonWidth;
     int yOrigin = self.frame.size.height - (4*buttonHeight);
@@ -60,7 +71,7 @@ static const NSString *kAllButtonText = @"ALL";
         [button setTitle:buttonText forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button layer].borderWidth = 1.0f;
-        [button layer].borderColor = [UIColor blackColor].CGColor;
+        [button layer].borderColor = [UIColor lightGrayColor].CGColor;
         button.backgroundColor = [UIColor whiteColor];
         [button addTarget:self action:@selector(onButtonDown:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -85,6 +96,13 @@ static const NSString *kAllButtonText = @"ALL";
     }
 }
 
+- (void)removeButtons
+{
+    for( UIButton *button in self.buttons ) {
+        [button removeFromSuperview];
+    }
+}
+
 - (IBAction)onButtonDown:(UIButton *)button
 {
     
@@ -102,13 +120,6 @@ static const NSString *kAllButtonText = @"ALL";
         self.textField.text = text;
         
     } else if( [kCheckButtonText isEqualToString:button.titleLabel.text] ) {
-        CGRect desiredFrame = self.frame;
-        desiredFrame.origin.y = self.frame.origin.y + self.frame.size.height;
-
-        [UIView animateWithDuration:0.6f animations:^{
-            self.frame = desiredFrame;
-        } completion:^(BOOL finished) {
-        }];
         
         if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
             [self.delegate didSelectPageRange:self pageRange:[self scrubbedPageRange]];
@@ -152,4 +163,12 @@ static const NSString *kAllButtonText = @"ALL";
     
     return scrubbedRange;
 }
+
+- (void)finishEditing
+{
+    if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
+        [self.delegate didSelectPageRange:self pageRange:self.textField.text];
+    }
+}
+
 @end

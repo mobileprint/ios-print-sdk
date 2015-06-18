@@ -19,8 +19,9 @@
 #import "NSBundle+HPPPLocalizable.h"
 #import "HPPPPrintLaterManager.h"
 #import "HPPPPageRangeView.h"
+#import "HPPPKeyboardView.h"
 
-@interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate>
+@interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate, HPPPKeyboardViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *addToPrintQLabel;
 
@@ -34,6 +35,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *printerLocationLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *addToPrintQCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *jobNameCell;
 @property (weak, nonatomic) IBOutlet UIStepper *numCopiesStepper;
 @property (weak, nonatomic) IBOutlet UILabel *numCopiesLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageRangeCell;
@@ -41,7 +43,10 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButtonItem;
 @property (strong, nonatomic) UIColor *navigationBarTintColor;
 @property (strong, nonatomic) UIBarButtonItem *doneButtonItem;
-
+@property (strong, nonatomic) HPPPKeyboardView *keyboardView;
+@property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
+@property (strong, nonatomic) UIView *editView;
+@property (strong, nonatomic) UIView *smokeyView;
 @end
 
 @implementation HPPPAddPrintLaterJobTableViewController
@@ -125,6 +130,22 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
     [doneButton addTarget:self action:@selector(doneButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     self.doneButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
+    self.smokeyView = [[UIView alloc] init];
+    self.smokeyView.backgroundColor = [UIColor blackColor];
+    self.smokeyView.alpha = 0.6f;
+    self.smokeyView.hidden = TRUE;
+    [self.view addSubview:self.smokeyView];
+    
+    self.pageRangeView = [[HPPPPageRangeView alloc] init];
+    self.pageRangeView.delegate = self;
+    self.pageRangeView.hidden = YES;
+    [self.view addSubview:self.pageRangeView];
+
+    self.keyboardView = [[HPPPKeyboardView alloc] init];
+    self.keyboardView.delegate = self;
+    self.keyboardView.hidden = YES;
+    [self.view addSubview:self.keyboardView];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -132,6 +153,12 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
     [super viewWillAppear:animated];
     self.navigationBarTintColor = self.navigationController.navigationBar.barTintColor;
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kAddJobScreenName forKey:kHPPPTrackableScreenNameKey]];
+
+    CGRect desiredSmokeyViewFrame = self.view.frame;
+    desiredSmokeyViewFrame.size.height += desiredSmokeyViewFrame.origin.y;
+    desiredSmokeyViewFrame.origin.y = 0;
+    
+    self.smokeyView.frame = desiredSmokeyViewFrame;
 }
 
 - (void)preparePrinterDisplayValues
@@ -195,19 +222,39 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
                 }
             }
         }
-    } else if(cell == self.pageRangeCell) {
+    } else {
+        
         CGRect desiredFrame = self.tableView.frame;
         desiredFrame.origin.y = 0;
         
         CGRect startingFrame = desiredFrame;
         startingFrame.origin.y = self.view.frame.origin.y + self.view.frame.size.height;
         
-        HPPPPageRangeView *pageRangeView = [[HPPPPageRangeView alloc] initWithFrame:startingFrame];
-        pageRangeView.delegate = self;
-        [self.view addSubview:pageRangeView];
-        [UIView animateWithDuration:0.6f animations:^{
-            pageRangeView.frame = desiredFrame;
-        }];
+        if(cell == self.pageRangeCell) {
+            self.pageRangeView.frame = startingFrame;
+            [self.pageRangeView addButtons];
+            self.editView = self.pageRangeView;
+            
+        } else if (cell == self.jobNameCell) {
+            self.keyboardView.frame = startingFrame;
+            self.editView = self.keyboardView;
+        }
+
+        if( self.editView ) {
+            
+            [self displaySmokeyView:TRUE];
+            
+            [self setNavigationBarEditing:TRUE];
+            
+            self.editView.hidden = NO;
+            [UIView animateWithDuration:0.6f animations:^{
+                self.editView.frame = desiredFrame;
+            } completion:^(BOOL finished) {
+                if( [self.editView isKindOfClass:[HPPPKeyboardView class]] ) {
+                    [(HPPPKeyboardView *)self.editView displayKeyboard];
+                }
+            }];
+        }
     }
 }
 
@@ -220,8 +267,82 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
 
 - (void)doneButtonTapped:(id)sender
 {
-    [self.nameTextView resignFirstResponder];
-    [self setNavigationBarEditing:NO];
+    if( nil != self.editView ) {
+        if( [self.editView isKindOfClass:[HPPPKeyboardView class]] ) {
+            [(HPPPKeyboardView *)self.editView finishEditing];
+        } else if( [self.editView isKindOfClass:[HPPPPageRangeView class]] ) {
+            [(HPPPPageRangeView *)self.editView finishEditing];
+        }
+    
+        [self dismissEditView];
+
+    } else {
+        [self.nameTextView resignFirstResponder];
+        [self setNavigationBarEditing:NO];
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [self setNavigationBarEditing:YES];
+}
+
+#pragma mark - Selection Handlers
+
+- (IBAction)didChangeNumCopies:(id)sender {
+
+    self.printLaterJob.numCopies = self.numCopiesStepper.value;
+    
+    [self setNumCopiesText];
+}
+
+- (IBAction)didToggleBlackAndWhiteMode:(id)sender {
+    
+    self.printLaterJob.blackAndWhite = self.blackAndWhiteSwitch.on;
+}
+
+#pragma mark - Edit View Delegates
+
+- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(NSString *)pageRange
+{
+    self.printLaterJob.pageRange = pageRange;
+    [self setPageRangeLabelText];
+    [self dismissEditView];
+}
+
+- (void)didFinishEnteringText:(HPPPKeyboardView *)view text:(NSString *)text
+{
+    self.jobNameCell.detailTextLabel.text = text;
+    [self dismissEditView];
+}
+
+#pragma mark - Helpers
+
+-(void)displaySmokeyView:(BOOL)display
+{
+    self.tableView.scrollEnabled = !display;
+    
+    [UIView animateWithDuration:0.6f animations:^{
+        self.smokeyView.hidden = !display;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)dismissEditView
+{
+    CGRect desiredFrame = self.editView.frame;
+    desiredFrame.origin.y = self.editView.frame.origin.y + self.editView.frame.size.height;
+    
+    [UIView animateWithDuration:0.6f animations:^{
+        self.editView.frame = desiredFrame;
+    } completion:^(BOOL finished) {
+        self.editView.hidden = YES;
+        [self displaySmokeyView:NO];
+        [self setNavigationBarEditing:NO];
+    }];
 }
 
 - (void)setNavigationBarEditing:(BOOL)editing
@@ -251,34 +372,6 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
                      }];
 }
 
-#pragma mark - UITextFieldDelegate
-
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    [self setNavigationBarEditing:YES];
-}
-
-#pragma mark - Selection Handlers
-- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(NSString *)pageRange
-{
-    NSLog(@"Received page range: %@", pageRange);
-        
-    self.printLaterJob.pageRange = pageRange;
-    [self setPageRangeLabelText];
-}
-
-- (IBAction)didChangeNumCopies:(id)sender {
-
-    self.printLaterJob.numCopies = self.numCopiesStepper.value;
-    
-    [self setNumCopiesText];
-}
-
-- (IBAction)didToggleBlackAndWhiteMode:(id)sender {
-    
-    self.printLaterJob.blackAndWhite = self.blackAndWhiteSwitch.on;
-}
-
 - (void)setNumCopiesText
 {
     NSString *copyIdentifier = @"Copies";
@@ -286,7 +379,7 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
     if( 1 == self.printLaterJob.numCopies ) {
         copyIdentifier = @"Copy";
     }
-
+    
     self.numCopiesLabel.text = [NSString stringWithFormat:@"%ld %@", self.printLaterJob.numCopies, copyIdentifier];
 }
 
@@ -298,4 +391,5 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
         self.pageRangeCell.detailTextLabel.text = @"All";
     }
 }
+
 @end

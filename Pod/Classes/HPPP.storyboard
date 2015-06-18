@@ -1145,6 +1145,7 @@
                         <outlet property="dateLabel" destination="Fkh-3N-vvp" id="IhP-3o-gb8"/>
                         <outlet property="dateTitleLabel" destination="QMa-iS-7gw" id="b0y-ZP-tBG"/>
                         <outlet property="imageView" destination="D6l-iR-R4U" id="1AI-tL-4t4"/>
+                        <outlet property="jobNameCell" destination="heM-qj-HxV" id="VTD-kN-zIJ"/>
                         <outlet property="nameTextView" destination="43n-dk-dIz" id="9t4-lQ-Jvh"/>
                         <outlet property="numCopiesLabel" destination="am6-UE-Ol9" id="WGj-0K-ZjI"/>
                         <outlet property="numCopiesStepper" destination="nqP-Za-1Zl" id="jEJ-t9-TmJ"/>
