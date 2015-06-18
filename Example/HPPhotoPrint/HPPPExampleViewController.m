@@ -119,8 +119,6 @@ int const kOrientationLandscape = 2;
 {
     NSString *printLaterJobNextAvailableId = nil;
     
-    [HPPP sharedInstance].handlePrintMetricsAutomatically = self.basicMetricsSwitch.on;
-    
     NSString *bundlePath = [NSString stringWithFormat:@"%@/HPPhotoPrint.bundle", [NSBundle mainBundle].bundlePath];
     NSLog(@"Bundle %@", bundlePath);
     
@@ -145,14 +143,13 @@ int const kOrientationLandscape = 2;
         applicationActivities = @[printActivity];
     }
     
-    NSArray *activitiesItems = @[self.printItem];
+    NSArray *activitiesItems = @[self.printItem, self.printItem.printAsset];
     
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activitiesItems applicationActivities:applicationActivities];
     
     [activityViewController setValue:@"My HP Greeting Card" forKey:@"subject"];
     
     activityViewController.excludedActivityTypes = @[UIActivityTypeCopyToPasteboard,
-                                                     UIActivityTypeSaveToCameraRoll,
                                                      UIActivityTypePostToWeibo,
                                                      UIActivityTypePostToTencentWeibo,
                                                      UIActivityTypeAddToReadingList,
@@ -206,8 +203,8 @@ int const kOrientationLandscape = 2;
 
 - (IBAction)shareBarButtonItemTap:(id)sender
 {
-    self.printItem = [HPPPPrintItemFactory printItemWithAsset:[self randomImage]];
-    [self shareItem];
+    self.sharingInProgress = YES;
+    [self doActivityWithPrintItem:[HPPPPrintItemFactory printItemWithAsset:[self randomImage]]];
 }
 
 - (IBAction)showPrintQueueTapped:(id)sender
@@ -238,6 +235,11 @@ int const kOrientationLandscape = 2;
 - (void)didFinishPrintFlow:(UIViewController *)printViewController;
 {
     [printViewController dismissViewControllerAnimated:YES completion:nil];
+    if (self.extendedMetricsSwitch.on) {
+        NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ @"off_ramp":NSStringFromClass([HPPPPrintActivity class]) }];
+        [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self userInfo:metrics];
+    }
 }
 
 - (void)didCancelPrintFlow:(UIViewController *)printViewController;
@@ -362,6 +364,7 @@ int const kOrientationLandscape = 2;
 
 - (void)doActivityWithPrintItem:(HPPPPrintItem *)printItem
 {
+    [HPPP sharedInstance].handlePrintMetricsAutomatically = self.basicMetricsSwitch.on;
     self.printItem = printItem;
     if (self.sharingInProgress) {
         [self shareItem];

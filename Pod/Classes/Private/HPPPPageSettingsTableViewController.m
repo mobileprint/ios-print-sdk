@@ -950,6 +950,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         }
         
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
+            NSArray *printItems = @[ self.printItem ];
             NSInteger numberOfJobs = 1;
             NSString *offramp = NSStringFromClass([HPPPPrintActivity class]);
             if (self.printFromQueue) {
@@ -958,10 +959,12 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
                     numberOfJobs = [self.dataSource numberOfPrintingItems];
                     if (numberOfJobs > 1) {
                         offramp = kHPPPQueuePrintAllAction;
+                        printItems = [self.dataSource printingItemsForPaper:self.currentPrintSettings.paper];
                     }
                 }
             }
             for (int count = 0; count < numberOfJobs; count++) {
+                [HPPPAnalyticsManager sharedManager].printItem = printItems[count];
                 [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:@{ kHPPPOfframpKey:offramp }];
             }
         }

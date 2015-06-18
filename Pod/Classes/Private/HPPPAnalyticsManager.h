@@ -10,12 +10,16 @@
 // the license agreement.
 //
 
+#import "HPPPPrintItem.h"
+
 @interface HPPPAnalyticsManager : NSObject
 
 extern NSString * const kHPPPOfframpKey;
 extern NSString * const kHPPPQueuePrintAction;
 extern NSString * const kHPPPQueuePrintAllAction;
 extern NSString * const kHPPPQueueDeleteAction;
+
+@property (strong, nonatomic) HPPPPrintItem *printItem;
 
 + (HPPPAnalyticsManager *)sharedManager;
 
