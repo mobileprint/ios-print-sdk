@@ -82,7 +82,7 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
     NSString *osVersion = [[UIDevice currentDevice] systemVersion];
     NSString *displayName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
     NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
-    NSString *printPodVersion = [NSString stringWithFormat:@"%d.%d.%d", COCOAPODS_VERSION_MAJOR_HPPhotoPrint, COCOAPODS_VERSION_MINOR_HPPhotoPrint, COCOAPODS_VERSION_PATCH_HPPhotoPrint];
+    NSString *printPodVersion = [self podVersion];
     NSDictionary *metrics = @{
                               @"device_brand" : [self nonNullString:kHPPPManufacturer],
                               @"device_id" : [self nonNullString:self.userUniqueIdentifier],
@@ -136,6 +136,15 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
     }
     
     return options;
+}
+
+- (NSString *)podVersion
+{
+    NSString *version = @"";
+#ifdef COCOAPODS
+    version = [NSString stringWithFormat:@"%d.%d.%d", COCOAPODS_VERSION_MAJOR_HPPhotoPrint, COCOAPODS_VERSION_MINOR_HPPhotoPrint, COCOAPODS_VERSION_PATCH_HPPhotoPrint];
+#endif
+    return version;
 }
 
 #pragma mark - Send metrics
