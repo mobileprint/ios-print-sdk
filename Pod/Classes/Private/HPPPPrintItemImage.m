@@ -76,12 +76,9 @@
 
 - (CGSize)sizeInUnits:(HPPPUnits)units
 {
-    CGSize size = CGSizeMake(0, 0);
-    if (Pixels == units) {
-        size = self.printImage.size;
-    } else if (Inches == units) {
-        
-        size = CGSizeMake(self.printImage.size.width / kHPPPPointsPerInch, self.printImage.size.height / kHPPPPointsPerInch);
+    CGSize size = CGSizeApplyAffineTransform(self.printImage.size, CGAffineTransformMakeScale(self.printImage.scale, self.printImage.scale));
+    if (Inches == units) {
+        size = CGSizeApplyAffineTransform(size, CGAffineTransformMakeScale(1.0 / kHPPPPointsPerInch, 1.0 / kHPPPPointsPerInch));
     }
     return size;
 }
