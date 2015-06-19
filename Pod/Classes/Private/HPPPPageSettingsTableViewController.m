@@ -941,32 +941,19 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         [HPPPDefaultSettingsManager sharedInstance].defaultPrinterModel = self.currentPrintSettings.printerModel;
         [HPPPDefaultSettingsManager sharedInstance].defaultPrinterLocation = self.currentPrintSettings.printerLocation;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPDefaultPrinterAddedNotification object:self userInfo:nil];
+    
+        if ([HPPP sharedInstance].handlePrintMetricsAutomatically && !self.printFromQueue) {
+            NSString *offramp = NSStringFromClass([HPPPPrintActivity class]);
+            for (HPPPPrintItem *printItem in [self collectPrintingItems]) {
+                [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:@{ kHPPPOfframpKey:offramp }];
+            }
+        }
         
         if ([self.delegate respondsToSelector:@selector(didFinishPrintFlow:)]) {
             [self.delegate didFinishPrintFlow:self];
         }
         else {
             HPPPLogWarn(@"No HPPPPrintDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
-        }
-        
-        if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
-            NSArray *printItems = @[ self.printItem ];
-            NSInteger numberOfJobs = 1;
-            NSString *offramp = NSStringFromClass([HPPPPrintActivity class]);
-            if (self.printFromQueue) {
-                offramp = kHPPPQueuePrintAction;
-                if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
-                    numberOfJobs = [self.dataSource numberOfPrintingItems];
-                    if (numberOfJobs > 1) {
-                        offramp = kHPPPQueuePrintAllAction;
-                        printItems = [self.dataSource printingItemsForPaper:self.currentPrintSettings.paper];
-                    }
-                }
-            }
-            for (int count = 0; count < numberOfJobs; count++) {
-                [HPPPAnalyticsManager sharedManager].printItem = printItems[count];
-                [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:@{ kHPPPOfframpKey:offramp }];
-            }
         }
     }
     

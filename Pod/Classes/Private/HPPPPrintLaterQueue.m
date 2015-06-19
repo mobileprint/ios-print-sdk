@@ -77,9 +77,10 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     
     if (success) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobAddedToQueueNotification object:printLaterJob userInfo:nil];
-        [HPPPAnalyticsManager sharedManager].printItem = [printLaterJob.printItems objectForKey:[HPPP sharedInstance].defaultPaper.sizeTitle];
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
-            [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:@{ kHPPPOfframpKey:NSStringFromClass([HPPPPrintLaterActivity class]) }];
+            HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:[HPPP sharedInstance].defaultPaper.sizeTitle];
+            NSDictionary *options = @{ kHPPPOfframpKey:NSStringFromClass([HPPPPrintLaterActivity class]) };
+            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:options];
         }
     }
     
@@ -91,15 +92,21 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     BOOL success = [self deleteFile:printLaterJob.id atPath:self.printLaterJobsDirectoryPath];
     
     if (success) {
+        HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:[HPPP sharedInstance].defaultPaper.sizeTitle];
+        NSDictionary *values = @{
+                                 kHPPPPrintQueueActionKey:kHPPPQueueDeleteAction,
+                                 kHPPPPrintQueueJobKey:printLaterJob,
+                                 kHPPPPrintQueuePrintItemKey:printItem };
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:values];
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobRemovedFromQueueNotification object:printLaterJob userInfo:nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:kHPPPQueueDeleteAction, kHPPPPrintQueueJobsKey:@[printLaterJob] }];
         if ([self retrieveNumberOfPrintLaterJobs] == 0) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPAllPrintJobsRemovedFromQueueNotification object:self userInfo:nil];
         }
 
-        [HPPPAnalyticsManager sharedManager].printItem = [printLaterJob.printItems objectForKey:[HPPP sharedInstance].defaultPaper.sizeTitle];
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
-            [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:@{ kHPPPOfframpKey:kHPPPQueueDeleteAction }];
+            NSDictionary *options = @{ kHPPPOfframpKey:kHPPPQueueDeleteAction };
+            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:options];
         }
     }
     

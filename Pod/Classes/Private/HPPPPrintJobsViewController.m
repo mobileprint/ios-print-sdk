@@ -317,8 +317,23 @@ NSString * const kJobListScreenName = @"Job List Screen";
 {
     HPPPLogInfo(@"Finished Print Job!");
     NSString *action = self.selectedPrintJobs.count > 1 ? kHPPPQueuePrintAllAction : kHPPPQueuePrintAction;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:@{ kHPPPPrintQueueActionKey:action, kHPPPPrintQueueJobsKey:self.selectedPrintJobs }];
-    
+    for (HPPPPrintLaterJob *job in self.selectedPrintJobs) {
+        NSString *paperSize = [[HPPP sharedInstance].lastOptionsUsed objectForKey:kHPPPPaperSizeId];
+        HPPPPrintItem *printItem = [job.printItems objectForKey:paperSize];
+        if (!printItem) {
+            printItem = [job.printItems objectForKey:[HPPP sharedInstance].defaultPaper.sizeTitle];
+        }
+        NSDictionary *values = @{
+                                 kHPPPPrintQueueActionKey:action,
+                                 kHPPPPrintQueueJobKey:job,
+                                 kHPPPPrintQueuePrintItemKey:printItem };
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:values];
+        if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
+            NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kHPPPOfframpKey:action }];
+            [metrics addEntriesFromDictionary:job.extra];
+            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:metrics];
+        }
+    }
     [printViewController.navigationController popViewControllerAnimated:YES];
 }
 

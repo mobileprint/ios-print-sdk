@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="FkY-SB-qqO">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -117,6 +116,9 @@
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lnb-2i-feY">
                                 <rect key="frame" x="177" y="84" width="51" height="31"/>
+                                <connections>
+                                    <action selector="automaticMetricsChanged:" destination="XCd-sr-pZM" eventType="valueChanged" id="1Sn-Sn-DLA"/>
+                                </connections>
                             </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -129,7 +131,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="basicMetricsSwitch" destination="Lnb-2i-feY" id="edG-ZQ-Zpj"/>
+                        <outlet property="automaticMetricsSwitch" destination="Lnb-2i-feY" id="qRA-yH-TfS"/>
                         <outlet property="extendedMetricsSwitch" destination="vrm-sU-5ir" id="z03-dR-pVu"/>
                         <outlet property="layoutSegmentControl" destination="zzD-fx-cPj" id="hhL-Gs-bJN"/>
                         <outlet property="orientationSegmentControl" destination="vzI-VY-0Qo" id="9sL-cE-vzm"/>

@@ -19,12 +19,10 @@ extern NSString * const kHPPPQueuePrintAction;
 extern NSString * const kHPPPQueuePrintAllAction;
 extern NSString * const kHPPPQueueDeleteAction;
 
-@property (strong, nonatomic) HPPPPrintItem *printItem;
-
 + (HPPPAnalyticsManager *)sharedManager;
 
 + (NSString *)wifiName;
     
-- (void)trackShareEventWithOptions:(NSDictionary *)options;
+- (void)trackShareEventWithPrintItem:(HPPPPrintItem *)printItem andOptions:(NSDictionary *)options;
 
 @end

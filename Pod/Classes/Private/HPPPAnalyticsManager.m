@@ -119,17 +119,17 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
     }
 }
 
-- (NSDictionary *)contentOptions
+- (NSDictionary *)contentOptionsForPrintItem:(HPPPPrintItem *)printItem
 {
     NSDictionary *options = @{
                               kHPPPContentTypeKey:kHPPPNoContent,
                               kHPPPContentWidthKey:kHPPPNoContent,
                               kHPPPContentHeightKey:kHPPPNoContent
                               };
-    if (self.printItem) {
-        CGSize printItemSize = [self.printItem sizeInUnits:Pixels];
+    if (printItem) {
+        CGSize printItemSize = [printItem sizeInUnits:Pixels];
         options = @{
-                    kHPPPContentTypeKey:self.printItem.assetType,
+                    kHPPPContentTypeKey:printItem.assetType,
                     kHPPPContentWidthKey:[NSString stringWithFormat:@"%.0f", printItemSize.width],
                     kHPPPContentHeightKey:[NSString stringWithFormat:@"%.0f", printItemSize.height],
                     };
@@ -140,11 +140,11 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
 
 #pragma mark - Send metrics
 
-- (void)trackShareEventWithOptions:(NSDictionary *)options
+- (void)trackShareEventWithPrintItem:(HPPPPrintItem *)printItem andOptions:(NSDictionary *)options
 {
     NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:[self baseMetrics]];
     [metrics addEntriesFromDictionary:[self printMetricsForOfframp:[options objectForKey:kHPPPOfframpKey]]];
-    [metrics addEntriesFromDictionary:[self contentOptions]];
+    [metrics addEntriesFromDictionary:[self contentOptionsForPrintItem:printItem]];
     [metrics addEntriesFromDictionary:options];
     
     NSData *bodyData = [self postBodyWithValues:metrics];

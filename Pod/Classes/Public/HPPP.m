@@ -47,7 +47,8 @@ NSString * const kHPPPTrackableScreenNameKey = @"screen-name";
 
 NSString * const kHPPPPrintQueueNotification = @"kHPPPPrintQueueNotification";
 NSString * const kHPPPPrintQueueActionKey = @"kHPPPPrintQueueActionKey";
-NSString * const kHPPPPrintQueueJobsKey = @"kHPPPPrintQueueJobsKey";
+NSString * const kHPPPPrintQueueJobKey = @"kHPPPPrintQueueJobKey";
+NSString * const kHPPPPrintQueuePrintItemKey = @"kHPPPPrintQueuePrintItemKey";
 
 NSString * const kHPPPPrintJobAddedToQueueNotification = @"kHPPPPrintJobAddedToQueueNotification";
 NSString * const kHPPPPrintJobRemovedFromQueueNotification = @"kHPPPPrintJobRemovedFromQueueNotification";
@@ -137,7 +138,7 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
         // The client app must disable automatic print metric handling in order to post print metrics via the notification system
         return;
     }
-    [[HPPPAnalyticsManager sharedManager] trackShareEventWithOptions:notification.userInfo];
+    [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:notification.object andOptions:notification.userInfo];
 }
 
 - (BOOL)printingOfframp:(NSString *)offramp
