@@ -24,7 +24,11 @@ NSString * const kHPPPOSType = @"iOS";
 NSString * const kHPPPManufacturer = @"Apple";
 NSString * const kHPPPNoNetwork = @"NO-WIFI";
 NSString * const kHPPPNoPrint = @"No Print";
+NSString * const kHPPPNoContent = @"No Content";
 NSString * const kHPPPOfframpKey = @"off_ramp";
+NSString * const kHPPPContentTypeKey = @"content_type";
+NSString * const kHPPPContentWidthKey = @"content_width_pixels";
+NSString * const kHPPPContentHeightKey = @"content_height_pixels";
 NSString * const kHPPPQueuePrintAction = @"PrintFromQueue";
 NSString * const kHPPPQueuePrintAllAction = @"PrintAllFromQueue";
 NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
@@ -77,6 +81,8 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
     NSString *completeVersion = [NSString stringWithFormat:@"%@ (%@)", version, build];
     NSString *osVersion = [[UIDevice currentDevice] systemVersion];
     NSString *displayName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+    NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *printPodVersion = [NSString stringWithFormat:@"%d.%d.%d", COCOAPODS_VERSION_MAJOR_HPPhotoPrint, COCOAPODS_VERSION_MINOR_HPPhotoPrint, COCOAPODS_VERSION_PATCH_HPPhotoPrint];
     NSDictionary *metrics = @{
                               @"device_brand" : [self nonNullString:kHPPPManufacturer],
                               @"device_id" : [self nonNullString:self.userUniqueIdentifier],
@@ -84,11 +90,13 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
                               @"manufacturer" : [self nonNullString:kHPPPManufacturer],
                               @"os_type" : [self nonNullString:kHPPPOSType],
                               @"os_version" : [self nonNullString:osVersion],
+                              @"product_id" : [self nonNullString:bundleID],
                               @"product_name" : [self nonNullString:displayName],
                               @"version" : [self nonNullString:completeVersion],
+                              @"print_library_version":[self nonNullString:printPodVersion],
                               @"wifi_ssid": [HPPPAnalyticsManager wifiName]
                               };
-
+    
     return metrics;
 }
 
@@ -111,12 +119,32 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
     }
 }
 
+- (NSDictionary *)contentOptionsForPrintItem:(HPPPPrintItem *)printItem
+{
+    NSDictionary *options = @{
+                              kHPPPContentTypeKey:kHPPPNoContent,
+                              kHPPPContentWidthKey:kHPPPNoContent,
+                              kHPPPContentHeightKey:kHPPPNoContent
+                              };
+    if (printItem) {
+        CGSize printItemSize = [printItem sizeInUnits:Pixels];
+        options = @{
+                    kHPPPContentTypeKey:printItem.assetType,
+                    kHPPPContentWidthKey:[NSString stringWithFormat:@"%.0f", printItemSize.width],
+                    kHPPPContentHeightKey:[NSString stringWithFormat:@"%.0f", printItemSize.height],
+                    };
+    }
+    
+    return options;
+}
+
 #pragma mark - Send metrics
 
-- (void)trackShareEventWithOptions:(NSDictionary *)options
+- (void)trackShareEventWithPrintItem:(HPPPPrintItem *)printItem andOptions:(NSDictionary *)options
 {
     NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:[self baseMetrics]];
     [metrics addEntriesFromDictionary:[self printMetricsForOfframp:[options objectForKey:kHPPPOfframpKey]]];
+    [metrics addEntriesFromDictionary:[self contentOptionsForPrintItem:printItem]];
     [metrics addEntriesFromDictionary:options];
     
     NSData *bodyData = [self postBodyWithValues:metrics];

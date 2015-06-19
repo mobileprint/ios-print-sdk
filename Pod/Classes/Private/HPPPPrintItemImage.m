@@ -59,6 +59,11 @@
     return self.printImage;
 }
 
+- (NSString *)assetType
+{
+    return @"Image";
+}
+
 - (HPPPPrintRenderer)renderer
 {
     return CustomPrintRenderer;

@@ -59,6 +59,11 @@ typedef enum {
 @property (strong, nonatomic, readonly) id printAsset;
 
 /*!
+ * @abstract Specifies the type of print item (e.g. PDF, image, etc.).
+ */
+@property (strong, nonatomic, readonly) NSString *assetType;
+
+/*!
  * @abstract Specifies the type of rendering to use
  * @seealso HPPPPrintRenderer
  */

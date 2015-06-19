@@ -59,6 +59,11 @@
     return self.pdfData;
 }
 
+- (NSString *)assetType
+{
+    return @"PDF";
+}
+
 - (HPPPPrintRenderer)renderer
 {
     return DefaultPrintRenderer;

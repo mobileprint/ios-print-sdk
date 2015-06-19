@@ -102,7 +102,8 @@ extern NSString * const kHPPPPrinterKey;
 /*!
  * @abstract Notifies subscribers that a print queue operation was completed (print or delete)
  * @seealso kHPPPPrintQueueActionKey
- * @seealso kHPPPPrintQueueJobsKey
+ * @seealso kHPPPPrintQueueJobKey
+ * @seealso kHPPPPrintQueuePrintItemKey
  */
 extern NSString * const kHPPPPrintQueueNotification;
 
@@ -124,7 +125,8 @@ extern NSString * const kHPPPAllPrintJobsRemovedFromQueueNotification;
 /*!
  * @abstract Used to retrieve the action performed on the job
  * @seealso kHPPPPrintQueueNotification
- * @seealso kHPPPPrintQueueJobsKey
+ * @seealso kHPPPPrintQueueJobKey
+ * @seealso kHPPPPrintQueuePrintItemKey
  */
 extern NSString * const kHPPPPrintQueueActionKey;
 
@@ -132,8 +134,17 @@ extern NSString * const kHPPPPrintQueueActionKey;
  * @abstract Used to retrieve the HPPPPrintLater job that was printed or deleted
  * @seealso kHPPPPrintQueueNotification
  * @seealso kHPPPPrintQueueActionKey
+ * @seealso kHPPPPrintQueuePrintItemKey
  */
-extern NSString * const kHPPPPrintQueueJobsKey;
+extern NSString * const kHPPPPrintQueueJobKey;
+
+/*!
+ * @abstract Used to retrieve the specific print item from the job that was printed or deleted
+ * @seealso kHPPPPrintQueueNotification
+ * @seealso kHPPPPrintQueueActionKey
+ * @seealso kHPPPPrintQueueJobKey
+ */
+extern NSString * const kHPPPPrintQueuePrintItemKey;
 
 /*!
  * @abstract Used to retrieve last paper size used

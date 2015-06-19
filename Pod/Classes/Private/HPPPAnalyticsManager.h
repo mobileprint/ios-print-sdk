@@ -10,6 +10,8 @@
 // the license agreement.
 //
 
+#import "HPPPPrintItem.h"
+
 @interface HPPPAnalyticsManager : NSObject
 
 extern NSString * const kHPPPOfframpKey;
@@ -21,6 +23,6 @@ extern NSString * const kHPPPQueueDeleteAction;
 
 + (NSString *)wifiName;
     
-- (void)trackShareEventWithOptions:(NSDictionary *)options;
+- (void)trackShareEventWithPrintItem:(HPPPPrintItem *)printItem andOptions:(NSDictionary *)options;
 
 @end
