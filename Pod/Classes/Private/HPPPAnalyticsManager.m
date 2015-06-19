@@ -141,7 +141,7 @@ NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
 - (NSString *)podVersion
 {
     NSString *version = @"";
-#ifdef COCOAPODS
+#ifdef COCOAPODS_VERSION_MAJOR_HPPhotoPrint
     version = [NSString stringWithFormat:@"%d.%d.%d", COCOAPODS_VERSION_MAJOR_HPPhotoPrint, COCOAPODS_VERSION_MINOR_HPPhotoPrint, COCOAPODS_VERSION_PATCH_HPPhotoPrint];
 #endif
     return version;
