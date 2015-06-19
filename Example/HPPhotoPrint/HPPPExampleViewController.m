@@ -303,7 +303,7 @@ int const kOrientationLandscape = 2;
     if (self.extendedMetricsSwitch.on) {
         NSString *action = [notification.object objectForKey:kHPPPPrintQueueActionKey];
         HPPPPrintLaterJob *job = [notification.object objectForKey:kHPPPPrintQueueJobKey];
-        HPPPPrintLaterJob *printItem = [notification.object objectForKey:kHPPPPrintQueuePrintItemKey];
+        HPPPPrintItem *printItem = [notification.object objectForKey:kHPPPPrintQueuePrintItemKey];
         NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ @"off_ramp":action }];
         [metrics addEntriesFromDictionary:job.extra];
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:printItem userInfo:metrics];
