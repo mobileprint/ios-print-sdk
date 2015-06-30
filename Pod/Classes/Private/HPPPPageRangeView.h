@@ -21,6 +21,9 @@
 
 - (void)addButtons;
 - (void)finishEditing;
+- (void)setCursorPosition;
+
+@property (assign, nonatomic) NSInteger maxPageNum;
 
 @end
 

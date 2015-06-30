@@ -139,6 +139,7 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
     self.pageRangeView = [[HPPPPageRangeView alloc] init];
     self.pageRangeView.delegate = self;
     self.pageRangeView.hidden = YES;
+self.pageRangeView.maxPageNum = 50;
     [self.view addSubview:self.pageRangeView];
 
     self.keyboardView = [[HPPPKeyboardView alloc] init];
@@ -252,6 +253,8 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
             } completion:^(BOOL finished) {
                 if( [self.editView isKindOfClass:[HPPPKeyboardView class]] ) {
                     [(HPPPKeyboardView *)self.editView displayKeyboard];
+                } else if( [self.editView isKindOfClass:[HPPPPageRangeView class]] ) {
+                    [(HPPPPageRangeView *)self.editView setCursorPosition];
                 }
             }];
         }
