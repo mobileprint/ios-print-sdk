@@ -10,23 +10,29 @@
 // the license agreement.
 //
 
-#import <UIKit/UIKit.h>
 #import "HPPPOverlayEditView.h"
 
-@protocol HPPPPageRangeViewDelegate;
+@implementation HPPPOverlayEditView
 
-@interface HPPPPageRangeView : HPPPOverlayEditView
+- (void)prepareForDisplay:(NSString *)initialText
+{
+    
+}
 
-@property (weak, nonatomic) id<HPPPPageRangeViewDelegate> delegate;
+- (void)beginEditing
+{
+    
+}
 
-- (void)addButtons;
+- (void)cancelEditing
+{
+    
+}
 
-@property (assign, nonatomic) NSInteger maxPageNum;
+- (void)commitEditing
+{
+    
+}
 
-@end
 
-
-@protocol HPPPPageRangeViewDelegate <NSObject>
-@optional
-- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(NSString *)pageRange;
 @end

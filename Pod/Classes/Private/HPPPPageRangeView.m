@@ -19,13 +19,14 @@
 @property (weak, nonatomic) IBOutlet UIView *smokeyView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (strong, nonatomic) NSMutableArray *buttons;
+@property (strong, nonatomic) NSString *pageRange;
 
 @end
 
 @implementation HPPPPageRangeView
 
 static const NSString *kBackButtonText = @"⌫";
-static const NSString *kCheckButtonText = @"✔︎";
+static const NSString *kCheckButtonText = @"Done";//@"✔︎";
 static const NSString *kAllButtonText = @"ALL";
 
 - (void)initWithXibName:(NSString *)xibName
@@ -71,7 +72,8 @@ static const NSString *kAllButtonText = @"ALL";
             buttonOffset++;
         } else {
             if( [buttonText isEqualToString:[kCheckButtonText copy]] ) {
-                [button setTitleColor:[UIColor HPPPHPBlueColor] forState:UIControlStateNormal];
+                button.backgroundColor = [UIColor HPPPHPBlueColor];
+                [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             }
             button.frame = CGRectMake((col+buttonOffset)*buttonWidth, yOrigin + (row*buttonHeight), buttonWidth, buttonHeight);
         }
@@ -97,6 +99,44 @@ static const NSString *kAllButtonText = @"ALL";
     }
 }
 
+#pragma mark - HPPPEditView implementation
+
+- (void)prepareForDisplay:(NSString *)initialText
+{
+    [self addButtons];
+
+    if( NSOrderedSame == [initialText caseInsensitiveCompare:@"all"] ) {
+        _pageRange = @"";
+    } else {
+        _pageRange = initialText;
+    }
+}
+
+- (void)beginEditing
+{
+    UITextPosition *newPosition = [self.textField positionFromPosition:0 offset:self.textField.text.length];
+    self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
+    self.textField.text = self.pageRange;
+    
+    [self.textField becomeFirstResponder];
+}
+
+- (void)cancelEditing
+{
+    // do nothing;
+    self.textField.text = self.pageRange;
+}
+
+- (void)commitEditing
+{
+    self.pageRange = [self scrubbedPageRange];
+    if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
+        [self.delegate didSelectPageRange:self pageRange:self.pageRange];
+    }
+}
+
+#pragma mark - Button handler
+
 - (IBAction)onButtonDown:(UIButton *)button
 {
     
@@ -118,6 +158,22 @@ static const NSString *kAllButtonText = @"ALL";
         
         [self replaceCurrentRange:button.titleLabel.text forceDeletion:FALSE];
     }
+}
+
+#pragma mark - Text scrubbing methods
+
+- (NSRange) selectedRangeInTextView:(UITextField*)textView
+{
+    UITextPosition* beginning = textView.beginningOfDocument;
+    
+    UITextRange* selectedRange = textView.selectedTextRange;
+    UITextPosition* selectionStart = selectedRange.start;
+    UITextPosition* selectionEnd = selectedRange.end;
+    
+    const NSInteger location = [textView offsetFromPosition:beginning toPosition:selectionStart];
+    const NSInteger length = [textView offsetFromPosition:selectionStart toPosition:selectionEnd];
+    
+    return NSMakeRange(location, length);
 }
 
 - (void) replaceCurrentRange:(NSString *)string forceDeletion:(BOOL)forceDeletion
@@ -145,28 +201,6 @@ static const NSString *kAllButtonText = @"ALL";
         UITextPosition *newPosition = [self.textField positionFromPosition:selectedTextRange.start offset:string.length];
         self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
     }
-}
-
-- (void) setCursorPosition
-{
-    UITextPosition *newPosition = [self.textField positionFromPosition:0 offset:self.textField.text.length];
-    self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
-
-    [self.textField becomeFirstResponder];
-}
-
-- (NSRange) selectedRangeInTextView:(UITextField*)textView
-{
-    UITextPosition* beginning = textView.beginningOfDocument;
-    
-    UITextRange* selectedRange = textView.selectedTextRange;
-    UITextPosition* selectionStart = selectedRange.start;
-    UITextPosition* selectionEnd = selectedRange.end;
-    
-    const NSInteger location = [textView offsetFromPosition:beginning toPosition:selectionStart];
-    const NSInteger length = [textView offsetFromPosition:selectionStart toPosition:selectionEnd];
-    
-    return NSMakeRange(location, length);
 }
 
 - (NSString *) scrubbedPageRange
@@ -209,13 +243,6 @@ static const NSString *kAllButtonText = @"ALL";
     }
     
     return scrubbedRange;
-}
-
-- (void)finishEditing
-{
-    if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
-        [self.delegate didSelectPageRange:self pageRange:[self scrubbedPageRange]];
-    }
 }
 
 - (NSArray *)getNumsFromString:(NSString *)string
@@ -280,8 +307,6 @@ static const NSString *kAllButtonText = @"ALL";
                 scrubbedString = [scrubbedString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%ld", pageNum] withString:[NSString stringWithFormat:@"%ld", self.maxPageNum]];
                 corrected = TRUE;
                 break;
-            } else if ( 0 == pageNum ) {
-                NSLog(@"error-- 0 page num");
             }
         }
         

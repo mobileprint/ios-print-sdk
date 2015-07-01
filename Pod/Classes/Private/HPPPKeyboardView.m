@@ -32,24 +32,36 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillMove:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
-- (void)displayKeyboard
+#pragma mark - HPPPEditView implementation
+
+- (void)prepareForDisplay:(NSString *)initialText
 {
+    self.textField.text = initialText;
+}
+
+- (void)beginEditing {
     [self.textField becomeFirstResponder];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self finishEditing];
-    
-    return FALSE;
+- (void)cancelEditing {
+    [self.textField resignFirstResponder];
 }
 
-- (void)finishEditing
+- (void)commitEditing
 {
     if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didFinishEnteringText:text:)]) {
         [self.delegate didFinishEnteringText:self text:self.textField.text];
         [self.textField resignFirstResponder];
     }
+}
+
+#pragma mark - Keyboard handlers
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self commitEditing];
+    
+    return FALSE;
 }
 
 -(void) keyboardWillMove:(NSNotification*)notification {
