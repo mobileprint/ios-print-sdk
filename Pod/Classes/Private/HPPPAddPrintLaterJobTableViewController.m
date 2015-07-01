@@ -20,6 +20,7 @@
 #import "HPPPPrintLaterManager.h"
 #import "HPPPPageRangeView.h"
 #import "HPPPKeyboardView.h"
+#import "HPPPOverlayEditView.h"
 
 @interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate, HPPPKeyboardViewDelegate>
 
@@ -45,7 +46,7 @@
 @property (strong, nonatomic) UIBarButtonItem *doneButtonItem;
 @property (strong, nonatomic) HPPPKeyboardView *keyboardView;
 @property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
-@property (strong, nonatomic) UIView *editView;
+@property (strong, nonatomic) HPPPOverlayEditView *editView;
 @property (strong, nonatomic) UIView *smokeyView;
 @end
 
@@ -139,6 +140,7 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
     self.pageRangeView = [[HPPPPageRangeView alloc] init];
     self.pageRangeView.delegate = self;
     self.pageRangeView.hidden = YES;
+self.pageRangeView.maxPageNum = 50;
     [self.view addSubview:self.pageRangeView];
 
     self.keyboardView = [[HPPPKeyboardView alloc] init];
@@ -232,11 +234,12 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
         
         if(cell == self.pageRangeCell) {
             self.pageRangeView.frame = startingFrame;
-            [self.pageRangeView addButtons];
+            [self.pageRangeView prepareForDisplay:self.pageRangeCell.detailTextLabel.text];
             self.editView = self.pageRangeView;
             
         } else if (cell == self.jobNameCell) {
             self.keyboardView.frame = startingFrame;
+            [self.keyboardView prepareForDisplay:self.jobNameCell.detailTextLabel.text];
             self.editView = self.keyboardView;
         }
 
@@ -250,9 +253,7 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
             [UIView animateWithDuration:0.6f animations:^{
                 self.editView.frame = desiredFrame;
             } completion:^(BOOL finished) {
-                if( [self.editView isKindOfClass:[HPPPKeyboardView class]] ) {
-                    [(HPPPKeyboardView *)self.editView displayKeyboard];
-                }
+                [self.editView beginEditing];
             }];
         }
     }
@@ -260,7 +261,11 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
 
 - (IBAction)cancelButtonTapped:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidCancelPrintFlow:)]) {
+    if( nil != self.editView ) {
+        [self.editView cancelEditing];
+        [self dismissEditView];
+        
+    } else if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidCancelPrintFlow:)]) {
         [self.delegate addPrintLaterJobTableViewControllerDidCancelPrintFlow:self];
     }
 }
@@ -268,12 +273,7 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
 - (void)doneButtonTapped:(id)sender
 {
     if( nil != self.editView ) {
-        if( [self.editView isKindOfClass:[HPPPKeyboardView class]] ) {
-            [(HPPPKeyboardView *)self.editView finishEditing];
-        } else if( [self.editView isKindOfClass:[HPPPPageRangeView class]] ) {
-            [(HPPPPageRangeView *)self.editView finishEditing];
-        }
-    
+        [self.editView commitEditing];
         [self dismissEditView];
 
     } else {
@@ -315,6 +315,7 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
 - (void)didFinishEnteringText:(HPPPKeyboardView *)view text:(NSString *)text
 {
     self.jobNameCell.detailTextLabel.text = text;
+    [self.tableView reloadData];
     [self dismissEditView];
 }
 
@@ -326,9 +327,7 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
     
     [UIView animateWithDuration:0.6f animations:^{
         self.smokeyView.hidden = !display;
-    } completion:^(BOOL finished) {
-        
-    }];
+    } completion:nil];
 }
 
 - (void)dismissEditView
@@ -358,7 +357,6 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
     if (editing) {
         navigationBarTitle = nil;
         barTintColor = [UIColor HPPPHPTabBarSelectedColor];
-        rightBarButtonItem = self.doneButtonItem;
         nameTextFieldColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameColorActiveAttribute];
     }
     

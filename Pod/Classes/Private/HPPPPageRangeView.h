@@ -11,16 +11,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HPPPView.h"
+#import "HPPPOverlayEditView.h"
 
 @protocol HPPPPageRangeViewDelegate;
 
-@interface HPPPPageRangeView : HPPPView
+@interface HPPPPageRangeView : HPPPOverlayEditView
 
 @property (weak, nonatomic) id<HPPPPageRangeViewDelegate> delegate;
 
 - (void)addButtons;
-- (void)finishEditing;
+
+@property (assign, nonatomic) NSInteger maxPageNum;
 
 @end
 

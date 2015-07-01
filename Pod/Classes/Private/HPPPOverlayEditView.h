@@ -11,17 +11,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HPPPOverlayEditView.h"
+#import "HPPPView.h"
 
-@protocol HPPPKeyboardViewDelegate;
+@interface HPPPOverlayEditView : HPPPView
 
-@interface HPPPKeyboardView : HPPPOverlayEditView
+- (void)prepareForDisplay:(NSString *)initialText;
+- (void)beginEditing;
+- (void)cancelEditing;
+- (void)commitEditing;
 
-@property (strong, nonatomic) id<HPPPKeyboardViewDelegate> delegate;
-
-@end
-
-@protocol HPPPKeyboardViewDelegate <NSObject>
-@optional
-- (void)didFinishEnteringText:(HPPPKeyboardView *)view text:(NSString *)text;
 @end

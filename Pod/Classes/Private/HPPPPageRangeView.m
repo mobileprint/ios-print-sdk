@@ -11,6 +11,7 @@
 //
 
 #import "HPPPPageRangeView.h"
+#import "UIColor+HPPPStyle.h"
 
 @interface HPPPPageRangeView () <UITextFieldDelegate>
 
@@ -18,33 +19,21 @@
 @property (weak, nonatomic) IBOutlet UIView *smokeyView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (strong, nonatomic) NSMutableArray *buttons;
+@property (strong, nonatomic) NSString *pageRange;
 
 @end
 
 @implementation HPPPPageRangeView
 
-static const NSString *kBackButtonText = @"BACK";
-static const NSString *kCheckButtonText = @"CHECK";
+static const NSString *kBackButtonText = @"⌫";
+static const NSString *kCheckButtonText = @"Done";//@"✔︎";
 static const NSString *kAllButtonText = @"ALL";
-
-// TODO:
-// - Need icons for the "back" and "check" buttons
-// - Need to do a lot more validation on the user's input
-//    - Has the user entered a valid page range
-//    - Is the page range within the bounds of the document
-// - There's some gobbeldy-gook in the upper right corner of the screen
 
 - (void)initWithXibName:(NSString *)xibName
 {
     [super initWithXibName:xibName];
     
     self.textField.delegate = self;
-    [self addButtons];
-    
-    UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    self.textField.inputView = dummyView; // Hide keyboard, but show blinking cursor
-    
-    [self.textField becomeFirstResponder];
 }
 
 - (void)dealloc
@@ -54,6 +43,9 @@ static const NSString *kAllButtonText = @"ALL";
 
 - (void)addButtons
 {
+    UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width, self.frame.size.height, 1, 1)];
+    self.textField.inputView = dummyView; // Hide keyboard, but show blinking cursor
+
     [self removeButtons];
     
     int buttonWidth = self.frame.size.width/4 + 1;
@@ -79,6 +71,10 @@ static const NSString *kAllButtonText = @"ALL";
             button.frame = CGRectMake(col*buttonWidth, yOrigin + (row*buttonHeight), buttonWidth*2, buttonHeight);
             buttonOffset++;
         } else {
+            if( [buttonText isEqualToString:[kCheckButtonText copy]] ) {
+                button.backgroundColor = [UIColor HPPPHPBlueColor];
+                [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            }
             button.frame = CGRectMake((col+buttonOffset)*buttonWidth, yOrigin + (row*buttonHeight), buttonWidth, buttonHeight);
         }
         
@@ -103,22 +99,49 @@ static const NSString *kAllButtonText = @"ALL";
     }
 }
 
+#pragma mark - HPPPEditView implementation
+
+- (void)prepareForDisplay:(NSString *)initialText
+{
+    [self addButtons];
+
+    if( NSOrderedSame == [initialText caseInsensitiveCompare:@"all"] ) {
+        _pageRange = @"";
+    } else {
+        _pageRange = initialText;
+    }
+}
+
+- (void)beginEditing
+{
+    UITextPosition *newPosition = [self.textField positionFromPosition:0 offset:self.textField.text.length];
+    self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
+    self.textField.text = self.pageRange;
+    
+    [self.textField becomeFirstResponder];
+}
+
+- (void)cancelEditing
+{
+    // do nothing;
+    self.textField.text = self.pageRange;
+}
+
+- (void)commitEditing
+{
+    self.pageRange = [self scrubbedPageRange];
+    if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
+        [self.delegate didSelectPageRange:self pageRange:self.pageRange];
+    }
+}
+
+#pragma mark - Button handler
+
 - (IBAction)onButtonDown:(UIButton *)button
 {
     
     if( [kBackButtonText isEqualToString:button.titleLabel.text] ) {
-        NSMutableString *text = [NSMutableString stringWithString:self.textField.text];
-        
-        NSRange selectedRange = [self selectedRangeInTextView:self.textField];
-
-        if( 0 == selectedRange.length && 0 != selectedRange.location ) {
-            selectedRange.location -= 1;
-            selectedRange.length = 1;
-        }
-        
-        [text deleteCharactersInRange:selectedRange];
-        self.textField.text = text;
-        
+        [self replaceCurrentRange:@"" forceDeletion:TRUE];
     } else if( [kCheckButtonText isEqualToString:button.titleLabel.text] ) {
         
         if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
@@ -129,9 +152,15 @@ static const NSString *kAllButtonText = @"ALL";
         self.textField.text = [kAllButtonText copy];
         
     } else {
-        self.textField.text = [NSString stringWithFormat:@"%@%@", self.textField.text, button.titleLabel.text];
+        if( [kAllButtonText isEqualToString:self.textField.text] ) {
+            self.textField.text = @"";
+        }
+        
+        [self replaceCurrentRange:button.titleLabel.text forceDeletion:FALSE];
     }
 }
+
+#pragma mark - Text scrubbing methods
 
 - (NSRange) selectedRangeInTextView:(UITextField*)textView
 {
@@ -147,6 +176,33 @@ static const NSString *kAllButtonText = @"ALL";
     return NSMakeRange(location, length);
 }
 
+- (void) replaceCurrentRange:(NSString *)string forceDeletion:(BOOL)forceDeletion
+{
+    NSMutableString *text = [NSMutableString stringWithString:self.textField.text];
+    
+    NSRange selectedRange = [self selectedRangeInTextView:self.textField];
+    UITextRange *selectedTextRange = [self.textField selectedTextRange];
+    
+    if( forceDeletion  &&  0 == selectedRange.length  &&  0 != selectedRange.location ) {
+        selectedRange.location -= 1;
+        selectedRange.length = 1;
+    }
+    
+    [text deleteCharactersInRange:selectedRange];
+    
+    [text insertString:string atIndex:selectedRange.location];
+    
+    self.textField.text = text;
+    
+    if( forceDeletion  &&  1 == selectedRange.length ) {
+        UITextPosition *newPosition = [self.textField positionFromPosition:selectedTextRange.start offset:-1];
+        self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
+    } else {
+        UITextPosition *newPosition = [self.textField positionFromPosition:selectedTextRange.start offset:string.length];
+        self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
+    }
+}
+
 - (NSString *) scrubbedPageRange
 {
     NSString *scrubbedRange = self.textField.text;
@@ -154,21 +210,112 @@ static const NSString *kAllButtonText = @"ALL";
     if( [kAllButtonText isEqualToString:self.textField.text] ) {
         scrubbedRange = @"";
     } else {
+        // No ",-"... replace with ","
+        // No "-,"... replace with ","
+        // No "--"... replace with "-"
+        // No ",,"... replace with ","
+        // No strings starting or ending with "," or "-"
+        // Rplace all page numbers of 0 with 1
+        // Replace all page numbers greater than the doc length with the doc length
+        // No "%d1-%d2-%d3"... replace with "%d1-%d3"
         
-        // TODO: verify validity of print range
-        //  - No dangling '-' or ','
-        //  - All pages are valid based on the document length
-        //  - properly order all ranges.  IE, '9-2' becomes '2-9'
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",-" withString:@","];
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-," withString:@","];
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",," withString:@","];
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"--" withString:@"-"];
+        
+        // The first page is 1, not 0
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-0-" withString:@"-1-"];
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",0," withString:@",1,"];
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-0," withString:@"-1,"];
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",0-" withString:@",1-"];
+        
+        scrubbedRange = [scrubbedRange stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-,"]];
+        scrubbedRange = [self replaceOutOfBoundsPageNumbers:scrubbedRange];
+        scrubbedRange = [self replaceBadDashUsage:scrubbedRange];
+    
+        if( ![self.textField.text isEqualToString:scrubbedRange] ) {
+            self.textField.text = scrubbedRange;
+            
+            // keep calling this function until it makes no modification
+            scrubbedRange = [self scrubbedPageRange];
+        }
     }
     
     return scrubbedRange;
 }
 
-- (void)finishEditing
+- (NSArray *)getNumsFromString:(NSString *)string
 {
-    if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
-        [self.delegate didSelectPageRange:self pageRange:self.textField.text];
+    NSMutableArray *returnArray = nil;
+    
+    NSRange range = NSMakeRange(0,[string length]);
+    
+    NSRegularExpression *regex = [self regularExpressionWithString:@"\\d+" options:nil];
+    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:range];
+    
+    if( matches  &&  0 < matches.count ) {
+        returnArray = [[NSMutableArray alloc] init];
+        
+        for( NSTextCheckingResult *pageNumRes in matches ) {
+            NSString *pageNumStr = [string substringWithRange:pageNumRes.range];
+            [returnArray addObject:[NSNumber numberWithInteger:[pageNumStr integerValue]]];
+        }
     }
+
+    return returnArray;
+}
+
+- (NSRegularExpression *)regularExpressionWithString:(NSString *)pattern options:(NSDictionary *)options
+{
+    // Create a regular expression
+    NSError *error = NULL;
+    NSRegularExpressionOptions regexOptions = NSRegularExpressionCaseInsensitive;
+    
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:regexOptions error:&error];
+    if (error)
+    {
+        NSLog(@"Couldn't create regex with given string and options");
+    }
+    
+    return regex;
+}
+
+- (NSString *)replaceBadDashUsage:(NSString *)string
+{
+    NSMutableString *scrubbedString = [string mutableCopy];
+
+    NSRange range = NSMakeRange(0,[string length]);
+    
+    NSRegularExpression *regex = [self regularExpressionWithString:@"(\\d+)-(\\d+)-(\\d+)" options:nil];
+    [regex replaceMatchesInString:scrubbedString options:0 range:range withTemplate:@"$1-$3"];
+
+    return scrubbedString;
+}
+
+- (NSString *)replaceOutOfBoundsPageNumbers:(NSString *)string
+{
+    BOOL corrected = FALSE;
+    NSString *scrubbedString = string;
+    
+    NSArray *matches = [self getNumsFromString:string];
+    if( matches  &&  0 < matches.count ) {
+        for( NSNumber *pageNumber in matches ) {
+            NSInteger pageNum = [pageNumber integerValue];
+            if( pageNum > self.maxPageNum ) {
+                NSLog(@"error-- page num out of range: %ld, Word on Mac responds poorly in this scenario... what should we do?", (long)pageNum);
+                scrubbedString = [scrubbedString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%ld", pageNum] withString:[NSString stringWithFormat:@"%ld", self.maxPageNum]];
+                corrected = TRUE;
+                break;
+            }
+        }
+        
+        if( corrected ) {
+            scrubbedString = [self replaceOutOfBoundsPageNumbers:scrubbedString];
+        }
+    }
+    
+    return scrubbedString;
 }
 
 @end

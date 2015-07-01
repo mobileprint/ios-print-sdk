@@ -23,35 +23,31 @@
 
 @implementation HPPPKeyboardView
 
-//TODO: As you can see, this view needs some work
-// - No microphone button next to the text field
-// - text field is too wide
-// - no "check" icon on the return button
-// - ... I'm sure you'll find more items 
-
 - (void)initWithXibName:(NSString *)xibName
 {
     [super initWithXibName:xibName];
     
     self.textField.delegate = self;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillMove:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
-- (void)displayKeyboard
+#pragma mark - HPPPEditView implementation
+
+- (void)prepareForDisplay:(NSString *)initialText
 {
+    self.textField.text = initialText;
+}
+
+- (void)beginEditing {
     [self.textField becomeFirstResponder];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self finishEditing];
-    
-    return FALSE;
+- (void)cancelEditing {
+    [self.textField resignFirstResponder];
 }
 
-- (void)finishEditing
+- (void)commitEditing
 {
     if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didFinishEnteringText:text:)]) {
         [self.delegate didFinishEnteringText:self text:self.textField.text];
@@ -59,7 +55,16 @@
     }
 }
 
--(void) keyboardWillShow:(NSNotification*)notification {
+#pragma mark - Keyboard handlers
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self commitEditing];
+    
+    return FALSE;
+}
+
+-(void) keyboardWillMove:(NSNotification*)notification {
     
     CGFloat height = self.textField.frame.size.height;
     
@@ -74,6 +79,7 @@
     [UIView animateWithDuration:animationDuration animations:^{
         self.textField.frame = CGRectMake(0, y, self.bounds.size.width, height);
     }];
+    self.textField.hidden = FALSE;
 }
 
 @end

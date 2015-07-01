@@ -10,18 +10,29 @@
 // the license agreement.
 //
 
-#import <UIKit/UIKit.h>
 #import "HPPPOverlayEditView.h"
 
-@protocol HPPPKeyboardViewDelegate;
+@implementation HPPPOverlayEditView
 
-@interface HPPPKeyboardView : HPPPOverlayEditView
+- (void)prepareForDisplay:(NSString *)initialText
+{
+    
+}
 
-@property (strong, nonatomic) id<HPPPKeyboardViewDelegate> delegate;
+- (void)beginEditing
+{
+    
+}
 
-@end
+- (void)cancelEditing
+{
+    
+}
 
-@protocol HPPPKeyboardViewDelegate <NSObject>
-@optional
-- (void)didFinishEnteringText:(HPPPKeyboardView *)view text:(NSString *)text;
+- (void)commitEditing
+{
+    
+}
+
+
 @end
