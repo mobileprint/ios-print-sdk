@@ -21,20 +21,14 @@
 #import "HPPPPageRangeView.h"
 #import "HPPPKeyboardView.h"
 #import "HPPPOverlayEditView.h"
+#import "HPPPMultiPageView.h"
+#import "HPPPPrintItem.h"
 
 @interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate, HPPPKeyboardViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *addToPrintQLabel;
+@property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UITextView *nameTextView;
-@property (weak, nonatomic) IBOutlet UILabel *dateTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *printerNameTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *printerNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *printerLocationTitleLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *printerLocationLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *addToPrintQCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *jobNameCell;
 @property (weak, nonatomic) IBOutlet UIStepper *numCopiesStepper;
@@ -48,6 +42,7 @@
 @property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
 @property (strong, nonatomic) HPPPOverlayEditView *editView;
 @property (strong, nonatomic) UIView *smokeyView;
+
 @end
 
 @implementation HPPPAddPrintLaterJobTableViewController
@@ -78,51 +73,12 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
     self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQColorAttribute];
     self.addToPrintQLabel.text = HPPPLocalizedString(@"Add to Print Queue", nil);
     
-    self.nameTextView.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameFontAttribute];
-    self.nameTextView.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute];
-    
-    self.dateTitleLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleFontAttribute];
-    self.dateTitleLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleColorAttribute];
-    self.dateTitleLabel.text = HPPPLocalizedString(@"Date", nil);
-    
-    self.dateLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemFontAttribute];
-    self.dateLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemColorAttribute];
-    
-    self.printerNameTitleLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleFontAttribute];
-    self.printerNameTitleLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleColorAttribute];
-    self.printerNameTitleLabel.text = HPPPLocalizedString(@"Printer", nil);
-    
-    self.printerNameLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemFontAttribute];
-    self.printerNameLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemColorAttribute];
-    
-    self.printerLocationTitleLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleFontAttribute];
-    self.printerLocationTitleLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemTitleColorAttribute];
-    self.printerLocationTitleLabel.text = HPPPLocalizedString(@"Network", nil);
-    
-    self.printerLocationLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemFontAttribute];
-    self.printerLocationLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenSubitemColorAttribute];
-    
-    self.nameTextView.text = self.printLaterJob.name;
-    self.nameTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.nameTextView.layer.borderWidth = 2.0f;
-    self.nameTextView.delegate = self;
-    self.nameTextView.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
-    self.nameTextView.textContainer.maximumNumberOfLines = 1;
-    self.nameTextView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init] ;
-    [dateFormatter setDateFormat:[HPPP sharedInstance].defaultDateFormat];
-    self.dateLabel.text = [dateFormatter stringFromDate:self.printLaterJob.date];
-    
-    self.imageView.image = [self.printLaterJob previewImage];
     [self setPageRangeLabelText];
     self.blackAndWhiteSwitch.on = self.printLaterJob.blackAndWhite;
     
     self.numCopiesStepper.minimumValue = 1;
     self.numCopiesStepper.value = self.printLaterJob.numCopies;
     [self setNumCopiesText];
-    
-    [self preparePrinterDisplayValues];
     
     UIButton *doneButton = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenDoneButtonAttribute];
     
@@ -147,7 +103,8 @@ self.pageRangeView.maxPageNum = 50;
     self.keyboardView.delegate = self;
     self.keyboardView.hidden = YES;
     [self.view addSubview:self.keyboardView];
-
+    
+    [self configureMultiPageView];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -163,18 +120,15 @@ self.pageRangeView.maxPageNum = 50;
     self.smokeyView.frame = desiredSmokeyViewFrame;
 }
 
-- (void)preparePrinterDisplayValues
+- (void)configureMultiPageView
 {
-    HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
-    if (settings.isDefaultPrinterSet) {
-        self.printerNameLabel.text = settings.defaultPrinterName;
-        self.printerLocationLabel.text = settings.defaultPrinterNetwork;
-    } else {
-        self.printerNameTitleLabel.hidden = YES;
-        self.printerNameLabel.hidden = YES;
-        self.printerLocationTitleLabel.hidden = YES;
-        self.printerLocationLabel.hidden = YES;
-    }
+    HPPPPaper *initialPaper = [[HPPPPaper alloc] initWithPaperSize:[HPPP sharedInstance].defaultPaper.paperSize paperType:Plain];
+    HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:initialPaper.sizeTitle];
+
+    self.multiPageView.blackAndWhite = self.blackAndWhiteSwitch.on;
+    [self.multiPageView setInterfaceOptions:[HPPP sharedInstance].interfaceOptions];
+    NSArray *images = [printItem previewImagesForPaper:initialPaper];
+    [self.multiPageView setPages:images paper:initialPaper layout:printItem.layout];
 }
 
 #pragma mark - Table view data source
@@ -201,10 +155,6 @@ self.pageRangeView.maxPageNum = 50;
     cell.selected = NO;
     
     if (cell == self.addToPrintQCell) {
-        
-        [self.nameTextView resignFirstResponder];
-        
-        self.printLaterJob.name = self.nameTextView.text;
         
         NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize];
         HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:titleForInitialPaperSize];
@@ -244,7 +194,6 @@ self.pageRangeView.maxPageNum = 50;
         }
 
         if( self.editView ) {
-            
             [self displaySmokeyView:TRUE];
             
             [self setNavigationBarEditing:TRUE];
@@ -276,9 +225,6 @@ self.pageRangeView.maxPageNum = 50;
         [self.editView commitEditing];
         [self dismissEditView];
 
-    } else {
-        [self.nameTextView resignFirstResponder];
-        [self setNavigationBarEditing:NO];
     }
 }
 
@@ -301,6 +247,7 @@ self.pageRangeView.maxPageNum = 50;
 - (IBAction)didToggleBlackAndWhiteMode:(id)sender {
     
     self.printLaterJob.blackAndWhite = self.blackAndWhiteSwitch.on;
+    self.multiPageView.blackAndWhite = self.printLaterJob.blackAndWhite;
 }
 
 #pragma mark - Edit View Delegates
@@ -365,7 +312,6 @@ self.pageRangeView.maxPageNum = 50;
     
     [UIView animateWithDuration:0.4f
                      animations:^{
-                         self.nameTextView.textColor = nameTextFieldColor;
                          self.navigationItem.title = navigationBarTitle;
                      }];
 }

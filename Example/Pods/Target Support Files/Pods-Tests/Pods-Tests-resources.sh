@@ -66,6 +66,7 @@ install_resource()
                     install_resource "../../Pod/Classes/Private/HPPPKeyboardView.xib"
                     install_resource "../../Pod/Classes/Private/HPPPMultiPageView.xib"
                     install_resource "../../Pod/Classes/Private/HPPPPageRangeView.xib"
+                    install_resource "../../Pod/Classes/Private/HPPPPageView.xib"
                     install_resource "../../Pod/Classes/Private/HPPPPrintJobsActionView.xib"
                     install_resource "../../Pod/Classes/Private/HPPPRuleView.xib"
                     install_resource "../../Pod/Classes/HPPP.storyboard"
