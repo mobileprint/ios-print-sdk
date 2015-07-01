@@ -318,6 +318,7 @@ self.pageRangeView.maxPageNum = 50;
 - (void)didFinishEnteringText:(HPPPKeyboardView *)view text:(NSString *)text
 {
     self.jobNameCell.detailTextLabel.text = text;
+    [self.tableView reloadData];
     [self dismissEditView];
 }
 

@@ -181,6 +181,7 @@ static const NSString *kAllButtonText = @"ALL";
         // No "--"... replace with "-"
         // No ",,"... replace with ","
         // No strings starting or ending with "," or "-"
+        // Rplace all page numbers of 0 with 1
         // Replace all page numbers greater than the doc length with the doc length
         // No "%d1-%d2-%d3"... replace with "%d1-%d3"
         
@@ -188,6 +189,13 @@ static const NSString *kAllButtonText = @"ALL";
         scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-," withString:@","];
         scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",," withString:@","];
         scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"--" withString:@"-"];
+        
+        // The first page is 1, not 0
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-0-" withString:@"-1-"];
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",0," withString:@",1,"];
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-0," withString:@"-1,"];
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",0-" withString:@",1-"];
+        
         scrubbedRange = [scrubbedRange stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-,"]];
         scrubbedRange = [self replaceOutOfBoundsPageNumbers:scrubbedRange];
         scrubbedRange = [self replaceBadDashUsage:scrubbedRange];
@@ -272,6 +280,8 @@ static const NSString *kAllButtonText = @"ALL";
                 scrubbedString = [scrubbedString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%ld", pageNum] withString:[NSString stringWithFormat:@"%ld", self.maxPageNum]];
                 corrected = TRUE;
                 break;
+            } else if ( 0 == pageNum ) {
+                NSLog(@"error-- 0 page num");
             }
         }
         

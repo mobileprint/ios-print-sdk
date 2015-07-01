@@ -23,20 +23,13 @@
 
 @implementation HPPPKeyboardView
 
-//TODO: As you can see, this view needs some work
-// - No microphone button next to the text field
-// - text field is too wide
-// - no "check" icon on the return button
-// - ... I'm sure you'll find more items 
-
 - (void)initWithXibName:(NSString *)xibName
 {
     [super initWithXibName:xibName];
     
     self.textField.delegate = self;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillMove:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
 - (void)displayKeyboard
@@ -59,7 +52,7 @@
     }
 }
 
--(void) keyboardWillShow:(NSNotification*)notification {
+-(void) keyboardWillMove:(NSNotification*)notification {
     
     CGFloat height = self.textField.frame.size.height;
     
@@ -74,6 +67,7 @@
     [UIView animateWithDuration:animationDuration animations:^{
         self.textField.frame = CGRectMake(0, y, self.bounds.size.width, height);
     }];
+    self.textField.hidden = FALSE;
 }
 
 @end
