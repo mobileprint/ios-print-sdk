@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *addToPrintQLabel;
 @property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
 
+@property (weak, nonatomic) IBOutlet UITableViewCell *jobSummaryCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *addToPrintQCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *jobNameCell;
 @property (weak, nonatomic) IBOutlet UIStepper *numCopiesStepper;
@@ -42,12 +43,15 @@
 @property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
 @property (strong, nonatomic) HPPPOverlayEditView *editView;
 @property (strong, nonatomic) UIView *smokeyView;
+@property (strong, nonatomic) HPPPPrintItem *printItem;
+@property (strong, nonatomic) HPPPPaper *paper;
 
 @end
 
 @implementation HPPPAddPrintLaterJobTableViewController
 
 NSString * const kAddJobScreenName = @"Add Job Screen";
+NSString * const kPageRangeAllPages = @"All";
 
 - (void)viewDidLoad
 {
@@ -68,6 +72,12 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     HPPP *hppp = [HPPP sharedInstance];
+    
+    self.paper = [[HPPPPaper alloc] initWithPaperSize:[HPPP sharedInstance].defaultPaper.paperSize paperType:Plain];
+    self.printItem = [self.printLaterJob.printItems objectForKey:self.paper.sizeTitle];
+
+    self.jobSummaryCell.textLabel.text = self.printLaterJob.name;
+    self.jobNameCell.detailTextLabel.text = self.printLaterJob.name;
     
     self.addToPrintQLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQFontAttribute];
     self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQColorAttribute];
@@ -96,7 +106,7 @@ NSString * const kAddJobScreenName = @"Add Job Screen";
     self.pageRangeView = [[HPPPPageRangeView alloc] init];
     self.pageRangeView.delegate = self;
     self.pageRangeView.hidden = YES;
-self.pageRangeView.maxPageNum = 50;
+    self.pageRangeView.maxPageNum = self.printItem.numberOfPages;
     [self.view addSubview:self.pageRangeView];
 
     self.keyboardView = [[HPPPKeyboardView alloc] init];
@@ -104,6 +114,7 @@ self.pageRangeView.maxPageNum = 50;
     self.keyboardView.hidden = YES;
     [self.view addSubview:self.keyboardView];
     
+    [self reloadJobSummary];
     [self configureMultiPageView];
 }
 
@@ -122,29 +133,48 @@ self.pageRangeView.maxPageNum = 50;
 
 - (void)configureMultiPageView
 {
-    HPPPPaper *initialPaper = [[HPPPPaper alloc] initWithPaperSize:[HPPP sharedInstance].defaultPaper.paperSize paperType:Plain];
-    HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:initialPaper.sizeTitle];
-
     self.multiPageView.blackAndWhite = self.blackAndWhiteSwitch.on;
     [self.multiPageView setInterfaceOptions:[HPPP sharedInstance].interfaceOptions];
-    NSArray *images = [printItem previewImagesForPaper:initialPaper];
-    [self.multiPageView setPages:images paper:initialPaper layout:printItem.layout];
+    NSArray *images = [self.printItem previewImagesForPaper:self.paper];
+    [self.multiPageView setPages:images paper:self.paper layout:self.printItem.layout];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if( 3 == section ) {
+    if( 4 == section ) {
         return 3;
     }
     
     return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat height = ZERO_HEIGHT;
+    
+    if (section > 1) {
+        height = tableView.sectionHeaderHeight;
+    }
+    
+    return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    CGFloat height = ZERO_HEIGHT;
+    
+    if( section > 0 ) {
+        height = tableView.sectionFooterHeight;
+    }
+    
+    return height;
 }
 
 #pragma mark - UITableViewDelegate
@@ -240,14 +270,15 @@ self.pageRangeView.maxPageNum = 50;
 - (IBAction)didChangeNumCopies:(id)sender {
 
     self.printLaterJob.numCopies = self.numCopiesStepper.value;
-    
     [self setNumCopiesText];
+    [self reloadJobSummary];
 }
 
 - (IBAction)didToggleBlackAndWhiteMode:(id)sender {
     
     self.printLaterJob.blackAndWhite = self.blackAndWhiteSwitch.on;
     self.multiPageView.blackAndWhite = self.printLaterJob.blackAndWhite;
+    [self reloadJobSummary];
 }
 
 #pragma mark - Edit View Delegates
@@ -256,17 +287,34 @@ self.pageRangeView.maxPageNum = 50;
 {
     self.printLaterJob.pageRange = pageRange;
     [self setPageRangeLabelText];
+    [self reloadJobSummary];
     [self dismissEditView];
 }
 
 - (void)didFinishEnteringText:(HPPPKeyboardView *)view text:(NSString *)text
 {
+    self.jobSummaryCell.textLabel.text = text;
     self.jobNameCell.detailTextLabel.text = text;
-    [self.tableView reloadData];
+    [self reloadJobSummary];
     [self dismissEditView];
 }
 
 #pragma mark - Helpers
+
+-(void)reloadJobSummary
+{
+    NSString *text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)[self getPagesFromPageRange].count, (long)self.printItem.numberOfPages];
+    
+    if( self.blackAndWhiteSwitch.on ) {
+        text = [text stringByAppendingString:@"/B&W"];
+    }
+    
+    text = [text stringByAppendingString:[NSString stringWithFormat:@"/%ld Copies", (long)self.numCopiesStepper.value]];
+    
+    self.jobSummaryCell.detailTextLabel.text = text;
+    
+    [self.tableView reloadData];
+}
 
 -(void)displaySmokeyView:(BOOL)display
 {
@@ -332,8 +380,50 @@ self.pageRangeView.maxPageNum = 50;
     if( [self.printLaterJob.pageRange length] ) {
         self.pageRangeCell.detailTextLabel.text = self.printLaterJob.pageRange;
     } else {
-        self.pageRangeCell.detailTextLabel.text = @"All";
+        self.pageRangeCell.detailTextLabel.text = kPageRangeAllPages;
     }
+}
+
+- (NSArray *)getPagesFromPageRange
+{
+    NSMutableArray *pageNums = [[NSMutableArray alloc] initWithCapacity:self.printItem.numberOfPages];
+    
+    NSString *pageRange = self.pageRangeCell.detailTextLabel.text;
+    
+    if( [kPageRangeAllPages isEqualToString:pageRange] ) {
+        for (int i=1; i <= self.printItem.numberOfPages; i++) {
+            [pageNums addObject:[NSNumber numberWithInt:i]];
+        }
+    } else {
+        // split on commas
+        NSArray *chunks = [pageRange componentsSeparatedByString:@","];
+        for (NSString *chunk in chunks) {
+            if( [chunk containsString:@"-"] ) {
+                // split on the dash
+                NSArray *rangeChunks = [chunk componentsSeparatedByString:@"-"];
+                NSAssert(2 == rangeChunks.count, @"Bad page range");
+                int startOfRange = [(NSString *)rangeChunks[0] intValue];
+                int endOfRange = [(NSString *)rangeChunks[1] intValue];
+                
+                if( startOfRange < endOfRange ) {
+                    for (int i=startOfRange; i<=endOfRange; i++) {
+                        [pageNums addObject:[NSNumber numberWithInt:i]];
+                    }
+                } else if( startOfRange > endOfRange ) {
+                    for (int i=startOfRange; i>=endOfRange; i--) {
+                        [pageNums addObject:[NSNumber numberWithInt:i]];
+                    }
+                } else { // they are equal
+                    [pageNums addObject:[NSNumber numberWithInt:startOfRange]];
+                }
+                
+            } else {
+                [pageNums addObject:[NSNumber numberWithInteger:[chunk integerValue]]];
+            }
+        }
+    }
+    
+    return pageNums;
 }
 
 @end
