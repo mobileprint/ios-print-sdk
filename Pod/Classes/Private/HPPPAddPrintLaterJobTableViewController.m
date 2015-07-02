@@ -24,7 +24,7 @@
 #import "HPPPMultiPageView.h"
 #import "HPPPPrintItem.h"
 
-@interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate, HPPPKeyboardViewDelegate>
+@interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate, HPPPKeyboardViewDelegate, HPPPMultiPageViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *addToPrintQLabel;
 @property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
@@ -43,6 +43,9 @@
 @property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
 @property (strong, nonatomic) HPPPOverlayEditView *editView;
 @property (strong, nonatomic) UIView *smokeyView;
+@property (strong, nonatomic) UIButton *pageSelectionMark;
+@property (strong, nonatomic) UIImage *selectedPageImage;
+@property (strong, nonatomic) UIImage *unselectedPageImage;
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (strong, nonatomic) HPPPPaper *paper;
 
@@ -97,6 +100,16 @@ NSString * const kPageRangeAllPages = @"All";
     [doneButton addTarget:self action:@selector(doneButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     self.doneButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
+    
+    self.selectedPageImage = [UIImage imageNamed:@"HPPPSelected.png"];
+    self.unselectedPageImage = [UIImage imageNamed:@"HPPPUnselected.png"];
+    self.pageSelectionMark = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.pageSelectionMark setImage:self.selectedPageImage forState:UIControlStateNormal];
+    self.pageSelectionMark.backgroundColor = [UIColor clearColor];
+    self.pageSelectionMark.adjustsImageWhenHighlighted = NO;
+    [self.pageSelectionMark addTarget:self action:@selector(pageSelectionMarkClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.pageSelectionMark];
+
     self.smokeyView = [[UIView alloc] init];
     self.smokeyView.backgroundColor = [UIColor blackColor];
     self.smokeyView.alpha = 0.6f;
@@ -137,6 +150,7 @@ NSString * const kPageRangeAllPages = @"All";
     [self.multiPageView setInterfaceOptions:[HPPP sharedInstance].interfaceOptions];
     NSArray *images = [self.printItem previewImagesForPaper:self.paper];
     [self.multiPageView setPages:images paper:self.paper layout:self.printItem.layout];
+    self.multiPageView.delegate = self;
 }
 
 #pragma mark - Table view data source
@@ -238,6 +252,19 @@ NSString * const kPageRangeAllPages = @"All";
     }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if( cell == self.jobSummaryCell ) {
+        CGRect frame = self.jobSummaryCell.frame;
+        frame.origin.x = self.view.frame.size.width - 30;
+        frame.origin.y = self.jobSummaryCell.frame.origin.y - 9;
+        frame.size.width = 20;
+        frame.size.height = 20;
+        
+        self.pageSelectionMark.frame = [self.jobSummaryCell.superview convertRect:frame toView:self.view];
+    }
+}
+
 - (IBAction)cancelButtonTapped:(id)sender
 {
     if( nil != self.editView ) {
@@ -281,6 +308,15 @@ NSString * const kPageRangeAllPages = @"All";
     [self reloadJobSummary];
 }
 
+- (void)pageSelectionMarkClicked
+{
+    if( self.pageSelectionMark.imageView.image == self.selectedPageImage ) {
+        [self includeCurrentPageInPageRange:FALSE];
+    } else {
+        [self includeCurrentPageInPageRange:TRUE];
+    }
+}
+
 #pragma mark - Edit View Delegates
 
 - (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(NSString *)pageRange
@@ -299,7 +335,67 @@ NSString * const kPageRangeAllPages = @"All";
     [self dismissEditView];
 }
 
+#pragma mark - Multipage View Delegate
+
+- (void)multiPageView:(HPPPMultiPageView *)multiPageView didChangeFromPage:(NSUInteger)oldPageNumber ToPage:(NSUInteger)newPageNumber
+{
+    BOOL pageSelected = FALSE;
+    
+    NSArray *pageNums = [self getPagesFromPageRange];
+    for( NSNumber *pageNum in pageNums ) {
+        if( [pageNum integerValue] == newPageNumber ) {
+            pageSelected = TRUE;
+            break;
+        }
+    }
+    
+    [self updateSelectedPageIcon:pageSelected];
+}
+
+- (void)multiPageView:(HPPPMultiPageView *)multiPageView didSingleTapPage:(NSUInteger)pageNumber
+{
+    
+}
+
+- (void)multiPageView:(HPPPMultiPageView *)multiPageView didDoubleTapPage:(NSUInteger)pageNumber
+{
+    
+}
+
 #pragma mark - Helpers
+
+-(void)includeCurrentPageInPageRange:(BOOL)includePage
+{
+    if( includePage ) {
+        self.pageRangeCell.detailTextLabel.text = [NSString stringWithFormat:@"%@,%lu", self.pageRangeCell.detailTextLabel.text, (unsigned long)self.multiPageView.currentPage];
+    } else {
+        NSMutableArray *newPages = [[NSMutableArray alloc] init];
+        
+        // navigate the selected pages, removing every instance of the current page
+        for( NSNumber *pageNumber in [self getPagesFromPageRange] ) {
+            if( [pageNumber integerValue] != self.multiPageView.currentPage ) {
+                [newPages addObject:pageNumber];
+            }
+        }
+
+        [self formPageRangeFromPages:newPages];
+    }
+    
+    [self updateSelectedPageIcon:includePage];
+}
+
+-(void)updateSelectedPageIcon:(BOOL)selectPage
+{
+    UIImage *image;
+    
+    if( selectPage ) {
+        image = self.selectedPageImage;
+    } else {
+        image = self.unselectedPageImage;
+    }
+ 
+    [self.pageSelectionMark setImage:image forState:UIControlStateNormal];
+}
 
 -(void)reloadJobSummary
 {
@@ -336,6 +432,7 @@ NSString * const kPageRangeAllPages = @"All";
         self.editView.hidden = YES;
         [self displaySmokeyView:NO];
         [self setNavigationBarEditing:NO];
+        self.editView = nil;
     }];
 }
 
@@ -382,6 +479,11 @@ NSString * const kPageRangeAllPages = @"All";
     } else {
         self.pageRangeCell.detailTextLabel.text = kPageRangeAllPages;
     }
+}
+
+- (NSString *)formPageRangeFromPages:(NSArray *)pages
+{
+    return @"";
 }
 
 - (NSArray *)getPagesFromPageRange
