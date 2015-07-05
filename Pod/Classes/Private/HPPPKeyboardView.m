@@ -30,6 +30,7 @@
     self.textField.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillMove:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
 }
 
 #pragma mark - HPPPEditView implementation
@@ -37,6 +38,7 @@
 - (void)prepareForDisplay:(NSString *)initialText
 {
     self.textField.text = initialText;
+    self.textField.hidden = true;
 }
 
 - (void)beginEditing {
@@ -64,8 +66,8 @@
     return FALSE;
 }
 
--(void) keyboardWillMove:(NSNotification*)notification {
-    
+-(void) keyboardWillMove:(NSNotification *)notification
+{
     CGFloat height = self.textField.frame.size.height;
     
     CGRect endFrame;
@@ -79,6 +81,11 @@
     [UIView animateWithDuration:animationDuration animations:^{
         self.textField.frame = CGRectMake(0, y, self.bounds.size.width, height);
     }];
+    self.textField.hidden = FALSE;
+}
+
+-(void) keyboardDidShow:(NSNotification *)notification
+{
     self.textField.hidden = FALSE;
 }
 

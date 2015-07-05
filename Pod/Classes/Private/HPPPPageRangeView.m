@@ -106,7 +106,7 @@ static NSString *kAllButtonText = @"ALL";
 {
     [self addButtons];
 
-    if( NSOrderedSame == [initialText caseInsensitiveCompare:@"all"] ) {
+    if( NSOrderedSame == [initialText caseInsensitiveCompare:kAllButtonText] ) {
         _pageRange = @"";
     } else {
         _pageRange = initialText;
@@ -130,9 +130,9 @@ static NSString *kAllButtonText = @"ALL";
 
 - (void)commitEditing
 {
-    self.pageRange = [HPPPPageRange cleanPageRange:self.textField.text allPagesIndicator:kAllButtonText maxPageNum:self.maxPageNum];
     if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
-        [self.delegate didSelectPageRange:self pageRange:self.pageRange];
+        NSString *cleanPageRange = [HPPPPageRange cleanPageRange:self.textField.text allPagesIndicator:kAllButtonText maxPageNum:self.maxPageNum];
+        [self.delegate didSelectPageRange:self pageRange:cleanPageRange];
     }
 }
 
@@ -140,14 +140,11 @@ static NSString *kAllButtonText = @"ALL";
 
 - (IBAction)onButtonDown:(UIButton *)button
 {
-    
     if( [kBackButtonText isEqualToString:button.titleLabel.text] ) {
         [self replaceCurrentRange:@"" forceDeletion:TRUE];
     } else if( [kCheckButtonText isEqualToString:button.titleLabel.text] ) {
         
-        if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
-            [self.delegate didSelectPageRange:self pageRange:[HPPPPageRange cleanPageRange:self.textField.text allPagesIndicator:kAllButtonText maxPageNum:self.maxPageNum]];
-        }
+        [self commitEditing];
         
     } else if( [kAllButtonText isEqualToString:button.titleLabel.text] ) {
         self.textField.text = [kAllButtonText copy];
@@ -161,7 +158,7 @@ static NSString *kAllButtonText = @"ALL";
     }
 }
 
-#pragma mark - Text scrubbing methods
+#pragma mark - Text eval and modification
 
 - (NSRange) selectedRangeInTextView:(UITextField*)textView
 {
@@ -203,6 +200,5 @@ static NSString *kAllButtonText = @"ALL";
         self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
     }
 }
-
 
 @end
