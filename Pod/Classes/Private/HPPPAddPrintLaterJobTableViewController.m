@@ -23,6 +23,7 @@
 #import "HPPPOverlayEditView.h"
 #import "HPPPMultiPageView.h"
 #import "HPPPPrintItem.h"
+#import "HPPPPageRange.h"
 
 @interface HPPPAddPrintLaterJobTableViewController () <UITextViewDelegate, HPPPKeyboardViewDelegate, HPPPMultiPageViewDelegate>
 
@@ -341,7 +342,7 @@ NSString * const kPageRangeAllPages = @"All";
 {
     BOOL pageSelected = FALSE;
     
-    NSArray *pageNums = [self getPagesFromPageRange];
+    NSArray *pageNums = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
     for( NSNumber *pageNum in pageNums ) {
         if( [pageNum integerValue] == newPageNumber ) {
             pageSelected = TRUE;
@@ -366,22 +367,35 @@ NSString * const kPageRangeAllPages = @"All";
 
 -(void)includeCurrentPageInPageRange:(BOOL)includePage
 {
+    NSArray *pages = nil;
+    
     if( includePage ) {
         self.pageRangeCell.detailTextLabel.text = [NSString stringWithFormat:@"%@,%lu", self.pageRangeCell.detailTextLabel.text, (unsigned long)self.multiPageView.currentPage];
+        pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
     } else {
         NSMutableArray *newPages = [[NSMutableArray alloc] init];
         
         // navigate the selected pages, removing every instance of the current page
-        for( NSNumber *pageNumber in [self getPagesFromPageRange] ) {
+        pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+        for( NSNumber *pageNumber in pages ) {
             if( [pageNumber integerValue] != self.multiPageView.currentPage ) {
                 [newPages addObject:pageNumber];
             }
         }
-
-        [self formPageRangeFromPages:newPages];
+        
+        pages = newPages;
     }
+
+    // if the user is clicking on the pages in the multi-page view, sort the selected pages
+    NSMutableArray *mutablePages = [pages mutableCopy];
+    NSSortDescriptor *lowestToHighest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    [mutablePages sortUsingDescriptors:[NSArray arrayWithObject:lowestToHighest]];
+    pages = mutablePages;
     
+    self.pageRangeCell.detailTextLabel.text = [HPPPPageRange formPageRangeFromPages:pages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+
     [self updateSelectedPageIcon:includePage];
+    [self reloadJobSummary];
 }
 
 -(void)updateSelectedPageIcon:(BOOL)selectPage
@@ -399,7 +413,8 @@ NSString * const kPageRangeAllPages = @"All";
 
 -(void)reloadJobSummary
 {
-    NSString *text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)[self getPagesFromPageRange].count, (long)self.printItem.numberOfPages];
+    NSArray *pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    NSString *text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)pages.count, (long)self.printItem.numberOfPages];
     
     if( self.blackAndWhiteSwitch.on ) {
         text = [text stringByAppendingString:@"/B&W"];
@@ -469,7 +484,7 @@ NSString * const kPageRangeAllPages = @"All";
         copyIdentifier = @"Copy";
     }
     
-    self.numCopiesLabel.text = [NSString stringWithFormat:@"%ld %@", self.printLaterJob.numCopies, copyIdentifier];
+    self.numCopiesLabel.text = [NSString stringWithFormat:@"%ld %@", (long)self.printLaterJob.numCopies, copyIdentifier];
 }
 
 - (void)setPageRangeLabelText
@@ -481,51 +496,6 @@ NSString * const kPageRangeAllPages = @"All";
     }
 }
 
-- (NSString *)formPageRangeFromPages:(NSArray *)pages
-{
-    return @"";
-}
 
-- (NSArray *)getPagesFromPageRange
-{
-    NSMutableArray *pageNums = [[NSMutableArray alloc] initWithCapacity:self.printItem.numberOfPages];
-    
-    NSString *pageRange = self.pageRangeCell.detailTextLabel.text;
-    
-    if( [kPageRangeAllPages isEqualToString:pageRange] ) {
-        for (int i=1; i <= self.printItem.numberOfPages; i++) {
-            [pageNums addObject:[NSNumber numberWithInt:i]];
-        }
-    } else {
-        // split on commas
-        NSArray *chunks = [pageRange componentsSeparatedByString:@","];
-        for (NSString *chunk in chunks) {
-            if( [chunk containsString:@"-"] ) {
-                // split on the dash
-                NSArray *rangeChunks = [chunk componentsSeparatedByString:@"-"];
-                NSAssert(2 == rangeChunks.count, @"Bad page range");
-                int startOfRange = [(NSString *)rangeChunks[0] intValue];
-                int endOfRange = [(NSString *)rangeChunks[1] intValue];
-                
-                if( startOfRange < endOfRange ) {
-                    for (int i=startOfRange; i<=endOfRange; i++) {
-                        [pageNums addObject:[NSNumber numberWithInt:i]];
-                    }
-                } else if( startOfRange > endOfRange ) {
-                    for (int i=startOfRange; i>=endOfRange; i--) {
-                        [pageNums addObject:[NSNumber numberWithInt:i]];
-                    }
-                } else { // they are equal
-                    [pageNums addObject:[NSNumber numberWithInt:startOfRange]];
-                }
-                
-            } else {
-                [pageNums addObject:[NSNumber numberWithInteger:[chunk integerValue]]];
-            }
-        }
-    }
-    
-    return pageNums;
-}
 
 @end

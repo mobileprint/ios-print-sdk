@@ -11,6 +11,7 @@
 //
 
 #import "HPPPPageRangeView.h"
+#import "HPPPPageRange.h"
 #import "UIColor+HPPPStyle.h"
 
 @interface HPPPPageRangeView () <UITextFieldDelegate>
@@ -25,9 +26,9 @@
 
 @implementation HPPPPageRangeView
 
-static const NSString *kBackButtonText = @"⌫";
-static const NSString *kCheckButtonText = @"Done";//@"✔︎";
-static const NSString *kAllButtonText = @"ALL";
+static NSString *kBackButtonText = @"⌫";
+static NSString *kCheckButtonText = @"Done";//@"✔︎";
+static NSString *kAllButtonText = @"ALL";
 
 - (void)initWithXibName:(NSString *)xibName
 {
@@ -129,7 +130,7 @@ static const NSString *kAllButtonText = @"ALL";
 
 - (void)commitEditing
 {
-    self.pageRange = [self scrubbedPageRange];
+    self.pageRange = [HPPPPageRange cleanPageRange:self.textField.text allPagesIndicator:kAllButtonText maxPageNum:self.maxPageNum];
     if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
         [self.delegate didSelectPageRange:self pageRange:self.pageRange];
     }
@@ -145,7 +146,7 @@ static const NSString *kAllButtonText = @"ALL";
     } else if( [kCheckButtonText isEqualToString:button.titleLabel.text] ) {
         
         if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
-            [self.delegate didSelectPageRange:self pageRange:[self scrubbedPageRange]];
+            [self.delegate didSelectPageRange:self pageRange:[HPPPPageRange cleanPageRange:self.textField.text allPagesIndicator:kAllButtonText maxPageNum:self.maxPageNum]];
         }
         
     } else if( [kAllButtonText isEqualToString:button.titleLabel.text] ) {
@@ -203,119 +204,5 @@ static const NSString *kAllButtonText = @"ALL";
     }
 }
 
-- (NSString *) scrubbedPageRange
-{
-    NSString *scrubbedRange = self.textField.text;
-    
-    if( [kAllButtonText isEqualToString:self.textField.text] ) {
-        scrubbedRange = @"";
-    } else {
-        // No ",-"... replace with ","
-        // No "-,"... replace with ","
-        // No "--"... replace with "-"
-        // No ",,"... replace with ","
-        // No strings starting or ending with "," or "-"
-        // Rplace all page numbers of 0 with 1
-        // Replace all page numbers greater than the doc length with the doc length
-        // No "%d1-%d2-%d3"... replace with "%d1-%d3"
-        
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",-" withString:@","];
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-," withString:@","];
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",," withString:@","];
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"--" withString:@"-"];
-        
-        // The first page is 1, not 0
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-0-" withString:@"-1-"];
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",0," withString:@",1,"];
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-0," withString:@"-1,"];
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",0-" withString:@",1-"];
-        
-        scrubbedRange = [scrubbedRange stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-,"]];
-        scrubbedRange = [self replaceOutOfBoundsPageNumbers:scrubbedRange];
-        scrubbedRange = [self replaceBadDashUsage:scrubbedRange];
-    
-        if( ![self.textField.text isEqualToString:scrubbedRange] ) {
-            self.textField.text = scrubbedRange;
-            
-            // keep calling this function until it makes no modification
-            scrubbedRange = [self scrubbedPageRange];
-        }
-    }
-    
-    return scrubbedRange;
-}
-
-- (NSArray *)getNumsFromString:(NSString *)string
-{
-    NSMutableArray *returnArray = nil;
-    
-    NSRange range = NSMakeRange(0,[string length]);
-    
-    NSRegularExpression *regex = [self regularExpressionWithString:@"\\d+" options:nil];
-    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:range];
-    
-    if( matches  &&  0 < matches.count ) {
-        returnArray = [[NSMutableArray alloc] init];
-        
-        for( NSTextCheckingResult *pageNumRes in matches ) {
-            NSString *pageNumStr = [string substringWithRange:pageNumRes.range];
-            [returnArray addObject:[NSNumber numberWithInteger:[pageNumStr integerValue]]];
-        }
-    }
-
-    return returnArray;
-}
-
-- (NSRegularExpression *)regularExpressionWithString:(NSString *)pattern options:(NSDictionary *)options
-{
-    // Create a regular expression
-    NSError *error = NULL;
-    NSRegularExpressionOptions regexOptions = NSRegularExpressionCaseInsensitive;
-    
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:regexOptions error:&error];
-    if (error)
-    {
-        NSLog(@"Couldn't create regex with given string and options");
-    }
-    
-    return regex;
-}
-
-- (NSString *)replaceBadDashUsage:(NSString *)string
-{
-    NSMutableString *scrubbedString = [string mutableCopy];
-
-    NSRange range = NSMakeRange(0,[string length]);
-    
-    NSRegularExpression *regex = [self regularExpressionWithString:@"(\\d+)-(\\d+)-(\\d+)" options:nil];
-    [regex replaceMatchesInString:scrubbedString options:0 range:range withTemplate:@"$1-$3"];
-
-    return scrubbedString;
-}
-
-- (NSString *)replaceOutOfBoundsPageNumbers:(NSString *)string
-{
-    BOOL corrected = FALSE;
-    NSString *scrubbedString = string;
-    
-    NSArray *matches = [self getNumsFromString:string];
-    if( matches  &&  0 < matches.count ) {
-        for( NSNumber *pageNumber in matches ) {
-            NSInteger pageNum = [pageNumber integerValue];
-            if( pageNum > self.maxPageNum ) {
-                NSLog(@"error-- page num out of range: %ld, Word on Mac responds poorly in this scenario... what should we do?", (long)pageNum);
-                scrubbedString = [scrubbedString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%ld", pageNum] withString:[NSString stringWithFormat:@"%ld", self.maxPageNum]];
-                corrected = TRUE;
-                break;
-            }
-        }
-        
-        if( corrected ) {
-            scrubbedString = [self replaceOutOfBoundsPageNumbers:scrubbedString];
-        }
-    }
-    
-    return scrubbedString;
-}
 
 @end
