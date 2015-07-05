@@ -512,8 +512,10 @@ NSString * const kPageRangeNoPages = @"No pages selected";
     
     self.jobSummaryCell.detailTextLabel.text = text;
     
-    if( 1 >= pages.count  ||  pages.count >= self.printItem.numberOfPages ) {
+    if( 0 == pages.count  ||  pages.count >= self.printItem.numberOfPages ) {
         self.addToPrintQLabel.text = @"Add to Print Queue";
+    } else if( 1 == pages.count ) {
+        self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Page", (long)pages.count];
     } else {
         self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Pages", (long)pages.count];
     }
