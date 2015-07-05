@@ -127,6 +127,11 @@ NSString * const kPageRangeAllPages = @"All";
     self.keyboardView.hidden = YES;
     [self.view addSubview:self.keyboardView];
     
+    if( 1 == self.printItem.numberOfPages ) {
+        self.pageRangeCell.hidden = TRUE;
+        self.pageSelectionMark.hidden = TRUE;
+    }
+    
     [self reloadJobSummary];
     [self configureMultiPageView];
 }
@@ -162,11 +167,24 @@ NSString * const kPageRangeAllPages = @"All";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSInteger numberOfRows = 1;
+    
     if( 4 == section ) {
-        return 3;
+        numberOfRows = 3;
     }
     
-    return 1;
+    return numberOfRows;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    
+    if( self.pageRangeCell.hidden  &&  4 == indexPath.section  &&  1 == indexPath.row ) {
+        height = 0.0F;
+    }
+    
+    return height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -429,21 +447,38 @@ NSString * const kPageRangeAllPages = @"All";
 -(void)reloadJobSummary
 {
     NSArray *pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
-    NSString *text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)pages.count, (long)self.printItem.numberOfPages];
-    if( pages.count < self.printItem.numberOfPages ) {
-        self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Pages", (long)pages.count];
-    } else {
-        self.addToPrintQLabel.text = @"Add to Print Queue";
+    
+    NSString *text = @"";
+    if( 1 < self.printItem.numberOfPages ) {
+        text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)pages.count, (long)self.printItem.numberOfPages];
     }
     
     if( self.blackAndWhiteSwitch.on ) {
-        text = [text stringByAppendingString:@"/B&W"];
+        if( text.length > 0 ) {
+            text = [text stringByAppendingString:@"/"];
+        }
+        text = [text stringByAppendingString:@"B&W"];
     }
     
-    text = [text stringByAppendingString:[NSString stringWithFormat:@"/%ld Copies", (long)self.numCopiesStepper.value]];
+    if( text.length > 0 ) {
+        text = [text stringByAppendingString:@"/"];
+    }
+    
+    NSString *copyText = @"Copies";
+    if( 1 == self.numCopiesStepper.value ) {
+        copyText = @"Copy";
+    }
+    
+    text = [text stringByAppendingString:[NSString stringWithFormat:@"%ld %@", (long)self.numCopiesStepper.value, copyText]];
     
     self.jobSummaryCell.detailTextLabel.text = text;
     
+    if( pages.count < self.printItem.numberOfPages ) {
+        self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Pages", (long)pages.count];
+    } else if( 1 == pages.count ) {
+        self.addToPrintQLabel.text = @"Add to Print Queue";
+    }
+
     [self.tableView reloadData];
 }
 
