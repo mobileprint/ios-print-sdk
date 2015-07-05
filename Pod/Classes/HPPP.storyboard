@@ -909,7 +909,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="" id="o64-US-Ew0">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="RdE-OM-cbr" detailTextLabel="aAw-lE-XIf" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="X9q-qQ-Jz0">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="RdE-OM-cbr" detailTextLabel="aAw-lE-XIf" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="X9q-qQ-Jz0">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X9q-qQ-Jz0" id="onD-ip-tTx">
                                             <autoresizingMask key="autoresizingMask"/>

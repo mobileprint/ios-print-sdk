@@ -14,6 +14,11 @@
 {
     NSString *scrubbedRange = text;
     
+    // special case of attempting to use only page 0... which does not exist.  Change to page 1.
+    if( [scrubbedRange isEqualToString:@"0"] ) {
+        scrubbedRange = @"1";
+    }
+    
     if( [allPagesIndicator isEqualToString:text] ) {
         scrubbedRange = @"";
     } else {
@@ -83,7 +88,7 @@
                     [pageNums addObject:[NSNumber numberWithInt:startOfRange]];
                 }
                 
-            } else {
+            } else if( chunk.length > 0 ){
                 [pageNums addObject:[NSNumber numberWithInteger:[chunk integerValue]]];
             }
         }
@@ -102,7 +107,14 @@
         NSSortDescriptor *lowestToHighest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
         [mutablePages sortUsingDescriptors:[NSArray arrayWithObject:lowestToHighest]];
         pageRange = [HPPPPageRange formPageRange:mutablePages];
+        
         NSString *fullPageRange = [NSString stringWithFormat:@"%d-%ld", 1, (long)maxPageNum];
+        if( 1 == maxPageNum ) {
+            fullPageRange = @"1";
+        } else if( 2 == maxPageNum ) {
+            fullPageRange = @"1,2";
+        }
+            
         if( [pageRange isEqualToString:fullPageRange] ) {
             pageRange = allPagesIndicator;
         } else {

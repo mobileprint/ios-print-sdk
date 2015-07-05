@@ -49,6 +49,7 @@
 @property (strong, nonatomic) UIImage *unselectedPageImage;
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (strong, nonatomic) HPPPPaper *paper;
+@property (strong, nonatomic) UIColor *activeCellColor;
 
 @end
 
@@ -56,6 +57,7 @@
 
 NSString * const kAddJobScreenName = @"Add Job Screen";
 NSString * const kPageRangeAllPages = @"All";
+NSString * const kPageRangeNoPages = @"No pages selected";
 
 - (void)viewDidLoad
 {
@@ -131,6 +133,8 @@ NSString * const kPageRangeAllPages = @"All";
         self.pageRangeCell.hidden = TRUE;
         self.pageSelectionMark.hidden = TRUE;
     }
+    
+    self.activeCellColor = self.addToPrintQLabel.textColor;
     
     [self reloadJobSummary];
     [self configureMultiPageView];
@@ -246,7 +250,13 @@ NSString * const kPageRangeAllPages = @"All";
         
         if(cell == self.pageRangeCell) {
             self.pageRangeView.frame = startingFrame;
-            [self.pageRangeView prepareForDisplay:self.pageRangeCell.detailTextLabel.text];
+            
+            NSString *pageRange = self.pageRangeCell.detailTextLabel.text;
+            if( [kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
+                pageRange = @"";
+            }
+            
+            [self.pageRangeView prepareForDisplay:pageRange];
             self.editView = self.pageRangeView;
             
         } else if (cell == self.jobNameCell) {
@@ -338,8 +348,20 @@ NSString * const kPageRangeAllPages = @"All";
     self.printLaterJob.pageRange = pageRange;
     [self setPageRangeLabelText];
     [self reloadJobSummary];
-    [self dismissEditView];
     [self setPrintLaterJobPageRange];
+    
+    // Update the page selected icon accordingly
+    BOOL pageSelected = FALSE;
+    NSArray *pageNums = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    for( NSNumber *pageNum in pageNums ) {
+        if( [pageNum integerValue] == self.multiPageView.currentPage) {
+            pageSelected = TRUE;
+            break;
+        }
+    }
+    [self updateSelectedPageIcon:pageSelected];
+    
+    [self dismissEditView];
 }
 
 - (void)didFinishEnteringText:(HPPPKeyboardView *)view text:(NSString *)text
@@ -392,14 +414,23 @@ NSString * const kPageRangeAllPages = @"All";
 {
     NSArray *pages = nil;
     
+    NSString *pageRange = @"";
+    if( ![kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
+        pageRange = self.pageRangeCell.detailTextLabel.text;
+    }
+    
     if( includePage ) {
-        self.pageRangeCell.detailTextLabel.text = [NSString stringWithFormat:@"%@,%lu", self.pageRangeCell.detailTextLabel.text, (unsigned long)self.multiPageView.currentPage];
+        if( pageRange.length > 0 ) {
+            pageRange = [pageRange stringByAppendingString:@","];
+        }
+        
+        self.pageRangeCell.detailTextLabel.text = [NSString stringWithFormat:@"%@%lu", pageRange, (unsigned long)self.multiPageView.currentPage];
         pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
     } else {
         NSMutableArray *newPages = [[NSMutableArray alloc] init];
         
         // navigate the selected pages, removing every instance of the current page
-        pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+        pages = [HPPPPageRange getPagesFromPageRange:pageRange allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
         for( NSNumber *pageNumber in pages ) {
             if( [pageNumber integerValue] != self.multiPageView.currentPage ) {
                 [newPages addObject:pageNumber];
@@ -415,7 +446,11 @@ NSString * const kPageRangeAllPages = @"All";
     [mutablePages sortUsingDescriptors:[NSArray arrayWithObject:lowestToHighest]];
     pages = mutablePages;
     
-    self.pageRangeCell.detailTextLabel.text = [HPPPPageRange formPageRangeFromPages:pages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    if( pages.count > 0 ) {
+        self.pageRangeCell.detailTextLabel.text = [HPPPPageRange formPageRangeFromPages:pages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    } else {
+        self.pageRangeCell.detailTextLabel.text = kPageRangeNoPages;
+    }
 
     [self updateSelectedPageIcon:includePage];
     [self reloadJobSummary];
@@ -424,7 +459,8 @@ NSString * const kPageRangeAllPages = @"All";
 
 -(void)setPrintLaterJobPageRange
 {
-    if( [kPageRangeAllPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
+    if( [kPageRangeAllPages isEqualToString:self.pageRangeCell.detailTextLabel.text]  ||
+        [kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text]      ) {
         self.printLaterJob.pageRange = @"";
     } else {
         self.printLaterJob.pageRange = self.pageRangeCell.detailTextLabel.text;
@@ -446,7 +482,10 @@ NSString * const kPageRangeAllPages = @"All";
 
 -(void)reloadJobSummary
 {
-    NSArray *pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    NSArray *pages = [[NSArray alloc] init];
+    if( ![kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
+        pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    }
     
     NSString *text = @"";
     if( 1 < self.printItem.numberOfPages ) {
@@ -473,12 +512,20 @@ NSString * const kPageRangeAllPages = @"All";
     
     self.jobSummaryCell.detailTextLabel.text = text;
     
-    if( pages.count < self.printItem.numberOfPages ) {
-        self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Pages", (long)pages.count];
-    } else if( 1 == pages.count ) {
+    if( 1 >= pages.count  ||  pages.count >= self.printItem.numberOfPages ) {
         self.addToPrintQLabel.text = @"Add to Print Queue";
+    } else {
+        self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Pages", (long)pages.count];
     }
 
+    if( 0 == pages.count ) {
+        self.addToPrintQCell.userInteractionEnabled = FALSE;
+        self.addToPrintQLabel.textColor = [UIColor lightGrayColor];
+    } else {
+        self.addToPrintQCell.userInteractionEnabled = TRUE;
+        self.addToPrintQLabel.textColor = self.activeCellColor;
+    }
+    
     [self.tableView reloadData];
 }
 
