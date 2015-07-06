@@ -147,11 +147,11 @@ NSString * const kPageRangeNoPages = @"No pages selected";
     [super viewWillAppear:animated];
     self.navigationBarTintColor = self.navigationController.navigationBar.barTintColor;
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kAddJobScreenName forKey:kHPPPTrackableScreenNameKey]];
+}
 
-    CGRect desiredSmokeyViewFrame = self.view.frame;
-    desiredSmokeyViewFrame.size.height += desiredSmokeyViewFrame.origin.y;
-    desiredSmokeyViewFrame.origin.y = 0;
-    
+- (void)setSmokeyViewFrame
+{
+    CGRect desiredSmokeyViewFrame = [self.view convertRect:self.view.frame fromView:[self.view superview]];
     self.smokeyView.frame = desiredSmokeyViewFrame;
 }
 
@@ -244,11 +244,11 @@ NSString * const kPageRangeNoPages = @"No pages selected";
         }
     } else {
         
-        CGRect desiredFrame = self.tableView.frame;
-        desiredFrame.origin.y = 0;
+        [self setSmokeyViewFrame];
+        CGRect desiredFrame = self.smokeyView.frame;
         
         CGRect startingFrame = desiredFrame;
-        startingFrame.origin.y = self.view.frame.origin.y + self.view.frame.size.height;
+        startingFrame.origin.y = self.smokeyView.frame.origin.y + self.smokeyView.frame.size.height;
         
         if(cell == self.pageRangeCell) {
             self.pageRangeView.frame = startingFrame;
