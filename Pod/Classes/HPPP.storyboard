@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -881,6 +881,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="tza-09-zcQ" userLabel="footerView">
+                            <rect key="frame" x="0.0" y="579" width="600" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="What is Print Queue?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSQ-l2-mIF" userLabel="heading">
+                                    <rect key="frame" x="18" y="0.0" width="157" height="20"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kTG-Hh-JUg" userLabel="text">
+                                    <rect key="frame" x="18" y="30" width="564" height="58"/>
+                                    <string key="text">Add a print to the Print Queue and receive a queue'd projects notification when you are near your printer. Tap your notification or simply come back to this app to print your queue'd projects.</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="kTG-Hh-JUg" secondAttribute="trailing" constant="18" id="3Vf-LZ-bOJ"/>
+                                <constraint firstItem="kTG-Hh-JUg" firstAttribute="top" secondItem="iSQ-l2-mIF" secondAttribute="bottom" constant="8" id="YpS-B6-Zld"/>
+                                <constraint firstItem="iSQ-l2-mIF" firstAttribute="top" secondItem="tza-09-zcQ" secondAttribute="top" constant="10" id="fmW-GU-2Ia"/>
+                                <constraint firstItem="kTG-Hh-JUg" firstAttribute="leading" secondItem="tza-09-zcQ" secondAttribute="leading" constant="18" id="wz3-b8-IL1"/>
+                                <constraint firstItem="iSQ-l2-mIF" firstAttribute="leading" secondItem="tza-09-zcQ" secondAttribute="leading" constant="18" id="ywW-vz-gXi"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection headerTitle="" id="MMi-j0-CCQ">
                                 <cells>
@@ -1076,6 +1103,7 @@
                         <outlet property="addToPrintQLabel" destination="KWA-KL-Vys" id="mpf-nF-tux"/>
                         <outlet property="blackAndWhiteSwitch" destination="C6l-jh-fi5" id="233-pc-gdp"/>
                         <outlet property="cancelButtonItem" destination="GmQ-eE-xh9" id="Cc9-hO-a5w"/>
+                        <outlet property="footerView" destination="tza-09-zcQ" id="GQf-Di-fDl"/>
                         <outlet property="jobNameCell" destination="heM-qj-HxV" id="VTD-kN-zIJ"/>
                         <outlet property="jobSummaryCell" destination="X9q-qQ-Jz0" id="EcX-DE-l9I"/>
                         <outlet property="multiPageView" destination="8Qy-eQ-1SR" id="ywA-7m-KTr"/>

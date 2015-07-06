@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *numCopiesLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageRangeCell;
 @property (weak, nonatomic) IBOutlet UISwitch *blackAndWhiteSwitch;
+@property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButtonItem;
 @property (strong, nonatomic) UIColor *navigationBarTintColor;
 @property (strong, nonatomic) UIBarButtonItem *doneButtonItem;
@@ -134,6 +135,7 @@ NSString * const kPageRangeNoPages = @"No pages selected";
         self.pageSelectionMark.hidden = TRUE;
     }
     
+    self.tableView.tableFooterView = self.footerView;
     self.activeCellColor = self.addToPrintQLabel.textColor;
     
     [self reloadJobSummary];
@@ -293,26 +295,6 @@ NSString * const kPageRangeNoPages = @"No pages selected";
     }
 }
 
-- (IBAction)cancelButtonTapped:(id)sender
-{
-    if( nil != self.editView ) {
-        [self.editView cancelEditing];
-        [self dismissEditView];
-        
-    } else if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidCancelPrintFlow:)]) {
-        [self.delegate addPrintLaterJobTableViewControllerDidCancelPrintFlow:self];
-    }
-}
-
-- (void)doneButtonTapped:(id)sender
-{
-    if( nil != self.editView ) {
-        [self.editView commitEditing];
-        [self dismissEditView];
-
-    }
-}
-
 #pragma mark - UITextFieldDelegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -339,6 +321,28 @@ NSString * const kPageRangeNoPages = @"No pages selected";
 - (void)pageSelectionMarkClicked
 {
     [self respondToMultiPageViewAction];
+}
+
+#pragma mark - NavBar button handlers
+
+- (IBAction)cancelButtonTapped:(id)sender
+{
+    if( nil != self.editView ) {
+        [self.editView cancelEditing];
+        [self dismissEditView];
+        
+    } else if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidCancelPrintFlow:)]) {
+        [self.delegate addPrintLaterJobTableViewControllerDidCancelPrintFlow:self];
+    }
+}
+
+- (void)doneButtonTapped:(id)sender
+{
+    if( nil != self.editView ) {
+        [self.editView commitEditing];
+        [self dismissEditView];
+        
+    }
 }
 
 #pragma mark - Edit View Delegates
