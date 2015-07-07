@@ -12,6 +12,9 @@
 
 #import "HPPPLayout.h"
 
+/*!
+ * @abstract Layout intended to best fill the paper without stretching or cropping.
+ */
 @interface HPPPLayoutFit : HPPPLayout
 
 /*!

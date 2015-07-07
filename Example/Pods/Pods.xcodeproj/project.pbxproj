@@ -221,12 +221,12 @@
 		F13A88A81B4C6FD600D3EC6F /* HPPPLayoutFill.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A889E1B4C6FD600D3EC6F /* HPPPLayoutFill.m */; };
 		F13A88A91B4C6FD600D3EC6F /* HPPPLayoutFit.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88A01B4C6FD600D3EC6F /* HPPPLayoutFit.m */; };
 		F13A88AA1B4C6FD600D3EC6F /* HPPPLayoutFit.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88A01B4C6FD600D3EC6F /* HPPPLayoutFit.m */; };
-		F13A88AB1B4C6FD600D3EC6F /* HPPPLayoutPaperCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88A21B4C6FD600D3EC6F /* HPPPLayoutPaperCellView.m */; };
-		F13A88AC1B4C6FD600D3EC6F /* HPPPLayoutPaperCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88A21B4C6FD600D3EC6F /* HPPPLayoutPaperCellView.m */; };
-		F13A88AD1B4C6FD600D3EC6F /* HPPPLayoutPaperView.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88A41B4C6FD600D3EC6F /* HPPPLayoutPaperView.m */; };
-		F13A88AE1B4C6FD600D3EC6F /* HPPPLayoutPaperView.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88A41B4C6FD600D3EC6F /* HPPPLayoutPaperView.m */; };
 		F13A88AF1B4C6FD600D3EC6F /* HPPPLayoutStretch.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88A61B4C6FD600D3EC6F /* HPPPLayoutStretch.m */; };
 		F13A88B01B4C6FD600D3EC6F /* HPPPLayoutStretch.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88A61B4C6FD600D3EC6F /* HPPPLayoutStretch.m */; };
+		F13A88B31B4C738B00D3EC6F /* HPPPLayoutPaperCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88B21B4C738B00D3EC6F /* HPPPLayoutPaperCellView.m */; };
+		F13A88B41B4C738B00D3EC6F /* HPPPLayoutPaperCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88B21B4C738B00D3EC6F /* HPPPLayoutPaperCellView.m */; };
+		F13A88B71B4C748C00D3EC6F /* HPPPLayoutPaperView.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88B61B4C748C00D3EC6F /* HPPPLayoutPaperView.m */; };
+		F13A88B81B4C748C00D3EC6F /* HPPPLayoutPaperView.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A88B61B4C748C00D3EC6F /* HPPPLayoutPaperView.m */; };
 		F2E35A11875712B21A1E3955 /* HPPPPaperSizeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F214DEFBD085FB953897A9 /* HPPPPaperSizeTableViewController.m */; };
 		F3357BDE95DE95FE19FC1F78 /* HPPPPrintItemPDF.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A25A870685A81245309A18E /* HPPPPrintItemPDF.h */; };
 		F388DF542359AAA3114E899C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D21777E0582ED0A2BE52B7 /* Foundation.framework */; };
@@ -417,12 +417,12 @@
 		F13A889E1B4C6FD600D3EC6F /* HPPPLayoutFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPPPLayoutFill.m; path = Pod/Classes/Public/HPPPLayoutFill.m; sourceTree = "<group>"; };
 		F13A889F1B4C6FD600D3EC6F /* HPPPLayoutFit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPPPLayoutFit.h; path = Pod/Classes/Public/HPPPLayoutFit.h; sourceTree = "<group>"; };
 		F13A88A01B4C6FD600D3EC6F /* HPPPLayoutFit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPPPLayoutFit.m; path = Pod/Classes/Public/HPPPLayoutFit.m; sourceTree = "<group>"; };
-		F13A88A11B4C6FD600D3EC6F /* HPPPLayoutPaperCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPPPLayoutPaperCellView.h; path = Pod/Classes/Public/HPPPLayoutPaperCellView.h; sourceTree = "<group>"; };
-		F13A88A21B4C6FD600D3EC6F /* HPPPLayoutPaperCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPPPLayoutPaperCellView.m; path = Pod/Classes/Public/HPPPLayoutPaperCellView.m; sourceTree = "<group>"; };
-		F13A88A31B4C6FD600D3EC6F /* HPPPLayoutPaperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPPPLayoutPaperView.h; path = Pod/Classes/Public/HPPPLayoutPaperView.h; sourceTree = "<group>"; };
-		F13A88A41B4C6FD600D3EC6F /* HPPPLayoutPaperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPPPLayoutPaperView.m; path = Pod/Classes/Public/HPPPLayoutPaperView.m; sourceTree = "<group>"; };
 		F13A88A51B4C6FD600D3EC6F /* HPPPLayoutStretch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPPPLayoutStretch.h; path = Pod/Classes/Public/HPPPLayoutStretch.h; sourceTree = "<group>"; };
 		F13A88A61B4C6FD600D3EC6F /* HPPPLayoutStretch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPPPLayoutStretch.m; path = Pod/Classes/Public/HPPPLayoutStretch.m; sourceTree = "<group>"; };
+		F13A88B11B4C738B00D3EC6F /* HPPPLayoutPaperCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPPPLayoutPaperCellView.h; path = Pod/Classes/Private/HPPPLayoutPaperCellView.h; sourceTree = "<group>"; };
+		F13A88B21B4C738B00D3EC6F /* HPPPLayoutPaperCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPPPLayoutPaperCellView.m; path = Pod/Classes/Private/HPPPLayoutPaperCellView.m; sourceTree = "<group>"; };
+		F13A88B51B4C748C00D3EC6F /* HPPPLayoutPaperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPPPLayoutPaperView.h; path = Pod/Classes/Private/HPPPLayoutPaperView.h; sourceTree = "<group>"; };
+		F13A88B61B4C748C00D3EC6F /* HPPPLayoutPaperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPPPLayoutPaperView.m; path = Pod/Classes/Private/HPPPLayoutPaperView.m; sourceTree = "<group>"; };
 		F146258F09A342160FA5677E /* Pods-HPPhotoPrint-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HPPhotoPrint-environment.h"; sourceTree = "<group>"; };
 		F2606C9245B94882EB355110 /* HPPPPrintJobsActionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintJobsActionView.m; path = Pod/Classes/Private/HPPPPrintJobsActionView.m; sourceTree = "<group>"; };
 		F2922A393B57821E4A5801F0 /* HPPPPaper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPaper.h; path = Pod/Classes/Public/HPPPPaper.h; sourceTree = "<group>"; };
@@ -516,10 +516,10 @@
 				F13A889E1B4C6FD600D3EC6F /* HPPPLayoutFill.m */,
 				F13A889F1B4C6FD600D3EC6F /* HPPPLayoutFit.h */,
 				F13A88A01B4C6FD600D3EC6F /* HPPPLayoutFit.m */,
-				F13A88A11B4C6FD600D3EC6F /* HPPPLayoutPaperCellView.h */,
-				F13A88A21B4C6FD600D3EC6F /* HPPPLayoutPaperCellView.m */,
-				F13A88A31B4C6FD600D3EC6F /* HPPPLayoutPaperView.h */,
-				F13A88A41B4C6FD600D3EC6F /* HPPPLayoutPaperView.m */,
+				F13A88B11B4C738B00D3EC6F /* HPPPLayoutPaperCellView.h */,
+				F13A88B21B4C738B00D3EC6F /* HPPPLayoutPaperCellView.m */,
+				F13A88B51B4C748C00D3EC6F /* HPPPLayoutPaperView.h */,
+				F13A88B61B4C748C00D3EC6F /* HPPPLayoutPaperView.m */,
 				F13A88A51B4C6FD600D3EC6F /* HPPPLayoutStretch.h */,
 				F13A88A61B4C6FD600D3EC6F /* HPPPLayoutStretch.m */,
 				35C1B4D457ABC22BD152FC2B /* HPPPLogger.h */,
@@ -966,9 +966,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F13A88AD1B4C6FD600D3EC6F /* HPPPLayoutPaperView.m in Sources */,
+				F13A88B71B4C748C00D3EC6F /* HPPPLayoutPaperView.m in Sources */,
+				F13A88B31B4C738B00D3EC6F /* HPPPLayoutPaperCellView.m in Sources */,
 				F13A88A71B4C6FD600D3EC6F /* HPPPLayoutFill.m in Sources */,
-				F13A88AB1B4C6FD600D3EC6F /* HPPPLayoutPaperCellView.m in Sources */,
 				F13A88AF1B4C6FD600D3EC6F /* HPPPLayoutStretch.m in Sources */,
 				F13A88A91B4C6FD600D3EC6F /* HPPPLayoutFit.m in Sources */,
 				B7F0EA3A04E8DAF4222EC068 /* Pods-HPPhotoPrint-dummy.m in Sources */,
@@ -1040,9 +1040,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F13A88AE1B4C6FD600D3EC6F /* HPPPLayoutPaperView.m in Sources */,
+				F13A88B81B4C748C00D3EC6F /* HPPPLayoutPaperView.m in Sources */,
+				F13A88B41B4C738B00D3EC6F /* HPPPLayoutPaperCellView.m in Sources */,
 				F13A88A81B4C6FD600D3EC6F /* HPPPLayoutFill.m in Sources */,
-				F13A88AC1B4C6FD600D3EC6F /* HPPPLayoutPaperCellView.m in Sources */,
 				F13A88B01B4C6FD600D3EC6F /* HPPPLayoutStretch.m in Sources */,
 				F13A88AA1B4C6FD600D3EC6F /* HPPPLayoutFit.m in Sources */,
 				0702B3BB68DFEADDFB4184F5 /* Pods-Tests-dummy.m in Sources */,
