@@ -1,46 +1,36 @@
 //
-// Hewlett-Packard Company
-// All rights reserved.
+//  HPPPSettingsViewControllerTableViewController.m
+//  HPPhotoPrint
 //
-// This file, its contents, concepts, methods, behavior, and operation
-// (collectively the "Software") are protected by trade secret, patent,
-// and copyright laws. The use of the Software is governed by a license
-// agreement. Disclosure of the Software to third parties, in any form,
-// in whole or in part, is expressly prohibited except as authorized by
-// the license agreement.
+//  Created by James Trask on 7/7/15.
+//  Copyright (c) 2015 James. All rights reserved.
 //
 
-#import <stdlib.h>
-#import <HPPP.h>
-#import <HPPPPrintLaterHelperViewController.h>
-#import "HPPPExampleViewController.h"
-#import "HPPPPrintItem.h"
-#import "HPPPPrintItemFactory.h"
+#import "HPPPSettingsTableViewController.h"
 #import "HPPPSelectPrintItemTableViewController.h"
-#import "HPPPLayoutFactory.h"
-#import "HPPPPaper.h"
+#import <HPPP.h>
+#import <HPPPLayoutFactory.h>
+#import <HPPPPrintItemFactory.h>
 
-@interface HPPPExampleViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate>
+@interface HPPPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate>
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *shareBarButtonItem;
+@property (strong, nonatomic) UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
-@property (weak, nonatomic) IBOutlet UISwitch *automaticMetricsSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *extendedMetricsSwitch;
-@property (weak, nonatomic) IBOutlet UITextField *photoSourceTextField;
-@property (weak, nonatomic) IBOutlet UITextField *userIDTextField;
-@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (assign, nonatomic) BOOL sharingInProgress;
 @property (strong, nonatomic) NSDictionary *imageFiles;
 @property (strong, nonatomic) NSArray *pdfFiles;
+@property (weak, nonatomic) IBOutlet UISwitch *automaticMetricsSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *extendedMetricsSwitch;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *layoutSegmentControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *orientationSegmentControl;
-@property (weak, nonatomic) IBOutlet UISwitch *allowRotationSwitch;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *positionTextField;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showPrintQueueCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showGeoHelperCell;
 
 @end
 
-@implementation HPPPExampleViewController
+@implementation HPPPSettingsTableViewController
 
 int const kLayoutDefaultIndex = 0;
 int const kLayoutFitIndex = 1;
@@ -55,14 +45,28 @@ NSString * const kMetricsOfframpKey = @"off_ramp";
 NSString * const kMetricsAppTypeKey = @"app_type";
 NSString * const kMetricsAppTypeHP = @"HP";
 
-- (void)viewDidLoad
-{
+#pragma mark - Initialization
+
+- (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self configureHPPP];
+    
+    self.shareBarButtonItem = [[UIBarButtonItem alloc]
+                                    initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                    target:self
+                                    action:@selector(shareTapped:)];
+    self.navigationItem.rightBarButtonItem = self.shareBarButtonItem;
+}
+
+- (void)configureHPPP
+{
     [HPPP sharedInstance].printJobName = @"Print POD Example";
     
     [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
     [HPPP sharedInstance].zoomAndCrop = YES;
+    
+    [HPPP sharedInstance].handlePrintMetricsAutomatically = NO;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"PrintInstructions"];
@@ -78,46 +82,33 @@ NSString * const kMetricsAppTypeHP = @"HP";
                                          [HPPPPaper titleFromSize:Size5x7],
                                          [HPPPPaper titleFromSize:SizeLetter]
                                          ];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintQueueNotification:) name:kHPPPPrintQueueNotification object:nil];
-    
-    [self populatePrintQueue];
-    
-    self.imageFiles = @{
-                        @"Green Path":@"sample1",
-                        @"Flowers":@"sample2",
-                        @"Cat":@"sample6",
-                        @"Dog":@"sample7",
-                        @"Quality":@"sample5",
-                        @"Soccer":@"sample3",
-                        @"Universe":@"sample8"
-                        };
-    
-    self.pdfFiles = @[
-                      @"1 Page",
-                      @"1 Page (landscape)",
-                      @"2 Pages",
-                      @"4 Pages",
-                      @"6 Pages (landscape)",
-                      @"10 Pages",
-                      @"44 Pages",
-                      @"51 Pages"
-                      ];
-    
-    self.view.frame = CGRectMake(0, 0, 300, 10000);
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+#pragma mark - Navigation
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [super viewDidAppear:animated];
+    if ([segue.identifier isEqualToString:@"Select Print Item"] || [segue.identifier isEqualToString:@"Select Share Item"]) {
+        NSString *title = @"Print Item";
+        self.sharingInProgress = NO;
+        if ([segue.identifier isEqualToString:@"Select Share Item"]) {
+            title = @"Share Item";
+            self.sharingInProgress = YES;
+        }
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        HPPPSelectPrintItemTableViewController *vc = (HPPPSelectPrintItemTableViewController *)navController.topViewController;
+        vc.delegate = self;
+        vc.navigationItem.title = title;
+    }
 }
 
 #pragma mark - Sharing
+
+- (void)shareTapped:(id)sender
+{
+    self.sharingInProgress = YES;
+    [self doActivityWithPrintItem:[HPPPPrintItemFactory printItemWithAsset:[self randomImage]]];
+}
 
 - (void)shareItem
 {
@@ -128,7 +119,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
     
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
     printActivity.dataSource = self;
-
+    
     NSArray *applicationActivities = nil;
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
@@ -196,46 +187,6 @@ NSString * const kMetricsAppTypeHP = @"HP";
     }
 }
 
-#pragma mark - Button actions
-
-- (IBAction)showPrintLaterHelperTapped:(id)sender
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
-    
-    UINavigationController *nc = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPrintLaterHelperNavigationController"];
-    
-    [self presentViewController:nc animated:YES completion:nil];
-}
-
-- (IBAction)shareBarButtonItemTap:(id)sender
-{
-    self.sharingInProgress = YES;
-    [self doActivityWithPrintItem:[HPPPPrintItemFactory printItemWithAsset:[self randomImage]]];
-}
-
-- (IBAction)showPrintQueueTapped:(id)sender
-{
-    [[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
-}
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"Print Item"] || [segue.identifier isEqualToString:@"Share Item"]) {
-        NSString *title = @"Print Item";
-        self.sharingInProgress = NO;
-        if ([segue.identifier isEqualToString:@"Share Item"]) {
-            title = @"Share Item";
-            self.sharingInProgress = YES;
-        }
-        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-        HPPPSelectPrintItemTableViewController *vc = (HPPPSelectPrintItemTableViewController *)navController.topViewController;
-        vc.delegate = self;
-        vc.navigationItem.title = title;
-    }
-}
-
 #pragma mark - HPPPPrintDelegate
 
 - (void)didFinishPrintFlow:(UIViewController *)printViewController;
@@ -294,7 +245,31 @@ NSString * const kMetricsAppTypeHP = @"HP";
     return YES;
 }
 
-#pragma mark - Metrics examples
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (!IS_OS_8_OR_LATER && (cell == self.showPrintQueueCell || cell == self.showGeoHelperCell)) {
+        cell.alpha = 0.5;
+        cell.userInteractionEnabled = NO;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+    if (selectedCell == self.showPrintQueueCell) {
+        [self showPrintQueue];
+    } else if (selectedCell == self.showGeoHelperCell) {
+        [self showGeoHelper];
+    }
+}
+
+#pragma mark - Metrics
+
+- (IBAction)automaticMetricsChanged:(id)sender {
+    [HPPP sharedInstance].handlePrintMetricsAutomatically = self.automaticMetricsSwitch.on;
+}
 
 - (NSDictionary *)photoSourceMetrics
 {
@@ -316,7 +291,12 @@ NSString * const kMetricsAppTypeHP = @"HP";
     }
 }
 
-#pragma mark - Print queue
+#pragma mark - Print Queue
+
+- (void)showPrintQueue
+{
+    [[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
+}
 
 - (void)populatePrintQueue
 {
@@ -356,6 +336,15 @@ NSString * const kMetricsAppTypeHP = @"HP";
     NSString *picName = [NSString stringWithFormat:@"%@.jpg", [sampleImages objectAtIndex:picNumber]];
     UIImage *image = [UIImage imageNamed:picName];
     return image;
+}
+
+#pragma mark - Geo Helper
+
+- (void)showGeoHelper
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
+    UINavigationController *nc = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPrintLaterHelperNavigationController"];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 #pragma mark - HPPPSelectPrintItemTableViewControllerDelegate
@@ -446,10 +435,6 @@ NSString * const kMetricsAppTypeHP = @"HP";
         [printItems addEntriesFromDictionary:@{ paper.sizeTitle: printItem }];
     }
     return printItems;
-}
-
-- (IBAction)automaticMetricsChanged:(id)sender {
-    [HPPP sharedInstance].handlePrintMetricsAutomatically = self.automaticMetricsSwitch.on;
 }
 
 @end

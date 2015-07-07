@@ -14,7 +14,6 @@
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* HPPPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* HPPPAppDelegate.m */; };
 		6003F5A1195388D20070C39A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003F59F195388D20070C39A /* Main.storyboard */; };
-		6003F5A7195388D20070C39A /* HPPPExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* HPPPExampleViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -22,6 +21,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		650858461B0C352900B0C70F /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650858451B0C352900B0C70F /* DBChooser.framework */; };
+		651357891B4C7BEE003B6935 /* HPPPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* HPPPSettingsTableViewController.m */; };
 		6531EB3E1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m */; };
 		65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */; };
 		65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */; };
@@ -65,8 +65,6 @@
 		6003F59C195388D20070C39A /* HPPPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPPPAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* HPPPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPPPAppDelegate.m; sourceTree = "<group>"; };
 		6003F5A0195388D20070C39A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* HPPPExampleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPPPExampleViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* HPPPExampleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPPPExampleViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -75,6 +73,8 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		650858451B0C352900B0C70F /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
+		651357871B4C7BEE003B6935 /* HPPPSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPSettingsTableViewController.h; sourceTree = "<group>"; };
+		651357881B4C7BEE003B6935 /* HPPPSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPSettingsTableViewController.m; sourceTree = "<group>"; };
 		6531EB3C1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPMultiPageConfigurationViewController.h; sourceTree = "<group>"; };
 		6531EB3D1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPMultiPageConfigurationViewController.m; sourceTree = "<group>"; };
 		65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "44 Pages.pdf"; sourceTree = "<group>"; };
@@ -181,12 +181,12 @@
 				E32115DF1A38BCE50079144C /* HPPPLearnMoreView.xib */,
 				E32115DA1A38B9E60079144C /* HPPPLearnMoreViewController.h */,
 				E32115DB1A38B9E60079144C /* HPPPLearnMoreViewController.m */,
-				6003F5A5195388D20070C39A /* HPPPExampleViewController.h */,
-				6003F5A6195388D20070C39A /* HPPPExampleViewController.m */,
 				F16A57B81AF2B0EA00F7265E /* HPPPExampleLogger.h */,
 				F16A57B91AF2B0EA00F7265E /* HPPPExampleLogger.m */,
 				65C0652C1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.h */,
 				65C0652D1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m */,
+				651357871B4C7BEE003B6935 /* HPPPSettingsTableViewController.h */,
+				651357881B4C7BEE003B6935 /* HPPPSettingsTableViewController.m */,
 				6531EB3C1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.h */,
 				6531EB3D1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -448,8 +448,8 @@
 			files = (
 				65C0652E1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m in Sources */,
 				E32115DC1A38B9E60079144C /* HPPPLearnMoreViewController.m in Sources */,
+				651357891B4C7BEE003B6935 /* HPPPSettingsTableViewController.m in Sources */,
 				6003F59E195388D20070C39A /* HPPPAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* HPPPExampleViewController.m in Sources */,
 				6531EB3E1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m in Sources */,
 				E32115E01A38BCE50079144C /* HPPPLearnMoreView.m in Sources */,
 				F16A57BA1AF2B0EA00F7265E /* HPPPExampleLogger.m in Sources */,
