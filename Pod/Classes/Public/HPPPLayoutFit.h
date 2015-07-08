@@ -12,6 +12,16 @@
 
 #import "HPPPLayout.h"
 
+/*!
+ * @abstract Layout intended to best fill the paper without stretching or cropping.
+ */
 @interface HPPPLayoutFit : HPPPLayout
+
+/*!
+ * @abstract Computes the rectangle that should contain the contentRect within the containerRect
+ * @param contentRect The CGRect of the content to be laid out
+ * @param containerRect The CGRect of the container which will receive the contentRect
+ */
+- (CGRect)computeRectWithContentRect:(CGRect)contentRect andContainerRect:(CGRect)containerRect;
 
 @end

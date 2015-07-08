@@ -36,6 +36,7 @@
 
 @protocol HPPPMultiPageViewDelegate <NSObject>
 
+@optional
 - (void)multiPageView:(HPPPMultiPageView *)multiPageView didChangeFromPage:(NSUInteger)oldPageNumber ToPage:(NSUInteger)newPageNumber;
 - (void)multiPageView:(HPPPMultiPageView *)multiPageView didSingleTapPage:(NSUInteger)pageNumber;
 - (void)multiPageView:(HPPPMultiPageView *)multiPageView didDoubleTapPage:(NSUInteger)pageNumber;

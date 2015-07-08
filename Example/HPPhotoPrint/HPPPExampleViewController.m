@@ -51,6 +51,10 @@ int const kOrientationBest = 0;
 int const kOrientationPortrait = 1;
 int const kOrientationLandscape = 2;
 
+NSString * const kMetricsOfframpKey = @"off_ramp";
+NSString * const kMetricsAppTypeKey = @"app_type";
+NSString * const kMetricsAppTypeHP = @"HP";
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -135,7 +139,9 @@ int const kOrientationLandscape = 2;
         printLaterJob.date = [NSDate date];
         printLaterJob.printItems = [self printItemsForAsset:self.printItem.printAsset];
         if (self.extendedMetricsSwitch.on) {
-            printLaterJob.extra = [self photoSourceMetrics];
+            NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsAppTypeKey:kMetricsAppTypeHP }];
+            [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
+            printLaterJob.extra = metrics;
         }
         printLaterActivity.printLaterJob = printLaterJob;
         applicationActivities = @[printActivity, printLaterActivity];
@@ -164,7 +170,7 @@ int const kOrientationLandscape = 2;
             HPPP *hppp = [HPPP sharedInstance];
             NSLog(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
             if (self.extendedMetricsSwitch.on) {
-                NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ @"off_ramp":activityType }];
+                NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsOfframpKey:activityType, kMetricsAppTypeKey:kMetricsAppTypeHP }];
                 [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
                 [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self.printItem userInfo:metrics];
             }
@@ -236,7 +242,7 @@ int const kOrientationLandscape = 2;
 {
     [printViewController dismissViewControllerAnimated:YES completion:nil];
     if (self.extendedMetricsSwitch.on) {
-        NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ @"off_ramp":NSStringFromClass([HPPPPrintActivity class]) }];
+        NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsOfframpKey:NSStringFromClass([HPPPPrintActivity class]), kMetricsAppTypeKey:kMetricsAppTypeHP }];
         [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self.printItem userInfo:metrics];
     }
@@ -304,7 +310,7 @@ int const kOrientationLandscape = 2;
         NSString *action = [notification.object objectForKey:kHPPPPrintQueueActionKey];
         HPPPPrintLaterJob *job = [notification.object objectForKey:kHPPPPrintQueueJobKey];
         HPPPPrintItem *printItem = [notification.object objectForKey:kHPPPPrintQueuePrintItemKey];
-        NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ @"off_ramp":action }];
+        NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsOfframpKey:action, kMetricsAppTypeKey:kMetricsAppTypeHP }];
         [metrics addEntriesFromDictionary:job.extra];
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:printItem userInfo:metrics];
     }

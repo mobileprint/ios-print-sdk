@@ -11,6 +11,7 @@
 //
 
 #import "HPPPLayoutFill.h"
+#import "HPPPLogger.h"
 #import "UIImage+HPPPResize.h"
 
 @implementation HPPPLayoutFill

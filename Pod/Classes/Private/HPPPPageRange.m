@@ -27,7 +27,7 @@
         // No "--"... replace with "-"
         // No ",,"... replace with ","
         // No strings starting or ending with "," or "-"
-        // Rplace all page numbers of 0 with 1
+        // Replace all page numbers of 0 with 1
         // Replace all page numbers greater than the doc length with the doc length
         // No "%d1-%d2-%d3"... replace with "%d1-%d3"
         
@@ -134,7 +134,7 @@
 
 + (NSString *)formPageRange:(NSArray *)pages
 {
-    NSString *pageRange = @"";//[NSString stringWithFormat:@"%ld", [pages[0] integerValue]];
+    NSString *pageRange = @"";
     NSString *separator = @"";
     
     for( int i=0; i<pages.count; i++ ) {

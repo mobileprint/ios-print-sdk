@@ -18,55 +18,124 @@
 @interface HPPPAppearance : NSObject
 
 /*!
- * @abstract Dictionary key used to specify add to print queue font
+ * @abstract Dictionary key used to specify title font for the job summary table view cell
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenJobSummaryTitleFontAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify title color for the job summary table view cell
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenJobSummaryTitleColorAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify subtitle font for the job summary table view cell
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenJobSummarySubtitleFontAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify subtitle color for the job summary table view cell
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenJobSummarySubtitleColorAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify 'Add to Print Queue' button font
  */
 extern NSString * const kHPPPAddPrintLaterJobScreenAddToPrintQFontAttribute;
 
 /*!
- * @abstract Dictionary key used to specify add to print queue text color
+ * @abstract Dictionary key used to specify 'Add to Print Queue' button active text color
  */
-extern NSString * const kHPPPAddPrintLaterJobScreenAddToPrintQColorAttribute;
+extern NSString * const kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute;
 
 /*!
- * @abstract Dictionary key used to specify add job name font
+ * @abstract Dictionary key used to specify 'Add to Print Queue' button inactive text color
  */
-extern NSString * const kHPPPAddPrintLaterJobScreenJobNameFontAttribute;
+extern NSString * const kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute;
 
 /*!
- * @abstract Dictionary key used to specify add job name color when active
+ * @abstract Dictionary key used to specify title font for the job name table view cell
  */
-extern NSString * const kHPPPAddPrintLaterJobScreenJobNameColorActiveAttribute;
+extern NSString * const kHPPPAddPrintLaterJobScreenJobNameTitleFontAttribute;
 
 /*!
- * @abstract Dictionary key used to specify add job name color when inactive
+ * @abstract Dictionary key used to specify title color for the job name table view cell
  */
-extern NSString * const kHPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute;
+extern NSString * const kHPPPAddPrintLaterJobScreenJobNameTitleColorAttribute;
 
 /*!
- * @abstract Dictionary key used to specify subitem title font
+ * @abstract Dictionary key used to specify detail font for the job name table view cell
  */
-extern NSString * const kHPPPAddPrintLaterJobScreenSubitemTitleFontAttribute;
+extern NSString * const kHPPPAddPrintLaterJobScreenJobNameDetailFontAttribute;
 
 /*!
- * @abstract Dictionary key used to specify subitem title text color
+ * @abstract Dictionary key used to specify detail color for the job name table view cell
  */
-extern NSString * const kHPPPAddPrintLaterJobScreenSubitemTitleColorAttribute;
+extern NSString * const kHPPPAddPrintLaterJobScreenJobNameDetailColorAttribute;
 
 /*!
- * @abstract Dictionary key used to specify subitem detail font
+ * @abstract Dictionary key used to specify title font for the copies table view cell
  */
-extern NSString * const kHPPPAddPrintLaterJobScreenSubitemFontAttribute;
+extern NSString * const kHPPPAddPrintLaterJobScreenCopyTitleFontAttribute;
 
 /*!
- * @abstract Dictionary key used to specify subitem detail text color
+ * @abstract Dictionary key used to specify title color for the copies table view cell
  */
-extern NSString * const kHPPPAddPrintLaterJobScreenSubitemColorAttribute;
+extern NSString * const kHPPPAddPrintLaterJobScreenCopyTitleColorAttribute;
 
 /*!
- * @abstract Dictionary key used to specify the done button
- * @discussion This field is used to specify the 'Done' button used to complete text editing when changing the job name. This button appears in the upper right of the screen and should be a UIButton instance.
+ * @abstract Dictionary key used to specify stepper color for the copies table view cell
  */
-extern NSString * const kHPPPAddPrintLaterJobScreenDoneButtonAttribute;
+extern NSString * const kHPPPAddPrintLaterJobScreenCopyStepperColorAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify title font for the page range table view cell
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenPageRangeTitleFontAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify title color for the page range table view cell
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenPageRangeTitleColorAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify detail font for the page range table view cell
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenPageRangeDetailFontAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify detail color for the page range table view cell
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenPageRangeDetailColorAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify title font for the black and white table view cell
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenBWTitleFontAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify title color for the black and white table view cell
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenBWTitleColorAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify text font for the print queue description heading
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenDescriptionTitleFontAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify text color for the print queue description heading
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenDescriptionTitleColorAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify text font for the print queue description text
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenDescriptionDetailFontAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify text color for the print queue description text
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenDescriptionDetailColorAttribute;
 
 /*!
  * @abstract Dictionary key used to specify print count font

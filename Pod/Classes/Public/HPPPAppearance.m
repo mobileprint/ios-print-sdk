@@ -19,40 +19,105 @@
 
 // Print Later Screen
 
+// Job Summary Cell
+NSString * const kHPPPAddPrintLaterJobScreenJobSummaryTitleFontAttribute = @"kHPPPAddPrintLaterJobScreenJobSummaryTitleFontAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenJobSummaryTitleColorAttribute = @"kHPPPAddPrintLaterJobScreenJobSummaryTitleColorAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenJobSummarySubtitleFontAttribute = @"kHPPPAddPrintLaterJobScreenJobSummarySubtitleFontAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenJobSummarySubtitleColorAttribute = @"kHPPPAddPrintLaterJobScreenJobSummarySubtitleColorAttribute";
+
+// Add to Print Queue Button
 NSString * const kHPPPAddPrintLaterJobScreenAddToPrintQFontAttribute = @"kHPPPAddPrintLaterJobScreenAddToPrintQFontAttribute";
-NSString * const kHPPPAddPrintLaterJobScreenAddToPrintQColorAttribute = @"kHPPPAddPrintLaterJobScreenAddToPrintQColorAttribute";;
-NSString * const kHPPPAddPrintLaterJobScreenJobNameFontAttribute = @"kHPPPAddPrintLaterJobScreenJobNameFontAttribute";
-NSString * const kHPPPAddPrintLaterJobScreenJobNameColorActiveAttribute = @"kHPPPAddPrintLaterJobScreenJobNameColorActiveAttribute";
-NSString * const kHPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute = @"kHPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute";
-NSString * const kHPPPAddPrintLaterJobScreenSubitemTitleFontAttribute = @"kHPPPAddPrintLaterJobScreenSubitemTitleFontAttribute";
-NSString * const kHPPPAddPrintLaterJobScreenSubitemTitleColorAttribute = @"kHPPPAddPrintLaterJobScreenSubitemTitleColorAttribute";
-NSString * const kHPPPAddPrintLaterJobScreenSubitemFontAttribute = @"kHPPPAddPrintLaterJobScreenSubitemFontAttribute";
-NSString * const kHPPPAddPrintLaterJobScreenSubitemColorAttribute = @"kHPPPAddPrintLaterJobScreenSubitemColorAttribute";
-NSString * const kHPPPAddPrintLaterJobScreenDoneButtonAttribute = @"kHPPPAddPrintLaterJobScreenDoneButtonAttribute";
 
-#define DEFAULT_ADD_TO_PRINT_Q_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
-#define DEFAULT_ADD_TO_PRINT_Q_COLOR [UIColor HPPPHPBlueColor]
+NSString * const kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute = @"kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute";
 
-#define DEFAULT_JOB_NAME_FONT [UIFont fontWithName:@"Helvetica Neue" size:24]
-#define DEFAULT_JOB_NAME_ACTIVE_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
-#define DEFAULT_JOB_NAME_INACTIVE_COLOR [UIColor colorWithRed:0x76 / 255.0f green:0x76 / 255.0f blue:0x76 / 255.0f alpha:1.0f]
+NSString * const kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute = @"kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute";
 
-#define DEFAULT_SUBITEM_TITLE_FONT [UIFont fontWithName:@"Helvetica Neue" size:18]
-#define DEFAULT_SUBITEM_TITLE_COLOR [UIColor colorWithRed:0x76 / 255.0f green:0x76 / 255.0f blue:0x76 / 255.0f alpha:1.0f]
+// Name Cell
+NSString * const kHPPPAddPrintLaterJobScreenJobNameTitleFontAttribute = @"kHPPPAddPrintLaterJobScreenJobNameTitleFontAttribute";
 
-#define DEFAULT_SUBITEM_VALUE_FONT [UIFont fontWithName:@"Helvetica Neue" size:16]
-#define DEFAULT_SUBITEM_VALUE_COLOR [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
+NSString * const kHPPPAddPrintLaterJobScreenJobNameTitleColorAttribute = @"kHPPPAddPrintLaterJobScreenJobNameTitleColorAttribute";
 
-#define DEFAULT_ADD_PRINT_LATER_JOB_SCREEN_ATTRIBUTES @{kHPPPAddPrintLaterJobScreenAddToPrintQFontAttribute:DEFAULT_ADD_TO_PRINT_Q_FONT, \
-kHPPPAddPrintLaterJobScreenAddToPrintQColorAttribute:DEFAULT_ADD_TO_PRINT_Q_COLOR, \
-kHPPPAddPrintLaterJobScreenJobNameFontAttribute:DEFAULT_JOB_NAME_FONT, \
-kHPPPAddPrintLaterJobScreenJobNameColorActiveAttribute:DEFAULT_JOB_NAME_ACTIVE_COLOR, \
-kHPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute:DEFAULT_JOB_NAME_INACTIVE_COLOR, \
-kHPPPAddPrintLaterJobScreenSubitemTitleFontAttribute:DEFAULT_SUBITEM_TITLE_FONT, \
-kHPPPAddPrintLaterJobScreenSubitemTitleColorAttribute:DEFAULT_SUBITEM_TITLE_COLOR, \
-kHPPPAddPrintLaterJobScreenSubitemFontAttribute:DEFAULT_SUBITEM_VALUE_FONT, \
-kHPPPAddPrintLaterJobScreenSubitemColorAttribute:DEFAULT_SUBITEM_VALUE_COLOR, \
-kHPPPAddPrintLaterJobScreenDoneButtonAttribute:[self doneButton]}
+NSString * const kHPPPAddPrintLaterJobScreenJobNameDetailFontAttribute = @"kHPPPAddPrintLaterJobScreenJobNameDetailFontAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenJobNameDetailColorAttribute = @"kHPPPAddPrintLaterJobScreenJobNameDetailColorAttribute";
+
+// Copy Cell
+NSString * const kHPPPAddPrintLaterJobScreenCopyTitleFontAttribute = @"kHPPPAddPrintLaterJobScreenCopyTitleFontAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenCopyTitleColorAttribute = @"kHPPPAddPrintLaterJobScreenCopyTitleColorAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenCopyStepperColorAttribute = @"kHPPPAddPrintLaterJobScreenCopyStepperColorAttribute";
+
+// Page Range Cell
+NSString * const kHPPPAddPrintLaterJobScreenPageRangeTitleFontAttribute = @"kHPPPAddPrintLaterJobScreenPageRangeTitleFontAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenPageRangeTitleColorAttribute = @"kHPPPAddPrintLaterJobScreenPageRangeTitleColorAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenPageRangeDetailFontAttribute = @"kHPPPAddPrintLaterJobScreenPageRangeDetailFontAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenPageRangeDetailColorAttribute = @"kHPPPAddPrintLaterJobScreenPageRangeDetailColorAttribute";
+
+// Black and White Cell
+NSString * const kHPPPAddPrintLaterJobScreenBWTitleFontAttribute = @"kHPPPAddPrintLaterJobScreenBWTitleFontAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenBWTitleColorAttribute = @"kHPPPAddPrintLaterJobScreenBWTitleColorAttribute";
+
+// Print Queue Description
+NSString * const kHPPPAddPrintLaterJobScreenDescriptionTitleFontAttribute = @"kHPPPAddPrintLaterJobScreenDescriptionTitleFontAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenDescriptionTitleColorAttribute = @"kHPPPAddPrintLaterJobScreenDescriptionTitleColorAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenDescriptionDetailFontAttribute = @"kHPPPAddPrintLaterJobScreenDescriptionDetailFontAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenDescriptionDetailColorAttribute = @"kHPPPAddPrintLaterJobScreenDescriptionDetailColorAttribute";
+
+#define DEFAULT_ADD_PRINT_LATER_JOB_FONT               [UIFont fontWithName:@"Helvetica Neue" size:16]
+#define DEFAULT_ADD_PRINT_LATER_JOB_INFORM_COLOR       [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
+#define DEFAULT_ADD_PRINT_LATER_JOB_ACTIVE_COLOR       [UIColor HPPPHPBlueColor]
+#define DEFAULT_ADD_PRINT_LATER_JOB_INACTIVE_COLOR     [UIColor colorWithRed:0x76 / 255.0f green:0x76 / 255.0f blue:0x76 / 255.0f alpha:1.0f]
+
+#define DEFAULT_ADD_PRINT_LATER_JOB_TITLE_FONT         DEFAULT_ADD_PRINT_LATER_JOB_FONT
+#define DEFAULT_ADD_PRINT_LATER_JOB_TITLE_COLOR        DEFAULT_ADD_PRINT_LATER_JOB_INFORM_COLOR
+
+#define DEFAULT_ADD_PRINT_LATER_JOB_DETAIL_FONT        DEFAULT_ADD_PRINT_LATER_JOB_TITLE_FONT
+#define DEFAULT_ADD_PRINT_LATER_JOB_DETAIL_COLOR       DEFAULT_ADD_PRINT_LATER_JOB_INACTIVE_COLOR
+
+#define DEFAULT_ADD_PRINT_LATER_JOB_SUBTITLE_FONT      [UIFont fontWithName:@"Helvetica Neue" size:11]
+#define DEFAULT_ADD_PRINT_LATER_JOB_SUBTITLE_COLOR     DEFAULT_ADD_PRINT_LATER_JOB_TITLE_COLOR
+
+#define DEFAULT_ADD_PRINT_LATER_JOB_TEXT_HEADING_FONT  [UIFont fontWithName:@"HelveticaNeue-Bold" size:12]
+#define DEFAULT_ADD_PRINT_LATER_JOB_TEXT_HEADING_COLOR DEFAULT_ADD_PRINT_LATER_JOB_INFORM_COLOR
+
+#define DEFAULT_ADD_PRINT_LATER_JOB_TEXT_FONT          [UIFont fontWithName:@"Helvetica Neue" size:12]
+#define DEFAULT_ADD_PRINT_LATER_JOB_TEXT_COLOR  DEFAULT_ADD_PRINT_LATER_JOB_INFORM_COLOR
+
+#define DEFAULT_ADD_PRINT_LATER_JOB_SCREEN_ATTRIBUTES @{kHPPPAddPrintLaterJobScreenJobSummaryTitleFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_FONT, \
+kHPPPAddPrintLaterJobScreenJobSummaryTitleColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_COLOR, \
+kHPPPAddPrintLaterJobScreenJobSummarySubtitleFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_SUBTITLE_FONT, \
+kHPPPAddPrintLaterJobScreenJobSummarySubtitleColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_SUBTITLE_COLOR, \
+kHPPPAddPrintLaterJobScreenAddToPrintQFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_FONT, \
+kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_ACTIVE_COLOR, \
+kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_INACTIVE_COLOR, \
+kHPPPAddPrintLaterJobScreenJobNameTitleFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_FONT, \
+kHPPPAddPrintLaterJobScreenJobNameTitleColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_COLOR, \
+kHPPPAddPrintLaterJobScreenJobNameDetailFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_DETAIL_FONT, \
+kHPPPAddPrintLaterJobScreenJobNameDetailColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_DETAIL_COLOR, \
+kHPPPAddPrintLaterJobScreenCopyTitleFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_FONT, \
+kHPPPAddPrintLaterJobScreenCopyTitleColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_COLOR, \
+kHPPPAddPrintLaterJobScreenCopyStepperColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_ACTIVE_COLOR, \
+kHPPPAddPrintLaterJobScreenPageRangeTitleFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_FONT, \
+kHPPPAddPrintLaterJobScreenPageRangeTitleColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_COLOR, \
+kHPPPAddPrintLaterJobScreenPageRangeDetailFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_DETAIL_FONT, \
+kHPPPAddPrintLaterJobScreenPageRangeDetailColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_DETAIL_COLOR, \
+kHPPPAddPrintLaterJobScreenBWTitleFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_FONT, \
+kHPPPAddPrintLaterJobScreenBWTitleColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_COLOR, \
+kHPPPAddPrintLaterJobScreenDescriptionTitleFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TEXT_HEADING_FONT, \
+kHPPPAddPrintLaterJobScreenDescriptionTitleColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TEXT_HEADING_COLOR, \
+kHPPPAddPrintLaterJobScreenDescriptionDetailFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TEXT_FONT, \
+kHPPPAddPrintLaterJobScreenDescriptionDetailColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TEXT_COLOR}
 
 // Print Queue Screen
 
@@ -133,7 +198,7 @@ kHPPPPrintQueueScreenPreviewDoneButtonColorAttribute:DEFAULT_PRINT_Q_PREVIEW_DON
     if (nil == _addPrintLaterJobScreenAttributes) {
         _addPrintLaterJobScreenAttributes = DEFAULT_ADD_PRINT_LATER_JOB_SCREEN_ATTRIBUTES;
     }
-    
+
     return _addPrintLaterJobScreenAttributes;
 }
 

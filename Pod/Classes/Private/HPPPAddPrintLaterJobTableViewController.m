@@ -36,6 +36,7 @@
 @property (weak, nonatomic) IBOutlet UIStepper *numCopiesStepper;
 @property (weak, nonatomic) IBOutlet UILabel *numCopiesLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageRangeCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *blackAndWhiteCell;
 @property (weak, nonatomic) IBOutlet UISwitch *blackAndWhiteSwitch;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButtonItem;
@@ -50,7 +51,6 @@
 @property (strong, nonatomic) UIImage *unselectedPageImage;
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (strong, nonatomic) HPPPPaper *paper;
-@property (strong, nonatomic) UIColor *activeCellColor;
 
 @end
 
@@ -59,6 +59,11 @@
 NSString * const kAddJobScreenName = @"Add Job Screen";
 NSString * const kPageRangeAllPages = @"All";
 NSString * const kPageRangeNoPages = @"No pages selected";
+
+NSInteger const kHPPPDocumentDisplaySection = 0;
+NSInteger const kHPPPJobSummarySection = 1;
+NSInteger const kHPPPPrintSettingsSection = 4;
+NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 - (void)viewDidLoad
 {
@@ -83,26 +88,31 @@ NSString * const kPageRangeNoPages = @"No pages selected";
     self.paper = [[HPPPPaper alloc] initWithPaperSize:[HPPP sharedInstance].defaultPaper.paperSize paperType:Plain];
     self.printItem = [self.printLaterJob.printItems objectForKey:self.paper.sizeTitle];
 
-    self.jobSummaryCell.textLabel.text = self.printLaterJob.name;
-    self.jobNameCell.detailTextLabel.text = self.printLaterJob.name;
-    
+    // set appearance
+    self.jobSummaryCell.textLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobSummaryTitleFontAttribute];
+    self.jobSummaryCell.textLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobSummaryTitleColorAttribute];
+    self.jobSummaryCell.detailTextLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobSummarySubtitleFontAttribute];
+    self.jobSummaryCell.detailTextLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobSummarySubtitleColorAttribute];
+
     self.addToPrintQLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQFontAttribute];
-    self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQColorAttribute];
+    self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute];
     
-    [self setPageRangeLabelText];
-    self.blackAndWhiteSwitch.on = self.printLaterJob.blackAndWhite;
+    self.jobNameCell.textLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameTitleFontAttribute];
+    self.jobNameCell.textLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameTitleColorAttribute];
+    self.jobNameCell.detailTextLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameDetailFontAttribute];
+    self.jobNameCell.detailTextLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameDetailColorAttribute];
     
-    self.numCopiesStepper.minimumValue = 1;
-    self.numCopiesStepper.value = self.printLaterJob.numCopies;
-    [self setNumCopiesText];
+    self.numCopiesLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenCopyTitleFontAttribute];
+    self.numCopiesLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenCopyTitleColorAttribute];
+    self.numCopiesStepper.tintColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenCopyStepperColorAttribute];
     
-    UIButton *doneButton = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenDoneButtonAttribute];
+    self.pageRangeCell.textLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenPageRangeTitleFontAttribute];
+    self.pageRangeCell.textLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenPageRangeTitleColorAttribute];
+    self.pageRangeCell.detailTextLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenPageRangeDetailFontAttribute];
+    self.pageRangeCell.detailTextLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenPageRangeDetailColorAttribute];
     
-    [doneButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
-    
-    [doneButton addTarget:self action:@selector(doneButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.doneButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
+    self.blackAndWhiteCell.textLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenBWTitleFontAttribute];
+    self.blackAndWhiteCell.textLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenBWTitleColorAttribute];
     
     self.selectedPageImage = [UIImage imageNamed:@"HPPPSelected.png"];
     self.unselectedPageImage = [UIImage imageNamed:@"HPPPUnselected.png"];
@@ -112,6 +122,7 @@ NSString * const kPageRangeNoPages = @"No pages selected";
     self.pageSelectionMark.adjustsImageWhenHighlighted = NO;
     [self.pageSelectionMark addTarget:self action:@selector(pageSelectionMarkClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.pageSelectionMark];
+    // Make button bigger - 32x32
 
     self.smokeyView = [[UIView alloc] init];
     self.smokeyView.backgroundColor = [UIColor blackColor];
@@ -136,7 +147,18 @@ NSString * const kPageRangeNoPages = @"No pages selected";
     }
     
     self.tableView.tableFooterView = self.footerView;
-    self.activeCellColor = self.addToPrintQLabel.textColor;
+    
+    // set values
+    self.jobSummaryCell.textLabel.text = self.printLaterJob.name;
+    self.jobNameCell.detailTextLabel.text = self.printLaterJob.name;
+    
+    [self setPageRangeLabelText];
+    self.blackAndWhiteSwitch.on = self.printLaterJob.blackAndWhite;
+    
+    self.numCopiesStepper.minimumValue = 1;
+    self.numCopiesStepper.value = self.printLaterJob.numCopies;
+    [self setNumCopiesText];
+
     self.numCopiesStepper.tintColor = self.addToPrintQLabel.textColor;
     
     [self reloadJobSummary];
@@ -176,7 +198,7 @@ NSString * const kPageRangeNoPages = @"No pages selected";
 {
     NSInteger numberOfRows = 1;
     
-    if( 4 == section ) {
+    if( kHPPPPrintSettingsSection == section ) {
         numberOfRows = 3;
     }
     
@@ -187,7 +209,9 @@ NSString * const kPageRangeNoPages = @"No pages selected";
 {
     CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
     
-    if( self.pageRangeCell.hidden  &&  4 == indexPath.section  &&  1 == indexPath.row ) {
+    if( self.pageRangeCell.hidden &&
+       kHPPPPrintSettingsSection == indexPath.section &&
+       kHPPPPrintSettingsPageRangeRow == indexPath.row ) {
         height = 0.0F;
     }
     
@@ -198,7 +222,7 @@ NSString * const kPageRangeNoPages = @"No pages selected";
 {
     CGFloat height = ZERO_HEIGHT;
     
-    if (section > 1) {
+    if (section > kHPPPJobSummarySection) {
         height = tableView.sectionHeaderHeight;
     }
     
@@ -209,10 +233,10 @@ NSString * const kPageRangeNoPages = @"No pages selected";
 {
     CGFloat height = ZERO_HEIGHT;
     
-    if( section > 0 ) {
+    if( section > kHPPPDocumentDisplaySection ) {
         height = tableView.sectionFooterHeight;
     }
-    
+
     return height;
 }
 
@@ -399,11 +423,6 @@ NSString * const kPageRangeNoPages = @"No pages selected";
     [self respondToMultiPageViewAction];
 }
 
-- (void)multiPageView:(HPPPMultiPageView *)multiPageView didDoubleTapPage:(NSUInteger)pageNumber
-{
-    
-}
-
 #pragma mark - Helpers
 
 -(void)respondToMultiPageViewAction
@@ -525,12 +544,13 @@ NSString * const kPageRangeNoPages = @"No pages selected";
         self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Pages", (long)pages.count];
     }
 
+    HPPP *hppp = [HPPP sharedInstance];
     if( 0 == pages.count ) {
         self.addToPrintQCell.userInteractionEnabled = FALSE;
-        self.addToPrintQLabel.textColor = [UIColor lightGrayColor];
+        self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute];
     } else {
         self.addToPrintQCell.userInteractionEnabled = TRUE;
-        self.addToPrintQLabel.textColor = self.activeCellColor;
+        self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute];;
     }
     
     [self.tableView reloadData];
@@ -562,18 +582,13 @@ NSString * const kPageRangeNoPages = @"No pages selected";
 
 - (void)setNavigationBarEditing:(BOOL)editing
 {
-    HPPP *hppp = [HPPP sharedInstance];
-    
     UIColor *barTintColor = self.navigationBarTintColor;
-    NSString *navigationBarTitle = HPPPLocalizedString(@"Add Print", nil);
+    NSString *navigationBarTitle = self.navigationItem.title;
     UIBarButtonItem *rightBarButtonItem = self.cancelButtonItem;
-    
-    UIColor *nameTextFieldColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameColorInactiveAttribute];
     
     if (editing) {
         navigationBarTitle = nil;
         barTintColor = [UIColor HPPPHPTabBarSelectedColor];
-        nameTextFieldColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameColorActiveAttribute];
     }
     
     self.navigationController.navigationBar.barTintColor = barTintColor;
