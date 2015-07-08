@@ -27,6 +27,7 @@
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *positionTextField;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showPrintQueueCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showGeoHelperCell;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *metricsSegmentControl;
 
 @end
 
@@ -40,6 +41,11 @@ int const kLayoutStretchIndex = 3;
 int const kOrientationBest = 0;
 int const kOrientationPortrait = 1;
 int const kOrientationLandscape = 2;
+
+int const kMetricsSegmentHPIndex = 0;
+int const kMetricsSegmentPartnerIndex = 1;
+int const kMetricsSegmentNoneIndex = 2;
+int const kMetricsSegmentErrorIndex = 3;
 
 NSString * const kMetricsOfframpKey = @"off_ramp";
 NSString * const kMetricsAppTypeKey = @"app_type";
@@ -267,8 +273,47 @@ NSString * const kMetricsAppTypeHP = @"HP";
 
 #pragma mark - Metrics
 
+- (IBAction)metricsSegmentChanged:(id)sender {
+    [self setSwitchesFromSegment];
+}
+
 - (IBAction)automaticMetricsChanged:(id)sender {
     [HPPP sharedInstance].handlePrintMetricsAutomatically = self.automaticMetricsSwitch.on;
+    [self setSegmentFromSwitches];
+}
+
+- (IBAction)extendedMetricsChanged:(id)sender {
+    [self setSegmentFromSwitches];
+}
+
+- (void)setSwitchesFromSegment
+{
+    if (kMetricsSegmentHPIndex == self.metricsSegmentControl.selectedSegmentIndex) {
+        self.automaticMetricsSwitch.on = NO;
+        self.extendedMetricsSwitch.on = YES;
+    } else if (kMetricsSegmentPartnerIndex == self.metricsSegmentControl.selectedSegmentIndex) {
+        self.automaticMetricsSwitch.on = YES;
+        self.extendedMetricsSwitch.on = NO;
+    } else if (kMetricsSegmentNoneIndex == self.metricsSegmentControl.selectedSegmentIndex) {
+        self.automaticMetricsSwitch.on = NO;
+        self.extendedMetricsSwitch.on = NO;
+    } else if (kMetricsSegmentErrorIndex == self.metricsSegmentControl.selectedSegmentIndex) {
+        self.automaticMetricsSwitch.on = YES;
+        self.extendedMetricsSwitch.on = YES;
+    }
+}
+
+- (void)setSegmentFromSwitches
+{
+    if (self.automaticMetricsSwitch.on && !self.extendedMetricsSwitch.on) {
+        self.metricsSegmentControl.selectedSegmentIndex = kMetricsSegmentHPIndex;
+    } else if (!self.automaticMetricsSwitch.on && self.extendedMetricsSwitch.on) {
+        self.metricsSegmentControl.selectedSegmentIndex = kMetricsSegmentPartnerIndex;
+    } else if (!self.automaticMetricsSwitch.on && !self.extendedMetricsSwitch.on) {
+        self.metricsSegmentControl.selectedSegmentIndex = kMetricsSegmentNoneIndex;
+    } else if (self.automaticMetricsSwitch.on && self.extendedMetricsSwitch.on){
+        self.metricsSegmentControl.selectedSegmentIndex = kMetricsSegmentErrorIndex;
+    }
 }
 
 - (NSDictionary *)photoSourceMetrics

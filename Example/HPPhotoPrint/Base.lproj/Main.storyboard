@@ -376,7 +376,7 @@
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <sections>
-                            <tableViewSection headerTitle="Functionality" id="cvt-Tw-SIJ">
+                            <tableViewSection id="cvt-Tw-SIJ">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="y18-GK-YjY" style="IBUITableViewCellStyleDefault" id="Rde-hP-U4m" userLabel="Print Item Cell">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -426,41 +426,37 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Tmj-Fu-0td" style="IBUITableViewCellStyleDefault" id="KZJ-t2-IGM" userLabel="Show Geo Helper Cell">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KZJ-t2-IGM" id="cEQ-ZP-b0E">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Show Geo Helper" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tmj-Fu-0td">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="m7w-2Z-vXa" style="IBUITableViewCellStyleDefault" id="tFC-PJ-umD" userLabel="Multi-Page Configuration Cell">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tFC-PJ-umD" id="Cwf-Ab-Dvd">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Show Multi-Page Configuration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m7w-2Z-vXa">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="XLv-tS-RU9" kind="presentation" id="pf7-9d-t8o"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Metrics" id="DMF-1D-fRx">
                                 <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hzH-h6-av1" userLabel="Type Cell">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hzH-h6-av1" id="DMn-VC-jAY">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ldf-Hd-kmD">
+                                                    <rect key="frame" x="180" y="8" width="240" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="240" id="cTs-87-BF5"/>
+                                                    </constraints>
+                                                    <segments>
+                                                        <segment title="HP"/>
+                                                        <segment title="Partner"/>
+                                                        <segment title="None"/>
+                                                        <segment title="Error"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="metricsSegmentChanged:" destination="p4c-XR-IBR" eventType="valueChanged" id="d5k-oK-B9M"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="Ldf-Hd-kmD" secondAttribute="centerY" id="k0k-5c-gd8"/>
+                                                <constraint firstAttribute="centerX" secondItem="Ldf-Hd-kmD" secondAttribute="centerX" id="oPI-fG-MTj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2go-Rs-4el" userLabel="Automatic Cell">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2go-Rs-4el" id="rSc-Xn-oSL">
@@ -495,6 +491,9 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0y1-Mh-lA3">
                                                     <rect key="frame" x="543" y="7" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="extendedMetricsChanged:" destination="p4c-XR-IBR" eventType="valueChanged" id="ddA-bq-Y3f"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send Extended Metrics" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfT-zT-cH8">
                                                     <rect key="frame" x="28" y="12" width="495" height="21"/>
@@ -522,7 +521,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IEJ-qx-7kc">
-                                                    <rect key="frame" x="211" y="8" width="179" height="29"/>
+                                                    <rect key="frame" x="180" y="8" width="240" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="240" id="sQp-QU-baU"/>
+                                                    </constraints>
                                                     <segments>
                                                         <segment title="Default"/>
                                                         <segment title="Fit"/>
@@ -543,7 +545,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xXp-Er-FTv">
-                                                    <rect key="frame" x="208" y="8" width="184" height="29"/>
+                                                    <rect key="frame" x="180" y="8" width="240" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="240" id="2j7-Be-mdL"/>
+                                                    </constraints>
                                                     <segments>
                                                         <segment title="Best"/>
                                                         <segment title="Portrait"/>
@@ -609,6 +614,45 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Multi-Page Swipe" id="5zy-7o-aJ0">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="m7w-2Z-vXa" style="IBUITableViewCellStyleDefault" id="tFC-PJ-umD" userLabel="Configuration Cell">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tFC-PJ-umD" id="Cwf-Ab-Dvd">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Configure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m7w-2Z-vXa">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="XLv-tS-RU9" kind="presentation" id="pf7-9d-t8o"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Geo Location Notifcation" id="fn4-Ck-BSm">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Tmj-Fu-0td" style="IBUITableViewCellStyleDefault" id="KZJ-t2-IGM" userLabel="Show Geo Helper Cell">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KZJ-t2-IGM" id="cEQ-ZP-b0E">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Debug" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tmj-Fu-0td">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="p4c-XR-IBR" id="mr9-qD-EKe"/>
@@ -620,6 +664,7 @@
                         <outlet property="automaticMetricsSwitch" destination="70e-Kp-e5u" id="iTd-rF-DDY"/>
                         <outlet property="extendedMetricsSwitch" destination="0y1-Mh-lA3" id="Zam-oa-AeI"/>
                         <outlet property="layoutSegmentControl" destination="IEJ-qx-7kc" id="4dw-fS-hPd"/>
+                        <outlet property="metricsSegmentControl" destination="Ldf-Hd-kmD" id="Noa-BW-T2a"/>
                         <outlet property="orientationSegmentControl" destination="xXp-Er-FTv" id="Fd9-gg-JTP"/>
                         <outlet property="showGeoHelperCell" destination="KZJ-t2-IGM" id="Ohi-jK-Ihb"/>
                         <outlet property="showPrintQueueCell" destination="bC4-Ca-gEb" id="yvk-Gn-WKn"/>
