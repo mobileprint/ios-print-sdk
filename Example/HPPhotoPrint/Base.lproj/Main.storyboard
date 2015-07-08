@@ -430,7 +430,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Metrics" id="DMF-1D-fRx">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hzH-h6-av1" userLabel="Type Cell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="hzH-h6-av1" userLabel="Type Cell">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hzH-h6-av1" id="DMn-VC-jAY">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -457,7 +457,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2go-Rs-4el" userLabel="Automatic Cell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="2go-Rs-4el" userLabel="Automatic Cell">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2go-Rs-4el" id="rSc-Xn-oSL">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -484,7 +484,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="E0s-7Q-2xp" userLabel="Extended Cell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="E0s-7Q-2xp" userLabel="Extended Cell">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E0s-7Q-2xp" id="cr2-7B-bpX">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -515,7 +515,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Layout" id="VR6-AE-PWo">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="7aX-JX-Uts">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="7aX-JX-Uts">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7aX-JX-Uts" id="CfY-UO-i5L">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -539,7 +539,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="38D-Fu-csN">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="38D-Fu-csN">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="38D-Fu-csN" id="hG1-5S-aDy">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -562,7 +562,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="SE4-Xq-rom">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="SE4-Xq-rom">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SE4-Xq-rom" id="0jO-6o-HV4">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -661,7 +661,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Print Pod" id="BeI-AF-9PB"/>
                     <connections>
+                        <outlet property="automaticMetricsCell" destination="2go-Rs-4el" id="yAT-hj-Fzc"/>
                         <outlet property="automaticMetricsSwitch" destination="70e-Kp-e5u" id="iTd-rF-DDY"/>
+                        <outlet property="extendedMetricsCell" destination="E0s-7Q-2xp" id="w6w-xD-FGy"/>
                         <outlet property="extendedMetricsSwitch" destination="0y1-Mh-lA3" id="Zam-oa-AeI"/>
                         <outlet property="layoutSegmentControl" destination="IEJ-qx-7kc" id="4dw-fS-hPd"/>
                         <outlet property="metricsSegmentControl" destination="Ldf-Hd-kmD" id="Noa-BW-T2a"/>
