@@ -61,6 +61,8 @@
 {
     NSMutableArray *pageNums = [[NSMutableArray alloc] initWithCapacity:maxPageNum];
     
+    pageRange = [self cleanPageRange:pageRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
+    
     if( [allPagesIndicator isEqualToString:pageRange] ) {
         for (int i=1; i <= maxPageNum; i++) {
             [pageNums addObject:[NSNumber numberWithInt:i]];

@@ -882,7 +882,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="tza-09-zcQ" userLabel="footerView">
-                            <rect key="frame" x="0.0" y="579" width="600" height="100"/>
+                            <rect key="frame" x="0.0" y="579" width="600" height="120"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="What is Print Queue?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSQ-l2-mIF" userLabel="heading">
@@ -917,16 +917,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qy-eQ-1SR" customClass="HPPPMultiPageView">
-                                                    <rect key="frame" x="8" y="8" width="584" height="173"/>
+                                                    <rect key="frame" x="0.0" y="8" width="600" height="173"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="8Qy-eQ-1SR" firstAttribute="top" secondItem="ftk-JF-UNC" secondAttribute="topMargin" id="A1i-iG-YBN"/>
                                                 <constraint firstAttribute="centerX" secondItem="8Qy-eQ-1SR" secondAttribute="centerX" id="BoG-M7-Bvp"/>
-                                                <constraint firstItem="8Qy-eQ-1SR" firstAttribute="leading" secondItem="ftk-JF-UNC" secondAttribute="leadingMargin" id="HCU-LA-98r"/>
+                                                <constraint firstItem="8Qy-eQ-1SR" firstAttribute="leading" secondItem="ftk-JF-UNC" secondAttribute="leading" id="HCU-LA-98r"/>
                                                 <constraint firstAttribute="centerY" secondItem="8Qy-eQ-1SR" secondAttribute="centerY" id="dSS-4j-4I4"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="8Qy-eQ-1SR" secondAttribute="trailing" id="krW-cT-3cN"/>
+                                                <constraint firstAttribute="trailing" secondItem="8Qy-eQ-1SR" secondAttribute="trailing" id="krW-cT-3cN"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="8Qy-eQ-1SR" secondAttribute="bottom" id="xpI-0l-va9"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -941,10 +941,17 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X9q-qQ-Jz0" id="onD-ip-tTx">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RdE-OM-cbr">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RdE-OM-cbr">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Title">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aAw-lE-XIf">
@@ -1065,8 +1072,8 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C6l-jh-fi5">
-                                                    <rect key="frame" x="543" y="8" width="51" height="31"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C6l-jh-fi5">
+                                                    <rect key="frame" x="543" y="9" width="51" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="Apc-D5-1pz"/>
                                                         <constraint firstAttribute="width" constant="49" id="IZm-re-Xpg"/>
@@ -1077,7 +1084,7 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="C6l-jh-fi5" secondAttribute="centerY" constant="-2" id="rJo-3q-RxI"/>
+                                                <constraint firstAttribute="centerY" secondItem="C6l-jh-fi5" secondAttribute="centerY" id="rJo-3q-RxI"/>
                                                 <constraint firstItem="C6l-jh-fi5" firstAttribute="trailing" secondItem="IUV-MB-pLW" secondAttribute="trailingMargin" id="wSs-Jk-KPq"/>
                                             </constraints>
                                         </tableViewCellContentView>

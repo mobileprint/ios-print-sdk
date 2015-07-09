@@ -46,5 +46,5 @@
  * @param view The page range view
  * @param pageRange The selected page range
  */
-- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(NSString *)pageRange;
+- (void)didSelectPageRange:(HPPPPageRangeView *)pageRangeView pageRange:(NSString *)pageRange;
 @end

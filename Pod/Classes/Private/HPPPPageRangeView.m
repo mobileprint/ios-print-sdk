@@ -63,6 +63,7 @@ static NSString *kAllButtonText = @"ALL";
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [button setTitle:buttonText forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:24];
         [button layer].borderWidth = 1.0f;
         [button layer].borderColor = [UIColor lightGrayColor].CGColor;
         button.backgroundColor = [UIColor whiteColor];
@@ -107,17 +108,18 @@ static NSString *kAllButtonText = @"ALL";
     [self addButtons];
 
     if( NSOrderedSame == [initialText caseInsensitiveCompare:kAllButtonText] ) {
-        _pageRange = @"";
+        self.pageRange = kAllButtonText;
     } else {
-        _pageRange = initialText;
+        self.pageRange = initialText;
     }
+
+    self.textField.text = self.pageRange;
 }
 
 - (void)beginEditing
 {
     UITextPosition *newPosition = [self.textField positionFromPosition:0 offset:self.textField.text.length];
     self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
-    self.textField.text = self.pageRange;
     
     [self.textField becomeFirstResponder];
 }
@@ -130,10 +132,13 @@ static NSString *kAllButtonText = @"ALL";
 
 - (void)commitEditing
 {
+    NSString *cleanPageRange = [HPPPPageRange cleanPageRange:self.textField.text allPagesIndicator:kAllButtonText maxPageNum:self.maxPageNum];
+
     if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
-        NSString *cleanPageRange = [HPPPPageRange cleanPageRange:self.textField.text allPagesIndicator:kAllButtonText maxPageNum:self.maxPageNum];
         [self.delegate didSelectPageRange:self pageRange:cleanPageRange];
     }
+
+    self.pageRange = cleanPageRange;
 }
 
 #pragma mark - Button handler
@@ -142,6 +147,9 @@ static NSString *kAllButtonText = @"ALL";
 {
     if( [kBackButtonText isEqualToString:button.titleLabel.text] ) {
         [self replaceCurrentRange:@"" forceDeletion:TRUE];
+        if( self.textField.text.length == 0 ) {
+            self.textField.text = [kAllButtonText copy];
+        }
     } else if( [kCheckButtonText isEqualToString:button.titleLabel.text] ) {
         
         [self commitEditing];

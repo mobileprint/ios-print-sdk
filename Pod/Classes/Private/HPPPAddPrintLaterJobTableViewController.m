@@ -311,10 +311,10 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 {
     if( cell == self.jobSummaryCell ) {
         CGRect frame = self.jobSummaryCell.frame;
-        frame.origin.x = self.view.frame.size.width - 30;
-        frame.origin.y = self.jobSummaryCell.frame.origin.y - 9;
-        frame.size.width = 20;
-        frame.size.height = 20;
+        frame.origin.x = self.view.frame.size.width - 43;
+        frame.origin.y = self.jobSummaryCell.frame.origin.y - 12;
+        frame.size.width = 32;
+        frame.size.height = 32;
         
         self.pageSelectionMark.frame = [self.jobSummaryCell.superview convertRect:frame toView:self.view];
     }
@@ -583,12 +583,15 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 - (void)setNavigationBarEditing:(BOOL)editing
 {
     UIColor *barTintColor = self.navigationBarTintColor;
-    NSString *navigationBarTitle = self.navigationItem.title;
+    NSString *navigationBarTitle = nil;
     UIBarButtonItem *rightBarButtonItem = self.cancelButtonItem;
     
     if (editing) {
-        navigationBarTitle = nil;
         barTintColor = [UIColor HPPPHPTabBarSelectedColor];
+        rightBarButtonItem.tintColor = [UIColor whiteColor];
+    } else {
+        navigationBarTitle = self.title;
+        rightBarButtonItem.tintColor = nil;
     }
     
     self.navigationController.navigationBar.barTintColor = barTintColor;
