@@ -893,7 +893,7 @@
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kTG-Hh-JUg" userLabel="text">
                                     <rect key="frame" x="18" y="30" width="564" height="58"/>
-                                    <string key="text">Add a print to the Print Queue and receive a queue'd projects notification when you are near your printer. Tap your notification or simply come back to this app to print your queue'd projects.</string>
+                                    <string key="text">Add a print to the Print Queue and receive a notification when you are near your printer. Tap your notification or simply come back to this app to print your projects.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
