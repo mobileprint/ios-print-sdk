@@ -114,8 +114,8 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     self.blackAndWhiteCell.textLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenBWTitleFontAttribute];
     self.blackAndWhiteCell.textLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenBWTitleColorAttribute];
     
-    self.selectedPageImage = [UIImage imageNamed:@"HPPPSelected.png"];
-    self.unselectedPageImage = [UIImage imageNamed:@"HPPPUnselected.png"];
+    self.selectedPageImage = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute];
+    self.unselectedPageImage = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute];
     self.pageSelectionMark = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.pageSelectionMark setImage:self.selectedPageImage forState:UIControlStateNormal];
     self.pageSelectionMark.backgroundColor = [UIColor clearColor];
@@ -316,13 +316,6 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         
         self.pageSelectionMark.frame = [self.jobSummaryCell.superview convertRect:frame toView:self.view];
     }
-}
-
-#pragma mark - UITextFieldDelegate
-
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    [self setNavigationBarEditing:YES];
 }
 
 #pragma mark - Selection Handlers
@@ -575,9 +568,9 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         self.editView.frame = desiredFrame;
         [self displaySmokeyView:NO];
     } completion:^(BOOL finished) {
+        [self setNavigationBarEditing:NO];
         self.editView.hidden = YES;
         self.smokeyView.hidden = YES;
-        [self setNavigationBarEditing:NO];
         self.editView = nil;
     }];
 }
@@ -597,7 +590,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     }
     
     self.navigationController.navigationBar.barTintColor = barTintColor;
-    [self.navigationItem setRightBarButtonItem:rightBarButtonItem animated:YES];
+    [self.navigationItem setRightBarButtonItem:rightBarButtonItem animated:NO];
     
     [UIView animateWithDuration:0.4f
                      animations:^{

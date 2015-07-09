@@ -19,6 +19,11 @@
 
 // Print Later Screen
 
+// Document Cell
+NSString * const kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute = @"kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute";
+
+NSString * const kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute = @"kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute";
+
 // Job Summary Cell
 NSString * const kHPPPAddPrintLaterJobScreenJobSummaryTitleFontAttribute = @"kHPPPAddPrintLaterJobScreenJobSummaryTitleFontAttribute";
 
@@ -74,10 +79,12 @@ NSString * const kHPPPAddPrintLaterJobScreenDescriptionDetailFontAttribute = @"k
 
 NSString * const kHPPPAddPrintLaterJobScreenDescriptionDetailColorAttribute = @"kHPPPAddPrintLaterJobScreenDescriptionDetailColorAttribute";
 
-#define DEFAULT_ADD_PRINT_LATER_JOB_FONT               [UIFont fontWithName:@"Helvetica Neue" size:16]
-#define DEFAULT_ADD_PRINT_LATER_JOB_INFORM_COLOR       [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
-#define DEFAULT_ADD_PRINT_LATER_JOB_ACTIVE_COLOR       [UIColor HPPPHPBlueColor]
-#define DEFAULT_ADD_PRINT_LATER_JOB_INACTIVE_COLOR     [UIColor colorWithRed:0x76 / 255.0f green:0x76 / 255.0f blue:0x76 / 255.0f alpha:1.0f]
+#define DEFAULT_ADD_PRINT_LATER_PAGE_SELECTED_IMAGE      [UIImage imageNamed:@"HPPPSelected.png"]
+#define DEFAULT_ADD_PRINT_LATER_PAGE_NOT_SELECTED_IMAGE  [UIImage imageNamed:@"HPPPUnselected.png"]
+#define DEFAULT_ADD_PRINT_LATER_JOB_FONT                 [UIFont fontWithName:@"Helvetica Neue" size:16]
+#define DEFAULT_ADD_PRINT_LATER_JOB_INFORM_COLOR         [UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0f]
+#define DEFAULT_ADD_PRINT_LATER_JOB_ACTIVE_COLOR         [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]
+#define DEFAULT_ADD_PRINT_LATER_JOB_INACTIVE_COLOR       [UIColor colorWithRed:0x76 / 255.0f green:0x76 / 255.0f blue:0x76 / 255.0f alpha:1.0f]
 
 #define DEFAULT_ADD_PRINT_LATER_JOB_TITLE_FONT         DEFAULT_ADD_PRINT_LATER_JOB_FONT
 #define DEFAULT_ADD_PRINT_LATER_JOB_TITLE_COLOR        DEFAULT_ADD_PRINT_LATER_JOB_INFORM_COLOR
@@ -94,7 +101,9 @@ NSString * const kHPPPAddPrintLaterJobScreenDescriptionDetailColorAttribute = @"
 #define DEFAULT_ADD_PRINT_LATER_JOB_TEXT_FONT          [UIFont fontWithName:@"Helvetica Neue" size:12]
 #define DEFAULT_ADD_PRINT_LATER_JOB_TEXT_COLOR         DEFAULT_ADD_PRINT_LATER_JOB_INFORM_COLOR
 
-#define DEFAULT_ADD_PRINT_LATER_JOB_SCREEN_ATTRIBUTES @{kHPPPAddPrintLaterJobScreenJobSummaryTitleFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_FONT, \
+#define DEFAULT_ADD_PRINT_LATER_JOB_SCREEN_ATTRIBUTES @{kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute:DEFAULT_ADD_PRINT_LATER_PAGE_SELECTED_IMAGE, \
+kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute:DEFAULT_ADD_PRINT_LATER_PAGE_NOT_SELECTED_IMAGE, \
+kHPPPAddPrintLaterJobScreenJobSummaryTitleFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_FONT, \
 kHPPPAddPrintLaterJobScreenJobSummaryTitleColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_TITLE_COLOR, \
 kHPPPAddPrintLaterJobScreenJobSummarySubtitleFontAttribute:DEFAULT_ADD_PRINT_LATER_JOB_SUBTITLE_FONT, \
 kHPPPAddPrintLaterJobScreenJobSummarySubtitleColorAttribute:DEFAULT_ADD_PRINT_LATER_JOB_SUBTITLE_COLOR, \

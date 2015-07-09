@@ -18,6 +18,16 @@
 @interface HPPPAppearance : NSObject
 
 /*!
+ * @abstract Dictionary key used to specify filename for the image used to denote a page that will be included in a print job
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute;
+
+/*!
+ * @abstract Dictionary key used to specify filename for the image used to denote a page that will not be included in a print job
+ */
+extern NSString * const kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute;
+
+/*!
  * @abstract Dictionary key used to specify title font for the job summary table view cell
  */
 extern NSString * const kHPPPAddPrintLaterJobScreenJobSummaryTitleFontAttribute;
