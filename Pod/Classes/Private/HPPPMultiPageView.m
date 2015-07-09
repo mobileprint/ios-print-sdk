@@ -24,8 +24,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (assign, nonatomic) NSUInteger actualGutter;
 @property (assign, nonatomic) NSUInteger currentPage;
-@property (assign, nonatomic) CGAffineTransform zoomViewTransform;
-@property (strong, nonatomic) UIView *overlayView;
 @property (strong, nonatomic) UIScrollView *zoomScrollView;
 @property (assign, nonatomic) NSUInteger minimumGutter;
 @property (assign, nonatomic) NSUInteger maximumGutter;
@@ -37,6 +35,7 @@
 @property (strong, nonatomic) UITapGestureRecognizer *singleTapRecognizer;
 @property (strong, nonatomic) UITapGestureRecognizer *doubleTapRecognizer;
 @property (strong, nonatomic) NSArray *blackAndWhitePageImages;
+@property (assign, nonatomic) CGPoint zoomInitialOffset;
 
 @end
 
@@ -55,7 +54,12 @@ CGFloat const kHPPPZoomInset = 20.0; // pixels
 CGFloat const kHPPPZoomOverlayAlpha = 0.8;
 CGFloat const kHPPPZoomMinimumScale = 1.0;
 CGFloat const kHPPPZoomMaximumScale = 8.0;
+CGFloat const kHPPPZoomInitialScale = 2.0;
+CGFloat const kHPPPZoomAutoCloseScale = 1.1;
+
 NSUInteger const kHPPPZoomScrollViewTag = 99;
+
+static NSNumber *lastPinchScale = nil;
 
 #pragma mark - Initialization
 
@@ -94,6 +98,9 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
         
         [singleTapRecognizer requireGestureRecognizerToFail:doubleTapGesture];
     }
+    
+    UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer  alloc] initWithTarget:self action:@selector(handlePinchToZoom:)];
+    [self.scrollView addGestureRecognizer:pinchRecognizer];
 }
 
 - (void)setInterfaceOptions:(HPPPInterfaceOptions *)options
@@ -209,6 +216,15 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
     }
 }
 
+- (HPPPLayoutPaperCellView *)currentPaperCellView
+{
+    HPPPLayoutPaperCellView *cell = nil;
+    if (self.pageImages.count > 0) {
+        cell = (HPPPLayoutPaperCellView *)[self viewWithTag:kHPPPPageBaseTag + self.currentPage - 1];
+    }
+    return cell;
+}
+
 #pragma mark - Layout
 
 - (void)refreshLayout
@@ -216,10 +232,6 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
     [self setNeedsLayout];
     [self layoutIfNeeded];
     [self layoutPagesIfNeeded];
-    if (self.zoomScrollView) {
-        [self hideZoomViewAnimated:NO];
-        [self showZoomViewAnimated:NO];
-    }
 }
 
 - (void)layoutPagesIfNeeded
@@ -348,13 +360,26 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    NSUInteger newPageNumber = scrollView.contentOffset.x / scrollView.bounds.size.width + 1;
-    [self changePageNumber:newPageNumber];
+    if (kHPPPZoomScrollViewTag != scrollView.tag) {
+        NSUInteger newPageNumber = scrollView.contentOffset.x / scrollView.bounds.size.width + 1;
+        [self changePageNumber:newPageNumber];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self setZoomLevels];
+    if (kHPPPZoomScrollViewTag != scrollView.tag) {
+        [self setZoomLevels];
+    }
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
+{
+    if (kHPPPZoomScrollViewTag == scrollView.tag) {
+        if (scrollView.zoomScale <= 1.0) {
+            [self removeZoomView];
+        }
+    }
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
@@ -364,6 +389,17 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
         zoomView = [scrollView.subviews firstObject];
     }
     return zoomView;
+}
+
+#pragma mark - UIPinchGestureRecognizer
+
+- (void)handlePinchToZoom:(UIGestureRecognizer *)gestureRecognizer
+{
+    UIPinchGestureRecognizer *pinchRecognizer = (UIPinchGestureRecognizer *)gestureRecognizer;
+    if (lastPinchScale && pinchRecognizer.scale > [lastPinchScale floatValue]) {
+        [self showZoomViewWithScale:kHPPPZoomInitialScale Animated:YES] ;
+    }
+    lastPinchScale = [NSNumber numberWithFloat:pinchRecognizer.scale];
 }
 
 #pragma mark - UITapGestureRecognizer
@@ -396,16 +432,12 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
 
 - (void)handleZoomSingleTap:(UIGestureRecognizer *)gestureRecognizer
 {
-    [self hideZoomViewAnimated:YES];
+    // do nothing
 }
 
 - (void)handleZoomDoubleTap:(UIGestureRecognizer *)gestureRecognizer
 {
-    if (self.zoomScrollView.zoomScale == kHPPPZoomMaximumScale) {
-        [self.zoomScrollView setZoomScale:kHPPPZoomMinimumScale animated:YES];
-    } else {
-        [self.zoomScrollView setZoomScale:kHPPPZoomMaximumScale animated:YES];
-    }
+    [self hideZoomViewAnimated:YES];
 }
 
 #pragma mark - HPPPMultPageViewDelegate
@@ -415,7 +447,7 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
     HPPPLogInfo(@"Page %lu was single tapped", (unsigned long)pageNumber);
     
     if (self.zoomOnSingleTap) {
-        [self showZoomViewAnimated:YES];
+        [self showZoomViewWithScale:kHPPPZoomInitialScale Animated:YES];
     }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(multiPageView:didSingleTapPage:)]) {
@@ -428,7 +460,7 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
     HPPPLogInfo(@"Page %lu was double tapped", (unsigned long)pageNumber);
     
     if (self.zoomOnDoubleTap) {
-        [self showZoomViewAnimated:YES];
+        [self showZoomViewWithScale:kHPPPZoomInitialScale Animated:YES];
     }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(multiPageView:didDoubleTapPage:)]) {
@@ -451,7 +483,7 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
 
 #pragma mark - Zooming
 
-- (void)showZoomViewAnimated:(BOOL)animated
+- (void)showZoomViewWithScale:(CGFloat)scale Animated:(BOOL)animated
 {
     if (self.zoomScrollView) {
         return;
@@ -459,14 +491,9 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
     
     NSArray *pageImages = self.blackAndWhite ? self.blackAndWhitePageImages : self.pageImages;
 
-    HPPPLayoutPaperCellView *zoomView = (HPPPLayoutPaperCellView *)[self viewWithTag:kHPPPPageBaseTag + self.currentPage - 1];
-    UIView *containerView = [[UIApplication sharedApplication].windows firstObject];
-
-    CGRect screenRect = [UIScreen mainScreen].bounds;
-    CGRect sourceRect = [zoomView convertRect:zoomView.paperView.frame toView:containerView];
-    self.zoomViewTransform = [self computeTranformFromRect:screenRect toRect:sourceRect scale:0.1];
+    HPPPLayoutPaperCellView *zoomSourceView = [self currentPaperCellView];
     
-    self.zoomScrollView = [[UIScrollView alloc] initWithFrame:screenRect];
+    self.zoomScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
     self.zoomScrollView.minimumZoomScale = kHPPPZoomMinimumScale;
     self.zoomScrollView.maximumZoomScale = kHPPPZoomMaximumScale;
     self.zoomScrollView.bouncesZoom = NO;
@@ -474,9 +501,8 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
     self.zoomScrollView.autoresizingMask = UIViewAutoresizingNone;
     self.zoomScrollView.delegate = self;
     self.zoomScrollView.tag = kHPPPZoomScrollViewTag;
-    self.zoomScrollView.alpha = 1.0;
     
-    CGRect pageRect = CGRectInset(self.zoomScrollView.bounds, kHPPPZoomInset, kHPPPZoomInset);
+    CGRect pageRect = CGRectMake(0, 0, zoomSourceView.bounds.size.width, zoomSourceView.bounds.size.height);
     HPPPLayoutPaperView *paperView = [[HPPPLayoutPaperView alloc] init];
     paperView.image = pageImages[self.currentPage - 1];
     paperView.layout = self.layout;
@@ -485,54 +511,56 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
     paperCell.backgroundColor = [self getColor:@"Page Cell"];
     paperCell.tag = kHPPPZoomScrollViewTag + 1;
     [self.zoomScrollView addSubview:paperCell];
+    
+    CGFloat offsetX = (zoomSourceView.bounds.size.width - self.zoomScrollView.bounds.size.width) / 2.0;
+    CGFloat offsetY = (zoomSourceView.bounds.size.height - self.zoomScrollView.bounds.size.height) / 2.0;
+    self.zoomInitialOffset = CGPointMake(offsetX, offsetY);
+    self.zoomScrollView.contentSize = zoomSourceView.bounds.size;
+    self.zoomScrollView.contentOffset = self.zoomInitialOffset;
 
-    self.overlayView = [[UIView alloc] initWithFrame:screenRect];
-    self.overlayView.backgroundColor = [UIColor blackColor];
-    self.overlayView.alpha = kHPPPZoomOverlayAlpha;
-    
+    [self.superview addSubview:self.zoomScrollView];
+    [self currentPaperCellView].hidden = YES;
     [self initializeZoomGestures];
-    
+    [self.zoomScrollView setZoomScale:scale animated:animated];
+    [self setPagesVisible:NO animated:animated];
+}
+
+- (void)removeZoomView
+{
+    lastPinchScale = nil;
+    [self setPagesVisible:YES animated:NO];
+    [self currentPaperCellView].hidden = NO;
+    [self.zoomScrollView removeFromSuperview];
+    self.zoomScrollView = nil;
+}
+
+- (void)setPagesVisible:(BOOL)visible animated:(BOOL)animated
+{
+    CGFloat alpha = visible ? 1.0 : 0.0;
     if (animated) {
-        self.overlayView.alpha = 0.0;
-        self.overlayView.alpha = 0.0;
-        self.overlayView.transform = self.zoomViewTransform;
-        self.zoomScrollView.transform = self.zoomViewTransform;
-        [containerView addSubview:self.overlayView];
-        [containerView addSubview:self.zoomScrollView];
         [UIView animateWithDuration:kHPPPZoomFadeTime animations:^{
-            self.overlayView.alpha = kHPPPZoomOverlayAlpha;
-            self.zoomScrollView.alpha = 1.0;
-            self.overlayView.transform = CGAffineTransformIdentity;
-            self.zoomScrollView.transform = CGAffineTransformIdentity;
+            [self setSidePageAlpha:alpha];
         }];
     } else {
-        [containerView addSubview:self.overlayView];
-        [containerView addSubview:self.zoomScrollView];
+        [self setSidePageAlpha:alpha];
+    }
+}
+
+- (void)setSidePageAlpha:(CGFloat)alpha
+{
+    for (int idx = 0; idx < self.pageImages.count; idx++) {
+        UIView *view = [self viewWithTag:kHPPPPageBaseTag + idx];
+        if (view != [self currentPaperCellView]) {
+            view.alpha = alpha;
+        }
     }
 }
 
 - (void)hideZoomViewAnimated:(BOOL)animated
 {
-    if (animated) {
-        [UIView animateWithDuration:kHPPPZoomFadeTime animations:^{
-            self.overlayView.alpha = 0.0;
-            self.zoomScrollView.alpha = 0.0;
-            self.overlayView.transform = self.zoomViewTransform;
-            self.zoomScrollView.transform = self.zoomViewTransform;
-        } completion:^(BOOL finished) {
-            if (finished) {
-                [self.zoomScrollView removeFromSuperview];
-                [self.overlayView removeFromSuperview];
-                self.overlayView = nil;
-                self.zoomScrollView = nil;
-            }
-        }];
-    } else {
-        [self.zoomScrollView removeFromSuperview];
-        [self.overlayView removeFromSuperview];
-        self.overlayView = nil;
-        self.zoomScrollView = nil;
-    }
+    [self.zoomScrollView setZoomScale:1.0 animated:animated];
+    [self.zoomScrollView setContentOffset:self.zoomInitialOffset animated:animated];
+    [self setPagesVisible:YES animated:animated];
 }
 
 - (CGAffineTransform)computeTranformFromRect:(CGRect)sourceRect toRect:(CGRect)resultRect scale:(CGFloat)scale
@@ -549,7 +577,6 @@ NSUInteger const kHPPPZoomScrollViewTag = 99;
     singleTapRecognizer.cancelsTouchesInView = YES;
     singleTapRecognizer.numberOfTapsRequired = 1;
     singleTapRecognizer.numberOfTouchesRequired = 1;
-    [self.overlayView addGestureRecognizer:singleTapRecognizer];
     [self.zoomScrollView addGestureRecognizer:singleTapRecognizer];
     
     UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleZoomDoubleTap:)];

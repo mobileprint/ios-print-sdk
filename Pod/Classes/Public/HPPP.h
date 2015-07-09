@@ -248,12 +248,6 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (strong, nonatomic) HPPPPaper *defaultPaper;
 
 /*!
- * @abstract Zoom and crop
- * @discussion Specify if the image should zoom and crop in case the image size doesn't match with the paper size.
- */
-@property (assign, nonatomic) BOOL zoomAndCrop;
-
-/*!
  * @abstract Font used for the ruler labels
  */
 @property (strong, nonatomic) UIFont *rulesLabelFont;
