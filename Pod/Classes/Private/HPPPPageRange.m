@@ -61,13 +61,13 @@
 {
     NSMutableArray *pageNums = [[NSMutableArray alloc] initWithCapacity:maxPageNum];
     
-    pageRange = [self cleanPageRange:pageRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
-    
     if( [allPagesIndicator isEqualToString:pageRange] ) {
         for (int i=1; i <= maxPageNum; i++) {
             [pageNums addObject:[NSNumber numberWithInt:i]];
         }
     } else {
+        pageRange = [self cleanPageRange:pageRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
+
         // split on commas
         NSArray *chunks = [pageRange componentsSeparatedByString:@","];
         for (NSString *chunk in chunks) {

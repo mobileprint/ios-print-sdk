@@ -126,7 +126,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
     self.smokeyView = [[UIView alloc] init];
     self.smokeyView.backgroundColor = [UIColor blackColor];
-    self.smokeyView.alpha = 0.6f;
+    self.smokeyView.alpha = 0.0f;
     self.smokeyView.hidden = TRUE;
     [self.view addSubview:self.smokeyView];
     
@@ -293,12 +293,10 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         }
 
         if( self.editView ) {
-            [self displaySmokeyView:TRUE];
-            
             [self setNavigationBarEditing:TRUE];
-            
-            self.editView.hidden = NO;
             [UIView animateWithDuration:0.6f animations:^{
+                [self displaySmokeyView:TRUE];
+                self.editView.hidden = NO;
                 self.editView.frame = desiredFrame;
             } completion:^(BOOL finished) {
                 [self.editView beginEditing];
@@ -310,7 +308,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if( cell == self.jobSummaryCell ) {
-        CGRect frame = self.jobSummaryCell.frame;
+        CGRect frame = self.jobSummaryCell.frame;       
         frame.origin.x = self.view.frame.size.width - 43;
         frame.origin.y = self.jobSummaryCell.frame.origin.y - 12;
         frame.size.width = 32;
@@ -560,9 +558,12 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 {
     self.tableView.scrollEnabled = !display;
     
-    [UIView animateWithDuration:0.6f animations:^{
-        self.smokeyView.hidden = !display;
-    } completion:nil];
+    if( display ) {
+        self.smokeyView.hidden = FALSE;
+        self.smokeyView.alpha = 0.6f;
+    } else {
+        self.smokeyView.alpha = 0.0f;
+    }
 }
 
 - (void)dismissEditView
@@ -572,9 +573,10 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     
     [UIView animateWithDuration:0.6f animations:^{
         self.editView.frame = desiredFrame;
+        [self displaySmokeyView:NO];
     } completion:^(BOOL finished) {
         self.editView.hidden = YES;
-        [self displaySmokeyView:NO];
+        self.smokeyView.hidden = YES;
         [self setNavigationBarEditing:NO];
         self.editView = nil;
     }];

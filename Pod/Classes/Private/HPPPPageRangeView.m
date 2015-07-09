@@ -29,12 +29,15 @@
 static NSString *kBackButtonText = @"⌫";
 static NSString *kCheckButtonText = @"Done";//@"✔︎";
 static NSString *kAllButtonText = @"ALL";
+static NSString *kAllPagesIndicator = @"";
+static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
 - (void)initWithXibName:(NSString *)xibName
 {
     [super initWithXibName:xibName];
     
     self.textField.delegate = self;
+    self.textField.placeholder = kPlaceholderText;
 }
 
 - (void)dealloc
@@ -108,7 +111,7 @@ static NSString *kAllButtonText = @"ALL";
     [self addButtons];
 
     if( NSOrderedSame == [initialText caseInsensitiveCompare:kAllButtonText] ) {
-        self.pageRange = kAllButtonText;
+        self.pageRange = kAllPagesIndicator;
     } else {
         self.pageRange = initialText;
     }
@@ -155,10 +158,10 @@ static NSString *kAllButtonText = @"ALL";
         [self commitEditing];
         
     } else if( [kAllButtonText isEqualToString:button.titleLabel.text] ) {
-        self.textField.text = [kAllButtonText copy];
+        self.textField.text = kAllButtonText;
         
     } else {
-        if( [kAllButtonText isEqualToString:self.textField.text] ) {
+        if( [kAllPagesIndicator isEqualToString:self.textField.text] ) {
             self.textField.text = @"";
         }
         
