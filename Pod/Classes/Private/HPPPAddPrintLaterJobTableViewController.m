@@ -309,8 +309,8 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 {
     if( cell == self.jobSummaryCell ) {
         CGRect frame = self.jobSummaryCell.frame;       
-        frame.origin.x = self.view.frame.size.width - 43;
-        frame.origin.y = self.jobSummaryCell.frame.origin.y - 12;
+        frame.origin.x = self.view.frame.size.width - 55;
+        frame.origin.y = self.jobSummaryCell.frame.origin.y - 12.5;
         frame.size.width = 32;
         frame.size.height = 32;
         

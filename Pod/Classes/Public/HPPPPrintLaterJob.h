@@ -60,7 +60,10 @@
  */
 @property (strong, nonatomic) NSDictionary *extra;
 
-// TODO: this is not a property... was this test work that needs to be finalized?
+/*!
+ * @abstract The default preview image
+ * @discussion This image is created to suit the HPPP default paper size
+ */
 - (UIImage *)previewImage;
 
 @end
