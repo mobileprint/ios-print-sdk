@@ -70,25 +70,36 @@
 
 -(void) keyboardWillMove:(NSNotification *)notification
 {
+    NSDictionary *userInfo = notification.userInfo;
+
     CGFloat height = self.textField.frame.size.height;
     
+    // Start and end frame positions for the traditional keyboard
     CGRect startFrame;
     CGRect endFrame;
-    NSTimeInterval animationDuration;
-    [[[notification userInfo] valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&startFrame];
-    [[[notification userInfo] valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&endFrame];
-    [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
+    [[userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&startFrame];
+    [[userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&endFrame];
     
-    if( endFrame.origin.y < startFrame.origin.y ) {
-        [UIView animateWithDuration:animationDuration animations:^{
+    // The animations to perform
+    void (^animations)() = ^() {
+        if( endFrame.origin.y < startFrame.origin.y ) {
             self.textField.frame = CGRectMake(18, 20, self.bounds.size.width-36, height);
             self.textField.alpha = 1.0F;
-        }];
-    } else {
-        [UIView animateWithDuration:animationDuration animations:^{
+        } else {
             self.textField.frame = CGRectMake(18, self.frame.size.height, self.bounds.size.width-36, height);
-        }];
-    }
+        }
+    };
+    
+    // Perform the animations on the traditonal keyboard's animation curve and duration
+    NSNumber *durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curveValue = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+    NSTimeInterval animationDuration = durationValue.doubleValue;
+    UIViewAnimationCurve animationCurve = curveValue.intValue;
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0
+                        options:(animationCurve << 16)
+                     animations:animations
+                     completion:nil];
 }
 
 @end
