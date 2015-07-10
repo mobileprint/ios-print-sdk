@@ -563,6 +563,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     [UIView animateWithDuration:0.6f animations:^{
         [self displaySmokeyView:NO];
         self.editView.frame = desiredFrame;
+        self.cancelButtonItem.tintColor = nil;
     } completion:^(BOOL finished) {
         [self setNavigationBarEditing:NO];
         self.editView.hidden = YES;
@@ -579,7 +580,9 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     
     if (editing) {
         barTintColor = [UIColor HPPPHPTabBarSelectedColor];
-        rightBarButtonItem.tintColor = [UIColor whiteColor];
+        [UIView animateWithDuration:0.6f animations:^{
+            rightBarButtonItem.tintColor = [UIColor whiteColor];
+        }];
     } else {
         navigationBarTitle = self.title;
         rightBarButtonItem.tintColor = nil;

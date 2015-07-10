@@ -10,6 +10,7 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPPageRangeView.h"
 #import "HPPPPageRange.h"
 #import "UIColor+HPPPStyle.h"
@@ -78,11 +79,13 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
         [button addTarget:self action:@selector(onButtonDown:) forControlEvents:UIControlEventTouchUpInside];
 
         if( [buttonText isEqualToString:[kAllButtonText copy]] ) {
+            button.titleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:16];
             button.frame = CGRectMake(col*buttonWidth, yOrigin + (row*buttonHeight), buttonWidth*2, buttonHeight);
             buttonOffset++;
         } else {
             if( [buttonText isEqualToString:[kCheckButtonText copy]] ) {
-                button.backgroundColor = [UIColor HPPPHPBlueColor];
+                button.titleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:16];
+                button.backgroundColor = [[HPPP sharedInstance].appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute];
                 [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             }
             button.frame = CGRectMake((col+buttonOffset)*buttonWidth, yOrigin + (row*buttonHeight), buttonWidth, buttonHeight);
