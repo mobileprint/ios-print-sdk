@@ -182,6 +182,16 @@ extern NSString * const kHPPPPrinterId;
 extern NSString * const kHPPPPrinterDisplayName;
 
 /*!
+ * @abstract Used to retrieve the total number of pages in the document used for the last job
+ */
+extern NSString * const kHPPPNumberPagesDocument;
+
+/*!
+ * @abstract Used to retrieve the total number of pages the user selected to print for the last job
+ */
+extern NSString * const kHPPPNumberPagesPrint;
+
+/*!
  * @abstract Used to retrieve display location of the printer used for the last job
  * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. Only available in iOS 8 after the printer has been contacted successfully.
  * @seealso lastOptionsUsed

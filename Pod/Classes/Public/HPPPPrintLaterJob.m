@@ -81,7 +81,7 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"id: %@ \nname: %@ \ndate: %@ \npageRange: %@ \nnumCopies: %ld \nblackAndWhite: %d\nextra: %@", self.id, self.name, self.date, self.pageRange, self.numCopies, self.blackAndWhite, self.extra];
+    return [NSString stringWithFormat:@"id: %@ \nname: %@ \ndate: %@ \npageRange: %@ \nnumCopies: %ld \nblackAndWhite: %d\nextra: %@", self.id, self.name, self.date, self.pageRange, (long)self.numCopies, self.blackAndWhite, self.extra];
 }
 
 @end

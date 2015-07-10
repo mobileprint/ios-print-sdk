@@ -184,7 +184,8 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
         self.textField.text = kAllButtonText;
         
     } else {
-        if( [kAllPagesIndicator isEqualToString:self.textField.text] ) {
+        if( [kAllPagesIndicator isEqualToString:self.textField.text] ||
+            [kAllButtonText isEqualToString:self.textField.text]) {
             self.textField.text = @"";
         }
         

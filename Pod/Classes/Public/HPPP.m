@@ -67,6 +67,9 @@ NSString * const kHPPPPrinterDisplayLocation = @"printer_location";
 NSString * const kHPPPPrinterMakeAndModel = @"printer_model";
 NSString * const kHPPPPrinterDisplayName = @"printer_name";
 
+NSString * const kHPPPNumberPagesDocument = @"number_pages_document";
+NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
+
 @implementation HPPP
 
 #pragma mark - Public methods
