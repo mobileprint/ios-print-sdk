@@ -15,9 +15,7 @@
 @interface HPPPKeyboardView () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *containingView;
-@property (weak, nonatomic) IBOutlet UIView *smokeyView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *smokeyViewHeightConstraint;
 
 @end
 
@@ -28,9 +26,6 @@
     [super initWithXibName:xibName];
     
     self.textField.delegate = self;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillMove:) name:UIKeyboardWillChangeFrameNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
 }
 
 #pragma mark - HPPPEditView implementation
@@ -38,7 +33,9 @@
 - (void)prepareForDisplay:(NSString *)initialText
 {
     self.textField.text = initialText;
-    self.textField.hidden = true;
+    self.textField.alpha = 0.0F;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillMove:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
 - (void)beginEditing {
@@ -46,15 +43,20 @@
 }
 
 - (void)cancelEditing {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     [self.textField resignFirstResponder];
 }
 
 - (void)commitEditing
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didFinishEnteringText:text:)]) {
         [self.delegate didFinishEnteringText:self text:self.textField.text];
-        [self.textField resignFirstResponder];
     }
+
+    [self.textField resignFirstResponder];
 }
 
 #pragma mark - Keyboard handlers
@@ -70,23 +72,23 @@
 {
     CGFloat height = self.textField.frame.size.height;
     
+    CGRect startFrame;
     CGRect endFrame;
     NSTimeInterval animationDuration;
+    [[[notification userInfo] valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&startFrame];
     [[[notification userInfo] valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&endFrame];
     [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
     
-    endFrame = [self convertRect:endFrame fromView:nil];
-    float y = (endFrame.origin.y > self.bounds.size.height ? self.bounds.size.height-height : endFrame.origin.y-height);
-    
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.textField.frame = CGRectMake(0, y, self.bounds.size.width, height);
-    }];
-    self.textField.hidden = FALSE;
-}
-
--(void) keyboardDidShow:(NSNotification *)notification
-{
-    self.textField.hidden = FALSE;
+    if( endFrame.origin.y < startFrame.origin.y ) {
+        [UIView animateWithDuration:animationDuration animations:^{
+            self.textField.frame = CGRectMake(18, 20, self.bounds.size.width-36, height);
+            self.textField.alpha = 1.0F;
+        }];
+    } else {
+        [UIView animateWithDuration:animationDuration animations:^{
+            self.textField.frame = CGRectMake(18, self.frame.size.height, self.bounds.size.width-36, height);
+        }];
+    }
 }
 
 @end

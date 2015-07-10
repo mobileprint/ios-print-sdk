@@ -7,7 +7,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HPPPPageRangeView">
             <connections>
                 <outlet property="containingView" destination="i5M-Pr-FkT" id="WDv-ux-OK9"/>
-                <outlet property="smokeyView" destination="IbN-Ww-fBj" id="eAK-D2-iZ6"/>
                 <outlet property="textField" destination="fyg-5b-7lk" id="C2F-n9-oUt"/>
             </connections>
         </placeholder>
@@ -16,28 +15,17 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IbN-Ww-fBj" userLabel="SmokeyView">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="e.g. 1,3-5" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fyg-5b-7lk">
-                    <rect key="frame" x="18" y="20" width="564" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fyg-5b-7lk">
+                    <rect key="frame" x="18" y="570" width="564" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                 </textField>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="IbN-Ww-fBj" secondAttribute="centerX" id="1i0-wT-hyf"/>
-                <constraint firstItem="IbN-Ww-fBj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="2hq-l8-VeS"/>
-                <constraint firstItem="fyg-5b-7lk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="3gT-Km-IOW"/>
-                <constraint firstAttribute="centerY" secondItem="IbN-Ww-fBj" secondAttribute="centerY" id="F51-7A-mrq"/>
-                <constraint firstAttribute="trailing" secondItem="fyg-5b-7lk" secondAttribute="trailing" constant="18" id="Fso-VX-2Lm"/>
-                <constraint firstItem="fyg-5b-7lk" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="Krf-4B-3dC"/>
-                <constraint firstItem="IbN-Ww-fBj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UW6-Ml-vHz"/>
-                <constraint firstAttribute="bottom" secondItem="IbN-Ww-fBj" secondAttribute="bottom" id="m5f-jk-CbX"/>
-                <constraint firstAttribute="trailing" secondItem="IbN-Ww-fBj" secondAttribute="trailing" id="n7F-mn-VQY"/>
-                <constraint firstItem="fyg-5b-7lk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="18" id="urj-a0-9ZU"/>
+                <constraint firstAttribute="trailing" secondItem="fyg-5b-7lk" secondAttribute="trailing" constant="18" id="2xk-rA-1dj"/>
+                <constraint firstItem="fyg-5b-7lk" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="RVJ-JT-dXI"/>
+                <constraint firstItem="fyg-5b-7lk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="18" id="mW6-Xv-gPF"/>
             </constraints>
         </view>
     </objects>

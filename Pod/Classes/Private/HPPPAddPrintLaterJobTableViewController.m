@@ -130,13 +130,13 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     self.smokeyView.hidden = TRUE;
     [self.view addSubview:self.smokeyView];
     
-    self.pageRangeView = [[HPPPPageRangeView alloc] init];
+    self.pageRangeView = [[HPPPPageRangeView alloc] initWithFrame:self.view.frame];
     self.pageRangeView.delegate = self;
     self.pageRangeView.hidden = YES;
     self.pageRangeView.maxPageNum = self.printItem.numberOfPages;
     [self.view addSubview:self.pageRangeView];
 
-    self.keyboardView = [[HPPPKeyboardView alloc] init];
+    self.keyboardView = [[HPPPKeyboardView alloc] initWithFrame:self.view.frame];
     self.keyboardView.delegate = self;
     self.keyboardView.hidden = YES;
     [self.view addSubview:self.keyboardView];
@@ -270,13 +270,9 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     } else {
         
         [self setSmokeyViewFrame];
-        CGRect desiredFrame = self.smokeyView.frame;
-        
-        CGRect startingFrame = desiredFrame;
-        startingFrame.origin.y = self.smokeyView.frame.origin.y + self.smokeyView.frame.size.height;
         
         if(cell == self.pageRangeCell) {
-            self.pageRangeView.frame = startingFrame;
+            self.pageRangeView.frame = self.smokeyView.frame;
             
             NSString *pageRange = self.pageRangeCell.detailTextLabel.text;
             if( [kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
@@ -285,10 +281,10 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
             
             [self.pageRangeView prepareForDisplay:pageRange];
             self.editView = self.pageRangeView;
-            
         } else if (cell == self.jobNameCell) {
-            self.keyboardView.frame = startingFrame;
+            self.keyboardView.frame = self.smokeyView.frame;
             [self.keyboardView prepareForDisplay:self.jobNameCell.detailTextLabel.text];
+
             self.editView = self.keyboardView;
         }
 
@@ -297,11 +293,11 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
             [UIView animateWithDuration:0.6f animations:^{
                 [self displaySmokeyView:TRUE];
                 self.editView.hidden = NO;
-                self.editView.frame = desiredFrame;
             } completion:^(BOOL finished) {
                 [self.editView beginEditing];
             }];
         }
+
     }
 }
 
@@ -565,8 +561,8 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     desiredFrame.origin.y = self.editView.frame.origin.y + self.editView.frame.size.height;
     
     [UIView animateWithDuration:0.6f animations:^{
-        self.editView.frame = desiredFrame;
         [self displaySmokeyView:NO];
+        self.editView.frame = desiredFrame;
     } completion:^(BOOL finished) {
         [self setNavigationBarEditing:NO];
         self.editView.hidden = YES;
