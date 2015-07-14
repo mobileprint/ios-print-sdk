@@ -157,7 +157,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    NSString *cleanPageRange = [HPPPPageRange cleanPageRange:self.textField.text allPagesIndicator:kAllButtonText maxPageNum:self.maxPageNum];
+    NSString *cleanPageRange = [HPPPPageRange cleanPageRange:self.textField.text allPagesIndicator:kAllButtonText maxPageNum:self.maxPageNum sortAscending:TRUE];
 
     if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
         [self.delegate didSelectPageRange:self pageRange:cleanPageRange];

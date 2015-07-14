@@ -22,9 +22,10 @@
  * @param text The page range to be cleaned
  * @param allPagesIndicator The string indicating that all pages should be included in the cleaned page range.  If this string is found in the text, an empty string will be returned for the page range.
  * @param maxPageNum The largest page number to be allowed in the page range
+ * @param sortAscending If TRUE, the returned page range will be formatted such that it is in ascending order.  If FALSE, the returned page range will maintain it's existing order.
  * @returns A valid page range based on the text argument.  If all pages, and only all pages, are to be included in the page range, an empty string is returned.
 */
-+ (NSString *) cleanPageRange:(NSString *)text allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum;
++ (NSString *) cleanPageRange:(NSString *)text allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum sortAscending:(BOOL)sortAscending;
 
 /*!
  * @abstract Converts a valid page range into an array of NSNumbers

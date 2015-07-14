@@ -10,7 +10,7 @@
 
 @implementation HPPPPageRange
 
-+ (NSString *) cleanPageRange:(NSString *)text allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum
++ (NSString *) cleanPageRange:(NSString *)text allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum sortAscending:(BOOL)sortAscending
 {
     NSString *scrubbedRange = text;
     
@@ -50,11 +50,29 @@
             text = scrubbedRange;
             
             // keep calling this function until it makes no modification
-            scrubbedRange = [HPPPPageRange cleanPageRange:scrubbedRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
+            scrubbedRange = [HPPPPageRange cleanPageRange:scrubbedRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum sortAscending:sortAscending];
         }
     }
     
+    if( sortAscending ) {
+        scrubbedRange = [HPPPPageRange sortPageRange:scrubbedRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
+    }
+    
     return scrubbedRange;
+}
+
++ (NSString *) sortPageRange:(NSString *)pageRange allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum
+{
+    NSArray *pages = [HPPPPageRange getPagesFromPageRange:pageRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
+    
+    NSMutableArray *mutablePages = [pages mutableCopy];
+    NSSortDescriptor *lowestToHighest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    [mutablePages sortUsingDescriptors:[NSArray arrayWithObject:lowestToHighest]];
+    pages = mutablePages;
+    
+    pageRange = [HPPPPageRange formPageRangeFromPages:pages allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
+    
+    return pageRange;
 }
 
 + (NSArray *) getPagesFromPageRange:(NSString *)pageRange allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum
@@ -66,7 +84,7 @@
             [pageNums addObject:[NSNumber numberWithInt:i]];
         }
     } else {
-        pageRange = [self cleanPageRange:pageRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
+        pageRange = [self cleanPageRange:pageRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum sortAscending:FALSE];
 
         // split on commas
         NSArray *chunks = [pageRange componentsSeparatedByString:@","];
