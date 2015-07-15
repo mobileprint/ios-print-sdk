@@ -72,7 +72,6 @@ NSString * const kMetricsAppTypeHP = @"HP";
     [HPPP sharedInstance].printJobName = @"Print POD Example";
     
     [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
-    [HPPP sharedInstance].zoomAndCrop = YES;
     
     [HPPP sharedInstance].handlePrintMetricsAutomatically = NO;
     
@@ -90,6 +89,13 @@ NSString * const kMetricsAppTypeHP = @"HP";
                                          [HPPPPaper titleFromSize:Size5x7],
                                          [HPPPPaper titleFromSize:SizeLetter]
                                          ];
+    
+    [HPPP sharedInstance].interfaceOptions.multiPageMaximumGutter = 0;
+    [HPPP sharedInstance].interfaceOptions.multiPageBleed = 40;
+    [HPPP sharedInstance].interfaceOptions.multiPageBackgroundPageScale = 0.61803399;
+    [HPPP sharedInstance].interfaceOptions.multiPageDoubleTapEnabled = YES;
+    [HPPP sharedInstance].interfaceOptions.multiPageZoomOnSingleTap = NO;
+    [HPPP sharedInstance].interfaceOptions.multiPageZoomOnDoubleTap = YES;
 }
 
 #pragma mark - Navigation

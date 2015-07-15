@@ -194,7 +194,6 @@ This setup is typically done in the app delegate at startup.
 + (void)setPrintOptions
 {
     [HPPP sharedInstance].tableViewCellLinkLabelColor = [UIColor blueColor];
-    [HPPP sharedInstance].zoomAndCrop = NO;
     [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
     [HPPP sharedInstance].hideBlackAndWhiteOption = FALSE;
     [HPPP sharedInstance].hidePaperSizeOption = FALSE;
