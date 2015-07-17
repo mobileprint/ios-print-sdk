@@ -67,6 +67,7 @@ install_resource()
                     install_resource "../../Pod/Assets/HPPPSelected@3x.png"
                     install_resource "../../Pod/Assets/HPPPUnelected@3x.png"
                     install_resource "../../Pod/Assets/HPPPUnselected@2x.png"
+                    install_resource "../../Pod/Assets/HPPPUnSelected@3x.png"
                     install_resource "../../Pod/Classes/Private/HPPPKeyboardView.xib"
                     install_resource "../../Pod/Classes/Private/HPPPMultiPageView.xib"
                     install_resource "../../Pod/Classes/Private/HPPPPageRangeView.xib"
