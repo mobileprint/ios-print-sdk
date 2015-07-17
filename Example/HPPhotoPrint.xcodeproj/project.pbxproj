@@ -51,6 +51,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F14A1C5F1B28F594000C5855 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		080854DE6C4D61428EC1D8E8 /* libPods-HPPhotoPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HPPhotoPrint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FABBD395BD676FF962B7E9B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -273,6 +286,7 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				542373FFA571279CCE085671 /* Copy Pods Resources */,
+				F14A1C5F1B28F594000C5855 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);

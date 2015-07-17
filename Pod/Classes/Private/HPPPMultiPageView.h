@@ -16,15 +16,16 @@
 #import "HPPPLayout.h"
 #import "HPPPInterfaceOptions.h"
 
-@protocol HPPPMultiPageViewDelege;
+@protocol HPPPMultiPageViewDelegate;
 
 @interface HPPPMultiPageView : HPPPView
 
 @property (strong, nonatomic) NSArray *pageImages;
 @property (strong, nonatomic) HPPPPaper *paper;
 @property (strong, nonatomic) HPPPLayout *layout;
-@property (weak, nonatomic) id<HPPPMultiPageViewDelege>delegate;
+@property (weak, nonatomic) id<HPPPMultiPageViewDelegate>delegate;
 @property (assign, nonatomic) BOOL blackAndWhite;
+@property (assign, nonatomic, readonly) NSUInteger currentPage;
 
 - (void)setPages:(NSArray *)pages paper:(HPPPPaper *)paper layout:(HPPPLayout *)layout;
 - (void)changeToPage:(NSUInteger)pageNumber animated:(BOOL)animated;
@@ -33,8 +34,9 @@
 
 @end
 
-@protocol HPPPMultiPageViewDelege <NSObject>
+@protocol HPPPMultiPageViewDelegate <NSObject>
 
+@optional
 - (void)multiPageView:(HPPPMultiPageView *)multiPageView didChangeFromPage:(NSUInteger)oldPageNumber ToPage:(NSUInteger)newPageNumber;
 - (void)multiPageView:(HPPPMultiPageView *)multiPageView didSingleTapPage:(NSUInteger)pageNumber;
 - (void)multiPageView:(HPPPMultiPageView *)multiPageView didDoubleTapPage:(NSUInteger)pageNumber;

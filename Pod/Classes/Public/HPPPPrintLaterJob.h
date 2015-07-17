@@ -35,6 +35,21 @@
 @property (strong, nonatomic) NSString *name;
 
 /*!
+ * @abstract Number of copies desired in the print job
+ */
+@property (assign, nonatomic) NSInteger numCopies;
+
+/*!
+ * @abstract Pages to be printed within the document.  Valid characters are: [0-9],-
+ */
+@property (strong, nonatomic) NSString *pageRange;
+
+/*!
+ * @abstract Flag set to TRUE if the print job should be printed in black and white
+ */
+@property (assign, nonatomic) BOOL blackAndWhite;
+
+/*!
  * @abstract Date of the print job
  */
 @property (strong, nonatomic) NSDate *date;
@@ -45,6 +60,10 @@
  */
 @property (strong, nonatomic) NSDictionary *extra;
 
+/*!
+ * @abstract The default preview image
+ * @discussion This image is created to suit the HPPP default paper size
+ */
 - (UIImage *)previewImage;
 
 @end
