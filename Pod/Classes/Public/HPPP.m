@@ -101,7 +101,6 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         self.handlePrintMetricsAutomatically = YES;
         self.lastOptionsUsed = [NSMutableDictionary dictionary];
         self.defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
-        self.zoomAndCrop = NO;
         self.paperSizes = @[
                             [HPPPPaper titleFromSize:Size4x6],
                             [HPPPPaper titleFromSize:Size5x7],
