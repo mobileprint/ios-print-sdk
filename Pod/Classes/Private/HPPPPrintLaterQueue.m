@@ -85,9 +85,9 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
         if (nil == metrics) {
             metrics = [[NSMutableDictionary alloc] initWithCapacity:2];
         }
-        int numPages = [HPPPPageRange getPagesFromPageRange:printLaterJob.pageRange allPagesIndicator:@"" maxPageNum:printItem.numberOfPages].count;
-        [metrics setObject:[NSNumber numberWithInt:printItem.numberOfPages] forKey:kHPPPNumberPagesDocument];
-        [metrics setObject:[NSNumber numberWithInt:numPages] forKey:kHPPPNumberPagesPrint];
+        NSInteger numPages = [HPPPPageRange getPagesFromPageRange:printLaterJob.pageRange allPagesIndicator:@"" maxPageNum:printItem.numberOfPages].count;
+        [metrics setObject:[NSNumber numberWithInteger:printItem.numberOfPages] forKey:kHPPPNumberPagesDocument];
+        [metrics setObject:[NSNumber numberWithInteger:numPages] forKey:kHPPPNumberPagesPrint];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobAddedToQueueNotification object:printLaterJob userInfo:nil];
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {

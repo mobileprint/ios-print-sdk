@@ -46,12 +46,13 @@
 @property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
 @property (strong, nonatomic) HPPPOverlayEditView *editView;
 @property (strong, nonatomic) UIView *smokeyView;
+@property (strong, nonatomic) UIButton *smokeyCancelButton;
 @property (strong, nonatomic) UIButton *pageSelectionMark;
 @property (strong, nonatomic) UIImage *selectedPageImage;
 @property (strong, nonatomic) UIImage *unselectedPageImage;
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (strong, nonatomic) HPPPPaper *paper;
-
+@property (assign, nonatomic) CGRect editViewFrame;
 @end
 
 @implementation HPPPAddPrintLaterJobTableViewController
@@ -128,18 +129,25 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     self.smokeyView.backgroundColor = [UIColor blackColor];
     self.smokeyView.alpha = 0.0f;
     self.smokeyView.hidden = TRUE;
-    [self.view addSubview:self.smokeyView];
-    
+    self.smokeyView.userInteractionEnabled = FALSE;
+
+    self.smokeyCancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.smokeyCancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [self.smokeyCancelButton setTintColor:[UIColor whiteColor]];
+    [self.smokeyView addSubview:self.smokeyCancelButton];
+
+    [self.navigationController.view addSubview:self.smokeyView];
+
     self.pageRangeView = [[HPPPPageRangeView alloc] initWithFrame:self.view.frame];
     self.pageRangeView.delegate = self;
     self.pageRangeView.hidden = YES;
     self.pageRangeView.maxPageNum = self.printItem.numberOfPages;
-    [self.view addSubview:self.pageRangeView];
+    [self.navigationController.view addSubview:self.pageRangeView];
 
     self.keyboardView = [[HPPPKeyboardView alloc] initWithFrame:self.view.frame];
     self.keyboardView.delegate = self;
     self.keyboardView.hidden = YES;
-    [self.view addSubview:self.keyboardView];
+    [self.navigationController.view addSubview:self.keyboardView];
     
     if( 1 == self.printItem.numberOfPages ) {
         self.pageRangeCell.hidden = TRUE;
@@ -172,10 +180,17 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kAddJobScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
-- (void)setSmokeyViewFrame
+- (void)setEditFrames
 {
-    CGRect desiredSmokeyViewFrame = [self.view convertRect:self.view.frame fromView:[self.view superview]];
-    self.smokeyView.frame = desiredSmokeyViewFrame;
+    self.editViewFrame = [self.navigationController.view convertRect:self.view.frame fromView:[self.view superview]];
+    self.smokeyView.frame = [[UIScreen mainScreen] bounds];
+  
+    // We can't make use of hidden methods, so this position is hard-coded... at a decent risk of truncation and bad position
+    //  Hidden method: self.smokeyCancelButton.frame = [self.navigationController.view convertRect:((UIView*)[self.cancelButtonItem performSelector:@selector(view)]).frame fromView:self.navigationController.navigationBar];
+    int cancelButtonWidth = 54;
+    int cancelButtonRightMargin = IS_IPAD ? 20 : 8;
+    int cancelButtonXOrigin = self.smokeyView.frame.size.width - (cancelButtonWidth + cancelButtonRightMargin);
+    self.smokeyCancelButton.frame = CGRectMake(cancelButtonXOrigin, 27, cancelButtonWidth, 30);
 }
 
 - (void)configureMultiPageView
@@ -269,10 +284,10 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         }
     } else {
         
-        [self setSmokeyViewFrame];
+        [self setEditFrames];
         
         if(cell == self.pageRangeCell) {
-            self.pageRangeView.frame = self.smokeyView.frame;
+            self.pageRangeView.frame = self.editViewFrame;
             
             NSString *pageRange = self.pageRangeCell.detailTextLabel.text;
             if( [kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
@@ -282,16 +297,16 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
             [self.pageRangeView prepareForDisplay:pageRange];
             self.editView = self.pageRangeView;
         } else if (cell == self.jobNameCell) {
-            self.keyboardView.frame = self.smokeyView.frame;
+            self.keyboardView.frame = self.editViewFrame;
             [self.keyboardView prepareForDisplay:self.jobNameCell.detailTextLabel.text];
 
             self.editView = self.keyboardView;
         }
 
         if( self.editView ) {
-            [self setNavigationBarEditing:TRUE];
             [UIView animateWithDuration:0.6f animations:^{
                 [self displaySmokeyView:TRUE];
+                [self setNavigationBarEditing:TRUE];
                 self.editView.hidden = NO;
             } completion:^(BOOL finished) {
                 [self.editView beginEditing];
@@ -563,9 +578,8 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     [UIView animateWithDuration:0.6f animations:^{
         [self displaySmokeyView:NO];
         self.editView.frame = desiredFrame;
-        self.cancelButtonItem.tintColor = nil;
+        [self setNavigationBarEditing:FALSE];
     } completion:^(BOOL finished) {
-        [self setNavigationBarEditing:NO];
         self.editView.hidden = YES;
         self.smokeyView.hidden = YES;
         self.editView = nil;
@@ -574,27 +588,13 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 - (void)setNavigationBarEditing:(BOOL)editing
 {
-    UIColor *barTintColor = self.navigationBarTintColor;
-    NSString *navigationBarTitle = nil;
-    UIBarButtonItem *rightBarButtonItem = self.cancelButtonItem;
+    UIColor *buttonColor = nil;
     
     if (editing) {
-        barTintColor = [UIColor HPPPHPTabBarSelectedColor];
-        [UIView animateWithDuration:0.6f animations:^{
-            rightBarButtonItem.tintColor = [UIColor whiteColor];
-        }];
-    } else {
-        navigationBarTitle = self.title;
-        rightBarButtonItem.tintColor = nil;
+        buttonColor = [UIColor clearColor];
     }
     
-    self.navigationController.navigationBar.barTintColor = barTintColor;
-    [self.navigationItem setRightBarButtonItem:rightBarButtonItem animated:NO];
-    
-    [UIView animateWithDuration:0.4f
-                     animations:^{
-                         self.navigationItem.title = navigationBarTitle;
-                     }];
+    self.cancelButtonItem.tintColor = buttonColor;
 }
 
 - (void)setNumCopiesText
