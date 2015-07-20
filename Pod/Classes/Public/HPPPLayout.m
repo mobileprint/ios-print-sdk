@@ -56,22 +56,27 @@
 
 - (BOOL)rotationNeededForContent:(CGRect)contentRect withContainer:(CGRect)containerRect
 {
-    BOOL contentIsPortrait = (contentRect.size.width < contentRect.size.height);
-    BOOL contentIsLandscape = !contentIsPortrait;
-    
-    BOOL containerIsPortrait = (containerRect.size.width < containerRect.size.height);
-    BOOL containerIsLandscape = !containerIsPortrait;
-    
-    BOOL contentMatchesContainer = ((contentIsPortrait && containerIsPortrait) || (contentIsLandscape && containerIsLandscape));
+    BOOL contentIsSquare = (CGFLOAT_MIN <= (contentRect.size.width - contentRect.size.height));
+    BOOL containerIsSquare = (CGFLOAT_MIN <= (containerRect.size.width - containerRect.size.height));
     
     BOOL rotationNeeded = NO;
-    if (self.allowContentRotation) {
-        if (HPPPLayoutOrientationBestFit == self.orientation) {
-            rotationNeeded = !contentMatchesContainer;
-        } else if (HPPPLayoutOrientationPortrait == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsPortrait)) {
-            rotationNeeded = containerIsLandscape;
-        } else if (HPPPLayoutOrientationLandscape == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsLandscape)) {
-            rotationNeeded = containerIsPortrait;
+    if (!contentIsSquare && !containerIsSquare) {
+        BOOL contentIsPortrait = (contentRect.size.width < contentRect.size.height);
+        BOOL contentIsLandscape = !contentIsPortrait;
+        
+        BOOL containerIsPortrait = (containerRect.size.width < containerRect.size.height);
+        BOOL containerIsLandscape = !containerIsPortrait;
+        
+        BOOL contentMatchesContainer = ((contentIsPortrait && containerIsPortrait) || (contentIsLandscape && containerIsLandscape));
+
+        if (self.allowContentRotation) {
+            if (HPPPLayoutOrientationBestFit == self.orientation) {
+                rotationNeeded = !contentMatchesContainer;
+            } else if (HPPPLayoutOrientationPortrait == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsPortrait)) {
+                rotationNeeded = containerIsLandscape;
+            } else if (HPPPLayoutOrientationLandscape == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsLandscape)) {
+                rotationNeeded = containerIsPortrait;
+            }
         }
     }
     
