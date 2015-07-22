@@ -28,8 +28,11 @@
 
 @implementation HPPPPageRangeView
 
+NSString * const kPageRangeAllPages = @"All";
+NSString * const kPageRangeNoPages = @"No pages selected";
+
 static NSString *kBackButtonText = @"⌫";
-static NSString *kCheckButtonText = @"Done";//@"✔︎";
+static NSString *kCheckButtonText = @"Done";
 static NSString *kAllButtonText = @"ALL";
 static NSString *kAllPagesIndicator = @"";
 static NSString *kPlaceholderText = @"e.g. 1,3-5";

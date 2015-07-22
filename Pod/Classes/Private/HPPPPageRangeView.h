@@ -32,6 +32,16 @@
  */
 @property (assign, nonatomic) NSInteger maxPageNum;
 
+/*!
+ * @abstract String used to inform users that all pages are selected
+ */
+extern NSString * const kPageRangeAllPages;
+
+/*!
+ * @abstract String used to inform users when no pages are selected
+ */
+extern NSString * const kPageRangeNoPages;
+
 @end
 
 

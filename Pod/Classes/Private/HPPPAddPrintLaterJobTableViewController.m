@@ -58,8 +58,6 @@
 @implementation HPPPAddPrintLaterJobTableViewController
 
 NSString * const kAddJobScreenName = @"Add Job Screen";
-NSString * const kPageRangeAllPages = @"All";
-NSString * const kPageRangeNoPages = @"No pages selected";
 
 NSInteger const kHPPPDocumentDisplaySection = 0;
 NSInteger const kHPPPJobSummarySection = 1;
