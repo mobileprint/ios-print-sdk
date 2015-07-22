@@ -175,9 +175,11 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 - (IBAction)onButtonDown:(UIButton *)button
 {
     if( [kBackButtonText isEqualToString:button.titleLabel.text] ) {
-        [self replaceCurrentRange:@"" forceDeletion:TRUE];
-        if( self.textField.text.length == 0 ) {
-            self.textField.text = [kAllButtonText copy];
+        if( ![kAllButtonText isEqualToString:self.textField.text] ) {
+            [self replaceCurrentRange:@"" forceDeletion:TRUE];
+            if( self.textField.text.length == 0 ) {
+                self.textField.text = [kAllButtonText copy];
+            }
         }
     } else if( [kCheckButtonText isEqualToString:button.titleLabel.text] ) {
         

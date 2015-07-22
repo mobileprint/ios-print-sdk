@@ -949,7 +949,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                             </constraints>
                         </view>
                         <sections>
-                            <tableViewSection headerTitle="" id="MMi-j0-CCQ">
+                            <tableViewSection headerTitle="" id="MMi-j0-CCQ" userLabel="MultiPageView">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="260" id="Aip-ds-0bE">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -974,7 +974,38 @@ Tap your notification or simply come back to this app to print your projects.</s
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="" id="Df6-Kb-zfA">
+                            <tableViewSection headerTitle="" id="LMx-Qf-6Zg" userLabel="JobSummary">
+                                <cells>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="HRj-Qg-a0E" detailTextLabel="pNH-GI-YnD" rowHeight="54" style="IBUITableViewCellStyleSubtitle" id="agA-dg-hkH">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="agA-dg-hkH" id="OJO-Bu-lXo">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HRj-Qg-a0E">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Title">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pNH-GI-YnD">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="" id="Df6-Kb-zfA" userLabel="AddToPrintQueue">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="z0N-Nu-Rvz">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -998,7 +1029,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="" id="S2S-6u-b4Z">
+                            <tableViewSection headerTitle="" id="S2S-6u-b4Z" userLabel="JobName">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="U4r-bS-N4Z" detailTextLabel="VQq-Qc-FrO" rowHeight="44" style="IBUITableViewCellStyleValue1" id="heM-qj-HxV">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1022,7 +1053,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="" id="ErN-Oc-aqT">
+                            <tableViewSection headerTitle="" id="ErN-Oc-aqT" userLabel="NumCopies">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="9De-cl-mbI" userLabel="NumCopies">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1122,6 +1153,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                         <outlet property="cancelButtonItem" destination="GmQ-eE-xh9" id="Cc9-hO-a5w"/>
                         <outlet property="footerView" destination="tza-09-zcQ" id="GQf-Di-fDl"/>
                         <outlet property="jobNameCell" destination="heM-qj-HxV" id="VTD-kN-zIJ"/>
+                        <outlet property="jobSummaryCell" destination="agA-dg-hkH" id="Z6r-PU-rrW"/>
                         <outlet property="multiPageView" destination="8Qy-eQ-1SR" id="ywA-7m-KTr"/>
                         <outlet property="numCopiesLabel" destination="am6-UE-Ol9" id="WGj-0K-ZjI"/>
                         <outlet property="numCopiesStepper" destination="nqP-Za-1Zl" id="jEJ-t9-TmJ"/>
