@@ -77,24 +77,8 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     BOOL success = [NSKeyedArchiver archiveRootObject:printLaterJob toFile:fileName];
     
     if (success) {
-        
-        // add our final page range metrics
-        NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize];
-        HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:titleForInitialPaperSize];
-        NSMutableDictionary *metrics = [printLaterJob.extra mutableCopy];
-        if (nil == metrics) {
-            metrics = [[NSMutableDictionary alloc] initWithCapacity:2];
-        }
-        NSInteger numPages = [HPPPPageRange getPagesFromPageRange:printLaterJob.pageRange allPagesIndicator:@"" maxPageNum:printItem.numberOfPages].count;
-        [metrics setObject:[NSNumber numberWithInteger:printItem.numberOfPages] forKey:kHPPPNumberPagesDocument];
-        [metrics setObject:[NSNumber numberWithInteger:numPages] forKey:kHPPPNumberPagesPrint];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobAddedToQueueNotification object:printLaterJob userInfo:nil];
-        if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
-            HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:[HPPP sharedInstance].defaultPaper.sizeTitle];
-            [metrics addEntriesFromDictionary:@{ kHPPPOfframpKey:NSStringFromClass([HPPPPrintLaterActivity class]) }];
-            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:metrics];
-        }
     }
     
     return success;

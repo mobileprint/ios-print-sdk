@@ -17,6 +17,7 @@
 @property (strong, nonatomic) UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
 @property (strong, nonatomic) HPPPPrintItem *printItem;
+@property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
 @property (assign, nonatomic) BOOL sharingInProgress;
 @property (strong, nonatomic) NSDictionary *imageFiles;
 @property (strong, nonatomic) NSArray *pdfFiles;
@@ -138,17 +139,17 @@ NSString * const kMetricsAppTypeHP = @"HP";
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
         printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
-        HPPPPrintLaterJob *printLaterJob = [[HPPPPrintLaterJob alloc] init];
-        printLaterJob.id = printLaterJobNextAvailableId;
-        printLaterJob.name = @"Add from Share";
-        printLaterJob.date = [NSDate date];
-        printLaterJob.printItems = [self printItemsForAsset:self.printItem.printAsset];
+        self.printLaterJob = [[HPPPPrintLaterJob alloc] init];
+        self.printLaterJob.id = printLaterJobNextAvailableId;
+        self.printLaterJob.name = @"Add from Share";
+        self.printLaterJob.date = [NSDate date];
+        self.printLaterJob.printItems = [self printItemsForAsset:self.printItem.printAsset];
         if (self.extendedMetricsSwitch.on) {
             NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsAppTypeKey:kMetricsAppTypeHP }];
             [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
-            printLaterJob.extra = metrics;
+            self.printLaterJob.extra = metrics;
         }
-        printLaterActivity.printLaterJob = printLaterJob;
+        printLaterActivity.printLaterJob = self.printLaterJob;
         applicationActivities = @[printActivity, printLaterActivity];
     } else {
         applicationActivities = @[printActivity];
@@ -177,7 +178,11 @@ NSString * const kMetricsAppTypeHP = @"HP";
             if (self.extendedMetricsSwitch.on) {
                 NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsOfframpKey:activityType, kMetricsAppTypeKey:kMetricsAppTypeHP }];
                 [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self.printItem userInfo:metrics];
+                if( [activityType isEqualToString:[[HPPPPrintLaterActivity alloc] init].activityType] ) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self.printLaterJob userInfo:metrics];
+                } else {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self.printItem userInfo:metrics];
+                }
             }
             
             if ([activityType isEqualToString:@"HPPPPrintLaterActivity"]) {

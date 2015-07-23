@@ -12,6 +12,7 @@
 
 #import "HPPP.h"
 #import "HPPPAnalyticsManager.h"
+#import "HPPPPageRange.h"
 #import <sys/sysctl.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <CommonCrypto/CommonDigest.h>
@@ -224,6 +225,35 @@ NSString * const kHPPPMetricsNotCollected = @"Not Collected";
     [self sanitizeMetrics:metrics];
     
     NSData *bodyData = [self postBodyWithValues:metrics];
+    NSString *bodyLength = [NSString stringWithFormat:@"%ld", (long)[bodyData length]];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[self metricsServerURL]];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody:bodyData];
+    [urlRequest addValue:bodyLength forHTTPHeaderField: @"Content-Length"];
+    [urlRequest setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [self sendMetricsData:urlRequest];
+    });
+}
+
+- (void)trackShareEventWithPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob andOptions:(NSDictionary *)options
+{
+    NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:[self baseMetrics]];
+    [metrics addEntriesFromDictionary:[self printMetricsForOfframp:[options objectForKey:kHPPPOfframpKey]]];
+    [metrics addEntriesFromDictionary:options];
+    
+    // add our final page count metrics
+    NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize];
+    HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:titleForInitialPaperSize];
+    NSInteger numPages = [HPPPPageRange getPagesFromPageRange:printLaterJob.pageRange allPagesIndicator:@"" maxPageNum:printItem.numberOfPages].count;
+    [metrics setObject:[NSNumber numberWithInteger:printItem.numberOfPages] forKey:kHPPPNumberPagesDocument];
+    [metrics setObject:[NSNumber numberWithInteger:numPages] forKey:kHPPPNumberPagesPrint];
+    
+    [self sanitizeMetrics:metrics];
+    
+    NSData *bodyData = [self postBodyWithValues:metrics];
+    
     NSString *bodyLength = [NSString stringWithFormat:@"%ld", (long)[bodyData length]];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[self metricsServerURL]];
     [urlRequest setHTTPMethod:@"POST"];
