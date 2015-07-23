@@ -140,7 +140,11 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         // The client app must disable automatic print metric handling in order to post print metrics via the notification system
         return;
     }
-    [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:notification.object andOptions:notification.userInfo];
+    if( [notification.object class] == [HPPPPrintLaterJob class] ) {
+        [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintLaterJob:notification.object andOptions:notification.userInfo];
+    } else {
+        [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:notification.object andOptions:notification.userInfo];
+    }
 }
 
 - (BOOL)printingOfframp:(NSString *)offramp
