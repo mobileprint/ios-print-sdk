@@ -79,6 +79,11 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
     if (success) {
 
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobAddedToQueueNotification object:printLaterJob userInfo:nil];
+        
+        if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
+            NSDictionary *options = @{ kHPPPOfframpKey:NSStringFromClass([HPPPPrintLaterActivity class]) };
+            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintLaterJob:printLaterJob andOptions:options];
+        }
     }
     
     return success;
@@ -103,7 +108,7 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
 
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
             NSDictionary *options = @{ kHPPPOfframpKey:kHPPPQueueDeleteAction };
-            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:options];
+            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintLaterJob:printLaterJob andOptions:options];
         }
     }
     
