@@ -83,6 +83,11 @@
     return size;
 }
 
+- (id)printAssetForPageRange:(NSString *)pageRange
+{
+    return [self printAsset];
+}
+
 #pragma mark - Preview image
 
 - (UIImage *)defaultPreviewImage

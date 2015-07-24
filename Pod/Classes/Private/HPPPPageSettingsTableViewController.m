@@ -96,7 +96,6 @@
 @property (strong, nonatomic) UIView *smokeyView;
 @property (strong, nonatomic) UIButton *smokeyCancelButton;
 @property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
-@property (strong, nonatomic) NSString *pageRange;
 @property (strong, nonatomic) UIButton *pageSelectionMark;
 @property (strong, nonatomic) UIImage *selectedPageImage;
 @property (strong, nonatomic) UIImage *unselectedPageImage;
@@ -210,16 +209,17 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         self.pageRangeCell.detailTextLabel.textColor = self.hppp.tableViewCellValueColor;
 
         [self setPageRangeLabelText:kPageRangeAllPages];
+
+        self.selectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute];
+        self.unselectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute];
+        self.pageSelectionMark = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.pageSelectionMark setImage:self.selectedPageImage forState:UIControlStateNormal];
+        self.pageSelectionMark.backgroundColor = [UIColor clearColor];
+        self.pageSelectionMark.adjustsImageWhenHighlighted = NO;
+        [self.pageSelectionMark addTarget:self action:@selector(pageSelectionMarkClicked) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.pageSelectionMark];
     }
     
-    self.selectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute];
-    self.unselectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute];
-    self.pageSelectionMark = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.pageSelectionMark setImage:self.selectedPageImage forState:UIControlStateNormal];
-    self.pageSelectionMark.backgroundColor = [UIColor clearColor];
-    self.pageSelectionMark.adjustsImageWhenHighlighted = NO;
-    [self.pageSelectionMark addTarget:self action:@selector(pageSelectionMarkClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.pageSelectionMark];
 
     self.filterLabel.font = self.hppp.tableViewCellLabelFont;
     self.filterLabel.textColor = self.hppp.tableViewCellLabelColor;
@@ -1157,18 +1157,18 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     if (CustomPrintRenderer == printItem.renderer) {
         if (![printItem.printAsset isKindOfClass:[UIImage class]]) {
-            HPPPLogWarn(@"Using custom print renderer with non-image class:  %@", self.printItem.printAsset);
+            HPPPLogWarn(@"Using custom print renderer with non-image class:  %@", printItem.printAsset);
         }
-        HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[printItem.printAsset] andLayout:printItem.layout];
+        HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[[printItem printAssetForPageRange:self.pageRangeCell.detailTextLabel.text]] andLayout:printItem.layout];
         renderer.numberOfCopies = self.numberOfCopies;
         controller.printPageRenderer = renderer;
     } else {
         if (1 == self.numberOfCopies) {
-            controller.printingItem = printItem.printAsset;
+            controller.printingItem = [printItem printAssetForPageRange:self.pageRangeCell.detailTextLabel.text];
         } else {
             NSMutableArray *items = [NSMutableArray array];
             for (int idx = 0; idx < self.numberOfCopies; idx++) {
-                [items addObject:printItem.printAsset];
+                [items addObject:[printItem printAssetForPageRange:self.pageRangeCell.detailTextLabel.text]];
             }
             controller.printingItems = items;
         }

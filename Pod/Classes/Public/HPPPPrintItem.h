@@ -14,6 +14,7 @@
 #import <UIKit/UIKit.h>
 #import "HPPPPaper.h"
 #import "HPPPLayout.h"
+#import "HPPPPageRange.h"
 
 /*!
  * @abstract Represents an item to be printed
@@ -120,5 +121,12 @@ typedef enum {
  * @discussion Override this method if the print asset needs special processing to be decoded
  */
 - (id)initAssetWithCoder:(NSCoder *)decoder;
+
+/*!
+ * @abstract Used to retrieve a print asset for the specified page range
+ * @param pageRange The page range to include in the returned print asset
+ * @discussion A print asset that contains only he pages within the specified page range.
+ */
+- (id)printAssetForPageRange:(NSString *)pageRange;
 
 @end
