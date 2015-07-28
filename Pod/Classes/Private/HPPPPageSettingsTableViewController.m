@@ -99,6 +99,7 @@
 @property (strong, nonatomic) UIButton *pageSelectionMark;
 @property (strong, nonatomic) UIImage *selectedPageImage;
 @property (strong, nonatomic) UIImage *unselectedPageImage;
+@property (strong, nonatomic) HPPPPageRange *pageRange;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
 
@@ -618,46 +619,20 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 -(void)includeCurrentPageInPageRange:(BOOL)includePage
 {
-    NSArray *pages = nil;
-    
-    NSString *pageRange = @"";
-    if( ![kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
-        pageRange = self.pageRangeCell.detailTextLabel.text;
-    }
+    HPPPPageRange *pageRange = self.pageRange;
     
     if( includePage ) {
-        if( pageRange.length > 0 ) {
-            pageRange = [pageRange stringByAppendingString:@","];
-        }
-        
-        self.pageRangeCell.detailTextLabel.text = [NSString stringWithFormat:@"%@%lu", pageRange, (unsigned long)self.multiPageView.currentPage];
-        pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+        [pageRange addPage:[NSNumber numberWithInteger:self.multiPageView.currentPage]];
     } else {
-        NSMutableArray *newPages = [[NSMutableArray alloc] init];
-        
-        // navigate the selected pages, removing every instance of the current page
-        pages = [HPPPPageRange getPagesFromPageRange:pageRange allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
-        for( NSNumber *pageNumber in pages ) {
-            if( [pageNumber integerValue] != self.multiPageView.currentPage ) {
-                [newPages addObject:pageNumber];
-            }
-        }
-        
-        pages = newPages;
+        [pageRange removePage:[NSNumber numberWithInteger:self.multiPageView.currentPage]];
     }
     
-    // since the user is clicking on pages in the multi-page view, sort the selected pages
-    NSMutableArray *mutablePages = [pages mutableCopy];
-    NSSortDescriptor *lowestToHighest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
-    [mutablePages sortUsingDescriptors:[NSArray arrayWithObject:lowestToHighest]];
-    pages = mutablePages;
-    
-    if( pages.count > 0 ) {
-        self.pageRangeCell.detailTextLabel.text = [HPPPPageRange formPageRangeFromPages:pages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    if( [pageRange getPages].count > 0 ) {
+        self.pageRangeCell.detailTextLabel.text = pageRange.range;
     } else {
         self.pageRangeCell.detailTextLabel.text = kPageRangeNoPages;
     }
-    
+
     [self updateSelectedPageIcon:includePage];
     [self reloadJobSummary];
 }
@@ -688,7 +663,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     NSArray *pages = [[NSArray alloc] init];
     if( ![kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
-        pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+        pages = [self.pageRange getPages];
     }
     
     NSString *text = @"";
@@ -729,6 +704,17 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
     
     [self.tableView reloadData];
+}
+
+- (HPPPPageRange *)pageRange
+{
+    if (nil == _pageRange) {
+        _pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:TRUE];
+    }
+    
+    [_pageRange setRange:self.pageRangeCell.detailTextLabel.text];
+    
+    return _pageRange;
 }
 
 #pragma mark - Printer availability
@@ -965,10 +951,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         [self oneTouchPrint:tableView];
     } else if (cell == self.pageRangeCell){
         [self setEditFrames];
-        NSString *pageRange = self.pageRangeCell.detailTextLabel.text;
-        if( [kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
-            pageRange = @"";
-        }
         
         [UIView animateWithDuration:0.6f animations:^{
             [self displaySmokeyView:TRUE];
@@ -978,7 +960,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
             [self.pageRangeView beginEditing];
         }];
     
-        [self.pageRangeView prepareForDisplay:pageRange];
+        [self.pageRangeView prepareForDisplay:self.pageRange.range];
     }
 }
 
@@ -1159,16 +1141,16 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         if (![printItem.printAsset isKindOfClass:[UIImage class]]) {
             HPPPLogWarn(@"Using custom print renderer with non-image class:  %@", printItem.printAsset);
         }
-        HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[[printItem printAssetForPageRange:self.pageRangeCell.detailTextLabel.text]] andLayout:printItem.layout];
+        HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[[printItem printAssetForPageRange:self.pageRange]] andLayout:printItem.layout];
         renderer.numberOfCopies = self.numberOfCopies;
         controller.printPageRenderer = renderer;
     } else {
         if (1 == self.numberOfCopies) {
-            controller.printingItem = [printItem printAssetForPageRange:self.pageRangeCell.detailTextLabel.text];
+            controller.printingItem = [printItem printAssetForPageRange:self.pageRange];
         } else {
             NSMutableArray *items = [NSMutableArray array];
             for (int idx = 0; idx < self.numberOfCopies; idx++) {
-                [items addObject:[printItem printAssetForPageRange:self.pageRangeCell.detailTextLabel.text]];
+                [items addObject:[printItem printAssetForPageRange:self.pageRange]];
             }
             controller.printingItems = items;
         }
@@ -1289,7 +1271,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     BOOL pageSelected = FALSE;
     
-    NSArray *pageNums = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    NSArray *pageNums = [self.pageRange getPages];
+    
     for( NSNumber *pageNum in pageNums ) {
         if( [pageNum integerValue] == newPageNumber ) {
             pageSelected = TRUE;
@@ -1386,14 +1369,14 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 #pragma mark - Edit View Delegates
 
-- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(NSString *)pageRange
+- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(HPPPPageRange *)pageRange
 {
-    [self setPageRangeLabelText:pageRange];
+    [self setPageRangeLabelText:pageRange.range];
     [self reloadJobSummary];
     
     // Update the page selected icon accordingly
     BOOL pageSelected = FALSE;
-    NSArray *pageNums = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    NSArray *pageNums = [pageRange getPages];
     for( NSNumber *pageNum in pageNums ) {
         if( [pageNum integerValue] == self.multiPageView.currentPage) {
             pageSelected = TRUE;

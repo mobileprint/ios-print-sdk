@@ -12,6 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HPPPOverlayEditView.h"
+#import "HPPPPageRange.h"
 
 @protocol HPPPPageRangeViewDelegate;
 
@@ -56,5 +57,5 @@ extern NSString * const kPageRangeNoPages;
  * @param view The page range view
  * @param pageRange The selected page range
  */
-- (void)didSelectPageRange:(HPPPPageRangeView *)pageRangeView pageRange:(NSString *)pageRange;
+- (void)didSelectPageRange:(HPPPPageRangeView *)pageRangeView pageRange:(HPPPPageRange *)pageRange;
 @end

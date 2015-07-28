@@ -12,7 +12,6 @@
 
 #import "HPPP.h"
 #import "HPPPPageRangeView.h"
-#import "HPPPPageRange.h"
 #import "UIColor+HPPPStyle.h"
 
 @interface HPPPPageRangeView () <UITextFieldDelegate>
@@ -20,7 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIView *containingView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (strong, nonatomic) NSMutableArray *buttons;
-@property (strong, nonatomic) NSString *pageRange;
+@property (strong, nonatomic) NSString *pageRangeString;
 @property (strong, nonatomic) UIView *buttonContainer;
 @property (assign, nonatomic) int buttonContainerOriginY;
 
@@ -129,13 +128,13 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
     [self addButtons];
 
     if( NSOrderedSame == [initialText caseInsensitiveCompare:kAllButtonText] ) {
-        self.pageRange = kAllPagesIndicator;
+        self.pageRangeString = kAllPagesIndicator;
     } else {
-        self.pageRange = initialText;
+        self.pageRangeString = initialText;
     }
 
     self.textField.alpha = 0.0F;
-    self.textField.text = self.pageRange;
+    self.textField.text = self.pageRangeString;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillMove:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
@@ -151,7 +150,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 - (void)cancelEditing
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.textField.text = self.pageRange;
+    self.textField.text = self.pageRangeString;
     
     [self.textField resignFirstResponder];
 }
@@ -160,14 +159,14 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    NSString *cleanPageRange = [HPPPPageRange cleanPageRange:self.textField.text allPagesIndicator:kAllButtonText maxPageNum:self.maxPageNum sortAscending:TRUE];
+    HPPPPageRange *pageRange = [[HPPPPageRange alloc] initWithString:self.textField.text allPagesIndicator:kAllPagesIndicator maxPageNum:self.maxPageNum sortAscending:TRUE];
 
     if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
-        [self.delegate didSelectPageRange:self pageRange:cleanPageRange];
+        [self.delegate didSelectPageRange:self pageRange:pageRange];
     }
 
     [self.textField resignFirstResponder];
-    self.pageRange = cleanPageRange;
+    self.pageRangeString = pageRange.range;
 }
 
 #pragma mark - Button handler

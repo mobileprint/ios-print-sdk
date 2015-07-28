@@ -127,6 +127,6 @@ typedef enum {
  * @param pageRange The page range to include in the returned print asset
  * @discussion A print asset that contains only he pages within the specified page range.
  */
-- (id)printAssetForPageRange:(NSString *)pageRange;
+- (id)printAssetForPageRange:(HPPPPageRange *)pageRange;
 
 @end

@@ -11,6 +11,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HPPPPageRange.h"
 
 /*!
  * @abstract Represents a single print job
@@ -42,7 +43,7 @@
 /*!
  * @abstract Pages to be printed within the document.  Valid characters are: [0-9],-
  */
-@property (strong, nonatomic) NSString *pageRange;
+@property (strong, nonatomic) HPPPPageRange *pageRange;
 
 /*!
  * @abstract Flag set to TRUE if the print job should be printed in black and white

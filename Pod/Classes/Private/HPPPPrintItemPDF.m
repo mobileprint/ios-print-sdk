@@ -87,9 +87,9 @@
     return size;
 }
 
-- (id)printAssetForPageRange:(NSString *)pageRange
+- (id)printAssetForPageRange:(HPPPPageRange *)pageRange
 {
-    NSArray *pages = [HPPPPageRange getPagesFromPageRange:pageRange allPagesIndicator:@"all" maxPageNum:CGPDFDocumentGetNumberOfPages(self.pdfDocument)];
+    NSArray *pages = [pageRange getPages];
     
     NSString *filename = [self formFilename:@"MyPageRangeFile.pdf"];
     [self MyCreatePDFFile:filename pages:pages];

@@ -246,7 +246,7 @@ NSString * const kHPPPMetricsNotCollected = @"Not Collected";
     // add our final page count metrics
     NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize];
     HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:titleForInitialPaperSize];
-    NSInteger numPages = [HPPPPageRange getPagesFromPageRange:printLaterJob.pageRange allPagesIndicator:@"" maxPageNum:printItem.numberOfPages].count;
+    NSInteger numPages = [printLaterJob.pageRange getPages].count;
     [metrics setObject:[NSNumber numberWithInteger:printItem.numberOfPages] forKey:kHPPPNumberPagesDocument];
     [metrics setObject:[NSNumber numberWithInteger:numPages] forKey:kHPPPNumberPagesPrint];
     

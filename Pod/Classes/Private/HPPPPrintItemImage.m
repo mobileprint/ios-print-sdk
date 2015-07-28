@@ -83,7 +83,7 @@
     return size;
 }
 
-- (id)printAssetForPageRange:(NSString *)pageRange
+- (id)printAssetForPageRange:(HPPPPageRange *)pageRange
 {
     return [self printAsset];
 }
