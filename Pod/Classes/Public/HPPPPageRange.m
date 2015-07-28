@@ -17,9 +17,9 @@
     self = [super init];
     
     if( self ) {
-        self.allPagesIndicator = allPagesIndicator;
-        self.maxPageNum = maxPageNum;
-        self.sortAscending = sortAscending;
+        _allPagesIndicator = allPagesIndicator;
+        _maxPageNum = maxPageNum;
+        _sortAscending = sortAscending;
         self.range = range;
     }
     
@@ -42,6 +42,24 @@
     }
     
     _range = range;
+    [self cleanPageRange];
+}
+
+- (void)setAllPagesIndicator:(NSString *)allPagesIndicator
+{
+    _allPagesIndicator = allPagesIndicator;
+    [self cleanPageRange];
+}
+
+- (void)setMaxPageNum:(NSInteger)maxPageNum
+{
+    _maxPageNum = maxPageNum;
+    [self cleanPageRange];
+}
+
+- (void)setSortAscending:(BOOL)sortAscending
+{
+    _sortAscending = sortAscending;
     [self cleanPageRange];
 }
 
@@ -100,8 +118,6 @@
             [pageNums addObject:[NSNumber numberWithInt:i]];
         }
     } else {
-        pageRange = [self cleanPageRange:pageRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum sortAscending:FALSE];
-        
         // split on commas
         NSArray *chunks = [pageRange componentsSeparatedByString:@","];
         for (NSString *chunk in chunks) {
@@ -153,10 +169,7 @@
     
     // Do we need to use the allPagesIndicator?
     if( pages.count == maxPageNum ) {
-        NSMutableArray *mutablePages = [pages mutableCopy];
-        NSSortDescriptor *lowestToHighest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
-        [mutablePages sortUsingDescriptors:[NSArray arrayWithObject:lowestToHighest]];
-        pageRange = [HPPPPageRange formPageRange:mutablePages];
+        pageRange = [HPPPPageRange formPageRange:pages];
         
         NSString *fullPageRange = [NSString stringWithFormat:@"%d-%ld", 1, (long)maxPageNum];
         if( 1 == maxPageNum ) {
@@ -228,6 +241,9 @@
     
     if( sortAscending ) {
         scrubbedRange = [HPPPPageRange sortPageRange:scrubbedRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
+    } else {
+        NSArray *pages = [HPPPPageRange getPagesFromPageRange:scrubbedRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
+        scrubbedRange = [HPPPPageRange formPageRangeFromPages:pages allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
     }
     
     return scrubbedRange;
@@ -252,7 +268,8 @@
         
         // append the ascending range
         if( newIndex-i > 1 ) {
-            NSString *range = [NSString stringWithFormat:@"%@%ld-%ld", separator, currentPage, (long)newCurrentPage];
+            NSString *range = [NSString stringWithFormat:@"%ld-%ld", currentPage, (long)newCurrentPage];
+            pageRange = [pageRange stringByAppendingString:separator];
             pageRange = [pageRange stringByAppendingString:range];
             
             // or look for a descending range
@@ -265,13 +282,15 @@
             // append the descending range
             if( newIndex-i > 1 ) {
                 NSString *range = [NSString stringWithFormat:@"%ld-%ld", currentPage, (long)newCurrentPage];
+                pageRange = [pageRange stringByAppendingString:separator];
                 pageRange = [pageRange stringByAppendingString:range];
             }
         }
         
         // if no ranges were found, just append the page number
         if( newIndex-i <= 1 ) {
-            NSString *nextPage = [NSString stringWithFormat:@"%@%ld", separator, (long)currentPage];
+            NSString *nextPage = [NSString stringWithFormat:@"%ld", (long)currentPage];
+            pageRange = [pageRange stringByAppendingString:separator];
             pageRange = [pageRange stringByAppendingString:nextPage];
         } else {
             i = newIndex;
