@@ -15,7 +15,7 @@
 /*!
  * @abstract A class for handling page range validation, manipulation, and querying
  */
-@interface HPPPPageRange : NSObject
+@interface HPPPPageRange : NSObject <NSCoding>
 
 /*!
  * @abstract The page range in its string format

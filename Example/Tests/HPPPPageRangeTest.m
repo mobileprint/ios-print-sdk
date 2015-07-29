@@ -52,7 +52,7 @@
 
     // Init with empty string
     pageRange = [[HPPPPageRange alloc] initWithString:@"" allPagesIndicator:kAllPages maxPageNum:10 sortAscending:FALSE];
-    XCTAssert([pageRange.range isEqualToString:kAllPages], @"InitWithString:@\"\" produced range: \"%@\"", pageRange.range);
+    XCTAssert([pageRange.range isEqualToString:@""], @"InitWithString:@\"\" produced range: \"%@\"", pageRange.range);
               
 
     // Init with single page

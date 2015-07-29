@@ -10,6 +10,11 @@
 
 @implementation HPPPPageRange
 
+NSString * const kHPPPPageRangeRange = @"kHPPPPageRangeRange";
+NSString * const kHPPPPageRangeAllPagesIndicator = @"kHPPPPageRangeAllPagesIndicator";
+NSString * const kHPPPPageRangeMaxPageNum = @"kHPPPPageRangeMaxPageNum";
+NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
+
 #pragma mark - Public Instance Methods
 
 -(id)initWithString:(NSString *)range allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum sortAscending:(BOOL)sortAscending
@@ -107,7 +112,7 @@
     _range = [HPPPPageRange cleanPageRange:self.range allPagesIndicator:self.allPagesIndicator maxPageNum:self.maxPageNum sortAscending:self.sortAscending];
 }
 
-#pragma mark - Public Class Methods
+#pragma mark - Private Class Helpers
 
 + (NSArray *) getPagesFromPageRange:(NSString *)pageRange allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum
 {
@@ -193,8 +198,6 @@
     return pageRange;
 }
 
-#pragma mark - Private Class Helpers
-
 + (NSString *) cleanPageRange:(NSString *)text allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum sortAscending:(BOOL)sortAscending
 {
     NSString *scrubbedRange = text;
@@ -204,8 +207,10 @@
         scrubbedRange = @"1";
     }
     
-    if( nil == scrubbedRange  ||  [allPagesIndicator isEqualToString:scrubbedRange]  ||  scrubbedRange.length == 0) {
+    if( nil == scrubbedRange  ||  [allPagesIndicator isEqualToString:scrubbedRange] ) {
         scrubbedRange = allPagesIndicator;
+    } else if( scrubbedRange.length == 0 ) {
+        // do nothing
     } else {
         // No ",-"... replace with ","
         // No "-,"... replace with ","
@@ -377,6 +382,32 @@
     }
     
     return scrubbedString;
+}
+
+#pragma mark - NSCoding interface
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:self.range forKey:kHPPPPageRangeRange];
+    [encoder encodeObject:self.allPagesIndicator forKey:kHPPPPageRangeAllPagesIndicator];
+    [encoder encodeObject:[NSNumber numberWithInteger:self.maxPageNum] forKey:kHPPPPageRangeMaxPageNum];
+    [encoder encodeObject:[NSNumber numberWithBool:self.sortAscending] forKey:kHPPPPageRangeSortAscending];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    if (self = [super init]) {
+        self.range = [decoder decodeObjectForKey:kHPPPPageRangeRange];
+        self.allPagesIndicator = [decoder decodeObjectForKey:kHPPPPageRangeAllPagesIndicator];
+        
+        NSNumber *maxPageNum = [decoder decodeObjectForKey:kHPPPPageRangeMaxPageNum];
+        self.maxPageNum = [maxPageNum integerValue];
+        
+        NSNumber *sortAscending = [decoder decodeObjectForKey:kHPPPPageRangeSortAscending];
+        self.sortAscending = [sortAscending boolValue];
+    }
+    
+    return self;
 }
 
 @end

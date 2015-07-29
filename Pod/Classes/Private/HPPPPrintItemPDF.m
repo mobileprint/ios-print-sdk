@@ -89,75 +89,24 @@
 
 - (id)printAssetForPageRange:(HPPPPageRange *)pageRange
 {
-    NSArray *pages = [pageRange getPages];
+    id printAsset = self.printAsset;
     
-    NSString *filename = [self formFilename:@"MyPageRangeFile.pdf"];
-    [self MyCreatePDFFile:filename pages:pages];
+    if( ![pageRange.range isEqualToString:pageRange.allPagesIndicator] ) {
+        NSArray *pages = [pageRange getPages];
+        
+        NSTimeInterval uniqueNumber = [NSDate timeIntervalSinceReferenceDate];
+        NSString *uniqueName = [NSString stringWithFormat:@"%d.pdf", (int)uniqueNumber];
+        NSString *filename = [self formFilename:uniqueName];
+        [self createPageRangeFile:filename pages:pages];
+        
+        printAsset = [NSData dataWithContentsOfFile:filename];
+        [self deleteFile:filename];
+    }
     
-    return [NSData dataWithContentsOfFile:filename];
+    return printAsset;
 }
 
 #pragma mark - Preview image
-
-- (NSString *)formFilename:(NSString *)filename
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    return [NSString stringWithFormat:@"%@/%@", documentsDirectory, filename];
-}
-
--(void) MyCreatePDFFile:(NSString *)filename pages:(NSArray *)pages
-{
-    CGContextRef pdfContext;
-    CFStringRef path;
-    CFURLRef url;
-    CFDataRef boxData = NULL;
-    CFMutableDictionaryRef myDictionary = NULL;
-    CFMutableDictionaryRef pageDictionary = NULL;
-    
-    path = CFStringCreateWithCString (NULL, [filename cStringUsingEncoding:NSASCIIStringEncoding], // 2
-                                      kCFStringEncodingUTF8);
-    url = CFURLCreateWithFileSystemPath (NULL, path, // 3
-                                         kCFURLPOSIXPathStyle, 0);
-    CFRelease (path);
-
-    myDictionary = CFDictionaryCreateMutable(NULL, 0,
-                                             &kCFTypeDictionaryKeyCallBacks,
-                                             &kCFTypeDictionaryValueCallBacks); // 4
-    CFDictionarySetValue(myDictionary, kCGPDFContextTitle, CFSTR("My PDF File"));
-    CFDictionarySetValue(myDictionary, kCGPDFContextCreator, CFSTR("My Name"));
-
-    
-    CGRect pageRect = CGPDFPageGetBoxRect(CGPDFDocumentGetPage(self.pdfDocument, [pages[0] intValue]), kCGPDFMediaBox);
-    pdfContext = CGPDFContextCreateWithURL (url, &pageRect, myDictionary); // 5
-
-    for( NSNumber *page in pages) {
-        
-        pageDictionary = CFDictionaryCreateMutable(NULL, 0,
-                                                   &kCFTypeDictionaryKeyCallBacks,
-                                                   &kCFTypeDictionaryValueCallBacks); // 6
-        
-        boxData = CFDataCreate(NULL,(const UInt8 *)&pageRect, sizeof (CGRect));
-        
-        CFDictionarySetValue(pageDictionary, kCGPDFContextMediaBox, boxData);
-        
-        CGPDFContextBeginPage (pdfContext, pageDictionary);
-        
-        CGPDFPageRef pageRef = CGPDFDocumentGetPage(self.pdfDocument, [page intValue]);
-        CGContextDrawPDFPage (pdfContext, pageRef);
-        
-        
-        CGPDFContextEndPage (pdfContext);
-        
-        CFRelease(pageDictionary);
-        CFRelease(boxData);
-    }
-
-    CGContextRelease (pdfContext);
-    CFRelease(myDictionary);
-    CFRelease(url);
-}
 
 // The following is adaptaed from:  http://stackoverflow.com/questions/4107850/how-can-i-programatically-generate-a-thumbnail-of-a-pdf-with-the-iphone-sdk
 - (UIImage *)previewImageForPage:(NSUInteger)pageNumber
@@ -215,6 +164,75 @@
         [self.pageImages addEntriesFromDictionary:@{ paper.sizeTitle:imagesForPaper }];
     }
     return imagesForPaper;
+}
+
+#pragma mark - Page Range File
+
+- (NSString *)formFilename:(NSString *)filename
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    return [NSString stringWithFormat:@"%@/%@", documentsDirectory, filename];
+}
+
+-(void) createPageRangeFile:(NSString *)filename pages:(NSArray *)pages
+{
+    CFStringRef path;
+    CGContextRef pdfContext;
+    CFURLRef url;
+    CFMutableDictionaryRef myDictionary;
+    
+    path = CFStringCreateWithCString (NULL, [filename cStringUsingEncoding:NSASCIIStringEncoding],
+                                      kCFStringEncodingUTF8);
+    url = CFURLCreateWithFileSystemPath (NULL, path,
+                                         kCFURLPOSIXPathStyle, 0);
+    
+    myDictionary = CFDictionaryCreateMutable(NULL, 0,
+                                             &kCFTypeDictionaryKeyCallBacks,
+                                             &kCFTypeDictionaryValueCallBacks);
+    CFDictionarySetValue(myDictionary, kCGPDFContextTitle, CFSTR("Page Range"));
+    CFDictionarySetValue(myDictionary, kCGPDFContextCreator, CFSTR("HPPhotoPrint"));
+    
+    CGRect pageRect = CGPDFPageGetBoxRect(CGPDFDocumentGetPage(self.pdfDocument, [pages[0] intValue]), kCGPDFMediaBox);
+    pdfContext = CGPDFContextCreateWithURL (url, &pageRect, myDictionary);
+    
+    for( NSNumber *page in pages) {
+        
+        CFMutableDictionaryRef pageDictionary = CFDictionaryCreateMutable(NULL, 0,
+                                                                          &kCFTypeDictionaryKeyCallBacks,
+                                                                          &kCFTypeDictionaryValueCallBacks);
+        
+        CFDataRef boxData = CFDataCreate(NULL,(const UInt8 *)&pageRect, sizeof (CGRect));
+        
+        CFDictionarySetValue(pageDictionary, kCGPDFContextMediaBox, boxData);
+        
+        CGPDFContextBeginPage (pdfContext, pageDictionary);
+        
+        CGPDFPageRef pageRef = CGPDFDocumentGetPage(self.pdfDocument, [page intValue]);
+        CGContextDrawPDFPage (pdfContext, pageRef);
+        
+        CGPDFContextEndPage (pdfContext);
+        
+        CFRelease(pageDictionary);
+        CFRelease(boxData);
+    }
+    
+    CFRelease (path);
+    CGContextRelease (pdfContext);
+    CFRelease(url);
+    CFRelease(myDictionary);
+}
+
+- (void)deleteFile:(NSString *)filename
+{
+    if( filename ) {
+        NSError *error;
+        BOOL success = [[NSFileManager defaultManager] removeItemAtPath:filename error:&error];
+        if (!success) {
+            NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+        }
+    }
 }
 
 @end
