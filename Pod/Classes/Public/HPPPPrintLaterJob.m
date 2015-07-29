@@ -32,7 +32,7 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
     if( self ) {
         self.numCopies = 1;
         self.blackAndWhite = FALSE;
-        self.pageRange = @"";
+        self.pageRange = nil;
     }
     
     return self;

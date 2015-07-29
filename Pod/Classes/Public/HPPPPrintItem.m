@@ -51,6 +51,12 @@ NSString * const kHPPPPrintAssetKey = @"kHPPPPrintAssetKey";
     return nil;
 }
 
+- (id)printAssetForPageRange:(HPPPPageRange *)pageRange
+{
+    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
+    return nil;
+}
+
 #pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)encoder

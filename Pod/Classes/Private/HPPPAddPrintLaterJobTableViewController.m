@@ -53,13 +53,12 @@
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (strong, nonatomic) HPPPPaper *paper;
 @property (assign, nonatomic) CGRect editViewFrame;
+@property (strong, nonatomic) HPPPPageRange *pageRange;
 @end
 
 @implementation HPPPAddPrintLaterJobTableViewController
 
 NSString * const kAddJobScreenName = @"Add Job Screen";
-NSString * const kPageRangeAllPages = @"All";
-NSString * const kPageRangeNoPages = @"No pages selected";
 
 NSInteger const kHPPPDocumentDisplaySection = 0;
 NSInteger const kHPPPJobSummarySection = 1;
@@ -160,7 +159,12 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     self.jobSummaryCell.textLabel.text = self.printLaterJob.name;
     self.jobNameCell.detailTextLabel.text = self.printLaterJob.name;
     
-    [self setPageRangeLabelText];
+    if( nil !=  self.printLaterJob.pageRange.range ) {
+        [self setPageRangeLabelText:self.printLaterJob.pageRange.range];
+    } else {
+        [self setPageRangeLabelText:kPageRangeAllPages];
+    }
+    
     self.blackAndWhiteSwitch.on = self.printLaterJob.blackAndWhite;
     
     self.numCopiesStepper.minimumValue = 1;
@@ -200,6 +204,17 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     NSArray *images = [self.printItem previewImagesForPaper:self.paper];
     [self.multiPageView setPages:images paper:self.paper layout:self.printItem.layout];
     self.multiPageView.delegate = self;
+}
+
+- (HPPPPageRange *)pageRange
+{
+    if (nil == _pageRange) {
+        _pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:TRUE];
+    }
+    
+    [_pageRange setRange:self.pageRangeCell.detailTextLabel.text];
+    
+    return _pageRange;
 }
 
 #pragma mark - Table view data source
@@ -263,6 +278,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     cell.selected = NO;
     
     if (cell == self.addToPrintQCell) {
+        self.printLaterJob.pageRange = self.pageRange;
         
         NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize];
         HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:titleForInitialPaperSize];
@@ -289,12 +305,8 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         if(cell == self.pageRangeCell) {
             self.pageRangeView.frame = self.editViewFrame;
             
-            NSString *pageRange = self.pageRangeCell.detailTextLabel.text;
-            if( [kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
-                pageRange = @"";
-            }
+            [self.pageRangeView prepareForDisplay:self.pageRange.range];
             
-            [self.pageRangeView prepareForDisplay:pageRange];
             self.editView = self.pageRangeView;
         } else if (cell == self.jobNameCell) {
             self.keyboardView.frame = self.editViewFrame;
@@ -374,16 +386,14 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 #pragma mark - Edit View Delegates
 
-- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(NSString *)pageRange
+- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(HPPPPageRange *)pageRange
 {
-    self.printLaterJob.pageRange = pageRange;
-    [self setPageRangeLabelText];
+    [self setPageRangeLabelText:pageRange.range];
     [self reloadJobSummary];
-    [self setPrintLaterJobPageRange];
     
     // Update the page selected icon accordingly
     BOOL pageSelected = FALSE;
-    NSArray *pageNums = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    NSArray *pageNums = [pageRange getPages];
     for( NSNumber *pageNum in pageNums ) {
         if( [pageNum integerValue] == self.multiPageView.currentPage) {
             pageSelected = TRUE;
@@ -409,7 +419,8 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 {
     BOOL pageSelected = FALSE;
     
-    NSArray *pageNums = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    NSArray *pageNums = [self.pageRange getPages];
+    
     for( NSNumber *pageNum in pageNums ) {
         if( [pageNum integerValue] == newPageNumber ) {
             pageSelected = TRUE;
@@ -438,59 +449,22 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 -(void)includeCurrentPageInPageRange:(BOOL)includePage
 {
-    NSArray *pages = nil;
-    
-    NSString *pageRange = @"";
-    if( ![kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
-        pageRange = self.pageRangeCell.detailTextLabel.text;
-    }
+    HPPPPageRange *pageRange = self.pageRange;
     
     if( includePage ) {
-        if( pageRange.length > 0 ) {
-            pageRange = [pageRange stringByAppendingString:@","];
-        }
-        
-        self.pageRangeCell.detailTextLabel.text = [NSString stringWithFormat:@"%@%lu", pageRange, (unsigned long)self.multiPageView.currentPage];
-        pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+        [pageRange addPage:[NSNumber numberWithInteger:self.multiPageView.currentPage]];
     } else {
-        NSMutableArray *newPages = [[NSMutableArray alloc] init];
-        
-        // navigate the selected pages, removing every instance of the current page
-        pages = [HPPPPageRange getPagesFromPageRange:pageRange allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
-        for( NSNumber *pageNumber in pages ) {
-            if( [pageNumber integerValue] != self.multiPageView.currentPage ) {
-                [newPages addObject:pageNumber];
-            }
-        }
-        
-        pages = newPages;
+        [pageRange removePage:[NSNumber numberWithInteger:self.multiPageView.currentPage]];
     }
-
-    // since the user is clicking on pages in the multi-page view, sort the selected pages
-    NSMutableArray *mutablePages = [pages mutableCopy];
-    NSSortDescriptor *lowestToHighest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
-    [mutablePages sortUsingDescriptors:[NSArray arrayWithObject:lowestToHighest]];
-    pages = mutablePages;
     
-    if( pages.count > 0 ) {
-        self.pageRangeCell.detailTextLabel.text = [HPPPPageRange formPageRangeFromPages:pages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+    if( [pageRange getPages].count > 0 ) {
+        self.pageRangeCell.detailTextLabel.text = pageRange.range;
     } else {
         self.pageRangeCell.detailTextLabel.text = kPageRangeNoPages;
     }
 
     [self updateSelectedPageIcon:includePage];
     [self reloadJobSummary];
-    [self setPrintLaterJobPageRange];
-}
-
--(void)setPrintLaterJobPageRange
-{
-    if( [kPageRangeAllPages isEqualToString:self.pageRangeCell.detailTextLabel.text]  ||
-        [kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text]      ) {
-        self.printLaterJob.pageRange = @"";
-    } else {
-        self.printLaterJob.pageRange = self.pageRangeCell.detailTextLabel.text;
-    }
 }
 
 -(void)updateSelectedPageIcon:(BOOL)selectPage
@@ -510,7 +484,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 {
     NSArray *pages = [[NSArray alloc] init];
     if( ![kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
-        pages = [HPPPPageRange getPagesFromPageRange:self.pageRangeCell.detailTextLabel.text allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages];
+        pages = [self.pageRange getPages];
     }
     
     NSString *text = @"";
@@ -608,14 +582,15 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     self.numCopiesLabel.text = [NSString stringWithFormat:@"%ld %@", (long)self.printLaterJob.numCopies, copyIdentifier];
 }
 
-- (void)setPageRangeLabelText
+- (void)setPageRangeLabelText:(NSString *)pageRange
 {
-    if( [self.printLaterJob.pageRange length] ) {
-        self.pageRangeCell.detailTextLabel.text = self.printLaterJob.pageRange;
+    if( pageRange.length ) {
+        self.pageRangeCell.detailTextLabel.text = pageRange;
     } else {
         self.pageRangeCell.detailTextLabel.text = kPageRangeAllPages;
     }
 }
+
 
 
 

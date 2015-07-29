@@ -33,21 +33,23 @@
 #import "HPPPSupportAction.h"
 #import "HPPPLayoutFactory.h"
 #import "HPPPMultiPageView.h"
+#import "HPPPPageRangeView.h"
+#import "HPPPPageRange.h"
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 
 #define DEFAULT_ROW_HEIGHT 44.0f
 #define DEFAULT_NUMBER_OF_COPIES 1
 
-#define PRINT_FUNCTION_SECTION 0
-#define PRINTER_SELECTION_SECTION 1
-#define PAPER_SELECTION_SECTION 2
-#define PRINT_SETTINGS_SECTION 3
-#define NUMBER_OF_COPIES_SECTION 4
-#define FILTER_SECTION 5
-#define SUPPORT_SECTION 6
+#define PRINT_SUMMARY_SECTION 0
+#define PRINT_FUNCTION_SECTION 1
+#define PRINTER_SELECTION_SECTION 2
+#define PAPER_SELECTION_SECTION 3
+#define PRINT_SETTINGS_SECTION 4
+#define NUMBER_OF_COPIES_SECTION 5
+#define FILTER_SECTION 6
+#define SUPPORT_SECTION 7
 
-#define PRINT_FUNCTION_ROW_INDEX 0
 #define PRINTER_SELECTION_INDEX 0
 #define PAPER_SIZE_ROW_INDEX 0
 #define PAPER_TYPE_ROW_INDEX 1
@@ -59,7 +61,9 @@
 #define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
 #define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", @"Printer details not available")
 
-@interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate, UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
+@interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate, HPPPPaperSizeTableViewControllerDelegate, HPPPPaperTypeTableViewControllerDelegate, HPPPPrintSettingsTableViewControllerDelegate,
+    HPPPPageRangeViewDelegate, HPPPMultiPageViewDelegate,
+    UIPrinterPickerControllerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) HPPPPrintSettings *currentPrintSettings;
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
@@ -77,14 +81,25 @@
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsDetailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberOfCopiesLabel;
+@property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageViewCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *jobSummaryCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *selectPrinterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperSizeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *pageRangeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
+
+@property (strong, nonatomic) UIView *smokeyView;
+@property (strong, nonatomic) UIButton *smokeyCancelButton;
+@property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
+@property (strong, nonatomic) UIButton *pageSelectionMark;
+@property (strong, nonatomic) UIImage *selectedPageImage;
+@property (strong, nonatomic) UIImage *unselectedPageImage;
+@property (strong, nonatomic) HPPPPageRange *pageRange;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
 
@@ -98,8 +113,6 @@
 @property (strong, nonatomic) NSMutableArray *itemsToPrint;
 
 @property (assign, nonatomic) BOOL showCurlOnAppear;
-
-@property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
 
 @end
 
@@ -143,6 +156,11 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     if (IS_IPAD && IS_OS_8_OR_LATER) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
     }
+
+    self.multiPageView.delegate = self;
+    
+    self.jobSummaryCell.textLabel.font = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobSummarySubtitleFontAttribute];
+    self.jobSummaryCell.textLabel.textColor = [UIColor blackColor];
     
     self.printLabel.font = self.hppp.tableViewCellPrintLabelFont;
     self.printLabel.textColor = self.hppp.tableViewCellPrintLabelColor;
@@ -180,8 +198,30 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     self.numberOfCopiesLabel.font = self.hppp.tableViewCellLabelFont;
     self.numberOfCopiesLabel.textColor = self.hppp.tableViewCellLabelColor;
-    self.numberOfCopiesLabel.text = HPPPLocalizedString(@"1 copy", nil);
+    self.numberOfCopiesLabel.text = HPPPLocalizedString(@"1 Copy", nil);
     
+    if( 1 == self.printItem.numberOfPages ) {
+        self.pageRangeCell.hidden = TRUE;
+        self.pageSelectionMark.hidden = TRUE;
+    } else {
+        self.pageRangeCell.textLabel.font = self.hppp.tableViewCellLabelFont;
+        self.pageRangeCell.textLabel.textColor = self.hppp.tableViewCellLabelColor;
+        self.pageRangeCell.detailTextLabel.font = self.hppp.tableViewCellValueFont;
+        self.pageRangeCell.detailTextLabel.textColor = self.hppp.tableViewCellValueColor;
+
+        [self setPageRangeLabelText:kPageRangeAllPages];
+
+        self.selectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute];
+        self.unselectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute];
+        self.pageSelectionMark = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.pageSelectionMark setImage:self.selectedPageImage forState:UIControlStateNormal];
+        self.pageSelectionMark.backgroundColor = [UIColor clearColor];
+        self.pageSelectionMark.adjustsImageWhenHighlighted = NO;
+        [self.pageSelectionMark addTarget:self action:@selector(pageSelectionMarkClicked) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.pageSelectionMark];
+    }
+    
+
     self.filterLabel.font = self.hppp.tableViewCellLabelFont;
     self.filterLabel.textColor = self.hppp.tableViewCellLabelColor;
     self.filterLabel.text = HPPPLocalizedString(@"Black & White mode", nil);
@@ -205,6 +245,25 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     [self reloadPaperSelectionSection];
     
+    self.smokeyView = [[UIView alloc] init];
+    self.smokeyView.backgroundColor = [UIColor blackColor];
+    self.smokeyView.alpha = 0.0f;
+    self.smokeyView.hidden = TRUE;
+    self.smokeyView.userInteractionEnabled = FALSE;
+    
+    self.smokeyCancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.smokeyCancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [self.smokeyCancelButton setTintColor:[UIColor whiteColor]];
+    [self.smokeyView addSubview:self.smokeyCancelButton];
+    
+    [self.navigationController.view addSubview:self.smokeyView];
+    
+    self.pageRangeView = [[HPPPPageRangeView alloc] initWithFrame:self.view.frame];
+    self.pageRangeView.delegate = self;
+    self.pageRangeView.hidden = YES;
+    self.pageRangeView.maxPageNum = self.printItem.numberOfPages;
+    [self.navigationController.view addSubview:self.pageRangeView];
+
     [self prepareUiForIosVersion];
     [self updatePrintSettingsUI];
     [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
@@ -242,6 +301,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     [super viewWillAppear:animated];
     
     [self configurePrintButton];
+    [self reloadJobSummary];
     if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
         [[HPPPWiFiReachability sharedInstance] noPrintingAlert];
     }
@@ -497,6 +557,166 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
 }
 
+- (void)setEditFrames
+{
+    self.pageRangeView.frame = [self.navigationController.view convertRect:self.view.frame fromView:[self.view superview]];
+    self.smokeyView.frame = [[UIScreen mainScreen] bounds];
+    
+    // We can't make use of hidden methods, so this position is hard-coded... at a decent risk of truncation and bad position
+    //  Hidden method: self.smokeyCancelButton.frame = [self.navigationController.view convertRect:((UIView*)[self.cancelBarButtonItem performSelector:@selector(view)]).frame fromView:self.navigationController.navigationBar];
+    int cancelButtonWidth = 54;
+    int cancelButtonRightMargin = IS_IPAD ? 20 : 8;
+    int cancelButtonXOrigin = self.smokeyView.frame.size.width - (cancelButtonWidth + cancelButtonRightMargin);
+    self.smokeyCancelButton.frame = CGRectMake(cancelButtonXOrigin, 27, cancelButtonWidth, 30);
+}
+
+-(void)displaySmokeyView:(BOOL)display
+{
+    self.tableView.scrollEnabled = !display;
+    
+    if( display ) {
+        self.smokeyView.hidden = FALSE;
+        self.smokeyView.alpha = 0.6f;
+    } else {
+        self.smokeyView.alpha = 0.0f;
+    }
+}
+
+- (void)dismissEditView
+{
+    CGRect desiredFrame = self.pageRangeView.frame;
+    desiredFrame.origin.y = self.pageRangeView.frame.origin.y + self.pageRangeView.frame.size.height;
+    
+    [UIView animateWithDuration:0.6f animations:^{
+        [self displaySmokeyView:NO];
+        self.pageRangeView.frame = desiredFrame;
+        [self setNavigationBarEditing:FALSE];
+    } completion:^(BOOL finished) {
+        self.pageRangeView.hidden = YES;
+        self.smokeyView.hidden = YES;
+    }];
+}
+
+- (void)setNavigationBarEditing:(BOOL)editing
+{
+    UIColor *buttonColor = nil;
+    
+    if (editing) {
+        buttonColor = [UIColor clearColor];
+    }
+    
+    self.cancelBarButtonItem.tintColor = buttonColor;
+}
+
+-(void)respondToMultiPageViewAction
+{
+    if( self.pageSelectionMark.imageView.image == self.selectedPageImage ) {
+        [self includeCurrentPageInPageRange:FALSE];
+    } else {
+        [self includeCurrentPageInPageRange:TRUE];
+    }
+}
+
+-(void)includeCurrentPageInPageRange:(BOOL)includePage
+{
+    HPPPPageRange *pageRange = self.pageRange;
+    
+    if( includePage ) {
+        [pageRange addPage:[NSNumber numberWithInteger:self.multiPageView.currentPage]];
+    } else {
+        [pageRange removePage:[NSNumber numberWithInteger:self.multiPageView.currentPage]];
+    }
+    
+    if( [pageRange getPages].count > 0 ) {
+        self.pageRangeCell.detailTextLabel.text = pageRange.range;
+    } else {
+        self.pageRangeCell.detailTextLabel.text = kPageRangeNoPages;
+    }
+
+    [self updateSelectedPageIcon:includePage];
+    [self reloadJobSummary];
+}
+
+- (void)setPageRangeLabelText:(NSString *)pageRange
+{
+    if( pageRange.length ) {
+        self.pageRangeCell.detailTextLabel.text = pageRange;
+    } else {
+        self.pageRangeCell.detailTextLabel.text = kPageRangeAllPages;
+    }
+}
+
+-(void)updateSelectedPageIcon:(BOOL)selectPage
+{
+    UIImage *image;
+    
+    if( selectPage ) {
+        image = self.selectedPageImage;
+    } else {
+        image = self.unselectedPageImage;
+    }
+    
+    [self.pageSelectionMark setImage:image forState:UIControlStateNormal];
+}
+
+-(void)reloadJobSummary
+{
+    NSArray *pages = [[NSArray alloc] init];
+    if( ![kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
+        pages = [self.pageRange getPages];
+    }
+    
+    NSString *text = @"";
+    if( 1 < self.printItem.numberOfPages  &&  pages.count != self.printItem.numberOfPages ) {
+        text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)pages.count, (long)self.printItem.numberOfPages];
+    }
+    
+    if( self.blackAndWhiteModeSwitch.on ) {
+        if( text.length > 0 ) {
+            text = [text stringByAppendingString:@"/"];
+        }
+        text = [text stringByAppendingString:@"B&W"];
+    }
+    
+    if( text.length > 0 ) {
+        text = [text stringByAppendingString:@"/"];
+    }
+    
+    text = [text stringByAppendingString:self.paperSizeSelectedLabel.text];
+    
+    self.jobSummaryCell.textLabel.text = text;
+    
+    if( 0 == pages.count  ||  pages.count >= self.printItem.numberOfPages ) {
+        self.printLabel.text = @"Print";
+    } else if( 1 == pages.count ) {
+        self.printLabel.text = [NSString stringWithFormat:@"Print %ld Page", (long)pages.count];
+    } else {
+        self.printLabel.text = [NSString stringWithFormat:@"Print %ld Pages", (long)pages.count];
+    }
+    
+    HPPP *hppp = [HPPP sharedInstance];
+    if( 0 == pages.count ) {
+        self.printCell.userInteractionEnabled = FALSE;
+        self.printLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute];
+    } else {
+        self.printCell.userInteractionEnabled = TRUE;
+        self.printLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute];;
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (HPPPPageRange *)pageRange
+{
+    if (nil == _pageRange) {
+        _pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:TRUE];
+    }
+    
+    [_pageRange setRange:self.pageRangeCell.detailTextLabel.text];
+    
+    return _pageRange;
+}
+
 #pragma mark - Printer availability
 
 - (void)printerNotAvailable
@@ -522,7 +742,11 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (IBAction)cancelButtonTapped:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(didCancelPrintFlow:)]) {
+    if (!self.pageRangeView.hidden) {
+        [self.pageRangeView cancelEditing];
+        [self dismissEditView];
+    }
+    else if ([self.delegate respondsToSelector:@selector(didCancelPrintFlow:)]) {
         [self.delegate didCancelPrintFlow:self];
     } else {
         HPPPLogWarn(@"No HPPPPrintDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
@@ -557,6 +781,11 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
 }
 
+- (void)pageSelectionMarkClicked
+{
+    [self respondToMultiPageViewAction];
+}
+
 #pragma mark - UIPrintInteractionControllerDelegate
 
 - (UIViewController *)printInteractionControllerParentViewController:(UIPrintInteractionController *)printInteractionController
@@ -576,7 +805,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     self.numberOfCopies = sender.value;
     
-    self.numberOfCopiesLabel.text = (self.numberOfCopies == 1) ? HPPPLocalizedString(@"1 copy", nil) : [NSString stringWithFormat:HPPPLocalizedString(@"%ld copies", @"Number of copies"), (long)self.numberOfCopies];
+    self.numberOfCopiesLabel.text = (self.numberOfCopies == 1) ? HPPPLocalizedString(@"1 Copy", nil) : [NSString stringWithFormat:HPPPLocalizedString(@"%ld Copies", @"Number of copies"), (long)self.numberOfCopies];
     
     if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
         NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
@@ -649,6 +878,19 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 #pragma mark - UITableViewDelegate
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if( cell == self.jobSummaryCell ) {
+        CGRect frame = self.jobSummaryCell.frame;
+        frame.origin.x = self.view.frame.size.width - 55;
+        frame.origin.y = self.jobSummaryCell.frame.origin.y - 12.5;
+        frame.size.width = 32;
+        frame.size.height = 32;
+        
+        self.pageSelectionMark.frame = [self.jobSummaryCell.superview convertRect:frame toView:self.view];
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     CGFloat height = ZERO_HEIGHT;
@@ -666,7 +908,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     CGFloat height = ZERO_HEIGHT;
     
-    if (section == PRINT_FUNCTION_SECTION) {
+    if (section == PRINT_FUNCTION_SECTION  ||  section == PRINT_SUMMARY_SECTION) {
         height = SEPARATOR_SECTION_FOOTER_HEIGHT;
     } else if (IS_OS_8_OR_LATER && ((section == PRINTER_SELECTION_SECTION) || (section == PAPER_SELECTION_SECTION))) {
         if ((!self.hppp.hidePaperTypeOption) && (self.currentPrintSettings.printerUrl == nil)) {
@@ -707,6 +949,18 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         [self showPrinterSelection:tableView withCompletion:nil];
     } else if (cell == self.printCell){
         [self oneTouchPrint:tableView];
+    } else if (cell == self.pageRangeCell){
+        [self setEditFrames];
+        
+        [UIView animateWithDuration:0.6f animations:^{
+            [self displaySmokeyView:TRUE];
+            [self setNavigationBarEditing:TRUE];
+            self.pageRangeView.hidden = NO;
+        } completion:^(BOOL finished) {
+            [self.pageRangeView beginEditing];
+        }];
+    
+        [self.pageRangeView prepareForDisplay:self.pageRange.range];
     }
 }
 
@@ -885,18 +1139,18 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     if (CustomPrintRenderer == printItem.renderer) {
         if (![printItem.printAsset isKindOfClass:[UIImage class]]) {
-            HPPPLogWarn(@"Using custom print renderer with non-image class:  %@", self.printItem.printAsset);
+            HPPPLogWarn(@"Using custom print renderer with non-image class:  %@", printItem.printAsset);
         }
-        HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[printItem.printAsset] andLayout:printItem.layout];
+        HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[[printItem printAssetForPageRange:self.pageRange]] andLayout:printItem.layout];
         renderer.numberOfCopies = self.numberOfCopies;
         controller.printPageRenderer = renderer;
     } else {
         if (1 == self.numberOfCopies) {
-            controller.printingItem = printItem.printAsset;
+            controller.printingItem = [printItem printAssetForPageRange:self.pageRange];
         } else {
             NSMutableArray *items = [NSMutableArray array];
             for (int idx = 0; idx < self.numberOfCopies; idx++) {
-                [items addObject:printItem.printAsset];
+                [items addObject:[printItem printAssetForPageRange:self.pageRange]];
             }
             controller.printingItems = items;
         }
@@ -1011,6 +1265,29 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     [defaults synchronize];
 }
 
+#pragma mark - HPPPMultipageViewDelegate
+
+- (void)multiPageView:(HPPPMultiPageView *)multiPageView didChangeFromPage:(NSUInteger)oldPageNumber ToPage:(NSUInteger)newPageNumber
+{
+    BOOL pageSelected = FALSE;
+    
+    NSArray *pageNums = [self.pageRange getPages];
+    
+    for( NSNumber *pageNum in pageNums ) {
+        if( [pageNum integerValue] == newPageNumber ) {
+            pageSelected = TRUE;
+            break;
+        }
+    }
+    
+    [self updateSelectedPageIcon:pageSelected];
+}
+
+- (void)multiPageView:(HPPPMultiPageView *)multiPageView didSingleTapPage:(NSUInteger)pageNumber
+{
+    [self respondToMultiPageViewAction];
+}
+
 #pragma mark - HPPPPrintSettingsTableViewControllerDelegate
 
 - (void)printSettingsTableViewController:(HPPPPrintSettingsTableViewController *)printSettingsTableViewController didChangePrintSettings:(HPPPPrintSettings *)printSettings
@@ -1088,6 +1365,27 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         [self updatePageSettingsUI];
         [self updatePrintSettingsUI];
     }
+}
+
+#pragma mark - Edit View Delegates
+
+- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(HPPPPageRange *)pageRange
+{
+    [self setPageRangeLabelText:pageRange.range];
+    [self reloadJobSummary];
+    
+    // Update the page selected icon accordingly
+    BOOL pageSelected = FALSE;
+    NSArray *pageNums = [pageRange getPages];
+    for( NSNumber *pageNum in pageNums ) {
+        if( [pageNum integerValue] == self.multiPageView.currentPage) {
+            pageSelected = TRUE;
+            break;
+        }
+    }
+    [self updateSelectedPageIcon:pageSelected];
+    
+    [self dismissEditView];
 }
 
 #pragma mark - Navigation
