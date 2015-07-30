@@ -326,6 +326,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.multiPageView = self.pageViewController.multiPageView;
+        self.multiPageView.delegate = self;
         [self configureMultiPageViewWithPrintItem:self.printItem];
     }
     
