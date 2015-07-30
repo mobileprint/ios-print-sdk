@@ -1,9 +1,13 @@
 //
-//  HPPPPageRange.m
-//  Pods
+// Hewlett-Packard Company
+// All rights reserved.
 //
-//  Created by Christine Harris on 7/4/15.
-//
+// This file, its contents, concepts, methods, behavior, and operation
+// (collectively the "Software") are protected by trade secret, patent,
+// and copyright laws. The use of the Software is governed by a license
+// agreement. Disclosure of the Software to third parties, in any form,
+// in whole or in part, is expressly prohibited except as authorized by
+// the license agreement.
 //
 
 #import "HPPPPageRange.h"
@@ -203,7 +207,8 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
     NSString *scrubbedRange = text;
     
     // special case of attempting to use only page 0... which does not exist.  Change to page 1.
-    if( [scrubbedRange integerValue] == 0 ) {
+    NSRange r = [scrubbedRange rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]];
+    if( r.length > 1  &&  [scrubbedRange integerValue] == 0 ) {
         scrubbedRange = @"1";
     }
     
