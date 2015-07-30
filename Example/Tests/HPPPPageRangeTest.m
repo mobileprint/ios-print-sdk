@@ -50,6 +50,9 @@
     NSString *kOutOfBounds = @"1,2,100,5,6";
     NSString *kOutOfBoundsResult = @"1,2,10,5,6";
 
+    NSString *kExtremeOutOfBounds = @"00000000000001,100000000000,1234123412341341341234123413241324124,0-3,3-0";
+    NSString *kExtremeOutOfBoundsResult = @"1,10,10,1-3,3-1";
+
     // Init with empty string
     pageRange = [[HPPPPageRange alloc] initWithString:@"" allPagesIndicator:kAllPages maxPageNum:10 sortAscending:FALSE];
     XCTAssert([pageRange.range isEqualToString:@""], @"InitWithString:@\"\" produced range: \"%@\"", pageRange.range);
@@ -86,6 +89,10 @@
     // Verify out-of-bounds page number
     pageRange = [[HPPPPageRange alloc] initWithString:kOutOfBounds allPagesIndicator:kAllPages maxPageNum:10 sortAscending:FALSE];
     XCTAssert([pageRange.range isEqualToString:kOutOfBoundsResult], @"InitWithString:%@ produced range: \"%@\"", kOutOfBounds, pageRange.range);
+
+    // Verify extreme out-of-bounds page number
+    pageRange = [[HPPPPageRange alloc] initWithString:kExtremeOutOfBounds allPagesIndicator:kAllPages maxPageNum:10 sortAscending:FALSE];
+    XCTAssert([pageRange.range isEqualToString:kExtremeOutOfBoundsResult], @"InitWithString:%@ produced range: \"%@\"", kExtremeOutOfBounds, pageRange.range);
 }
 
 - (void)testGetPages {
