@@ -671,13 +671,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)pages.count, (long)self.printItem.numberOfPages];
     }
     
-    if( self.blackAndWhiteModeSwitch.on ) {
-        if( text.length > 0 ) {
-            text = [text stringByAppendingString:@"/"];
-        }
-        text = [text stringByAppendingString:@"B&W"];
-    }
-    
     if( text.length > 0 ) {
         text = [text stringByAppendingString:@"/"];
     }
