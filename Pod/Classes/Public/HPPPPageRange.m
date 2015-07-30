@@ -203,7 +203,7 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
     NSString *scrubbedRange = text;
     
     // special case of attempting to use only page 0... which does not exist.  Change to page 1.
-    if( [scrubbedRange isEqualToString:@"0"] ) {
+    if( [scrubbedRange integerValue] == 0 ) {
         scrubbedRange = @"1";
     }
     
@@ -307,7 +307,7 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
     return pageRange;
 }
 
-+ (NSArray *)getNumsFromString:(NSString *)string
++ (NSArray *)getPageNumsFromString:(NSString *)string
 {
     NSMutableArray *returnArray = nil;
     
@@ -323,7 +323,7 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
             
             for( NSTextCheckingResult *pageNumRes in matches ) {
                 NSString *pageNumStr = [string substringWithRange:pageNumRes.range];
-                [returnArray addObject:[NSNumber numberWithInteger:[pageNumStr integerValue]]];
+                [returnArray addObject:pageNumStr];
             }
         }
     }
@@ -364,13 +364,20 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
     BOOL corrected = FALSE;
     NSString *scrubbedString = string;
     
-    NSArray *matches = [HPPPPageRange getNumsFromString:string];
+    NSArray *matches = [HPPPPageRange getPageNumsFromString:string];
     if( matches  &&  0 < matches.count ) {
-        for( NSNumber *pageNumber in matches ) {
-            NSInteger pageNum = [pageNumber integerValue];
+        for( NSString *pageNumStr in matches ) {
+            NSInteger pageNum = [pageNumStr integerValue];
+
             if( pageNum > maxPageNum ) {
-                NSLog(@"error-- page num out of range: %ld, Word on Mac responds poorly in this scenario... what should we do?", (long)pageNum);
-                scrubbedString = [scrubbedString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%ld", (long)pageNum] withString:[NSString stringWithFormat:@"%ld", (long)maxPageNum]];
+                NSLog(@"error-- page num out of range: %ld", (long)pageNum);
+                NSString *doubleCheck = [NSString stringWithFormat:@"%ld", pageNum];
+                if( [doubleCheck isEqualToString:pageNumStr] ) {
+                    scrubbedString = [scrubbedString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%ld", (long)pageNum] withString:[NSString stringWithFormat:@"%ld", (long)maxPageNum]];
+                } else {
+                    scrubbedString = [scrubbedString stringByReplacingOccurrencesOfString:pageNumStr withString:[NSString stringWithFormat:@"%ld", (long)maxPageNum]];
+                }
+
                 corrected = TRUE;
                 break;
             }
