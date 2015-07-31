@@ -1,9 +1,13 @@
 //
-//  HPPPPageRange.m
-//  Pods
+// Hewlett-Packard Company
+// All rights reserved.
 //
-//  Created by Christine Harris on 7/4/15.
-//
+// This file, its contents, concepts, methods, behavior, and operation
+// (collectively the "Software") are protected by trade secret, patent,
+// and copyright laws. The use of the Software is governed by a license
+// agreement. Disclosure of the Software to third parties, in any form,
+// in whole or in part, is expressly prohibited except as authorized by
+// the license agreement.
 //
 
 #import "HPPPPageRange.h"
@@ -130,19 +134,19 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
                 // split on the dash
                 NSArray *rangeChunks = [chunk componentsSeparatedByString:@"-"];
                 NSAssert(2 == rangeChunks.count, @"Bad page range");
-                int startOfRange = [(NSString *)rangeChunks[0] intValue];
-                int endOfRange = [(NSString *)rangeChunks[1] intValue];
+                NSInteger startOfRange = [(NSString *)rangeChunks[0] integerValue];
+                NSInteger endOfRange = [(NSString *)rangeChunks[1] integerValue];
                 
                 if( startOfRange < endOfRange ) {
-                    for (int i=startOfRange; i<=endOfRange; i++) {
-                        [pageNums addObject:[NSNumber numberWithInt:i]];
+                    for (NSInteger i=startOfRange; i<=endOfRange; i++) {
+                        [pageNums addObject:[NSNumber numberWithInteger:i]];
                     }
                 } else if( startOfRange > endOfRange ) {
-                    for (int i=startOfRange; i>=endOfRange; i--) {
-                        [pageNums addObject:[NSNumber numberWithInt:i]];
+                    for (NSInteger i=startOfRange; i>=endOfRange; i--) {
+                        [pageNums addObject:[NSNumber numberWithInteger:i]];
                     }
                 } else { // they are equal
-                    [pageNums addObject:[NSNumber numberWithInt:startOfRange]];
+                    [pageNums addObject:[NSNumber numberWithInteger:startOfRange]];
                 }
                 
             } else if( chunk.length > 0 ){
@@ -198,14 +202,59 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
     return pageRange;
 }
 
++ (NSInteger) getProperPageNumber:(NSString *)pageNum maxPageNum:(NSInteger)maxPageNum
+{
+    NSInteger returnValue = [pageNum integerValue];
+    NSString *doubleCheck = [NSString stringWithFormat:@"%ld", returnValue];
+    
+    if( 0 == returnValue ) {
+        returnValue = 1;
+    } else if( returnValue < maxPageNum ) {
+        // do nothing
+    } else if( ![pageNum isEqualToString:doubleCheck]  ||  returnValue > maxPageNum ) {
+        returnValue = maxPageNum;
+    }
+    
+    return returnValue;
+}
+
++ (NSString *) replaceOutOfBoundsPageNumbers:(NSString *)pageRange allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum
+{
+    NSString *returnRange = pageRange;
+    NSLog(@"range in: %@", pageRange);
+    
+    if( ![allPagesIndicator isEqualToString:pageRange] ) {
+        NSString *separator = @"";
+        returnRange = @"";
+        
+        // split on commas
+        NSArray *chunks = [pageRange componentsSeparatedByString:@","];
+        for (NSString *chunk in chunks) {
+            if( [chunk containsString:@"-"] ) {
+                // split on the dash
+                NSArray *rangeChunks = [chunk componentsSeparatedByString:@"-"];
+                NSAssert(2 == rangeChunks.count, @"Bad page range");
+                
+                NSInteger startOfRange = [HPPPPageRange getProperPageNumber:(NSString *)rangeChunks[0] maxPageNum:maxPageNum];
+                NSInteger endOfRange = [HPPPPageRange getProperPageNumber:(NSString *)rangeChunks[1] maxPageNum:maxPageNum];
+                
+                returnRange = [returnRange stringByAppendingString:[NSString stringWithFormat:@"%@%ld-%ld", separator, startOfRange, endOfRange]];
+                
+            } else if( chunk.length > 0 ){
+                NSInteger value = [HPPPPageRange getProperPageNumber:chunk maxPageNum:maxPageNum];
+                returnRange = [returnRange stringByAppendingString:[NSString stringWithFormat:@"%@%ld", separator, value]];
+            }
+            
+            separator = @",";
+        }
+    }
+    NSLog(@"range out: %@\n\n", returnRange);
+    return returnRange;
+}
+
 + (NSString *) cleanPageRange:(NSString *)text allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum sortAscending:(BOOL)sortAscending
 {
     NSString *scrubbedRange = text;
-    
-    // special case of attempting to use only page 0... which does not exist.  Change to page 1.
-    if( [scrubbedRange isEqualToString:@"0"] ) {
-        scrubbedRange = @"1";
-    }
     
     if( nil == scrubbedRange  ||  [allPagesIndicator isEqualToString:scrubbedRange] ) {
         scrubbedRange = allPagesIndicator;
@@ -226,14 +275,7 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
         scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",," withString:@","];
         scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"--" withString:@"-"];
         
-        // The first page is 1, not 0
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-0-" withString:@"-1-"];
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",0," withString:@",1,"];
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-0," withString:@"-1,"];
-        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",0-" withString:@",1-"];
-        
         scrubbedRange = [scrubbedRange stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-,"]];
-        scrubbedRange = [HPPPPageRange replaceOutOfBoundsPageNumbers:scrubbedRange maxPageNum:maxPageNum];
         scrubbedRange = [HPPPPageRange replaceBadDashUsage:scrubbedRange];
         
         if( ![text isEqualToString:scrubbedRange] ) {
@@ -244,6 +286,8 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
         }
     }
     
+    scrubbedRange = [self replaceOutOfBoundsPageNumbers:scrubbedRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
+
     if( sortAscending ) {
         scrubbedRange = [HPPPPageRange sortPageRange:scrubbedRange allPagesIndicator:allPagesIndicator maxPageNum:maxPageNum];
     } else {
@@ -307,7 +351,7 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
     return pageRange;
 }
 
-+ (NSArray *)getNumsFromString:(NSString *)string
++ (NSArray *)getPageNumsFromString:(NSString *)string
 {
     NSMutableArray *returnArray = nil;
     
@@ -323,7 +367,7 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
             
             for( NSTextCheckingResult *pageNumRes in matches ) {
                 NSString *pageNumStr = [string substringWithRange:pageNumRes.range];
-                [returnArray addObject:[NSNumber numberWithInteger:[pageNumStr integerValue]]];
+                [returnArray addObject:pageNumStr];
             }
         }
     }
@@ -354,31 +398,6 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
         
         NSRegularExpression *regex = [HPPPPageRange regularExpressionWithString:@"(\\d+)-(\\d+)-(\\d+)" options:nil];
         [regex replaceMatchesInString:scrubbedString options:0 range:range withTemplate:@"$1-$3"];
-    }
-    
-    return scrubbedString;
-}
-
-+ (NSString *)replaceOutOfBoundsPageNumbers:(NSString *)string maxPageNum:(NSInteger)maxPageNum
-{
-    BOOL corrected = FALSE;
-    NSString *scrubbedString = string;
-    
-    NSArray *matches = [HPPPPageRange getNumsFromString:string];
-    if( matches  &&  0 < matches.count ) {
-        for( NSNumber *pageNumber in matches ) {
-            NSInteger pageNum = [pageNumber integerValue];
-            if( pageNum > maxPageNum ) {
-                NSLog(@"error-- page num out of range: %ld, Word on Mac responds poorly in this scenario... what should we do?", (long)pageNum);
-                scrubbedString = [scrubbedString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%ld", (long)pageNum] withString:[NSString stringWithFormat:@"%ld", (long)maxPageNum]];
-                corrected = TRUE;
-                break;
-            }
-        }
-        
-        if( corrected ) {
-            scrubbedString = [HPPPPageRange replaceOutOfBoundsPageNumbers:scrubbedString maxPageNum:maxPageNum];
-        }
     }
     
     return scrubbedString;

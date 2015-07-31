@@ -361,7 +361,7 @@ static NSNumber *lastPinchScale = nil;
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     if (kHPPPZoomScrollViewTag != scrollView.tag) {
-        NSUInteger newPageNumber = scrollView.contentOffset.x / scrollView.bounds.size.width + 1;
+        NSUInteger newPageNumber = (int)scrollView.contentOffset.x / (int)scrollView.bounds.size.width + 1;
         [self changePageNumber:newPageNumber];
     }
 }

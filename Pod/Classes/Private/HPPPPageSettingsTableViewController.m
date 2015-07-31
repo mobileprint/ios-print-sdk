@@ -326,6 +326,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         self.multiPageView = self.pageViewController.multiPageView;
+        self.multiPageView.delegate = self;
         [self configureMultiPageViewWithPrintItem:self.printItem];
     }
     
@@ -669,13 +670,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     NSString *text = @"";
     if( 1 < self.printItem.numberOfPages  &&  pages.count != self.printItem.numberOfPages ) {
         text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)pages.count, (long)self.printItem.numberOfPages];
-    }
-    
-    if( self.blackAndWhiteModeSwitch.on ) {
-        if( text.length > 0 ) {
-            text = [text stringByAppendingString:@"/"];
-        }
-        text = [text stringByAppendingString:@"B&W"];
     }
     
     if( text.length > 0 ) {
