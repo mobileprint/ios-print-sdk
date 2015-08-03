@@ -44,16 +44,6 @@
 
 - (UIViewController *)activityViewController
 {
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
-//    
-//    UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPAddPrintLaterJobNavigationController"];
-//    
-//    HPPPAddPrintLaterJobTableViewController *addPrintLaterJobTableViewController = (HPPPAddPrintLaterJobTableViewController *) navigationController.topViewController;
-//    
-//    addPrintLaterJobTableViewController.printLaterJob = self.printLaterJob;
-//    addPrintLaterJobTableViewController.delegate = self;
-//    
-//    return navigationController;
     return [[HPPP sharedInstance] printLaterViewControllerWithDelegate:self printLaterJob:self.printLaterJob];
 }
 
