@@ -48,6 +48,7 @@ extern NSString * const kPrintCategoryIdentifier;
 
 @protocol HPPPPrintDelegate;
 @protocol HPPPPrintDataSource;
+@protocol HPPPAddPrintLaterDelegate;
 
 /*!
  * @abstract Main HP Photo Print manager class
@@ -406,6 +407,15 @@ extern NSString * const kHPPPNumberOfCopies;
 - (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue;
 
 /*!
+ * @abstract Prepares a view controller suitable for the device and OS
+ * @description This method prepares a view controller for displaying the "add to print queue" flow. It takes into consideration the device type and OS and prepares either a split view controller (iPad with iOS 8 or above) or a standard view controller. Both types are wrapped in a navigation controller. The controller returned is suitable for using with the UIActivity method 'activityViewController'.
+ * @param delegate An optional delegate object that implements the HPPPAddPrintLaterDelegate protocol
+ * @param printLaterJob The printLaterJob populated with appropriate printItem(s)
+ * @return The view controller that the client should present
+ */
+- (UIViewController *)printLaterViewControllerWithDelegate:(id<HPPPAddPrintLaterDelegate>)delegate printLaterJob:(HPPPPrintLaterJob *)printLaterJob;
+
+/*!
  * @abstract User notification category used for print reminder
  * @discussion UIUserNotificationCategory to register in the clients for push notifications of the print later. The clients must do the registration because it may happen that the client have other notification categories to register, and all the registration must be do at the same time, otherwise the new category will override the previous one.
  */
@@ -530,5 +540,30 @@ extern NSString * const kHPPPNumberOfCopies;
  * @seealso numberOfPrintingItems
  */
 - (NSArray *)printingItemsForPaper:(HPPPPaper *)paper;
+
+@end
+
+/*!
+ * @abstract Defines a delegate protocal for reporting that the "add job to print queue" flow has been finished or cancelled
+ */
+@protocol HPPPAddPrintLaterDelegate <NSObject>
+
+/*!
+ * @abstract Called when the "add to print queue" flow finishes successfully
+ * @discussion This delegate method is called when the "add to print queue" flow finishes successfully.
+ * @param addPrintLaterJobTableViewController The view controller calling the method
+ * @returns Nothing
+ * @seealso didCancelAddPrintLaterFlow:
+ */
+- (void)didFinishAddPrintLaterFlow:(UIViewController *)addPrintLaterJobTableViewController;
+
+/*!
+ * @abstract Called when the "add to print queue" flow is canceled
+ * @discussion This delegate method is called when the "add to print queue" is canceled by the user..
+ * @param addPrintLaterJobTableViewController The view controller calling the method
+ * @returns Nothing
+ * @seealso didFinishAddPrintLaterFlow:
+ */
+- (void)didCancelAddPrintLaterFlow:(UIViewController *)addPrintLaterJobTableViewController;
 
 @end

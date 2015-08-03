@@ -244,7 +244,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 {
     NSDictionary *userInfo = notification.userInfo;
     
-    CGFloat height = self.textField.frame.size.height;
+    CGFloat height = 30;
     
     // Start and end frame positions for the traditional keyboard
     CGRect startFrame;

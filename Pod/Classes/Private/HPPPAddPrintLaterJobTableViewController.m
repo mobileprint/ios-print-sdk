@@ -60,9 +60,8 @@
 
 NSString * const kAddJobScreenName = @"Add Job Screen";
 
-NSInteger const kHPPPDocumentDisplaySection = 0;
-NSInteger const kHPPPJobSummarySection = 1;
-NSInteger const kHPPPPrintSettingsSection = 4;
+NSInteger const kHPPPJobSummarySection = 0;
+NSInteger const kHPPPPrintSettingsSection = 3;
 NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 - (void)viewDidLoad
@@ -82,6 +81,10 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     }
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
+    if (IS_IPAD && IS_OS_8_OR_LATER) {
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
+    }
     
     HPPP *hppp = [HPPP sharedInstance];
     
@@ -184,6 +187,21 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kAddJobScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"viewDidAppear");
+    
+    [super viewDidAppear:animated];
+    
+    if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
+        self.multiPageView = self.pageViewController.multiPageView;
+        self.multiPageView.delegate = self;
+        [self configureMultiPageView];
+    }
+    
+    [self.multiPageView refreshLayout];
+}
+
 - (void)setEditFrames
 {
     self.editViewFrame = [self.navigationController.view convertRect:self.view.frame fromView:[self.view superview]];
@@ -221,7 +239,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -259,17 +277,6 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     return height;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    CGFloat height = ZERO_HEIGHT;
-    
-    if( section > kHPPPDocumentDisplaySection ) {
-        height = tableView.sectionFooterHeight;
-    }
-
-    return height;
-}
-
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -289,12 +296,12 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
             BOOL result = [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob];
             
             if (result) {
-                if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidFinishPrintFlow:)]) {
-                    [self.delegate addPrintLaterJobTableViewControllerDidFinishPrintFlow:self];
+                if ([self.delegate respondsToSelector:@selector(didFinishAddPrintLaterFlow:)]) {
+                    [self.delegate didFinishAddPrintLaterFlow:self];
                 }
             } else {
-                if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidCancelPrintFlow:)]) {
-                    [self.delegate addPrintLaterJobTableViewControllerDidCancelPrintFlow:self];
+                if ([self.delegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
+                    [self.delegate didCancelAddPrintLaterFlow:self];
                 }
             }
         }
@@ -370,8 +377,8 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         [self.editView cancelEditing];
         [self dismissEditView];
         
-    } else if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidCancelPrintFlow:)]) {
-        [self.delegate addPrintLaterJobTableViewControllerDidCancelPrintFlow:self];
+    } else if ([self.delegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
+        [self.delegate didCancelAddPrintLaterFlow:self];
     }
 }
 
