@@ -202,6 +202,19 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     [self.multiPageView refreshLayout];
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    [self.tableView reloadData];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [self.view layoutIfNeeded];
+    [self.multiPageView refreshLayout];
+}
+
 - (void)setEditFrames
 {
     self.editViewFrame = [self.navigationController.view convertRect:self.view.frame fromView:[self.view superview]];

@@ -333,6 +333,13 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     [self.multiPageView refreshLayout];
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    [self.tableView reloadData];
+}
+
 - (void)viewDidLayoutSubviews
 {
     [self.view layoutIfNeeded];
