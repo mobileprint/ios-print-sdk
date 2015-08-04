@@ -669,14 +669,20 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 -(void)reloadJobSummary
 {
-    NSArray *pages = [[NSArray alloc] init];
+    NSArray *allPages = [[NSArray alloc] init];
+    NSArray *uniquePages = [[NSArray alloc] init];
+    NSInteger numPagesToBePrinted = 0;
     if( ![kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
-        pages = [self.pageRange getPages];
+        allPages = [self.pageRange getPages];
+        uniquePages = [self.pageRange getUniquePages];
+        numPagesToBePrinted = allPages.count * self.numberOfCopiesStepper.value;
     }
     
+    BOOL printingOneCopyOfAllPages = (1 == self.numberOfCopiesStepper.value && [kPageRangeAllPages isEqualToString:self.pageRangeCell.detailTextLabel.text]);
+
     NSString *text = @"";
-    if( 1 < self.printItem.numberOfPages  &&  pages.count != self.printItem.numberOfPages ) {
-        text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)pages.count, (long)self.printItem.numberOfPages];
+    if( 1 < self.printItem.numberOfPages ) {
+        text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)uniquePages.count, (long)self.printItem.numberOfPages];
     }
     
     if( text.length > 0 ) {
@@ -687,16 +693,16 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     self.jobSummaryCell.textLabel.text = text;
     
-    if( 0 == pages.count  ||  pages.count >= self.printItem.numberOfPages ) {
+    if( 0 == allPages.count  ||  printingOneCopyOfAllPages ) {
         self.printLabel.text = @"Print";
-    } else if( 1 == pages.count ) {
-        self.printLabel.text = [NSString stringWithFormat:@"Print %ld Page", (long)pages.count];
+    } else if( 1 == numPagesToBePrinted ) {
+        self.printLabel.text = @"Print 1 Page";
     } else {
-        self.printLabel.text = [NSString stringWithFormat:@"Print %ld Pages", (long)pages.count];
+        self.printLabel.text = [NSString stringWithFormat:@"Print %ld Pages", (long)numPagesToBePrinted];
     }
     
     HPPP *hppp = [HPPP sharedInstance];
-    if( 0 == pages.count ) {
+    if( 0 == allPages.count ) {
         self.printCell.userInteractionEnabled = FALSE;
         self.printLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute];
     } else {
@@ -815,6 +821,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     } else {
         self.printLabel.text = [self stringFromNumberOfPrintingItems:1 copies:self.numberOfCopies];
     }
+    
+    [self reloadJobSummary];
 }
 
 #pragma mark - Switch actions

@@ -77,6 +77,28 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
     return [HPPPPageRange getPagesFromPageRange:self.range allPagesIndicator:self.allPagesIndicator maxPageNum:self.maxPageNum];
 }
 
+- (NSArray *) getUniquePages
+{
+    NSArray *allPages = [self getPages];
+    NSMutableArray *uniquePages = [[NSMutableArray alloc] init];
+
+    if( !self.sortAscending ) {
+        NSString *range = [HPPPPageRange cleanPageRange:self.range allPagesIndicator:self.allPagesIndicator maxPageNum:self.maxPageNum sortAscending:TRUE];
+        allPages = [HPPPPageRange getPagesFromPageRange:range allPagesIndicator:self.allPagesIndicator maxPageNum:self.maxPageNum];
+    }
+    
+    // Now that we've ensured a sorted allPages array, weed out the duplicates
+    for (int i=0; i<allPages.count; i++) {
+        if( allPages.count-1 == i  ||
+            [allPages[i] integerValue] != [allPages[i+1] integerValue] ) {
+            
+            [uniquePages addObject:allPages[i]];
+        }
+    }
+    
+    return uniquePages;
+}
+
 - (void) addPage:(NSNumber *)page
 {
     NSMutableArray *pages = [[self getPages] mutableCopy];

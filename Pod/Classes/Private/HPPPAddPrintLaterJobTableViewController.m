@@ -502,14 +502,20 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 -(void)reloadJobSummary
 {
-    NSArray *pages = [[NSArray alloc] init];
+    NSArray *allPages = [[NSArray alloc] init];
+    NSArray *uniquePages = [[NSArray alloc] init];
+    NSInteger numPagesToBePrinted = 0;
     if( ![kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
-        pages = [self.pageRange getPages];
+        allPages = [self.pageRange getPages];
+        uniquePages = [self.pageRange getUniquePages];
+        numPagesToBePrinted = allPages.count * self.numCopiesStepper.value;
     }
+    
+    BOOL printingOneCopyOfAllPages = (1 == self.numCopiesStepper.value && [kPageRangeAllPages isEqualToString:self.pageRangeCell.detailTextLabel.text]);
     
     NSString *text = @"";
     if( 1 < self.printItem.numberOfPages ) {
-        text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)pages.count, (long)self.printItem.numberOfPages];
+        text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)uniquePages.count, (long)self.printItem.numberOfPages];
     }
     
     if( self.blackAndWhiteSwitch.on ) {
@@ -532,16 +538,16 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     
     self.jobSummaryCell.detailTextLabel.text = text;
     
-    if( 0 == pages.count  ||  pages.count >= self.printItem.numberOfPages ) {
+    if( 0 == allPages.count  ||  printingOneCopyOfAllPages ) {
         self.addToPrintQLabel.text = @"Add to Print Queue";
-    } else if( 1 == pages.count ) {
-        self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Page", (long)pages.count];
+    } else if( 1 == numPagesToBePrinted ) {
+        self.addToPrintQLabel.text = @"Add 1 Page";
     } else {
-        self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Pages", (long)pages.count];
+        self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Pages", (long)numPagesToBePrinted];
     }
 
     HPPP *hppp = [HPPP sharedInstance];
-    if( 0 == pages.count ) {
+    if( 0 == allPages.count ) {
         self.addToPrintQCell.userInteractionEnabled = FALSE;
         self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute];
     } else {

@@ -141,6 +141,38 @@
     }
 }
 
+- (void)testGetUniquePages {
+    HPPPPageRange *pageRange;
+    NSString *kRange = @"10,10,10,7,6,1,1,4,5";
+    
+    NSArray *kSortedResults = @[ [NSNumber numberWithInteger:1],
+                                 [NSNumber numberWithInteger:4],
+                                 [NSNumber numberWithInteger:5],
+                                 [NSNumber numberWithInteger:6],
+                                 [NSNumber numberWithInteger:7],
+                                 [NSNumber numberWithInteger:10] ];
+    NSInteger kMaxPage = 10;
+    
+    pageRange = [[HPPPPageRange alloc] initWithString:kRange allPagesIndicator:@"" maxPageNum:kMaxPage sortAscending:FALSE];
+    
+    // Unsorted test (results are always sorted... even if the range is not)
+    NSArray *pages = [pageRange getUniquePages];
+    for( int i=0; i<kSortedResults.count; i++) {
+        if( [pages[i] integerValue] != [kSortedResults[i] integerValue] ) {
+            XCTAssert(FALSE, @"Unsorted pages are in the wrong order: %@", pages);
+        }
+    }
+    
+    // Sorted test
+    pageRange.sortAscending = TRUE;
+    pages = [pageRange getUniquePages];
+    for( int i=0; i<kSortedResults.count; i++) {
+        if( [pages[i] integerValue] != [kSortedResults[i] integerValue] ) {
+            XCTAssert(FALSE, @"Sorted pages are in the wrong order: %@", pages);
+        }
+    }
+}
+
 - (void)testAddPage {
     HPPPPageRange *pageRange;
     NSString *kRange = @"10,8,7,6,1,2,3,4,5";
@@ -214,6 +246,5 @@
     XCTAssert([kSortedResult isEqualToString:pageRange.range], @"Sorted page removed incorrectly: %@", pageRange.range);
 
 }
-
 
 @end
