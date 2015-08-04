@@ -261,19 +261,27 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
     } else if( scrubbedRange.length == 0 ) {
         // do nothing
     } else {
+        // No leading 0's
         // No ",-"... replace with ","
         // No "-,"... replace with ","
         // No "--"... replace with "-"
+        // No ",0,"... replace with ","
         // No ",,"... replace with ","
         // No strings starting or ending with "," or "-"
         // Replace all page numbers of 0 with 1
         // Replace all page numbers greater than the doc length with the doc length
         // No "%d1-%d2-%d3"... replace with "%d1-%d3"
         
+        // pull off any 0 at the beginning of the string
+        while ([@"0" isEqualToString:[scrubbedRange substringToIndex:1]]) {
+            scrubbedRange = [scrubbedRange substringFromIndex:1];
+        }
+        
         scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",-" withString:@","];
         scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-," withString:@","];
         scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",," withString:@","];
         scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"--" withString:@"-"];
+        scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",0," withString:@","];
         
         scrubbedRange = [scrubbedRange stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-,"]];
         scrubbedRange = [HPPPPageRange replaceBadDashUsage:scrubbedRange];
