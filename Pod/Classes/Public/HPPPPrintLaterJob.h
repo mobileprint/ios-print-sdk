@@ -12,6 +12,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HPPPPageRange.h"
+#import "HPPPPrintItem.h"
 
 /*!
  * @abstract Represents a single print job
@@ -66,5 +67,11 @@
  * @discussion This image is created to suit the HPPP default paper size
  */
 - (UIImage *)previewImage;
+
+/*!
+ * @abstract A method to return printItem based on paper size title
+ */
+- (HPPPPrintItem *) printItemForPaperSize:(NSString *)paperSizeTitle;
+
 
 @end

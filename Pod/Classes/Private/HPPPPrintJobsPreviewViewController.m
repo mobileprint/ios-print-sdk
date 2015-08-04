@@ -144,11 +144,11 @@ extern NSString * const kHPPPLastPaperSizeSetting;
 - (HPPPPrintItem *)printItemForPaperSize:(PaperSize)paperSize
 {
     NSString *paperSizeTitle = [HPPPPaper titleFromSize:paperSize];
-    HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:paperSizeTitle];
+    HPPPPrintItem *printItem = [self.printLaterJob printItemForPaperSize:paperSizeTitle];
+    
     if (printItem == nil) {
-        printItem = [self.printLaterJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
+        printItem = [self.printLaterJob printItemForPaperSize:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
     }
-    return printItem;
-}
+    return printItem;}
 
 @end

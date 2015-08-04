@@ -13,6 +13,7 @@
 #import "HPPP.h"
 #import "HPPPPrintLaterJob.h"
 #import "HPPPPrintItem.h"
+#import "HPPPPrintItemFactory.h"
 
 NSString * const kHPPPPrintLaterJobId = @"kHPPPPrintLaterJobId";
 NSString * const kHPPPPrintLaterJobName = @"kHPPPPrintLaterJobName";
@@ -74,9 +75,22 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
 - (UIImage *)previewImage
 {
     HPPPPaper *initialPaper = [[HPPPPaper alloc] initWithPaperSize:[HPPP sharedInstance].defaultPaper.paperSize paperType:Plain];
-    HPPPPrintItem *printItem = [self.printItems objectForKey:initialPaper.sizeTitle];
+    HPPPPrintItem *printItem = [self printItemForPaperSize:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
     
     return [printItem previewImageForPaper:initialPaper];
+}
+
+- (HPPPPrintItem *) printItemForPaperSize:(NSString *)paperSizeTitle
+{
+    id rawPrintItem = [self.printItems objectForKey:paperSizeTitle];
+    
+    HPPPPrintItem *printItem;
+    if( [rawPrintItem isKindOfClass:[HPPPPrintItem class]] ) {
+        printItem = rawPrintItem;
+    } else {
+        printItem = [HPPPPrintItemFactory printItemWithAsset:rawPrintItem];
+    }
+    return printItem;
 }
 
 - (NSString *)description
