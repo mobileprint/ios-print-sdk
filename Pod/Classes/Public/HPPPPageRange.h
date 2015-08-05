@@ -55,6 +55,12 @@
 - (NSArray *) getPages;
 
 /*!
+ * @abstract Used to obtain an array of unique pages (no duplicates) included in the page range.
+ * @returns An NSArray filled with NSNumbers.  The array is always returned in ascending order.  Duplicate pages are not included.
+ */
+- (NSArray *) getUniquePages;
+
+/*!
  * @abstract Used to add a page to the page range.
  * @discussion The page number is added to the existing page range.
  */

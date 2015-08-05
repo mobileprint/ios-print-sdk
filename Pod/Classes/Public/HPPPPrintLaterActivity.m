@@ -10,12 +10,13 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPPrintLaterActivity.h"
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPAddPrintLaterJobTableViewController.h"
 #import "NSBundle+HPPPLocalizable.h"
 
-@interface HPPPPrintLaterActivity () <HPPPAddPrintLaterJobTableViewControllerDelegate>
+@interface HPPPPrintLaterActivity () <HPPPAddPrintLaterDelegate>
 
 @end
 
@@ -43,28 +44,19 @@
 
 - (UIViewController *)activityViewController
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
-    
-    UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPAddPrintLaterJobNavigationController"];
-    
-    HPPPAddPrintLaterJobTableViewController *addPrintLaterJobTableViewController = (HPPPAddPrintLaterJobTableViewController *) navigationController.topViewController;
-    
-    addPrintLaterJobTableViewController.printLaterJob = self.printLaterJob;
-    addPrintLaterJobTableViewController.delegate = self;
-    
-    return navigationController;
+    return [[HPPP sharedInstance] printLaterViewControllerWithDelegate:self printLaterJob:self.printLaterJob];
 }
 
 #pragma mark - HPPPAddPrintLaterJobTableViewControllerDelegate
 
-- (void)addPrintLaterJobTableViewControllerDidFinishPrintFlow:(HPPPAddPrintLaterJobTableViewController *)addPrintLaterJobTableViewController
+- (void)didFinishAddPrintLaterFlow:(HPPPAddPrintLaterJobTableViewController *)addPrintLaterJobTableViewController
 {
     dispatch_async(dispatch_get_main_queue(), ^ {
         [self activityDidFinish:YES];
     });
 }
 
-- (void)addPrintLaterJobTableViewControllerDidCancelPrintFlow:(HPPPAddPrintLaterJobTableViewController *)addPrintLaterJobTableViewController
+- (void)didCancelAddPrintLaterFlow:(HPPPAddPrintLaterJobTableViewController *)addPrintLaterJobTableViewController
 {
     dispatch_async(dispatch_get_main_queue(), ^ {
         [self activityDidFinish:NO];

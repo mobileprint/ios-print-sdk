@@ -11,10 +11,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPPP.h"
 #import "HPPPPrintLaterJob.h"
 #import "HPPPPageRangeView.h"
-
-@protocol HPPPAddPrintLaterJobTableViewControllerDelegate;
+#import "HPPPPageViewController.h"
 
 /*!
  * @abstract The view controller class for adding a job to the print queue
@@ -25,23 +25,17 @@
  * @abstract A delegate that is called when the user cancels or completes the "add job to print queue" process
  * @seealso HPPPAddPrintLaterJobTableViewControllerDelegate
  */
-@property (nonatomic, weak) id<HPPPAddPrintLaterJobTableViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<HPPPAddPrintLaterDelegate> delegate;
 
 /*!
  * @abstract The job to be added to the print queue
  */
 @property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
 
-@end
-
-
 /*!
- * @abstract Protocol used to indicate that the "add job to print queue" flow has been finished or cancelled
+ * @abstract The graphical page representation part of the print preview
+ * @discussion The pageViewController is reponsible for displaying a graphical representation of the print on the page. It is one part of the overall page settings view also known as the print preview.
  */
-@protocol HPPPAddPrintLaterJobTableViewControllerDelegate <NSObject>
-
-- (void)addPrintLaterJobTableViewControllerDidFinishPrintFlow:(HPPPAddPrintLaterJobTableViewController *)addPrintLaterJobTableViewController;
-
-- (void)addPrintLaterJobTableViewControllerDidCancelPrintFlow:(HPPPAddPrintLaterJobTableViewController *)addPrintLaterJobTableViewController;
+@property (nonatomic, weak) HPPPPageViewController *pageViewController;
 
 @end

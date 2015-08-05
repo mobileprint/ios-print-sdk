@@ -60,9 +60,9 @@
 
 NSString * const kAddJobScreenName = @"Add Job Screen";
 
-NSInteger const kHPPPDocumentDisplaySection = 0;
-NSInteger const kHPPPJobSummarySection = 1;
-NSInteger const kHPPPPrintSettingsSection = 4;
+NSInteger const kNumberOfSectionsInTable = 4;
+NSInteger const kHPPPJobSummarySection = 0;
+NSInteger const kHPPPPrintSettingsSection = 3;
 NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 - (void)viewDidLoad
@@ -82,6 +82,10 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     }
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
+    if (IS_IPAD && IS_OS_8_OR_LATER) {
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
+    }
     
     HPPP *hppp = [HPPP sharedInstance];
     
@@ -184,6 +188,34 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kAddJobScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"viewDidAppear");
+    
+    [super viewDidAppear:animated];
+    
+    if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
+        self.multiPageView = self.pageViewController.multiPageView;
+        self.multiPageView.delegate = self;
+        [self configureMultiPageView];
+    }
+    
+    [self.multiPageView refreshLayout];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    [self.tableView reloadData];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [self.view layoutIfNeeded];
+    [self.multiPageView refreshLayout];
+}
+
 - (void)setEditFrames
 {
     self.editViewFrame = [self.navigationController.view convertRect:self.view.frame fromView:[self.view superview]];
@@ -221,7 +253,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return kNumberOfSectionsInTable;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -259,17 +291,6 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     return height;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    CGFloat height = ZERO_HEIGHT;
-    
-    if( section > kHPPPDocumentDisplaySection ) {
-        height = tableView.sectionFooterHeight;
-    }
-
-    return height;
-}
-
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -289,12 +310,12 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
             BOOL result = [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob];
             
             if (result) {
-                if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidFinishPrintFlow:)]) {
-                    [self.delegate addPrintLaterJobTableViewControllerDidFinishPrintFlow:self];
+                if ([self.delegate respondsToSelector:@selector(didFinishAddPrintLaterFlow:)]) {
+                    [self.delegate didFinishAddPrintLaterFlow:self];
                 }
             } else {
-                if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidCancelPrintFlow:)]) {
-                    [self.delegate addPrintLaterJobTableViewControllerDidCancelPrintFlow:self];
+                if ([self.delegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
+                    [self.delegate didCancelAddPrintLaterFlow:self];
                 }
             }
         }
@@ -370,8 +391,8 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         [self.editView cancelEditing];
         [self dismissEditView];
         
-    } else if ([self.delegate respondsToSelector:@selector(addPrintLaterJobTableViewControllerDidCancelPrintFlow:)]) {
-        [self.delegate addPrintLaterJobTableViewControllerDidCancelPrintFlow:self];
+    } else if ([self.delegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
+        [self.delegate didCancelAddPrintLaterFlow:self];
     }
 }
 
@@ -482,14 +503,20 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 -(void)reloadJobSummary
 {
-    NSArray *pages = [[NSArray alloc] init];
+    NSArray *allPages = [[NSArray alloc] init];
+    NSArray *uniquePages = [[NSArray alloc] init];
+    NSInteger numPagesToBePrinted = 0;
     if( ![kPageRangeNoPages isEqualToString:self.pageRangeCell.detailTextLabel.text] ) {
-        pages = [self.pageRange getPages];
+        allPages = [self.pageRange getPages];
+        uniquePages = [self.pageRange getUniquePages];
+        numPagesToBePrinted = allPages.count * self.numCopiesStepper.value;
     }
+    
+    BOOL printingOneCopyOfAllPages = (1 == self.numCopiesStepper.value && [kPageRangeAllPages isEqualToString:self.pageRangeCell.detailTextLabel.text]);
     
     NSString *text = @"";
     if( 1 < self.printItem.numberOfPages ) {
-        text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)pages.count, (long)self.printItem.numberOfPages];
+        text = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)uniquePages.count, (long)self.printItem.numberOfPages];
     }
     
     if( self.blackAndWhiteSwitch.on ) {
@@ -512,16 +539,16 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     
     self.jobSummaryCell.detailTextLabel.text = text;
     
-    if( 0 == pages.count  ||  pages.count >= self.printItem.numberOfPages ) {
+    if( 0 == allPages.count  ||  printingOneCopyOfAllPages ) {
         self.addToPrintQLabel.text = @"Add to Print Queue";
-    } else if( 1 == pages.count ) {
-        self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Page", (long)pages.count];
+    } else if( 1 == numPagesToBePrinted ) {
+        self.addToPrintQLabel.text = @"Add 1 Page";
     } else {
-        self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Pages", (long)pages.count];
+        self.addToPrintQLabel.text = [NSString stringWithFormat:@"Add %ld Pages", (long)numPagesToBePrinted];
     }
 
     HPPP *hppp = [HPPP sharedInstance];
-    if( 0 == pages.count ) {
+    if( 0 == allPages.count ) {
         self.addToPrintQCell.userInteractionEnabled = FALSE;
         self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute];
     } else {
