@@ -241,8 +241,12 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
                 returnRange = [returnRange stringByAppendingString:[NSString stringWithFormat:@"%@%ld-%ld", separator, startOfRange, endOfRange]];
                 
             } else if( chunk.length > 0 ){
-                NSInteger value = [HPPPPageRange getProperPageNumber:chunk maxPageNum:maxPageNum];
-                returnRange = [returnRange stringByAppendingString:[NSString stringWithFormat:@"%@%ld", separator, value]];
+                NSInteger prelimValue = [chunk integerValue];
+                // No zeros
+                if( 0 != prelimValue ) {
+                    NSInteger value = [HPPPPageRange getProperPageNumber:chunk maxPageNum:maxPageNum];
+                    returnRange = [returnRange stringByAppendingString:[NSString stringWithFormat:@"%@%ld", separator, value]];
+                }
             }
             
             separator = @",";

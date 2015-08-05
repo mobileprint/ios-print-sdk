@@ -50,7 +50,7 @@
     NSString *kOutOfBounds = @"1,2,100,5,6";
     NSString *kOutOfBoundsResult = @"1,2,10,5,6";
 
-    NSString *kOutOfBounds2 = @"0,0,0,1,2,100,5,6";
+    NSString *kOutOfBounds2 = @"00000,0,0,1,2,100,5,6,00000,0";
     NSString *kOutOfBoundsResult2 = @"1,2,10,5,6";
     
     NSString *kExtremeOutOfBounds = @"00000000000001,100000000000,1234123412341341341234123413241324124,0-3,3-0";
