@@ -36,8 +36,6 @@ static NSString *kAllButtonText = @"ALL";
 static NSString *kAllPagesIndicator = @"";
 static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
-static const NSInteger kTextFieldHeight = 30;
-
 - (void)initWithXibName:(NSString *)xibName
 {
     [super initWithXibName:xibName];
@@ -246,7 +244,7 @@ static const NSInteger kTextFieldHeight = 30;
 {
     NSDictionary *userInfo = notification.userInfo;
     
-    CGFloat height = kTextFieldHeight;
+    CGFloat height = self.textField.frame.size.height;
     
     // Start and end frame positions for the traditional keyboard
     CGRect startFrame;
