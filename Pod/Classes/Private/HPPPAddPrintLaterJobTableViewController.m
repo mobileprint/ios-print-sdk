@@ -60,6 +60,7 @@
 
 NSString * const kAddJobScreenName = @"Add Job Screen";
 
+NSInteger const kNumberOfSectionsInTable = 4;
 NSInteger const kHPPPJobSummarySection = 0;
 NSInteger const kHPPPPrintSettingsSection = 3;
 NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
@@ -252,7 +253,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return kNumberOfSectionsInTable;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
