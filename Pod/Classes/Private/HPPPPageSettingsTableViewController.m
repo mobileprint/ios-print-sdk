@@ -96,6 +96,7 @@
 @property (strong, nonatomic) UIView *smokeyView;
 @property (strong, nonatomic) UIButton *smokeyCancelButton;
 @property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
+@property (assign, nonatomic) CGRect editViewFrame;
 @property (strong, nonatomic) UIButton *pageSelectionMark;
 @property (strong, nonatomic) UIImage *selectedPageImage;
 @property (strong, nonatomic) UIImage *unselectedPageImage;
@@ -344,6 +345,10 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     [self.view layoutIfNeeded];
     [self.multiPageView refreshLayout];
+    [self setEditFrames];
+    if( self.pageRangeView ) {
+        [self.pageRangeView refreshLayout:(CGRect)self.editViewFrame];
+    }
 }
 
 - (void)dealloc
@@ -567,15 +572,22 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)setEditFrames
 {
-    self.pageRangeView.frame = [self.navigationController.view convertRect:self.view.frame fromView:[self.view superview]];
+    self.editViewFrame = [self.navigationController.view convertRect:self.view.frame fromView:[self.view superview]];
     self.smokeyView.frame = [[UIScreen mainScreen] bounds];
     
     // We can't make use of hidden methods, so this position is hard-coded... at a decent risk of truncation and bad position
-    //  Hidden method: self.smokeyCancelButton.frame = [self.navigationController.view convertRect:((UIView*)[self.cancelBarButtonItem performSelector:@selector(view)]).frame fromView:self.navigationController.navigationBar];
-    int cancelButtonWidth = 54;
-    int cancelButtonRightMargin = IS_IPAD ? 20 : 8;
-    int cancelButtonXOrigin = self.smokeyView.frame.size.width - (cancelButtonWidth + cancelButtonRightMargin);
-    self.smokeyCancelButton.frame = CGRectMake(cancelButtonXOrigin, 27, cancelButtonWidth, 30);
+    //  Hidden method: self.smokeyCancelButton.frame = [self.navigationController.view convertRect:((UIView*)[self.cancelButtonItem performSelector:@selector(view)]).frame fromView:self.navigationController.navigationBar];
+    if( IS_PORTRAIT ) {
+        int cancelButtonWidth = 54;
+        int cancelButtonRightMargin = IS_IPAD ? 20 : 8;
+        int cancelButtonXOrigin = self.smokeyView.frame.size.width - (cancelButtonWidth + cancelButtonRightMargin);
+        self.smokeyCancelButton.frame = CGRectMake(cancelButtonXOrigin, 27, cancelButtonWidth, 30);
+    } else {
+        int cancelButtonWidth = 54;
+        int cancelButtonRightMargin = 20;
+        int cancelButtonXOrigin = self.smokeyView.frame.size.width - (cancelButtonWidth + cancelButtonRightMargin);
+        self.smokeyCancelButton.frame = CGRectMake(cancelButtonXOrigin, 7, cancelButtonWidth, 30);
+    }
 }
 
 -(void)displaySmokeyView:(BOOL)display
@@ -960,6 +972,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         [self oneTouchPrint:tableView];
     } else if (cell == self.pageRangeCell){
         [self setEditFrames];
+        self.pageRangeView.frame = self.editViewFrame;
         
         [UIView animateWithDuration:0.6f animations:^{
             [self displaySmokeyView:TRUE];
