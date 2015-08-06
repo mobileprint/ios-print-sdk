@@ -263,8 +263,12 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
                 returnRange = [returnRange stringByAppendingString:[NSString stringWithFormat:@"%@%ld-%ld", separator, startOfRange, endOfRange]];
                 
             } else if( chunk.length > 0 ){
-                NSInteger value = [HPPPPageRange getProperPageNumber:chunk maxPageNum:maxPageNum];
-                returnRange = [returnRange stringByAppendingString:[NSString stringWithFormat:@"%@%ld", separator, value]];
+                NSInteger prelimValue = [chunk integerValue];
+                // No zeros
+                if( 0 != prelimValue ) {
+                    NSInteger value = [HPPPPageRange getProperPageNumber:chunk maxPageNum:maxPageNum];
+                    returnRange = [returnRange stringByAppendingString:[NSString stringWithFormat:@"%@%ld", separator, value]];
+                }
             }
             
             separator = @",";
@@ -291,6 +295,8 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
         // Replace all page numbers of 0 with 1
         // Replace all page numbers greater than the doc length with the doc length
         // No "%d1-%d2-%d3"... replace with "%d1-%d3"
+        // All page entries of "0" are ignored.
+        // Ranges of "0-X" or "X-0" are converted to "1-X" and "X-1"
         
         scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@",-" withString:@","];
         scrubbedRange = [scrubbedRange stringByReplacingOccurrencesOfString:@"-," withString:@","];
