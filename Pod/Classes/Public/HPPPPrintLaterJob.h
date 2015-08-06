@@ -69,7 +69,7 @@
 - (UIImage *)previewImage;
 
 /*!
- * @abstract A method to return printItem based on paper size title
+ * @abstract A method to return the @HPPPPrintItem based on paper size title
  */
 - (HPPPPrintItem *) printItemForPaperSize:(NSString *)paperSizeTitle;
 

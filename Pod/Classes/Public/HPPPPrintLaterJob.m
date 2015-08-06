@@ -90,6 +90,11 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
     } else {
         printItem = [HPPPPrintItemFactory printItemWithAsset:rawPrintItem];
     }
+    
+    if( nil == printItem ) {
+        HPPPLogWarn(@"No printitem found for paper size %@", paperSizeTitle);
+    }
+    
     return printItem;
 }
 
