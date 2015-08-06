@@ -28,6 +28,15 @@
     self.textField.delegate = self;
 }
 
+- (void)refreshLayout:(CGRect)newFrame
+{
+    if( self.frame.size.width != newFrame.size.width ) {
+        self.frame = newFrame;
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
+    }
+}
+
 #pragma mark - HPPPEditView implementation
 
 - (void)prepareForDisplay:(NSString *)initialText

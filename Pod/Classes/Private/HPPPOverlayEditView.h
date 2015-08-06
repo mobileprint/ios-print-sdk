@@ -19,5 +19,6 @@
 - (void)beginEditing;
 - (void)cancelEditing;
 - (void)commitEditing;
+- (void)refreshLayout:(CGRect)newFrame;
 
 @end

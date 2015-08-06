@@ -338,7 +338,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         pageSettingsTableViewController.printFromQueue = fromQueue;
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;
-        navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
+        navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
         
         return navigationController;
     }
@@ -385,7 +385,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         addToPrintQueueViewController.delegate = delegate;
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:addToPrintQueueViewController];
         navigationController.navigationBar.translucent = NO;
-        navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
+        navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
         
         return navigationController;
     }

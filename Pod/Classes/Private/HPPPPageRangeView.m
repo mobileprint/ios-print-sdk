@@ -42,6 +42,9 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
     
     self.textField.delegate = self;
     self.textField.placeholder = kPlaceholderText;
+    self.buttons = [[NSMutableArray alloc] init];
+    self.buttonContainer = [[UIView alloc] init];
+    [self addSubview:self.buttonContainer];
 }
 
 - (void)dealloc
@@ -49,27 +52,60 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
     [self removeButtons];
 }
 
+- (void)refreshLayout:(CGRect)newFrame
+{
+    if( self.frame.size.width != newFrame.size.width ) {
+        self.frame = newFrame;
+        [self addButtons];
+    
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
+    }
+}
+
 - (void)addButtons
+{
+    [self removeButtons];
+
+    if( IS_LANDSCAPE ) {
+        [self addButtonsLandscape];
+    } else {
+        [self addButtonsPortrait];
+    }
+}
+
+- (void)addButtonsLandscape
+{
+    NSLog(@"Adding landscape buttons: %@", self);
+    NSArray *buttonTitles = @[@"1", @"2", @"3", @"4", @"5", @"6", @",", kBackButtonText, @"7", @"8", @"9", @"0",kAllButtonText, @"-", kCheckButtonText];
+    
+    [self layoutButtons:buttonTitles buttonsPerRow:8 wideAllButton:TRUE];
+}
+
+- (void)addButtonsPortrait
+{
+    NSLog(@"Adding portrait buttons: %@", self);
+    NSArray *buttonTitles = @[@"1", @"2", @"3", kBackButtonText, @"4", @"5", @"6", @",", @"7", @"8", @"9", @"-", @"0", kAllButtonText, kCheckButtonText];
+
+    [self layoutButtons:buttonTitles buttonsPerRow:4 wideAllButton:TRUE];
+}
+
+- (void)layoutButtons:(NSArray *)buttonTitles buttonsPerRow:(NSInteger)buttonsPerRow wideAllButton:(BOOL)doubleWideAllButton
 {
     UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width, self.frame.size.height, 1, 1)];
     self.textField.inputView = dummyView; // Hide keyboard, but show blinking cursor
-
-    [self removeButtons];
     
-    int buttonWidth = self.frame.size.width/4 + 1;
+    int buttonWidth = self.frame.size.width/buttonsPerRow + 1;
     int buttonHeight = .8 * buttonWidth;
-    self.buttonContainerOriginY = self.frame.size.height - (4*buttonHeight);
+    self.buttonContainerOriginY = self.frame.size.height - (((buttonTitles.count+doubleWideAllButton)/buttonsPerRow)*buttonHeight);
 
-    self.buttonContainer = [[UIView alloc] initWithFrame:CGRectMake(0, self.buttonContainerOriginY, self.frame.size.width, self.frame.size.height - self.buttonContainerOriginY)];
-    [self addSubview:self.buttonContainer];
-    
-    NSArray *buttonTitles = @[@"1", @"2", @"3", kBackButtonText, @"4", @"5", @"6", @",", @"7", @"8", @"9", @"-", @"0", kAllButtonText, kCheckButtonText];
+    self.buttonContainer.frame = CGRectMake(0, self.buttonContainerOriginY, self.frame.size.width, self.frame.size.height - self.buttonContainerOriginY);
     
     int yOrigin = 0;
     for( int i = 0, buttonOffset = 0; i<[buttonTitles count]; i++ ) {
         NSString *buttonText = [buttonTitles objectAtIndex:i];
-        int row = (int)(i/4);
-        int col = i%4;
+        int row = (int)(i/buttonsPerRow);
+        int col = i%buttonsPerRow;
 
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [button setTitle:buttonText forState:UIControlStateNormal];
@@ -81,9 +117,13 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
         [button addTarget:self action:@selector(onButtonDown:) forControlEvents:UIControlEventTouchUpInside];
 
         if( [buttonText isEqualToString:[kAllButtonText copy]] ) {
+            NSInteger width = buttonWidth;
+            if( doubleWideAllButton ) {
+                width = buttonWidth*2;
+                buttonOffset++;
+            }
             button.titleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:16];
-            button.frame = CGRectMake(col*buttonWidth, yOrigin + (row*buttonHeight), buttonWidth*2, buttonHeight);
-            buttonOffset++;
+            button.frame = CGRectMake(col*buttonWidth, yOrigin + (row*buttonHeight), width, buttonHeight);
         } else {
             if( [buttonText isEqualToString:[kCheckButtonText copy]] ) {
                 button.titleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:16];
@@ -117,8 +157,6 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
     for( UIButton *button in self.buttons ) {
         [button removeFromSuperview];
     }
-    
-    [self.buttonContainer removeFromSuperview];
 }
 
 #pragma mark - HPPPEditView implementation
