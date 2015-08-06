@@ -214,6 +214,10 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 {
     [self.view layoutIfNeeded];
     [self.multiPageView refreshLayout];
+    [self setEditFrames];
+    if( self.editView ) {
+        [self.editView refreshLayout:(CGRect)self.editViewFrame];
+    }
 }
 
 - (void)setEditFrames
@@ -223,10 +227,17 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
   
     // We can't make use of hidden methods, so this position is hard-coded... at a decent risk of truncation and bad position
     //  Hidden method: self.smokeyCancelButton.frame = [self.navigationController.view convertRect:((UIView*)[self.cancelButtonItem performSelector:@selector(view)]).frame fromView:self.navigationController.navigationBar];
-    int cancelButtonWidth = 54;
-    int cancelButtonRightMargin = IS_IPAD ? 20 : 8;
-    int cancelButtonXOrigin = self.smokeyView.frame.size.width - (cancelButtonWidth + cancelButtonRightMargin);
-    self.smokeyCancelButton.frame = CGRectMake(cancelButtonXOrigin, 27, cancelButtonWidth, 30);
+    if( IS_PORTRAIT ) {
+        int cancelButtonWidth = 54;
+        int cancelButtonRightMargin = IS_IPAD ? 20 : 8;
+        int cancelButtonXOrigin = self.smokeyView.frame.size.width - (cancelButtonWidth + cancelButtonRightMargin);
+        self.smokeyCancelButton.frame = CGRectMake(cancelButtonXOrigin, 27, cancelButtonWidth, 30);
+    } else {
+        int cancelButtonWidth = 54;
+        int cancelButtonRightMargin = 20;
+        int cancelButtonXOrigin = self.smokeyView.frame.size.width - (cancelButtonWidth + cancelButtonRightMargin);
+        self.smokeyCancelButton.frame = CGRectMake(cancelButtonXOrigin, 7, cancelButtonWidth, 30);
+    }
 }
 
 - (void)configureMultiPageView
