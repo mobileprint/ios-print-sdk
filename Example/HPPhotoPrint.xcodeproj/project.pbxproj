@@ -20,6 +20,9 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		650858461B0C352900B0C70F /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650858451B0C352900B0C70F /* DBChooser.framework */; };
+		651039B81B73FAA10013E738 /* 15 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B51B73FAA10013E738 /* 15 Pages.pdf */; };
+		651039B91B73FAA10013E738 /* 115 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B61B73FAA10013E738 /* 115 Pages.pdf */; };
+		651039BA1B73FAA10013E738 /* 236 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B71B73FAA10013E738 /* 236 Pages.pdf */; };
 		651357891B4C7BEE003B6935 /* HPPPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* HPPPSettingsTableViewController.m */; };
 		6531EB3E1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m */; };
 		65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */; };
@@ -85,6 +88,9 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		650858451B0C352900B0C70F /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
+		651039B51B73FAA10013E738 /* 15 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "15 Pages.pdf"; sourceTree = "<group>"; };
+		651039B61B73FAA10013E738 /* 115 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "115 Pages.pdf"; sourceTree = "<group>"; };
+		651039B71B73FAA10013E738 /* 236 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "236 Pages.pdf"; sourceTree = "<group>"; };
 		651357871B4C7BEE003B6935 /* HPPPSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPSettingsTableViewController.h; sourceTree = "<group>"; };
 		651357881B4C7BEE003B6935 /* HPPPSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPSettingsTableViewController.m; sourceTree = "<group>"; };
 		6531EB3C1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPMultiPageConfigurationViewController.h; sourceTree = "<group>"; };
@@ -257,8 +263,11 @@
 				65FFC9B01B03B0A400DCE2B4 /* 4 Pages.pdf */,
 				65FFC9B11B03B0A400DCE2B4 /* 6 Pages (landscape).pdf */,
 				65FFC9B21B03B0A400DCE2B4 /* 10 Pages.pdf */,
+				651039B51B73FAA10013E738 /* 15 Pages.pdf */,
 				65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */,
 				65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */,
+				651039B61B73FAA10013E738 /* 115 Pages.pdf */,
+				651039B71B73FAA10013E738 /* 236 Pages.pdf */,
 			);
 			name = PDF;
 			sourceTree = "<group>";
@@ -367,16 +376,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				651039B91B73FAA10013E738 /* 115 Pages.pdf in Resources */,
 				65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */,
 				65FFC9B31B03B0A400DCE2B4 /* 1 Page (landscape).pdf in Resources */,
 				65FFC9B81B03B0A400DCE2B4 /* 10 Pages.pdf in Resources */,
 				E32115E11A38BCE50079144C /* HPPPLearnMoreView.xib in Resources */,
 				65FFC9B71B03B0A400DCE2B4 /* 6 Pages (landscape).pdf in Resources */,
+				651039BA1B73FAA10013E738 /* 236 Pages.pdf in Resources */,
 				65FFC9B41B03B0A400DCE2B4 /* 1 Page.pdf in Resources */,
 				65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F5A1195388D20070C39A /* Main.storyboard in Resources */,
 				65FFC9B61B03B0A400DCE2B4 /* 4 Pages.pdf in Resources */,
+				651039B81B73FAA10013E738 /* 15 Pages.pdf in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				65FFC9B51B03B0A400DCE2B4 /* 2 Pages.pdf in Resources */,
 			);

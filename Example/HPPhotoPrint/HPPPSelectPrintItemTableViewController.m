@@ -58,8 +58,11 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
                      @"4 Pages",
                      @"6 Pages (landscape)",
                      @"10 Pages",
+                     @"15 Pages",
                      @"44 Pages",
-                     @"51 Pages"
+                     @"51 Pages",
+                     @"115 Pages",
+                     @"236 Pages"
                      ];
 }
 
