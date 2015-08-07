@@ -293,7 +293,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
                                                                          repeats:YES];
     }
     
-    self.printManager = [[HPPPPrintManager alloc] initWithPrintSettings:self.currentPrintSettings];
+    self.printManager = [[HPPPPrintManager alloc] init];
     self.printManager.delegate = self;
 }
 
@@ -796,6 +796,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     controller.showsNumberOfCopies = NO;
     
+    self.printManager.currentPrintSettings = self.currentPrintSettings;
     [self.printManager prepareController:controller printItem:self.printItem color:!self.blackAndWhiteModeSwitch.on pageRange:self.pageRange numCopies:self.numberOfCopies];
     
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
@@ -1093,7 +1094,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     id firstItem = [self.itemsToPrint firstObject];
     [self.itemsToPrint removeObject:firstItem];
 
-    self.printManager.currentPrintSettings = self.currentPrintSettings;
     [self print:firstItem];
 }
 
@@ -1119,6 +1119,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)print:(HPPPPrintItem *)printItem
 {
+    self.printManager.currentPrintSettings = self.currentPrintSettings;
+
     BOOL printInitiated = [self.printManager directPrint:printItem
                                                    color:!self.blackAndWhiteModeSwitch.on
                                                pageRange:self.pageRange

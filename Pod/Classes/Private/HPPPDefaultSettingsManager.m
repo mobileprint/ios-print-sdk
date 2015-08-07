@@ -11,6 +11,7 @@
 //
 
 #import "HPPPDefaultSettingsManager.h"
+#import "HPPP.h"
 
 NSString * const kDefaultPrinterNameKey = @"kDefaultPrinterNameKey";
 NSString * const kDefaultPrinterURLKey = @"kDefaultPrinterURLKey";
@@ -120,6 +121,19 @@ NSString * const kDefaultPrinterLocationKey = @"kDefaultPrinterLocationKey";
     NSString *defaultPrinterName = [self defaultPrinterName];
     
     return (nil != defaultPrinterName);
+}
+
+- (HPPPPrintSettings *)defaultPrintSettings
+{
+    HPPPPrintSettings *printSettings = [[HPPPPrintSettings alloc] init];
+    printSettings.printerId = nil;
+    printSettings.printerUrl = [NSURL URLWithString:self.defaultPrinterUrl];
+    printSettings.printerName = self.defaultPrinterName;
+    printSettings.printerModel = self.defaultPrinterModel;
+    printSettings.printerLocation = self.defaultPrinterLocation;
+    printSettings.paper = [[HPPP sharedInstance] defaultPaper];
+    
+    return printSettings;
 }
 
 @end

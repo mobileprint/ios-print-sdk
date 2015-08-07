@@ -14,6 +14,7 @@
 #import "HPPPPrintManager.h"
 #import "HPPP.h"
 #import "HPPPPrintPageRenderer.h"
+#import "HPPPDefaultSettingsManager.h"
 #import "NSBundle+HPPPLocalizable.h"
 
 #define HPPP_DEFAULT_PRINT_JOB_NAME HPPPLocalizedString(@"Photo", @"Default job name of the print send to the printer")
@@ -26,12 +27,23 @@
 
 @implementation HPPPPrintManager
 
-- (id)initWithPrintSettings:(HPPPPrintSettings *)printSettings
+- (id)init
 {
     self = [super init];
     
     if( self ) {
         self.hppp = [HPPP sharedInstance];
+        self.currentPrintSettings = [[HPPPDefaultSettingsManager sharedInstance] defaultPrintSettings];
+    }
+    
+    return self;
+}
+
+- (id)initWithPrintSettings:(HPPPPrintSettings *)printSettings
+{
+    self = [self init];
+    
+    if( self ) {
         self.currentPrintSettings = printSettings;
     }
     
@@ -43,22 +55,35 @@
           pageRange:(HPPPPageRange *)pageRange
           numCopies:(NSInteger)numCopies
 {
-    BOOL printInitiated = FALSE;
+    BOOL initiatePrint = TRUE;
     
     if (IS_OS_8_OR_LATER) {
         if (self.currentPrintSettings.printerUrl == nil) {
             HPPPLogWarn(@"directPrint not completed - printer settings do not contain a printer URL");
-        } else if (!self.currentPrintSettings.printerIsAvailable) {
+            initiatePrint = FALSE;
+        }
+        
+        if (!self.currentPrintSettings.printerIsAvailable) {
             HPPPLogWarn(@"directPrint not completed - printer %@ is not available", self.currentPrintSettings.printerUrl);
-        } else {
+            initiatePrint = FALSE;
+        }
+        
+        if( !self.currentPrintSettings.paper ) {
+            HPPPLogWarn(@"directPrint not completed - paper type is not selected");
+            initiatePrint = FALSE;
+        }
+
+        if( initiatePrint ) {
             [self doPrintWithPrintItem:printItem color:color pageRange:pageRange numCopies:numCopies];
-            printInitiated = TRUE;
+        } else {
+            HPPPLogWarn(@"directPrint not completed with print settings: %@", self.currentPrintSettings);
         }
     } else {
         HPPPLogWarn(@"directPrint not completed - only available on iOS 8 and later");
+        initiatePrint = FALSE;
     }
     
-    return printInitiated;
+    return initiatePrint;
 }
 
 - (UIPrintInteractionController *)getSharedPrintInteractionController
