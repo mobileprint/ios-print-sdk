@@ -731,7 +731,9 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         _pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:TRUE];
     }
     
-    [_pageRange setRange:self.pageRangeCell.detailTextLabel.text];
+    if( 1 < self.printItem.numberOfPages ) {
+        [_pageRange setRange:self.pageRangeCell.detailTextLabel.text];
+    }
     
     return _pageRange;
 }
