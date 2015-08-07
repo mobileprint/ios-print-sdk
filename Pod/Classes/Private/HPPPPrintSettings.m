@@ -14,4 +14,11 @@
 
 @implementation HPPPPrintSettings
 
+- (NSString *)description
+{
+    NSString *string = [NSString stringWithFormat:@"printerUrl: %@\nprinterId: %@\nprinterName: %@\nprinterLocation: %@\nprinterModel: %@\nprinterIsAvailable: %d\npaper: %@", self.printerUrl, self.printerId, self.printerName, self.printerLocation, self.printerModel, self.printerIsAvailable, self.paper];
+    
+    return string;
+}
+
 @end
