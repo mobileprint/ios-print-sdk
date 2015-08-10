@@ -11,6 +11,7 @@
 #import <HPPP.h>
 #import <HPPPLayoutFactory.h>
 #import <HPPPPrintItemFactory.h>
+#import <HPPPPrintManager.h>
 
 @interface HPPPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate>
 
@@ -19,6 +20,7 @@
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
 @property (assign, nonatomic) BOOL sharingInProgress;
+@property (assign, nonatomic) BOOL directPrintInProgress;
 @property (strong, nonatomic) NSDictionary *imageFiles;
 @property (strong, nonatomic) NSArray *pdfFiles;
 @property (weak, nonatomic) IBOutlet UISwitch *automaticMetricsSwitch;
@@ -103,13 +105,20 @@ NSString * const kMetricsAppTypeHP = @"HP";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"Select Print Item"] || [segue.identifier isEqualToString:@"Select Share Item"]) {
+    if ([segue.identifier isEqualToString:@"Select Print Item"] ||
+        [segue.identifier isEqualToString:@"Select Share Item"] ||
+        [segue.identifier isEqualToString:@"Select Direct Print Item"] ) {
         NSString *title = @"Print Item";
         self.sharingInProgress = NO;
+        self.directPrintInProgress = NO;
         if ([segue.identifier isEqualToString:@"Select Share Item"]) {
             title = @"Share Item";
             self.sharingInProgress = YES;
+        } else if ([segue.identifier isEqualToString:@"Select Direct Print Item"]) {
+            title = @"Direct Print Item";
+            self.directPrintInProgress = YES;
         }
+        
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
         HPPPSelectPrintItemTableViewController *vc = (HPPPSelectPrintItemTableViewController *)navController.topViewController;
         vc.delegate = self;
@@ -122,6 +131,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
 - (void)shareTapped:(id)sender
 {
     self.sharingInProgress = YES;
+    self.directPrintInProgress = NO;
     [self doActivityWithPrintItem:[HPPPPrintItemFactory printItemWithAsset:[self randomImage]]];
 }
 
@@ -432,6 +442,16 @@ NSString * const kMetricsAppTypeHP = @"HP";
     self.printItem = printItem;
     if (self.sharingInProgress) {
         [self shareItem];
+    } else if (self.directPrintInProgress) {
+        HPPPPrintManager *printManager = [[HPPPPrintManager alloc] init];
+        BOOL success = [printManager directPrint:printItem
+                                           color:TRUE
+                                       pageRange:nil
+                                       numCopies:1];
+        
+        if (!success) {
+            NSLog(@"Print failed");
+        }
     } else {
         UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO];
         [self presentViewController:vc animated:YES completion:nil];

@@ -34,6 +34,7 @@
     if( self ) {
         self.hppp = [HPPP sharedInstance];
         self.currentPrintSettings = [[HPPPDefaultSettingsManager sharedInstance] defaultPrintSettings];
+        self.currentPrintSettings.printerIsAvailable = TRUE;
     }
     
     return self;
