@@ -1,14 +1,27 @@
 //
-//  HPPPDefaultSettingsTableViewController.m
-//  HPPhotoPrint
+// Hewlett-Packard Company
+// All rights reserved.
 //
-//  Created by Bozo on 8/10/15.
-//  Copyright (c) 2015 James. All rights reserved.
-//
+// This file, its contents, concepts, methods, behavior, and operation
+// (collectively the "Software") are protected by trade secret, patent,
+// and copyright laws. The use of the Software is governed by a license
+// agreement. Disclosure of the Software to third parties, in any form,
+// in whole or in part, is expressly prohibited except as authorized by
+// the
 
 #import "HPPPDefaultSettingsTableViewController.h"
+#import "HPPPDefaultSettingsManager.h"
 
 @interface HPPPDefaultSettingsTableViewController ()
+
+@property (weak, nonatomic) IBOutlet UITableViewCell *printerNameCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printerUrlCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printerNetworkCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printerModelCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printerLocationCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printerCoordinateCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *paperSizeCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 
 @end
 
@@ -22,6 +35,17 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    HPPPDefaultSettingsManager *defaults = [HPPPDefaultSettingsManager sharedInstance];
+    HPPPPrintSettings *settings = defaults.defaultPrintSettings;
+    
+    self.printerNameCell.detailTextLabel.text = settings.printerName;
+    self.printerUrlCell.detailTextLabel.text = [NSString stringWithFormat:@"%@", settings.printerUrl];
+    self.printerNetworkCell.detailTextLabel.text = defaults.defaultPrinterNetwork;
+    self.printerModelCell.detailTextLabel.text = settings.printerModel;
+    self.printerLocationCell.detailTextLabel.text = settings.printerLocation;
+    self.printerCoordinateCell.detailTextLabel.text = [NSString stringWithFormat:@"lat: %.02f, long: %.02f", defaults.defaultPrinterCoordinate.latitude, defaults.defaultPrinterCoordinate.longitude];
+    self.paperSizeCell.detailTextLabel.text = settings.paper.sizeTitle;
+    self.paperTypeCell.detailTextLabel.text = settings.paper.typeTitle;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,15 +56,17 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 8;
+}
+
+- (IBAction)doneButtonTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*
