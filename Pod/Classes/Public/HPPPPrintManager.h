@@ -18,6 +18,18 @@
 @protocol HPPPPrintManagerDelegate;
 
 /*!
+ * @abstract Error types returned by the @directPrint:color:pageRange:numCopies function
+ */
+typedef enum {
+    HPPPPrintManagerErrorNone,
+    HPPPPrintManagerErrorNoPrinterUrl,
+    HPPPPrintManagerErrorPrinterNotAvailable,
+    HPPPPrintManagerErrorNoPaperType,
+    HPPPPrintManagerErrorDirectPrintNotSupported,
+    HPPPPrintManagerErrorUnknown
+} HPPPPrintManagerError;
+
+/*!
  * @abstract Class used to print on iOS 8 and greater systems
  */
 @interface HPPPPrintManager : NSObject
@@ -51,12 +63,12 @@
  *  white print will be generated.
  * @param pageRange The page range to be printed
  * @param numCopies The number of copies to print
- * @returns TRUE if a print job is initiated, FALSE otherwise
+ * @returns The appropriate HPPPPrintManagerError value
  */
-- (BOOL)directPrint:(HPPPPrintItem *)printItem
-              color:(BOOL)color
-          pageRange:(HPPPPageRange *)pageRange
-          numCopies:(NSInteger)numCopies;
+- (HPPPPrintManagerError)directPrint:(HPPPPrintItem *)printItem
+                               color:(BOOL)color
+                           pageRange:(HPPPPageRange *)pageRange
+                           numCopies:(NSInteger)numCopies;
 
 /*!
  * @abstract Used to prepare a @UIPrintInterationController for printing

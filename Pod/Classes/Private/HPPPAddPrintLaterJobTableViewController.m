@@ -190,8 +190,6 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    NSLog(@"viewDidAppear");
-    
     [super viewDidAppear:animated];
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {

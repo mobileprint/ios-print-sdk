@@ -243,7 +243,6 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
 + (NSString *) replaceOutOfBoundsPageNumbers:(NSString *)pageRange allPagesIndicator:(NSString *)allPagesIndicator maxPageNum:(NSInteger)maxPageNum
 {
     NSString *returnRange = pageRange;
-    NSLog(@"range in: %@", pageRange);
     
     if( ![allPagesIndicator isEqualToString:pageRange] ) {
         NSString *separator = @"";
@@ -270,7 +269,7 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
             separator = @",";
         }
     }
-    NSLog(@"range out: %@\n\n", returnRange);
+
     return returnRange;
 }
 
@@ -405,7 +404,7 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:regexOptions error:&error];
     if (error)
     {
-        NSLog(@"Couldn't create regex with given string and options");
+        HPPPLogError(@"Couldn't create regex with given string and options");
     }
     
     return regex;

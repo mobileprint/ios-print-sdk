@@ -140,7 +140,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
     NSString *printLaterJobNextAvailableId = nil;
     
     NSString *bundlePath = [NSString stringWithFormat:@"%@/HPPhotoPrint.bundle", [NSBundle mainBundle].bundlePath];
-    NSLog(@"Bundle %@", bundlePath);
+    HPPPLogInfo(@"Bundle %@", bundlePath);
     
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
     printActivity.dataSource = self;
@@ -180,11 +180,11 @@ NSString * const kMetricsAppTypeHP = @"HP";
                                                      UIActivityTypePostToVimeo];
     
     activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
-        NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
+        HPPPLogInfo(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
         if (completed) {
-            NSLog(@"completionHandler - Succeed");
+            HPPPLogInfo(@"completionHandler - Succeed");
             HPPP *hppp = [HPPP sharedInstance];
-            NSLog(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
+            HPPPLogInfo(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
             if (self.extendedMetricsSwitch.on) {
                 NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsOfframpKey:activityType, kMetricsAppTypeKey:kMetricsAppTypeHP }];
                 [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
@@ -199,7 +199,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
                 [[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
             }
         } else {
-            NSLog(@"completionHandler - didn't succeed.");
+            HPPPLogInfo(@"completionHandler - didn't succeed.");
         }
     };
     
@@ -444,13 +444,13 @@ NSString * const kMetricsAppTypeHP = @"HP";
         [self shareItem];
     } else if (self.directPrintInProgress) {
         HPPPPrintManager *printManager = [[HPPPPrintManager alloc] init];
-        BOOL success = [printManager directPrint:printItem
+        HPPPPrintManagerError error = [printManager directPrint:printItem
                                            color:TRUE
                                        pageRange:nil
                                        numCopies:1];
         
-        if (!success) {
-            NSLog(@"Print failed");
+        if (HPPPPrintManagerErrorNone != error) {
+            HPPPLogError(@"Print failed with error: %d", error);
         }
     } else {
         UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO];

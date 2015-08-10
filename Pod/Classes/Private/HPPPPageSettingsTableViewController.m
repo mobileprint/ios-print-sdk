@@ -299,8 +299,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"viewWillAppear");
-
     [super viewWillAppear:animated];
     
     [self configurePrintButton];
@@ -323,8 +321,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    NSLog(@"viewDidAppear");
-
     [super viewDidAppear:animated];
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {

@@ -51,40 +51,38 @@
     return self;
 }
 
-- (BOOL)directPrint:(HPPPPrintItem *)printItem
+- (HPPPPrintManagerError)directPrint:(HPPPPrintItem *)printItem
               color:(BOOL)color
           pageRange:(HPPPPageRange *)pageRange
           numCopies:(NSInteger)numCopies
 {
-    BOOL initiatePrint = TRUE;
+    HPPPPrintManagerError error = HPPPPrintManagerErrorNone;
     
     if (IS_OS_8_OR_LATER) {
         if (self.currentPrintSettings.printerUrl == nil) {
             HPPPLogWarn(@"directPrint not completed - printer settings do not contain a printer URL");
-            initiatePrint = FALSE;
+            error = HPPPPrintManagerErrorNoPrinterUrl;
         }
         
         if (!self.currentPrintSettings.printerIsAvailable) {
             HPPPLogWarn(@"directPrint not completed - printer %@ is not available", self.currentPrintSettings.printerUrl);
-            initiatePrint = FALSE;
+            error = HPPPPrintManagerErrorPrinterNotAvailable;
         }
         
         if( !self.currentPrintSettings.paper ) {
             HPPPLogWarn(@"directPrint not completed - paper type is not selected");
-            initiatePrint = FALSE;
+            error = HPPPPrintManagerErrorNoPaperType;
         }
 
-        if( initiatePrint ) {
+        if( HPPPPrintManagerErrorNone == error ) {
             [self doPrintWithPrintItem:printItem color:color pageRange:pageRange numCopies:numCopies];
-        } else {
-            HPPPLogWarn(@"directPrint not completed with print settings: %@", self.currentPrintSettings);
         }
     } else {
         HPPPLogWarn(@"directPrint not completed - only available on iOS 8 and later");
-        initiatePrint = FALSE;
+        error = HPPPPrintManagerErrorUnknown;
     }
     
-    return initiatePrint;
+    return error;
 }
 
 - (UIPrintInteractionController *)getSharedPrintInteractionController
@@ -114,7 +112,7 @@
         UIPrinter *printer = [UIPrinter printerWithURL:self.currentPrintSettings.printerUrl];
         [controller printToPrinter:printer completionHandler:^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"PRINT FINISHED!");
+                HPPPLogInfo(@"Print completed");
                 if( [self.delegate respondsToSelector:@selector(didFinishPrintJob:completed:error:)] ) {
                     [self.delegate didFinishPrintJob:controller completed:completed error:error];
                 }
