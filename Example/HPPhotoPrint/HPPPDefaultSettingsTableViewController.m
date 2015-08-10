@@ -18,8 +18,6 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerUrlCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerNetworkCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerModelCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *printerLocationCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *printerCoordinateCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperSizeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 
@@ -30,11 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     HPPPDefaultSettingsManager *defaults = [HPPPDefaultSettingsManager sharedInstance];
     HPPPPrintSettings *settings = defaults.defaultPrintSettings;
     
@@ -42,8 +37,6 @@
     self.printerUrlCell.detailTextLabel.text = [NSString stringWithFormat:@"%@", settings.printerUrl];
     self.printerNetworkCell.detailTextLabel.text = defaults.defaultPrinterNetwork;
     self.printerModelCell.detailTextLabel.text = settings.printerModel;
-    self.printerLocationCell.detailTextLabel.text = settings.printerLocation;
-    self.printerCoordinateCell.detailTextLabel.text = [NSString stringWithFormat:@"lat: %.02f, long: %.02f", defaults.defaultPrinterCoordinate.latitude, defaults.defaultPrinterCoordinate.longitude];
     self.paperSizeCell.detailTextLabel.text = settings.paper.sizeTitle;
     self.paperTypeCell.detailTextLabel.text = settings.paper.typeTitle;
 }
@@ -62,7 +55,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 8;
+    return 6;
 }
 
 - (IBAction)doneButtonTapped:(id)sender {
