@@ -140,7 +140,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
     NSString *printLaterJobNextAvailableId = nil;
     
     NSString *bundlePath = [NSString stringWithFormat:@"%@/HPPhotoPrint.bundle", [NSBundle mainBundle].bundlePath];
-    HPPPLogInfo(@"Bundle %@", bundlePath);
+    NSLog(@"Bundle %@", bundlePath);
     
     HPPPPrintActivity *printActivity = [[HPPPPrintActivity alloc] init];
     printActivity.dataSource = self;
@@ -180,11 +180,11 @@ NSString * const kMetricsAppTypeHP = @"HP";
                                                      UIActivityTypePostToVimeo];
     
     activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
-        HPPPLogInfo(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
+        NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
         if (completed) {
-            HPPPLogInfo(@"completionHandler - Succeed");
+            NSLog(@"completionHandler - Succeed");
             HPPP *hppp = [HPPP sharedInstance];
-            HPPPLogInfo(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
+            NSLog(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
             if (self.extendedMetricsSwitch.on) {
                 NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsOfframpKey:activityType, kMetricsAppTypeKey:kMetricsAppTypeHP }];
                 [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
@@ -199,7 +199,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
                 [[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
             }
         } else {
-            HPPPLogInfo(@"completionHandler - didn't succeed.");
+            NSLog(@"completionHandler - didn't succeed.");
         }
     };
     
@@ -250,7 +250,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
         if (image) {
             completion(image);
         } else {
-            HPPPLogError(@"Unable to determine preview image for printing item %@", self.printItem);
+            NSLog(@"Unable to determine preview image for printing item %@", self.printItem);
         }
     }
 }
@@ -450,7 +450,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
                                        numCopies:1];
         
         if (HPPPPrintManagerErrorNone != error) {
-            HPPPLogError(@"Print failed with error: %d", error);
+            NSLog(@"Print failed with error: %d", error);
         }
     } else {
         UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO];
