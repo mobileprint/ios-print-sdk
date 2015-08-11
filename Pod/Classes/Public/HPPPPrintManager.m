@@ -59,7 +59,7 @@
     HPPPPrintManagerError error = HPPPPrintManagerErrorNone;
     
     if (IS_OS_8_OR_LATER) {
-        if (self.currentPrintSettings.printerUrl == nil) {
+        if (self.currentPrintSettings.printerUrl == nil || self.currentPrintSettings.printerUrl.absoluteString.length == 0) {
             HPPPLogWarn(@"directPrint not completed - printer settings do not contain a printer URL");
             error = HPPPPrintManagerErrorNoPrinterUrl;
         }
@@ -79,7 +79,7 @@
         }
     } else {
         HPPPLogWarn(@"directPrint not completed - only available on iOS 8 and later");
-        error = HPPPPrintManagerErrorUnknown;
+        error = HPPPPrintManagerErrorDirectPrintNotSupported;
     }
     
     return error;
