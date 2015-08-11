@@ -402,7 +402,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
 - (UIImage *)randomImage
 {
     NSArray *sampleImages = @[
-                              @"Baloons",
+                              @"Balloons",
                               @"Cat",
                               @"Dog",
                               @"Earth",
@@ -444,6 +444,11 @@ NSString * const kMetricsAppTypeHP = @"HP";
         [self shareItem];
     } else if (self.directPrintInProgress) {
         HPPPPrintManager *printManager = [[HPPPPrintManager alloc] init];
+        
+        if( printManager.currentPrintSettings.paper ) {
+            printItem.layout = [self layoutForPaper:printManager.currentPrintSettings.paper];
+        }
+        
         HPPPPrintManagerError error = [printManager directPrint:printItem
                                            color:TRUE
                                        pageRange:nil
