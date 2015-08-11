@@ -15,13 +15,17 @@
 
 @interface HPPPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate>
 
+typedef enum {
+    Print,
+    Share,
+    DirectPrint,
+    Settings
+} SelectItemAction;
+
 @property (strong, nonatomic) UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
-@property (assign, nonatomic) BOOL sharingInProgress;
-@property (assign, nonatomic) BOOL directPrintInProgress;
-@property (assign, nonatomic) BOOL settingsInProgress;
 @property (strong, nonatomic) NSDictionary *imageFiles;
 @property (strong, nonatomic) NSArray *pdfFiles;
 @property (weak, nonatomic) IBOutlet UISwitch *automaticMetricsSwitch;
@@ -35,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *automaticMetricsCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *extendedMetricsCell;
 @property (weak, nonatomic) IBOutlet UISwitch *printPreviewSwitch;
+@property (assign, nonatomic) SelectItemAction action;
 
 @end
 
@@ -110,7 +115,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
     BOOL perform = YES;
     if ([identifier isEqualToString:@"Print Settings"] && !self.printPreviewSwitch.on) {
         perform = NO;
-        self.settingsInProgress = YES;
+        self.action = Settings;
         [self doActivityWithPrintItem:nil];
     }
     return perform;
@@ -123,18 +128,16 @@ NSString * const kMetricsAppTypeHP = @"HP";
         [segue.identifier isEqualToString:@"Select Direct Print Item"] ||
         [segue.identifier isEqualToString:@"Print Settings"]) {
         NSString *title = @"Print Item";
-        self.sharingInProgress = NO;
-        self.directPrintInProgress = NO;
-        self.settingsInProgress = NO;
+        self.action = Print;
         if ([segue.identifier isEqualToString:@"Select Share Item"]) {
             title = @"Share Item";
-            self.sharingInProgress = YES;
+            self.action = Share;
         } else if ([segue.identifier isEqualToString:@"Select Direct Print Item"]) {
             title = @"Direct Print Item";
-            self.directPrintInProgress = YES;
+            self.action = DirectPrint;
         } else if ([segue.identifier isEqualToString:@"Print Settings"]) {
             title = @"Preview Item";
-            self.settingsInProgress = YES;
+            self.action = Settings;
         }
         
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
@@ -148,8 +151,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
 
 - (void)shareTapped:(id)sender
 {
-    self.sharingInProgress = YES;
-    self.directPrintInProgress = NO;
+    self.action = Share;
     [self doActivityWithPrintItem:[HPPPPrintItemFactory printItemWithAsset:[self randomImage]]];
 }
 
@@ -458,9 +460,9 @@ NSString * const kMetricsAppTypeHP = @"HP";
 - (void)doActivityWithPrintItem:(HPPPPrintItem *)printItem
 {
     self.printItem = printItem;
-    if (self.sharingInProgress) {
+    if (Share == self.action) {
         [self shareItem];
-    } else if (self.directPrintInProgress) {
+    } else if (DirectPrint == self.action) {
         HPPPPrintManager *printManager = [[HPPPPrintManager alloc] init];
         
         if( printManager.currentPrintSettings.paper ) {
@@ -478,7 +480,8 @@ NSString * const kMetricsAppTypeHP = @"HP";
             NSLog(@"Print failed with error: %@", error);
         }
     } else {
-        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO settingsOnly:self.settingsInProgress];
+        BOOL settingsInProgress = (Settings == self.action);
+        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO settingsOnly:settingsInProgress];
         [self presentViewController:vc animated:YES completion:nil];
     }
 }

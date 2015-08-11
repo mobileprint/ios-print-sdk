@@ -391,7 +391,7 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="GGI-8J-pXb" detailTextLabel="I8J-E3-B9f" rowHeight="44" style="IBUITableViewCellStyleValue1" id="eqZ-dL-mQM" userLabel="PageRange">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="GGI-8J-pXb" detailTextLabel="I8J-E3-B9f" rowHeight="44" style="IBUITableViewCellStyleValue1" id="eqZ-dL-mQM" userLabel="Page Range Cell">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eqZ-dL-mQM" id="7rx-AR-T7j">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -775,6 +775,7 @@
                         <outlet property="filterLabel" destination="r3L-G4-U1t" id="7eo-PL-bwv"/>
                         <outlet property="jobSummaryCell" destination="X9q-qQ-Jz0" id="qEL-G2-pJg"/>
                         <outlet property="multiPageView" destination="O09-Jj-DX6" id="kGo-Jw-L3T"/>
+                        <outlet property="numberOfCopiesCell" destination="BiF-qH-SiL" id="67h-AJ-COU"/>
                         <outlet property="numberOfCopiesLabel" destination="4sH-Cb-1H4" id="cOy-TQ-rrj"/>
                         <outlet property="numberOfCopiesStepper" destination="GrB-y6-lo8" id="Uqg-j3-9jW"/>
                         <outlet property="pageRangeCell" destination="eqZ-dL-mQM" id="swV-Gn-FSI"/>

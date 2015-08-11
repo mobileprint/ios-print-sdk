@@ -92,6 +92,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageRangeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *numberOfCopiesCell;
 
 @property (strong, nonatomic) UIView *smokeyView;
 @property (strong, nonatomic) UIButton *smokeyCancelButton;
@@ -314,6 +315,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         self.cancelBarButtonItem.title = @"Done";
         self.pageSelectionMark.hidden = YES;
         self.pageRangeCell.hidden = YES;
+        self.numberOfCopiesCell.hidden = YES;
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEstablished:) name:kHPPPWiFiConnectionEstablished object:nil];
