@@ -1117,12 +1117,15 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     self.printManager.currentPrintSettings = self.currentPrintSettings;
 
-    BOOL printInitiated = [self.printManager directPrint:printItem
-                                                   color:!self.blackAndWhiteModeSwitch.on
-                                               pageRange:self.pageRange
-                                               numCopies:self.numberOfCopiesStepper.value];
-    if( !printInitiated ) {
-        HPPPLogError(@"Unable to print document");
+    NSError *error;
+    [self.printManager directPrint:printItem
+                             color:!self.blackAndWhiteModeSwitch.on
+                         pageRange:self.pageRange
+                         numCopies:self.numberOfCopiesStepper.value
+                             error:&error];
+    
+    if( HPPPPrintManagerErrorNone != error.code ) {
+        HPPPLogError(@"Failed to print with error %@", error);
     }
 }
 

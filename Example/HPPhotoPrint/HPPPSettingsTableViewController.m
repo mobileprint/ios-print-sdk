@@ -449,13 +449,15 @@ NSString * const kMetricsAppTypeHP = @"HP";
             printItem.layout = [self layoutForPaper:printManager.currentPrintSettings.paper];
         }
         
-        HPPPPrintManagerError error = [printManager directPrint:printItem
-                                           color:TRUE
-                                       pageRange:nil
-                                       numCopies:1];
+        NSError *error;
+        [printManager directPrint:printItem
+                            color:TRUE
+                        pageRange:nil
+                        numCopies:1
+                            error:&error];
         
-        if (HPPPPrintManagerErrorNone != error) {
-            NSLog(@"Print failed with error: %d", error);
+        if (HPPPPrintManagerErrorNone != error.code) {
+            NSLog(@"Print failed with error: %@", error);
         }
     } else {
         UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO];

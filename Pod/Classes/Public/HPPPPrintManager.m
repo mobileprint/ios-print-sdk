@@ -51,10 +51,11 @@
     return self;
 }
 
-- (HPPPPrintManagerError)directPrint:(HPPPPrintItem *)printItem
+- (void)directPrint:(HPPPPrintItem *)printItem
               color:(BOOL)color
           pageRange:(HPPPPageRange *)pageRange
           numCopies:(NSInteger)numCopies
+              error:(NSError **)errorPtr
 {
     HPPPPrintManagerError error = HPPPPrintManagerErrorNone;
     
@@ -82,7 +83,7 @@
         error = HPPPPrintManagerErrorDirectPrintNotSupported;
     }
     
-    return error;
+    *errorPtr = [NSError errorWithDomain:HPPP_ERROR_DOMAIN code:error userInfo:nil];
 }
 
 - (UIPrintInteractionController *)getSharedPrintInteractionController

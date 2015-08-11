@@ -24,6 +24,7 @@
 @class HPPPPrintItem;
 
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
+#define HPPP_ERROR_DOMAIN @"com.hp.hppp"
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
