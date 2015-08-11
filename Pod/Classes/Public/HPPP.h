@@ -402,10 +402,11 @@ extern NSString * const kHPPPNumberOfCopies;
  * @param delegate An optional delegate object that implements the HPPPPrintDelegate protocol
  * @param dataSource An optional data source object that implements the HPPPPrintDataSource protocol
  * @param printItem The item to print
- * @param options A dictionary of options
+ * @param fromQueue Indicates if controller being requested from the print queue
+ * @param settingsOnly Indicates that the controller will be used for settings only and not for printing
  * @return The view controller that the client should present
  */
-- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue;
+- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue settingsOnly:(BOOL)settingsOnly;
 
 /*!
  * @abstract Prepares a view controller suitable for the device and OS

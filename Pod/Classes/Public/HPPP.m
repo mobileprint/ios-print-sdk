@@ -294,7 +294,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
     }
 }
 
-- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue
+- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue settingsOnly:(BOOL)settingsOnly;
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
     
@@ -307,6 +307,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         pageSettingsTableViewController.delegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
         pageSettingsTableViewController.printFromQueue = fromQueue;
+        pageSettingsTableViewController.settingsOnly = settingsOnly;
         pageSettingsTableViewController.printItem = printItem;
         pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
 
@@ -336,6 +337,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         pageSettingsTableViewController.delegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
         pageSettingsTableViewController.printFromQueue = fromQueue;
+        pageSettingsTableViewController.settingsOnly = settingsOnly;
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;
         navigationController.modalPresentationStyle = UIModalPresentationFormSheet;

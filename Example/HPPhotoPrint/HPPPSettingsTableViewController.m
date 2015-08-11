@@ -21,6 +21,7 @@
 @property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
 @property (assign, nonatomic) BOOL sharingInProgress;
 @property (assign, nonatomic) BOOL directPrintInProgress;
+@property (assign, nonatomic) BOOL settingsInProgress;
 @property (strong, nonatomic) NSDictionary *imageFiles;
 @property (strong, nonatomic) NSArray *pdfFiles;
 @property (weak, nonatomic) IBOutlet UISwitch *automaticMetricsSwitch;
@@ -102,6 +103,17 @@ NSString * const kMetricsAppTypeHP = @"HP";
 }
 
 #pragma mark - Navigation
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    BOOL perform = YES;
+    if ([identifier isEqualToString:@"Print Settings"]) {
+        perform = NO;
+        self.settingsInProgress = YES;
+        [self doActivityWithPrintItem:nil];
+    }
+    return perform;
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -460,7 +472,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
             NSLog(@"Print failed with error: %@", error);
         }
     } else {
-        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO];
+        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO settingsOnly:self.settingsInProgress];
         [self presentViewController:vc animated:YES completion:nil];
     }
 }

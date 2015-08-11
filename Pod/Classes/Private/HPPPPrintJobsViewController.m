@@ -202,7 +202,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
     self.selectedPrintJob = printJobs[0];
     self.selectedPrintJobs = printJobs;
     HPPPPrintItem *printItem = [self.selectedPrintJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
-    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:YES];
+    UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:YES settingsOnly:NO];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
     } else {
