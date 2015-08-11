@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		265469D31B79714900CA5990 /* HPPPSubstituteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 265469D21B79714900CA5990 /* HPPPSubstituteReachability.m */; };
+		265469D41B79714900CA5990 /* HPPPSubstituteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 265469D21B79714900CA5990 /* HPPPSubstituteReachability.m */; };
+		265469D91B797AB600CA5990 /* HPPPSubstitutePaperSizeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 265469D61B797AB600CA5990 /* HPPPSubstitutePaperSizeTableViewController.m */; };
+		265469DA1B797AB600CA5990 /* HPPPSubstitutePaperSizeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 265469D61B797AB600CA5990 /* HPPPSubstitutePaperSizeTableViewController.m */; };
+		265469DB1B797AB600CA5990 /* HPPPSubstitutePaperTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 265469D81B797AB600CA5990 /* HPPPSubstitutePaperTypeTableViewController.m */; };
+		265469DC1B797AB600CA5990 /* HPPPSubstitutePaperTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 265469D81B797AB600CA5990 /* HPPPSubstitutePaperTypeTableViewController.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -68,6 +74,12 @@
 /* Begin PBXFileReference section */
 		080854DE6C4D61428EC1D8E8 /* libPods-HPPhotoPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HPPhotoPrint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FABBD395BD676FF962B7E9B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		265469D11B79714900CA5990 /* HPPPSubstituteReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPSubstituteReachability.h; sourceTree = "<group>"; };
+		265469D21B79714900CA5990 /* HPPPSubstituteReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPSubstituteReachability.m; sourceTree = "<group>"; };
+		265469D51B797AB600CA5990 /* HPPPSubstitutePaperSizeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPSubstitutePaperSizeTableViewController.h; sourceTree = "<group>"; };
+		265469D61B797AB600CA5990 /* HPPPSubstitutePaperSizeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPSubstitutePaperSizeTableViewController.m; sourceTree = "<group>"; };
+		265469D71B797AB600CA5990 /* HPPPSubstitutePaperTypeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPSubstitutePaperTypeTableViewController.h; sourceTree = "<group>"; };
+		265469D81B797AB600CA5990 /* HPPPSubstitutePaperTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPSubstitutePaperTypeTableViewController.m; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* HPPhotoPrint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HPPhotoPrint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -149,6 +161,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		265469DD1B797B0300CA5990 /* DirectPrintDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				F10BCCC81B792335001A5F3B /* HPPPDefaultSettingsTableViewController.h */,
+				F10BCCC91B792335001A5F3B /* HPPPDefaultSettingsTableViewController.m */,
+				265469D51B797AB600CA5990 /* HPPPSubstitutePaperSizeTableViewController.h */,
+				265469D61B797AB600CA5990 /* HPPPSubstitutePaperSizeTableViewController.m */,
+				265469D71B797AB600CA5990 /* HPPPSubstitutePaperTypeTableViewController.h */,
+				265469D81B797AB600CA5990 /* HPPPSubstitutePaperTypeTableViewController.m */,
+				265469D11B79714900CA5990 /* HPPPSubstituteReachability.h */,
+				265469D21B79714900CA5990 /* HPPPSubstituteReachability.m */,
+			);
+			name = DirectPrintDefaults;
+			sourceTree = "<group>";
+		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
@@ -188,12 +215,11 @@
 		6003F593195388D20070C39A /* HPPhotoPrint */ = {
 			isa = PBXGroup;
 			children = (
+				265469DD1B797B0300CA5990 /* DirectPrintDefaults */,
 				65FFC9AC1B03B08700DCE2B4 /* PDF */,
 				6003F59F195388D20070C39A /* Main.storyboard */,
 				6003F59C195388D20070C39A /* HPPPAppDelegate.h */,
 				6003F59D195388D20070C39A /* HPPPAppDelegate.m */,
-				F10BCCC81B792335001A5F3B /* HPPPDefaultSettingsTableViewController.h */,
-				F10BCCC91B792335001A5F3B /* HPPPDefaultSettingsTableViewController.m */,
 				F16A57B81AF2B0EA00F7265E /* HPPPExampleLogger.h */,
 				F16A57B91AF2B0EA00F7265E /* HPPPExampleLogger.m */,
 				E32115DD1A38BCE50079144C /* HPPPLearnMoreView.h */,
@@ -467,11 +493,14 @@
 			files = (
 				F10BCCCA1B792335001A5F3B /* HPPPDefaultSettingsTableViewController.m in Sources */,
 				65C0652E1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m in Sources */,
+				265469DB1B797AB600CA5990 /* HPPPSubstitutePaperTypeTableViewController.m in Sources */,
 				E32115DC1A38B9E60079144C /* HPPPLearnMoreViewController.m in Sources */,
 				651357891B4C7BEE003B6935 /* HPPPSettingsTableViewController.m in Sources */,
 				6003F59E195388D20070C39A /* HPPPAppDelegate.m in Sources */,
 				6531EB3E1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m in Sources */,
 				E32115E01A38BCE50079144C /* HPPPLearnMoreView.m in Sources */,
+				265469D91B797AB600CA5990 /* HPPPSubstitutePaperSizeTableViewController.m in Sources */,
+				265469D31B79714900CA5990 /* HPPPSubstituteReachability.m in Sources */,
 				F16A57BA1AF2B0EA00F7265E /* HPPPExampleLogger.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
@@ -482,6 +511,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1998AF51B6808BD00E5320F /* HPPPPageRangeTest.m in Sources */,
+				265469D41B79714900CA5990 /* HPPPSubstituteReachability.m in Sources */,
+				265469DC1B797AB600CA5990 /* HPPPSubstitutePaperTypeTableViewController.m in Sources */,
+				265469DA1B797AB600CA5990 /* HPPPSubstitutePaperSizeTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

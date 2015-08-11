@@ -10,9 +10,15 @@
 // the
 
 #import "HPPPDefaultSettingsTableViewController.h"
+#import "HPPP.h"
 #import "HPPPDefaultSettingsManager.h"
+#import "HPPPSubstituteReachability.h"
+#import "HPPPSubstitutePaperSizeTableViewController.h"
+#import "HPPPSubstitutePaperTypeTableViewController.h"
 
-@interface HPPPDefaultSettingsTableViewController ()
+@interface HPPPDefaultSettingsTableViewController () <UIPrinterPickerControllerDelegate,
+    HPPPSubstitutePaperSizeTableViewControllerDelegate,
+    HPPPSubstitutePaperTypeTableViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerNameCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerUrlCell;
@@ -29,16 +35,6 @@
     [super viewDidLoad];
     
     self.clearsSelectionOnViewWillAppear = NO;
-    
-    HPPPDefaultSettingsManager *defaults = [HPPPDefaultSettingsManager sharedInstance];
-    HPPPPrintSettings *settings = defaults.defaultPrintSettings;
-    
-    self.printerNameCell.detailTextLabel.text = settings.printerName;
-    self.printerUrlCell.detailTextLabel.text = [NSString stringWithFormat:@"%@", settings.printerUrl];
-    self.printerNetworkCell.detailTextLabel.text = defaults.defaultPrinterNetwork;
-    self.printerModelCell.detailTextLabel.text = settings.printerModel;
-    self.paperSizeCell.detailTextLabel.text = settings.paper.sizeTitle;
-    self.paperTypeCell.detailTextLabel.text = settings.paper.typeTitle;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,62 +54,119 @@
     return 6;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    [self updateInterfaceValues];
+    return cell;
+}
+
+
+#pragma mark - Button handlers
+
 - (IBAction)doneButtonTapped:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+#pragma mark - Printer selection
+
+- (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
+{
+    if ([[HPPPSubstituteReachability sharedInstance] isWifiConnected]) {
+        UIPrinterPickerController *printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
+        printerPicker.delegate = self;
+        
+        [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                if (completion){
+                    completion(userDidSelect);
+                }
+        }];
+    } else {
+        [[HPPPSubstituteReachability sharedInstance] noPrinterSelectAlert];
+    }
+}
+
+#pragma mark - UIPrinterPickerControllerDelegate
+
+- (void)printerPickerControllerDidDismiss:(UIPrinterPickerController *)printerPickerController
+{
+    UIPrinter* selectedPrinter = printerPickerController.selectedPrinter;
     
-    // Configure the cell...
+    if (selectedPrinter != nil){
+        NSLog(@"Selected Printer: %@", selectedPrinter.URL);
+        [self setPrinterDetails:selectedPrinter];
+        [self.tableView reloadData];
+    }
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([tableView cellForRowAtIndexPath:indexPath] == self.printerNameCell) {
+        [self showPrinterSelection:tableView withCompletion:nil];
+    }
+}
+
+#pragma mark - Paper Size Delegate
+
+- (void)paperSizeTableViewController:(HPPPSubstitutePaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper
+{
+    [HPPP sharedInstance].defaultPaper = paper;
+    [self.tableView reloadData];
+}
+
+#pragma mark - Paper Type Delegate
+
+- (void)paperTypeTableViewController:(HPPPSubstitutePaperTypeTableViewController *)paperTypeTableViewController didSelectPaper:(HPPPPaper *)paper
+{
+    [HPPP sharedInstance].defaultPaper = paper;
+    [self.tableView reloadData];
+}
+
+#pragma mark - Helpers
+
+- (void)setPrinterDetails:(UIPrinter *)printer
+{
+    HPPPDefaultSettingsManager *defaults = [HPPPDefaultSettingsManager sharedInstance];
+    defaults.defaultPrinterName = printer.displayName;
+    defaults.defaultPrinterUrl = printer.URL.absoluteString;
+    defaults.defaultPrinterLocation = printer.displayLocation;
+    defaults.defaultPrinterModel = printer.makeAndModel;
+    defaults.defaultPrinterNetwork = [[HPPPSubstituteReachability sharedInstance] wifiName];
     
-    return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)updateInterfaceValues
+{
+    HPPPDefaultSettingsManager *defaults = [HPPPDefaultSettingsManager sharedInstance];
+    HPPPPrintSettings *settings = defaults.defaultPrintSettings;
+    
+    self.printerNameCell.detailTextLabel.text = settings.printerName;
+    self.printerUrlCell.detailTextLabel.text = [NSString stringWithFormat:@"%@", settings.printerUrl];
+    self.printerNetworkCell.detailTextLabel.text = defaults.defaultPrinterNetwork;
+    self.printerModelCell.detailTextLabel.text = settings.printerModel;
+    self.paperSizeCell.detailTextLabel.text = settings.paper.sizeTitle;
+    self.paperTypeCell.detailTextLabel.text = settings.paper.typeTitle;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    HPPPDefaultSettingsManager *defaults = [HPPPDefaultSettingsManager sharedInstance];
+    HPPPPrintSettings *settings = defaults.defaultPrintSettings;
+    
+    if ([segue.identifier isEqualToString:@"SubstitutePaperSizeSegue"]) {
+        
+        HPPPSubstitutePaperSizeTableViewController *vc = (HPPPSubstitutePaperSizeTableViewController *)segue.destinationViewController;
+        vc.currentPaper = settings.paper;
+        vc.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"SubstitutePaperTypeSegue"]) {
+        
+        HPPPSubstitutePaperTypeTableViewController *vc = (HPPPSubstitutePaperTypeTableViewController *)segue.destinationViewController;
+        vc.currentPaper = settings.paper;
+        vc.delegate = self;
+    }
 }
-*/
 
 @end
