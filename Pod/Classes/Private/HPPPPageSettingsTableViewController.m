@@ -776,7 +776,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 #pragma mark - Button actions
 
-- (IBAction)cancelButtonTapped:(id)sender
+- (IBAction)closeButtonTapped:(id)sender
 {
     if (!self.pageRangeView.hidden) {
         [self.pageRangeView cancelEditing];

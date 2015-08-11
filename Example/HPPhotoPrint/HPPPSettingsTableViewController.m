@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *metricsSegmentControl;
 @property (weak, nonatomic) IBOutlet UITableViewCell *automaticMetricsCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *extendedMetricsCell;
+@property (weak, nonatomic) IBOutlet UISwitch *printPreviewSwitch;
 
 @end
 
@@ -107,7 +108,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
     BOOL perform = YES;
-    if ([identifier isEqualToString:@"Print Settings"]) {
+    if ([identifier isEqualToString:@"Print Settings"] && !self.printPreviewSwitch.on) {
         perform = NO;
         self.settingsInProgress = YES;
         [self doActivityWithPrintItem:nil];
@@ -119,16 +120,21 @@ NSString * const kMetricsAppTypeHP = @"HP";
 {
     if ([segue.identifier isEqualToString:@"Select Print Item"] ||
         [segue.identifier isEqualToString:@"Select Share Item"] ||
-        [segue.identifier isEqualToString:@"Select Direct Print Item"] ) {
+        [segue.identifier isEqualToString:@"Select Direct Print Item"] ||
+        [segue.identifier isEqualToString:@"Print Settings"]) {
         NSString *title = @"Print Item";
         self.sharingInProgress = NO;
         self.directPrintInProgress = NO;
+        self.settingsInProgress = NO;
         if ([segue.identifier isEqualToString:@"Select Share Item"]) {
             title = @"Share Item";
             self.sharingInProgress = YES;
         } else if ([segue.identifier isEqualToString:@"Select Direct Print Item"]) {
             title = @"Direct Print Item";
             self.directPrintInProgress = YES;
+        } else if ([segue.identifier isEqualToString:@"Print Settings"]) {
+            title = @"Preview Item";
+            self.settingsInProgress = YES;
         }
         
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
