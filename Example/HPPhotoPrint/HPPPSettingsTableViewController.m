@@ -470,13 +470,37 @@ NSString * const kMetricsAppTypeHP = @"HP";
         }
         
         NSError *error;
-        [printManager directPrint:printItem
-                        pageRange:nil
-                        numCopies:1
-                            error:&error];
+        [printManager print:printItem
+                  pageRange:nil
+                  numCopies:1
+                      error:&error];
         
         if (HPPPPrintManagerErrorNone != error.code) {
-            NSLog(@"Print failed with error: %@", error);
+            NSString *reason;
+            switch (error.code) {
+                case HPPPPrintManagerErrorNoPaperType:
+                    reason = @"No paper type selected";
+                    break;
+                case HPPPPrintManagerErrorNoPrinterUrl:
+                    reason = @"No printer URL";
+                    break;
+                case HPPPPrintManagerErrorPrinterNotAvailable:
+                    reason = @"Printer not available";
+                    break;
+                case HPPPPrintManagerErrorDirectPrintNotSupported:
+                    reason = @"Direct print is not supported";
+                    break;
+                case HPPPPrintManagerErrorUnknown:
+                    reason = @"Unknown error";
+                    break;
+                default:
+                    break;
+            }
+            [[[UIAlertView alloc] initWithTitle:@"Direct Print Failed"
+                                        message:[NSString stringWithFormat:@"Reason: %@",reason]
+                                       delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil] show];
         }
     } else {
         BOOL settingsInProgress = (Settings == self.action);

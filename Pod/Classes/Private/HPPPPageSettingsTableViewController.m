@@ -1148,7 +1148,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.printManager.currentPrintSettings = self.currentPrintSettings;
 
     NSError *error;
-    [self.printManager directPrint:printItem
+    [self.printManager print:printItem
                          pageRange:self.pageRange
                          numCopies:self.numberOfCopiesStepper.value
                              error:&error];

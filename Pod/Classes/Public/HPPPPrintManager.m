@@ -82,7 +82,7 @@
 
 #pragma mark - Printing
 
-- (void)directPrint:(HPPPPrintItem *)printItem
+- (void)print:(HPPPPrintItem *)printItem
           pageRange:(HPPPPageRange *)pageRange
           numCopies:(NSInteger)numCopies
               error:(NSError **)errorPtr
