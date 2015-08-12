@@ -202,6 +202,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.numberOfCopiesLabel.textColor = self.hppp.tableViewCellLabelColor;
     self.numberOfCopiesLabel.text = HPPPLocalizedString(@"1 Copy", nil);
     
+    [self setPageRangeLabelText:kPageRangeAllPages];
     if( 1 == self.printItem.numberOfPages ) {
         self.pageRangeCell.hidden = TRUE;
         self.pageSelectionMark.hidden = TRUE;
@@ -210,8 +211,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         self.pageRangeCell.textLabel.textColor = self.hppp.tableViewCellLabelColor;
         self.pageRangeCell.detailTextLabel.font = self.hppp.tableViewCellValueFont;
         self.pageRangeCell.detailTextLabel.textColor = self.hppp.tableViewCellValueColor;
-
-        [self setPageRangeLabelText:kPageRangeAllPages];
 
         self.selectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute];
         self.unselectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute];
@@ -1149,7 +1148,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.printManager.currentPrintSettings = self.currentPrintSettings;
 
     NSError *error;
-    [self.printManager directPrint:printItem
+    [self.printManager print:printItem
                          pageRange:self.pageRange
                          numCopies:self.numberOfCopiesStepper.value
                              error:&error];
