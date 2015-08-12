@@ -471,7 +471,6 @@ NSString * const kMetricsAppTypeHP = @"HP";
         
         NSError *error;
         [printManager directPrint:printItem
-                            color:TRUE
                         pageRange:nil
                         numCopies:1
                             error:&error];

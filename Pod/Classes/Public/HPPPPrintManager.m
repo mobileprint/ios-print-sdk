@@ -27,14 +27,18 @@
 
 @implementation HPPPPrintManager
 
+#pragma mark - Initialization
+
 - (id)init
 {
     self = [super init];
     
     if( self ) {
         self.hppp = [HPPP sharedInstance];
-        self.currentPrintSettings = [[HPPPDefaultSettingsManager sharedInstance] defaultPrintSettings];
+        self.currentPrintSettings = [[HPPPDefaultSettingsManager sharedInstance] defaultsAsPrintSettings];
         self.currentPrintSettings.printerIsAvailable = TRUE;
+        [self setColorFromLastOptions];
+        [self setPaperFromLastOptions];
     }
     
     return self;
@@ -46,13 +50,39 @@
     
     if( self ) {
         self.currentPrintSettings = printSettings;
+        if (!self.currentPrintSettings.paper) {
+            [self setPaperFromLastOptions];
+        }
     }
     
     return self;
 }
 
+- (void)setColorFromLastOptions
+{
+    NSNumber *blackAndWhiteID = [self.hppp.lastOptionsUsed valueForKey:kHPPPBlackAndWhiteFilterId];
+    if (blackAndWhiteID) {
+        BOOL color = ![blackAndWhiteID boolValue];
+        self.currentPrintSettings.color = color;
+    } else {
+        self.currentPrintSettings.color = YES;
+    }
+}
+
+- (void)setPaperFromLastOptions
+{
+    NSString *typeTitle = [self.hppp.lastOptionsUsed valueForKey:kHPPPPaperTypeId];
+    NSString *sizeTitle = [self.hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId];
+    if (typeTitle && sizeTitle) {
+        self.currentPrintSettings.paper = [[HPPPPaper alloc] initWithPaperSizeTitle:sizeTitle paperTypeTitle:typeTitle];
+    } else {
+        self.currentPrintSettings.paper = self.hppp.defaultPaper;
+    }
+}
+
+#pragma mark - Printing
+
 - (void)directPrint:(HPPPPrintItem *)printItem
-              color:(BOOL)color
           pageRange:(HPPPPageRange *)pageRange
           numCopies:(NSInteger)numCopies
               error:(NSError **)errorPtr
@@ -76,7 +106,7 @@
         }
 
         if( HPPPPrintManagerErrorNone == error ) {
-            [self doPrintWithPrintItem:printItem color:color pageRange:pageRange numCopies:numCopies];
+            [self doPrintWithPrintItem:printItem color:self.currentPrintSettings.color pageRange:pageRange numCopies:numCopies];
         }
     } else {
         HPPPLogWarn(@"directPrint not completed - only available on iOS 8 and later");

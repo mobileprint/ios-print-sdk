@@ -1132,11 +1132,11 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)print:(HPPPPrintItem *)printItem
 {
+    self.currentPrintSettings.color = !self.blackAndWhiteModeSwitch.on;
     self.printManager.currentPrintSettings = self.currentPrintSettings;
 
     NSError *error;
     [self.printManager directPrint:printItem
-                             color:!self.blackAndWhiteModeSwitch.on
                          pageRange:self.pageRange
                          numCopies:self.numberOfCopiesStepper.value
                              error:&error];

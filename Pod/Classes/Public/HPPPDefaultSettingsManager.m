@@ -123,7 +123,7 @@ NSString * const kDefaultPrinterLocationKey = @"kDefaultPrinterLocationKey";
     return (nil != defaultPrinterName);
 }
 
-- (HPPPPrintSettings *)defaultPrintSettings
+- (HPPPPrintSettings *)defaultsAsPrintSettings
 {
     HPPPPrintSettings *printSettings = [[HPPPPrintSettings alloc] init];
     printSettings.printerId = nil;
@@ -131,7 +131,6 @@ NSString * const kDefaultPrinterLocationKey = @"kDefaultPrinterLocationKey";
     printSettings.printerName = self.defaultPrinterName;
     printSettings.printerModel = self.defaultPrinterModel;
     printSettings.printerLocation = self.defaultPrinterLocation;
-    printSettings.paper = [[HPPP sharedInstance] defaultPaper];
     
     return printSettings;
 }

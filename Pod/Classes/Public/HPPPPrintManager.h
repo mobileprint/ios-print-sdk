@@ -67,7 +67,6 @@ typedef enum {
  *   this function
  */
 - (void)directPrint:(HPPPPrintItem *)printItem
-              color:(BOOL)color
           pageRange:(HPPPPageRange *)pageRange
           numCopies:(NSInteger)numCopies
               error:(NSError **)errorPtr;

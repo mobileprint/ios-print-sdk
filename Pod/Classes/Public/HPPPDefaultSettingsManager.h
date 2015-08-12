@@ -55,13 +55,13 @@
 @property (assign, nonatomic) CLLocationCoordinate2D defaultPrinterCoordinate;
 
 /*!
- * @abstract Returns the default settings encapsulated within an @HPPPPrintSettings object.
- */
-@property (strong, nonatomic, readonly) HPPPPrintSettings *defaultPrintSettings;
-
-/*!
  * @abstract Indicates whether or not a default printer has been set.
  */
 - (BOOL)isDefaultPrinterSet;
+
+/*!
+ * @abstract Returns the default settings encapsulated within an @HPPPPrintSettings object.
+ */
+- (HPPPPrintSettings *)defaultsAsPrintSettings;
 
 @end
