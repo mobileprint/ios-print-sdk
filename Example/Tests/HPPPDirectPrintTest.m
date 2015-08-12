@@ -44,20 +44,18 @@
 - (void)testNoPrinterUrl {
     NSError *error;
     self.printManager.currentPrintSettings.printerUrl = nil;
-    [self.printManager directPrint:self.printItem
-                             color:TRUE
-                         pageRange:nil
-                         numCopies:1
-                             error:&error];
+    [self.printManager print:self.printItem
+                   pageRange:nil
+                   numCopies:1
+                       error:&error];
     
     XCTAssert(HPPPPrintManagerErrorNoPrinterUrl == error.code, @"Expected HPPPPrintManagerErrorNoPrinterUrl for nil value, recieved %@", error);
     
     self.printManager.currentPrintSettings.printerUrl = [NSURL URLWithString:@""];
-    [self.printManager directPrint:self.printItem
-                                     color:TRUE
-                                 pageRange:nil
-                                 numCopies:1
-                                     error:&error];
+    [self.printManager print:self.printItem
+                   pageRange:nil
+                   numCopies:1
+                       error:&error];
     
     XCTAssert(HPPPPrintManagerErrorNoPrinterUrl == error.code, @"Expected HPPPPrintManagerErrorNoPrinterUrl for empty string, recieved %@", error);
 }
@@ -65,11 +63,10 @@
 - (void)testPrinterNotAvailable {
     NSError *error;
     self.printManager.currentPrintSettings.printerIsAvailable = FALSE;
-    [self.printManager directPrint:self.printItem
-                             color:TRUE
-                         pageRange:nil
-                         numCopies:1
-                             error:&error];
+    [self.printManager print:self.printItem
+                   pageRange:nil
+                   numCopies:1
+                       error:&error];
     
     XCTAssert(HPPPPrintManagerErrorPrinterNotAvailable == error.code, @"Expected HPPPPrintManagerErrorPrinterNotAvailable, recieved %@", error);
     
@@ -78,11 +75,10 @@
 - (void)testNoPaperType {
     NSError *error;
     self.printManager.currentPrintSettings.paper = nil;
-    [self.printManager directPrint:self.printItem
-                             color:TRUE
-                         pageRange:nil
-                         numCopies:1
-                             error:&error];
+    [self.printManager print:self.printItem
+                   pageRange:nil
+                   numCopies:1
+                       error:&error];
     
     XCTAssert(HPPPPrintManagerErrorNoPaperType == error.code, @"Expected HPPPPrintManagerErrorNoPaperType, recieved %@", error);
 
@@ -90,11 +86,10 @@
 
 - (void)testSuccess {
     NSError *error;
-    [self.printManager directPrint:self.printItem
-                             color:TRUE
-                         pageRange:nil
-                         numCopies:1
-                             error:&error];
+    [self.printManager print:self.printItem
+                   pageRange:nil
+                   numCopies:1
+                       error:&error];
     
     XCTAssert(HPPPPrintManagerErrorNone == error.code, @"Expected HPPPPrintManagerErrorNone, recieved %@", error);
     
