@@ -59,7 +59,7 @@
 
 - (UIViewController *)activityViewController
 {
-    return [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self.dataSource printItem:self.printItem fromQueue:NO];
+    return [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self.dataSource printItem:self.printItem fromQueue:NO settingsOnly:NO];
 }
 
 #pragma mark - HPPPPrintDelegate

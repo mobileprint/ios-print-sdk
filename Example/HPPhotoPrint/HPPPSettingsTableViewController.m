@@ -11,14 +11,21 @@
 #import <HPPP.h>
 #import <HPPPLayoutFactory.h>
 #import <HPPPPrintItemFactory.h>
+#import <HPPPPrintManager.h>
 
 @interface HPPPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate>
+
+typedef enum {
+    Print,
+    Share,
+    DirectPrint,
+    Settings
+} SelectItemAction;
 
 @property (strong, nonatomic) UIBarButtonItem *shareBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
-@property (assign, nonatomic) BOOL sharingInProgress;
 @property (strong, nonatomic) NSDictionary *imageFiles;
 @property (strong, nonatomic) NSArray *pdfFiles;
 @property (weak, nonatomic) IBOutlet UISwitch *automaticMetricsSwitch;
@@ -31,6 +38,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *metricsSegmentControl;
 @property (weak, nonatomic) IBOutlet UITableViewCell *automaticMetricsCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *extendedMetricsCell;
+@property (weak, nonatomic) IBOutlet UISwitch *printPreviewSwitch;
+@property (assign, nonatomic) SelectItemAction action;
 
 @end
 
@@ -101,15 +110,36 @@ NSString * const kMetricsAppTypeHP = @"HP";
 
 #pragma mark - Navigation
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    BOOL perform = YES;
+    if ([identifier isEqualToString:@"Print Settings"] && !self.printPreviewSwitch.on) {
+        perform = NO;
+        self.action = Settings;
+        [self doActivityWithPrintItem:nil];
+    }
+    return perform;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"Select Print Item"] || [segue.identifier isEqualToString:@"Select Share Item"]) {
+    if ([segue.identifier isEqualToString:@"Select Print Item"] ||
+        [segue.identifier isEqualToString:@"Select Share Item"] ||
+        [segue.identifier isEqualToString:@"Select Direct Print Item"] ||
+        [segue.identifier isEqualToString:@"Print Settings"]) {
         NSString *title = @"Print Item";
-        self.sharingInProgress = NO;
+        self.action = Print;
         if ([segue.identifier isEqualToString:@"Select Share Item"]) {
             title = @"Share Item";
-            self.sharingInProgress = YES;
+            self.action = Share;
+        } else if ([segue.identifier isEqualToString:@"Select Direct Print Item"]) {
+            title = @"Direct Print Item";
+            self.action = DirectPrint;
+        } else if ([segue.identifier isEqualToString:@"Print Settings"]) {
+            title = @"Preview Item";
+            self.action = Settings;
         }
+        
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
         HPPPSelectPrintItemTableViewController *vc = (HPPPSelectPrintItemTableViewController *)navController.topViewController;
         vc.delegate = self;
@@ -121,7 +151,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
 
 - (void)shareTapped:(id)sender
 {
-    self.sharingInProgress = YES;
+    self.action = Share;
     [self doActivityWithPrintItem:[HPPPPrintItemFactory printItemWithAsset:[self randomImage]]];
 }
 
@@ -240,7 +270,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
         if (image) {
             completion(image);
         } else {
-            HPPPLogError(@"Unable to determine preview image for printing item %@", self.printItem);
+            NSLog(@"Unable to determine preview image for printing item %@", self.printItem);
         }
     }
 }
@@ -392,7 +422,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
 - (UIImage *)randomImage
 {
     NSArray *sampleImages = @[
-                              @"Baloons",
+                              @"Balloons",
                               @"Cat",
                               @"Dog",
                               @"Earth",
@@ -430,10 +460,27 @@ NSString * const kMetricsAppTypeHP = @"HP";
 - (void)doActivityWithPrintItem:(HPPPPrintItem *)printItem
 {
     self.printItem = printItem;
-    if (self.sharingInProgress) {
+    if (Share == self.action) {
         [self shareItem];
+    } else if (DirectPrint == self.action) {
+        HPPPPrintManager *printManager = [[HPPPPrintManager alloc] init];
+        
+        if( printManager.currentPrintSettings.paper ) {
+            printItem.layout = [self layoutForPaper:printManager.currentPrintSettings.paper];
+        }
+        
+        NSError *error;
+        [printManager directPrint:printItem
+                        pageRange:nil
+                        numCopies:1
+                            error:&error];
+        
+        if (HPPPPrintManagerErrorNone != error.code) {
+            NSLog(@"Print failed with error: %@", error);
+        }
     } else {
-        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO];
+        BOOL settingsInProgress = (Settings == self.action);
+        UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO settingsOnly:settingsInProgress];
         [self presentViewController:vc animated:YES completion:nil];
     }
 }

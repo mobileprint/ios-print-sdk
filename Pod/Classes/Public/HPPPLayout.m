@@ -56,8 +56,8 @@
 
 - (BOOL)rotationNeededForContent:(CGRect)contentRect withContainer:(CGRect)containerRect
 {
-    BOOL contentIsSquare = (CGFLOAT_MIN >= (contentRect.size.width - contentRect.size.height));
-    BOOL containerIsSquare = (CGFLOAT_MIN >= (containerRect.size.width - containerRect.size.height));
+    BOOL contentIsSquare = (CGFLOAT_MIN >= fabs(contentRect.size.width - contentRect.size.height));
+    BOOL containerIsSquare = (CGFLOAT_MIN >= fabs(containerRect.size.width - containerRect.size.height));
     
     BOOL rotationNeeded = NO;
     if (!contentIsSquare && !containerIsSquare) {
