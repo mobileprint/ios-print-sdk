@@ -218,7 +218,19 @@
 
 - (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList
 {
+    
+    NSMutableString *log = [NSMutableString stringWithFormat:@"\n\n\nReference: %.1f x %.1f\n\n", self.currentPrintSettings.paper.width, self.currentPrintSettings.paper.height];
+    
+    for (UIPrintPaper *p in paperList) {
+        [log appendFormat:@"Paper: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n", p.paperSize.width / 72.0, p.paperSize.height  / 72.0, p.printableRect.origin.x, p.printableRect.origin.y, p.printableRect.size.width, p.printableRect.size.height];
+    }
+    
     UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:[self.currentPrintSettings.paper printerPaperSize] withPapersFromArray:paperList];
+
+    [log appendFormat:@"\nChosen: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n\n\n", paper.paperSize.width  / 72.0, paper.paperSize.height  / 72.0, paper.printableRect.origin.x, paper.printableRect.origin.y, paper.printableRect.size.width, paper.printableRect.size.height];
+
+    HPPPLogInfo(@"%@", log);
+    
     return paper;
 }
 
