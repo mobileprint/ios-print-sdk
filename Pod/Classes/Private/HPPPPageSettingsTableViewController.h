@@ -63,4 +63,6 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  */
 @property (assign, nonatomic) BOOL printFromQueue;
 
+-(void) refreshData;
+
 @end
