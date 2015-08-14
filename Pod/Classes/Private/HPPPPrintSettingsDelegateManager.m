@@ -1,9 +1,13 @@
 //
-//  HPPPPrintSettingsDelegateManager.m
-//  Pods
+// Hewlett-Packard Company
+// All rights reserved.
 //
-//  Created by Bozo on 8/11/15.
-//
+// This file, its contents, concepts, methods, behavior, and operation
+// (collectively the "Software") are protected by trade secret, patent,
+// and copyright laws. The use of the Software is governed by a license
+// agreement. Disclosure of the Software to third parties, in any form,
+// in whole or in part, is expressly prohibited except as authorized by
+// the license agreement.
 //
 
 #import "HPPPPrintSettingsDelegateManager.h"
@@ -47,7 +51,6 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     
     [self paperTypeTableViewController:(HPPPPaperTypeTableViewController *)printSettingsTableViewController didSelectPaper:printSettings.paper];
     
-//    [self reloadPrinterSelectionSection];
     [self.vc refreshData];
 }
 
@@ -64,16 +67,10 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     }
     self.currentPrintSettings.paper = paper;
     
-//    [self reloadPaperSelectionSection];
-//    
-//    [self updatePageSettingsUI];
-//    [self updatePrintSettingsUI];
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithInteger:self.currentPrintSettings.paper.paperSize] forKey:kHPPPLastPaperSizeSetting];
     [defaults synchronize];
     
-//    [self changePaper];
     [self.vc refreshData];
 }
 
@@ -82,7 +79,6 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 - (void)paperTypeTableViewController:(HPPPPaperTypeTableViewController *)paperTypeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
     self.currentPrintSettings.paper = paper;
-//    [self updatePrintSettingsUI];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithInteger:self.currentPrintSettings.paper.paperType] forKey:kHPPPLastPaperTypeSetting];
@@ -115,14 +111,6 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     
     self.numCopiesLabelText = (self.numCopies == 1) ? HPPPLocalizedString(@"1 Copy", nil) : [NSString stringWithFormat:HPPPLocalizedString(@"%ld Copies", @"Number of copies"), (long)self.numCopies];
     
-//    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
-//        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
-//        
-//        self.printLabelText = [self printLabelText:numberOfJobs copies:self.numCopies];
-//    } else {
-//        self.printLabelText = [self printLabelText:1 copies:self.numCopies];
-//    }
-    
     [self.vc refreshData];
     
 }
@@ -138,25 +126,6 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 }
 
 #pragma mark - Special Text Generation
-
-//- (NSString *)printLabelText:(NSInteger)numberOfPrintingItems copies:(NSInteger)copies
-//{
-//    NSString *result = nil;
-//    
-//    if (numberOfPrintingItems == 1) {
-//        result = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
-//    } else {
-//        NSInteger total = numberOfPrintingItems * copies;
-//        
-//        if (total == 2) {
-//            result = HPPPLocalizedString(@"Print both", @"Caption of the button for printing");
-//        } else {
-//            result = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %lu", @"Caption of the button for printing"), (long)total];
-//        }
-//    }
-//    
-//    return result;
-//}
 
 - (NSString *)printLaterSummary
 {
@@ -176,25 +145,6 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     
     _printJobSummaryText = [_printJobSummaryText stringByAppendingString:self.currentPrintSettings.paper.sizeTitle];
     
-//    self.jobSummaryCell.textLabel.text = text;
-//    
-//    if( 0 == allPages.count  ||  printingOneCopyOfAllPages ) {
-//        self.printLabelText = @"Print";
-//    } else if( 1 == numPagesToBePrinted ) {
-//        self.printLabelText = @"Print 1 Page";
-//    } else {
-//        self.printLabelText = [NSString stringWithFormat:@"Print %ld Pages", (long)numPagesToBePrinted];
-//    }
-    
-//    HPPP *hppp = [HPPP sharedInstance];
-//    if( 0 == allPages.count ) {
-//        self.printCell.userInteractionEnabled = FALSE;
-//        self.printLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute];
-//    } else {
-//        self.printCell.userInteractionEnabled = TRUE;
-//        self.printLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute];;
-//    }
-
     return _printJobSummaryText;
 }
 
@@ -294,7 +244,6 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     if (IS_OS_8_OR_LATER) {
         NSNumber *lastFilterUsed = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastFilterSetting];
         if (lastFilterUsed != nil) {
-//            self.blackAndWhiteModeSwitch.on = lastFilterUsed.boolValue;
             self.blackAndWhite = lastFilterUsed.boolValue;
         }
     }
