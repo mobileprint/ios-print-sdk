@@ -24,6 +24,7 @@
 #import "HPPPPrinter.h"
 #import "HPPPPrintLaterManager.h"
 #import "HPPPDefaultSettingsManager.h"
+#import "HPPPPrintSettingsDelegateManager.h"
 #import "UITableView+HPPPHeader.h"
 #import "UIColor+HPPPHexString.h"
 #import "UIView+HPPPAnimation.h"
@@ -34,8 +35,7 @@
 #import "HPPPLayoutFactory.h"
 #import "HPPPMultiPageView.h"
 #import "HPPPPageRangeView.h"
-#import "HPPPPageRange.h"
-#import "HPPPPrintSettingsDelegateManager.h"
+
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 
@@ -61,7 +61,8 @@
 
 #define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
 
-@interface HPPPPageSettingsTableViewController () <UIPrintInteractionControllerDelegate, UIGestureRecognizerDelegate,
+@interface HPPPPageSettingsTableViewController ()
+   <UIGestureRecognizerDelegate,
     HPPPMultiPageViewDelegate,
     UIAlertViewDelegate>
 
@@ -489,7 +490,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
     
     if (nil != controller) {
-        controller.delegate = self;
+        controller.delegate = self.delegateManager;
     }
     
     return controller;
@@ -736,19 +737,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 - (void)pageSelectionMarkClicked
 {
     [self respondToMultiPageViewAction];
-}
-
-#pragma mark - UIPrintInteractionControllerDelegate
-
-- (UIViewController *)printInteractionControllerParentViewController:(UIPrintInteractionController *)printInteractionController
-{
-    return nil;
-}
-
-- (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList
-{
-    UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:[self.delegateManager.currentPrintSettings.paper printerPaperSize] withPapersFromArray:paperList];
-    return paper;
 }
 
 #pragma mark - Stepper actions

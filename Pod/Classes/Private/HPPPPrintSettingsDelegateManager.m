@@ -103,6 +103,19 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     [self.vc refreshData];
 }
 
+#pragma mark - UIPrintInteractionControllerDelegate
+
+- (UIViewController *)printInteractionControllerParentViewController:(UIPrintInteractionController *)printInteractionController
+{
+    return nil;
+}
+
+- (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList
+{
+    UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:[self.currentPrintSettings.paper printerPaperSize] withPapersFromArray:paperList];
+    return paper;
+}
+
 #pragma mark - NumCopies
 
 - (void)setNumCopies:(NSInteger)numCopies
@@ -127,7 +140,7 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 
 #pragma mark - Special Text Generation
 
-- (NSString *)printLaterSummary
+- (NSString *)printLaterSummaryText
 {
     return nil;
 }

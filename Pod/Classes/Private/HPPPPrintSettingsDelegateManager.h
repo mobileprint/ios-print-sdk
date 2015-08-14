@@ -26,7 +26,8 @@
      HPPPPrintSettingsTableViewControllerDelegate,
      HPPPPaperSizeTableViewControllerDelegate,
      HPPPPaperTypeTableViewControllerDelegate,
-     UIPrinterPickerControllerDelegate>
+     UIPrinterPickerControllerDelegate,
+     UIPrintInteractionControllerDelegate>
 
 @property (weak, nonatomic) HPPPPageSettingsTableViewController *vc;
 @property (nonatomic, weak) id<HPPPPrintDataSource> dataSource;
