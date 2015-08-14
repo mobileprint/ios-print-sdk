@@ -385,7 +385,7 @@ extern NSString * const kHPPPNumberOfCopies;
 /*!
  * @abstract Options used to configure the user interface
  * @discussion Options are used to configure the UI and other behavior of the print activity
- * @seealso HPPPOptions
+ * @seealso HPPPInterfaceOptions
  */
 @property (strong, nonatomic) HPPPInterfaceOptions *interfaceOptions;
 

@@ -60,7 +60,7 @@
 - (BOOL)isDefaultPrinterSet;
 
 /*!
- * @abstract Returns the default settings encapsulated within an @HPPPPrintSettings object.
+ * @abstract Returns the default settings encapsulated within a print settings object.
  */
 - (HPPPPrintSettings *)defaultsAsPrintSettings;
 
