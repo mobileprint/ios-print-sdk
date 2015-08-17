@@ -8,6 +8,7 @@
 
 #import "HPPPSettingsTableViewController.h"
 #import "HPPPSelectPrintItemTableViewController.h"
+#import "HPPPExperimentManager.h"
 #import <HPPP.h>
 #import <HPPPLayoutFactory.h>
 #import <HPPPPrintItemFactory.h>
@@ -94,7 +95,16 @@ NSString * const kMetricsAppTypeHP = @"HP";
     self.printBarButtonItem.accessibilityIdentifier = @"printBarButtonItem";
     self.printLaterBarButtonItem.accessibilityIdentifier = @"printLaterBarButtonItem";
     
-    self.navigationItem.rightBarButtonItems = @[ self.shareBarButtonItem, self.printBarButtonItem, self.printLaterBarButtonItem ];
+    [self setBarButtonItems];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:@"kHPPPWiFiConnectionEstablished" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:@"kHPPPWiFiConnectionLost" object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)configureHPPP
@@ -163,6 +173,28 @@ NSString * const kMetricsAppTypeHP = @"HP";
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
         [self prepareForPrint:navController title:title action:action];
     }
+}
+
+#pragma mark - Bar button items
+
+- (void)setBarButtonItems
+{
+    NSMutableArray *icons = [NSMutableArray arrayWithArray:@[ self.shareBarButtonItem]];
+    
+    if ([HPPPExperimentManager sharedInstance].showPrintIcon) {
+        if ([[HPPP sharedInstance] isWifiConnected]) {
+            [icons addObjectsFromArray:@[ self.printBarButtonItem ]];
+        } else if (IS_OS_8_OR_LATER) {
+            [icons addObjectsFromArray:@[ self.printLaterBarButtonItem ]];
+        }
+    }
+    
+    self.navigationItem.rightBarButtonItems = icons;
+}
+
+- (void)connectionChanged:(NSNotification *)notification
+{
+    [self setBarButtonItems];
 }
 
 #pragma mark - Print
