@@ -66,9 +66,9 @@
 @interface HPPPPageSettingsTableViewController ()
    <UIGestureRecognizerDelegate,
     HPPPMultiPageViewDelegate,
-    UIAlertViewDelegate>
+    UIAlertViewDelegate,
+    HPPPPrintManagerDelegate>
 
-@property (strong, nonatomic) HPPPPrintSettings *currentPrintSettings;
 @property (strong, nonatomic) HPPPPrintManager *printManager;
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
 
@@ -752,7 +752,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     controller.showsNumberOfCopies = NO;
     
-    self.printManager.currentPrintSettings = self.currentPrintSettings;
+    self.printManager.currentPrintSettings = self.delegateManager.currentPrintSettings;
     [self.printManager prepareController:controller printItem:self.printItem color:!self.blackAndWhiteModeSwitch.on pageRange:self.pageRange numCopies:self.numberOfCopies];
     
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
@@ -1052,8 +1052,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)print:(HPPPPrintItem *)printItem
 {
-    self.currentPrintSettings.color = !self.blackAndWhiteModeSwitch.on;
-    self.printManager.currentPrintSettings = self.currentPrintSettings;
+    self.delegateManager.currentPrintSettings.color = !self.blackAndWhiteModeSwitch.on;
+    self.printManager.currentPrintSettings = self.delegateManager.currentPrintSettings;
 
     NSError *error;
     [self.printManager print:printItem
@@ -1068,7 +1068,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)printCompleted:(UIPrintInteractionController *)printController isCompleted:(BOOL)completed printError:(NSError *)error
 {
-    [self.delegateManager setLastOptionsUsedWithPrintController:printController];
+    [self.delegateManager setLastOptionsUsedWithPrinterId:printController.printInfo.printerID];
     
     if (error) {
         HPPPLogError(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
@@ -1096,6 +1096,23 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     if (IS_IPAD) {
         self.cancelBarButtonItem.enabled = YES;
     }
+}
+
+- (void)setDefaultPrinter
+{
+    [HPPPDefaultSettingsManager sharedInstance].defaultPrinterName = self.delegateManager.currentPrintSettings.printerName;
+    [HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl = self.delegateManager.currentPrintSettings.printerUrl.absoluteString;
+    [HPPPDefaultSettingsManager sharedInstance].defaultPrinterNetwork = [HPPPAnalyticsManager wifiName];
+    [HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate = [[HPPPPrintLaterManager sharedInstance] retrieveCurrentLocation];
+    [HPPPDefaultSettingsManager sharedInstance].defaultPrinterModel = self.delegateManager.currentPrintSettings.printerModel;
+    [HPPPDefaultSettingsManager sharedInstance].defaultPrinterLocation = self.delegateManager.currentPrintSettings.printerLocation;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPDefaultPrinterAddedNotification object:self userInfo:nil];
+}
+
+- (void)saveSettings
+{
+    [self setDefaultPrinter];
+    [self.delegateManager setLastOptionsUsedWithPrinterId:[HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl];
 }
 
 #pragma mark - HPPPMultipageViewDelegate

@@ -299,7 +299,7 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     return [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:paperType];
 }
 
-- (void)setLastOptionsUsedWithPrintController:(UIPrintInteractionController *)printController
+- (void)setLastOptionsUsedWithPrinterId:(NSString *)printerId
 {
     NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
     [lastOptionsUsed setValue:self.currentPrintSettings.paper.typeTitle forKey:kHPPPPaperTypeId];
@@ -307,10 +307,9 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhite] forKey:kHPPPBlackAndWhiteFilterId];
     [lastOptionsUsed setValue:[NSNumber numberWithInteger:self.numCopies] forKey:kHPPPNumberOfCopies];
     
-    NSString * printerID = printController.printInfo.printerID;
-    if (printerID) {
-        [lastOptionsUsed setValue:printerID forKey:kHPPPPrinterId];
-        if ([printerID isEqualToString:self.currentPrintSettings.printerUrl.absoluteString]) {
+    if (printerId) {
+        [lastOptionsUsed setValue:printerId forKey:kHPPPPrinterId];
+        if ([printerId isEqualToString:self.currentPrintSettings.printerUrl.absoluteString]) {
             [lastOptionsUsed setValue:self.currentPrintSettings.printerName forKey:kHPPPPrinterDisplayName];
             [lastOptionsUsed setValue:self.currentPrintSettings.printerLocation forKey:kHPPPPrinterDisplayLocation];
             [lastOptionsUsed setValue:self.currentPrintSettings.printerModel forKey:kHPPPPrinterMakeAndModel];
@@ -322,7 +321,7 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     }
     [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
     
-    self.currentPrintSettings.printerId = printerID;
+    self.currentPrintSettings.printerId = printerId;
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:self.currentPrintSettings.printerId forKey:kHPPPLastPrinterIDSetting];
     [defaults synchronize];

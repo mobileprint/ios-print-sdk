@@ -49,6 +49,6 @@
 - (BOOL)noPagesSelected;
 - (void)includePageInPageRange:(BOOL)includePage pageNumber:(NSInteger)pageNumber;
 - (void)loadLastUsed;
-- (void)setLastOptionsUsedWithPrintController:(UIPrintInteractionController *)printController;
+- (void)setLastOptionsUsedWithPrinterId:(NSString *)printerId;
 
 @end

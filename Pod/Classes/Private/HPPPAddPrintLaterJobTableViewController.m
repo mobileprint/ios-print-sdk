@@ -309,6 +309,8 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     
     if (cell == self.addToPrintQCell) {
         self.printLaterJob.pageRange = self.pageRange;
+        self.printLaterJob.name = self.jobNameCell.detailTextLabel.text;
+        self.printLaterJob.numCopies = self.numCopiesStepper.value;
         
         NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize];
         HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:titleForInitialPaperSize];
