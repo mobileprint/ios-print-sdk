@@ -91,7 +91,7 @@
 {
     id printAsset = self.printAsset;
     
-    if( ![pageRange.range isEqualToString:pageRange.allPagesIndicator] ) {
+    if( nil != pageRange && ![pageRange.range isEqualToString:pageRange.allPagesIndicator] ) {
         NSArray *pages = [pageRange getPages];
         
         NSTimeInterval uniqueNumber = [NSDate timeIntervalSinceReferenceDate];
@@ -230,7 +230,7 @@
         NSError *error;
         BOOL success = [[NSFileManager defaultManager] removeItemAtPath:filename error:&error];
         if (!success) {
-            NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+            HPPPLogError(@"Could not delete file -:%@ ",[error localizedDescription]);
         }
     }
 }

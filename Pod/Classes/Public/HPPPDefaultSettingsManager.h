@@ -12,6 +12,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "HPPPPrintSettings.h"
 
 /*!
  * @abstract Class used to remember default settings
@@ -53,6 +54,14 @@
  */
 @property (assign, nonatomic) CLLocationCoordinate2D defaultPrinterCoordinate;
 
+/*!
+ * @abstract Indicates whether or not a default printer has been set.
+ */
 - (BOOL)isDefaultPrinterSet;
+
+/*!
+ * @abstract Returns the default settings encapsulated within a print settings object.
+ */
+- (HPPPPrintSettings *)defaultsAsPrintSettings;
 
 @end

@@ -1,6 +1,6 @@
 # HPPhotoPrint
 
-[![Version](https://img.shields.io/badge/pod-2.2.3-blue.svg)](http://hppp.herokuapp.com)
+[![Version](https://img.shields.io/badge/pod-2.5.0-blue.svg)](http://hppp.herokuapp.com)
 [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](http://hppp.herokuapp.com)
 [![Awesome](https://img.shields.io/badge/awesomeness-verified-green.svg)](http://hppp.herokuapp.com)
 
@@ -12,8 +12,10 @@
     - [Print Workflow](#print-workflow)
         - [Share Activity (Print)](#share-activity-print)
         - [View Controller](#view-controller)
-        - [Delegate](#delegate)
-        - [Data Source](#data-source)
+        - [Direct Print](#direct-print)
+        - [Protocols](#protocols)
+            - [Print Delegate](#print-delegate)
+            - [Print Data Source](#print-data-source)
         - [Customization](#customization)
             - [Appearance](#appearance)
             - [Print Layout](#print-layout)
@@ -45,7 +47,7 @@ Add the private pod trunk as a source in your `Podfile`. It is important that th
 
 Add an entry for the __HPPhotoPrint__ pod with the desired version number:
 
-    pod 'HPPhotoPrint', '2.2.3'
+    pod 'HPPhotoPrint', '2.5,0'
 
 On the command line, switch to the directory containing the `Podfile` and run the install command:
 
@@ -64,7 +66,7 @@ pod 'GoogleAnalytics-iOS-SDK'
 pod 'TTTAttributedLabel', '~> 1.10.1'
 pod 'XMLDictionary', '~> 1.4.0'
 pod 'CocoaLumberjack', '1.9.1'
-pod 'HPPhotoPrint', '2.2.3'
+pod 'HPPhotoPrint', '2.5.0'
 pod 'ZipArchive', '1.4.0'
 
 xcodeproj 'MyProject/MyProject.xcodeproj'
@@ -81,10 +83,11 @@ The __HPPhotoPrint__ pod provides three main features.
 
 ### Print Workflow
 
-The print workflow can be invoked in one of two ways. 
+The print workflow can be invoked in one of three ways. 
 The first is through the standard iOS sharing view using a custom print activity provided by the pod. 
 The second is to present the printing view controller directly, for example when the user taps a "print" button in your app. 
-Either method can make use of a delegate to handle print completion (and canceling). 
+The third method is print directly without showing a UI. This is useful when all print settings have already been set/saved.
+All print methods can make use of a delegate to handle print completion (and canceling). 
 If your app needs custom printing for various paper sizes, a custom data source can be provided. 
 And finally, you can customize the appearance of printing views and how the print is laid out on the page.
 
@@ -133,8 +136,62 @@ You must provide an initial image and optional delegate and data source (describ
 }
 
 ```
+#### Direct Print
 
-#### Delegate
+To print directly without showing a user interface (e.g. print preview), you creat an instance of an [HPPPPrintManager](http://hppp.herokuapp.com/HPPPPrintManager_h/Classes/HPPPPrintManager/index.html) and call the [print:pageRange:numCopies:error](http://hppp.herokuapp.com/HPPPPrintManager_h/Classes/HPPPPrintManager/index.html#//apple_ref/occ/instm/HPPPPrintManager/print:pageRange:numCopies:error:) method.
+You can initialize the print manager to use the default/stored settings or you can pass in your own [HPPPPrintSettings](http://hppp.herokuapp.com/HPPPPrintSettings_h/Classes/HPPPPrintSettings/index.html) object. 
+Once initialized you can call the [print:pageRange:numCopies:error](http://hppp.herokuapp.com/HPPPPrintManager_h/Classes/HPPPPrintManager/index.html#//apple_ref/occ/instm/HPPPPrintManager/print:pageRange:numCopies:error:) method and use the [HPPPPrintManagerDelegate](http://hppp.herokuapp.com/HPPPPrintManager_h/Protocols/HPPPPrintManagerDelegate/index.html) to be notified when the print job is queued succesfully.
+
+> __Tip:__ You can use the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) object's [printViewControllerWithDelegate:dataSource:printItem:fromQueue:settingsOnly](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instm/HPPP/printViewControllerWithDelegate:dataSource:printItem:fromQueue:settingsOnly:) method (with `settingsOnly` = `YES`) to obtain and present a print settings view controller that allows the user to choose settings such as printer and paper size.
+
+```objc
+
+- (void)print:(HPPPPrintItem *)printItem
+{
+    HPPPPrintManager *printManager = [[HPPPPrintManager alloc] init];
+
+    NSError *error;
+    [printManager print:printItem
+              pageRange:nil
+              numCopies:1
+                  error:&error];
+
+    if (HPPPPrintManagerErrorNone != error.code) {
+        NSString *reason;
+        switch (error.code) {
+            case HPPPPrintManagerErrorNoPaperType:
+                reason = @"No paper type selected";
+                break;
+            case HPPPPrintManagerErrorNoPrinterUrl:
+                reason = @"No printer URL";
+                break;
+            case HPPPPrintManagerErrorPrinterNotAvailable:
+                reason = @"Printer not available";
+                break;
+            case HPPPPrintManagerErrorDirectPrintNotSupported:
+                reason = @"Direct print is not supported";
+                break;
+            case HPPPPrintManagerErrorUnknown:
+                reason = @"Unknown error";
+                break;
+            default:
+                break;
+        }
+        [[[UIAlertView alloc] initWithTitle:@"Direct Print Failed"
+                                    message:[NSString stringWithFormat:@"Reason: %@",reason]
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    }
+}
+
+```
+#### Protocols
+
+For each of the printing methods it is possible to provide a delegate and a data source. 
+The delegate handles completion and cancelation of the print flow while the data source provides a callback for providing a custom print asset for each specific paper sizes.
+
+##### Print Delegate
 
 The printing delegate ([`HPPPPrintDelegate`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDelegate/index.html)) allows you to respond when the print flow is completed or canceled.
 If you want to dismiss the printing view controller after printing is complete, use this delegate.
@@ -155,7 +212,7 @@ If you want to dismiss the printing view controller after printing is complete, 
 
 ```
 
-#### Data Source
+##### Print Data Source
 
 You can optionally provide a printing data source by implementing the [`HPPPPrintDataSource`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html) protocol. This allows you to control what gets printed for any given paper size. 
 When you implement this protocol you will get a request for a new printable item each time the user selects a different paper size. When preparing the item for the given paper size you can also specify a layout (see [Print Layout](#print-layout)).
@@ -185,7 +242,7 @@ When you implement this protocol you will get a request for a new printable item
 
 #### Customization
 
-The appearance of the printing views can be customized setting properties on the shared instance of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
+The appearance of the printing views can be customized by setting properties on the shared instance of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
 See the [properties](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#HeaderDoc_props) documention for a complete list. 
 This setup is typically done in the app delegate at startup.
 
@@ -231,6 +288,19 @@ In this case you create an [`HPPPAppearance`](http://hppp.herokuapp.com/HPPPAppe
 }
 
 ```
+##### Interface Options
+
+Certain interface options are set by changing property values on the [`HPPPInterfaceOptions`](http://hppp.herokuapp.com/HPPPInterfaceOptions_h/Classes/HPPPInterfaceOptions/index.html) stored in the [interfaceOptions](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/interfaceOptions) property of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) object. 
+Currently, only the muli-page preview interface is controlled via this object.
+
+```objc
+[HPPP sharedInstance].interfaceOptions.multiPageMaximumGutter = 0;
+[HPPP sharedInstance].interfaceOptions.multiPageBleed = 40;
+[HPPP sharedInstance].interfaceOptions.multiPageBackgroundPageScale = 0.61803399;
+[HPPP sharedInstance].interfaceOptions.multiPageDoubleTapEnabled = YES;
+[HPPP sharedInstance].interfaceOptions.multiPageZoomOnSingleTap = NO;
+[HPPP sharedInstance].interfaceOptions.multiPageZoomOnDoubleTap = YES;
+```
 
 ##### Print Layout
 
@@ -249,6 +319,11 @@ Each [`HPPPPrintItem`](http://hppp.herokuapp.com/HPPPPrintItem_h/Classes/HPPPPri
 }
 
 ```
+
+> __Tip:__ Almost all printer brands and models use a technique called "overspray" to acheive true borderless printing.
+They enlarge the printed file by 2-3% and actually print the given image _beyond_ the edge of the paper thus clipping the content at the very edge of the print item.
+For this reason, it is recommended to respect a "safe zone" in your content approximately 0.25" from the very edge of the page. 
+For instance, avoid placing logos or other important content right at the edge of the print.
 
 ### Print Later Workflow
 

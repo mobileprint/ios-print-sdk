@@ -24,6 +24,7 @@
 @class HPPPPrintItem;
 
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
+#define HPPP_ERROR_DOMAIN @"com.hp.hppp"
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -384,7 +385,7 @@ extern NSString * const kHPPPNumberOfCopies;
 /*!
  * @abstract Options used to configure the user interface
  * @discussion Options are used to configure the UI and other behavior of the print activity
- * @seealso HPPPOptions
+ * @seealso HPPPInterfaceOptions
  */
 @property (strong, nonatomic) HPPPInterfaceOptions *interfaceOptions;
 
@@ -401,10 +402,11 @@ extern NSString * const kHPPPNumberOfCopies;
  * @param delegate An optional delegate object that implements the HPPPPrintDelegate protocol
  * @param dataSource An optional data source object that implements the HPPPPrintDataSource protocol
  * @param printItem The item to print
- * @param options A dictionary of options
+ * @param fromQueue Indicates if controller being requested from the print queue
+ * @param settingsOnly Indicates that the controller will be used for settings only and not for printing
  * @return The view controller that the client should present
  */
-- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue;
+- (UIViewController *)printViewControllerWithDelegate:(id<HPPPPrintDelegate>)delegate dataSource:(id<HPPPPrintDataSource>)dataSource printItem:(HPPPPrintItem *)printItem fromQueue:(BOOL)fromQueue settingsOnly:(BOOL)settingsOnly;
 
 /*!
  * @abstract Prepares a view controller suitable for the device and OS

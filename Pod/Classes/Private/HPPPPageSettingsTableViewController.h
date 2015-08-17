@@ -63,6 +63,10 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  */
 @property (assign, nonatomic) BOOL printFromQueue;
 
+/*!
+ * @abstract Indicates whether controller is used for settings only rather than actual printing
+ */
+@property (assign, nonatomic) BOOL settingsOnly;
 -(void) refreshData;
 
 @end

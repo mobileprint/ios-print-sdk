@@ -60,4 +60,9 @@
  */
 @property (strong, nonatomic) HPPPPaper *paper;
 
+/*!
+ * @abstract A boolean indicating whether to print in color
+ */
+@property (assign, nonatomic) BOOL color;
+
 @end

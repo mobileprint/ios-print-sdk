@@ -35,6 +35,8 @@
 #import "HPPPLayoutFactory.h"
 #import "HPPPMultiPageView.h"
 #import "HPPPPageRangeView.h"
+#import "HPPPPageRange.h"
+#import "HPPPPrintManager.h"
 
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
@@ -57,13 +59,17 @@
 #define PRINT_SETTINGS_ROW_INDEX 0
 #define FILTER_ROW_INDEX 0
 
-#define HPPP_DEFAULT_PRINT_JOB_NAME HPPPLocalizedString(@"Photo", @"Default job name of the print send to the printer")
+#define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
+#define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", @"Printer details not available")
+
 
 @interface HPPPPageSettingsTableViewController ()
    <UIGestureRecognizerDelegate,
     HPPPMultiPageViewDelegate,
     UIAlertViewDelegate>
 
+@property (strong, nonatomic) HPPPPrintSettings *currentPrintSettings;
+@property (strong, nonatomic) HPPPPrintManager *printManager;
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
 
 @property (weak, nonatomic) IBOutlet UIStepper *numberOfCopiesStepper;
@@ -90,6 +96,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageRangeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *numberOfCopiesCell;
 
 @property (strong, nonatomic) UIView *smokeyView;
 @property (strong, nonatomic) UIButton *smokeyCancelButton;
@@ -153,7 +160,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    if (IS_IPAD && IS_OS_8_OR_LATER) {
+    if ((IS_IPAD && IS_OS_8_OR_LATER) || (self.settingsOnly && nil == self.printItem)) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
     }
 
@@ -200,6 +207,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.numberOfCopiesLabel.textColor = self.hppp.tableViewCellLabelColor;
     self.numberOfCopiesLabel.text = HPPPLocalizedString(@"1 Copy", nil);
     
+    [self setPageRangeLabelText:kPageRangeAllPages];
     if( 1 == self.printItem.numberOfPages ) {
         self.pageRangeCell.hidden = TRUE;
         self.pageSelectionMark.hidden = TRUE;
@@ -208,8 +216,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         self.pageRangeCell.textLabel.textColor = self.hppp.tableViewCellLabelColor;
         self.pageRangeCell.detailTextLabel.font = self.hppp.tableViewCellValueFont;
         self.pageRangeCell.detailTextLabel.textColor = self.hppp.tableViewCellValueColor;
-
-        [self setPageRangeLabelText:kPageRangeAllPages];
 
         self.selectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute];
         self.unselectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute];
@@ -289,6 +295,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
                                                                          repeats:YES];
     }
     
+    self.printManager = [[HPPPPrintManager alloc] init];
+    self.printManager.delegate = self;
     [self refreshData];
 }
 
@@ -322,10 +330,20 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     [super viewWillAppear:animated];
     
-    [self configurePrintButton];
-    [self refreshData];
-    if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
-        [[HPPPWiFiReachability sharedInstance] noPrintingAlert];
+    if (self.printItem) {
+        [self configurePrintButton];
+        [self refreshData];
+        if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+            [[HPPPWiFiReachability sharedInstance] noPrintingAlert];
+        }
+    }
+
+    if (self.settingsOnly) {
+        self.printCell.hidden = YES;
+        self.cancelBarButtonItem.title = @"Done";
+        self.pageSelectionMark.hidden = YES;
+        self.pageRangeCell.hidden = YES;
+        self.numberOfCopiesCell.hidden = YES;
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEstablished:) name:kHPPPWiFiConnectionEstablished object:nil];
@@ -433,7 +451,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
     if (IS_OS_8_OR_LATER){
-        if (self.delegateManager.currentPrintSettings.printerName == nil){
+        if (self.delegateManager.currentPrintSettings.printerName == nil || self.settingsOnly){
             self.selectPrinterCell.hidden = NO;
             self.paperSizeCell.hidden = NO;
             self.printSettingsCell.hidden = YES;
@@ -664,6 +682,25 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     return self.delegateManager.pageRange;
 }
 
+- (NSString *)stringFromNumberOfPrintingItems:(NSInteger)numberOfPrintingItems copies:(NSInteger)copies
+{
+    NSString *result = nil;
+    
+    if (numberOfPrintingItems == 1) {
+        result = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
+    } else {
+        NSInteger total = numberOfPrintingItems * copies;
+        
+        if (total == 2) {
+            result = HPPPLocalizedString(@"Print both", @"Caption of the button for printing");
+        } else {
+            result = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %lu", @"Caption of the button for printing"), (long)total];
+        }
+    }
+    
+    return result;
+}
+
 #pragma mark - Printer availability
 
 - (void)printerNotAvailable
@@ -687,13 +724,16 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 #pragma mark - Button actions
 
-- (IBAction)cancelButtonTapped:(id)sender
+- (IBAction)closeButtonTapped:(id)sender
 {
     if (!self.pageRangeView.hidden) {
         [self.pageRangeView cancelEditing];
         [self dismissEditView];
     }
     else if ([self.delegate respondsToSelector:@selector(didCancelPrintFlow:)]) {
+        if (self.settingsOnly) {
+            [self saveSettings];
+        }
         [self.delegate didCancelPrintFlow:self];
     } else {
         HPPPLogWarn(@"No HPPPPrintDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
@@ -712,7 +752,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     controller.showsNumberOfCopies = NO;
     
-    [self prepareController:controller forPrintItem:self.printItem];
+    self.printManager.currentPrintSettings = self.currentPrintSettings;
+    [self.printManager prepareController:controller printItem:self.printItem color:!self.blackAndWhiteModeSwitch.on pageRange:self.pageRange numCopies:self.numberOfCopies];
     
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
         
@@ -752,7 +793,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.hppp.supportActions.count != 0)
+    if (self.hppp.supportActions.count != 0 && !self.settingsOnly)
         return [super numberOfSectionsInTableView:tableView];
     else
         return ([super numberOfSectionsInTableView:tableView] - 1);
@@ -768,7 +809,10 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         } else {
             return 1;
         }
-    } else {
+    } else if (PRINT_SUMMARY_SECTION == section && self.settingsOnly && nil == self.printItem) {
+        return 0;
+    }
+    else {
         return [super tableView:tableView numberOfRowsInSection:section];
     }
 }
@@ -870,7 +914,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     } else if (cell == self.selectPrinterCell) {
         [self showPrinterSelection:tableView withCompletion:nil];
     } else if (cell == self.printCell){
-        [self oneTouchPrint:tableView];
+            [self oneTouchPrint:tableView];
     } else if (cell == self.pageRangeCell){
         [self setEditFrames];
         self.pageRangeView.frame = self.editViewFrame;
@@ -982,7 +1026,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.itemsToPrint = [self collectPrintingItems];
     id firstItem = [self.itemsToPrint firstObject];
     [self.itemsToPrint removeObject:firstItem];
-    [self doPrintWithPrintItem:firstItem];
+
+    [self print:firstItem];
 }
 
 - (NSMutableArray *)collectPrintingItems
@@ -1005,100 +1050,20 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     return items;
 }
 
-- (void)doPrintWithPrintItem:(HPPPPrintItem *)printItem
+- (void)print:(HPPPPrintItem *)printItem
 {
-    if (self.delegateManager.currentPrintSettings.printerUrl != nil) {
-        UIPrintInteractionController *controller = [self getSharedPrintInteractionController];
-        if (!controller) {
-            HPPPLogError(@"Couldn't get shared UIPrintInteractionController!");
-            return;
-        }
-        controller.showsNumberOfCopies = NO;
-        [self prepareController:controller forPrintItem:printItem];
-        UIPrinter *printer = [UIPrinter printerWithURL:self.delegateManager.currentPrintSettings.printerUrl];
-        [controller printToPrinter:printer completionHandler:^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                id nextItem = [self.itemsToPrint firstObject];
-                if (nextItem) {
-                    [self.itemsToPrint removeObject:nextItem];
-                    [self doPrintWithPrintItem:nextItem];
-                } else {
-                    [self printCompleted:printController isCompleted:completed printError:error];
-                }
-            });
-        }];
-    }
-}
+    self.currentPrintSettings.color = !self.blackAndWhiteModeSwitch.on;
+    self.printManager.currentPrintSettings = self.currentPrintSettings;
 
-- (void)prepareController:(UIPrintInteractionController *)controller forPrintItem:(HPPPPrintItem *)printItem
-{
-    // Obtain a printInfo so that we can set our printing defaults.
-    UIPrintInfo *printInfo = [UIPrintInfo printInfo];
+    NSError *error;
+    [self.printManager print:printItem
+                         pageRange:self.pageRange
+                         numCopies:self.numberOfCopiesStepper.value
+                             error:&error];
     
-    // The path to the image may or may not be a good name for our print job
-    // but that's all we've got.
-    if (nil != self.hppp.printJobName) {
-        printInfo.jobName = self.hppp.printJobName;
-    } else {
-        printInfo.jobName = HPPP_DEFAULT_PRINT_JOB_NAME;
+    if( HPPPPrintManagerErrorNone != error.code ) {
+        HPPPLogError(@"Failed to print with error %@", error);
     }
-    
-    printInfo.printerID = self.delegateManager.currentPrintSettings.printerId;
-    
-    // This application prints photos. UIKit will pick a paper size and print
-    // quality appropriate for this content type.
-    BOOL photoPaper = (self.delegateManager.currentPrintSettings.paper.paperSize != SizeLetter) || (self.delegateManager.currentPrintSettings.paper.paperType == Photo);
-    BOOL color = !self.delegateManager.blackAndWhite;
-    
-    if (photoPaper && color) {
-        printInfo.outputType = UIPrintInfoOutputPhoto;
-    } else if (photoPaper && !color) {
-        printInfo.outputType = UIPrintInfoOutputPhotoGrayscale;
-    } else if (!photoPaper && color) {
-        printInfo.outputType = UIPrintInfoOutputGeneral;
-    } else {
-        printInfo.outputType = UIPrintInfoOutputGrayscale;
-    }
-    
-    if (CustomPrintRenderer == printItem.renderer) {
-        if (![printItem.printAsset isKindOfClass:[UIImage class]]) {
-            HPPPLogWarn(@"Using custom print renderer with non-image class:  %@", printItem.printAsset);
-        }
-        HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[[printItem printAssetForPageRange:self.pageRange]] andLayout:printItem.layout];
-        renderer.numberOfCopies = self.numberOfCopies;
-        controller.printPageRenderer = renderer;
-    } else {
-        if (1 == self.numberOfCopies) {
-            controller.printingItem = [printItem printAssetForPageRange:self.pageRange];
-        } else {
-            NSMutableArray *items = [NSMutableArray array];
-            for (int idx = 0; idx < self.numberOfCopies; idx++) {
-                [items addObject:[printItem printAssetForPageRange:self.pageRange]];
-            }
-            controller.printingItems = items;
-        }
-    }
-    
-    controller.printInfo = printInfo;
-}
-
-- (NSString *)stringFromNumberOfPrintingItems:(NSInteger)numberOfPrintingItems copies:(NSInteger)copies
-{
-    NSString *result = nil;
-    
-    if (numberOfPrintingItems == 1) {
-        result = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
-    } else {
-        NSInteger total = numberOfPrintingItems * copies;
-        
-        if (total == 2) {
-            result = HPPPLocalizedString(@"Print both", @"Caption of the button for printing");
-        } else {
-            result = [NSString stringWithFormat:HPPPLocalizedString(@"Print all %lu", @"Caption of the button for printing"), (long)total];
-        }
-    }
-    
-    return result;
 }
 
 - (void)printCompleted:(UIPrintInteractionController *)printController isCompleted:(BOOL)completed printError:(NSError *)error
@@ -1111,13 +1076,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     if (completed) {
         
-        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterName = self.delegateManager.currentPrintSettings.printerName;
-        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl = self.delegateManager.currentPrintSettings.printerUrl.absoluteString;
-        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterNetwork = [HPPPAnalyticsManager wifiName];
-        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterCoordinate = [[HPPPPrintLaterManager sharedInstance] retrieveCurrentLocation];
-        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterModel = self.delegateManager.currentPrintSettings.printerModel;
-        [HPPPDefaultSettingsManager sharedInstance].defaultPrinterLocation = self.delegateManager.currentPrintSettings.printerLocation;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPDefaultPrinterAddedNotification object:self userInfo:nil];
+        [self setDefaultPrinter];
     
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically && !self.printFromQueue) {
             NSString *offramp = NSStringFromClass([HPPPPrintActivity class]);
@@ -1143,23 +1102,27 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)multiPageView:(HPPPMultiPageView *)multiPageView didChangeFromPage:(NSUInteger)oldPageNumber ToPage:(NSUInteger)newPageNumber
 {
-    BOOL pageSelected = FALSE;
-    
-    NSArray *pageNums = [self.pageRange getPages];
-    
-    for( NSNumber *pageNum in pageNums ) {
-        if( [pageNum integerValue] == newPageNumber ) {
-            pageSelected = TRUE;
-            break;
+    if (!self.settingsOnly) {
+        BOOL pageSelected = FALSE;
+        
+        NSArray *pageNums = [self.pageRange getPages];
+        
+        for( NSNumber *pageNum in pageNums ) {
+            if( [pageNum integerValue] == newPageNumber ) {
+                pageSelected = TRUE;
+                break;
+            }
         }
+        
+        [self updateSelectedPageIcon:pageSelected];
     }
-    
-    [self updateSelectedPageIcon:pageSelected];
 }
 
 - (void)multiPageView:(HPPPMultiPageView *)multiPageView didSingleTapPage:(NSUInteger)pageNumber
 {
-    [self respondToMultiPageViewAction];
+    if (!self.settingsOnly) {
+        [self respondToMultiPageViewAction];
+    }
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -1167,6 +1130,21 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return NO;
+}
+
+#pragma mark - HPPPPrintManagerDelegate
+
+- (void)didFinishPrintJob:(UIPrintInteractionController *)printController completed:(BOOL)completed error:(NSError *)error
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        id nextItem = [self.itemsToPrint firstObject];
+        if (nextItem) {
+            [self.itemsToPrint removeObject:nextItem];
+            [self print:nextItem];
+        } else {
+            [self printCompleted:printController isCompleted:completed printError:error];
+        }
+    });
 }
 
 #pragma mark - Navigation
