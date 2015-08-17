@@ -18,6 +18,7 @@
 @implementation HPPPPrintSettingsDelegateManager
 
 #define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", @"Printer details not available")
+#define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
 
 NSString * const kHPPPLastPrinterNameSetting = @"kHPPPLastPrinterNameSetting";
 NSString * const kHPPPLastPrinterIDSetting = @"kHPPPLastPrinterIDSetting";
@@ -189,6 +190,22 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     }
     
     return _pageRangeText;
+}
+
+- (NSString *)printSettingsText
+{
+    _printSettingsText = [NSString stringWithFormat:@"%@, %@", self.currentPrintSettings.paper.sizeTitle, self.currentPrintSettings.paper.typeTitle];
+    
+    if( ![self.selectedPrinterText isEqualToString:kHPPPSelectPrinterPrompt] ) {
+        _printSettingsText = [_printSettingsText stringByAppendingString:[NSString stringWithFormat:@", %@", self.selectedPrinterText]];
+    }
+    
+    return _printSettingsText;
+}
+
+- (NSString *)selectedPrinterText
+{
+    return self.currentPrintSettings.printerName == nil ? kHPPPSelectPrinterPrompt : self.currentPrintSettings.printerName;
 }
 
 #pragma mark - Helpers

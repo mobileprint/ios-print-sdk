@@ -59,8 +59,6 @@
 
 #define HPPP_DEFAULT_PRINT_JOB_NAME HPPPLocalizedString(@"Photo", @"Default job name of the print send to the printer")
 
-#define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
-
 @interface HPPPPageSettingsTableViewController ()
    <UIGestureRecognizerDelegate,
     HPPPMultiPageViewDelegate,
@@ -142,7 +140,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         self.delegateManager = [[HPPPPrintSettingsDelegateManager alloc] init];
     }
     self.delegateManager.vc = self;
-    self.delegateManager.dataSource = self.dataSource;
     
     self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:TRUE];
     self.delegateManager.pageRange.range = kPageRangeAllPages;
@@ -232,7 +229,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     self.delegateManager.currentPrintSettings = [HPPPPrintSettings alloc];
     self.delegateManager.currentPrintSettings.paper = [HPPP sharedInstance].defaultPaper;
-    self.delegateManager.currentPrintSettings.printerName = kHPPPSelectPrinterPrompt;
     self.delegateManager.currentPrintSettings.printerIsAvailable = YES;
     self.delegateManager.numCopies = DEFAULT_NUMBER_OF_COPIES;
     [self.delegateManager loadLastUsed];
@@ -464,11 +460,9 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     self.paperSizeSelectedLabel.text = self.delegateManager.currentPrintSettings.paper.sizeTitle;
     self.paperTypeSelectedLabel.text = self.delegateManager.currentPrintSettings.paper.typeTitle;
-    self.selectedPrinterLabel.text = self.delegateManager.currentPrintSettings.printerName == nil ? kHPPPSelectPrinterPrompt : self.delegateManager.currentPrintSettings.printerName;
+    self.selectedPrinterLabel.text = self.delegateManager.selectedPrinterText;
     
-    NSString *displayedPrinterName = [self.selectedPrinterLabel.text isEqualToString:kHPPPSelectPrinterPrompt] ? @"" : [NSString stringWithFormat:@", %@", self.selectedPrinterLabel.text];
-    
-    self.printSettingsDetailLabel.text = [NSString stringWithFormat:@"%@, %@ %@", self.paperSizeSelectedLabel.text, self.paperTypeSelectedLabel.text, displayedPrinterName];
+    self.printSettingsDetailLabel.text = self.delegateManager.printSettingsText;
 }
 
 - (void)updatePrintButtonUI

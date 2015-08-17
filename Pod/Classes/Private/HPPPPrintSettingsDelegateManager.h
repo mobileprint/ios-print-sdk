@@ -30,7 +30,6 @@
      UIPrintInteractionControllerDelegate>
 
 @property (weak, nonatomic) HPPPPageSettingsTableViewController *vc;
-@property (nonatomic, weak) id<HPPPPrintDataSource> dataSource;
 
 @property (strong, nonatomic) HPPPPrintSettings *currentPrintSettings;
 @property (strong, nonatomic) HPPPPrintItem *printItem;
@@ -43,6 +42,8 @@
 @property (strong, nonatomic) NSString *numCopiesLabelText;
 @property (strong, nonatomic) NSString *printJobSummaryText;
 @property (strong, nonatomic) NSString *pageRangeText;
+@property (strong, nonatomic) NSString *selectedPrinterText;
+@property (strong, nonatomic) NSString *printSettingsText;
 
 - (BOOL)allPagesSelected;
 - (BOOL)noPagesSelected;
