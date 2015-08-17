@@ -13,16 +13,19 @@
 #import <HPPPPrintItemFactory.h>
 #import <HPPPPrintManager.h>
 
-@interface HPPPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate>
+@interface HPPPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate, HPPPAddPrintLaterDelegate>
 
 typedef enum {
     Print,
+    PrintLater,
     Share,
     DirectPrint,
     Settings
 } SelectItemAction;
 
 @property (strong, nonatomic) UIBarButtonItem *shareBarButtonItem;
+@property (strong, nonatomic) UIBarButtonItem *printBarButtonItem;
+@property (strong, nonatomic) UIBarButtonItem *printLaterBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *popover;
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
@@ -74,7 +77,24 @@ NSString * const kMetricsAppTypeHP = @"HP";
                                     initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                     target:self
                                     action:@selector(shareTapped:)];
-    self.navigationItem.rightBarButtonItem = self.shareBarButtonItem;
+    
+    
+    self.printBarButtonItem = [[UIBarButtonItem alloc]
+                               initWithImage:[UIImage imageNamed:@"printIcon"]
+                               style:UIBarButtonItemStylePlain
+                               target:self
+                               action:@selector(printTapped:)];
+    
+    self.printLaterBarButtonItem = [[UIBarButtonItem alloc]
+                               initWithImage:[UIImage imageNamed:@"printLaterIcon"]
+                               style:UIBarButtonItemStylePlain
+                               target:self
+                               action:@selector(printLaterTapped:)];
+
+    self.printBarButtonItem.accessibilityIdentifier = @"printBarButtonItem";
+    self.printLaterBarButtonItem.accessibilityIdentifier = @"printLaterBarButtonItem";
+    
+    self.navigationItem.rightBarButtonItems = @[ self.shareBarButtonItem, self.printBarButtonItem, self.printLaterBarButtonItem ];
 }
 
 - (void)configureHPPP
@@ -128,22 +148,63 @@ NSString * const kMetricsAppTypeHP = @"HP";
         [segue.identifier isEqualToString:@"Select Direct Print Item"] ||
         [segue.identifier isEqualToString:@"Print Settings"]) {
         NSString *title = @"Print Item";
-        self.action = Print;
+        SelectItemAction action = Print;
         if ([segue.identifier isEqualToString:@"Select Share Item"]) {
             title = @"Share Item";
-            self.action = Share;
+            action = Share;
         } else if ([segue.identifier isEqualToString:@"Select Direct Print Item"]) {
             title = @"Direct Print Item";
-            self.action = DirectPrint;
+            action = DirectPrint;
         } else if ([segue.identifier isEqualToString:@"Print Settings"]) {
             title = @"Preview Item";
-            self.action = Settings;
+            action = Settings;
         }
         
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-        HPPPSelectPrintItemTableViewController *vc = (HPPPSelectPrintItemTableViewController *)navController.topViewController;
-        vc.delegate = self;
-        vc.navigationItem.title = title;
+        [self prepareForPrint:navController title:title action:action];
+    }
+}
+
+#pragma mark - Print
+
+- (void)printTapped:(id)sender
+{
+    [self printAction:Print];
+}
+
+- (void)printLaterTapped:(id)sender
+{
+    [self printAction:PrintLater];
+}
+
+- (void) printAction:(SelectItemAction)action
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"SelectPrintItemNavigationController"];
+    [self prepareForPrint:navigationController title:@"Print Item" action:action];
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)prepareForPrint:(UINavigationController *)navigationController title:(NSString *)title action:(SelectItemAction)action
+{
+    self.action = action;
+    HPPPSelectPrintItemTableViewController *vc = (HPPPSelectPrintItemTableViewController *)navigationController.topViewController;
+    vc.delegate = self;
+    vc.navigationItem.title = title;
+}
+
+- (void)preparePrintLaterJob
+{
+    NSString *printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
+    self.printLaterJob = [[HPPPPrintLaterJob alloc] init];
+    self.printLaterJob.id = printLaterJobNextAvailableId;
+    self.printLaterJob.name = @"Add from Share";
+    self.printLaterJob.date = [NSDate date];
+    self.printLaterJob.printItems = [self printItemsForAsset:self.printItem.printAsset];
+    if (self.extendedMetricsSwitch.on) {
+        NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsAppTypeKey:kMetricsAppTypeHP }];
+        [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
+        self.printLaterJob.extra = metrics;
     }
 }
 
@@ -157,8 +218,6 @@ NSString * const kMetricsAppTypeHP = @"HP";
 
 - (void)shareItem
 {
-    NSString *printLaterJobNextAvailableId = nil;
-    
     NSString *bundlePath = [NSString stringWithFormat:@"%@/HPPhotoPrint.bundle", [NSBundle mainBundle].bundlePath];
     NSLog(@"Bundle %@", bundlePath);
     
@@ -167,18 +226,8 @@ NSString * const kMetricsAppTypeHP = @"HP";
     
     NSArray *applicationActivities = nil;
     if (IS_OS_8_OR_LATER) {
+        [self preparePrintLaterJob];
         HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
-        printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
-        self.printLaterJob = [[HPPPPrintLaterJob alloc] init];
-        self.printLaterJob.id = printLaterJobNextAvailableId;
-        self.printLaterJob.name = @"Add from Share";
-        self.printLaterJob.date = [NSDate date];
-        self.printLaterJob.printItems = [self printItemsForAsset:self.printItem.printAsset];
-        if (self.extendedMetricsSwitch.on) {
-            NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsAppTypeKey:kMetricsAppTypeHP }];
-            [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
-            self.printLaterJob.extra = metrics;
-        }
         printLaterActivity.printLaterJob = self.printLaterJob;
         applicationActivities = @[printActivity, printLaterActivity];
     } else {
@@ -502,7 +551,12 @@ NSString * const kMetricsAppTypeHP = @"HP";
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil] show];
         }
-    } else {
+    } else if (PrintLater == self.action) {
+        [self preparePrintLaterJob];
+        UIViewController *vc = [[HPPP sharedInstance] printLaterViewControllerWithDelegate:self printLaterJob:self.printLaterJob];
+        [self presentViewController:vc animated:YES completion:nil];
+    }
+    else {
         BOOL settingsInProgress = (Settings == self.action);
         UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO settingsOnly:settingsInProgress];
         [self presentViewController:vc animated:YES completion:nil];
@@ -577,6 +631,20 @@ NSString * const kMetricsAppTypeHP = @"HP";
         [printItems addEntriesFromDictionary:@{ paper.sizeTitle: printItem }];
     }
     return printItems;
+}
+
+#pragma mark - HPPPAddPrintLaterDelegate
+
+- (void)didFinishAddPrintLaterFlow:(UIViewController *)addPrintLaterJobTableViewController
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
+    }];
+}
+
+- (void)didCancelAddPrintLaterFlow:(UIViewController *)addPrintLaterJobTableViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
