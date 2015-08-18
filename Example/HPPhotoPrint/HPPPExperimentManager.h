@@ -16,4 +16,6 @@
 
 + (HPPPExperimentManager *)sharedInstance;
 
+- (void)updateVariationsWithDeviceID:(NSString *)deviceID;
+
 @end

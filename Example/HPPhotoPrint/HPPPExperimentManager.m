@@ -12,6 +12,12 @@
 
 #import "HPPPExperimentManager.h"
 
+@interface HPPPExperimentManager()
+
+@property (strong, nonatomic) NSString *deviceID;
+
+@end
+
 @implementation HPPPExperimentManager
 
 #pragma mark - Initialization
@@ -22,33 +28,23 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[HPPPExperimentManager alloc] init];
+        [sharedInstance updateVariationsWithDeviceID:[[UIDevice currentDevice].identifierForVendor UUIDString]];
     });
     
     return sharedInstance;
 }
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        _showPrintIcon = [self oddDeviceID];
-    }
-    return self;
-}
-
 #pragma mark - Selection
 
-- (BOOL)oddDeviceID
+- (void)updateVariationsWithDeviceID:(NSString *)deviceID
 {
-    NSArray *oddDigits = @[@"1", @"3", @"5", @"7", @"9", @"B", @"D", @"F"];
-    return [oddDigits containsObject:[self lastDigitOfDeviceID]];
-}
-
-- (NSString *)lastDigitOfDeviceID
-{
-    NSString *deviceID = [[UIDevice currentDevice].identifierForVendor UUIDString];
-    NSString *lastDigit = [deviceID substringFromIndex:[deviceID length] - 1];
-    return lastDigit;
+    if ([deviceID length] > 0) {
+        NSArray *oddDigits = @[@"1", @"3", @"5", @"7", @"9", @"B", @"D", @"F"];
+        NSString *lastDigit = [deviceID substringFromIndex:[deviceID length] - 1];
+        _showPrintIcon = [oddDigits containsObject:lastDigit];
+    } else {
+        _showPrintIcon = NO;
+    }
 }
 
 @end

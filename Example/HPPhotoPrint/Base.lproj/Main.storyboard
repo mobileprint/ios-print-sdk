@@ -445,6 +445,99 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Bar Button Items" id="OgM-iB-KWp" userLabel="Bar Button Items">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="67o-6T-SU0" userLabel="Show Buttons">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="67o-6T-SU0" id="IFt-gV-HZd">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xaX-Ej-3zy">
+                                                    <rect key="frame" x="180" y="8" width="240" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="240" id="Ikk-0r-bwd"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="WaC-nR-7hS"/>
+                                                    </constraints>
+                                                    <segments>
+                                                        <segment title="Device"/>
+                                                        <segment title="On"/>
+                                                        <segment title="Off"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="showButtonsSegmentChanged:" destination="p4c-XR-IBR" eventType="valueChanged" id="pj1-VT-iiW"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerX" secondItem="xaX-Ej-3zy" secondAttribute="centerX" id="deg-Hx-N3y"/>
+                                                <constraint firstAttribute="centerY" secondItem="xaX-Ej-3zy" secondAttribute="centerY" id="eiF-lj-sut"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Vqz-U4-Au3" userLabel="Detect Wi-Fi">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vqz-U4-Au3" id="WLF-Xe-jIe">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KIF-8f-osR">
+                                                    <rect key="frame" x="543" y="7" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="detectWiFiSwitchChanged:" destination="p4c-XR-IBR" eventType="valueChanged" id="wxm-PJ-LGO"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detect Wi-Fi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="826-1t-wuY">
+                                                    <rect key="frame" x="28" y="12" width="495" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="826-1t-wuY" secondAttribute="centerY" id="AFQ-7d-LXq"/>
+                                                <constraint firstItem="KIF-8f-osR" firstAttribute="leading" secondItem="826-1t-wuY" secondAttribute="trailing" constant="20" id="D8j-7L-Cai"/>
+                                                <constraint firstAttribute="centerY" secondItem="KIF-8f-osR" secondAttribute="centerY" id="SE3-yb-GD9"/>
+                                                <constraint firstItem="KIF-8f-osR" firstAttribute="trailing" secondItem="WLF-Xe-jIe" secondAttribute="trailingMargin" id="qOu-Hm-Smy"/>
+                                                <constraint firstItem="826-1t-wuY" firstAttribute="leading" secondItem="WLF-Xe-jIe" secondAttribute="leadingMargin" constant="20" id="wcb-PF-iV5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="gLt-Iy-Gbg" style="IBUITableViewCellStyleDefault" id="M9J-k7-Mmh" userLabel="Use Device ID">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M9J-k7-Mmh" id="353-SN-Xhy">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Use Device ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gLt-Iy-Gbg">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="ely-y7-lQt" userLabel="Device ID">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ely-y7-lQt" id="bWU-Bh-5ST">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Device ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kmD-Lg-sRD" userLabel="Device ID">
+                                                    <rect key="frame" x="28" y="7" width="544" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="deviceIDTextChanged:" destination="p4c-XR-IBR" eventType="editingChanged" id="dU9-tC-0iV"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="kmD-Lg-sRD" secondAttribute="trailing" constant="20" id="3hD-wE-Dkm"/>
+                                                <constraint firstAttribute="centerY" secondItem="kmD-Lg-sRD" secondAttribute="centerY" id="tsL-jN-Mwi"/>
+                                                <constraint firstItem="kmD-Lg-sRD" firstAttribute="leading" secondItem="bWU-Bh-5ST" secondAttribute="leadingMargin" constant="20" id="wVZ-4Y-EpA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="Print Settings" id="02A-4j-KZb" userLabel="Print Settings">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="X8f-81-KGM" style="IBUITableViewCellStyleDefault" id="grr-Vh-MM3" userLabel="Configuration Cell">
@@ -725,14 +818,18 @@
                     <connections>
                         <outlet property="automaticMetricsCell" destination="2go-Rs-4el" id="yAT-hj-Fzc"/>
                         <outlet property="automaticMetricsSwitch" destination="70e-Kp-e5u" id="iTd-rF-DDY"/>
+                        <outlet property="detectWiFiSwitch" destination="KIF-8f-osR" id="Gk0-q3-e5Z"/>
+                        <outlet property="deviceIDTextField" destination="kmD-Lg-sRD" id="gdP-r8-ue3"/>
                         <outlet property="extendedMetricsCell" destination="E0s-7Q-2xp" id="w6w-xD-FGy"/>
                         <outlet property="extendedMetricsSwitch" destination="0y1-Mh-lA3" id="Zam-oa-AeI"/>
                         <outlet property="layoutSegmentControl" destination="IEJ-qx-7kc" id="4dw-fS-hPd"/>
                         <outlet property="metricsSegmentControl" destination="Ldf-Hd-kmD" id="Noa-BW-T2a"/>
                         <outlet property="orientationSegmentControl" destination="xXp-Er-FTv" id="Fd9-gg-JTP"/>
                         <outlet property="printPreviewSwitch" destination="3UT-iL-o4v" id="zfQ-A9-kfQ"/>
+                        <outlet property="showButtonsSegment" destination="xaX-Ej-3zy" id="iOe-X6-CHR"/>
                         <outlet property="showGeoHelperCell" destination="KZJ-t2-IGM" id="Ohi-jK-Ihb"/>
                         <outlet property="showPrintQueueCell" destination="VZ1-sx-ii8" id="7p8-3O-BF4"/>
+                        <outlet property="useDeviceIDCell" destination="M9J-k7-Mmh" id="6Ba-Un-Cjp"/>
                         <outletCollection property="positionTextField" destination="Rr7-qs-Eba" id="RKf-w3-yZP"/>
                         <outletCollection property="positionTextField" destination="VND-cz-qIU" id="laS-2y-w36"/>
                         <outletCollection property="positionTextField" destination="m0a-zD-GxG" id="H0Z-GU-VEm"/>

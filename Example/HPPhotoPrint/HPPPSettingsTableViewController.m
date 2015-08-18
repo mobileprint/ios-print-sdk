@@ -44,6 +44,10 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITableViewCell *extendedMetricsCell;
 @property (weak, nonatomic) IBOutlet UISwitch *printPreviewSwitch;
 @property (assign, nonatomic) SelectItemAction action;
+@property (weak, nonatomic) IBOutlet UITableViewCell *useDeviceIDCell;
+@property (weak, nonatomic) IBOutlet UISwitch *detectWiFiSwitch;
+@property (weak, nonatomic) IBOutlet UITextField *deviceIDTextField;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *showButtonsSegment;
 
 @end
 
@@ -62,6 +66,10 @@ int const kMetricsSegmentHPIndex = 0;
 int const kMetricsSegmentPartnerIndex = 1;
 int const kMetricsSegmentNoneIndex = 2;
 int const kMetricsSegmentErrorIndex = 3;
+
+int const kShowButtonsSegmentDeviceIndex = 0;
+int const kShowButtonsSegmentOnIndex = 1;
+int const kShowButtonsSegmentOffIndex = 2;
 
 NSString * const kMetricsOfframpKey = @"off_ramp";
 NSString * const kMetricsAppTypeKey = @"app_type";
@@ -95,8 +103,8 @@ NSString * const kMetricsAppTypeHP = @"HP";
     self.printBarButtonItem.accessibilityIdentifier = @"printBarButtonItem";
     self.printLaterBarButtonItem.accessibilityIdentifier = @"printLaterBarButtonItem";
     
+    [self useDeviceID];
     [self setBarButtonItems];
-    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:@"kHPPPWiFiConnectionEstablished" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:@"kHPPPWiFiConnectionLost" object:nil];
@@ -179,22 +187,63 @@ NSString * const kMetricsAppTypeHP = @"HP";
 
 - (void)setBarButtonItems
 {
+    [[HPPPExperimentManager sharedInstance] updateVariationsWithDeviceID:self.deviceIDTextField.text];
+
     NSMutableArray *icons = [NSMutableArray arrayWithArray:@[ self.shareBarButtonItem]];
     
-    if ([HPPPExperimentManager sharedInstance].showPrintIcon) {
-        if ([[HPPP sharedInstance] isWifiConnected]) {
-            [icons addObjectsFromArray:@[ self.printBarButtonItem ]];
-        } else if (IS_OS_8_OR_LATER) {
-            [icons addObjectsFromArray:@[ self.printLaterBarButtonItem ]];
+    if (
+        kShowButtonsSegmentOnIndex == self.showButtonsSegment.selectedSegmentIndex ||
+        (kShowButtonsSegmentDeviceIndex == self.showButtonsSegment.selectedSegmentIndex && [HPPPExperimentManager sharedInstance].showPrintIcon)) {
+        
+        if (self.detectWiFiSwitch.on) {
+            if ([[HPPP sharedInstance] isWifiConnected]) {
+                [icons addObjectsFromArray:@[ self.printBarButtonItem ]];
+            } else if (IS_OS_8_OR_LATER) {
+                [icons addObjectsFromArray:@[ self.printLaterBarButtonItem ]];
+            }
+        } else {
+            [icons addObjectsFromArray:@[ self.printBarButtonItem]];
+             if (IS_OS_8_OR_LATER) {
+                 [icons addObjectsFromArray:@[ self.printLaterBarButtonItem]];
+             }
         }
     }
     
     self.navigationItem.rightBarButtonItems = icons;
 }
 
+- (void)useDeviceID
+{
+    self.deviceIDTextField.text = [[UIDevice currentDevice].identifierForVendor UUIDString];
+}
+
+- (IBAction)showButtonsSegmentChanged:(id)sender {
+    [self setBarButtonItems];
+}
+
+- (IBAction)detectWiFiSwitchChanged:(id)sender {
+    [self setBarButtonItems];
+}
+
+- (IBAction)deviceIDTextChanged:(id)sender {
+    [self setBarButtonItems];
+    [self setDeviceIDCellState];
+}
+
 - (void)connectionChanged:(NSNotification *)notification
 {
     [self setBarButtonItems];
+}
+
+- (void)setDeviceIDCellState
+{
+    if ([self.deviceIDTextField.text isEqualToString:[[UIDevice currentDevice].identifierForVendor UUIDString]]) {
+        self.useDeviceIDCell.alpha = 0.5;
+        self.useDeviceIDCell.userInteractionEnabled = NO;
+    } else {
+        self.useDeviceIDCell.alpha = 1.0;
+        self.useDeviceIDCell.userInteractionEnabled = YES;
+    }
 }
 
 #pragma mark - Print
@@ -379,6 +428,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self setDeviceIDCellState];
     if (!IS_OS_8_OR_LATER && (cell == self.showPrintQueueCell || cell == self.showGeoHelperCell)) {
         cell.alpha = 0.5;
         cell.userInteractionEnabled = NO;
@@ -396,6 +446,11 @@ NSString * const kMetricsAppTypeHP = @"HP";
         [self toggleMetricsSwitch:self.automaticMetricsSwitch];
     } else if (selectedCell == self.extendedMetricsCell) {
         [self toggleMetricsSwitch:self.extendedMetricsSwitch];
+    } else if (selectedCell == self.useDeviceIDCell) {
+        [self useDeviceID];
+        [self setBarButtonItems];
+        [self setDeviceIDCellState];
+        selectedCell.selected = NO;
     }
 }
 
