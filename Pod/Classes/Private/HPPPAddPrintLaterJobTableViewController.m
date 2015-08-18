@@ -53,9 +53,9 @@
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (strong, nonatomic) HPPPPaper *paper;
 @property (assign, nonatomic) CGRect editViewFrame;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *blackAndWhiteLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *footerViewHeadingLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *footerViewTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *blackAndWhiteLabel;
+@property (weak, nonatomic) IBOutlet UILabel *footerViewHeadingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *footerViewTextLabel;
 @property (strong, nonatomic) HPPPPageRange *pageRange;
 @end
 
