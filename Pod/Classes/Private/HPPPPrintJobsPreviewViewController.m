@@ -43,14 +43,14 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     HPPP *hppp = [HPPP sharedInstance];
     
     [self.doneButton setTitle:HPPPLocalizedString(@"Done", nil) forState:UIControlStateNormal];
-    self.doneButton.titleLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPreviewDoneButtonFontAttribute];
-    [self.doneButton setTitleColor:[hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPreviewDoneButtonColorAttribute] forState:UIControlStateNormal];
+    self.doneButton.titleLabel.font = [hppp.appearance.settings objectForKey:kHPPPOverlayLinkFont];
+    [self.doneButton setTitleColor:[hppp.appearance.settings objectForKey:kHPPPOverlayLinkFontColor] forState:UIControlStateNormal];
     
-    self.printJobNameLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPreviewJobNameFontAttribute];
-    self.printJobNameLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPreviewJobNameColorAttribute];
+    self.printJobNameLabel.font = [hppp.appearance.settings objectForKey:kHPPPOverlayPrimaryFont];
+    self.printJobNameLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPOverlayPrimaryFontColor];
     
-    self.printJobDateLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPreviewJobDateFontAttribute];
-    self.printJobDateLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPreviewJobDateColorAttribute];
+    self.printJobDateLabel.font = [hppp.appearance.settings objectForKey:kHPPPOverlaySecondaryFont];
+    self.printJobDateLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPOverlaySecondaryFontColor];
     
     NSString *formatString = [NSDateFormatter dateFormatFromTemplate:[HPPP sharedInstance].defaultDateFormat options:0 locale:[NSLocale currentLocale]];
     self.formatter = [[NSDateFormatter alloc] init];

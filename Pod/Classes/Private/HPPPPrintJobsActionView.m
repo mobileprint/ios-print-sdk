@@ -43,12 +43,12 @@
 {
     HPPP *hppp = [HPPP sharedInstance];
 
-    UIColor *enableColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenActionButtonsEnableColorAttribute];
-    UIColor *disableColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenActionButtonsDisableColorAttribute];
+    UIColor *enableColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
+    UIColor *disableColor = [hppp.appearance.settings objectForKey:kHPPPMainActionInactiveLinkFontColor];
 
-    UIColor *separatorColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenActionButtonsSeparatorColorAttribute];
+    UIColor *separatorColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsBackgroundColor];
 
-    UIFont *font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenActionButtonsFontAttribute];
+    UIFont *font = [hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
     
     self.selectAllButton.titleLabel.font = font;
     self.deleteButton.titleLabel.font = font;

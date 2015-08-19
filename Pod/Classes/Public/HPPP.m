@@ -108,7 +108,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
                             [HPPPPaper titleFromSize:SizeLetter]
                             ];
         
-        self.appearance = [[HPPPAppearance alloc] init];
+        self.appearance = [[HPPPAppearance2 alloc] init];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleShareCompletedNotification:) name:kHPPPShareCompletedNotification object:nil];
     }

@@ -161,45 +161,45 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
     self.multiPageView.delegate = self;
     
-    self.jobSummaryCell.textLabel.font = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobSummarySubtitleFontAttribute];
-    self.jobSummaryCell.textLabel.textColor = [UIColor blackColor];
+    self.jobSummaryCell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
+    self.jobSummaryCell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
     
-    self.printLabel.font = self.hppp.tableViewCellPrintLabelFont;
-    self.printLabel.textColor = self.hppp.tableViewCellPrintLabelColor;
+    self.printLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
+    self.printLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     self.printLabel.text = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
     
-    self.printSettingsLabel.font = self.hppp.tableViewCellLabelFont;
-    self.printSettingsLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.printSettingsLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.printSettingsLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.printSettingsLabel.text = HPPPLocalizedString(@"Settings", nil);
     
-    self.printSettingsDetailLabel.font = self.hppp.tableViewSettingsCellValueFont;
-    self.printSettingsDetailLabel.textColor = self.hppp.tableViewSettingsCellValueColor;
+    self.printSettingsDetailLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.printSettingsDetailLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     
-    self.selectPrinterLabel.font = self.hppp.tableViewCellLabelFont;
-    self.selectPrinterLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.selectPrinterLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.selectPrinterLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.selectPrinterLabel.text = HPPPLocalizedString(@"Printer", nil);
     
-    self.selectedPrinterLabel.font = self.hppp.tableViewCellValueFont;
-    self.selectedPrinterLabel.textColor = self.hppp.tableViewCellValueColor;
+    self.selectedPrinterLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.selectedPrinterLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     self.selectedPrinterLabel.text = HPPPLocalizedString(@"Select Printer", nil);
     
-    self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
-    self.paperSizeLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.paperSizeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.paperSizeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.paperSizeLabel.text = HPPPLocalizedString(@"Paper Size", nil);
     
-    self.paperSizeSelectedLabel.font = self.hppp.tableViewCellValueFont;
-    self.paperSizeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
+    self.paperSizeSelectedLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.paperSizeSelectedLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     
-    self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
-    self.paperTypeLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.paperTypeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.paperTypeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.paperTypeLabel.text = HPPPLocalizedString(@"Paper Type", nil);
     
-    self.paperTypeSelectedLabel.font = self.hppp.tableViewCellValueFont;
-    self.paperTypeSelectedLabel.textColor = self.hppp.tableViewCellValueColor;
+    self.paperTypeSelectedLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.paperTypeSelectedLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     self.paperTypeSelectedLabel.text = HPPPLocalizedString(@"Plain Paper", nil);
     
-    self.numberOfCopiesLabel.font = self.hppp.tableViewCellLabelFont;
-    self.numberOfCopiesLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.numberOfCopiesLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.numberOfCopiesLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.numberOfCopiesLabel.text = HPPPLocalizedString(@"1 Copy", nil);
     
     [self setPageRangeLabelText:kPageRangeAllPages];
@@ -207,27 +207,27 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         self.pageRangeCell.hidden = TRUE;
         self.pageSelectionMark.hidden = TRUE;
     } else {
-        self.pageRangeCell.textLabel.font = self.hppp.tableViewCellLabelFont;
-        self.pageRangeCell.textLabel.textColor = self.hppp.tableViewCellLabelColor;
-        self.pageRangeCell.detailTextLabel.font = self.hppp.tableViewCellValueFont;
-        self.pageRangeCell.detailTextLabel.textColor = self.hppp.tableViewCellValueColor;
+        self.pageRangeCell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+        self.pageRangeCell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
+        self.pageRangeCell.detailTextLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+        self.pageRangeCell.detailTextLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
 
-        self.selectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute];
-        self.unselectedPageImage = [self.hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute];
+        self.selectedPageImage = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSelectedPageIcon];
+        self.unselectedPageImage = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsUnselectedPageIcon];
         self.pageSelectionMark = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.pageSelectionMark setImage:self.selectedPageImage forState:UIControlStateNormal];
-        self.pageSelectionMark.backgroundColor = [UIColor clearColor];
+        self.pageSelectionMark.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsBackgroundColor];
         self.pageSelectionMark.adjustsImageWhenHighlighted = NO;
         [self.pageSelectionMark addTarget:self action:@selector(pageSelectionMarkClicked) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.pageSelectionMark];
     }
     
 
-    self.filterLabel.font = self.hppp.tableViewCellLabelFont;
-    self.filterLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.filterLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.filterLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.filterLabel.text = HPPPLocalizedString(@"Black & White mode", nil);
     
-    self.pageViewCell.backgroundColor = [UIColor HPPPHPGrayBackgroundColor];
+    self.pageViewCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     
     self.currentPrintSettings = [HPPPPrintSettings alloc];
     self.currentPrintSettings.paper = [HPPP sharedInstance].defaultPaper;
@@ -242,19 +242,19 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     self.numberOfCopies = DEFAULT_NUMBER_OF_COPIES;
     self.numberOfCopiesStepper.value = DEFAULT_NUMBER_OF_COPIES;
-    self.numberOfCopiesStepper.tintColor = self.hppp.tableViewCellLinkLabelColor;
+    self.numberOfCopiesStepper.tintColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     
     [self reloadPaperSelectionSection];
     
     self.smokeyView = [[UIView alloc] init];
-    self.smokeyView.backgroundColor = [UIColor blackColor];
+    self.smokeyView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPOverlayBackgroundColor];
     self.smokeyView.alpha = 0.0f;
     self.smokeyView.hidden = TRUE;
     self.smokeyView.userInteractionEnabled = FALSE;
     
     self.smokeyCancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.smokeyCancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-    [self.smokeyCancelButton setTintColor:[UIColor whiteColor]];
+    [self.smokeyCancelButton setTitle:HPPPLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
+    [self.smokeyCancelButton setTintColor:[self.hppp.appearance.settings objectForKey:kHPPPOverlayPrimaryFontColor]];
     [self.smokeyView addSubview:self.smokeyCancelButton];
     
     [self.navigationController.view addSubview:self.smokeyView];
@@ -725,10 +725,10 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     HPPP *hppp = [HPPP sharedInstance];
     if( 0 == allPages.count ) {
         self.printCell.userInteractionEnabled = FALSE;
-        self.printLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute];
+        self.printLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionInactiveLinkFontColor];
     } else {
         self.printCell.userInteractionEnabled = TRUE;
-        self.printLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute];;
+        self.printLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     }
     
     [self.tableView reloadData];
@@ -1464,7 +1464,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         self.printLabel.textColor = [HPPP sharedInstance].tableViewCellPrintLabelColor;
     } else {
         self.printCell.userInteractionEnabled = NO;
-        self.printLabel.textColor = [UIColor grayColor];
+        self.printLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionInactiveLinkFontColor];
     }
 }
 

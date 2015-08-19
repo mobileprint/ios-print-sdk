@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "HPPPAppearance.h"
+#import "HPPPAppearance2.h"
 #import "HPPPPaper.h"
 #import "HPPPPrintActivity.h"
 #import "HPPPPrintLaterActivity.h"
@@ -380,7 +380,7 @@ extern NSString * const kHPPPNumberOfCopies;
  * @abstract Used to customize look and feel
  * @discussion Allows customization of the look and feel of the print later screens (e.g. fonts, colors, buttons, etc.).
  */
-@property (strong, nonatomic) HPPPAppearance *appearance;
+@property (strong, nonatomic) HPPPAppearance2 *appearance;
 
 /*!
  * @abstract Options used to configure the user interface
