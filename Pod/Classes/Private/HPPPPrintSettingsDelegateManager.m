@@ -33,18 +33,18 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 - (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(HPPPPageRange *)pageRange
 {
     self.pageRange = pageRange;
-    [self.vc refreshData];
+    [self.pageSettingsViewController refreshData];
 }
 
 #pragma mark - HPPPPrintSettingsTableViewControllerDelegate
 
 - (void)printSettingsTableViewController:(HPPPPrintSettingsTableViewController *)printSettingsTableViewController didChangePrintSettings:(HPPPPrintSettings *)printSettings
 {
-    self.currentPrintSettings.printerName = printSettings.printerName;
-    self.currentPrintSettings.printerUrl = printSettings.printerUrl;
-    self.currentPrintSettings.printerModel = printSettings.printerModel;
-    self.currentPrintSettings.printerLocation = printSettings.printerLocation;
-    self.currentPrintSettings.printerIsAvailable = printSettings.printerIsAvailable;
+    self.printSettings.printerName = printSettings.printerName;
+    self.printSettings.printerUrl = printSettings.printerUrl;
+    self.printSettings.printerModel = printSettings.printerModel;
+    self.printSettings.printerLocation = printSettings.printerLocation;
+    self.printSettings.printerIsAvailable = printSettings.printerIsAvailable;
     
     [self savePrinterInfo];
     
@@ -52,40 +52,40 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     
     [self paperTypeTableViewController:(HPPPPaperTypeTableViewController *)printSettingsTableViewController didSelectPaper:printSettings.paper];
     
-    [self.vc refreshData];
+    [self.pageSettingsViewController refreshData];
 }
 
 #pragma mark - HPPPPaperSizeTableViewControllerDelegate
 
 - (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
-    if (self.currentPrintSettings.paper.paperSize != SizeLetter && paper.paperSize == SizeLetter){
+    if (self.printSettings.paper.paperSize != SizeLetter && paper.paperSize == SizeLetter){
         paper.paperType = Plain;
         paper.typeTitle = [HPPPPaper titleFromType:Plain];
-    } else if (self.currentPrintSettings.paper.paperSize == SizeLetter && paper.paperSize != SizeLetter){
+    } else if (self.printSettings.paper.paperSize == SizeLetter && paper.paperSize != SizeLetter){
         paper.paperType = Photo;
         paper.typeTitle = [HPPPPaper titleFromType:Photo];
     }
-    self.currentPrintSettings.paper = paper;
+    self.printSettings.paper = paper;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithInteger:self.currentPrintSettings.paper.paperSize] forKey:kHPPPLastPaperSizeSetting];
+    [defaults setObject:[NSNumber numberWithInteger:self.printSettings.paper.paperSize] forKey:kHPPPLastPaperSizeSetting];
     [defaults synchronize];
     
-    [self.vc refreshData];
+    [self.pageSettingsViewController refreshData];
 }
 
 #pragma mark - HPPPPaperTypeTableViewControllerDelegate
 
 - (void)paperTypeTableViewController:(HPPPPaperTypeTableViewController *)paperTypeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
-    self.currentPrintSettings.paper = paper;
+    self.printSettings.paper = paper;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithInteger:self.currentPrintSettings.paper.paperType] forKey:kHPPPLastPaperTypeSetting];
+    [defaults setObject:[NSNumber numberWithInteger:self.printSettings.paper.paperType] forKey:kHPPPLastPaperTypeSetting];
     [defaults synchronize];
  
-    [self.vc refreshData];
+    [self.pageSettingsViewController refreshData];
 }
 
 #pragma mark - UIPrinterPickerControllerDelegate
@@ -96,12 +96,12 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     
     if (selectedPrinter != nil){
         HPPPLogInfo(@"Selected Printer: %@", selectedPrinter.URL);
-        self.currentPrintSettings.printerIsAvailable = YES;
+        self.printSettings.printerIsAvailable = YES;
         [self setPrinterDetails:selectedPrinter];
         [self savePrinterInfo];
     }
     
-    [self.vc refreshData];
+    [self.pageSettingsViewController refreshData];
 }
 
 #pragma mark - UIPrintInteractionControllerDelegate
@@ -113,11 +113,11 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 
 - (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList
 {
-    UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:[self.currentPrintSettings.paper printerPaperSize] withPapersFromArray:paperList];
+    UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:[self.printSettings.paper printerPaperSize] withPapersFromArray:paperList];
     return paper;
 }
 
-#pragma mark - NumCopies
+#pragma mark - Number of Copies
 
 - (void)setNumCopies:(NSInteger)numCopies
 {
@@ -125,7 +125,7 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     
     self.numCopiesLabelText = (self.numCopies == 1) ? HPPPLocalizedString(@"1 Copy", nil) : [NSString stringWithFormat:HPPPLocalizedString(@"%ld Copies", @"Number of copies"), (long)self.numCopies];
     
-    [self.vc refreshData];
+    [self.pageSettingsViewController refreshData];
     
 }
 
@@ -157,7 +157,7 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
         _printJobSummaryText = [_printJobSummaryText stringByAppendingString:@"/"];
     }
     
-    _printJobSummaryText = [_printJobSummaryText stringByAppendingString:self.currentPrintSettings.paper.sizeTitle];
+    _printJobSummaryText = [_printJobSummaryText stringByAppendingString:self.printSettings.paper.sizeTitle];
     
     return _printJobSummaryText;
 }
@@ -194,7 +194,7 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 
 - (NSString *)printSettingsText
 {
-    _printSettingsText = [NSString stringWithFormat:@"%@, %@", self.currentPrintSettings.paper.sizeTitle, self.currentPrintSettings.paper.typeTitle];
+    _printSettingsText = [NSString stringWithFormat:@"%@, %@", self.printSettings.paper.sizeTitle, self.printSettings.paper.typeTitle];
     
     if( ![self.selectedPrinterText isEqualToString:kHPPPSelectPrinterPrompt] ) {
         _printSettingsText = [_printSettingsText stringByAppendingString:[NSString stringWithFormat:@", %@", self.selectedPrinterText]];
@@ -205,7 +205,7 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 
 - (NSString *)selectedPrinterText
 {
-    return self.currentPrintSettings.printerName == nil ? kHPPPSelectPrinterPrompt : self.currentPrintSettings.printerName;
+    return self.printSettings.printerName == nil ? kHPPPSelectPrinterPrompt : self.printSettings.printerName;
 }
 
 #pragma mark - Helpers
@@ -228,15 +228,15 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
         [self.pageRange removePage:[NSNumber numberWithInteger:pageNumber]];
     }
     
-    [self.vc refreshData];
+    [self.pageSettingsViewController refreshData];
 }
 
 - (void)setPrinterDetails:(UIPrinter *)printer
 {
-    self.currentPrintSettings.printerUrl = printer.URL;
-    self.currentPrintSettings.printerName = printer.displayName;
-    self.currentPrintSettings.printerLocation = printer.displayLocation;
-    self.currentPrintSettings.printerModel = printer.makeAndModel;
+    self.printSettings.printerUrl = printer.URL;
+    self.printSettings.printerName = printer.displayName;
+    self.printSettings.printerLocation = printer.displayLocation;
+    self.printSettings.printerModel = printer.makeAndModel;
 }
 
 #pragma mark - Last Used Settings
@@ -244,31 +244,31 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 - (void)savePrinterInfo
 {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:self.currentPrintSettings.printerUrl.absoluteString forKey:LAST_PRINTER_USED_URL_SETTING];
-    [defaults setObject:self.currentPrintSettings.printerName forKey:kHPPPLastPrinterNameSetting];
-    [defaults setObject:self.currentPrintSettings.printerId forKey:kHPPPLastPrinterIDSetting];
-    [defaults setObject:self.currentPrintSettings.printerModel forKey:kHPPPLastPrinterModelSetting];
-    [defaults setObject:self.currentPrintSettings.printerLocation forKey:kHPPPLastPrinterLocationSetting];
+    [defaults setObject:self.printSettings.printerUrl.absoluteString forKey:LAST_PRINTER_USED_URL_SETTING];
+    [defaults setObject:self.printSettings.printerName forKey:kHPPPLastPrinterNameSetting];
+    [defaults setObject:self.printSettings.printerId forKey:kHPPPLastPrinterIDSetting];
+    [defaults setObject:self.printSettings.printerModel forKey:kHPPPLastPrinterModelSetting];
+    [defaults setObject:self.printSettings.printerLocation forKey:kHPPPLastPrinterLocationSetting];
     [defaults synchronize];
 }
 
 - (void)loadLastUsed
 {
-    self.currentPrintSettings.paper = [self lastPaperUsed];
+    self.printSettings.paper = [self lastPaperUsed];
     
     HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
     if( [settings isDefaultPrinterSet] ) {
-        self.currentPrintSettings.printerName = settings.defaultPrinterName;
-        self.currentPrintSettings.printerUrl = [NSURL URLWithString:settings.defaultPrinterUrl];
-        self.currentPrintSettings.printerId = nil;
-        self.currentPrintSettings.printerModel = settings.defaultPrinterModel;
-        self.currentPrintSettings.printerLocation = settings.defaultPrinterLocation;
+        self.printSettings.printerName = settings.defaultPrinterName;
+        self.printSettings.printerUrl = [NSURL URLWithString:settings.defaultPrinterUrl];
+        self.printSettings.printerId = nil;
+        self.printSettings.printerModel = settings.defaultPrinterModel;
+        self.printSettings.printerLocation = settings.defaultPrinterLocation;
     } else {
-        self.currentPrintSettings.printerName = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterNameSetting];
-        self.currentPrintSettings.printerUrl = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING]];
-        self.currentPrintSettings.printerId = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterIDSetting];
-        self.currentPrintSettings.printerModel = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterModelSetting];
-        self.currentPrintSettings.printerLocation = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterLocationSetting];
+        self.printSettings.printerName = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterNameSetting];
+        self.printSettings.printerUrl = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING]];
+        self.printSettings.printerId = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterIDSetting];
+        self.printSettings.printerModel = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterModelSetting];
+        self.printSettings.printerLocation = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastPrinterLocationSetting];
     }
     
     if (IS_OS_8_OR_LATER) {
@@ -302,17 +302,17 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 - (void)setLastOptionsUsedWithPrinterId:(NSString *)printerId
 {
     NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
-    [lastOptionsUsed setValue:self.currentPrintSettings.paper.typeTitle forKey:kHPPPPaperTypeId];
-    [lastOptionsUsed setValue:self.currentPrintSettings.paper.sizeTitle forKey:kHPPPPaperSizeId];
+    [lastOptionsUsed setValue:self.printSettings.paper.typeTitle forKey:kHPPPPaperTypeId];
+    [lastOptionsUsed setValue:self.printSettings.paper.sizeTitle forKey:kHPPPPaperSizeId];
     [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhite] forKey:kHPPPBlackAndWhiteFilterId];
     [lastOptionsUsed setValue:[NSNumber numberWithInteger:self.numCopies] forKey:kHPPPNumberOfCopies];
     
     if (printerId) {
         [lastOptionsUsed setValue:printerId forKey:kHPPPPrinterId];
-        if ([printerId isEqualToString:self.currentPrintSettings.printerUrl.absoluteString]) {
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerName forKey:kHPPPPrinterDisplayName];
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerLocation forKey:kHPPPPrinterDisplayLocation];
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerModel forKey:kHPPPPrinterMakeAndModel];
+        if ([printerId isEqualToString:self.printSettings.printerUrl.absoluteString]) {
+            [lastOptionsUsed setValue:self.printSettings.printerName forKey:kHPPPPrinterDisplayName];
+            [lastOptionsUsed setValue:self.printSettings.printerLocation forKey:kHPPPPrinterDisplayLocation];
+            [lastOptionsUsed setValue:self.printSettings.printerModel forKey:kHPPPPrinterMakeAndModel];
         } else {
             [lastOptionsUsed setValue:kPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayName];
             [lastOptionsUsed setValue:kPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayLocation];
@@ -321,9 +321,9 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     }
     [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
     
-    self.currentPrintSettings.printerId = printerId;
+    self.printSettings.printerId = printerId;
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:self.currentPrintSettings.printerId forKey:kHPPPLastPrinterIDSetting];
+    [defaults setObject:self.printSettings.printerId forKey:kHPPPLastPrinterIDSetting];
     [defaults synchronize];
     
 }

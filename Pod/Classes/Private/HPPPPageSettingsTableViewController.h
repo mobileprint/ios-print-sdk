@@ -67,6 +67,10 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  * @abstract Indicates whether controller is used for settings only rather than actual printing
  */
 @property (assign, nonatomic) BOOL settingsOnly;
--(void) refreshData;
+
+/*!
+ * @abstract Causes a refresh of the data displayed by the view controller
+ */
+- (void)refreshData;
 
 @end

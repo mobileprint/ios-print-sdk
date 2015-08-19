@@ -38,12 +38,12 @@
  * @abstract The view controller using the delegate manager.
  * @discussion Later, this will be modified such that it's a special type of UIViewController
  */
-@property (weak, nonatomic) HPPPPageSettingsTableViewController *vc;
+@property (weak, nonatomic) HPPPPageSettingsTableViewController *pageSettingsViewController;
 
 /*!
  * @abstract The print settings to be used in the print job
  */
-@property (strong, nonatomic) HPPPPrintSettings *currentPrintSettings;
+@property (strong, nonatomic) HPPPPrintSettings *printSettings;
 
 /*!
  * @abstract The print item to be used in the print job
