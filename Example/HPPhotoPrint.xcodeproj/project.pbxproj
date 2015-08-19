@@ -27,6 +27,7 @@
 		6531EB3E1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m */; };
 		65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */; };
 		65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */; };
+		65B3A9541B82989700ED76DD /* HPPPExperimentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B3A9531B82989700ED76DD /* HPPPExperimentManager.m */; };
 		65C0652E1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C0652D1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m */; };
 		65FFC9B31B03B0A400DCE2B4 /* 1 Page (landscape).pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AD1B03B0A400DCE2B4 /* 1 Page (landscape).pdf */; };
 		65FFC9B41B03B0A400DCE2B4 /* 1 Page.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AE1B03B0A400DCE2B4 /* 1 Page.pdf */; };
@@ -99,6 +100,8 @@
 		6531EB3D1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPMultiPageConfigurationViewController.m; sourceTree = "<group>"; };
 		65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "44 Pages.pdf"; sourceTree = "<group>"; };
 		65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "51 Pages.pdf"; sourceTree = "<group>"; };
+		65B3A9521B82989700ED76DD /* HPPPExperimentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPExperimentManager.h; sourceTree = "<group>"; };
+		65B3A9531B82989700ED76DD /* HPPPExperimentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPExperimentManager.m; sourceTree = "<group>"; };
 		65C0652C1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPSelectPrintItemTableViewController.h; sourceTree = "<group>"; };
 		65C0652D1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPSelectPrintItemTableViewController.m; sourceTree = "<group>"; };
 		65FFC9AD1B03B0A400DCE2B4 /* 1 Page (landscape).pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "1 Page (landscape).pdf"; sourceTree = "<group>"; };
@@ -201,6 +204,8 @@
 				6003F59D195388D20070C39A /* HPPPAppDelegate.m */,
 				F16A57B81AF2B0EA00F7265E /* HPPPExampleLogger.h */,
 				F16A57B91AF2B0EA00F7265E /* HPPPExampleLogger.m */,
+				65B3A9521B82989700ED76DD /* HPPPExperimentManager.h */,
+				65B3A9531B82989700ED76DD /* HPPPExperimentManager.m */,
 				E32115DD1A38BCE50079144C /* HPPPLearnMoreView.h */,
 				E32115DE1A38BCE50079144C /* HPPPLearnMoreView.m */,
 				E32115DF1A38BCE50079144C /* HPPPLearnMoreView.xib */,
@@ -484,6 +489,7 @@
 				6003F59E195388D20070C39A /* HPPPAppDelegate.m in Sources */,
 				6531EB3E1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m in Sources */,
 				E32115E01A38BCE50079144C /* HPPPLearnMoreView.m in Sources */,
+				65B3A9541B82989700ED76DD /* HPPPExperimentManager.m in Sources */,
 				F16A57BA1AF2B0EA00F7265E /* HPPPExampleLogger.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);

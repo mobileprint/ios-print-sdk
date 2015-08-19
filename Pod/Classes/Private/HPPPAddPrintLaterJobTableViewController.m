@@ -53,6 +53,9 @@
 @property (strong, nonatomic) HPPPPrintItem *printItem;
 @property (strong, nonatomic) HPPPPaper *paper;
 @property (assign, nonatomic) CGRect editViewFrame;
+@property (weak, nonatomic) IBOutlet UILabel *blackAndWhiteLabel;
+@property (weak, nonatomic) IBOutlet UILabel *footerViewHeadingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *footerViewTextLabel;
 @property (strong, nonatomic) HPPPPageRange *pageRange;
 @end
 
@@ -115,8 +118,14 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     self.pageRangeCell.detailTextLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenPageRangeDetailFontAttribute];
     self.pageRangeCell.detailTextLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenPageRangeDetailColorAttribute];
     
-    self.blackAndWhiteCell.textLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenBWTitleFontAttribute];
-    self.blackAndWhiteCell.textLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenBWTitleColorAttribute];
+    self.blackAndWhiteLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenBWTitleFontAttribute];
+    self.blackAndWhiteLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenBWTitleColorAttribute];
+    
+    self.footerViewHeadingLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenDescriptionTitleFontAttribute];
+    self.footerViewHeadingLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenDescriptionTitleColorAttribute];
+    
+    self.footerViewTextLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenDescriptionDetailFontAttribute];
+    self.footerViewTextLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenDescriptionDetailColorAttribute];
     
     self.selectedPageImage = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute];
     self.unselectedPageImage = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute];
