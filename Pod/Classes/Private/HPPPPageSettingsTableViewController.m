@@ -36,6 +36,8 @@
 #import "HPPPPageRangeView.h"
 #import "HPPPPageRange.h"
 #import "HPPPPrintManager.h"
+#import "HPPPPrintManager+Options.h"
+#import "HPPPPrintJobsViewController.h"
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 
@@ -294,8 +296,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
                                                                          repeats:YES];
     }
     
-    self.printManager = [[HPPPPrintManager alloc] init];
-    self.printManager.delegate = self;
+    [self preparePrintManager];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -821,7 +822,9 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     [self.printManager prepareController:controller printItem:self.printItem color:!self.blackAndWhiteModeSwitch.on pageRange:self.pageRange numCopies:self.numberOfCopies];
     
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
-        
+        if (!error) {
+            [self.printManager processMetricsForPrintItem:self.printItem];
+        }
         [self printCompleted:printController isCompleted:completed printError:error];
     };
     
@@ -1170,13 +1173,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         
         [self setDefaultPrinter];
     
-        if ([HPPP sharedInstance].handlePrintMetricsAutomatically && !self.printFromQueue) {
-            NSString *offramp = NSStringFromClass([HPPPPrintActivity class]);
-            for (HPPPPrintItem *printItem in [self collectPrintingItems]) {
-                [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:@{ kHPPPOfframpKey:offramp }];
-            }
-        }
-        
         if ([self.delegate respondsToSelector:@selector(didFinishPrintFlow:)]) {
             [self.delegate didFinishPrintFlow:self];
         }
@@ -1254,6 +1250,27 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     [self setDefaultPrinter];
     [self setLastOptionsUsedWithPrintController:[HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl];
+}
+
+- (void)preparePrintManager
+{
+    self.printManager = [[HPPPPrintManager alloc] init];
+    self.printManager.delegate = self;
+
+    HPPPPrintManagerOptions options = HPPPPrintManagerOriginCustom;
+    if ([self.delegate class] == [HPPPPrintActivity class]) {
+        options = HPPPPrintManagerOriginShare;
+    } else if ([self.delegate class] == [HPPPPrintJobsViewController class]) {
+        options = HPPPPrintManagerOriginQueue;
+    }
+
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        if ([self.dataSource numberOfPrintingItems] > 1) {
+            options += HPPPPrintManagerMultiJob;
+        }
+    }
+    
+    self.printManager.options = options;
 }
 
 #pragma mark - HPPPMultipageViewDelegate
@@ -1387,6 +1404,10 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)didFinishPrintJob:(UIPrintInteractionController *)printController completed:(BOOL)completed error:(NSError *)error
 {
+    if (error) {
+        HPPPLogError(@"Print error: %@", error);
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         id nextItem = [self.itemsToPrint firstObject];
         if (nextItem) {

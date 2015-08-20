@@ -97,4 +97,14 @@ NSString * const kHPPPPrintAssetKey = @"kHPPPPrintAssetKey";
     return _layout;
 }
 
+#pragma mark - Extra information
+
+- (NSDictionary *)extra
+{
+    if (nil == _extra) {
+        _extra = [NSDictionary dictionary];
+    }
+    return _extra;
+}
+
 @end
