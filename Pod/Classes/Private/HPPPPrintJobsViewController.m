@@ -50,8 +50,6 @@ NSString * const kJobListScreenName = @"Job List Screen";
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = self.tableView.backgroundColor;
-    
     self.printJobsActionView.delegate = self;
     
     HPPP *hppp = [HPPP sharedInstance];
@@ -73,6 +71,8 @@ NSString * const kJobListScreenName = @"Job List Screen";
         }
     }
     
+    self.view.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.tableView.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [self initJobsCounterLabel];
@@ -106,7 +106,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
 
 - (void)initJobsCounterLabel
 {
-    self.jobsCounterLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 22.0f)];
+    self.jobsCounterLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 22.0f)];
     HPPP *hppp = [HPPP sharedInstance];
     self.jobsCounterLabel.font = [hppp.appearance.settings objectForKey:kHPPPQueuePrimaryFont];
     self.jobsCounterLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPQueuePrimaryFontColor];

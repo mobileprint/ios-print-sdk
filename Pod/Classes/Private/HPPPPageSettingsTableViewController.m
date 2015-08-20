@@ -152,19 +152,20 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         [[HPPPLogger sharedInstance] logWarn:@"HPPPPageSettingsTableViewController is intended to be embedded in navigation controller. Navigation problems and othe unexpected behavior may occur if used without a navigation controller."];
     }
     
+    self.tableView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     if ((IS_IPAD && IS_OS_8_OR_LATER) || (self.settingsOnly && nil == self.printItem)) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
     }
-
+    
     self.multiPageView.delegate = self;
     
-    self.jobSummaryCell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
-    self.jobSummaryCell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
+    self.jobSummaryCell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFont];
+    self.jobSummaryCell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFontColor];
     
-    self.printLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
+    self.printLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFont];
     self.printLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     self.printLabel.text = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
     
@@ -216,7 +217,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         self.unselectedPageImage = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsUnselectedPageIcon];
         self.pageSelectionMark = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.pageSelectionMark setImage:self.selectedPageImage forState:UIControlStateNormal];
-        self.pageSelectionMark.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsBackgroundColor];
+        self.pageSelectionMark.backgroundColor = [UIColor clearColor];
         self.pageSelectionMark.adjustsImageWhenHighlighted = NO;
         [self.pageSelectionMark addTarget:self action:@selector(pageSelectionMarkClicked) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.pageSelectionMark];
@@ -605,7 +606,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     if( display ) {
         self.smokeyView.hidden = FALSE;
-        self.smokeyView.alpha = 0.6f;
+        self.smokeyView.alpha = [[[HPPP sharedInstance].appearance.settings objectForKey:kHPPPOverlayBackgroundOpacity] floatValue];
     } else {
         self.smokeyView.alpha = 0.0f;
     }
@@ -725,9 +726,11 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     HPPP *hppp = [HPPP sharedInstance];
     if( 0 == allPages.count ) {
         self.printCell.userInteractionEnabled = FALSE;
+        self.printLabel.font = [hppp.appearance.settings objectForKey:kHPPPMainActionInactiveLinkFont];
         self.printLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionInactiveLinkFontColor];
     } else {
         self.printCell.userInteractionEnabled = TRUE;
+        self.printLabel.font = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFont];
         self.printLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     }
     
@@ -922,8 +925,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ActionTableViewCellIdentifier"];
         }
         
-        cell.textLabel.font = self.hppp.tableViewCellLabelFont;
-        cell.textLabel.textColor = self.hppp.tableViewCellLinkLabelColor;
+        cell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+        cell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
         HPPPSupportAction *action = self.hppp.supportActions[indexPath.row];
         cell.imageView.image = action.icon;
         cell.textLabel.text = action.title;
@@ -1046,8 +1049,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
                 footer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableView.frame.size.width, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
                 
                 UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
-                label.font = self.hppp.tableViewFooterWarningLabelFont;
-                label.textColor = self.hppp.tableViewFooterWarningLabelColor;
+                label.font = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFont];
+                label.textColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFontColor];
                 if (self.printFromQueue) {
                     label.text = HPPPLocalizedString(@"Default printer not currently available", nil);
                 } else {
@@ -1461,7 +1464,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     if ([[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
         self.printCell.userInteractionEnabled = YES;
-        self.printLabel.textColor = [HPPP sharedInstance].tableViewCellPrintLabelColor;
+        self.printLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     } else {
         self.printCell.userInteractionEnabled = NO;
         self.printLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionInactiveLinkFontColor];

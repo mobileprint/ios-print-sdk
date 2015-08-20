@@ -594,7 +594,7 @@ static NSNumber *lastPinchScale = nil;
     UIColor *color = [UIColor clearColor];
     if (NO) {
         if ([identifier isEqualToString:@"Background"]) {
-            color = [UIColor HPPPColorWithHexString:@"93A3B1"];
+            color = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
         } else if ([identifier isEqualToString:@"Scroll View"]) {
             color = [UIColor HPPPColorWithHexString:@"AEB2B0"];
         } else if ([identifier isEqualToString:@"Page Cell"]) {

@@ -36,7 +36,9 @@
     self.jobNameLabel.font = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
     self.jobNameLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
     
-    NSString *formatString = [NSDateFormatter dateFormatFromTemplate:[HPPP sharedInstance].defaultDateFormat options:0 locale:[NSLocale currentLocale]];
+    NSString *formatString = [NSDateFormatter dateFormatFromTemplate:[[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralDefaultDateFormat]
+                                                             options:0
+                                                              locale:[NSLocale currentLocale]];
     self.formatter = [[NSDateFormatter alloc] init];
     [self.formatter setDateFormat:formatString];
     

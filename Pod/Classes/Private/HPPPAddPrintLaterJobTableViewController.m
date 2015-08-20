@@ -81,6 +81,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         }
     }
     
+    self.tableView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     if (IS_IPAD && IS_OS_8_OR_LATER) {
@@ -99,7 +100,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
                                                 ];
     self.jobSummaryCell.detailTextLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFontColor];
 
-    self.addToPrintQLabel.font = [hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
+    self.addToPrintQLabel.font = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFont];
     self.addToPrintQLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     
     self.jobNameCell.textLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
@@ -575,7 +576,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     
     if( display ) {
         self.smokeyView.hidden = FALSE;
-        self.smokeyView.alpha = 0.6f;
+        self.smokeyView.alpha = [[[HPPP sharedInstance].appearance.settings objectForKey:kHPPPOverlayBackgroundOpacity] floatValue];
     } else {
         self.smokeyView.alpha = 0.0f;
     }

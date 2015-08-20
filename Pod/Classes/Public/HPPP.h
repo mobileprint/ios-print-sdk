@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "HPPPAppearance2.h"
+#import "HPPPAppearance.h"
 #import "HPPPPaper.h"
 #import "HPPPPrintActivity.h"
 #import "HPPPPrintLaterActivity.h"
@@ -260,95 +260,6 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (strong, nonatomic) HPPPPaper *defaultPaper;
 
 /*!
- * @abstract Font used for the ruler labels
- */
-@property (strong, nonatomic) UIFont *rulesLabelFont;
-
-/*!
- * @abstract Font used for the print label
- * @discussion Used for the print label on the print preview page.
- */
-@property (strong, nonatomic) UIFont *tableViewCellPrintLabelFont;
-
-/*!
- * @abstract Color used for the print label
- * @discussion Used for the print label on the print preview page.
- */
-@property (strong, nonatomic) UIColor *tableViewCellPrintLabelColor;
-
-/*!
- * @abstract Font used for the support header label
- * @discussion Used for the support header label warning on the print preview page.
- */
-@property (strong, nonatomic) UIFont *tableViewSupportHeaderLabelFont;
-
-/*!
- * @abstract Color used for the support header label
- * @discussion Used for the support header label warning on the print preview page.
- */
-@property (strong, nonatomic) UIColor *tableViewSupportHeaderLabelColor;
-
-/*!
- * @abstract Font used for the footer label warning
- * @discussion Used for the footer label warning on the print preview page.
- */
-@property (strong, nonatomic) UIFont *tableViewFooterWarningLabelFont;
-
-/*!
- * @abstract Color used for the footer label warning
- * @discussion Used for the footer label warning on the print preview page.
- */
-@property (strong, nonatomic) UIColor *tableViewFooterWarningLabelColor;
-
-/*!
- * @abstract Font used for the label of properties
- * @discussion Used for the name of properties on the print preview page (e.g. Paper Size, Paper Type).
- */
-@property (strong, nonatomic) UIFont *tableViewCellLabelFont;
-
-/*!
- * @abstract Color used for the label of properties
- * @discussion Used for the name of properties on the print preview page (e.g. Paper Size, Paper Type).
- */
-@property (strong, nonatomic) UIColor *tableViewCellLabelColor;
-
-/*!
- * @abstract Font used for the value of properties
- * @discussion Used for the value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
- */
-@property (strong, nonatomic) UIFont *tableViewCellValueFont;
-
-/*!
- * @abstract Color used for the value of properties
- * @discussion Used for the currently selected value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
- */
-@property (strong, nonatomic) UIColor *tableViewCellValueColor;
-
-/*!
- * @abstract Font used for the settings value of properties
- * @discussion Used for the value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
- */
-@property (strong, nonatomic) UIFont *tableViewSettingsCellValueFont;
-
-/*!
- * @abstract Color used for the settings value of properties
- * @discussion Used for the currently selected value of properties on the print preview page (e.g. 4 x 6, Plain Paper).
- */
-@property (strong, nonatomic) UIColor *tableViewSettingsCellValueColor;
-
-/*!
- * @abstract Color used for action link text
- * @discussion Used for one or more action links shown at the bottom of the print preview page
- */
-@property (strong, nonatomic) UIColor *tableViewCellLinkLabelColor;
-
-/*!
- * @abstract A string with the default date format
- * @discussion The default date format applies to all the screens where a date is present.
- */
-@property (strong, nonatomic) NSString *defaultDateFormat;
-
-/*!
  * @abstract A dictionary of the most recent print options used
  * @discussion If the last print job was successful this property contains a dictionary of various options used for the job. If the last print job failed or was canceled then this property contains an empty dictionary.
  * @seealso kHPPPBlackAndWhiteFilterId
@@ -380,7 +291,7 @@ extern NSString * const kHPPPNumberOfCopies;
  * @abstract Used to customize look and feel
  * @discussion Allows customization of the look and feel of the print later screens (e.g. fonts, colors, buttons, etc.).
  */
-@property (strong, nonatomic) HPPPAppearance2 *appearance;
+@property (strong, nonatomic) HPPPAppearance *appearance;
 
 /*!
  * @abstract Options used to configure the user interface

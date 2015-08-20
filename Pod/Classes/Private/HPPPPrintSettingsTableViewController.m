@@ -64,29 +64,30 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
     self.selectedPaperSizeLabel.text = self.printSettings.paper.sizeTitle;
     self.selectedPaperTypeLabel.text = self.printSettings.paper.typeTitle;
     
-    self.printerLabel.font = self.hppp.tableViewCellLabelFont;
-    self.printerLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.printerLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.printerLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.printerLabel.text = HPPPLocalizedString(@"Printer", nil);
 
-    self.selectedPrinterLabel.font = self.hppp.tableViewCellValueFont;
-    self.selectedPrinterLabel.textColor = self.hppp.tableViewCellValueColor;
+    self.selectedPrinterLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.selectedPrinterLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     
-    self.paperSizeLabel.font = self.hppp.tableViewCellLabelFont;
-    self.paperSizeLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.paperSizeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.paperSizeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.paperSizeLabel.text = HPPPLocalizedString(@"Paper Size", nil);
     
-    self.selectedPaperSizeLabel.font = self.hppp.tableViewCellValueFont;
-    self.selectedPaperSizeLabel.textColor = self.hppp.tableViewCellValueColor;
+    self.selectedPaperSizeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.selectedPaperSizeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     
-    self.paperTypeLabel.font = self.hppp.tableViewCellLabelFont;
-    self.paperTypeLabel.textColor = self.hppp.tableViewCellLabelColor;
+    self.paperTypeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.paperTypeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.paperTypeLabel.text = HPPPLocalizedString(@"Paper Type", nil);
     
-    self.selectedPaperTypeLabel.font = self.hppp.tableViewCellValueFont;
-    self.selectedPaperTypeLabel.textColor = self.hppp.tableViewCellValueColor;
+    self.selectedPaperTypeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.selectedPaperTypeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     
     [self updatePrinterAvailability];
     
+    self.tableView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     if (IS_OS_8_OR_LATER) {
@@ -249,8 +250,8 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
         if (!self.printSettings.printerIsAvailable) {
             footer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableView.frame.size.width, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
-            label.font = self.hppp.tableViewFooterWarningLabelFont;
-            label.textColor = self.hppp.tableViewFooterWarningLabelColor;
+            label.font = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFont];
+            label.textColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFontColor];
             if (self.useDefaultPrinter) {
                 label.text = HPPPLocalizedString(@"Default printer not currently available", nil);
             } else {

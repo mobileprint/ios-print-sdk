@@ -128,7 +128,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
             button.frame = CGRectMake(col*buttonWidth, yOrigin + (row*buttonHeight), width, buttonHeight);
         } else {
             if( [buttonText isEqualToString:[kCheckButtonText copy]] ) {
-                button.titleLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
+                button.titleLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFont];
                 button.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionBackgroundColor];
                 [button setTitleColor:[self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor] forState:UIControlStateNormal];
             }
