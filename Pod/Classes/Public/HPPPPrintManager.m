@@ -18,6 +18,7 @@
 #import "HPPPDefaultSettingsManager.h"
 #import "NSBundle+HPPPLocalizable.h"
 #import "HPPPAnalyticsManager.h"
+#import "HPPPPrintLaterQueue.h"
 
 #define HPPP_DEFAULT_PRINT_JOB_NAME HPPPLocalizedString(@"Photo", @"Default job name of the print send to the printer")
 
@@ -151,13 +152,24 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
         [self prepareController:controller printItem:printItem color:color pageRange:pageRange numCopies:numCopies];
         UIPrinter *printer = [UIPrinter printerWithURL:self.currentPrintSettings.printerUrl];
         [controller printToPrinter:printer completionHandler:^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
-            HPPPLogInfo(@"Print completed");
-            if (!error) {
+            
+            if (!completed) {
+                HPPPLogInfo(@"Print was NOT completed");
+            }
+            
+            if (error) {
+                HPPPLogWarn(@"Print error:  %@", error);
+            }
+        
+            if (completed && !error) {
+                [self saveLastOptionsForPrinter:controller.printInfo.printerID];
                 [self processMetricsForPrintItem:printItem];
             }
+        
             if( [self.delegate respondsToSelector:@selector(didFinishPrintJob:completed:error:)] ) {
                 [self.delegate didFinishPrintJob:controller completed:completed error:error];
             }
+            
         }];
     } else {
         HPPPLogError(@"Must have an HPPPPrintSettings instance in order to print");
@@ -248,10 +260,10 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
 
 - (void)processMetricsForPrintItem:(HPPPPrintItem *)printItem
 {
+    NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:printItem.extra];
+    [metrics addEntriesFromDictionary:@{ kHPPPOfframpKey:[self offramp] }];
+    printItem.extra = metrics;
     if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
-        NSString *offramp = [self offramp];
-        NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kHPPPOfframpKey:offramp }];
-        [metrics addEntriesFromDictionary:printItem.extra];
         [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:metrics];
     }
 }
@@ -271,6 +283,21 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
         }
     }
     return offramp;
+}
+
++ (BOOL)printingOfframp:(NSString *)offramp
+{
+    NSArray *printingOfframps = @[
+                                  kHPPPOfframpPrint,
+                                  kHPPPOfframpQueue,
+                                  kHPPPOfframpQueueMulti,
+                                  kHPPPOfframpCustom,
+                                  kHPPPOfframpDirect,
+                                  kHPPPOfframpAddToQueueShare,
+                                  kHPPPOfframpAddToQueueCustom,
+                                  kHPPPOfframpAddToQueueDirect ];
+
+    return [printingOfframps containsObject:offramp];
 }
 
 @end

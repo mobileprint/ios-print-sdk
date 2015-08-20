@@ -14,7 +14,7 @@
 #import <HPPPPrintItemFactory.h>
 #import <HPPPPrintManager.h>
 
-@interface HPPPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate, HPPPAddPrintLaterDelegate>
+@interface HPPPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate, HPPPAddPrintLaterDelegate, HPPPPrintManagerDelegate>
 
 typedef enum {
     Print,
@@ -48,6 +48,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UISwitch *detectWiFiSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *deviceIDTextField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *showButtonsSegment;
+@property (weak, nonatomic) IBOutlet UITableViewCell *directPrintCell;
 
 @end
 
@@ -108,6 +109,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:@"kHPPPWiFiConnectionEstablished" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:@"kHPPPWiFiConnectionLost" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintQueueNotification:) name:kHPPPPrintQueueNotification object:nil];
 }
 
 - (void)dealloc
@@ -371,11 +373,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
 - (void)didFinishPrintFlow:(UIViewController *)printViewController;
 {
     [printViewController dismissViewControllerAnimated:YES completion:nil];
-    if (self.extendedMetricsSwitch.on) {
-        NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsOfframpKey:NSStringFromClass([HPPPPrintActivity class]), kMetricsAppTypeKey:kMetricsAppTypeHP }];
-        [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self.printItem userInfo:metrics];
-    }
+    [self processMetricsForPrintItem:self.printItem];
 }
 
 - (void)didCancelPrintFlow:(UIViewController *)printViewController;
@@ -429,7 +427,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self setDeviceIDCellState];
-    if (!IS_OS_8_OR_LATER && (cell == self.showPrintQueueCell || cell == self.showGeoHelperCell)) {
+    if (!IS_OS_8_OR_LATER && (cell == self.showPrintQueueCell || cell == self.showGeoHelperCell || cell == self.directPrintCell)) {
         cell.alpha = 0.5;
         cell.userInteractionEnabled = NO;
     }
@@ -516,6 +514,16 @@ NSString * const kMetricsAppTypeHP = @"HP";
             @"Samply McSampleson", @"user_name", nil];
 }
 
+- (void)processMetricsForPrintItem:(HPPPPrintItem *)printItem
+{
+    if (self.extendedMetricsSwitch.on) {
+        NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsAppTypeKey:kMetricsAppTypeHP }];
+        [metrics addEntriesFromDictionary:printItem.extra];
+        [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self.printItem userInfo:metrics];
+    }
+}
+
 - (void)handlePrintQueueNotification:(NSNotification *)notification
 {
     if (self.extendedMetricsSwitch.on) {
@@ -599,7 +607,9 @@ NSString * const kMetricsAppTypeHP = @"HP";
     if (Share == self.action) {
         [self shareItem];
     } else if (DirectPrint == self.action) {
+        
         HPPPPrintManager *printManager = [[HPPPPrintManager alloc] init];
+        printManager.delegate = self;
         
         if( printManager.currentPrintSettings.paper ) {
             printItem.layout = [self layoutForPaper:printManager.currentPrintSettings.paper];
@@ -724,6 +734,11 @@ NSString * const kMetricsAppTypeHP = @"HP";
 
 - (void)didFinishAddPrintLaterFlow:(UIViewController *)addPrintLaterJobTableViewController
 {
+    NSDictionary *values = @{
+                             kHPPPPrintQueueActionKey:[self.printLaterJob.extra objectForKey:kMetricsOfframpKey],
+                             kHPPPPrintQueueJobKey:self.printLaterJob,
+                             kHPPPPrintQueuePrintItemKey:[self.printLaterJob.printItems objectForKey:[HPPP sharedInstance].defaultPaper.sizeTitle] };
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:values];
     [self dismissViewControllerAnimated:YES completion:^{
         [[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
     }];
@@ -732,6 +747,23 @@ NSString * const kMetricsAppTypeHP = @"HP";
 - (void)didCancelAddPrintLaterFlow:(UIViewController *)addPrintLaterJobTableViewController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - HPPPPrintManagerDelegate
+
+- (void)didFinishPrintJob:(UIPrintInteractionController *)printController completed:(BOOL)completed error:(NSError *)error
+{
+    if (!completed) {
+        HPPPLogInfo(@"Print was NOT completed");
+    }
+    
+    if (error) {
+        HPPPLogWarn(@"Print error:  %@", error);
+    }
+    
+    if (completed && !error) {
+        [self processMetricsForPrintItem:self.printItem];
+    }
 }
 
 @end

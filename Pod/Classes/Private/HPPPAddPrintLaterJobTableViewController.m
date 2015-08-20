@@ -325,7 +325,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         if (printItem == nil) {
             HPPPLogError(@"At least the printing item for the initial paper size (%@) must be provided", titleForInitialPaperSize);
         } else {
-            BOOL result = [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob];
+            BOOL result = [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob fromController:self];
             
             if (result) {
                 if ([self.delegate respondsToSelector:@selector(didFinishAddPrintLaterFlow:)]) {
