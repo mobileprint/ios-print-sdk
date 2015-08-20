@@ -96,6 +96,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 {
     UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width, self.frame.size.height, 1, 1)];
     self.textField.inputView = dummyView; // Hide keyboard, but show blinking cursor
+    UIFont *baseFont = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
     
     int buttonWidth = self.frame.size.width/buttonsPerRow + 1;
     int buttonHeight = .8 * buttonWidth;
@@ -112,7 +113,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [button setTitle:buttonText forState:UIControlStateNormal];
         [button setTitleColor:[self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor] forState:UIControlStateNormal];
-        button.titleLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
+        button.titleLabel.font = [baseFont fontWithSize:baseFont.pointSize+2];
         [button layer].borderWidth = 1.0f;
         [button layer].borderColor = [[self.hppp.appearance.settings objectForKey:kHPPPJobSettingsStrokeColor] CGColor];
         button.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsBackgroundColor];
@@ -124,11 +125,11 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
                 width = buttonWidth*2;
                 buttonOffset++;
             }
-            button.titleLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
+            button.titleLabel.font = baseFont;
             button.frame = CGRectMake(col*buttonWidth, yOrigin + (row*buttonHeight), width, buttonHeight);
         } else {
             if( [buttonText isEqualToString:[kCheckButtonText copy]] ) {
-                button.titleLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFont];
+                button.titleLabel.font = baseFont;
                 button.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionBackgroundColor];
                 [button setTitleColor:[self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor] forState:UIControlStateNormal];
             }

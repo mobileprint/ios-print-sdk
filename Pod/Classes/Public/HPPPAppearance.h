@@ -54,9 +54,8 @@ extern NSString * const kHPPPHeaderLinkFontColor;
 // Main Action
 extern NSString * const kHPPPMainActionBackgroundColor;
 extern NSString * const kHPPPMainActionStrokeColor;
-extern NSString * const kHPPPMainActionActiveLinkFont;
+extern NSString * const kHPPPMainActionLinkFont;
 extern NSString * const kHPPPMainActionActiveLinkFontColor;
-extern NSString * const kHPPPMainActionInactiveLinkFont;
 extern NSString * const kHPPPMainActionInactiveLinkFontColor;
 
 // Queue Project Count

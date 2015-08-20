@@ -100,7 +100,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
                                                 ];
     self.jobSummaryCell.detailTextLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFontColor];
 
-    self.addToPrintQLabel.font = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFont];
+    self.addToPrintQLabel.font = [hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
     self.addToPrintQLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     
     self.jobNameCell.textLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];

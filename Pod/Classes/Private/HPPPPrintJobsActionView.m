@@ -48,7 +48,7 @@
 
     UIColor *separatorColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
 
-    UIFont *font = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFont];
+    UIFont *font = [hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
     
     self.selectAllButton.titleLabel.font = font;
     self.deleteButton.titleLabel.font = font;

@@ -54,9 +54,8 @@ NSString * const kHPPPHeaderLinkFontColor = @"kHPPPHeaderLinkFontColor";
 // Main Action
 NSString * const kHPPPMainActionBackgroundColor = @"kHPPPMainActionBackgroundColor";
 NSString * const kHPPPMainActionStrokeColor = @"kHPPPMainActionStrokeColor";
-NSString * const kHPPPMainActionActiveLinkFont = @"kHPPPMainActionLinkFont";
+NSString * const kHPPPMainActionLinkFont = @"kHPPPMainActionLinkFont";
 NSString * const kHPPPMainActionActiveLinkFontColor = @"kHPPPMainActionActiveLinkFontColor";
-NSString * const kHPPPMainActionInactiveLinkFont = @"kHPPPMainActionInactiveLinkFont";
 NSString * const kHPPPMainActionInactiveLinkFontColor = @"kHPPPMainActionInactiveLinkFontColor";
 
 // Queue Project Count
@@ -127,9 +126,8 @@ NSString * const kHPPPOverlayLinkFontColor = @"kHPPPOverlayLinkFontColor";
                   // Main Action
                   kHPPPMainActionBackgroundColor:       [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
                   kHPPPMainActionStrokeColor:           [UIColor colorWithRed:0xC8/255.0F green:0xC7/255.0F blue:0xCC/255.0F alpha:1.0F],
-                  kHPPPMainActionActiveLinkFont:        [UIFont fontWithName:regularFont size:18],
+                  kHPPPMainActionLinkFont:              [UIFont fontWithName:regularFont size:18],
                   kHPPPMainActionActiveLinkFontColor:   [UIColor colorWithRed:0x00/255.0F green:0x7A/255.0F blue:0xFF/255.0F alpha:1.0F],
-                  kHPPPMainActionInactiveLinkFont:      [UIFont fontWithName:regularFont size:18],
                   kHPPPMainActionInactiveLinkFontColor: [UIColor colorWithRed:0xAA/255.0F green:0xAA/255.0F blue:0xAA/255.0F alpha:1.0F],
                   
                   // Queue Project Count

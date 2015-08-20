@@ -165,7 +165,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.jobSummaryCell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFont];
     self.jobSummaryCell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFontColor];
     
-    self.printLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFont];
+    self.printLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
     self.printLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     self.printLabel.text = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
     
@@ -726,11 +726,9 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     HPPP *hppp = [HPPP sharedInstance];
     if( 0 == allPages.count ) {
         self.printCell.userInteractionEnabled = FALSE;
-        self.printLabel.font = [hppp.appearance.settings objectForKey:kHPPPMainActionInactiveLinkFont];
         self.printLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionInactiveLinkFontColor];
     } else {
         self.printCell.userInteractionEnabled = TRUE;
-        self.printLabel.font = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFont];
         self.printLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     }
     
