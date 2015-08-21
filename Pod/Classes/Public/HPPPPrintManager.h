@@ -85,6 +85,11 @@ typedef enum {
                 pageRange:(HPPPPageRange *)pageRange
                 numCopies:(NSInteger)numCopies;
 
+/*
+ * @abstract Called when the print item was printed successfully
+ */
+- (void)processMetricsForPrintItem:(HPPPPrintItem *)printItem;
+
 @end
 
 /*!
