@@ -276,15 +276,16 @@ NSString * const kMetricsAppTypeHP = @"HP";
     vc.navigationItem.title = title;
 }
 
-- (void)preparePrintLaterJob
+- (void)preparePrintLaterJobWithName:(NSString *)name
 {
     NSString *printLaterJobNextAvailableId = [[HPPP sharedInstance] nextPrintJobId];
     self.printLaterJob = [[HPPPPrintLaterJob alloc] init];
     self.printLaterJob.id = printLaterJobNextAvailableId;
-    self.printLaterJob.name = @"Add from Share";
+    self.printLaterJob.name = [NSString stringWithFormat:@"%@ (basic)", name];
     self.printLaterJob.date = [NSDate date];
     self.printLaterJob.printItems = [self printItemsForAsset:self.printItem.printAsset];
     if (self.extendedMetricsSwitch.on) {
+        self.printLaterJob.name = [NSString stringWithFormat:@"%@ (extended)", name];
         NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsAppTypeKey:kMetricsAppTypeHP }];
         [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
         self.printLaterJob.extra = metrics;
@@ -309,7 +310,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
     
     NSArray *applicationActivities = nil;
     if (IS_OS_8_OR_LATER) {
-        [self preparePrintLaterJob];
+        [self preparePrintLaterJobWithName:@"From Share"];
         HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
         printLaterActivity.printLaterJob = self.printLaterJob;
         applicationActivities = @[printActivity, printLaterActivity];
@@ -649,7 +650,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
                               otherButtonTitles:nil] show];
         }
     } else if (PrintLater == self.action) {
-        [self preparePrintLaterJob];
+        [self preparePrintLaterJobWithName:@"From Client"];
         UIViewController *vc = [[HPPP sharedInstance] printLaterViewControllerWithDelegate:self printLaterJob:self.printLaterJob];
         [self presentViewController:vc animated:YES completion:nil];
     }
