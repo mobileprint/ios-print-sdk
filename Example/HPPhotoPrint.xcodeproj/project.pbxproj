@@ -44,6 +44,7 @@
 		F10BCCCC1B7A53CC001A5F3B /* HPPPDirectPrintTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F10BCCCB1B7A53CC001A5F3B /* HPPPDirectPrintTest.m */; };
 		F16A57BA1AF2B0EA00F7265E /* HPPPExampleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F16A57B91AF2B0EA00F7265E /* HPPPExampleLogger.m */; };
 		F1998AF51B6808BD00E5320F /* HPPPPageRangeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F1998AF41B6808BD00E5320F /* HPPPPageRangeTest.m */; };
+		F1B2023F1B7E970D00912E0B /* HPPPPrintSettingsDelegateManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B2023E1B7E970D00912E0B /* HPPPPrintSettingsDelegateManagerTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		F16A57B81AF2B0EA00F7265E /* HPPPExampleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPExampleLogger.h; sourceTree = "<group>"; };
 		F16A57B91AF2B0EA00F7265E /* HPPPExampleLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPExampleLogger.m; sourceTree = "<group>"; };
 		F1998AF41B6808BD00E5320F /* HPPPPageRangeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPPageRangeTest.m; sourceTree = "<group>"; };
+		F1B2023E1B7E970D00912E0B /* HPPPPrintSettingsDelegateManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPPrintSettingsDelegateManagerTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +239,7 @@
 			children = (
 				F10BCCCB1B7A53CC001A5F3B /* HPPPDirectPrintTest.m */,
 				F1998AF41B6808BD00E5320F /* HPPPPageRangeTest.m */,
+				F1B2023E1B7E970D00912E0B /* HPPPPrintSettingsDelegateManagerTest.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 			);
 			path = Tests;
@@ -496,6 +499,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1B2023F1B7E970D00912E0B /* HPPPPrintSettingsDelegateManagerTest.m in Sources */,
 				F1998AF51B6808BD00E5320F /* HPPPPageRangeTest.m in Sources */,
 				F10BCCCC1B7A53CC001A5F3B /* HPPPDirectPrintTest.m in Sources */,
 			);
@@ -666,6 +670,11 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/HPPhotoPrint\"",
+					"\"$(PODS_ROOT)/Headers/Build/HPPhotoPrint\"",
+				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -685,6 +694,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/HPPhotoPrint\"",
+					"\"$(PODS_ROOT)/Headers/Build/HPPhotoPrint\"",
+				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
