@@ -44,13 +44,6 @@ NSString * const kHPPPJobSettingsSecondaryFontColor = @"kHPPPJobSettingsSecondar
 NSString * const kHPPPJobSettingsSelectedPageIcon = @"kHPPPJobSettingsSelectedPageIcon";
 NSString * const kHPPPJobSettingsUnselectedPageIcon = @"kHPPPJobSettingsUnselectedPageIcon";
 
-// Header
-NSString * const kHPPPHeaderBackgroundColor = @"kHPPPHeaderBackgroundColor";
-NSString * const kHPPPHeaderPrimaryFont = @"kHPPPHeaderPrimaryFont";
-NSString * const kHPPPHeaderPrimaryFontColor = @"kHPPPHeaderPrimaryFontColor";
-NSString * const kHPPPHeaderLinkFont = @"kHPPPHeaderLinkFont";
-NSString * const kHPPPHeaderLinkFontColor = @"kHPPPHeaderLinkFontColor";
-
 // Main Action
 NSString * const kHPPPMainActionBackgroundColor = @"kHPPPMainActionBackgroundColor";
 NSString * const kHPPPMainActionStrokeColor = @"kHPPPMainActionStrokeColor";
@@ -115,14 +108,7 @@ NSString * const kHPPPOverlayLinkFontColor = @"kHPPPOverlayLinkFontColor";
                   kHPPPJobSettingsSecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
                   kHPPPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"HPPPSelected.png"],
                   kHPPPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"HPPPUnselected.png"],
-                  
-                  // Header
-                  kHPPPHeaderBackgroundColor:  [UIColor colorWithRed:0xF6/255.0F green:0xF6/255.0F blue:0xF7/255.0F alpha:1.0F],
-                  kHPPPHeaderPrimaryFont:      [UIFont fontWithName:lightFont size:18],
-                  kHPPPHeaderPrimaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
-                  kHPPPHeaderLinkFont:         [UIFont fontWithName:regularFont size:18],
-                  kHPPPHeaderLinkFontColor:    [UIColor colorWithRed:0x00/255.0F green:0x7A/255.0F blue:0xFF/255.0F alpha:1.0F],
-                  
+                                   
                   // Main Action
                   kHPPPMainActionBackgroundColor:       [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
                   kHPPPMainActionStrokeColor:           [UIColor colorWithRed:0xC8/255.0F green:0xC7/255.0F blue:0xCC/255.0F alpha:1.0F],

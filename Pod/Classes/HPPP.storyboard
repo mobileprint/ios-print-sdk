@@ -1144,6 +1144,8 @@ Tap your notification or simply come back to this app to print your projects.</s
                         <outlet property="blackAndWhiteCell" destination="lBz-5g-g88" id="iNs-LL-JMF"/>
                         <outlet property="blackAndWhiteSwitch" destination="C6l-jh-fi5" id="233-pc-gdp"/>
                         <outlet property="cancelButtonItem" destination="GmQ-eE-xh9" id="Cc9-hO-a5w"/>
+                        <outlet property="footerHeadingLabel" destination="iSQ-l2-mIF" id="yb2-76-pwn"/>
+                        <outlet property="footerTextLabel" destination="kTG-Hh-JUg" id="8ge-nL-kgg"/>
                         <outlet property="footerView" destination="tza-09-zcQ" id="GQf-Di-fDl"/>
                         <outlet property="jobNameCell" destination="heM-qj-HxV" id="VTD-kN-zIJ"/>
                         <outlet property="jobSummaryCell" destination="agA-dg-hkH" id="Z6r-PU-rrW"/>

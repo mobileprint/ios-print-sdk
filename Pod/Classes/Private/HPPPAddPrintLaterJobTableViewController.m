@@ -39,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *blackAndWhiteCell;
 @property (weak, nonatomic) IBOutlet UISwitch *blackAndWhiteSwitch;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
+@property (weak, nonatomic) IBOutlet UILabel *footerHeadingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *footerTextLabel;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButtonItem;
 @property (strong, nonatomic) UIColor *navigationBarTintColor;
 @property (strong, nonatomic) UIBarButtonItem *doneButtonItem;
@@ -81,8 +83,11 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         }
     }
     
+    self.view.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.tableView.tableHeaderView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
 
     if (IS_IPAD && IS_OS_8_OR_LATER) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -160,6 +165,10 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     }
     
     self.tableView.tableFooterView = self.footerView;
+    self.footerHeadingLabel.font = [hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFont];
+    self.footerHeadingLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFontColor];
+    self.footerTextLabel.font = [hppp.appearance.settings objectForKey:kHPPPBackgroundSecondaryFont];
+    self.footerTextLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundSecondaryFontColor];
     
     // set values
     self.jobSummaryCell.textLabel.text = self.printLaterJob.name;
