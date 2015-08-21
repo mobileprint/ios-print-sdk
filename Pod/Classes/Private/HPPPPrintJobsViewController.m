@@ -202,6 +202,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
     self.selectedPrintJob = printJobs[0];
     self.selectedPrintJobs = printJobs;
     HPPPPrintItem *printItem = [self.selectedPrintJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
+    printItem.extra = self.selectedPrintJob.extra;
     UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:YES settingsOnly:NO];
     if( [vc class] == [UINavigationController class] ) {
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
@@ -328,11 +329,6 @@ NSString * const kJobListScreenName = @"Job List Screen";
                                  kHPPPPrintQueueJobKey:job,
                                  kHPPPPrintQueuePrintItemKey:printItem };
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:values];
-        if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
-            NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kHPPPOfframpKey:action }];
-            [metrics addEntriesFromDictionary:job.extra];
-            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:metrics];
-        }
     }
     [printViewController.navigationController popViewControllerAnimated:YES];
 }
@@ -353,7 +349,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
     
     if (completion) {
         HPPPPrintItem *printItem = [self.selectedPrintJob.printItems objectForKey:imageKey];
-        
+        printItem.extra = self.selectedPrintJob.extra;
         if (printItem == nil) {
             printItem = [self.selectedPrintJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
         }
@@ -392,7 +388,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
     
     for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
         HPPPPrintItem *printItem = [printJob.printItems objectForKey:imageKey];
-        
+        printItem.extra = printJob.extra;
         if (printItem == nil) {
             printItem = [printJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
         }

@@ -29,6 +29,10 @@
 
 NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAvailableId";
 
+NSString * const kHPPPOfframpAddToQueueShare = @"HPPPPrintLaterActivity";
+NSString * const kHPPPOfframpAddToQueueCustom = @"AddToQueueFromClientUI";
+NSString * const kHPPPOfframpAddToQueueDirect = @"AddToQueueWithNoUI";
+
 + (HPPPPrintLaterQueue *)sharedInstance
 {
     static HPPPPrintLaterQueue *sharedInstance = nil;
@@ -71,7 +75,7 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
 
 #pragma mark - Utils methods
 
-- (BOOL)addPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob
+- (BOOL)addPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob fromController:(HPPPAddPrintLaterJobTableViewController *)controller
 {
     NSString *fileName = [self.printLaterJobsDirectoryPath stringByAppendingPathComponent:printLaterJob.id];
     BOOL success = [NSKeyedArchiver archiveRootObject:printLaterJob toFile:fileName];
@@ -80,8 +84,19 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
 
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobAddedToQueueNotification object:printLaterJob userInfo:nil];
         
+        NSString *offramp = kHPPPOfframpAddToQueueCustom;
+        if (!controller) {
+            offramp = kHPPPOfframpAddToQueueDirect;
+        } else if ([controller.delegate class] == [HPPPPrintLaterActivity class]) {
+            offramp = kHPPPOfframpAddToQueueShare;
+        }
+        
+        NSDictionary *options = @{ kHPPPOfframpKey:offramp };
+        NSMutableDictionary *jopOptions = [NSMutableDictionary dictionaryWithDictionary:printLaterJob.extra];
+        [jopOptions addEntriesFromDictionary:options];
+        printLaterJob.extra = jopOptions;
+        
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
-            NSDictionary *options = @{ kHPPPOfframpKey:NSStringFromClass([HPPPPrintLaterActivity class]) };
             [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintLaterJob:printLaterJob andOptions:options];
         }
     }

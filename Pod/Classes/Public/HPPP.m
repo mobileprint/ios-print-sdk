@@ -18,6 +18,7 @@
 #import "HPPPPageSettingsTableViewController.h"
 #import "HPPPAddPrintLaterJobTableViewController.h"
 #import "HPPPWiFiReachability.h"
+#import "HPPPPrintManager.h"
 #import <CoreFoundation/CoreFoundation.h>
 #import "HPPPLayoutFactory.h"
 
@@ -121,7 +122,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
 - (void)handleShareCompletedNotification:(NSNotification *)notification
 {
     NSString *offramp = [notification.userInfo objectForKey:kHPPPOfframpKey];
-    if (([self printingOfframp:offramp] || [offramp isEqualToString:kHPPPQueueDeleteAction])  && self.handlePrintMetricsAutomatically) {
+    if (([HPPPPrintManager printingOfframp:offramp] || [offramp isEqualToString:kHPPPQueueDeleteAction])  && self.handlePrintMetricsAutomatically) {
         // The client app must disable automatic print metric handling in order to post print metrics via the notification system
         return;
     }
@@ -130,15 +131,6 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
     } else {
         [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:notification.object andOptions:notification.userInfo];
     }
-}
-
-- (BOOL)printingOfframp:(NSString *)offramp
-{
-    return
-        [offramp isEqualToString:NSStringFromClass([HPPPPrintActivity class])] ||
-        [offramp isEqualToString:NSStringFromClass([HPPPPrintLaterActivity class])] ||
-        [offramp isEqualToString:kHPPPQueuePrintAction] ||
-        [offramp isEqualToString:kHPPPQueuePrintAllAction];
 }
 
 #pragma mark - Getter methods
@@ -281,7 +273,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
 
 - (void)addJobToQueue:(HPPPPrintLaterJob *)job
 {
-    [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:job];
+    [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:job fromController:nil];
 }
 
 - (BOOL)isWifiConnected

@@ -506,7 +506,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M9J-k7-Mmh" id="353-SN-Xhy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Use Device ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gLt-Iy-Gbg">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Use Actual Device ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gLt-Iy-Gbg">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -820,6 +820,7 @@
                         <outlet property="automaticMetricsSwitch" destination="70e-Kp-e5u" id="iTd-rF-DDY"/>
                         <outlet property="detectWiFiSwitch" destination="KIF-8f-osR" id="Gk0-q3-e5Z"/>
                         <outlet property="deviceIDTextField" destination="kmD-Lg-sRD" id="gdP-r8-ue3"/>
+                        <outlet property="directPrintCell" destination="ztg-kL-WPP" id="Sje-sG-65B"/>
                         <outlet property="extendedMetricsCell" destination="E0s-7Q-2xp" id="w6w-xD-FGy"/>
                         <outlet property="extendedMetricsSwitch" destination="0y1-Mh-lA3" id="Zam-oa-AeI"/>
                         <outlet property="layoutSegmentControl" destination="IEJ-qx-7kc" id="4dw-fS-hPd"/>

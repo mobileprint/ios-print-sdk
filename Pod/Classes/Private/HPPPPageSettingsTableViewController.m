@@ -36,6 +36,8 @@
 #import "HPPPPageRangeView.h"
 #import "HPPPPageRange.h"
 #import "HPPPPrintManager.h"
+#import "HPPPPrintManager+Options.h"
+#import "HPPPPrintJobsViewController.h"
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 
@@ -295,8 +297,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
                                                                          repeats:YES];
     }
     
-    self.printManager = [[HPPPPrintManager alloc] init];
-    self.printManager.delegate = self;
+    [self preparePrintManager];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -823,7 +824,21 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
         
+        if (!completed) {
+            HPPPLogInfo(@"Print was NOT completed");
+        }
+        
+        if (error) {
+            HPPPLogWarn(@"Print error:  %@", error);
+        }
+
+        if (completed && !error) {
+            [self.printManager saveLastOptionsForPrinter:printController.printInfo.printerID];
+            [self.printManager processMetricsForPrintItem:self.printItem];
+        }
+
         [self printCompleted:printController isCompleted:completed printError:error];
+
     };
     
     if (IS_IPAD) {
@@ -1161,7 +1176,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)printCompleted:(UIPrintInteractionController *)printController isCompleted:(BOOL)completed printError:(NSError *)error
 {
-    [self setLastOptionsUsedWithPrintController:printController.printInfo.printerID];
+    [self savePrinterID:printController.printInfo.printerID];
     
     if (error) {
         HPPPLogError(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
@@ -1171,13 +1186,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         
         [self setDefaultPrinter];
     
-        if ([HPPP sharedInstance].handlePrintMetricsAutomatically && !self.printFromQueue) {
-            NSString *offramp = NSStringFromClass([HPPPPrintActivity class]);
-            for (HPPPPrintItem *printItem in [self collectPrintingItems]) {
-                [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:@{ kHPPPOfframpKey:offramp }];
-            }
-        }
-        
         if ([self.delegate respondsToSelector:@selector(didFinishPrintFlow:)]) {
             [self.delegate didFinishPrintFlow:self];
         }
@@ -1191,33 +1199,12 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
 }
 
-- (void)setLastOptionsUsedWithPrintController:(NSString *)printerID;
+- (void)savePrinterID:(NSString *)printerID
 {
-    NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
-    [lastOptionsUsed setValue:self.currentPrintSettings.paper.typeTitle forKey:kHPPPPaperTypeId];
-    [lastOptionsUsed setValue:self.currentPrintSettings.paper.sizeTitle forKey:kHPPPPaperSizeId];
-    [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on] forKey:kHPPPBlackAndWhiteFilterId];
-    [lastOptionsUsed setValue:[NSNumber numberWithInteger:self.numberOfCopies] forKey:kHPPPNumberOfCopies];
-    
-    if (printerID) {
-        [lastOptionsUsed setValue:printerID forKey:kHPPPPrinterId];
-        if ([printerID isEqualToString:self.currentPrintSettings.printerUrl.absoluteString]) {
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerName forKey:kHPPPPrinterDisplayName];
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerLocation forKey:kHPPPPrinterDisplayLocation];
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerModel forKey:kHPPPPrinterMakeAndModel];
-        } else {
-            [lastOptionsUsed setValue:kPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayName];
-            [lastOptionsUsed setValue:kPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayLocation];
-            [lastOptionsUsed setValue:kPrinterDetailsNotAvailable forKey:kHPPPPrinterMakeAndModel];
-        }
-    }
-    [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
-    
     self.currentPrintSettings.printerId = printerID;
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:self.currentPrintSettings.printerId forKey:kHPPPLastPrinterIDSetting];
     [defaults synchronize];
-    
 }
 
 - (void)setPrinterDetails:(UIPrinter *)printer
@@ -1254,7 +1241,30 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 - (void)saveSettings
 {
     [self setDefaultPrinter];
-    [self setLastOptionsUsedWithPrintController:[HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl];
+    NSString *printerID = [HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl;
+    [self savePrinterID:printerID];
+    [self.printManager saveLastOptionsForPrinter:printerID];
+}
+
+- (void)preparePrintManager
+{
+    self.printManager = [[HPPPPrintManager alloc] init];
+    self.printManager.delegate = self;
+
+    HPPPPrintManagerOptions options = HPPPPrintManagerOriginCustom;
+    if ([self.delegate class] == [HPPPPrintActivity class]) {
+        options = HPPPPrintManagerOriginShare;
+    } else if ([self.delegate class] == [HPPPPrintJobsViewController class]) {
+        options = HPPPPrintManagerOriginQueue;
+    }
+
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        if ([self.dataSource numberOfPrintingItems] > 1) {
+            options += HPPPPrintManagerMultiJob;
+        }
+    }
+    
+    self.printManager.options = options;
 }
 
 #pragma mark - HPPPMultipageViewDelegate
@@ -1388,6 +1398,10 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)didFinishPrintJob:(UIPrintInteractionController *)printController completed:(BOOL)completed error:(NSError *)error
 {
+    if (error) {
+        HPPPLogError(@"Print error: %@", error);
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         id nextItem = [self.itemsToPrint firstObject];
         if (nextItem) {

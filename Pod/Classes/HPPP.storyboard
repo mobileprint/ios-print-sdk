@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -932,7 +932,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="xd4-bP-zv3" firstAttribute="top" secondItem="ASB-Hp-9zB" secondAttribute="top" id="F4A-P5-iCj"/>
                                 <constraint firstAttribute="bottom" secondItem="xd4-bP-zv3" secondAttribute="bottom" id="JGS-CO-Qcb"/>
@@ -1146,11 +1146,14 @@ Tap your notification or simply come back to this app to print your projects.</s
                         <outlet property="addToPrintQCell" destination="z0N-Nu-Rvz" id="vub-XC-nwe"/>
                         <outlet property="addToPrintQLabel" destination="KWA-KL-Vys" id="mpf-nF-tux"/>
                         <outlet property="blackAndWhiteCell" destination="lBz-5g-g88" id="iNs-LL-JMF"/>
+                        <outlet property="blackAndWhiteLabel" destination="BC4-hT-RUt" id="Ka4-P4-z15"/>
                         <outlet property="blackAndWhiteSwitch" destination="C6l-jh-fi5" id="233-pc-gdp"/>
                         <outlet property="cancelButtonItem" destination="GmQ-eE-xh9" id="Cc9-hO-a5w"/>
                         <outlet property="footerHeadingLabel" destination="iSQ-l2-mIF" id="yb2-76-pwn"/>
                         <outlet property="footerTextLabel" destination="kTG-Hh-JUg" id="8ge-nL-kgg"/>
                         <outlet property="footerView" destination="tza-09-zcQ" id="GQf-Di-fDl"/>
+                        <outlet property="footerViewHeadingLabel" destination="iSQ-l2-mIF" id="DUq-Kf-Gx0"/>
+                        <outlet property="footerViewTextLabel" destination="kTG-Hh-JUg" id="tug-1u-eVy"/>
                         <outlet property="jobNameCell" destination="heM-qj-HxV" id="VTD-kN-zIJ"/>
                         <outlet property="jobSummaryCell" destination="agA-dg-hkH" id="Z6r-PU-rrW"/>
                         <outlet property="multiPageView" destination="xd4-bP-zv3" id="6cR-2D-XjK"/>

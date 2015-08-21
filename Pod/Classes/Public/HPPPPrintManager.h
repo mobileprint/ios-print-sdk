@@ -85,6 +85,18 @@ typedef enum {
                 pageRange:(HPPPPageRange *)pageRange
                 numCopies:(NSInteger)numCopies;
 
+/*
+ * @abstract Called when the print item was printed successfully
+ */
+- (void)processMetricsForPrintItem:(HPPPPrintItem *)printItem;
+
+/*!
+ * @abstract Indicates if an offramp is a printing offramp
+ * @description Identifies print-related offramps such as print, add to queue, and delete from queue.
+ * @return YES or NO indicating if the offramp provided is a print-related offramp
+ */
++ (BOOL)printingOfframp:(NSString *)offramp;
+
 @end
 
 /*!
@@ -95,6 +107,7 @@ typedef enum {
 
 /*!
  * @abstract Called when the print job completes
+ * @param printController The iOS controller used to print
  * @param completed If TRUE, the print job completed successfully.
  * @param error Any error associated with the print job
  */
