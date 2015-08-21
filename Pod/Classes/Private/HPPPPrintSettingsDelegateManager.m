@@ -299,28 +299,8 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     return [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:paperType];
 }
 
-- (void)setLastOptionsUsedWithPrinterId:(NSString *)printerId
+- (void)savePrinterId:(NSString *)printerId
 {
-    NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
-    [lastOptionsUsed setValue:self.printSettings.paper.typeTitle forKey:kHPPPPaperTypeId];
-    [lastOptionsUsed setValue:self.printSettings.paper.sizeTitle forKey:kHPPPPaperSizeId];
-    [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhite] forKey:kHPPPBlackAndWhiteFilterId];
-    [lastOptionsUsed setValue:[NSNumber numberWithInteger:self.numCopies] forKey:kHPPPNumberOfCopies];
-    
-    if (printerId) {
-        [lastOptionsUsed setValue:printerId forKey:kHPPPPrinterId];
-        if ([printerId isEqualToString:self.printSettings.printerUrl.absoluteString]) {
-            [lastOptionsUsed setValue:self.printSettings.printerName forKey:kHPPPPrinterDisplayName];
-            [lastOptionsUsed setValue:self.printSettings.printerLocation forKey:kHPPPPrinterDisplayLocation];
-            [lastOptionsUsed setValue:self.printSettings.printerModel forKey:kHPPPPrinterMakeAndModel];
-        } else {
-            [lastOptionsUsed setValue:kPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayName];
-            [lastOptionsUsed setValue:kPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayLocation];
-            [lastOptionsUsed setValue:kPrinterDetailsNotAvailable forKey:kHPPPPrinterMakeAndModel];
-        }
-    }
-    [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
-    
     self.printSettings.printerId = printerId;
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:self.printSettings.printerId forKey:kHPPPLastPrinterIDSetting];
