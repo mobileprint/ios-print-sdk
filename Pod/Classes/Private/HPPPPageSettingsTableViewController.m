@@ -1083,7 +1083,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)printCompleted:(UIPrintInteractionController *)printController isCompleted:(BOOL)completed printError:(NSError *)error
 {
-    [self.delegateManager setLastOptionsUsedWithPrinterId:printController.printInfo.printerID];
+    [self.delegateManager savePrinterId:printController.printInfo.printerID];
     
     if (error) {
         HPPPLogError(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
@@ -1120,7 +1120,10 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 - (void)saveSettings
 {
     [self setDefaultPrinter];
-    [self.delegateManager setLastOptionsUsedWithPrinterId:[HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl];
+    
+    NSString *printerID = [HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl;
+    [self.delegateManager savePrinterId:printerID];
+    [self.printManager saveLastOptionsForPrinter:printerID];
 }
 
 - (void)preparePrintManager

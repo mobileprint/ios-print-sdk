@@ -30,10 +30,10 @@
     [super setUp];
 
     self.delegateManager = [[HPPPPrintSettingsDelegateManager alloc] init];
-    self.delegateManager.currentPrintSettings = [HPPPPrintSettings alloc];
-    self.delegateManager.currentPrintSettings.paper = [HPPP sharedInstance].defaultPaper;
-    self.delegateManager.currentPrintSettings.printerName = HPPPTestPrinterName;
-    self.delegateManager.currentPrintSettings.printerIsAvailable = YES;
+    self.delegateManager.printSettings = [HPPPPrintSettings alloc];
+    self.delegateManager.printSettings.paper = [HPPP sharedInstance].defaultPaper;
+    self.delegateManager.printSettings.printerName = HPPPTestPrinterName;
+    self.delegateManager.printSettings.printerIsAvailable = YES;
     self.delegateManager.numCopies = 1;
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"10 Pages" ofType:@"pdf"];
@@ -101,10 +101,10 @@
 
 - (void)testPrintJobSummaryText {
     
-    NSString *expectedJobSummaryText = self.delegateManager.currentPrintSettings.paper.sizeTitle;
-    NSString *expected0PageText = [NSString stringWithFormat:@"0 of %ld Pages Selected/%@", (long)self.delegateManager.printItem.numberOfPages, self.delegateManager.currentPrintSettings.paper.sizeTitle];
-    NSString *expected1PageText = [NSString stringWithFormat:@"1 of %ld Pages Selected/%@", (long)self.delegateManager.printItem.numberOfPages, self.delegateManager.currentPrintSettings.paper.sizeTitle];
-    NSString *expected8PagesText = [NSString stringWithFormat:@"8 of %ld Pages Selected/%@", (long)self.delegateManager.printItem.numberOfPages, self.delegateManager.currentPrintSettings.paper.sizeTitle];
+    NSString *expectedJobSummaryText = self.delegateManager.printSettings.paper.sizeTitle;
+    NSString *expected0PageText = [NSString stringWithFormat:@"0 of %ld Pages Selected/%@", (long)self.delegateManager.printItem.numberOfPages, self.delegateManager.printSettings.paper.sizeTitle];
+    NSString *expected1PageText = [NSString stringWithFormat:@"1 of %ld Pages Selected/%@", (long)self.delegateManager.printItem.numberOfPages, self.delegateManager.printSettings.paper.sizeTitle];
+    NSString *expected8PagesText = [NSString stringWithFormat:@"8 of %ld Pages Selected/%@", (long)self.delegateManager.printItem.numberOfPages, self.delegateManager.printSettings.paper.sizeTitle];
     
     XCTAssert([expectedJobSummaryText isEqualToString:[self.delegateManager printJobSummaryText]], @"All Pages Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
     
@@ -139,20 +139,20 @@
     
     // nil printer case
     NSString *expectedPrinterText = @"Select Printer";
-    self.delegateManager.currentPrintSettings.printerName = nil;
+    self.delegateManager.printSettings.printerName = nil;
     XCTAssert([expectedPrinterText isEqualToString:[self.delegateManager selectedPrinterText]], @"Printer Text: %@", [self.delegateManager selectedPrinterText]);
 }
 
 - (void)testPrintSettingsText {
     
     // expected case
-    NSString *expectedPrintSummaryText = [NSString stringWithFormat:@"%@, %@, %@", self.delegateManager.currentPrintSettings.paper.sizeTitle, self.delegateManager.currentPrintSettings.paper.typeTitle, HPPPTestPrinterName];
+    NSString *expectedPrintSummaryText = [NSString stringWithFormat:@"%@, %@, %@", self.delegateManager.printSettings.paper.sizeTitle, self.delegateManager.printSettings.paper.typeTitle, HPPPTestPrinterName];
     
     XCTAssert([expectedPrintSummaryText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
     
     // nil printer case
-    self.delegateManager.currentPrintSettings.printerName = nil;
-    expectedPrintSummaryText = [NSString stringWithFormat:@"%@, %@", self.delegateManager.currentPrintSettings.paper.sizeTitle, self.delegateManager.currentPrintSettings.paper.typeTitle];
+    self.delegateManager.printSettings.printerName = nil;
+    expectedPrintSummaryText = [NSString stringWithFormat:@"%@, %@", self.delegateManager.printSettings.paper.sizeTitle, self.delegateManager.printSettings.paper.typeTitle];
     XCTAssert([expectedPrintSummaryText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
     
 }
