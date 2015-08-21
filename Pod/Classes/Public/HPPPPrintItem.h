@@ -129,4 +129,10 @@ typedef enum {
  */
 - (id)printAssetForPageRange:(HPPPPageRange *)pageRange;
 
+/*!
+ * @abstract A dictionary of extra information to store with the print item
+ * @discussion Typically this information is copied from the print job to the print item when the job is printed from the print queue. It is used to record print metrics information. Note, this property is not persisted on the print item when stored in the print queue. Use the 'extra' property of the print job itself for persistent storage in the queue.
+ */
+@property (strong, nonatomic) NSDictionary *extra;
+
 @end

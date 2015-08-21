@@ -12,10 +12,13 @@
 
 #import <UIKit/UIKit.h>
 #import "HPPPPrintManager.h"
+#import "HPPPPrintManager+Options.h"
 #import "HPPP.h"
 #import "HPPPPrintPageRenderer.h"
 #import "HPPPDefaultSettingsManager.h"
 #import "NSBundle+HPPPLocalizable.h"
+#import "HPPPAnalyticsManager.h"
+#import "HPPPPrintLaterQueue.h"
 
 #define HPPP_DEFAULT_PRINT_JOB_NAME HPPPLocalizedString(@"Photo", @"Default job name of the print send to the printer")
 
@@ -26,6 +29,12 @@
 @end
 
 @implementation HPPPPrintManager
+
+NSString * const kHPPPOfframpPrint = @"HPPPPrintActivity";
+NSString * const kHPPPOfframpQueue = @"PrintFromQueue";
+NSString * const kHPPPOfframpQueueMulti = @"PrintAllFromQueue";
+NSString * const kHPPPOfframpCustom = @"PrintFromClientUI";
+NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
 
 #pragma mark - Initialization
 
@@ -39,6 +48,7 @@
         self.currentPrintSettings.printerIsAvailable = TRUE;
         [self setColorFromLastOptions];
         [self setPaperFromLastOptions];
+        self.options = HPPPPrintManagerOriginDirect;
     }
     
     return self;
@@ -142,12 +152,24 @@
         [self prepareController:controller printItem:printItem color:color pageRange:pageRange numCopies:numCopies];
         UIPrinter *printer = [UIPrinter printerWithURL:self.currentPrintSettings.printerUrl];
         [controller printToPrinter:printer completionHandler:^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                HPPPLogInfo(@"Print completed");
-                if( [self.delegate respondsToSelector:@selector(didFinishPrintJob:completed:error:)] ) {
-                    [self.delegate didFinishPrintJob:controller completed:completed error:error];
-                }
-            });
+            
+            if (!completed) {
+                HPPPLogInfo(@"Print was NOT completed");
+            }
+            
+            if (error) {
+                HPPPLogWarn(@"Print error:  %@", error);
+            }
+        
+            if (completed && !error) {
+                [self saveLastOptionsForPrinter:controller.printInfo.printerID];
+                [self processMetricsForPrintItem:printItem];
+            }
+        
+            if( [self.delegate respondsToSelector:@selector(didFinishPrintJob:completed:error:)] ) {
+                [self.delegate didFinishPrintJob:controller completed:completed error:error];
+            }
+            
         }];
     } else {
         HPPPLogError(@"Must have an HPPPPrintSettings instance in order to print");
@@ -232,6 +254,50 @@
     HPPPLogInfo(@"%@", log);
     
     return paper;
+}
+
+#pragma mark - Print metrics
+
+- (void)processMetricsForPrintItem:(HPPPPrintItem *)printItem
+{
+    NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:printItem.extra];
+    [metrics addEntriesFromDictionary:@{ kHPPPOfframpKey:[self offramp] }];
+    printItem.extra = metrics;
+    if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
+        [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:metrics];
+    }
+}
+
+- (NSString *)offramp
+{
+    NSString *offramp = kHPPPOfframpDirect;
+    if (self.options & HPPPPrintManagerOriginShare) {
+        offramp = kHPPPOfframpPrint;
+    } else if (self.options & HPPPPrintManagerOriginCustom) {
+        offramp = kHPPPOfframpCustom;
+    } else if (self.options & HPPPPrintManagerOriginQueue) {
+        if (self.options & HPPPPrintManagerMultiJob) {
+            offramp = kHPPPOfframpQueueMulti;
+        } else {
+            offramp = kHPPPOfframpQueue;
+        }
+    }
+    return offramp;
+}
+
++ (BOOL)printingOfframp:(NSString *)offramp
+{
+    NSArray *printingOfframps = @[
+                                  kHPPPOfframpPrint,
+                                  kHPPPOfframpQueue,
+                                  kHPPPOfframpQueueMulti,
+                                  kHPPPOfframpCustom,
+                                  kHPPPOfframpDirect,
+                                  kHPPPOfframpAddToQueueShare,
+                                  kHPPPOfframpAddToQueueCustom,
+                                  kHPPPOfframpAddToQueueDirect ];
+
+    return [printingOfframps containsObject:offramp];
 }
 
 @end

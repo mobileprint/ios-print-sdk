@@ -390,13 +390,6 @@ extern NSString * const kHPPPNumberOfCopies;
 @property (strong, nonatomic) HPPPInterfaceOptions *interfaceOptions;
 
 /*!
- * @abstract Indicates if an offramp is a printing offramp
- * @description Identifies print-related offramps such as print, add to queue, and delete from queue.
- * @return YES or NO indicating if the offramp provided is a print-related offramp
- */
-- (BOOL)printingOfframp:(NSString *)offramp;
-
-/*!
  * @abstract Prepares a view controller suitable for the device and OS
  * @description This method prepares a view controller for displaying the print flow. It takes into consideration the device type and OS and prepares either a split view controller (iPad with iOS 8 or above) or a standard view controller. Both types are wrapped in a navigation controller. The controller returned is suitable for using with the UIActivity method 'activityViewController'.
  * @param delegate An optional delegate object that implements the HPPPPrintDelegate protocol
