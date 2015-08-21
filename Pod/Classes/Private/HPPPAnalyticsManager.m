@@ -13,6 +13,7 @@
 #import "HPPP.h"
 #import "HPPPAnalyticsManager.h"
 #import "HPPPPageRange.h"
+#import "HPPPPrintManager.h"
 #import <sys/sysctl.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <CommonCrypto/CommonDigest.h>
@@ -119,7 +120,7 @@ NSString * const kHPPPMetricsNotCollected = @"Not Collected";
 
 - (NSDictionary *)printMetricsForOfframp:(NSString *)offramp
 {
-    if ([[HPPP sharedInstance] printingOfframp:offramp]) {
+    if ([HPPPPrintManager printingOfframp:offramp]) {
         return [HPPP sharedInstance].lastOptionsUsed;
     } else {
         return [NSDictionary dictionaryWithObjectsAndKeys:

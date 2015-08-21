@@ -822,10 +822,22 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     [self.printManager prepareController:controller printItem:self.printItem color:!self.blackAndWhiteModeSwitch.on pageRange:self.pageRange numCopies:self.numberOfCopies];
     
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
-        if (!error) {
+        
+        if (!completed) {
+            HPPPLogInfo(@"Print was NOT completed");
+        }
+        
+        if (error) {
+            HPPPLogWarn(@"Print error:  %@", error);
+        }
+
+        if (completed && !error) {
+            [self.printManager saveLastOptionsForPrinter:printController.printInfo.printerID];
             [self.printManager processMetricsForPrintItem:self.printItem];
         }
+
         [self printCompleted:printController isCompleted:completed printError:error];
+
     };
     
     if (IS_IPAD) {
@@ -1163,7 +1175,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)printCompleted:(UIPrintInteractionController *)printController isCompleted:(BOOL)completed printError:(NSError *)error
 {
-    [self setLastOptionsUsedWithPrintController:printController.printInfo.printerID];
+    [self savePrinterID:printController.printInfo.printerID];
     
     if (error) {
         HPPPLogError(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
@@ -1186,33 +1198,12 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
 }
 
-- (void)setLastOptionsUsedWithPrintController:(NSString *)printerID;
+- (void)savePrinterID:(NSString *)printerID
 {
-    NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
-    [lastOptionsUsed setValue:self.currentPrintSettings.paper.typeTitle forKey:kHPPPPaperTypeId];
-    [lastOptionsUsed setValue:self.currentPrintSettings.paper.sizeTitle forKey:kHPPPPaperSizeId];
-    [lastOptionsUsed setValue:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on] forKey:kHPPPBlackAndWhiteFilterId];
-    [lastOptionsUsed setValue:[NSNumber numberWithInteger:self.numberOfCopies] forKey:kHPPPNumberOfCopies];
-    
-    if (printerID) {
-        [lastOptionsUsed setValue:printerID forKey:kHPPPPrinterId];
-        if ([printerID isEqualToString:self.currentPrintSettings.printerUrl.absoluteString]) {
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerName forKey:kHPPPPrinterDisplayName];
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerLocation forKey:kHPPPPrinterDisplayLocation];
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerModel forKey:kHPPPPrinterMakeAndModel];
-        } else {
-            [lastOptionsUsed setValue:kPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayName];
-            [lastOptionsUsed setValue:kPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayLocation];
-            [lastOptionsUsed setValue:kPrinterDetailsNotAvailable forKey:kHPPPPrinterMakeAndModel];
-        }
-    }
-    [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
-    
     self.currentPrintSettings.printerId = printerID;
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:self.currentPrintSettings.printerId forKey:kHPPPLastPrinterIDSetting];
     [defaults synchronize];
-    
 }
 
 - (void)setPrinterDetails:(UIPrinter *)printer
@@ -1249,7 +1240,9 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 - (void)saveSettings
 {
     [self setDefaultPrinter];
-    [self setLastOptionsUsedWithPrintController:[HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl];
+    NSString *printerID = [HPPPDefaultSettingsManager sharedInstance].defaultPrinterUrl;
+    [self savePrinterID:printerID];
+    [self.printManager saveLastOptionsForPrinter:printerID];
 }
 
 - (void)preparePrintManager

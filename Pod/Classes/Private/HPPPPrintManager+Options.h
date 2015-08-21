@@ -22,4 +22,6 @@ typedef NS_OPTIONS(NSUInteger, HPPPPrintManagerOptions) {
 
 @property (assign, nonatomic) HPPPPrintManagerOptions options;
 
+- (void)saveLastOptionsForPrinter:(NSString *)printerID;
+
 @end

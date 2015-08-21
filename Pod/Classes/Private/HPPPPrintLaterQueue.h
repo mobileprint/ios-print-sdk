@@ -13,11 +13,16 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "HPPPPrintLaterJob.h"
+#import "HPPPAddPrintLaterJobTableViewController.h"
 
 /*!
  * @abstract Represents the list of queued print jobs
  */
 @interface HPPPPrintLaterQueue : NSObject
+
+extern NSString * const kHPPPOfframpAddToQueueShare;
+extern NSString * const kHPPPOfframpAddToQueueCustom;
+extern NSString * const kHPPPOfframpAddToQueueDirect;
 
 /*!
  * @abstract Used to access the singleton instance of this class
@@ -33,8 +38,9 @@
 /*!
  * @abstract Adds a job to the print queue
  * @param printLaterJob The job to add
+ * @param controller The controller (if any) used to add the job
  */
-- (BOOL)addPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob;
+- (BOOL)addPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob fromController:(HPPPAddPrintLaterJobTableViewController *)controller;
 
 /*!
  * @abstract Removes a job to the print queue
