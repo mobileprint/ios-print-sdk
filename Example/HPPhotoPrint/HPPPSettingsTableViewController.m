@@ -76,6 +76,9 @@ NSString * const kMetricsOfframpKey = @"off_ramp";
 NSString * const kMetricsAppTypeKey = @"app_type";
 NSString * const kMetricsAppTypeHP = @"HP";
 
+NSString * const kAddJobClientNamePrefix = @"From Client";
+NSString * const kAddJobShareNamePrefix = @"From Share";
+
 #pragma mark - Initialization
 
 - (void)viewDidLoad {
@@ -310,7 +313,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
     
     NSArray *applicationActivities = nil;
     if (IS_OS_8_OR_LATER) {
-        [self preparePrintLaterJobWithName:@"From Share"];
+        [self preparePrintLaterJobWithName:kAddJobShareNamePrefix];
         HPPPPrintLaterActivity *printLaterActivity = [[HPPPPrintLaterActivity alloc] init];
         printLaterActivity.printLaterJob = self.printLaterJob;
         applicationActivities = @[printActivity, printLaterActivity];
@@ -650,7 +653,7 @@ NSString * const kMetricsAppTypeHP = @"HP";
                               otherButtonTitles:nil] show];
         }
     } else if (PrintLater == self.action) {
-        [self preparePrintLaterJobWithName:@"From Client"];
+        [self preparePrintLaterJobWithName:kAddJobClientNamePrefix];
         UIViewController *vc = [[HPPP sharedInstance] printLaterViewControllerWithDelegate:self printLaterJob:self.printLaterJob];
         [self presentViewController:vc animated:YES completion:nil];
     }
