@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -418,7 +418,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Black &amp; White mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3L-G4-U1t">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Black &amp; White mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3L-G4-U1t">
                                                     <rect key="frame" x="15" y="11" width="230" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
@@ -436,7 +436,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="uyD-Yr-hJv" secondAttribute="trailing" id="ABI-wg-Hqs"/>
+                                                <constraint firstItem="r3L-G4-U1t" firstAttribute="leading" secondItem="bQD-vF-yOJ" secondAttribute="leadingMargin" id="EpR-NN-fdz"/>
                                                 <constraint firstItem="uyD-Yr-hJv" firstAttribute="top" secondItem="bQD-vF-yOJ" secondAttribute="topMargin" constant="-2" id="JLX-fr-hAk"/>
+                                                <constraint firstAttribute="centerY" secondItem="r3L-G4-U1t" secondAttribute="centerY" id="KJv-XN-6la"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1099,7 +1101,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lBz-5g-g88" id="IUV-MB-pLW">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Black &amp; White mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BC4-hT-RUt">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Black &amp; White mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BC4-hT-RUt">
                                                     <rect key="frame" x="15" y="11" width="156" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1117,6 +1119,8 @@ Tap your notification or simply come back to this app to print your projects.</s
                                                 </switch>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="BC4-hT-RUt" secondAttribute="centerY" id="1eI-eL-loq"/>
+                                                <constraint firstItem="BC4-hT-RUt" firstAttribute="leading" secondItem="IUV-MB-pLW" secondAttribute="leadingMargin" id="jQW-oC-1Ns"/>
                                                 <constraint firstAttribute="centerY" secondItem="C6l-jh-fi5" secondAttribute="centerY" id="rJo-3q-RxI"/>
                                                 <constraint firstItem="C6l-jh-fi5" firstAttribute="trailing" secondItem="IUV-MB-pLW" secondAttribute="trailingMargin" id="wSs-Jk-KPq"/>
                                             </constraints>
