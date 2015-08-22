@@ -30,9 +30,9 @@
 
 @implementation HPPPPrintManager
 
-NSString * const kHPPPOfframpPrint = @"HPPPPrintActivity";
-NSString * const kHPPPOfframpQueue = @"PrintFromQueue";
-NSString * const kHPPPOfframpQueueMulti = @"PrintAllFromQueue";
+NSString * const kHPPPOfframpPrint = @"PrintFromShare";
+NSString * const kHPPPOfframpQueue = @"PrintSingleFromQueue";
+NSString * const kHPPPOfframpQueueMulti = @"PrintMultipleFromQueue";
 NSString * const kHPPPOfframpCustom = @"PrintFromClientUI";
 NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
 
