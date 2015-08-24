@@ -29,7 +29,7 @@
 
 NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAvailableId";
 
-NSString * const kHPPPOfframpAddToQueueShare = @"HPPPPrintLaterActivity";
+NSString * const kHPPPOfframpAddToQueueShare = @"AddToQueueFromShare";
 NSString * const kHPPPOfframpAddToQueueCustom = @"AddToQueueFromClientUI";
 NSString * const kHPPPOfframpAddToQueueDirect = @"AddToQueueWithNoUI";
 

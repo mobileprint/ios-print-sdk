@@ -149,6 +149,16 @@ extern NSString * const kHPPPPrintQueueJobKey;
 extern NSString * const kHPPPPrintQueuePrintItemKey;
 
 /*!
+ * @abstract Notification used to indicate when Wi-Fi connection is established
+ */
+extern NSString * const kHPPPWiFiConnectionEstablished;
+
+/*!
+ * @abstract Notification used to indicate when Wi-Fi connection is lost
+ */
+extern NSString * const kHPPPWiFiConnectionLost;
+
+/*!
  * @abstract Used to retrieve last paper size used
  * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the paper size used.
  * @seealso lastOptionsUsed

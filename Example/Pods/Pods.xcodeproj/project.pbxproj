@@ -262,6 +262,10 @@
 		F048AB25E104E7C46D3DC21E /* XBSnappingPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 82CFEE0507BF361E7DDA9426 /* XBSnappingPoint.m */; };
 		F0C6AD76E81C915ECA37D3E3 /* XBAnimationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 474A3856E74C40D6FF27A5B6 /* XBAnimationManager.h */; };
 		F0E2EADCC29013C93C114237 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664778D7985809A0FE06DA9C /* UIKit.framework */; };
+		F181BCAC1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F181BCAA1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.h */; };
+		F181BCAD1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F181BCAA1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.h */; };
+		F181BCAE1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F181BCAB1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.m */; };
+		F181BCAF1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F181BCAB1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.m */; };
 		F5B5D0B76AC2F5C42F9D01A0 /* XBAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B292F6371447EB729FBD59 /* XBAnimationManager.m */; };
 		F63D6CA18B7EB4611F4A06EA /* HPPPLayoutPaperCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7BF0A619AE66AC8DCD818D4 /* HPPPLayoutPaperCellView.m */; };
 		F6B3AF1B722E9493DE6C483D /* HPPPOverlayEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = D52DD5CC43A192682C92A6AC /* HPPPOverlayEditView.m */; };
@@ -475,6 +479,8 @@
 		ECAD9360C4DA0A0D855B7D01 /* HPPPDashedLineView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPDashedLineView.h; path = Pod/Classes/Private/HPPPDashedLineView.h; sourceTree = "<group>"; };
 		F0A2E1AA5F16006CFECFBBC1 /* HPPPMagnify@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPMagnify@2x.png"; path = "Pod/Assets/HPPPMagnify@2x.png"; sourceTree = "<group>"; };
 		F1099D21274A18558FD83EBD /* HPPPPrintJobsTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPPrintJobsTableViewCell.h; path = Pod/Classes/Private/HPPPPrintJobsTableViewCell.h; sourceTree = "<group>"; };
+		F181BCAA1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPPPPrintSettingsDelegateManager.h; path = Pod/Classes/Private/HPPPPrintSettingsDelegateManager.h; sourceTree = "<group>"; };
+		F181BCAB1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPPPPrintSettingsDelegateManager.m; path = Pod/Classes/Private/HPPPPrintSettingsDelegateManager.m; sourceTree = "<group>"; };
 		F4464C564BCCF5421095C407 /* HPPPMeasurementArrowUp@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "HPPPMeasurementArrowUp@2x.png"; path = "Pod/Assets/HPPPMeasurementArrowUp@2x.png"; sourceTree = "<group>"; };
 		F46BA57AB7066A9149947093 /* HPPPLayoutFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HPPPLayoutFactory.h; path = Pod/Classes/Public/HPPPLayoutFactory.h; sourceTree = "<group>"; };
 		F5D63A4CE4901CC80D4DC929 /* FrontVertexShader.glsl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FrontVertexShader.glsl; path = Pod/Libraries/XBPageCurl/Resources/FrontVertexShader.glsl; sourceTree = "<group>"; };
@@ -764,6 +770,8 @@
 				A8F5268100544A56C2389819 /* HPPPPrintPageRenderer.m */,
 				7544223B51AA1D900CE8FB52 /* HPPPPrintSettings.h */,
 				3EF53AC99616701ADA119E18 /* HPPPPrintSettings.m */,
+				F181BCAA1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.h */,
+				F181BCAB1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.m */,
 				168C6FB170419E764E002361 /* HPPPPrintSettingsTableViewController.h */,
 				C949EC13B247310F1F216BCD /* HPPPPrintSettingsTableViewController.m */,
 				99556D956BCF629874D7395A /* HPPPPrinter.h */,
@@ -837,6 +845,7 @@
 				389DB50200C2B6533F097268 /* HPPPLogger.h in Headers */,
 				CA1D19260175AD15B378899A /* HPPPMultiPageView.h in Headers */,
 				E0101AA67AA2D19DBC715148 /* HPPPOverlayEditView.h in Headers */,
+				F181BCAD1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.h in Headers */,
 				461BC92956FD169D55554F35 /* HPPPPageRange.h in Headers */,
 				19E80D5A9D4AF2639F7D93A3 /* HPPPPageRangeView.h in Headers */,
 				DB16DF7C1F4096CF5D7452EC /* HPPPPageSettingsTableViewController.h in Headers */,
@@ -908,6 +917,7 @@
 				E8BA2E88026C2B7F50E2756F /* HPPPLogger.h in Headers */,
 				FD2BA435DAD0465BFE83413F /* HPPPMultiPageView.h in Headers */,
 				14007E20719496681C60B9B5 /* HPPPOverlayEditView.h in Headers */,
+				F181BCAC1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.h in Headers */,
 				94468D825B05E042EDAAA456 /* HPPPPageRange.h in Headers */,
 				BC581DF50BB69E12830E7D74 /* HPPPPageRangeView.h in Headers */,
 				773EB73F63A0F38DC8F143FE /* HPPPPageSettingsTableViewController.h in Headers */,
@@ -1095,6 +1105,7 @@
 				8091867BB535E6CBE0EB093D /* HPPPPaperSizeTableViewController.m in Sources */,
 				1F3633C0B4B905C0D49004BF /* HPPPPaperTypeTableViewController.m in Sources */,
 				91CC17937F876975F159FC27 /* HPPPPrintActivity.m in Sources */,
+				F181BCAF1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.m in Sources */,
 				6C8EEAA56B9FBA6C02B010F9 /* HPPPPrintItem.m in Sources */,
 				EA19CC4587736B8E729422DF /* HPPPPrintItemFactory.m in Sources */,
 				C06CD086F6842AE29E2030C5 /* HPPPPrintItemImage.m in Sources */,
@@ -1175,6 +1186,7 @@
 				09BE388867B8BF5EEB4D2E83 /* HPPPPaperSizeTableViewController.m in Sources */,
 				8BDC7D11E44642C44C7AA9DD /* HPPPPaperTypeTableViewController.m in Sources */,
 				1F346DB6FB94DEE112DCA4C1 /* HPPPPrintActivity.m in Sources */,
+				F181BCAE1B87E1D5007324A2 /* HPPPPrintSettingsDelegateManager.m in Sources */,
 				2B2B2C55D6CE8AD771942926 /* HPPPPrintItem.m in Sources */,
 				4CD124FFADA6EB71F1FECE95 /* HPPPPrintItemFactory.m in Sources */,
 				09197DC8D96710A75EB5D5A6 /* HPPPPrintItemImage.m in Sources */,

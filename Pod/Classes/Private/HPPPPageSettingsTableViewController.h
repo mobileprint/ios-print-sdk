@@ -68,4 +68,9 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  */
 @property (assign, nonatomic) BOOL settingsOnly;
 
+/*!
+ * @abstract Causes a refresh of the data displayed by the view controller
+ */
+- (void)refreshData;
+
 @end

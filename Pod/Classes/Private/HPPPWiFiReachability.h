@@ -20,16 +20,6 @@
 @interface HPPPWiFiReachability : NSObject
 
 /*!
- * @abstract Notification used to indicate when Wi-Fi connection is established
- */
-extern NSString * const kHPPPWiFiConnectionEstablished;
-
-/*!
- * @abstract Notification used to indicate when Wi-Fi connection is lost
- */
-extern NSString * const kHPPPWiFiConnectionLost;
-
-/*!
  * @abstract Used to access the singleton instance of this class
  */
 + (HPPPWiFiReachability *)sharedInstance;

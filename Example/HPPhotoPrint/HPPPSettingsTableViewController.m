@@ -110,8 +110,8 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     [self useDeviceID];
     [self setBarButtonItems];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:@"kHPPPWiFiConnectionEstablished" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:@"kHPPPWiFiConnectionLost" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionEstablished object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionLost object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintQueueNotification:) name:kHPPPPrintQueueNotification object:nil];
 }
 

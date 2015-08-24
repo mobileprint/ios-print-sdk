@@ -44,6 +44,9 @@ NSString * const kHPPPPrinterAvailabilityNotification = @"kHPPPPrinterAvailabili
 NSString * const kHPPPPrinterAvailableKey = @"availability";
 NSString * const kHPPPPrinterKey = @"printer";
 
+NSString * const kHPPPWiFiConnectionEstablished = @"kHPPPWiFiConnectionEstablished";
+NSString * const kHPPPWiFiConnectionLost = @"kHPPPWiFiConnectionLost";
+
 NSString * const kHPPPBlackAndWhiteFilterId = @"black_and_white_filter";
 NSString * const kHPPPNumberOfCopies = @"copies";
 NSString * const kHPPPPaperSizeId = @"paper_size";
