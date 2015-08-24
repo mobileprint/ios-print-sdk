@@ -25,9 +25,6 @@
 
 @implementation HPPPWiFiReachability
 
-NSString * const kHPPPWiFiConnectionEstablished = @"kHPPPWiFiConnectionEstablished";
-NSString * const kHPPPWiFiConnectionLost = @"kHPPPWiFiConnectionLost";
-
 + (HPPPWiFiReachability *)sharedInstance
 {
     static HPPPWiFiReachability *sharedInstance = nil;
