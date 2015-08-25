@@ -218,9 +218,11 @@ NSString * const kHPPPMetricsNotCollected = @"Not Collected";
 - (void)trackShareEventWithPrintItem:(HPPPPrintItem *)printItem andOptions:(NSDictionary *)options
 {
     NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:[self baseMetrics]];
+    [metrics addEntriesFromDictionary:@{ kHPPPNumberPagesDocument:[NSNumber numberWithInteger:printItem.numberOfPages] }];
     [metrics addEntriesFromDictionary:[self printMetricsForOfframp:[options objectForKey:kHPPPOfframpKey]]];
     [metrics addEntriesFromDictionary:[self contentOptionsForPrintItem:printItem]];
     [metrics addEntriesFromDictionary:options];
+
     [self sanitizeMetrics:metrics];
     
     NSData *bodyData = [self postBodyWithValues:metrics];

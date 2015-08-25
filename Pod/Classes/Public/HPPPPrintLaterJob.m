@@ -107,7 +107,6 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
     NSMutableDictionary *jopOptions = [NSMutableDictionary dictionaryWithDictionary:self.extra];
     [jopOptions addEntriesFromDictionary:@{ kHPPPOfframpKey:offramp }];
     [jopOptions setObject:[NSNumber numberWithInteger:printPageCount] forKey:kHPPPNumberPagesPrint];
-    [jopOptions setObject:[NSNumber numberWithInteger:self.defaultPrintItem.numberOfPages] forKey:kHPPPNumberPagesDocument];
     self.extra = jopOptions;
 }
 
