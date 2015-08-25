@@ -12,10 +12,28 @@
 
 #import "HPPPLayout.h"
 
+typedef enum {
+    HPPPLayoutVerticalPositionTop,
+    HPPPLayoutVerticalPositionMiddle,
+    HPPPLayoutVerticalPositionBottom
+} HPPPLayoutVerticalPosition;
+
+typedef enum {
+    HPPPLayoutHorizontalPositionLeft,
+    HPPPLayoutHorizontalPositionMiddle,
+    HPPPLayoutHorizontalPositionRight
+} HPPPLayoutHorizontalPosition;
+
+extern NSString * const kHPPPLayoutHorizontalPositionKey;
+extern NSString * const kHPPPLayoutVerticalPositionKey;
+
 /*!
  * @abstract Layout intended to best fill the paper without stretching or cropping.
  */
 @interface HPPPLayoutFit : HPPPLayout
+
+@property (assign, nonatomic) HPPPLayoutHorizontalPosition horizontalPosition;
+@property (assign, nonatomic) HPPPLayoutVerticalPosition verticalPosition;
 
 /*!
  * @abstract Computes the rectangle that should contain the contentRect within the containerRect

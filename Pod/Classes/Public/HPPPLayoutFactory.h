@@ -53,6 +53,11 @@ typedef enum {
  */
 + (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType orientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)assetPosition allowContentRotation:(BOOL)allowRotation;
 
++ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
+                   orientation:(HPPPLayoutOrientation)orientation
+                 layoutOptions:(NSDictionary *)layoutOptions
+          allowContentRotation:(BOOL)allowRotation;
+
 /*!
  * @abstract Used to persist the layout
  * @discussion Typically this method is used with the NSCoder protocol to save the layout to the file system

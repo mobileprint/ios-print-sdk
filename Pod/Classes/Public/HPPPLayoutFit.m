@@ -13,7 +13,20 @@
 #import "HPPPLayoutFit.h"
 #import "UIImage+HPPPResize.h"
 
+NSString * const kHPPPLayoutHorizontalPositionKey = @"kHPPPLayoutHorizontalPositionKey";
+NSString * const kHPPPLayoutVerticalPositionKey = @"kHPPPLayoutVerticalPositionKey";
+
 @implementation HPPPLayoutFit
+
+- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position allowContentRotation:(BOOL)allowRotation;
+{
+    self = [super initWithOrientation:orientation assetPosition:position allowContentRotation:allowRotation];
+    if (self) {
+        _horizontalPosition = HPPPLayoutHorizontalPositionMiddle;
+        _verticalPosition = HPPPLayoutVerticalPositionMiddle;
+    }
+    return self;
+}
 
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
 {
@@ -53,6 +66,19 @@
     }
     CGFloat x = containerRect.origin.x + (containerRect.size.width - width) / 2.0;
     CGFloat y = containerRect.origin.y + (containerRect.size.height - height) / 2.0;
+    
+    if( HPPPLayoutVerticalPositionTop == self.verticalPosition ) {
+        y = 0;
+    } else if( HPPPLayoutVerticalPositionBottom == self.horizontalPosition ) {
+        y = containerRect.size.height - height;
+    }
+    
+    if( HPPPLayoutHorizontalPositionLeft == self.horizontalPosition ) {
+        x = 0;
+    } else if( HPPPLayoutHorizontalPositionRight == self.horizontalPosition ) {
+        x = containerRect.size.width - width;
+    }
+    
     return CGRectMake(x, y, width, height);
 }
 
