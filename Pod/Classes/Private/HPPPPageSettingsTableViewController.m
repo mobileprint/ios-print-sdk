@@ -756,6 +756,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.printManager.currentPrintSettings = self.delegateManager.printSettings;
     [self.printManager prepareController:controller printItem:self.printItem color:!self.blackAndWhiteModeSwitch.on pageRange:self.pageRange numCopies:self.numberOfCopies];
     
+    __weak __typeof(self) weakSelf = self;
     UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
         
         if (!completed) {
@@ -767,11 +768,11 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         }
 
         if (completed && !error) {
-            [self.printManager saveLastOptionsForPrinter:printController.printInfo.printerID];
-            [self.printManager processMetricsForPrintItem:self.printItem];
+            [weakSelf.printManager saveLastOptionsForPrinter:printController.printInfo.printerID];
+            [weakSelf.printManager processMetricsForPrintItem:weakSelf.printItem andPageRange:weakSelf.pageRange];
         }
 
-        [self printCompleted:printController isCompleted:completed printError:error];
+        [weakSelf printCompleted:printController isCompleted:completed printError:error];
 
     };
     
@@ -1191,8 +1192,10 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        id nextItem = [self.itemsToPrint firstObject];
+        HPPPPrintItem *nextItem = [self.itemsToPrint firstObject];
         if (nextItem) {
+            // TODO: currently page range is only editable and respected for first job, 2nd and greater print all pages. need future story to handle multi-job printing
+            self.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:nextItem.numberOfPages sortAscending:YES];
             [self.itemsToPrint removeObject:nextItem];
             [self print:nextItem];
         } else {

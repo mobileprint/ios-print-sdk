@@ -141,15 +141,12 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
 - (void)handleShareCompletedNotification:(NSNotification *)notification
 {
     NSString *offramp = [notification.userInfo objectForKey:kHPPPOfframpKey];
-    if (([HPPPPrintManager printingOfframp:offramp] || [offramp isEqualToString:kHPPPQueueDeleteAction])  && self.handlePrintMetricsAutomatically) {
+    if ([HPPPPrintManager printingOfframp:offramp]  && self.handlePrintMetricsAutomatically) {
         // The client app must disable automatic print metric handling in order to post print metrics via the notification system
+        HPPPLogError(@"Cannot post extended metrics notification while automatic metric handling is active");
         return;
     }
-    if( [notification.object class] == [HPPPPrintLaterJob class] ) {
-        [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintLaterJob:notification.object andOptions:notification.userInfo];
-    } else {
-        [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:notification.object andOptions:notification.userInfo];
-    }
+    [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:notification.object andOptions:notification.userInfo];
 }
 
 #pragma mark - Getter methods

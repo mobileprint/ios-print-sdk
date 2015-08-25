@@ -14,6 +14,7 @@
 #import "HPPPPrintLaterJob.h"
 #import "HPPPPrintItem.h"
 #import "HPPPPrintItemFactory.h"
+#import "HPPPAnalyticsManager.h"
 
 NSString * const kHPPPPrintLaterJobId = @"kHPPPPrintLaterJobId";
 NSString * const kHPPPPrintLaterJobName = @"kHPPPPrintLaterJobName";
@@ -47,7 +48,6 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
     [encoder encodeObject:self.pageRange forKey:kHPPPPrintLaterPageRange];
     [encoder encodeObject:self.printItems forKey:kHPPPPrintLaterJobImages];
     [encoder encodeObject:self.extra forKey:kHPPPPrintLaterJobExtra];
-
     [encoder encodeObject:[NSNumber numberWithInteger:self.numCopies] forKey:kHPPPPrintLaterNumCopies];
     [encoder encodeObject:[NSNumber numberWithBool:self.blackAndWhite] forKey:kHPPPPrintLaterBlackAndWhite];
 }
@@ -61,10 +61,8 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
         self.pageRange = [decoder decodeObjectForKey:kHPPPPrintLaterPageRange];
         self.printItems = [decoder decodeObjectForKey:kHPPPPrintLaterJobImages];
         self.extra = [decoder decodeObjectForKey:kHPPPPrintLaterJobExtra];
-
         NSNumber *numCopies = [decoder decodeObjectForKey:kHPPPPrintLaterNumCopies];
         self.numCopies = [numCopies integerValue];
-        
         NSNumber *blackAndWhite = [decoder decodeObjectForKey:kHPPPPrintLaterBlackAndWhite];
         self.blackAndWhite = [blackAndWhite boolValue];
     }
@@ -96,6 +94,21 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
     }
     
     return printItem;
+}
+
+- (HPPPPrintItem *)defaultPrintItem
+{
+    return [self printItemForPaperSize:[HPPP sharedInstance].defaultPaper.sizeTitle];
+}
+
+- (void)prepareMetricswithOfframp:(NSString *)offramp
+{
+    NSInteger printPageCount = self.pageRange ? [self.pageRange getPages].count : self.defaultPrintItem.numberOfPages;
+    NSMutableDictionary *jopOptions = [NSMutableDictionary dictionaryWithDictionary:self.extra];
+    [jopOptions addEntriesFromDictionary:@{ kHPPPOfframpKey:offramp }];
+    [jopOptions setObject:[NSNumber numberWithInteger:printPageCount] forKey:kHPPPNumberPagesPrint];
+    [jopOptions setObject:[NSNumber numberWithInteger:self.defaultPrintItem.numberOfPages] forKey:kHPPPNumberPagesDocument];
+    self.extra = jopOptions;
 }
 
 - (NSString *)description

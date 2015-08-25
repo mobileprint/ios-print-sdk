@@ -32,9 +32,6 @@ NSString * const kHPPPOfframpKey = @"off_ramp";
 NSString * const kHPPPContentTypeKey = @"content_type";
 NSString * const kHPPPContentWidthKey = @"content_width_pixels";
 NSString * const kHPPPContentHeightKey = @"content_height_pixels";
-NSString * const kHPPPQueuePrintAction = @"PrintFromQueue";
-NSString * const kHPPPQueuePrintAllAction = @"PrintAllFromQueue";
-NSString * const kHPPPQueueDeleteAction = @"DeleteFromQueue";
 NSString * const kHPPPMetricsDeviceBrand = @"device_brand";
 NSString * const kHPPPMetricsDeviceID = @"device_id";
 NSString * const kHPPPMetricsDeviceType = @"device_type";
@@ -120,7 +117,7 @@ NSString * const kHPPPMetricsNotCollected = @"Not Collected";
 
 - (NSDictionary *)printMetricsForOfframp:(NSString *)offramp
 {
-    if ([HPPPPrintManager printingOfframp:offramp]) {
+    if ([HPPPPrintManager printNowOfframp:offramp]) {
         return [HPPP sharedInstance].lastOptionsUsed;
     } else {
         return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -132,6 +129,7 @@ NSString * const kHPPPMetricsNotCollected = @"Not Collected";
                 kHPPPNoPrint, kHPPPPrinterDisplayLocation,
                 kHPPPNoPrint, kHPPPPrinterMakeAndModel,
                 kHPPPNoPrint, kHPPPPrinterDisplayName,
+                kHPPPNoPrint, kHPPPNumberPagesPrint,
                 nil
                 ];
     }
@@ -149,7 +147,7 @@ NSString * const kHPPPMetricsNotCollected = @"Not Collected";
         options = @{
                     kHPPPContentTypeKey:printItem.assetType,
                     kHPPPContentWidthKey:[NSString stringWithFormat:@"%.0f", printItemSize.width],
-                    kHPPPContentHeightKey:[NSString stringWithFormat:@"%.0f", printItemSize.height],
+                    kHPPPContentHeightKey:[NSString stringWithFormat:@"%.0f", printItemSize.height]
                     };
     }
     
@@ -226,35 +224,6 @@ NSString * const kHPPPMetricsNotCollected = @"Not Collected";
     [self sanitizeMetrics:metrics];
     
     NSData *bodyData = [self postBodyWithValues:metrics];
-    NSString *bodyLength = [NSString stringWithFormat:@"%ld", (long)[bodyData length]];
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[self metricsServerURL]];
-    [urlRequest setHTTPMethod:@"POST"];
-    [urlRequest setHTTPBody:bodyData];
-    [urlRequest addValue:bodyLength forHTTPHeaderField: @"Content-Length"];
-    [urlRequest setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [self sendMetricsData:urlRequest];
-    });
-}
-
-- (void)trackShareEventWithPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob andOptions:(NSDictionary *)options
-{
-    NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:[self baseMetrics]];
-    [metrics addEntriesFromDictionary:[self printMetricsForOfframp:[options objectForKey:kHPPPOfframpKey]]];
-    [metrics addEntriesFromDictionary:options];
-    
-    // add our final page count metrics
-    NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize];
-    HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:titleForInitialPaperSize];
-    NSInteger numPages = [printLaterJob.pageRange getPages].count;
-    [metrics setObject:[NSNumber numberWithInteger:printItem.numberOfPages] forKey:kHPPPNumberPagesDocument];
-    [metrics setObject:[NSNumber numberWithInteger:numPages] forKey:kHPPPNumberPagesPrint];
-    
-    [self sanitizeMetrics:metrics];
-    
-    NSData *bodyData = [self postBodyWithValues:metrics];
-    
     NSString *bodyLength = [NSString stringWithFormat:@"%ld", (long)[bodyData length]];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[self metricsServerURL]];
     [urlRequest setHTTPMethod:@"POST"];
