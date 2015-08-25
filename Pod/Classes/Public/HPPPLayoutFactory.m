@@ -63,12 +63,14 @@ NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
     if (HPPPLayoutTypeFit == layoutType) {
         HPPPLayoutFit *layoutFit = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:allowRotation];
         
-        if( [layoutOptions objectForKey:kHPPPLayoutHorizontalPositionKey] ) {
-            layoutFit.horizontalPosition = [[layoutOptions objectForKey:kHPPPLayoutHorizontalPositionKey] intValue];
-        }
-        
-        if( [layoutOptions objectForKey:kHPPPLayoutVerticalPositionKey] ) {
-            layoutFit.verticalPosition = [[layoutOptions objectForKey:kHPPPLayoutVerticalPositionKey] intValue];
+        if( nil != layoutOptions ) {
+            if( [layoutOptions objectForKey:kHPPPLayoutHorizontalPositionKey] ) {
+                layoutFit.horizontalPosition = [[layoutOptions objectForKey:kHPPPLayoutHorizontalPositionKey] intValue];
+            }
+            
+            if( [layoutOptions objectForKey:kHPPPLayoutVerticalPositionKey] ) {
+                layoutFit.verticalPosition = [[layoutOptions objectForKey:kHPPPLayoutVerticalPositionKey] intValue];
+            }
         }
         
         layout = layoutFit;
