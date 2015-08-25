@@ -32,6 +32,7 @@ NSString * const kHPPPPrintLaterJobNextAvailableId = @"kHPPPPrintLaterJobNextAva
 NSString * const kHPPPOfframpAddToQueueShare = @"AddToQueueFromShare";
 NSString * const kHPPPOfframpAddToQueueCustom = @"AddToQueueFromClientUI";
 NSString * const kHPPPOfframpAddToQueueDirect = @"AddToQueueWithNoUI";
+NSString * const kHPPPOfframpDeleteFromQueue = @"DeleteFromQueue";
 
 + (HPPPPrintLaterQueue *)sharedInstance
 {
@@ -91,13 +92,10 @@ NSString * const kHPPPOfframpAddToQueueDirect = @"AddToQueueWithNoUI";
             offramp = kHPPPOfframpAddToQueueShare;
         }
         
-        NSDictionary *options = @{ kHPPPOfframpKey:offramp };
-        NSMutableDictionary *jopOptions = [NSMutableDictionary dictionaryWithDictionary:printLaterJob.extra];
-        [jopOptions addEntriesFromDictionary:options];
-        printLaterJob.extra = jopOptions;
+        [printLaterJob prepareMetricswithOfframp:offramp];
         
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
-            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintLaterJob:printLaterJob andOptions:options];
+            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printLaterJob.defaultPrintItem andOptions:printLaterJob.extra];
         }
     }
     
@@ -109,11 +107,13 @@ NSString * const kHPPPOfframpAddToQueueDirect = @"AddToQueueWithNoUI";
     BOOL success = [self deleteFile:printLaterJob.id atPath:self.printLaterJobsDirectoryPath];
     
     if (success) {
-        HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:[HPPP sharedInstance].defaultPaper.sizeTitle];
+    
+        [printLaterJob prepareMetricswithOfframp:kHPPPOfframpDeleteFromQueue];
+        
         NSDictionary *values = @{
-                                 kHPPPPrintQueueActionKey:kHPPPQueueDeleteAction,
+                                 kHPPPPrintQueueActionKey:kHPPPOfframpDeleteFromQueue,
                                  kHPPPPrintQueueJobKey:printLaterJob,
-                                 kHPPPPrintQueuePrintItemKey:printItem };
+                                 kHPPPPrintQueuePrintItemKey:printLaterJob.defaultPrintItem };
 
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:values];
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintJobRemovedFromQueueNotification object:printLaterJob userInfo:nil];
@@ -122,8 +122,7 @@ NSString * const kHPPPOfframpAddToQueueDirect = @"AddToQueueWithNoUI";
         }
 
         if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
-            NSDictionary *options = @{ kHPPPOfframpKey:kHPPPQueueDeleteAction };
-            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintLaterJob:printLaterJob andOptions:options];
+            [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printLaterJob.defaultPrintItem andOptions:printLaterJob.extra];
         }
     }
     
@@ -171,7 +170,6 @@ NSString * const kHPPPOfframpAddToQueueDirect = @"AddToQueueWithNoUI";
     
     return fileArray.count;
 }
-
 
 #pragma mark - Filesystem manipulation methods
 

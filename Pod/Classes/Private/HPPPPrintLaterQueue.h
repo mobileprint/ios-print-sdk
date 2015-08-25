@@ -23,6 +23,7 @@
 extern NSString * const kHPPPOfframpAddToQueueShare;
 extern NSString * const kHPPPOfframpAddToQueueCustom;
 extern NSString * const kHPPPOfframpAddToQueueDirect;
+extern NSString * const kHPPPOfframpDeleteFromQueue;
 
 /*!
  * @abstract Used to access the singleton instance of this class
