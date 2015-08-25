@@ -264,7 +264,6 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:printItem.extra];
     [metrics addEntriesFromDictionary:@{
                                         kHPPPOfframpKey:[self offramp],
-                                        kHPPPNumberPagesDocument:[NSNumber numberWithInteger:printItem.numberOfPages],
                                         kHPPPNumberPagesPrint:[NSNumber numberWithInteger:printPageCount]
                                         }];
     printItem.extra = metrics;
