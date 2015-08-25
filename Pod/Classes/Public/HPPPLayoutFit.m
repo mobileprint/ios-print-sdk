@@ -69,7 +69,7 @@ NSString * const kHPPPLayoutVerticalPositionKey = @"kHPPPLayoutVerticalPositionK
     
     if( HPPPLayoutVerticalPositionTop == self.verticalPosition ) {
         y = 0;
-    } else if( HPPPLayoutVerticalPositionBottom == self.horizontalPosition ) {
+    } else if( HPPPLayoutVerticalPositionBottom == self.verticalPosition ) {
         y = containerRect.size.height - height;
     }
     

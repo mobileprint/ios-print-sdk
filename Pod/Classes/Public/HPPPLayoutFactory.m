@@ -28,7 +28,10 @@ NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
     return [HPPPLayoutFactory layoutWithType:layoutType orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:YES];
 }
 
-+ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType orientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)assetPosition allowContentRotation:(BOOL)allowRotation
++ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
+                   orientation:(HPPPLayoutOrientation)orientation
+                 assetPosition:(CGRect)assetPosition
+          allowContentRotation:(BOOL)allowRotation
 {
     HPPPLayout *layout = nil;
     
