@@ -106,8 +106,13 @@ typedef enum {
  */
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper image:(UIImage *)image layout:(HPPPLayout *)layout;
 
-// TODO: document
-+ (HPPPLayoutOrientation)paperOrientationForimage:(UIImage *)image andLayout:(HPPPLayout *)layout;
+/*!
+ * @abstract Gets the best paper orientation for the given image and layout
+ * @param image The image to be laid out on the paper
+ * @param layout The layout to use for laying out content on the paper
+ * @return The best paper orientation for the given image and layout
+ */
++ (HPPPLayoutOrientation)paperOrientationForImage:(UIImage *)image andLayout:(HPPPLayout *)layout;
 
 /*!
  * @abstract Applies the content position using layout constraints

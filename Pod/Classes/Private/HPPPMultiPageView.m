@@ -272,7 +272,7 @@ static NSNumber *lastPinchScale = nil;
     
     CGFloat paperAspectRatio = self.paper.width / self.paper.height;
     for (UIImage *image in self.pageImages) {
-        if (HPPPLayoutOrientationLandscape == [HPPPLayout paperOrientationForimage:image andLayout:self.layout]) {
+        if (HPPPLayoutOrientationLandscape == [HPPPLayout paperOrientationForImage:image andLayout:self.layout]) {
             paperAspectRatio = self.paper.height / self.paper.width;
             break;
         }

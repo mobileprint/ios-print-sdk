@@ -23,12 +23,27 @@ NSString * const kHPPPLayoutOrientationKey = @"kHPPPLayoutOrientationKey";
 NSString * const kHPPPLayoutPositionKey = @"kHPPPLayoutPositionKey";
 NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
 
-+ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
+static NSMutableArray *factoryDelegates = nil;
+
++ (HPPPLayout *)layoutWithType:(int)layoutType
 {
-    return [HPPPLayoutFactory layoutWithType:layoutType orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:YES];
+    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:layoutType orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:YES];
+    
+    if( nil == layout  &&  nil != factoryDelegates) {
+        for (id<HPPPLayoutFactoryDelegate> delegate in factoryDelegates) {
+            if( [delegate respondsToSelector:@selector(layoutWithType:)] ) {
+                layout = [delegate layoutWithType:layoutType];
+                if (layout) {
+                    break;
+                }
+            }
+        }
+    }
+    
+    return layout;
 }
 
-+ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
++ (HPPPLayout *)layoutWithType:(int)layoutType
                    orientation:(HPPPLayoutOrientation)orientation
                  assetPosition:(CGRect)assetPosition
           allowContentRotation:(BOOL)allowRotation
@@ -44,6 +59,20 @@ NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
         layout = layoutFit;
     } else if (HPPPLayoutTypeStretch == layoutType) {
         layout = [[HPPPLayoutStretch alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
+    } else {
+        if( nil != factoryDelegates) {
+            for (id<HPPPLayoutFactoryDelegate> delegate in factoryDelegates) {
+                if( [delegate respondsToSelector:@selector(layoutWithType:orientation:assetPosition:allowContentRotation:)] ) {
+                    layout = [delegate layoutWithType:layoutType
+                                          orientation:orientation
+                                        assetPosition:assetPosition
+                                 allowContentRotation:allowRotation];
+                    if (layout) {
+                        break;
+                    }
+                }
+            }
+        }
     }
     
     if (nil == layout) {
@@ -53,7 +82,7 @@ NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
     return layout;
 }
 
-+ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
++ (HPPPLayout *)layoutWithType:(int)layoutType
                    orientation:(HPPPLayoutOrientation)orientation
                  layoutOptions:(NSDictionary *)layoutOptions
           allowContentRotation:(BOOL)allowRotation
@@ -75,7 +104,23 @@ NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
         
         layout = layoutFit;
     } else {
-        HPPPLogWarn(@"Layout options are only supported by HPPPLayoutTypeFit");
+        if( nil != factoryDelegates) {
+            for (id<HPPPLayoutFactoryDelegate> delegate in factoryDelegates) {
+                if( [delegate respondsToSelector:@selector(layoutWithType:orientation:layoutOptions:allowContentRotation:)] ) {
+                    layout = [delegate layoutWithType:layoutType
+                                          orientation:orientation
+                                        layoutOptions:layoutOptions
+                                 allowContentRotation:allowRotation];
+                    if (layout) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        if( nil == layout ) {
+            HPPPLogWarn(@"Layout options are only supported by HPPPLayoutTypeFit");
+        }
     }
     
     if (nil == layout) {
@@ -137,6 +182,22 @@ NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
         type = HPPPLayoutTypeFit;
     }
     return type;
+}
+
++ (void)addDelegate:(id<HPPPLayoutFactoryDelegate>)delegate
+{
+    if( nil == factoryDelegates ) {
+        factoryDelegates = [[NSMutableArray alloc] initWithObjects:delegate, nil];
+    } else {
+        [factoryDelegates addObject:delegate];
+    }
+}
+
++ (void)removeDelegate:(id<HPPPLayoutFactoryDelegate>)delegate
+{
+    if( nil != factoryDelegates ) {
+        [factoryDelegates removeObject:delegate];
+    }
 }
 
 @end

@@ -85,7 +85,7 @@
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper
 {
     CGFloat paperAspectRatio = paper.width / paper.height;
-    HPPPLayoutOrientation orientation = [HPPPLayout paperOrientationForimage:paperView.image andLayout:paperView.layout];
+    HPPPLayoutOrientation orientation = [HPPPLayout paperOrientationForImage:paperView.image andLayout:paperView.layout];
     CGFloat height = 100.0f;
     CGFloat width = height * paperAspectRatio;
     if (HPPPLayoutOrientationLandscape == orientation) {
@@ -102,7 +102,7 @@
     [self preparePaperView:paperView withPaper:paper];
 }
 
-+ (HPPPLayoutOrientation)paperOrientationForimage:(UIImage *)image andLayout:(HPPPLayout *)layout
++ (HPPPLayoutOrientation)paperOrientationForImage:(UIImage *)image andLayout:(HPPPLayout *)layout
 {
     HPPPLayoutOrientation orientation = HPPPLayoutOrientationPortrait;
     if (HPPPLayoutOrientationLandscape == layout.orientation || (HPPPLayoutOrientationPortrait != layout.orientation && image.size.width > image.size.height)) {
