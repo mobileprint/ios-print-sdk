@@ -28,6 +28,11 @@
     return self;
 }
 
++ (NSString *)layoutType
+{
+    return NSStringFromClass([self class]);
+}
+
 + (CGRect)completeFillRectangle
 {
     return CGRectMake(0, 0, 100, 100);

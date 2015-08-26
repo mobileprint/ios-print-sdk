@@ -36,6 +36,12 @@ typedef enum {
 } HPPPLayoutOrientation;
 
 /*!
+ * @abstract A unique identifier for the layout class.
+ * @discussion Returns the name of the layout class.  Thus, each subclass has a built-in unique identifier.
+ */
++ (NSString *)layoutType;
+
+/*!
  * @abstract Creates a layout with a specific asset position
  * @param position A CGRect of percentage-based values that locates the layout content rectangle on the page
  * @param orientation An HPPPLayoutOrientation value specifiying the orientation strategy to use

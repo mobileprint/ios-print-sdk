@@ -25,7 +25,7 @@ NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
 
 static NSMutableArray *factoryDelegates = nil;
 
-+ (HPPPLayout *)layoutWithType:(int)layoutType
++ (HPPPLayout *)layoutWithType:(NSString *)layoutType
 {
     HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:layoutType orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:YES];
     
@@ -43,21 +43,21 @@ static NSMutableArray *factoryDelegates = nil;
     return layout;
 }
 
-+ (HPPPLayout *)layoutWithType:(int)layoutType
++ (HPPPLayout *)layoutWithType:(NSString *)layoutType
                    orientation:(HPPPLayoutOrientation)orientation
                  assetPosition:(CGRect)assetPosition
           allowContentRotation:(BOOL)allowRotation
 {
     HPPPLayout *layout = nil;
     
-    if (HPPPLayoutTypeFill == layoutType || HPPPLayoutTypeDefault == layoutType) {
+    if ([[HPPPLayoutFill layoutType] isEqualToString:layoutType] || nil == layoutType) {
         layout = [[HPPPLayoutFill alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
-    } else if (HPPPLayoutTypeFit == layoutType) {
+    } else if ([[HPPPLayoutFit layoutType] isEqualToString:layoutType]) {
         HPPPLayoutFit *layoutFit = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
         layoutFit.horizontalPosition = HPPPLayoutHorizontalPositionMiddle;
         layoutFit.verticalPosition = HPPPLayoutVerticalPositionMiddle;
         layout = layoutFit;
-    } else if (HPPPLayoutTypeStretch == layoutType) {
+    } else if ([[HPPPLayoutStretch layoutType] isEqualToString:layoutType]) {
         layout = [[HPPPLayoutStretch alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
     } else {
         if( nil != factoryDelegates) {
@@ -76,20 +76,20 @@ static NSMutableArray *factoryDelegates = nil;
     }
     
     if (nil == layout) {
-        HPPPLogWarn(@"Unable to create a layout using type %u", layoutType);
+        HPPPLogWarn(@"Unable to create a layout using type %@", layoutType);
     }
     
     return layout;
 }
 
-+ (HPPPLayout *)layoutWithType:(int)layoutType
++ (HPPPLayout *)layoutWithType:(NSString *)layoutType
                    orientation:(HPPPLayoutOrientation)orientation
                  layoutOptions:(NSDictionary *)layoutOptions
           allowContentRotation:(BOOL)allowRotation
 {
     HPPPLayout *layout = nil;
     
-    if (HPPPLayoutTypeFit == layoutType) {
+    if ([[HPPPLayoutFit layoutType] isEqualToString:layoutType]) {
         HPPPLayoutFit *layoutFit = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:allowRotation];
         
         if( nil != layoutOptions ) {
@@ -124,7 +124,7 @@ static NSMutableArray *factoryDelegates = nil;
     }
     
     if (nil == layout) {
-        HPPPLogWarn(@"Unable to create a layout using type %u", layoutType);
+        HPPPLogWarn(@"Unable to create a layout using type %@", layoutType);
     }
     
     return layout;
@@ -134,54 +134,74 @@ static NSMutableArray *factoryDelegates = nil;
 
 + (void)encodeLayout:(HPPPLayout *)layout WithCoder:(NSCoder *)encoder
 {
-    HPPPLayoutType type = [HPPPLayoutFactory layoutTypeFromLayout:layout];
-    if (HPPPLayoutTypeUnknown != type) {
-        [encoder encodeObject:[NSNumber numberWithInt:type] forKey:kHPPPLayoutTypeKey];
-        [encoder encodeObject:[NSNumber numberWithInt:layout.orientation] forKey:kHPPPLayoutOrientationKey];
-        [encoder encodeBool:layout.allowContentRotation forKey:kHPPPLayoutAllowRotationKey];
-        [encoder encodeCGRect:layout.assetPosition forKey:kHPPPLayoutPositionKey];
+    NSString *type = NSStringFromClass([layout class]);
 
-        if( HPPPLayoutTypeFit == type ) {
-            HPPPLayoutFit *layoutFit = (HPPPLayoutFit*)layout;
-            [encoder encodeObject:[NSNumber numberWithInt:layoutFit.horizontalPosition] forKey:kHPPPLayoutHorizontalPositionKey];
-            [encoder encodeObject:[NSNumber numberWithInt:layoutFit.verticalPosition] forKey:kHPPPLayoutVerticalPositionKey];
-        }
+    [encoder encodeObject:type forKey:kHPPPLayoutTypeKey];
+    [encoder encodeObject:[NSNumber numberWithInt:layout.orientation] forKey:kHPPPLayoutOrientationKey];
+    [encoder encodeBool:layout.allowContentRotation forKey:kHPPPLayoutAllowRotationKey];
+    [encoder encodeCGRect:layout.assetPosition forKey:kHPPPLayoutPositionKey];
+    
+    if( [HPPPLayoutFit layoutType] == type ) {
+        HPPPLayoutFit *layoutFit = (HPPPLayoutFit*)layout;
+        [encoder encodeObject:[NSNumber numberWithInt:layoutFit.horizontalPosition] forKey:kHPPPLayoutHorizontalPositionKey];
+        [encoder encodeObject:[NSNumber numberWithInt:layoutFit.verticalPosition] forKey:kHPPPLayoutVerticalPositionKey];
     }
+
 }
 
 + (id)initLayoutWithCoder:(NSCoder *)decoder
 {
-    HPPPLayoutType type = [decoder containsValueForKey:kHPPPLayoutTypeKey] ? [[decoder decodeObjectForKey:kHPPPLayoutTypeKey] intValue] : HPPPLayoutTypeDefault;
-    HPPPLayoutOrientation orientation = [decoder containsValueForKey:kHPPPLayoutOrientationKey] ? [[decoder decodeObjectForKey:kHPPPLayoutOrientationKey] intValue] : HPPPLayoutOrientationBestFit;
-    CGRect positionRect = [decoder containsValueForKey:kHPPPLayoutPositionKey] ? [decoder decodeCGRectForKey:kHPPPLayoutPositionKey] : [HPPPLayout completeFillRectangle];
-    BOOL allowRotation = [decoder containsValueForKey:kHPPPLayoutPositionKey] ? [decoder decodeBoolForKey:kHPPPLayoutAllowRotationKey] : YES;
+    HPPPLayout *layout = nil;
+    NSString *layoutType;
+    id rawType = [decoder containsValueForKey:kHPPPLayoutTypeKey] ? [decoder decodeObjectForKey:kHPPPLayoutTypeKey] : nil;
     
-    HPPPLayout *layout = [self layoutWithType:type orientation:orientation assetPosition:positionRect allowContentRotation:allowRotation];
- 
-    if( HPPPLayoutTypeFit == type ) {
-        HPPPLayoutFit *layoutFit = (HPPPLayoutFit *)layout;
-
-        HPPPLayoutHorizontalPosition horizontalPosition = [decoder containsValueForKey:kHPPPLayoutHorizontalPositionKey] ? [[decoder decodeObjectForKey:kHPPPLayoutHorizontalPositionKey] intValue] : HPPPLayoutHorizontalPositionMiddle;
-        HPPPLayoutVerticalPosition verticalPosition = [decoder containsValueForKey:kHPPPLayoutVerticalPositionKey] ? [[decoder decodeObjectForKey:kHPPPLayoutVerticalPositionKey] intValue] : HPPPLayoutVerticalPositionMiddle;
-
-        layoutFit.horizontalPosition = horizontalPosition;
-        layoutFit.verticalPosition = verticalPosition;
+    if( nil != rawType ) {
+        // backward compatibility
+        if( [rawType isKindOfClass:[NSNumber class]] ) {
+            int type = [rawType intValue];
+            switch (type) {
+                case 0:
+                    layoutType = [HPPPLayoutFill layoutType];
+                    break;
+                case 1:
+                case 3:
+                    layoutType = [HPPPLayoutFit layoutType];
+                    break;
+                case 2:
+                    layoutType = [HPPPLayoutStretch layoutType];
+                    break;
+                    
+                default:
+                    HPPPLogError(@"Unrecognized layout type: %d", type);
+                    layoutType = nil;
+                    break;
+            }
+        } else if( [rawType isKindOfClass:[NSString class]] ) {
+            layoutType = rawType;
+        }
+        
+        if( layoutType ) {
+            HPPPLayoutOrientation orientation = [decoder containsValueForKey:kHPPPLayoutOrientationKey] ? [[decoder decodeObjectForKey:kHPPPLayoutOrientationKey] intValue] : HPPPLayoutOrientationBestFit;
+            CGRect positionRect = [decoder containsValueForKey:kHPPPLayoutPositionKey] ? [decoder decodeCGRectForKey:kHPPPLayoutPositionKey] : [HPPPLayout completeFillRectangle];
+            BOOL allowRotation = [decoder containsValueForKey:kHPPPLayoutPositionKey] ? [decoder decodeBoolForKey:kHPPPLayoutAllowRotationKey] : YES;
+            
+            layout = [self layoutWithType:layoutType orientation:orientation assetPosition:positionRect allowContentRotation:allowRotation];
+            
+            if( [HPPPLayoutFit layoutType] == layoutType ) {
+                HPPPLayoutFit *layoutFit = (HPPPLayoutFit *)layout;
+                
+                HPPPLayoutHorizontalPosition horizontalPosition = [decoder containsValueForKey:kHPPPLayoutHorizontalPositionKey] ? [[decoder decodeObjectForKey:kHPPPLayoutHorizontalPositionKey] intValue] : HPPPLayoutHorizontalPositionMiddle;
+                HPPPLayoutVerticalPosition verticalPosition = [decoder containsValueForKey:kHPPPLayoutVerticalPositionKey] ? [[decoder decodeObjectForKey:kHPPPLayoutVerticalPositionKey] intValue] : HPPPLayoutVerticalPositionMiddle;
+                
+                layoutFit.horizontalPosition = horizontalPosition;
+                layoutFit.verticalPosition = verticalPosition;
+            }
+        } else {
+            HPPPLogError(@"Unable to decode layout for type %@", rawType);
+        }
     }
     
     return layout;
-}
-
-+ (HPPPLayoutType)layoutTypeFromLayout:(HPPPLayout *)layout
-{
-    HPPPLayoutType type = HPPPLayoutTypeUnknown;
-    if ([layout isKindOfClass:[HPPPLayoutStretch class]]) {
-        type = HPPPLayoutTypeStretch;
-    } else if ([layout isKindOfClass:[HPPPLayoutFill class]]) {
-        type = HPPPLayoutTypeFill;
-    } else if ([layout isKindOfClass:[HPPPLayoutFit class]]) {
-        type = HPPPLayoutTypeFit;
-    }
-    return type;
 }
 
 + (void)addDelegate:(id<HPPPLayoutFactoryDelegate>)delegate
