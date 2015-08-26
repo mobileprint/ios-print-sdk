@@ -70,7 +70,6 @@ typedef enum {
  */
 - (CGRect)assetPositionForRect:(CGRect)rect;
 
-
 /*!
  * @abstract Determines of content rotation is required
  * @param contentRect The content rectangle being laid out
@@ -119,7 +118,7 @@ typedef enum {
 - (void)applyConstraintsWithFrame:(CGRect)frame toContentView:(UIView *)contentView inContainerView:(UIView *)containerView;
 
 /*!
- * @abstract The adjusted postition of the content
+ * @abstract The adjusted position of the content
  * @discussion The position of the asset on the page is specified as a rectangle with an origin and size. Both the origin (x, y) and the size (width, height) are specified in percentage of total page size. The origin can include negative values but the size should include only positive values. The layout rectangle used when the layout is applied is computed as follows. The origin of the content is the origin of the container + the percentage of container width/height specified in the assetPosition origin. The content width/height is equal to the percentage of container width/height in assetPosition size.
  */
 @property (assign, nonatomic, readonly) CGRect assetPosition;
