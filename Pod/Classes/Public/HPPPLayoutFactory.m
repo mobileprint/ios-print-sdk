@@ -163,14 +163,16 @@ static NSMutableArray *factoryDelegates = nil;
                 case 0:
                     layoutType = [HPPPLayoutFill layoutType];
                     break;
+                
                 case 1:
                 case 3:
                     layoutType = [HPPPLayoutFit layoutType];
                     break;
+                
                 case 2:
                     layoutType = [HPPPLayoutStretch layoutType];
                     break;
-                    
+                
                 default:
                     HPPPLogError(@"Unrecognized layout type: %d", type);
                     layoutType = nil;
