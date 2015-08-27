@@ -317,15 +317,23 @@ NSString * const kJobListScreenName = @"Job List Screen";
 - (void)didFinishPrintFlow:(UIViewController *)printViewController;
 {
     HPPPLogInfo(@"Finished Print Job!");
-    NSString *action = self.selectedPrintJobs.count > 1 ? kHPPPQueuePrintAllAction : kHPPPQueuePrintAction;
     for (HPPPPrintLaterJob *job in self.selectedPrintJobs) {
+        
         NSString *paperSize = [[HPPP sharedInstance].lastOptionsUsed objectForKey:kHPPPPaperSizeId];
         HPPPPrintItem *printItem = [job.printItems objectForKey:paperSize];
         if (!printItem) {
             printItem = [job.printItems objectForKey:[HPPP sharedInstance].defaultPaper.sizeTitle];
         }
+        
+        NSString *offramp = [printItem.extra objectForKey:kHPPPOfframpKey];
+        if (!offramp) {
+            HPPPLogError(@"Unable to obtain offramp for print later job");
+        }
+        
+        [job prepareMetricswithOfframp:offramp];
+        
         NSDictionary *values = @{
-                                 kHPPPPrintQueueActionKey:action,
+                                 kHPPPPrintQueueActionKey:offramp,
                                  kHPPPPrintQueueJobKey:job,
                                  kHPPPPrintQueuePrintItemKey:printItem };
         [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPPrintQueueNotification object:values];
@@ -388,11 +396,10 @@ NSString * const kJobListScreenName = @"Job List Screen";
     
     for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
         HPPPPrintItem *printItem = [printJob.printItems objectForKey:imageKey];
-        printItem.extra = printJob.extra;
         if (printItem == nil) {
             printItem = [printJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
         }
-        
+        printItem.extra = printJob.extra;
         [printItems addObject:printItem];
     }
     

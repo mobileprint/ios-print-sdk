@@ -51,7 +51,26 @@ typedef enum {
  * @return The layout created or nil if not layout could be created
  * @seealso HPPPLayoutType
  */
-+ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType orientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)assetPosition allowContentRotation:(BOOL)allowRotation;
++ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
+                   orientation:(HPPPLayoutOrientation)orientation
+                 assetPosition:(CGRect)assetPosition
+          allowContentRotation:(BOOL)allowRotation;
+
+/*!
+ * @abstract Creates a layout of the given type and asset position
+ * @param layoutType The type of layout to create
+ * @param orientation The orientation strategy used by the layout
+ * @param layoutOptions A dictionary of layout options.  Currently, the two supported dictionary keys are
+ *  kHPPPLayoutHorizontalPositionKey and kHPPPLayoutVerticalPositionKey, and these two keys are only supported
+ *  by the HPPPLayoutTypeFit layout type.
+ * @param allowRotation A boolean specifying whether or not content is allowed to be rotated to optimize the layout
+ * @return The layout created or nil if not layout could be created
+ * @seealso HPPPLayoutType
+ */
++ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
+                   orientation:(HPPPLayoutOrientation)orientation
+                 layoutOptions:(NSDictionary *)layoutOptions
+          allowContentRotation:(BOOL)allowRotation;
 
 /*!
  * @abstract Used to persist the layout

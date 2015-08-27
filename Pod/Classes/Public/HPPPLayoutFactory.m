@@ -28,16 +28,54 @@ NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
     return [HPPPLayoutFactory layoutWithType:layoutType orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:YES];
 }
 
-+ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType orientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)assetPosition allowContentRotation:(BOOL)allowRotation
++ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
+                   orientation:(HPPPLayoutOrientation)orientation
+                 assetPosition:(CGRect)assetPosition
+          allowContentRotation:(BOOL)allowRotation
 {
     HPPPLayout *layout = nil;
     
     if (HPPPLayoutTypeFill == layoutType || HPPPLayoutTypeDefault == layoutType) {
         layout = [[HPPPLayoutFill alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
     } else if (HPPPLayoutTypeFit == layoutType) {
-        layout = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
+        HPPPLayoutFit *layoutFit = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
+        layoutFit.horizontalPosition = HPPPLayoutHorizontalPositionMiddle;
+        layoutFit.verticalPosition = HPPPLayoutVerticalPositionMiddle;
+        layout = layoutFit;
     } else if (HPPPLayoutTypeStretch == layoutType) {
         layout = [[HPPPLayoutStretch alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
+    }
+    
+    if (nil == layout) {
+        HPPPLogWarn(@"Unable to create a layout using type %u", layoutType);
+    }
+    
+    return layout;
+}
+
++ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
+                   orientation:(HPPPLayoutOrientation)orientation
+                 layoutOptions:(NSDictionary *)layoutOptions
+          allowContentRotation:(BOOL)allowRotation
+{
+    HPPPLayout *layout = nil;
+    
+    if (HPPPLayoutTypeFit == layoutType) {
+        HPPPLayoutFit *layoutFit = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:allowRotation];
+        
+        if( nil != layoutOptions ) {
+            if( [layoutOptions objectForKey:kHPPPLayoutHorizontalPositionKey] ) {
+                layoutFit.horizontalPosition = [[layoutOptions objectForKey:kHPPPLayoutHorizontalPositionKey] intValue];
+            }
+            
+            if( [layoutOptions objectForKey:kHPPPLayoutVerticalPositionKey] ) {
+                layoutFit.verticalPosition = [[layoutOptions objectForKey:kHPPPLayoutVerticalPositionKey] intValue];
+            }
+        }
+        
+        layout = layoutFit;
+    } else {
+        HPPPLogWarn(@"Layout options are only supported by HPPPLayoutTypeFit");
     }
     
     if (nil == layout) {
@@ -57,6 +95,12 @@ NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
         [encoder encodeObject:[NSNumber numberWithInt:layout.orientation] forKey:kHPPPLayoutOrientationKey];
         [encoder encodeBool:layout.allowContentRotation forKey:kHPPPLayoutAllowRotationKey];
         [encoder encodeCGRect:layout.assetPosition forKey:kHPPPLayoutPositionKey];
+
+        if( HPPPLayoutTypeFit == type ) {
+            HPPPLayoutFit *layoutFit = (HPPPLayoutFit*)layout;
+            [encoder encodeObject:[NSNumber numberWithInt:layoutFit.horizontalPosition] forKey:kHPPPLayoutHorizontalPositionKey];
+            [encoder encodeObject:[NSNumber numberWithInt:layoutFit.verticalPosition] forKey:kHPPPLayoutVerticalPositionKey];
+        }
     }
 }
 
@@ -66,7 +110,19 @@ NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
     HPPPLayoutOrientation orientation = [decoder containsValueForKey:kHPPPLayoutOrientationKey] ? [[decoder decodeObjectForKey:kHPPPLayoutOrientationKey] intValue] : HPPPLayoutOrientationBestFit;
     CGRect positionRect = [decoder containsValueForKey:kHPPPLayoutPositionKey] ? [decoder decodeCGRectForKey:kHPPPLayoutPositionKey] : [HPPPLayout completeFillRectangle];
     BOOL allowRotation = [decoder containsValueForKey:kHPPPLayoutPositionKey] ? [decoder decodeBoolForKey:kHPPPLayoutAllowRotationKey] : YES;
+    
     HPPPLayout *layout = [self layoutWithType:type orientation:orientation assetPosition:positionRect allowContentRotation:allowRotation];
+ 
+    if( HPPPLayoutTypeFit == type ) {
+        HPPPLayoutFit *layoutFit = (HPPPLayoutFit *)layout;
+
+        HPPPLayoutHorizontalPosition horizontalPosition = [decoder containsValueForKey:kHPPPLayoutHorizontalPositionKey] ? [[decoder decodeObjectForKey:kHPPPLayoutHorizontalPositionKey] intValue] : HPPPLayoutHorizontalPositionMiddle;
+        HPPPLayoutVerticalPosition verticalPosition = [decoder containsValueForKey:kHPPPLayoutVerticalPositionKey] ? [[decoder decodeObjectForKey:kHPPPLayoutVerticalPositionKey] intValue] : HPPPLayoutVerticalPositionMiddle;
+
+        layoutFit.horizontalPosition = horizontalPosition;
+        layoutFit.verticalPosition = verticalPosition;
+    }
+    
     return layout;
 }
 

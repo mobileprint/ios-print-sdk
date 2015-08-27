@@ -35,8 +35,7 @@
 
 - (CGRect)assetPositionForRect:(CGRect)rect
 {
-    return CGRectMake(
-                      rect.origin.x + rect.size.width * self.assetPosition.origin.x / 100.0f,
+    return CGRectMake(rect.origin.x + rect.size.width * self.assetPosition.origin.x / 100.0f,
                       rect.origin.y + rect.size.height * self.assetPosition.origin.y / 100.0f,
                       rect.size.width * self.assetPosition.size.width / 100.0f,
                       rect.size.height * self.assetPosition.size.height / 100.0f);

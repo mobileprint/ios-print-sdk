@@ -337,25 +337,25 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     
     activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
         NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
+        BOOL printActivity = [activityType isEqualToString:[[HPPPPrintActivity alloc] init].activityType];
+        BOOL printLaterActivity = [activityType isEqualToString:[[HPPPPrintLaterActivity alloc] init].activityType];
         if (completed) {
-            NSLog(@"completionHandler - Succeed");
-            HPPP *hppp = [HPPP sharedInstance];
-            NSLog(@"Paper Size used: %@", [hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId]);
-            if (self.extendedMetricsSwitch.on) {
-                NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsOfframpKey:activityType, kMetricsAppTypeKey:kMetricsAppTypeHP }];
-                [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
-                if( [activityType isEqualToString:[[HPPPPrintLaterActivity alloc] init].activityType] ) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self.printLaterJob userInfo:metrics];
-                } else {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPShareCompletedNotification object:self.printItem userInfo:metrics];
-                }
-            }
-            
-            if ([activityType isEqualToString:@"HPPPPrintLaterActivity"]) {
+            HPPPPrintItem *printItem = self.printItem;
+            NSString *offramp = activityType;
+            if (printActivity) {
+                offramp = [self.printItem.extra objectForKey:kMetricsOfframpKey];
+            } else if (printLaterActivity) {
+                offramp = [self.printLaterJob.extra objectForKey:kMetricsOfframpKey];
+                printItem = self.printLaterJob.defaultPrintItem;
+                printItem.extra = self.printLaterJob.extra;
                 [[HPPP sharedInstance] presentPrintQueueFromController:self animated:YES completion:nil];
             }
-        } else {
-            NSLog(@"completionHandler - didn't succeed.");
+            if (self.extendedMetricsSwitch.on) {
+                NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsOfframpKey:offramp }];
+                [metrics addEntriesFromDictionary:printItem.extra];
+                printItem.extra = metrics;
+                [self processMetricsForPrintItem:printItem];
+            }
         }
     };
     
