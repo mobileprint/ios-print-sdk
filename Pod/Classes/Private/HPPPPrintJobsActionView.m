@@ -43,24 +43,27 @@
 {
     HPPP *hppp = [HPPP sharedInstance];
 
-    UIColor *enableColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenActionButtonsEnableColorAttribute];
-    UIColor *disableColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenActionButtonsDisableColorAttribute];
+    UIColor *enableColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
+    UIColor *disableColor = [hppp.appearance.settings objectForKey:kHPPPMainActionInactiveLinkFontColor];
 
-    UIColor *separatorColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenActionButtonsSeparatorColorAttribute];
+    UIColor *separatorColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
 
-    UIFont *font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenActionButtonsFontAttribute];
+    UIFont *font = [hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
     
     self.selectAllButton.titleLabel.font = font;
     self.deleteButton.titleLabel.font = font;
     self.nextButton.titleLabel.font = font;
     
+    [self.selectAllButton setBackgroundColor:[hppp.appearance.settings objectForKey:kHPPPMainActionBackgroundColor]];
     [self.selectAllButton setTitleColor:enableColor forState:UIControlStateNormal];
     [self.selectAllButton setTitle:HPPPLocalizedString(@"Select All", nil) forState:UIControlStateNormal];
 
+    [self.deleteButton setBackgroundColor:[hppp.appearance.settings objectForKey:kHPPPMainActionBackgroundColor]];
     [self.deleteButton setTitleColor:enableColor forState:UIControlStateNormal];
     [self.deleteButton setTitleColor:disableColor forState:UIControlStateDisabled];
     [self.deleteButton setTitle:HPPPLocalizedString(@"Delete", nil) forState:UIControlStateNormal];
 
+    [self.nextButton setBackgroundColor:[hppp.appearance.settings objectForKey:kHPPPMainActionBackgroundColor]];
     [self.nextButton setTitleColor:enableColor forState:UIControlStateNormal];
     [self.nextButton setTitleColor:disableColor forState:UIControlStateDisabled];
     [self.nextButton setTitle:HPPPLocalizedString(@"Next", nil) forState:UIControlStateNormal];

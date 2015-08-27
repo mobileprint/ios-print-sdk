@@ -39,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *blackAndWhiteCell;
 @property (weak, nonatomic) IBOutlet UISwitch *blackAndWhiteSwitch;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
+@property (weak, nonatomic) IBOutlet UILabel *footerHeadingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *footerTextLabel;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButtonItem;
 @property (strong, nonatomic) UIColor *navigationBarTintColor;
 @property (strong, nonatomic) UIBarButtonItem *doneButtonItem;
@@ -84,7 +86,11 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         }
     }
     
+    self.view.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.tableView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.tableView.tableHeaderView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
 
     if (IS_IPAD && IS_OS_8_OR_LATER) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -96,39 +102,34 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     self.printItem = [self.printLaterJob.printItems objectForKey:self.paper.sizeTitle];
 
     // set appearance
-    self.jobSummaryCell.textLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobSummaryTitleFontAttribute];
-    self.jobSummaryCell.textLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobSummaryTitleColorAttribute];
-    self.jobSummaryCell.detailTextLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobSummarySubtitleFontAttribute];
-    self.jobSummaryCell.detailTextLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobSummarySubtitleColorAttribute];
+    self.jobSummaryCell.textLabel.font = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
+    self.jobSummaryCell.textLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
+    self.jobSummaryCell.detailTextLabel.font = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFont
+                                                ];
+    self.jobSummaryCell.detailTextLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFontColor];
 
-    self.addToPrintQLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQFontAttribute];
-    self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute];
+    self.addToPrintQLabel.font = [hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
+    self.addToPrintQLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     
-    self.jobNameCell.textLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameTitleFontAttribute];
-    self.jobNameCell.textLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameTitleColorAttribute];
-    self.jobNameCell.detailTextLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameDetailFontAttribute];
-    self.jobNameCell.detailTextLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobNameDetailColorAttribute];
+    self.jobNameCell.textLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.jobNameCell.textLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
+    self.jobNameCell.detailTextLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.jobNameCell.detailTextLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     
-    self.numCopiesLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenCopyTitleFontAttribute];
-    self.numCopiesLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenCopyTitleColorAttribute];
-    self.numCopiesStepper.tintColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenCopyStepperColorAttribute];
+    self.numCopiesLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.numCopiesLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
+    self.numCopiesStepper.tintColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     
-    self.pageRangeCell.textLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenPageRangeTitleFontAttribute];
-    self.pageRangeCell.textLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenPageRangeTitleColorAttribute];
-    self.pageRangeCell.detailTextLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenPageRangeDetailFontAttribute];
-    self.pageRangeCell.detailTextLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenPageRangeDetailColorAttribute];
+    self.pageRangeCell.textLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.pageRangeCell.textLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
+    self.pageRangeCell.detailTextLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.pageRangeCell.detailTextLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     
-    self.blackAndWhiteLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenBWTitleFontAttribute];
-    self.blackAndWhiteLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenBWTitleColorAttribute];
+    self.blackAndWhiteLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.blackAndWhiteLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     
-    self.footerViewHeadingLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenDescriptionTitleFontAttribute];
-    self.footerViewHeadingLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenDescriptionTitleColorAttribute];
-    
-    self.footerViewTextLabel.font = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenDescriptionDetailFontAttribute];
-    self.footerViewTextLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenDescriptionDetailColorAttribute];
-    
-    self.selectedPageImage = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageSelectedImageAttribute];
-    self.unselectedPageImage = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenJobPageNotSelectedImageAttribute];
+    self.selectedPageImage = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSelectedPageIcon];
+    self.unselectedPageImage = [hppp.appearance.settings objectForKey:kHPPPJobSettingsUnselectedPageIcon];
     self.pageSelectionMark = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.pageSelectionMark setImage:self.selectedPageImage forState:UIControlStateNormal];
     self.pageSelectionMark.backgroundColor = [UIColor clearColor];
@@ -167,6 +168,10 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     }
     
     self.tableView.tableFooterView = self.footerView;
+    self.footerHeadingLabel.font = [hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFont];
+    self.footerHeadingLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFontColor];
+    self.footerTextLabel.font = [hppp.appearance.settings objectForKey:kHPPPBackgroundSecondaryFont];
+    self.footerTextLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundSecondaryFontColor];
     
     // set values
     self.jobSummaryCell.textLabel.text = self.printLaterJob.name;
@@ -570,10 +575,10 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     HPPP *hppp = [HPPP sharedInstance];
     if( 0 == allPages.count ) {
         self.addToPrintQCell.userInteractionEnabled = FALSE;
-        self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQInactiveColorAttribute];
+        self.addToPrintQLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionInactiveLinkFontColor];
     } else {
         self.addToPrintQCell.userInteractionEnabled = TRUE;
-        self.addToPrintQLabel.textColor = [hppp.appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute];;
+        self.addToPrintQLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     }
     
     [self.tableView reloadData];
@@ -585,7 +590,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     
     if( display ) {
         self.smokeyView.hidden = FALSE;
-        self.smokeyView.alpha = 0.6f;
+        self.smokeyView.alpha = [[[HPPP sharedInstance].appearance.settings objectForKey:kHPPPOverlayBackgroundOpacity] floatValue];
     } else {
         self.smokeyView.alpha = 0.0f;
     }

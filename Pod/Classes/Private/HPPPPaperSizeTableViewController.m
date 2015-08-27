@@ -35,6 +35,7 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     
     self.hppp = [HPPP sharedInstance];
     
+    self.tableView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
@@ -60,8 +61,8 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PaperSizeTableViewCellIdentifier"];
     }
     
-    cell.textLabel.font = self.hppp.tableViewCellLabelFont;
-    cell.textLabel.textColor = self.hppp.tableViewCellLabelColor;
+    cell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    cell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     
     cell.textLabel.text = self.hppp.paperSizes[indexPath.row];
     

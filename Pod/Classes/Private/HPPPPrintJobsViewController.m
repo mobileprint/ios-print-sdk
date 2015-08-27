@@ -50,14 +50,12 @@ NSString * const kJobListScreenName = @"Job List Screen";
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = self.tableView.backgroundColor;
-    
     self.printJobsActionView.delegate = self;
     
     HPPP *hppp = [HPPP sharedInstance];
     
-    self.emptyPrintQueueLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenEmptyQueueFontAttribute];
-    self.emptyPrintQueueLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenEmptyQueueColorAttribute];
+    self.emptyPrintQueueLabel.font = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
+    self.emptyPrintQueueLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
     self.emptyPrintQueueLabel.text = HPPPLocalizedString(@"Print queue is empty", nil);
     
     self.title = HPPPLocalizedString(@"Print Queue", nil);
@@ -73,6 +71,8 @@ NSString * const kJobListScreenName = @"Job List Screen";
         }
     }
     
+    self.view.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.tableView.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [self initJobsCounterLabel];
@@ -106,10 +106,10 @@ NSString * const kJobListScreenName = @"Job List Screen";
 
 - (void)initJobsCounterLabel
 {
-    self.jobsCounterLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 22.0f)];
+    self.jobsCounterLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 22.0f)];
     HPPP *hppp = [HPPP sharedInstance];
-    self.jobsCounterLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPrintsCounterLabelFontAttribute];
-    self.jobsCounterLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenPrintsCounterLabelColorAttribute];
+    self.jobsCounterLabel.font = [hppp.appearance.settings objectForKey:kHPPPQueuePrimaryFont];
+    self.jobsCounterLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPQueuePrimaryFontColor];
     self.jobsCounterLabel.text = [NSString stringWithFormat:HPPPLocalizedString(@"%d Prints", nil), [[HPPPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs]];
     UIBarButtonItem *jobsCounterBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.jobsCounterLabel];
     [self.navigationItem setLeftBarButtonItem:jobsCounterBarButtonItem];
@@ -294,11 +294,11 @@ NSString * const kJobListScreenName = @"Job List Screen";
     
     UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 10.0f, self.view.frame.size.width, 44.0f)];
     textLabel.textAlignment = NSTextAlignmentCenter;
-    textLabel.font = [[HPPP sharedInstance].appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenNoWifiLabelFontAttribute];
-    textLabel.textColor = [[HPPP sharedInstance].appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenNoWifiLabelColorAttribute];
-    textLabel.backgroundColor = [UIColor whiteColor];
+    textLabel.font = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
+    textLabel.textColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
+    textLabel.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     textLabel.layer.borderWidth = 0.5f;
-    textLabel.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    textLabel.layer.borderColor = [(UIColor *)[[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundPrimaryFontColor] CGColor];
     
     NSString *text = nil;
     if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {

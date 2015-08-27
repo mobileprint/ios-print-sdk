@@ -33,15 +33,17 @@
     
     HPPP *hppp = [HPPP sharedInstance];
     
-    self.jobNameLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobNameFontAttribute];
-    self.jobNameLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobNameColorAttribute];
+    self.jobNameLabel.font = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
+    self.jobNameLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
     
-    NSString *formatString = [NSDateFormatter dateFormatFromTemplate:[HPPP sharedInstance].defaultDateFormat options:0 locale:[NSLocale currentLocale]];
+    NSString *formatString = [NSDateFormatter dateFormatFromTemplate:[[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralDefaultDateFormat]
+                                                             options:0
+                                                              locale:[NSLocale currentLocale]];
     self.formatter = [[NSDateFormatter alloc] init];
     [self.formatter setDateFormat:formatString];
     
-    self.jobDateLabel.font = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobDateFontAttribute];
-    self.jobDateLabel.textColor = [hppp.appearance.printQueueScreenAttributes objectForKey:kHPPPPrintQueueScreenJobDateColorAttribute];
+    self.jobDateLabel.font = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFont];
+    self.jobDateLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFontColor];
 }
 
 - (void)setPrintLaterJob:(HPPPPrintLaterJob *)job

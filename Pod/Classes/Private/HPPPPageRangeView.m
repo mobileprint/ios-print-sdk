@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSString *pageRangeString;
 @property (strong, nonatomic) UIView *buttonContainer;
 @property (assign, nonatomic) int buttonContainerOriginY;
+@property (strong, nonatomic) HPPP *hppp;
 
 @end
 
@@ -45,6 +46,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
     self.buttons = [[NSMutableArray alloc] init];
     self.buttonContainer = [[UIView alloc] init];
     [self addSubview:self.buttonContainer];
+    self.hppp = [HPPP sharedInstance];
 }
 
 - (void)dealloc
@@ -94,6 +96,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 {
     UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width, self.frame.size.height, 1, 1)];
     self.textField.inputView = dummyView; // Hide keyboard, but show blinking cursor
+    UIFont *baseFont = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
     
     int buttonWidth = self.frame.size.width/buttonsPerRow + 1;
     int buttonHeight = .8 * buttonWidth;
@@ -109,11 +112,11 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [button setTitle:buttonText forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:24];
+        [button setTitleColor:[self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [baseFont fontWithSize:baseFont.pointSize+2];
         [button layer].borderWidth = 1.0f;
-        [button layer].borderColor = [UIColor lightGrayColor].CGColor;
-        button.backgroundColor = [UIColor whiteColor];
+        [button layer].borderColor = [[self.hppp.appearance.settings objectForKey:kHPPPJobSettingsStrokeColor] CGColor];
+        button.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsBackgroundColor];
         [button addTarget:self action:@selector(onButtonDown:) forControlEvents:UIControlEventTouchUpInside];
 
         if( [buttonText isEqualToString:[kAllButtonText copy]] ) {
@@ -122,13 +125,13 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
                 width = buttonWidth*2;
                 buttonOffset++;
             }
-            button.titleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:16];
+            button.titleLabel.font = baseFont;
             button.frame = CGRectMake(col*buttonWidth, yOrigin + (row*buttonHeight), width, buttonHeight);
         } else {
             if( [buttonText isEqualToString:[kCheckButtonText copy]] ) {
-                button.titleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:16];
-                button.backgroundColor = [[HPPP sharedInstance].appearance.addPrintLaterJobScreenAttributes objectForKey:kHPPPAddPrintLaterJobScreenAddToPrintQActiveColorAttribute];
-                [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                button.titleLabel.font = baseFont;
+                button.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionBackgroundColor];
+                [button setTitleColor:[self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor] forState:UIControlStateNormal];
             }
             button.frame = CGRectMake((col+buttonOffset)*buttonWidth, yOrigin + (row*buttonHeight), buttonWidth, buttonHeight);
         }
@@ -173,6 +176,9 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
     self.textField.alpha = 0.0F;
     self.textField.text = self.pageRangeString;
+    self.textField.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPFormFieldBackgroundColor];
+    self.textField.font = [self.hppp.appearance.settings objectForKey:kHPPPFormFieldPrimaryFont];
+    self.textField.textColor = [self.hppp.appearance.settings objectForKey:kHPPPFormFieldPrimaryFontColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillMove:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
