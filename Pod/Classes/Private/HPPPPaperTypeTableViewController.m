@@ -35,14 +35,15 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
     
     self.hppp = [HPPP sharedInstance];
     
+    self.tableView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     NSArray *localizeTitleArray = @[HPPPLocalizedString(@"Plain Paper", @"Option of paper type"), HPPPLocalizedString(@"Photo Paper", @"Option of paper type")];
     
     NSInteger i = 0;
     for (UITableViewCell *cell in self.paperTypeCells) {
-        cell.textLabel.font = self.hppp.tableViewCellLabelFont;
-        cell.textLabel.textColor = self.hppp.tableViewCellLabelColor;
+        cell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+        cell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
         cell.textLabel.text = [localizeTitleArray objectAtIndex:i];
         i ++;
         
