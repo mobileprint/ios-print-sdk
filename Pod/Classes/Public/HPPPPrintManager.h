@@ -87,8 +87,10 @@ typedef enum {
 
 /*
  * @abstract Called when the print item was printed successfully
+ * @param printItem The item being printed
+ * @param pageRange The range of pages being printed
  */
-- (void)processMetricsForPrintItem:(HPPPPrintItem *)printItem;
+- (void)processMetricsForPrintItem:(HPPPPrintItem *)printItem andPageRange:(HPPPPageRange *)pageRange;
 
 /*!
  * @abstract Indicates if an offramp is a printing offramp
@@ -96,6 +98,20 @@ typedef enum {
  * @return YES or NO indicating if the offramp provided is a print-related offramp
  */
 + (BOOL)printingOfframp:(NSString *)offramp;
+
+/*!
+ * @abstract Indicates if an offramp is an immediate print offramp
+ * @description Identifies print-related offramps that print immediately (rather than delayed printing like add-to-queue)
+ * @return YES or NO indicating if the offramp provided is an immediate print offramp
+ */
++ (BOOL)printNowOfframp:(NSString *)offramp;
+
+/*!
+ * @abstract Indicates if an offramp is a delayed print offramp
+ * @description Identifies print-related offramps that print delayed (rather than immediate print offramps like print-from-share)
+ * @return YES or NO indicating if the offramp provided is a delayed print offramp
+ */
++ (BOOL)printLaterOfframp:(NSString *)offramp;
 
 @end
 

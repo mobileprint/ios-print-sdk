@@ -73,5 +73,15 @@
  */
 - (HPPPPrintItem *) printItemForPaperSize:(NSString *)paperSizeTitle;
 
+/*!
+ * @abstract A method to return the print item for the default paper size
+ */
+- (HPPPPrintItem *)defaultPrintItem;
+
+/*!
+ * @abstract Populates job with metrics info
+ * @param offramp The metrics offramp to use
+ */
+- (void)prepareMetricswithOfframp:(NSString *)offramp;
 
 @end

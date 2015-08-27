@@ -15,15 +15,11 @@
 @interface HPPPAnalyticsManager : NSObject
 
 extern NSString * const kHPPPOfframpKey;
-extern NSString * const kHPPPQueuePrintAction;
-extern NSString * const kHPPPQueuePrintAllAction;
-extern NSString * const kHPPPQueueDeleteAction;
 
 + (HPPPAnalyticsManager *)sharedManager;
 
 + (NSString *)wifiName;
     
 - (void)trackShareEventWithPrintItem:(HPPPPrintItem *)printItem andOptions:(NSDictionary *)options;
-- (void)trackShareEventWithPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob andOptions:(NSDictionary *)options;
 
 @end

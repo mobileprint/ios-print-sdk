@@ -93,9 +93,9 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
 #pragma mark - Printing
 
 - (void)print:(HPPPPrintItem *)printItem
-          pageRange:(HPPPPageRange *)pageRange
-          numCopies:(NSInteger)numCopies
-              error:(NSError **)errorPtr
+    pageRange:(HPPPPageRange *)pageRange
+    numCopies:(NSInteger)numCopies
+        error:(NSError **)errorPtr
 {
     HPPPPrintManagerError error = HPPPPrintManagerErrorNone;
     
@@ -114,7 +114,7 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
             HPPPLogWarn(@"directPrint not completed - paper type is not selected");
             error = HPPPPrintManagerErrorNoPaperType;
         }
-
+        
         if( HPPPPrintManagerErrorNone == error ) {
             [self doPrintWithPrintItem:printItem color:self.currentPrintSettings.color pageRange:pageRange numCopies:numCopies];
         }
@@ -160,12 +160,12 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
             if (error) {
                 HPPPLogWarn(@"Print error:  %@", error);
             }
-        
+            
             if (completed && !error) {
                 [self saveLastOptionsForPrinter:controller.printInfo.printerID];
-                [self processMetricsForPrintItem:printItem];
+                [self processMetricsForPrintItem:printItem andPageRange:pageRange];
             }
-        
+            
             if( [self.delegate respondsToSelector:@selector(didFinishPrintJob:completed:error:)] ) {
                 [self.delegate didFinishPrintJob:controller completed:completed error:error];
             }
@@ -227,7 +227,7 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
             controller.printingItems = items;
         }
     }
-
+    
     controller.printInfo = printInfo;
 }
 
@@ -248,9 +248,9 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     }
     
     UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:[self.currentPrintSettings.paper printerPaperSize] withPapersFromArray:paperList];
-
+    
     [log appendFormat:@"\nChosen: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n\n\n", paper.paperSize.width  / 72.0, paper.paperSize.height  / 72.0, paper.printableRect.origin.x, paper.printableRect.origin.y, paper.printableRect.size.width, paper.printableRect.size.height];
-
+    
     HPPPLogInfo(@"%@", log);
     
     return paper;
@@ -258,10 +258,14 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
 
 #pragma mark - Print metrics
 
-- (void)processMetricsForPrintItem:(HPPPPrintItem *)printItem
+- (void)processMetricsForPrintItem:(HPPPPrintItem *)printItem andPageRange:(HPPPPageRange *)pageRange
 {
+    NSInteger printPageCount = pageRange ? [pageRange getPages].count : printItem.numberOfPages;
     NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:printItem.extra];
-    [metrics addEntriesFromDictionary:@{ kHPPPOfframpKey:[self offramp] }];
+    [metrics addEntriesFromDictionary:@{
+                                        kHPPPOfframpKey:[self offramp],
+                                        kHPPPNumberPagesPrint:[NSNumber numberWithInteger:printPageCount]
+                                        }];
     printItem.extra = metrics;
     if ([HPPP sharedInstance].handlePrintMetricsAutomatically) {
         [[HPPPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:metrics];
@@ -287,17 +291,30 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
 
 + (BOOL)printingOfframp:(NSString *)offramp
 {
-    NSArray *printingOfframps = @[
-                                  kHPPPOfframpPrint,
-                                  kHPPPOfframpQueue,
-                                  kHPPPOfframpQueueMulti,
-                                  kHPPPOfframpCustom,
-                                  kHPPPOfframpDirect,
-                                  kHPPPOfframpAddToQueueShare,
-                                  kHPPPOfframpAddToQueueCustom,
-                                  kHPPPOfframpAddToQueueDirect ];
+    return [self printNowOfframp:offramp] || [self printLaterOfframp:offramp];
+}
 
-    return [printingOfframps containsObject:offramp];
++ (BOOL)printNowOfframp:(NSString *)offramp
+{
+    NSArray *offramps = @[
+                          kHPPPOfframpPrint,
+                          kHPPPOfframpQueue,
+                          kHPPPOfframpQueueMulti,
+                          kHPPPOfframpCustom,
+                          kHPPPOfframpDirect ];
+    
+    return [offramps containsObject:offramp];
+}
+
++ (BOOL)printLaterOfframp:(NSString *)offramp
+{
+    NSArray *offramps = @[
+                          kHPPPOfframpAddToQueueShare,
+                          kHPPPOfframpAddToQueueCustom,
+                          kHPPPOfframpAddToQueueDirect,
+                          kHPPPOfframpDeleteFromQueue ];
+    
+    return [offramps containsObject:offramp];
 }
 
 @end

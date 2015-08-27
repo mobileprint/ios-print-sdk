@@ -443,14 +443,11 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
 - (id)initWithCoder:(NSCoder *)decoder
 {
     if (self = [super init]) {
-        self.range = [decoder decodeObjectForKey:kHPPPPageRangeRange];
-        self.allPagesIndicator = [decoder decodeObjectForKey:kHPPPPageRangeAllPagesIndicator];
-        
+        NSString *range = [decoder decodeObjectForKey:kHPPPPageRangeRange];
+        NSString *allPagesIndicator = [decoder decodeObjectForKey:kHPPPPageRangeAllPagesIndicator];
         NSNumber *maxPageNum = [decoder decodeObjectForKey:kHPPPPageRangeMaxPageNum];
-        self.maxPageNum = [maxPageNum integerValue];
-        
         NSNumber *sortAscending = [decoder decodeObjectForKey:kHPPPPageRangeSortAscending];
-        self.sortAscending = [sortAscending boolValue];
+        self = [self initWithString:range allPagesIndicator:allPagesIndicator maxPageNum:[maxPageNum integerValue] sortAscending:[sortAscending boolValue]];
     }
     
     return self;
