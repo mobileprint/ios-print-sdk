@@ -772,6 +772,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     }
 }
 
+#pragma mark - Pod Appearance Testing
 - (IBAction)appearanceSettingsChanged:(id)sender {
     static NSDictionary *defaultSettings = nil;
 
