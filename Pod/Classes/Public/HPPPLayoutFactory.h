@@ -12,6 +12,11 @@
 
 #import <Foundation/Foundation.h>
 #import "HPPPLayout.h"
+#import "HPPPLayoutFit.h"
+#import "HPPPLayoutFill.h"
+#import "HPPPLayoutStretch.h"
+
+@protocol HPPPLayoutFactoryDelegate;
 
 /*!
  * @abstract Factory class for creating layouts
@@ -19,55 +24,36 @@
 @interface HPPPLayoutFactory : NSObject
 
 /*!
- * @abstract List of supported layout types
- * @const HPPPLayoutTypeFill Specifies a layout that uses the minimum content size possible that completely fills the page and maintains the aspect ratio, i.e. fills the page with the content
- * @const HPPPLayoutTypeFit Specifies a layout that uses the maximum content size possible without cropping or changing the aspect ratio, i.e. fits the content to the page
- * @const HPPPLayoutTypeStretch Specifies a layout that exactly fills the content rectangle by reducing or enlarging the image asset and changing the aspect ration as required.
- * @const HPPPLayoutTypeDefault Indicates that the default layout should be used
- * @const HPPPLayoutTypeUnknown Indicates an unknown or unspecfied layout
- */
-typedef enum {
-    HPPPLayoutTypeFill,
-    HPPPLayoutTypeFit,
-    HPPPLayoutTypeStretch,
-    HPPPLayoutTypeDefault,
-    HPPPLayoutTypeUnknown
-} HPPPLayoutType;
-
-/*!
  * @abstract Creates a layout of the given type
- * @param layoutType The type of layout to create
+ * @param layoutType The type of layout to create. See HPPPLayoutType for standard types.
  * @return The layout created or nil if not layout could be created
- * @seealso HPPPLayoutType
  */
-+ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType;
++ (HPPPLayout *)layoutWithType:(NSString *)layoutType;
 
 /*!
  * @abstract Creates a layout of the given type and asset position
- * @param layoutType The type of layout to create
+ * @param layoutType The type of layout to create. See HPPPLayoutType for standard types.
  * @param orientation The orientation strategy used by the layout
  * @param assetPosition A CGRect of percentage-based values that locates the layout content rectangle on the page
  * @param allowRotation A boolean specifying whether or not content is allowed to be rotated to optimize the layout
  * @return The layout created or nil if not layout could be created
- * @seealso HPPPLayoutType
  */
-+ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
++ (HPPPLayout *)layoutWithType:(NSString *)layoutType
                    orientation:(HPPPLayoutOrientation)orientation
                  assetPosition:(CGRect)assetPosition
           allowContentRotation:(BOOL)allowRotation;
 
 /*!
  * @abstract Creates a layout of the given type and asset position
- * @param layoutType The type of layout to create
+ * @param layoutType The type of layout to create. See HPPPLayoutType for standard types.
  * @param orientation The orientation strategy used by the layout
  * @param layoutOptions A dictionary of layout options.  Currently, the two supported dictionary keys are
  *  kHPPPLayoutHorizontalPositionKey and kHPPPLayoutVerticalPositionKey, and these two keys are only supported
  *  by the HPPPLayoutTypeFit layout type.
  * @param allowRotation A boolean specifying whether or not content is allowed to be rotated to optimize the layout
  * @return The layout created or nil if not layout could be created
- * @seealso HPPPLayoutType
  */
-+ (HPPPLayout *)layoutWithType:(HPPPLayoutType)layoutType
++ (HPPPLayout *)layoutWithType:(NSString *)layoutType
                    orientation:(HPPPLayoutOrientation)orientation
                  layoutOptions:(NSDictionary *)layoutOptions
           allowContentRotation:(BOOL)allowRotation;
@@ -84,4 +70,47 @@ typedef enum {
  */
 + (id)initLayoutWithCoder:(NSCoder *)decoder;
 
++ (void)addDelegate:(id<HPPPLayoutFactoryDelegate>)delegate;
+
++ (void)removeDelegate:(id<HPPPLayoutFactoryDelegate>)delegate;
+
 @end
+
+@protocol HPPPLayoutFactoryDelegate <NSObject>
+
+@optional
+/*!
+ * @abstract Creates a layout of the given type
+ * @param layoutType The type of layout to create
+ * @return The layout created or nil if not layout could be created
+ */
+- (HPPPLayout *)layoutWithType:(NSString *)layoutType;
+
+/*!
+ * @abstract Creates a layout of the given type and asset position
+ * @param layoutType The type of layout to create
+ * @param orientation The orientation strategy used by the layout
+ * @param assetPosition A CGRect of percentage-based values that locates the layout content rectangle on the page
+ * @param allowRotation A boolean specifying whether or not content is allowed to be rotated to optimize the layout
+ * @return The layout created or nil if not layout could be created
+ */
+- (HPPPLayout *)layoutWithType:(NSString *)layoutType
+                   orientation:(HPPPLayoutOrientation)orientation
+                 assetPosition:(CGRect)assetPosition
+          allowContentRotation:(BOOL)allowRotation;
+
+/*!
+ * @abstract Creates a layout of the given type and asset position
+ * @param layoutType The type of layout to create
+ * @param orientation The orientation strategy used by the layout
+ * @param layoutOptions A dictionary of layout options.
+ * @param allowRotation A boolean specifying whether or not content is allowed to be rotated to optimize the layout
+ * @return The layout created or nil if not layout could be created
+ */
+- (HPPPLayout *)layoutWithType:(NSString *)layoutType
+                   orientation:(HPPPLayoutOrientation)orientation
+                 layoutOptions:(NSDictionary *)layoutOptions
+          allowContentRotation:(BOOL)allowRotation;
+
+@end
+

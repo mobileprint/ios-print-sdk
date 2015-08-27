@@ -36,6 +36,12 @@ typedef enum {
 } HPPPLayoutOrientation;
 
 /*!
+ * @abstract A unique identifier for the layout class.
+ * @discussion Returns the name of the layout class.  Thus, each subclass has a built-in unique identifier.
+ */
++ (NSString *)layoutType;
+
+/*!
  * @abstract Creates a layout with a specific asset position
  * @param position A CGRect of percentage-based values that locates the layout content rectangle on the page
  * @param orientation An HPPPLayoutOrientation value specifiying the orientation strategy to use
@@ -106,8 +112,13 @@ typedef enum {
  */
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper image:(UIImage *)image layout:(HPPPLayout *)layout;
 
-// TODO: document
-+ (HPPPLayoutOrientation)paperOrientationForimage:(UIImage *)image andLayout:(HPPPLayout *)layout;
+/*!
+ * @abstract Gets the best paper orientation for the given image and layout
+ * @param image The image to be laid out on the paper
+ * @param layout The layout to use for laying out content on the paper
+ * @return The best paper orientation for the given image and layout
+ */
++ (HPPPLayoutOrientation)paperOrientationForImage:(UIImage *)image andLayout:(HPPPLayout *)layout;
 
 /*!
  * @abstract Applies the content position using layout constraints

@@ -34,6 +34,7 @@ typedef enum {
 @property (strong, nonatomic) NSArray *pdfFiles;
 @property (weak, nonatomic) IBOutlet UISwitch *automaticMetricsSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *extendedMetricsSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *appearanceTestSettingsSwitch;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *layoutSegmentControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *orientationSegmentControl;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *positionTextField;
@@ -109,6 +110,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     
     [self useDeviceID];
     [self setBarButtonItems];
+    [self.appearanceTestSettingsSwitch setOn:NO];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionEstablished object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionLost object:nil];
@@ -668,7 +670,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 
 - (HPPPLayout *)layoutForPaper:(HPPPPaper *)paper
 {
-    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit];
+    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType]];
     if (DefaultPrintRenderer != self.printItem.renderer) {
         BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && SizeLetter == paper.paperSize);
         
@@ -694,13 +696,13 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
         
         BOOL allowRotation = !defaultLetter;
         
-        HPPPLayoutType type = HPPPLayoutTypeDefault;
+        NSString * type = [HPPPLayoutFit layoutType];
         if (defaultLetter || kLayoutFitIndex == self.layoutSegmentControl.selectedSegmentIndex || DefaultPrintRenderer == self.printItem.renderer) {
-            type = HPPPLayoutTypeFit;
+            type = [HPPPLayoutFit layoutType];
         } else if (kLayoutFillIndex == self.layoutSegmentControl.selectedSegmentIndex) {
-            type = HPPPLayoutTypeFill;
+            type = [HPPPLayoutFill layoutType];
         } else if (kLayoutStretchIndex == self.layoutSegmentControl.selectedSegmentIndex) {
-            type = HPPPLayoutTypeStretch;
+            type = [HPPPLayoutStretch layoutType];
         }
         
         layout = [HPPPLayoutFactory layoutWithType:type orientation:orientation assetPosition:position allowContentRotation:allowRotation];
@@ -768,6 +770,87 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     if (completed && !error) {
         [self processMetricsForPrintItem:self.printItem];
     }
+}
+
+#pragma mark - Pod Appearance Testing
+- (IBAction)appearanceSettingsChanged:(id)sender {
+    static NSDictionary *defaultSettings = nil;
+
+    HPPP *hppp = [HPPP sharedInstance];
+    
+    if( self.appearanceTestSettingsSwitch.on ) {
+        defaultSettings = hppp.appearance.settings;
+        hppp.appearance.settings = [self testSettings];
+    } else {
+        [HPPP sharedInstance].appearance.settings = defaultSettings;
+    }
+}
+
+- (NSDictionary *)testSettings
+{
+    NSString *regularFont = @"Baskerville-Bold";
+    NSString *lightFont   = @"Baskerville-Italic";
+    
+    return @{// General
+             kHPPPGeneralDefaultDateFormat: @"MMMM d, h:mma",
+             
+             // Background
+             kHPPPBackgroundBackgroundColor:   [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
+             kHPPPBackgroundPrimaryFont:       [UIFont fontWithName:regularFont size:14],
+             kHPPPBackgroundPrimaryFontColor:  [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPBackgroundSecondaryFont:     [UIFont fontWithName:lightFont size:12],
+             kHPPPBackgroundSecondaryFontColor:[UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+             
+             // Selection Options
+             kHPPPSelectionOptionsBackgroundColor:   [UIColor colorWithRed:0xFF/255.0F green:0xA5/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPSelectionOptionsStrokeColor:       [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
+             kHPPPSelectionOptionsPrimaryFont:       [UIFont fontWithName:regularFont size:16],
+             kHPPPSelectionOptionsPrimaryFontColor:  [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPSelectionOptionsSecondaryFont:     [UIFont fontWithName:regularFont size:16],
+             kHPPPSelectionOptionsSecondaryFontColor:[UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPSelectionOptionsLinkFont:          [UIFont fontWithName:regularFont size:16],
+             kHPPPSelectionOptionsLinkFontColor:     [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
+             
+             // Job Settings
+             kHPPPJobSettingsBackgroundColor:    [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPJobSettingsStrokeColor:        [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
+             kHPPPJobSettingsPrimaryFont:        [UIFont fontWithName:regularFont size:16],
+             kHPPPJobSettingsPrimaryFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPJobSettingsSecondaryFont:      [UIFont fontWithName:regularFont size:12],
+             kHPPPJobSettingsSecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"HPPPSelected.png"],
+             kHPPPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"HPPPUnselected.png"],
+             
+             // Main Action
+             kHPPPMainActionBackgroundColor:       [UIColor colorWithRed:0x8A/255.0F green:0x2B/255.0F blue:0xE2/255.0F alpha:1.0F],
+             kHPPPMainActionStrokeColor:           [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
+             kHPPPMainActionLinkFont:              [UIFont fontWithName:regularFont size:18],
+             kHPPPMainActionActiveLinkFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPMainActionInactiveLinkFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+             
+             // Queue Project Count
+             kHPPPQueuePrimaryFont:     [UIFont fontWithName:regularFont size:16],
+             kHPPPQueuePrimaryFontColor:[UIColor colorWithRed:0x00 green:0x00 blue:0x00 alpha:1.0F],
+             
+             // Form Field
+             kHPPPFormFieldBackgroundColor:  [UIColor colorWithRed:0xFF/255.0F green:0xD7/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPFormFieldStrokeColor:      [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
+             kHPPPFormFieldPrimaryFont:      [UIFont fontWithName:regularFont size:16],
+             kHPPPFormFieldPrimaryFontColor: [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+             
+             // Multipage Graphics
+             kHPPPMultipageGraphicsStrokeColor: [UIColor colorWithRed:0xFF green:0xFF blue:0xFF alpha:1.0F],
+             
+             // Overlay
+             kHPPPOverlayBackgroundColor:    [UIColor colorWithRed:0x8D/255.0F green:0xEE/255.0F blue:0xEE/255.0F alpha:1.0F],
+             kHPPPOverlayBackgroundOpacity:  [NSNumber numberWithFloat:.60F],
+             kHPPPOverlayPrimaryFont:        [UIFont fontWithName:regularFont size:16],
+             kHPPPOverlayPrimaryFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPOverlaySecondaryFont:      [UIFont fontWithName:regularFont size:14],
+             kHPPPOverlaySecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPOverlayLinkFont:           [UIFont fontWithName:regularFont size:18],
+             kHPPPOverlayLinkFontColor:      [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F]
+             };
 }
 
 @end
