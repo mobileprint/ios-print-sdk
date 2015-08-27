@@ -76,6 +76,15 @@ NSString * const kHPPPOverlayLinkFontColor = @"kHPPPOverlayLinkFontColor";
 
 - (NSDictionary *)settings
 {
+    if (nil == _settings) {
+        _settings = [self defaultSettings];
+    }
+    
+    return _settings;
+}
+
+- (NSDictionary *)defaultSettings
+{
     NSString *regularFont = @"HelveticaNeue";
     NSString *lightFont   = @"HelveticaNeue-Medium";
     

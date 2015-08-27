@@ -125,8 +125,8 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     self.pageRangeCell.detailTextLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
     self.pageRangeCell.detailTextLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     
-    self.blackAndWhiteCell.textLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
-    self.blackAndWhiteCell.textLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
+    self.blackAndWhiteLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.blackAndWhiteLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     
     self.selectedPageImage = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSelectedPageIcon];
     self.unselectedPageImage = [hppp.appearance.settings objectForKey:kHPPPJobSettingsUnselectedPageIcon];
