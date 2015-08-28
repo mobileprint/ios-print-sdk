@@ -930,16 +930,16 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xd4-bP-zv3" userLabel="Multi-Page View" customClass="HPPPMultiPageView">
-                                    <rect key="frame" x="10" y="0.0" width="580" height="358"/>
+                                    <rect key="frame" x="0.0" y="10" width="600" height="338"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="xd4-bP-zv3" firstAttribute="top" secondItem="ASB-Hp-9zB" secondAttribute="top" id="F4A-P5-iCj"/>
-                                <constraint firstAttribute="bottom" secondItem="xd4-bP-zv3" secondAttribute="bottom" id="JGS-CO-Qcb"/>
-                                <constraint firstItem="xd4-bP-zv3" firstAttribute="leading" secondItem="ASB-Hp-9zB" secondAttribute="leading" constant="10" id="YsW-Gz-AP8"/>
-                                <constraint firstAttribute="trailing" secondItem="xd4-bP-zv3" secondAttribute="trailing" constant="10" id="c9U-Fz-1rB"/>
+                                <constraint firstItem="xd4-bP-zv3" firstAttribute="top" secondItem="ASB-Hp-9zB" secondAttribute="top" constant="10" id="F4A-P5-iCj"/>
+                                <constraint firstAttribute="bottom" secondItem="xd4-bP-zv3" secondAttribute="bottom" constant="10" id="JGS-CO-Qcb"/>
+                                <constraint firstItem="xd4-bP-zv3" firstAttribute="leading" secondItem="ASB-Hp-9zB" secondAttribute="leading" id="YsW-Gz-AP8"/>
+                                <constraint firstAttribute="trailing" secondItem="xd4-bP-zv3" secondAttribute="trailing" id="c9U-Fz-1rB"/>
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="tza-09-zcQ" userLabel="footerView">
@@ -1159,6 +1159,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                         <outlet property="jobNameCell" destination="heM-qj-HxV" id="VTD-kN-zIJ"/>
                         <outlet property="jobSummaryCell" destination="agA-dg-hkH" id="Z6r-PU-rrW"/>
                         <outlet property="multiPageView" destination="xd4-bP-zv3" id="6cR-2D-XjK"/>
+                        <outlet property="numCopiesCell" destination="9De-cl-mbI" id="ceh-Jq-zAJ"/>
                         <outlet property="numCopiesLabel" destination="am6-UE-Ol9" id="WGj-0K-ZjI"/>
                         <outlet property="numCopiesStepper" destination="nqP-Za-1Zl" id="jEJ-t9-TmJ"/>
                         <outlet property="pageRangeCell" destination="Rr3-06-P5I" id="Qnr-Fz-bQN"/>

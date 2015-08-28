@@ -33,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *jobSummaryCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *addToPrintQCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *jobNameCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *numCopiesCell;
 @property (weak, nonatomic) IBOutlet UIStepper *numCopiesStepper;
 @property (weak, nonatomic) IBOutlet UILabel *numCopiesLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageRangeCell;
@@ -102,29 +103,35 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     self.printItem = [self.printLaterJob.printItems objectForKey:self.paper.sizeTitle];
 
     // set appearance
+    self.jobSummaryCell.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsBackgroundColor];
     self.jobSummaryCell.textLabel.font = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
     self.jobSummaryCell.textLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
     self.jobSummaryCell.detailTextLabel.font = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFont
                                                 ];
     self.jobSummaryCell.detailTextLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFontColor];
 
+    self.addToPrintQCell.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPMainActionBackgroundColor];
     self.addToPrintQLabel.font = [hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
     self.addToPrintQLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     
+    self.jobNameCell.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     self.jobNameCell.textLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     self.jobNameCell.textLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.jobNameCell.detailTextLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
     self.jobNameCell.detailTextLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     
+    self.numCopiesCell.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     self.numCopiesLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     self.numCopiesLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.numCopiesStepper.tintColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     
+    self.pageRangeCell.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     self.pageRangeCell.textLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     self.pageRangeCell.textLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.pageRangeCell.detailTextLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
     self.pageRangeCell.detailTextLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     
+    self.blackAndWhiteCell.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     self.blackAndWhiteLabel.font = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     self.blackAndWhiteLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     
@@ -139,14 +146,15 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     // Make button bigger - 32x32
 
     self.smokeyView = [[UIView alloc] init];
-    self.smokeyView.backgroundColor = [UIColor blackColor];
+    self.smokeyView.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPOverlayBackgroundColor];
     self.smokeyView.alpha = 0.0f;
     self.smokeyView.hidden = TRUE;
     self.smokeyView.userInteractionEnabled = FALSE;
 
     self.smokeyCancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.smokeyCancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-    [self.smokeyCancelButton setTintColor:[UIColor whiteColor]];
+    [self.smokeyCancelButton setTintColor:[hppp.appearance.settings objectForKey:kHPPPOverlayPrimaryFontColor]];
+    self.smokeyCancelButton.titleLabel.font = [hppp.appearance.settings objectForKey:kHPPPOverlayPrimaryFont];
     [self.smokeyView addSubview:self.smokeyCancelButton];
 
     [self.navigationController.view addSubview:self.smokeyView];

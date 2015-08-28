@@ -817,7 +817,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
              kHPPPJobSettingsPrimaryFont:        [UIFont fontWithName:regularFont size:16],
              kHPPPJobSettingsPrimaryFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
              kHPPPJobSettingsSecondaryFont:      [UIFont fontWithName:regularFont size:12],
-             kHPPPJobSettingsSecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPJobSettingsSecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
              kHPPPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"HPPPSelected.png"],
              kHPPPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"HPPPUnselected.png"],
              

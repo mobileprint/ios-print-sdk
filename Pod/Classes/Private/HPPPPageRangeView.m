@@ -96,7 +96,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 {
     UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width, self.frame.size.height, 1, 1)];
     self.textField.inputView = dummyView; // Hide keyboard, but show blinking cursor
-    UIFont *baseFont = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
+    UIFont *baseFont = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     
     int buttonWidth = self.frame.size.width/buttonsPerRow + 1;
     int buttonHeight = .8 * buttonWidth;
@@ -112,11 +112,11 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         [button setTitle:buttonText forState:UIControlStateNormal];
-        [button setTitleColor:[self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor] forState:UIControlStateNormal];
+        [button setTitleColor:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor] forState:UIControlStateNormal];
         button.titleLabel.font = [baseFont fontWithSize:baseFont.pointSize+2];
         [button layer].borderWidth = 1.0f;
-        [button layer].borderColor = [[self.hppp.appearance.settings objectForKey:kHPPPJobSettingsStrokeColor] CGColor];
-        button.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsBackgroundColor];
+        [button layer].borderColor = [[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsStrokeColor] CGColor];
+        button.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
         [button addTarget:self action:@selector(onButtonDown:) forControlEvents:UIControlEventTouchUpInside];
 
         if( [buttonText isEqualToString:[kAllButtonText copy]] ) {
