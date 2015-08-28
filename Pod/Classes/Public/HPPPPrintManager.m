@@ -185,6 +185,8 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     // Obtain a printInfo so that we can set our printing defaults.
     UIPrintInfo *printInfo = [UIPrintInfo printInfo];
     
+    self.numberOfCopies = numCopies;
+    
     // The path to the image may or may not be a good name for our print job
     // but that's all we've got.
     if (nil != self.hppp.printJobName) {

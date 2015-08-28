@@ -21,6 +21,7 @@ typedef NS_OPTIONS(NSUInteger, HPPPPrintManagerOptions) {
 };
 
 @property (assign, nonatomic) HPPPPrintManagerOptions options;
+@property (assign, nonatomic) NSInteger numberOfCopies;
 
 - (void)saveLastOptionsForPrinter:(NSString *)printerID;
 

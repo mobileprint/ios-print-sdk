@@ -33,13 +33,25 @@ NSString * const kHPPPPrinterDetailsNotAvailable = @"Not Available";
     return [optionsAsNumber unsignedLongValue];
 }
 
-- (void)saveLastOptionsForPrinter:(NSString *)printerID
+- (void)setNumberOfCopies:(NSInteger)numberOfCopies
+{
+    NSNumber *copiesAsNumber = [NSNumber numberWithInteger:numberOfCopies];
+    objc_setAssociatedObject(self, @selector(numberOfCopies), copiesAsNumber, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSInteger)numberOfCopies
+{
+    NSNumber *copiesAsNumber = objc_getAssociatedObject(self, @selector(numberOfCopies));
+    return [copiesAsNumber integerValue];
+}
+
+- (void)saveLastOptionsForPrinter:(NSString *)printerID;
 {
     NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
     [lastOptionsUsed setValue:self.currentPrintSettings.paper.typeTitle forKey:kHPPPPaperTypeId];
     [lastOptionsUsed setValue:self.currentPrintSettings.paper.sizeTitle forKey:kHPPPPaperSizeId];
     [lastOptionsUsed setValue:[NSNumber numberWithBool:self.currentPrintSettings.color] forKey:kHPPPBlackAndWhiteFilterId];
-    [lastOptionsUsed setValue:[NSNumber numberWithInteger:1] forKey:kHPPPNumberOfCopies];
+    [lastOptionsUsed setValue:[NSNumber numberWithInteger:self.numberOfCopies] forKey:kHPPPNumberOfCopies];
     
     if (printerID) {
         [lastOptionsUsed setValue:printerID forKey:kHPPPPrinterId];
