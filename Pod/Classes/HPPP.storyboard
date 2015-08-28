@@ -1159,6 +1159,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                         <outlet property="jobNameCell" destination="heM-qj-HxV" id="VTD-kN-zIJ"/>
                         <outlet property="jobSummaryCell" destination="agA-dg-hkH" id="Z6r-PU-rrW"/>
                         <outlet property="multiPageView" destination="xd4-bP-zv3" id="6cR-2D-XjK"/>
+                        <outlet property="numCopiesCell" destination="9De-cl-mbI" id="ceh-Jq-zAJ"/>
                         <outlet property="numCopiesLabel" destination="am6-UE-Ol9" id="WGj-0K-ZjI"/>
                         <outlet property="numCopiesStepper" destination="nqP-Za-1Zl" id="jEJ-t9-TmJ"/>
                         <outlet property="pageRangeCell" destination="Rr3-06-P5I" id="Qnr-Fz-bQN"/>
