@@ -33,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *jobSummaryCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *addToPrintQCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *jobNameCell;
-@property (unsafe_unretained, nonatomic) IBOutlet UITableViewCell *numCopiesCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *numCopiesCell;
 @property (weak, nonatomic) IBOutlet UIStepper *numCopiesStepper;
 @property (weak, nonatomic) IBOutlet UILabel *numCopiesLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageRangeCell;
