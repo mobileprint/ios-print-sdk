@@ -150,8 +150,9 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
     self.delegateManager.pageSettingsViewController = self;
     
-    if( self.initialPageRange ) {
-        self.delegateManager.pageRange = self.initialPageRange;
+    if( self.printLaterJob ) {
+        self.delegateManager.pageRange = self.printLaterJob.pageRange;
+        self.delegateManager.blackAndWhite = self.printLaterJob.blackAndWhite;
     } else {
         self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:YES];
         self.delegateManager.pageRange.range = kPageRangeAllPages;

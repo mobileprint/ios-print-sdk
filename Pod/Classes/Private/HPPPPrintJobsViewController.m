@@ -201,7 +201,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
 {
     if( [vc isKindOfClass:[HPPPPageSettingsTableViewController class]] ) {
         HPPPPageSettingsTableViewController *pageSettingsVc = (HPPPPageSettingsTableViewController *)vc;
-        pageSettingsVc.initialPageRange = self.selectedPrintJob.pageRange;
+        pageSettingsVc.printLaterJob = self.selectedPrintJob;
     }
 }
 
