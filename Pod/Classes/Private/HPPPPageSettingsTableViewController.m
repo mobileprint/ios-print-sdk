@@ -624,7 +624,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     CGRect desiredFrame = self.pageRangeView.frame;
     desiredFrame.origin.y = self.pageRangeView.frame.origin.y + self.pageRangeView.frame.size.height;
     
-    [UIView animateWithDuration:0.6f animations:^{
+    [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
         [self displaySmokeyView:NO];
         self.pageRangeView.frame = desiredFrame;
         [self setNavigationBarEditing:NO];
@@ -948,7 +948,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         [self setEditFrames];
         self.pageRangeView.frame = self.editViewFrame;
         
-        [UIView animateWithDuration:0.6f animations:^{
+        [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
             [self displaySmokeyView:YES];
             [self setNavigationBarEditing:YES];
             self.pageRangeView.hidden = NO;

@@ -46,10 +46,10 @@ NSUInteger const kHPPPMultiPageDefaultMaximumGutter = 40; // pixels
 NSUInteger const kHPPPMultiPageDefaultBleed = 20; // pixels
 CGFloat const kHPPPMultiPageDefaultBackgroundPageScale = 1.0;
 
-CGFloat const kHPPPPageFadeTime = 0.6; // seconds
+CGFloat const kHPPPPageFadeTime = HPPP_ANIMATION_DURATION; // seconds
 CGFloat const kHPPPPageBaseTag = 1000;
 
-CGFloat const kHPPPZoomFadeTime = 0.6; // seconds
+CGFloat const kHPPPZoomFadeTime = HPPP_ANIMATION_DURATION; // seconds
 CGFloat const kHPPPZoomInset = 20.0; // pixels
 CGFloat const kHPPPZoomOverlayAlpha = 0.8;
 CGFloat const kHPPPZoomMinimumScale = 1.0;

@@ -71,7 +71,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     
     [self configurePaper];
     
-    [UIView animateWithDuration:0.6f animations:^{
+    [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
         self.view.alpha = 1.0f;
         
     }];
@@ -106,7 +106,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
 
 - (void)dismissViewController
 {
-    [UIView animateWithDuration:0.6f animations:^{
+    [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
         self.view.alpha = 0.0f;
         
     } completion:^(BOOL finished) {
