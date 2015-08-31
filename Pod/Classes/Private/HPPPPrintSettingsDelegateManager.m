@@ -26,7 +26,7 @@ NSString * const kHPPPLastPrinterModelSetting = @"kHPPPLastPrinterModelSetting";
 NSString * const kHPPPLastPrinterLocationSetting = @"kHPPPLastPrinterLocationSetting";
 NSString * const kHPPPLastPaperSizeSetting = @"kHPPPLastPaperSizeSetting";
 NSString * const kHPPPLastPaperTypeSetting = @"kHPPPLastPaperTypeSetting";
-NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
+NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteFilterSetting";
 
 #pragma mark - HPPPPageRangeViewDelegate
 
@@ -66,12 +66,7 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
         paper.paperType = Photo;
         paper.typeTitle = [HPPPPaper titleFromType:Photo];
     }
-    self.printSettings.paper = paper;
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithInteger:self.printSettings.paper.paperSize] forKey:kHPPPLastPaperSizeSetting];
-    [defaults synchronize];
-    
+    self.paper = paper;
     [self.pageSettingsViewController refreshData];
 }
 
@@ -79,12 +74,7 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 
 - (void)paperTypeTableViewController:(HPPPPaperTypeTableViewController *)paperTypeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
-    self.printSettings.paper = paper;
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithInteger:self.printSettings.paper.paperType] forKey:kHPPPLastPaperTypeSetting];
-    [defaults synchronize];
- 
+    self.paper = paper;
     [self.pageSettingsViewController refreshData];
 }
 
@@ -122,7 +112,7 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 - (void)setNumCopies:(NSInteger)numCopies
 {
     _numCopies = numCopies;
-    
+
     self.numCopiesLabelText = (self.numCopies == 1) ? HPPPLocalizedString(@"1 Copy", nil) : [NSString stringWithFormat:HPPPLocalizedString(@"%ld Copies", @"Number of copies"), (long)self.numCopies];
     
     [self.pageSettingsViewController refreshData];
@@ -134,9 +124,22 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 - (void)setBlackAndWhite:(BOOL)blackAndWhite
 {
     _blackAndWhite = blackAndWhite;
+    self.printSettings.color = !blackAndWhite;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithInteger:blackAndWhite] forKey:kHPPPLastFilterSetting];
+    [defaults setObject:[NSNumber numberWithBool:blackAndWhite] forKey:kHPPPLastBlackAndWhiteFilterSetting];
     [defaults synchronize];
+}
+
+#pragma mark - Paper
+
+- (void)setPaper:(HPPPPaper *)paper
+{
+    _paper = paper;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithInteger:paper.paperSize] forKey:kHPPPLastPaperSizeSetting];
+    [defaults setObject:[NSNumber numberWithInteger:paper.paperType] forKey:kHPPPLastPaperTypeSetting];
+    [defaults synchronize];
+    self.printSettings.paper = paper;
 }
 
 #pragma mark - Special Text Generation
@@ -254,7 +257,7 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
 
 - (void)loadLastUsed
 {
-    self.printSettings.paper = [self lastPaperUsed];
+    self.paper = [self lastPaperUsed];
     
     HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
     if( [settings isDefaultPrinterSet] ) {
@@ -272,9 +275,9 @@ NSString * const kHPPPLastFilterSetting = @"kHPPPLastFilterSetting";
     }
     
     if (IS_OS_8_OR_LATER) {
-        NSNumber *lastFilterUsed = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastFilterSetting];
-        if (lastFilterUsed != nil) {
-            self.blackAndWhite = lastFilterUsed.boolValue;
+        NSNumber *lastBlackAndWhiteUsed = [[NSUserDefaults standardUserDefaults] objectForKey:kHPPPLastBlackAndWhiteFilterSetting];
+        if (lastBlackAndWhiteUsed != nil) {
+            self.blackAndWhite = lastBlackAndWhiteUsed.boolValue;
         }
     }
 }
