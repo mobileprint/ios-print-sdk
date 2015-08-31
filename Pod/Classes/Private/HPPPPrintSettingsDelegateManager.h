@@ -66,6 +66,11 @@
 @property (assign, nonatomic) BOOL blackAndWhite;
 
 /*!
+ * @abstract The paper to be used by the print job
+ */
+@property (strong, nonatomic) HPPPPaper *paper;
+
+/*!
  * @abstract The text to be used on a print button
  */
 @property (strong, nonatomic) NSString *printLabelText;

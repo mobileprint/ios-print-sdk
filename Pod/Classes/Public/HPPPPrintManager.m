@@ -19,6 +19,7 @@
 #import "NSBundle+HPPPLocalizable.h"
 #import "HPPPAnalyticsManager.h"
 #import "HPPPPrintLaterQueue.h"
+#import "HPPPPrintSettingsDelegateManager.h"
 
 #define HPPP_DEFAULT_PRINT_JOB_NAME HPPPLocalizedString(@"Photo", @"Default job name of the print send to the printer")
 
@@ -29,6 +30,9 @@
 @end
 
 @implementation HPPPPrintManager
+{
+    HPPPPrintSettingsDelegateManager *_settingsManager;
+}
 
 NSString * const kHPPPOfframpPrint = @"PrintFromShare";
 NSString * const kHPPPOfframpQueue = @"PrintSingleFromQueue";
@@ -46,8 +50,10 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
         self.hppp = [HPPP sharedInstance];
         self.currentPrintSettings = [[HPPPDefaultSettingsManager sharedInstance] defaultsAsPrintSettings];
         self.currentPrintSettings.printerIsAvailable = TRUE;
-        [self setColorFromLastOptions];
-        [self setPaperFromLastOptions];
+        _settingsManager = [[HPPPPrintSettingsDelegateManager alloc] init];
+        [_settingsManager loadLastUsed];
+        self.currentPrintSettings.color = !_settingsManager.blackAndWhite;
+        self.currentPrintSettings.paper = _settingsManager.paper;
         self.options = HPPPPrintManagerOriginDirect;
     }
     
@@ -61,33 +67,11 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     if( self ) {
         self.currentPrintSettings = printSettings;
         if (!self.currentPrintSettings.paper) {
-            [self setPaperFromLastOptions];
+            self.currentPrintSettings.paper = _settingsManager.paper;
         }
     }
     
     return self;
-}
-
-- (void)setColorFromLastOptions
-{
-    NSNumber *blackAndWhiteID = [self.hppp.lastOptionsUsed valueForKey:kHPPPBlackAndWhiteFilterId];
-    if (blackAndWhiteID) {
-        BOOL color = ![blackAndWhiteID boolValue];
-        self.currentPrintSettings.color = color;
-    } else {
-        self.currentPrintSettings.color = YES;
-    }
-}
-
-- (void)setPaperFromLastOptions
-{
-    NSString *typeTitle = [self.hppp.lastOptionsUsed valueForKey:kHPPPPaperTypeId];
-    NSString *sizeTitle = [self.hppp.lastOptionsUsed valueForKey:kHPPPPaperSizeId];
-    if (typeTitle && sizeTitle) {
-        self.currentPrintSettings.paper = [[HPPPPaper alloc] initWithPaperSizeTitle:sizeTitle paperTypeTitle:typeTitle];
-    } else {
-        self.currentPrintSettings.paper = self.hppp.defaultPaper;
-    }
 }
 
 #pragma mark - Printing

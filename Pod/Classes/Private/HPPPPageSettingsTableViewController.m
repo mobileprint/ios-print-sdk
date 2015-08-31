@@ -245,12 +245,12 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     self.pageViewCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     
-    self.delegateManager.printSettings = [HPPPPrintSettings alloc];
-    self.delegateManager.printSettings.paper = [HPPP sharedInstance].defaultPaper;
+    self.delegateManager.printSettings = [[HPPPPrintSettings alloc] init];
+    [self.delegateManager loadLastUsed];
     self.delegateManager.printSettings.printerIsAvailable = YES;
     self.delegateManager.numCopies = DEFAULT_NUMBER_OF_COPIES;
-    [self.delegateManager loadLastUsed];
-    
+    self.blackAndWhiteModeSwitch.on = self.delegateManager.blackAndWhite;
+     
     if (self.hppp.hideBlackAndWhiteOption) {
         self.filterCell.hidden = YES;
     }
@@ -1080,7 +1080,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)print:(HPPPPrintItem *)printItem
 {
-    self.delegateManager.printSettings.color = !self.blackAndWhiteModeSwitch.on;
+    self.delegateManager.blackAndWhite = self.blackAndWhiteModeSwitch.on;
     self.printManager.currentPrintSettings = self.delegateManager.printSettings;
 
     NSError *error;
