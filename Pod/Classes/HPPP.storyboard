@@ -132,6 +132,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="RGM-fG-U6G"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="paperSizeCell" destination="q4E-JD-er5" id="Jt5-Xz-ZfX"/>
                         <outlet property="paperSizeLabel" destination="236-9M-JAJ" id="2Gq-mE-J1A"/>
                         <outlet property="paperTypeCell" destination="jdu-dG-i5u" id="kKr-PS-ngA"/>
                         <outlet property="paperTypeLabel" destination="Zcb-GF-ySe" id="YX1-bE-Y8Y"/>

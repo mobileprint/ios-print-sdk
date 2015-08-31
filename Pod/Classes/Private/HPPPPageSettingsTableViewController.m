@@ -242,6 +242,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.filterLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     self.filterLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.filterLabel.text = HPPPLocalizedString(@"Black & White mode", nil);
+    self.blackAndWhiteModeSwitch.onTintColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     
     self.pageViewCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     
