@@ -25,6 +25,7 @@
 
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 #define HPPP_ERROR_DOMAIN @"com.hp.hppp"
+#define HPPP_ANIMATION_DURATION 0.6F
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)

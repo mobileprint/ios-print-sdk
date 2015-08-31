@@ -42,6 +42,7 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
     
     NSInteger i = 0;
     for (UITableViewCell *cell in self.paperTypeCells) {
+        cell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
         cell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
         cell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
         cell.textLabel.text = [localizeTitleArray objectAtIndex:i];

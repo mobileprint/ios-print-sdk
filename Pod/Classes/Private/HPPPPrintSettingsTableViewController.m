@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *selectedPaperSizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedPaperTypeLabel;
 
+@property (weak, nonatomic) IBOutlet UITableViewCell *paperSizeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerSelectCell;
 
@@ -58,6 +59,10 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
     self.title = HPPPLocalizedString(@"Print Settings", @"Title of the Print Settings screen");
     
     self.hppp = [HPPP sharedInstance];
+    
+    self.paperSizeCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
+    self.paperTypeCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
+    self.printerSelectCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     
     self.selectedPrinterLabel.text = self.printSettings.printerName;
     

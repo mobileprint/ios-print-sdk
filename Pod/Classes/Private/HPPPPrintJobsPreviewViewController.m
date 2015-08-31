@@ -42,6 +42,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     
     HPPP *hppp = [HPPP sharedInstance];
     
+    self.view.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPOverlayBackgroundColor];
     [self.doneButton setTitle:HPPPLocalizedString(@"Done", nil) forState:UIControlStateNormal];
     self.doneButton.titleLabel.font = [hppp.appearance.settings objectForKey:kHPPPOverlayLinkFont];
     [self.doneButton setTitleColor:[hppp.appearance.settings objectForKey:kHPPPOverlayLinkFontColor] forState:UIControlStateNormal];
@@ -70,7 +71,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     
     [self configurePaper];
     
-    [UIView animateWithDuration:0.5f animations:^{
+    [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
         self.view.alpha = 1.0f;
         
     }];
@@ -105,7 +106,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
 
 - (void)dismissViewController
 {
-    [UIView animateWithDuration:0.5f animations:^{
+    [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
         self.view.alpha = 0.0f;
         
     } completion:^(BOOL finished) {

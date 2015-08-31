@@ -33,6 +33,7 @@
     
     HPPP *hppp = [HPPP sharedInstance];
     
+    self.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsBackgroundColor];
     self.jobNameLabel.font = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
     self.jobNameLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
     

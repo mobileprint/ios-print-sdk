@@ -370,7 +370,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
         }
 
         if( self.editView ) {
-            [UIView animateWithDuration:0.6f animations:^{
+            [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
                 [self displaySmokeyView:TRUE];
                 [self setNavigationBarEditing:TRUE];
                 self.editView.hidden = NO;
@@ -609,7 +609,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     CGRect desiredFrame = self.editView.frame;
     desiredFrame.origin.y = self.editView.frame.origin.y + self.editView.frame.size.height;
     
-    [UIView animateWithDuration:0.6f animations:^{
+    [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
         [self displaySmokeyView:NO];
         self.editView.frame = desiredFrame;
         [self setNavigationBarEditing:FALSE];
