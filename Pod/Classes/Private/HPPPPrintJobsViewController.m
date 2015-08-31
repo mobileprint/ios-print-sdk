@@ -197,6 +197,14 @@ NSString * const kJobListScreenName = @"Job List Screen";
     }
 }
 
+- (void)setViewControllerPageRange:(UIViewController *)vc
+{
+    if( [vc isKindOfClass:[HPPPPageSettingsTableViewController class]] ) {
+        HPPPPageSettingsTableViewController *pageSettingsVc = (HPPPPageSettingsTableViewController *)vc;
+        pageSettingsVc.initialPageRange = self.selectedPrintJob.pageRange;
+    }
+}
+
 - (void)printJobs:(NSArray *)printJobs
 {
     self.selectedPrintJob = printJobs[0];
@@ -205,8 +213,10 @@ NSString * const kJobListScreenName = @"Job List Screen";
     printItem.extra = self.selectedPrintJob.extra;
     UIViewController *vc = [[HPPP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:YES settingsOnly:NO];
     if( [vc class] == [UINavigationController class] ) {
+        [self setViewControllerPageRange:[(UINavigationController *)vc topViewController]];
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];
     } else {
+        [self setViewControllerPageRange:vc];
         [self presentViewController:vc animated:YES completion:nil];
     }
 }

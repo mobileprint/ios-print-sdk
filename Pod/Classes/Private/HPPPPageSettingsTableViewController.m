@@ -150,8 +150,12 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
     self.delegateManager.pageSettingsViewController = self;
     
-    self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:YES];
-    self.delegateManager.pageRange.range = kPageRangeAllPages;
+    if( self.initialPageRange ) {
+        self.delegateManager.pageRange = self.initialPageRange;
+    } else {
+        self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:YES];
+        self.delegateManager.pageRange.range = kPageRangeAllPages;
+    }
 
     if (self.navigationController) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;

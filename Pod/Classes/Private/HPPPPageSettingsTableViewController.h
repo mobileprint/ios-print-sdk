@@ -69,6 +69,11 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
 @property (assign, nonatomic) BOOL settingsOnly;
 
 /*!
+ * @abstract Used for pre-selecting a page range
+ */
+@property (assign, nonatomic) HPPPPageRange *initialPageRange;
+
+/*!
  * @abstract Causes a refresh of the data displayed by the view controller
  */
 - (void)refreshData;
