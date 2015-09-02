@@ -458,6 +458,30 @@ extern NSString * const kHPPPNumberOfCopies;
  */
 - (NSArray *)printingItemsForPaper:(HPPPPaper *)paper;
 
+/*!
+ * @abstract Called to request the page range for each job
+ * @return An array of page ranges for each job, in the same order as the array returned by printingItemsForPaper:
+ *  The page ranges are stored in HPPPPageRange objects
+ * @seealso numberOfPrintingItems, printingItemsForPaper:, numberOfCopiesSelections, blackAndWhiteSelections, HPPPPageRange
+ */
+- (NSArray *)pageRanges;
+
+/*!
+ * @abstract Called to request the black-and-white preference for each job
+ * @return An array of black and white preferences for each job, in the same order as the array returned by printingItemsForPaper:
+ *  The black and white preferences are BOOL values stored in NSNumber objects.
+ * @seealso numberOfPrintingItems, printingItemsForPaper:, pageRanges, numberOfCopiesSelections
+ */
+- (NSArray *)blackAndWhiteSelections;
+
+/*!
+ * @abstract Called to request the number of copies for each job
+ * @return An array of the number of copy preferences for each job, in the same order as the array returned by printingItemsForPaper:
+ *  Each number of copies is stored in an NSNumber object.
+ * @seealso numberOfPrintingItems, printingItemsForPaper:, pageRanges, blackAndWhiteSelections
+ */
+- (NSArray *)numberOfCopiesSelections;
+
 @end
 
 /*!

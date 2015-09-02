@@ -396,6 +396,38 @@ NSString * const kJobListScreenName = @"Job List Screen";
     return printJobsCount;
 }
 
+- (NSArray *)pageRanges
+{
+    HPPPLogInfo(@"Retrieving page ranges");
+    NSMutableArray *pageRanges = [[NSMutableArray alloc] initWithCapacity:self.selectedPrintJobs.count];
+    for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
+        HPPPPageRange *pageRange = printJob.pageRange;
+        [pageRanges addObject:pageRange];
+    }
+
+    return pageRanges.copy;
+}
+
+- (NSArray *)blackAndWhiteSelections
+{
+    NSMutableArray *blackAndWhites = [[NSMutableArray alloc] initWithCapacity:self.selectedPrintJobs.count];
+    for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
+        [blackAndWhites addObject:[NSNumber numberWithBool:printJob.blackAndWhite]];
+    }
+    
+    return blackAndWhites.copy;
+}
+
+- (NSArray *)numberOfCopiesSelections
+{
+    NSMutableArray *numCopiesArray = [[NSMutableArray alloc] initWithCapacity:self.selectedPrintJobs.count];
+    for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
+        [numCopiesArray addObject:[NSNumber numberWithInteger:printJob.numCopies]];
+    }
+    
+    return numCopiesArray.copy;
+}
+
 - (NSArray *)printingItemsForPaper:(HPPPPaper *)paper
 {
     NSString *imageKey = [HPPPPaper titleFromSize:paper.paperSize];
