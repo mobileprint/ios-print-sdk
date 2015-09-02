@@ -452,6 +452,8 @@ extern NSString * const kHPPPNumberOfCopies;
 
 /*!
  * @abstract Called to request the printing item for each job
+ * @discussion When using this function, the numberOfCopiesSelections, blackAndWhiteSelections, and HPPPPageRange selection 
+ *  functions should also be implemented.  If they aren't used, default values will be used.
  * @param paper The type and size of paper being requested
  * @return An array of printing items for this paper size/type, one item per job
  * @seealso numberOfPrintingItems
@@ -460,6 +462,8 @@ extern NSString * const kHPPPNumberOfCopies;
 
 /*!
  * @abstract Called to request the page range for each job
+ * @discussion This function is used in conjunction with printingItemsForPaper:.  This function should return an array with
+ *  parallel values to the array returned by printingItemsForPaper:.
  * @return An array of page ranges for each job, in the same order as the array returned by printingItemsForPaper:
  *  The page ranges are stored in HPPPPageRange objects
  * @seealso numberOfPrintingItems, printingItemsForPaper:, numberOfCopiesSelections, blackAndWhiteSelections, HPPPPageRange
@@ -468,6 +472,8 @@ extern NSString * const kHPPPNumberOfCopies;
 
 /*!
  * @abstract Called to request the black-and-white preference for each job
+ * @discussion This function is used in conjunction with printingItemsForPaper:.  This function should return an array with
+ *  parallel values to the array returned by printingItemsForPaper:.
  * @return An array of black and white preferences for each job, in the same order as the array returned by printingItemsForPaper:
  *  The black and white preferences are BOOL values stored in NSNumber objects.
  * @seealso numberOfPrintingItems, printingItemsForPaper:, pageRanges, numberOfCopiesSelections
@@ -476,11 +482,22 @@ extern NSString * const kHPPPNumberOfCopies;
 
 /*!
  * @abstract Called to request the number of copies for each job
+ * @discussion This function is used in conjunction with printingItemsForPaper:.  This function should return an array with
+ *  parallel values to the array returned by printingItemsForPaper:.
  * @return An array of the number of copy preferences for each job, in the same order as the array returned by printingItemsForPaper:
  *  Each number of copies is stored in an NSNumber object.
  * @seealso numberOfPrintingItems, printingItemsForPaper:, pageRanges, blackAndWhiteSelections
  */
 - (NSArray *)numberOfCopiesSelections;
+
+/*!
+ * @abstract Called to request the HPPPPrintLaterJobs for printing.
+ * @discussion This function offers is an alternate method of printing a collection of print jobs to the other option of giving four parallel arrays of HPPPPrintItem, HPPPPageRange, NSNumbers (for wrapping black and white BOOL data), and NSNumbers (for wrapping number of copies NSInteger data).
+ * @return An array of the number of copy preferences for each job, in the same order as the array returned by printingItemsForPaper:
+ *  Each number of copies is stored in an NSNumber object.
+ * @seealso numberOfPrintingItems
+ */
+- (NSArray *)printLaterJobs;
 
 @end
 

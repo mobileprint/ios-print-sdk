@@ -1059,16 +1059,76 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
 }
 
+- (void)collectParallelArrayPrintJobs
+{
+    [self.itemsToPrint addObjectsFromArray:[self collectPrintingItems]];
+    [self.pageRanges addObjectsFromArray:[self collectPageRanges]];
+    [self.blackAndWhiteSelections addObjectsFromArray:[self collectBlackAndWhiteSelections]];
+    [self.numCopySelections addObjectsFromArray:[self collectNumCopiesSelections]];
+    
+    HPPPPrintItem *firstItem = [self.itemsToPrint firstObject];
+    
+    if( self.pageRanges.count != self.itemsToPrint.count ) {
+        HPPPLogWarn(@"%lu HPPPPrintItems and %lu HPPPPageRanges.  Using default values for all HPPPPageRanges.", (unsigned long)self.itemsToPrint.count, (unsigned long)self.pageRanges.count);
+        self.pageRanges = [[NSMutableArray alloc] initWithCapacity:self.itemsToPrint.count];
+        for (int i=0; i<self.itemsToPrint.count; i++) {
+            [self.pageRanges insertObject:[[HPPPPageRange alloc] initWithString:@"All" allPagesIndicator:@"All" maxPageNum:firstItem.numberOfPages sortAscending:TRUE] atIndex:i];
+        }
+    }
+    
+    if( self.blackAndWhiteSelections.count != self.itemsToPrint.count ) {
+        HPPPLogWarn(@"%lu HPPPPrintItems and %lu BOOLs for black and white.  Using default values for all black and white indicators.", (unsigned long)self.itemsToPrint.count, (unsigned long)self.blackAndWhiteSelections.count);
+        self.blackAndWhiteSelections = [[NSMutableArray alloc] initWithCapacity:self.itemsToPrint.count];
+        for (int i=0; i<self.itemsToPrint.count; i++) {
+            [self.blackAndWhiteSelections insertObject:[NSNumber numberWithBool:NO] atIndex:i];
+        }
+    }
+    
+    if( self.numCopySelections.count != self.itemsToPrint.count ) {
+        HPPPLogWarn(@"%lu HPPPPrintItems and %lu NSNumbers for number of copies.  Using default values for all number of copies.", (unsigned long)self.itemsToPrint.count, (unsigned long)self.numCopySelections.count);
+        self.numCopySelections = [[NSMutableArray alloc] initWithCapacity:self.itemsToPrint.count];
+        for (int i=0; i<self.itemsToPrint.count; i++) {
+            [self.numCopySelections insertObject:[NSNumber numberWithInteger:DEFAULT_NUMBER_OF_COPIES] atIndex:i];
+        }
+    }
+}
+
+- (void)collectHPPPPrintLaterJobs
+{
+    NSMutableArray *printLaterJobs = nil;
+    
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
+        if (numberOfJobs > 1) {
+            if ([self.dataSource respondsToSelector:@selector(printLaterJobs)]) {
+                printLaterJobs = [self.dataSource printLaterJobs].mutableCopy;
+            }
+        }
+    }
+    
+    for (HPPPPrintLaterJob *job in printLaterJobs) {
+        [self.itemsToPrint addObject:[job printItemForPaperSize:self.delegateManager.printSettings.paper.sizeTitle]];
+        [self.pageRanges addObject:job.pageRange];
+        [self.blackAndWhiteSelections addObject:[NSNumber numberWithBool:job.blackAndWhite]];
+        [self.numCopySelections addObject:[NSNumber numberWithInteger:job.numCopies]];
+    }
+}
+
 - (void)startPrinting
 {
-    self.itemsToPrint = [self collectPrintingItems];
-    self.pageRanges = [self collectPageRanges];
-    self.blackAndWhiteSelections = [self collectBlackAndWhiteSelections];
-    self.numCopySelections = [self collectNumCopiesSelections];
-
+    self.itemsToPrint = [[NSMutableArray alloc] init];
+    self.pageRanges = [[NSMutableArray alloc] init];
+    self.blackAndWhiteSelections = [[NSMutableArray alloc] init];
+    self.numCopySelections = [[NSMutableArray alloc] init];
+    
+    [self collectHPPPPrintLaterJobs];
+    if( 0 == self.itemsToPrint.count ) {
+        [self collectParallelArrayPrintJobs];
+    }
+    
     HPPPPrintItem *firstItem = [self.itemsToPrint firstObject];
-    NSNumber *blackAndWhite = [self.blackAndWhiteSelections firstObject];
     HPPPPageRange *pageRange = [self.pageRanges firstObject];
+    NSNumber *blackAndWhite = [self.blackAndWhiteSelections firstObject];
     NSNumber *numCopies = [self.numCopySelections firstObject];
     
     if( firstItem ) {

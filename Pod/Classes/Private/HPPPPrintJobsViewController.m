@@ -396,56 +396,9 @@ NSString * const kJobListScreenName = @"Job List Screen";
     return printJobsCount;
 }
 
-- (NSArray *)pageRanges
+- (NSArray *)printLaterJobs
 {
-    HPPPLogInfo(@"Retrieving page ranges");
-    NSMutableArray *pageRanges = [[NSMutableArray alloc] initWithCapacity:self.selectedPrintJobs.count];
-    for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
-        HPPPPageRange *pageRange = printJob.pageRange;
-        [pageRanges addObject:pageRange];
-    }
-
-    return pageRanges.copy;
-}
-
-- (NSArray *)blackAndWhiteSelections
-{
-    NSMutableArray *blackAndWhites = [[NSMutableArray alloc] initWithCapacity:self.selectedPrintJobs.count];
-    for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
-        [blackAndWhites addObject:[NSNumber numberWithBool:printJob.blackAndWhite]];
-    }
-    
-    return blackAndWhites.copy;
-}
-
-- (NSArray *)numberOfCopiesSelections
-{
-    NSMutableArray *numCopiesArray = [[NSMutableArray alloc] initWithCapacity:self.selectedPrintJobs.count];
-    for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
-        [numCopiesArray addObject:[NSNumber numberWithInteger:printJob.numCopies]];
-    }
-    
-    return numCopiesArray.copy;
-}
-
-- (NSArray *)printingItemsForPaper:(HPPPPaper *)paper
-{
-    NSString *imageKey = [HPPPPaper titleFromSize:paper.paperSize];
-    
-    HPPPLogInfo(@"Retrieving images for size: %@", imageKey);
-    
-    NSMutableArray *printItems = [NSMutableArray arrayWithCapacity:self.selectedPrintJobs.count];
-    
-    for (HPPPPrintLaterJob *printJob in self.selectedPrintJobs) {
-        HPPPPrintItem *printItem = [printJob.printItems objectForKey:imageKey];
-        if (printItem == nil) {
-            printItem = [printJob.printItems objectForKey:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
-        }
-        printItem.extra = printJob.extra;
-        [printItems addObject:printItem];
-    }
-    
-    return printItems.copy;
+    return self.selectedPrintJobs;
 }
 
 #pragma mark - HPPPPrintJobsActionViewDelegate
