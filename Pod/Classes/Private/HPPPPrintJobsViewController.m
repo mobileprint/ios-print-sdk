@@ -199,6 +199,10 @@ NSString * const kJobListScreenName = @"Job List Screen";
 
 - (void)setViewControllerPageRange:(UIViewController *)vc
 {
+    if ( [vc isKindOfClass:[UINavigationController class]] ) {
+        vc = ((UINavigationController *)vc).topViewController;
+    }
+    
     if( [vc isKindOfClass:[HPPPPageSettingsTableViewController class]] ) {
         HPPPPageSettingsTableViewController *pageSettingsVc = (HPPPPageSettingsTableViewController *)vc;
         pageSettingsVc.printLaterJob = self.selectedPrintJob;
