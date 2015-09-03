@@ -203,7 +203,13 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    HPPPPageRange *pageRange = [[HPPPPageRange alloc] initWithString:self.textField.text allPagesIndicator:kAllPagesIndicator maxPageNum:self.maxPageNum sortAscending:TRUE];
+    NSString *finalRange = self.textField.text;
+    
+    if( [finalRange isEqualToString:kAllButtonText]  ||  [finalRange isEqualToString:kAllPagesIndicator] ) {
+        finalRange = kPageRangeAllPages;
+    }
+    
+    HPPPPageRange *pageRange = [[HPPPPageRange alloc] initWithString:finalRange allPagesIndicator:kPageRangeAllPages maxPageNum:self.maxPageNum sortAscending:TRUE];
 
     if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
         [self.delegate didSelectPageRange:self pageRange:pageRange];
