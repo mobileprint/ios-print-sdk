@@ -69,6 +69,11 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
 @property (assign, nonatomic) BOOL settingsOnly;
 
 /*!
+ * @abstract The printLaterJob, if any, associated with the page settings
+ */
+@property (assign, nonatomic) HPPPPrintLaterJob *printLaterJob;
+
+/*!
  * @abstract Causes a refresh of the data displayed by the view controller
  */
 - (void)refreshData;

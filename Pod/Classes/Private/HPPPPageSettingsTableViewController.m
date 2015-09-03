@@ -120,6 +120,9 @@
 @property (nonatomic, assign) NSInteger numberOfCopies;
 
 @property (strong, nonatomic) NSMutableArray *itemsToPrint;
+@property (strong, nonatomic) NSMutableArray *pageRanges;
+@property (strong, nonatomic) NSMutableArray *blackAndWhiteSelections;
+@property (strong, nonatomic) NSMutableArray *numCopySelections;
 
 @property (assign, nonatomic) BOOL showCurlOnAppear;
 
@@ -150,8 +153,15 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
     self.delegateManager.pageSettingsViewController = self;
     
-    self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:YES];
-    self.delegateManager.pageRange.range = kPageRangeAllPages;
+    if( self.printLaterJob ) {
+        self.delegateManager.pageRange = self.printLaterJob.pageRange;
+        self.delegateManager.blackAndWhite = self.printLaterJob.blackAndWhite;
+        self.delegateManager.numCopies = self.printLaterJob.numCopies;
+    } else {
+        self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:YES];
+        self.delegateManager.pageRange.range = kPageRangeAllPages;
+        self.delegateManager.numCopies = DEFAULT_NUMBER_OF_COPIES;
+    }
 
     if (self.navigationController) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
@@ -249,15 +259,14 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.delegateManager.printSettings = [[HPPPPrintSettings alloc] init];
     [self.delegateManager loadLastUsed];
     self.delegateManager.printSettings.printerIsAvailable = YES;
-    self.delegateManager.numCopies = DEFAULT_NUMBER_OF_COPIES;
     self.blackAndWhiteModeSwitch.on = self.delegateManager.blackAndWhite;
      
     if (self.hppp.hideBlackAndWhiteOption) {
         self.filterCell.hidden = YES;
     }
     
-    self.numberOfCopies = DEFAULT_NUMBER_OF_COPIES;
-    self.numberOfCopiesStepper.value = DEFAULT_NUMBER_OF_COPIES;
+    self.numberOfCopies = self.delegateManager.numCopies;
+    self.numberOfCopiesStepper.value = self.delegateManager.numCopies;
     self.numberOfCopiesStepper.tintColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     
     [self reloadPaperSelectionSection];
@@ -315,7 +324,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 -(void) refreshData
 {
-    [self setPageRangeLabelText:self.delegateManager.pageRange.range];
+    [self setPageRangeLabelText:self.delegateManager.pageRangeText];
     BOOL pageSelected = NO;
     NSArray *pageNums = [self.delegateManager.pageRange getPages];
     for( NSNumber *pageNum in pageNums ) {
@@ -336,6 +345,16 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     [self updatePrintSettingsUI];
     [self updatePrintButtonUI];
     
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
+        if (numberOfJobs > 1) {
+            self.numberOfCopiesCell.hidden = TRUE;
+            self.filterCell.hidden = TRUE;
+            self.pageRangeCell.hidden = TRUE;
+            self.printLabel.text = HPPPLocalizedString(@"Print All", @"Print all pages in a document");
+        }
+    }
+
     [self.tableView reloadData];
 }
 
@@ -647,11 +666,13 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 -(void)respondToMultiPageViewAction
 {
-    BOOL includePage = self.pageSelectionMark.imageView.image == self.unselectedPageImage;
-
-    [self.delegateManager includePageInPageRange:includePage pageNumber:self.multiPageView.currentPage];
-    
-    [self updateSelectedPageIcon:includePage];
+    if( self.printItem.numberOfPages > 1 ) {
+        BOOL includePage = self.pageSelectionMark.imageView.image == self.unselectedPageImage;
+        
+        [self.delegateManager includePageInPageRange:includePage pageNumber:self.multiPageView.currentPage];
+        
+        [self updateSelectedPageIcon:includePage];
+    }
 }
 
 - (void)setPageRangeLabelText:(NSString *)pageRange
@@ -1052,11 +1073,84 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)startPrinting
 {
-    self.itemsToPrint = [self collectPrintingItems];
-    id firstItem = [self.itemsToPrint firstObject];
-    [self.itemsToPrint removeObject:firstItem];
+    self.itemsToPrint = [[NSMutableArray alloc] init];
+    self.pageRanges = [[NSMutableArray alloc] init];
+    self.blackAndWhiteSelections = [[NSMutableArray alloc] init];
+    self.numCopySelections = [[NSMutableArray alloc] init];
+    
+    [self collectHPPPPrintLaterJobs];
+    if( 0 == self.itemsToPrint.count ) {
+        [self collectParallelArrayPrintJobs];
+    }
+    
+    HPPPPrintItem *firstItem = [self.itemsToPrint firstObject];
+    HPPPPageRange *pageRange = [self.pageRanges firstObject];
+    NSNumber *blackAndWhite = [self.blackAndWhiteSelections firstObject];
+    NSNumber *numCopies = [self.numCopySelections firstObject];
+    
+    if( firstItem ) {
+        [self.itemsToPrint removeObjectAtIndex:0];
+        [self.blackAndWhiteSelections removeObjectAtIndex:0];
+        [self.pageRanges removeObjectAtIndex:0];
+        [self.numCopySelections removeObjectAtIndex:0];
+    }
 
-    [self print:firstItem];
+    [self print:firstItem blackAndWhite:[blackAndWhite boolValue] pageRange:pageRange numberOfCopies:[numCopies integerValue]];
+}
+
+- (void)collectHPPPPrintLaterJobs
+{
+    NSMutableArray *printLaterJobs = nil;
+    
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
+        if (numberOfJobs > 1) {
+            if ([self.dataSource respondsToSelector:@selector(printLaterJobs)]) {
+                printLaterJobs = [self.dataSource printLaterJobs].mutableCopy;
+            }
+        }
+    }
+    
+    for (HPPPPrintLaterJob *job in printLaterJobs) {
+        [self.itemsToPrint addObject:[job printItemForPaperSize:self.delegateManager.printSettings.paper.sizeTitle]];
+        [self.pageRanges addObject:job.pageRange];
+        [self.blackAndWhiteSelections addObject:[NSNumber numberWithBool:job.blackAndWhite]];
+        [self.numCopySelections addObject:[NSNumber numberWithInteger:job.numCopies]];
+    }
+}
+
+- (void)collectParallelArrayPrintJobs
+{
+    [self.itemsToPrint addObjectsFromArray:[self collectPrintingItems]];
+    [self.pageRanges addObjectsFromArray:[self collectPageRanges]];
+    [self.blackAndWhiteSelections addObjectsFromArray:[self collectBlackAndWhiteSelections]];
+    [self.numCopySelections addObjectsFromArray:[self collectNumCopiesSelections]];
+    
+    HPPPPrintItem *firstItem = [self.itemsToPrint firstObject];
+    
+    if( self.pageRanges.count != self.itemsToPrint.count ) {
+        HPPPLogWarn(@"%lu HPPPPrintItems and %lu HPPPPageRanges.  Using default values for all HPPPPageRanges.", (unsigned long)self.itemsToPrint.count, (unsigned long)self.pageRanges.count);
+        self.pageRanges = [[NSMutableArray alloc] initWithCapacity:self.itemsToPrint.count];
+        for (int i=0; i<self.itemsToPrint.count; i++) {
+            [self.pageRanges insertObject:[[HPPPPageRange alloc] initWithString:@"All" allPagesIndicator:@"All" maxPageNum:firstItem.numberOfPages sortAscending:TRUE] atIndex:i];
+        }
+    }
+    
+    if( self.blackAndWhiteSelections.count != self.itemsToPrint.count ) {
+        HPPPLogWarn(@"%lu HPPPPrintItems and %lu BOOLs for black and white.  Using default values for all black and white indicators.", (unsigned long)self.itemsToPrint.count, (unsigned long)self.blackAndWhiteSelections.count);
+        self.blackAndWhiteSelections = [[NSMutableArray alloc] initWithCapacity:self.itemsToPrint.count];
+        for (int i=0; i<self.itemsToPrint.count; i++) {
+            [self.blackAndWhiteSelections insertObject:[NSNumber numberWithBool:NO] atIndex:i];
+        }
+    }
+    
+    if( self.numCopySelections.count != self.itemsToPrint.count ) {
+        HPPPLogWarn(@"%lu HPPPPrintItems and %lu NSNumbers for number of copies.  Using default values for all number of copies.", (unsigned long)self.itemsToPrint.count, (unsigned long)self.numCopySelections.count);
+        self.numCopySelections = [[NSMutableArray alloc] initWithCapacity:self.itemsToPrint.count];
+        for (int i=0; i<self.itemsToPrint.count; i++) {
+            [self.numCopySelections insertObject:[NSNumber numberWithInteger:DEFAULT_NUMBER_OF_COPIES] atIndex:i];
+        }
+    }
 }
 
 - (NSMutableArray *)collectPrintingItems
@@ -1079,20 +1173,90 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     return items;
 }
 
+- (NSMutableArray *)collectPageRanges
+{
+    NSMutableArray *pageRanges = nil;
+    
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
+        if (numberOfJobs > 1) {
+            if ([self.dataSource respondsToSelector:@selector(pageRangeSelections)]) {
+                pageRanges = [self.dataSource pageRangeSelections].mutableCopy;
+            }
+        }
+    }
+    
+    if (nil == pageRanges) {
+        pageRanges = [NSMutableArray arrayWithObjects:self.pageRange, nil];
+    }
+    
+    return pageRanges;
+}
+
+- (NSMutableArray *)collectBlackAndWhiteSelections
+{
+    NSMutableArray *bws = nil;
+    
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
+        if (numberOfJobs > 1) {
+            if ([self.dataSource respondsToSelector:@selector(blackAndWhiteSelections)]) {
+                bws = [self.dataSource blackAndWhiteSelections].mutableCopy;
+            }
+        }
+    }
+    
+    if (nil == bws) {
+        bws = [NSMutableArray arrayWithObjects:[NSNumber numberWithBool:self.blackAndWhiteModeSwitch.on], nil];
+    }
+    
+    return bws;
+}
+
+- (NSMutableArray *)collectNumCopiesSelections
+{
+    NSMutableArray *numCopies = nil;
+    
+    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
+        if (numberOfJobs > 1) {
+            if ([self.dataSource respondsToSelector:@selector(numberOfCopiesSelections)]) {
+                numCopies = [self.dataSource numberOfCopiesSelections].mutableCopy;
+            }
+        }
+    }
+    
+    if (nil == numCopies) {
+        numCopies = [NSMutableArray arrayWithObjects:[NSNumber numberWithInteger:self.numberOfCopiesStepper.value], nil];
+    }
+    
+    return numCopies;
+}
+
+
+- (void)print:(HPPPPrintItem *)printItem blackAndWhite:(BOOL)blackAndWhite pageRange:(HPPPPageRange *)pageRange numberOfCopies:(NSInteger)numCopies
+{
+    self.delegateManager.blackAndWhite = blackAndWhite;
+    self.printManager.currentPrintSettings = self.delegateManager.printSettings;
+    self.printManager.currentPrintSettings.color = !blackAndWhite;
+    
+    NSError *error;
+    [self.printManager print:printItem
+                   pageRange:pageRange
+                   numCopies:numCopies
+                       error:&error];
+    
+    if( HPPPPrintManagerErrorNone != error.code ) {
+        HPPPLogError(@"Failed to print with error %@", error);
+    }
+}
+
 - (void)print:(HPPPPrintItem *)printItem
 {
     self.delegateManager.blackAndWhite = self.blackAndWhiteModeSwitch.on;
     self.printManager.currentPrintSettings = self.delegateManager.printSettings;
 
-    NSError *error;
-    [self.printManager print:printItem
-                         pageRange:self.pageRange
-                         numCopies:self.numberOfCopiesStepper.value
-                             error:&error];
-    
-    if( HPPPPrintManagerErrorNone != error.code ) {
-        HPPPLogError(@"Failed to print with error %@", error);
-    }
+    [self print:printItem blackAndWhite:self.blackAndWhiteModeSwitch.on pageRange:self.pageRange numberOfCopies:self.numberOfCopiesStepper.value];
 }
 
 - (void)printCompleted:(UIPrintInteractionController *)printController isCompleted:(BOOL)completed printError:(NSError *)error
@@ -1206,11 +1370,17 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     dispatch_async(dispatch_get_main_queue(), ^{
         HPPPPrintItem *nextItem = [self.itemsToPrint firstObject];
+        NSNumber *blackAndWhite = [self.blackAndWhiteSelections firstObject];
+        HPPPPageRange *pageRange = [self.pageRanges firstObject];
+        NSNumber *numCopies = [self.numCopySelections firstObject];
+        
         if (nextItem) {
-            // TODO: currently page range is only editable and respected for first job, 2nd and greater print all pages. need future story to handle multi-job printing
-            self.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:nextItem.numberOfPages sortAscending:YES];
-            [self.itemsToPrint removeObject:nextItem];
-            [self print:nextItem];
+            [self.itemsToPrint removeObjectAtIndex:0];
+            [self.blackAndWhiteSelections removeObjectAtIndex:0];
+            [self.pageRanges removeObjectAtIndex:0];
+            [self.numCopySelections removeObjectAtIndex:0];
+            
+            [self print:nextItem blackAndWhite:[blackAndWhite boolValue] pageRange:pageRange numberOfCopies:[numCopies integerValue]];
         } else {
             [self printCompleted:printController isCompleted:completed printError:error];
         }

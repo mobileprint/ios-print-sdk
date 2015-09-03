@@ -136,7 +136,6 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
         [self prepareController:controller printItem:printItem color:color pageRange:pageRange numCopies:numCopies];
         UIPrinter *printer = [UIPrinter printerWithURL:self.currentPrintSettings.printerUrl];
         [controller printToPrinter:printer completionHandler:^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
-            
             if (!completed) {
                 HPPPLogInfo(@"Print was NOT completed");
             }
@@ -165,7 +164,7 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
                     color:(BOOL)color
                 pageRange:(HPPPPageRange *)pageRange
                 numCopies:(NSInteger)numCopies
-{
+{   
     // Obtain a printInfo so that we can set our printing defaults.
     UIPrintInfo *printInfo = [UIPrintInfo printInfo];
     

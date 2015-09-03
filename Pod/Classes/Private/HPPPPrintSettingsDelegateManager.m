@@ -160,7 +160,9 @@ NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteF
         _printJobSummaryText = [_printJobSummaryText stringByAppendingString:@"/"];
     }
     
-    _printJobSummaryText = [_printJobSummaryText stringByAppendingString:self.printSettings.paper.sizeTitle];
+    if( self.printSettings.paper ) {
+        _printJobSummaryText = [_printJobSummaryText stringByAppendingString:self.printSettings.paper.sizeTitle];
+    }
     
     return _printJobSummaryText;
 }
