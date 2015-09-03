@@ -389,7 +389,7 @@
                                                 <constraint firstAttribute="centerY" secondItem="4sH-Cb-1H4" secondAttribute="centerY" id="Li7-qZ-ZvY"/>
                                                 <constraint firstAttribute="centerY" secondItem="GrB-y6-lo8" secondAttribute="centerY" id="ZB1-rW-8Cp"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="GrB-y6-lo8" secondAttribute="trailing" id="h1s-jB-uZu"/>
-                                                <constraint firstItem="4sH-Cb-1H4" firstAttribute="leading" secondItem="h7b-KJ-LWP" secondAttribute="leadingMargin" id="s9W-Z8-2Km"/>
+                                                <constraint firstItem="4sH-Cb-1H4" firstAttribute="leading" secondItem="h7b-KJ-LWP" secondAttribute="leadingMargin" constant="3" id="s9W-Z8-2Km"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>

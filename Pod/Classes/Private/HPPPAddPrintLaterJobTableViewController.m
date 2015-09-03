@@ -494,10 +494,12 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
 
 -(void)respondToMultiPageViewAction
 {
-    if( self.pageSelectionMark.imageView.image == self.selectedPageImage ) {
-        [self includeCurrentPageInPageRange:FALSE];
-    } else {
-        [self includeCurrentPageInPageRange:TRUE];
+    if( self.printItem.numberOfPages > 1 ) {
+        if( self.pageSelectionMark.imageView.image == self.selectedPageImage ) {
+            [self includeCurrentPageInPageRange:FALSE];
+        } else {
+            [self includeCurrentPageInPageRange:TRUE];
+        }
     }
 }
 
