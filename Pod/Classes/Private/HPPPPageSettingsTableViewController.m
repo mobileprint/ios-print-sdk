@@ -666,11 +666,13 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 -(void)respondToMultiPageViewAction
 {
-    BOOL includePage = self.pageSelectionMark.imageView.image == self.unselectedPageImage;
-
-    [self.delegateManager includePageInPageRange:includePage pageNumber:self.multiPageView.currentPage];
-    
-    [self updateSelectedPageIcon:includePage];
+    if( self.printItem.numberOfPages > 1 ) {
+        BOOL includePage = self.pageSelectionMark.imageView.image == self.unselectedPageImage;
+        
+        [self.delegateManager includePageInPageRange:includePage pageNumber:self.multiPageView.currentPage];
+        
+        [self updateSelectedPageIcon:includePage];
+    }
 }
 
 - (void)setPageRangeLabelText:(NSString *)pageRange
