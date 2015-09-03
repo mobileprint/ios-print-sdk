@@ -37,6 +37,8 @@
 
 Reference documentation can be found at http://hppp.herokuapp.com. This includes complete documentation for all classes, properties, methods, constants, and so on.
 
+Release notes can be found [here](https://github.com/IPGPTP/hp_photo_print/wiki/Release-Notes) on the Wiki page.
+
 ## Installation
 
 The __HPPhotoPrint__ pod is not yet available publicly (i.e. via [cocoapods.org](http://cocoapods.org)). To install the pod you must have read access to this repo ([hp\_photo\_print](https://github.com/IPGPTP/hp_photo_print)) as well as HP's private pod trunk ([hp\_mss\_pods](https://github.com/IPGPTP/hp_mss_pods)). To request access send an email to hp-mobile-dev@hp.com.
