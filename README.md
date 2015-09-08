@@ -1,6 +1,6 @@
 # HPPhotoPrint
 
-[![Version](https://img.shields.io/badge/pod-2.5.0-blue.svg)](http://hppp.herokuapp.com)
+[![Version](https://img.shields.io/badge/pod-2.5.10-blue.svg)](http://hppp.herokuapp.com)
 [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](http://hppp.herokuapp.com)
 [![Awesome](https://img.shields.io/badge/awesomeness-verified-green.svg)](http://hppp.herokuapp.com)
 
@@ -68,7 +68,7 @@ pod 'GoogleAnalytics-iOS-SDK'
 pod 'TTTAttributedLabel', '~> 1.10.1'
 pod 'XMLDictionary', '~> 1.4.0'
 pod 'CocoaLumberjack', '1.9.1'
-pod 'HPPhotoPrint', '2.5.0'
+pod 'HPPhotoPrint', '2.5.10'
 pod 'ZipArchive', '1.4.0'
 
 xcodeproj 'MyProject/MyProject.xcodeproj'
@@ -219,25 +219,134 @@ If you want to dismiss the printing view controller after printing is complete, 
 You can optionally provide a printing data source by implementing the [`HPPPPrintDataSource`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html) protocol. This allows you to control what gets printed for any given paper size. 
 When you implement this protocol you will get a request for a new printable item each time the user selects a different paper size. When preparing the item for the given paper size you can also specify a layout (see [Print Layout](#print-layout)).
 
-> __Note:__ If you implement this protocol, you _must_ implement the single-image method. If your app supports multi-image print jobs then you _must_ implement all three methods in the protocol
+To specify multiple items for printing you can implement the protocol method [numberOfPrintingItems](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/numberOfPrintingItems) to specify the number of separate items to be printed. Then implement the [printingItemsForPaper:](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/printingItemsForPaper:) method to specify the list of items and, optionally, implement additional methods to supply details about the print job for each item (e.g. [blackAndWhiteSelections](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/blackAndWhiteSelections), [numberOfCopiesSelections](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/numberOfCopiesSelections), [pageRangeSelections](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/pageRangeSelections)). As an alternative, you can simply implement [printLaterJobs](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/printLaterJobs) to supply an array of [HPPPPrintLaterJob](http://hppp.herokuapp.com/HPPPPrintLaterJob_h/Classes/HPPPPrintLaterJob/index.html) objects that each contain full information about their print item and job details, but you will still need to implement the [numberOfPrintingItems](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/numberOfPrintingItems) method.
+
+> __Tip:__ Regardless which type of data source you provide, it is important to implement the [previewImageForPaper:withCompletion](http://hppp.herokuapp.com//HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/previewImageForPaper:withCompletion:) method and provide a single image to use as a preview in the on-screen print user interface.
+
+###### Data Source Examples
+
+_Single Job_
 
 ```objc
 
-- (void)printingItemForPaper:(HPPPPaper *)paper withCompletion:(void (^)(id))completion
+- (void)printingItemForPaper:(HPPPPaper *)paper withCompletion:(void (^)(HPPPPrintItem *printItem))completion;
 {
     if (completion) {
-        completion([UIImage imageNamed:@"sample.jpg"]);
+        completion([self.printItemList objectForKey:paper.paperSize]);
     }
 }
 
+- (void)previewImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *previewImage))completion
+{
+    if (completion) {
+        completion([self.previewImageList objectForKey:paper.paperSize]);
+    }
+}
+
+```
+
+_Multiple Jobs with [HPPPPrintItem](http://hppp.herokuapp.com/HPPPPrintItem_h/Classes/HPPPPrintItem/index.html) Objects_
+
+```objc
+
 - (NSInteger)numberOfPrintingItems
 {
-    return 1;
+    return 3;
 }
 
 - (NSArray *)printingItemsForPaper:(HPPPPaper *)paper
 {
-    return @[ [UIImage imageNamed:@"sample.jpg"] ];
+    HPPPPrintItem *printItem1 = [HPPPPrintItemFactory printItemWithAsset:[UIImage imageNamed:@"sample1.jpg"]];
+    printItem1.layout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType]];
+
+    HPPPPrintItem *printItem2 = [HPPPPrintItemFactory printItemWithAsset:[UIImage imageNamed:@"sample2.jpg"]];
+    printItem2.layout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType]];
+
+    HPPPPrintItem *printItem3 = [HPPPPrintItemFactory printItemWithAsset:[UIImage imageNamed:@"sample3.jpg"]];
+    printItem3.layout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType]];
+
+    return @[ printItem1, printItem2, printItem3 ];
+}
+
+- (NSArray *)blackAndWhiteSelections
+{
+    return @[
+        [NSNumber numberWithBool:YES],
+        [NSNumber numberWithBool:YES],
+        [NSNumber numberWithBool:NO]
+    ];
+}
+
+- (NSArray *)pageRangeSelections
+{
+    return @[
+        [[HPPPPageRange alloc] initWithString:@"All" allPagesIndicator:@"All" maxPageNum:3 sortAscending:TRUE],
+        [[HPPPPageRange alloc] initWithString:@"1-5" allPagesIndicator:@"All" maxPageNum:5 sortAscending:TRUE],
+        [[HPPPPageRange alloc] initWithString:@"1" allPagesIndicator:@"All" maxPageNum:1 sortAscending:TRUE]
+    ];
+    
+}
+
+- (NSArray *)numberOfCopiesSelections
+{
+    return @[ 1, 1, 2 ];
+}
+
+- (void)previewImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *previewImage))completion
+{
+    if (completion) {
+        completion([self.previewImageList objectForKey:paper.paperSize]);
+    }
+}
+
+```
+
+_Multiple Jobs with [HPPPPrintLaterJob](http://hppp.herokuapp.com/HPPPPrintLaterJob_h/Classes/HPPPPrintLaterJob/index.html) Objects_
+
+```objc
+
+- (NSInteger)numberOfPrintingItems
+{
+    return 3;
+}
+
+- (NSArray *)printLaterJobs
+{
+        HPPPPrintLaterJob *job1 = [[HPPPPrintLaterJob alloc] init];
+        job1.id = [[HPPP sharedInstance] nextPrintJobId];
+        job1.name = @"Print Job #1";
+        job1.date = [NSDate date];
+        job1.printItems = @{ [HPPP sharedInstance].defaultPaper.paperSize: [UIImage imageNamed:@"sample1.jpg"]  };
+        job1.numCopies = 1;
+        job1.blackAndWhite = NO;
+        job1.pageRange = [[HPPPPageRange alloc] initWithString:@"All" allPagesIndicator:@"All" maxPageNum:3 sortAscending:TRUE];
+        
+        HPPPPrintLaterJob *job2 = [[HPPPPrintLaterJob alloc] init];
+        job2.id = [[HPPP sharedInstance] nextPrintJobId];
+        job2.name = @"Print Job #2";
+        job2.date = [NSDate date];
+        job2.printItems = @{ [HPPP sharedInstance].defaultPaper.paperSize: [UIImage imageNamed:@"sample2.jpg"]  };
+        job2.numCopies = 2;
+        job2.blackAndWhite = NO;
+        job2.pageRange = [[HPPPPageRange alloc] initWithString:@"All" allPagesIndicator:@"All" maxPageNum:3 sortAscending:TRUE];
+        
+        HPPPPrintLaterJob *job3 = [[HPPPPrintLaterJob alloc] init];
+        job3.id = [[HPPP sharedInstance] nextPrintJobId];
+        job3.name = @"Print Job #3";
+        job3.date = [NSDate date];
+        job3.printItems = @{ [HPPP sharedInstance].defaultPaper.paperSize: [UIImage imageNamed:@"sample3.jpg"]  };
+        job3.numCopies = 3;
+        job3.blackAndWhite = NO;
+        job3.pageRange = [[HPPPPageRange alloc] initWithString:@"All" allPagesIndicator:@"All" maxPageNum:3 sortAscending:TRUE];
+
+        return @[ job1, job2, job3 ];
+}
+
+- (void)previewImageForPaper:(HPPPPaper *)paper withCompletion:(void (^)(UIImage *previewImage))completion
+{
+    if (completion) {
+        completion([self.previewImageList objectForKey:paper.paperSize]);
+    }
 }
 
 ```
