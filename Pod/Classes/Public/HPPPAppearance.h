@@ -12,6 +12,11 @@
 
 #import <Foundation/Foundation.h>
 
+/*!
+ * @abstract This class provides access to settings which control the visual appearance of the user interface
+ * @discussion The maintains a dictionary of fonts, colors, icons, and other values used to customize the appearance of the user interface. Set one or more of the keys defined in this class to change the app appearance.
+ * @seealso settings
+ */
 @interface HPPPAppearance : NSObject
 
 // General
@@ -76,7 +81,6 @@ extern NSString * const kHPPPOverlayBackgroundOpacity;
 
 /*!
  * @abstract A dictionary containing all customizable style settings for the HPPhotoPrint user interface
- * @discussion See the style sheet picture and definitions in the documentation for all possible settings
  */
 @property (strong, nonatomic) NSDictionary *settings;
 

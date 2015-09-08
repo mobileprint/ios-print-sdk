@@ -219,9 +219,9 @@ If you want to dismiss the printing view controller after printing is complete, 
 You can optionally provide a printing data source by implementing the [`HPPPPrintDataSource`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html) protocol. This allows you to control what gets printed for any given paper size. 
 When you implement this protocol you will get a request for a new printable item each time the user selects a different paper size. When preparing the item for the given paper size you can also specify a layout (see [Print Layout](#print-layout)).
 
-To specify multiple items for printing you can implement the protocol method [numberOfPrintingItems](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/numberOfPrintingItems) to specify the number of separate items to be printed. Then implement the [printingItemsForPaper:](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/printingItemsForPaper:) method to specify the list of items and, optionally, implement additional methods to supply details about the print job for each item (e.g. [blackAndWhiteSelections](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/blackAndWhiteSelections), [numberOfCopiesSelections](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/numberOfCopiesSelections), [pageRangeSelections](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/pageRangeSelections)). As an alternative, you can simply implement [printLaterJobs](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/printLaterJobs) to supply an array of [HPPPPrintLaterJob](http://hppp.herokuapp.com/HPPPPrintLaterJob_h/Classes/HPPPPrintLaterJob/index.html) objects that each contain full information about their print item and job details, but you will still need to implement the [numberOfPrintingItems](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/numberOfPrintingItems) method.
+To specify multiple items for printing you can implement the protocol method [`numberOfPrintingItems`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/numberOfPrintingItems) to specify the number of separate items to be printed. Then implement the [`printingItemsForPaper:`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/printingItemsForPaper:) method to specify the list of items and, optionally, implement additional methods to supply details about the print job for each item (e.g. [`blackAndWhiteSelections`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/blackAndWhiteSelections), [`numberOfCopiesSelections`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/numberOfCopiesSelections), [`pageRangeSelections`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/pageRangeSelections)). As an alternative, you can simply implement [`printLaterJobs`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/printLaterJobs) to supply an array of [`HPPPPrintLaterJob`](http://hppp.herokuapp.com/HPPPPrintLaterJob_h/Classes/HPPPPrintLaterJob/index.html) objects that each contain full information about their print item and job details, but you will still need to implement the [`numberOfPrintingItems`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/numberOfPrintingItems) method.
 
-> __Tip:__ Regardless which type of data source you provide, it is important to implement the [previewImageForPaper:withCompletion](http://hppp.herokuapp.com//HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/previewImageForPaper:withCompletion:) method and provide a single image to use as a preview in the on-screen print user interface.
+> __Tip:__ Regardless which type of data source you provide, it is important to implement the [`previewImageForPaper:withCompletion`](http://hppp.herokuapp.com//HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/previewImageForPaper:withCompletion:) method and provide a single image to use as a preview in the on-screen print user interface.
 
 ###### Data Source Examples
 
@@ -353,55 +353,90 @@ _Multiple Jobs with [HPPPPrintLaterJob](http://hppp.herokuapp.com/HPPPPrintLater
 
 #### Customization
 
-The appearance of the printing views can be customized by setting properties on the shared instance of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
-See the [properties](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#HeaderDoc_props) documention for a complete list. 
-This setup is typically done in the app delegate at startup.
+The appearance of the printing interface can be customized by setting properties on the shared instance of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
+The properties [`appearance`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/appearance) and [`interfaceOptions`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/interfaceOptions) control the look and feel.
 
-```objc
-
-+ (void)setPrintOptions
-{
-    [HPPP sharedInstance].tableViewCellLinkLabelColor = [UIColor blueColor];
-    [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
-    [HPPP sharedInstance].hideBlackAndWhiteOption = FALSE;
-    [HPPP sharedInstance].hidePaperSizeOption = FALSE;
-    [HPPP sharedInstance].hidePaperTypeOption = FALSE;
-    [HPPP sharedInstance].paperSizes = @[ [HPPPPaper titleFromSize:Size4x6], [HPPPPaper titleFromSize:Size5x7], [HPPPPaper titleFromSize:SizeLetter] ];
-}
-
-```
+The actual print output itself can be customized using the [`layout`](http://hppp.herokuapp.com/HPPPPrintItem_h/Classes/HPPPPrintItem/index.html#//apple_ref/occ/instp/HPPPPrintItem/layout) property of an [`HPPPPrintItem`](http://hppp.herokuapp.com/HPPPPrintItem_h/Classes/HPPPPrintItem/index.html)  object.
 
 ##### Appearance
 
-There are additional appearance options that you can set via the [`appearance`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/appearance) property of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class. 
-In this case you create an [`HPPPAppearance`](http://hppp.herokuapp.com/HPPPAppearance_h/Classes/HPPPAppearance/index.html#//apple_ref/occ/cl/HPPPAppearance) instance and set its properties to dictionaries of attributes using the keys defined in the class.
+The visual appearance of the pringting user interface is controlled by setting values in the [`settings`](http://hppp.herokuapp.com//HPPPAppearance_h/Classes/HPPPAppearance/index.html#//apple_ref/occ/instp/HPPPAppearance/settings) dictionary. 
+The values that can be controlled are specified by key constants defined in the [`HPPPAppearance`](http://hppp.herokuapp.com/HPPPAppearance_h/Classes/HPPPAppearance/index.html#//apple_ref/occ/cl/HPPPAppearance) class.
+The folllowing example shows how to customize various fonts, colors, icons, and other values.
 
 
 ```objc
 
-+ (void)setPrintOptions
+- (void)customizeAppearance
 {
-    NSMutableDictionary *printQueueScreenAttributes = [NSMutableDictionary dictionaryWithDictionary:[HPPP sharedInstance].appearance.printQueueScreenAttributes];
-    
-    [printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:17] forKey:HPPPPrintQueueScreenEmptyQueueFontAttribute];
-    [printQueueScreenAttributes setObject:[UIColor darkGrayColor] forKey:HPPPPrintQueueScreenEmptyQueueColorAttribute];
-    
-    [printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:20] forKey:HPPPPrintQueueScreenPreviewJobNameFontAttribute];
-    [printQueueScreenAttributes setObject:[UIColor whiteColor] forKey:HPPPPrintQueueScreenPreviewJobNameColorAttribute];
-    
-    [printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:16] forKey:HPPPPrintQueueScreenPreviewJobDateFontAttribute];
-    [printQueueScreenAttributes setObject:[UIColor whiteColor] forKey:HPPPPrintQueueScreenPreviewJobDateColorAttribute];
-    
-    [printQueueScreenAttributes setObject:[UIFont fontWithName:@"Helvetica" size:16] forKey:HPPPPrintQueueScreenPreviewDoneButtonFontAttribute];
-    [printQueueScreenAttributes setObject:[UIColor whiteColor] forKey:HPPPPrintQueueScreenPreviewDoneButtonColorAttribute];
-    
-    [HPPP sharedInstance].appearance.printQueueScreenAttributes = [NSDictionary dictionaryWithDictionary:printQueueScreenAttributes];
+    NSString *regularFont = @"Baskerville-Bold";
+    NSString *lightFont   = @"Baskerville-Italic";
+    [HPPP sharedInstance].appearance.settings = @{
+         kHPPPGeneralDefaultDateFormat: @"MMMM d, h:mma",
+         
+         // Background
+         kHPPPBackgroundBackgroundColor:   [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
+         kHPPPBackgroundPrimaryFont:       [UIFont fontWithName:regularFont size:14],
+         kHPPPBackgroundPrimaryFontColor:  [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPBackgroundSecondaryFont:     [UIFont fontWithName:lightFont size:12],
+         kHPPPBackgroundSecondaryFontColor:[UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+         
+         // Selection Options
+         kHPPPSelectionOptionsBackgroundColor:   [UIColor colorWithRed:0xFF/255.0F green:0xA5/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPSelectionOptionsStrokeColor:       [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
+         kHPPPSelectionOptionsPrimaryFont:       [UIFont fontWithName:regularFont size:16],
+         kHPPPSelectionOptionsPrimaryFontColor:  [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPSelectionOptionsSecondaryFont:     [UIFont fontWithName:regularFont size:16],
+         kHPPPSelectionOptionsSecondaryFontColor:[UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPSelectionOptionsLinkFont:          [UIFont fontWithName:regularFont size:16],
+         kHPPPSelectionOptionsLinkFontColor:     [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
+         
+         // Job Settings
+         kHPPPJobSettingsBackgroundColor:    [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPJobSettingsStrokeColor:        [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
+         kHPPPJobSettingsPrimaryFont:        [UIFont fontWithName:regularFont size:16],
+         kHPPPJobSettingsPrimaryFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPJobSettingsSecondaryFont:      [UIFont fontWithName:regularFont size:12],
+         kHPPPJobSettingsSecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
+         kHPPPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"HPPPSelected.png"],
+         kHPPPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"HPPPUnselected.png"],
+         
+         // Main Action
+         kHPPPMainActionBackgroundColor:       [UIColor colorWithRed:0x8A/255.0F green:0x2B/255.0F blue:0xE2/255.0F alpha:1.0F],
+         kHPPPMainActionStrokeColor:           [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
+         kHPPPMainActionLinkFont:              [UIFont fontWithName:regularFont size:18],
+         kHPPPMainActionActiveLinkFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPMainActionInactiveLinkFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+         
+         // Queue Project Count
+         kHPPPQueuePrimaryFont:     [UIFont fontWithName:regularFont size:16],
+         kHPPPQueuePrimaryFontColor:[UIColor colorWithRed:0x00 green:0x00 blue:0x00 alpha:1.0F],
+         
+         // Form Field
+         kHPPPFormFieldBackgroundColor:  [UIColor colorWithRed:0xFF/255.0F green:0xD7/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPFormFieldStrokeColor:      [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
+         kHPPPFormFieldPrimaryFont:      [UIFont fontWithName:regularFont size:16],
+         kHPPPFormFieldPrimaryFontColor: [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+         
+         // Multipage Graphics
+         kHPPPMultipageGraphicsStrokeColor: [UIColor colorWithRed:0xFF green:0xFF blue:0xFF alpha:1.0F],
+         
+         // Overlay
+         kHPPPOverlayBackgroundColor:    [UIColor colorWithRed:0x8D/255.0F green:0xEE/255.0F blue:0xEE/255.0F alpha:1.0F],
+         kHPPPOverlayBackgroundOpacity:  [NSNumber numberWithFloat:.60F],
+         kHPPPOverlayPrimaryFont:        [UIFont fontWithName:regularFont size:16],
+         kHPPPOverlayPrimaryFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPOverlaySecondaryFont:      [UIFont fontWithName:regularFont size:14],
+         kHPPPOverlaySecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPOverlayLinkFont:           [UIFont fontWithName:regularFont size:18],
+         kHPPPOverlayLinkFontColor:      [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F]
+     };
 }
 
 ```
 ##### Interface Options
 
-Certain interface options are set by changing property values on the [`HPPPInterfaceOptions`](http://hppp.herokuapp.com/HPPPInterfaceOptions_h/Classes/HPPPInterfaceOptions/index.html) stored in the [interfaceOptions](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/interfaceOptions) property of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) object. 
+Certain interface options are set by changing property values on the [`HPPPInterfaceOptions`](http://hppp.herokuapp.com/HPPPInterfaceOptions_h/Classes/HPPPInterfaceOptions/index.html) object stored in the [interfaceOptions](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/interfaceOptions) property of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) object. 
 Currently, only the muli-page preview interface is controlled via this object.
 
 ```objc
@@ -415,7 +450,7 @@ Currently, only the muli-page preview interface is controlled via this object.
 
 ##### Print Layout
 
-Each [`HPPPPrintItem`](http://hppp.herokuapp.com/HPPPPrintItem_h/Classes/HPPPPrintItem/index.html) instance can be configured with a layout class that defines the strategy used to lay out the content on the page. The layout class is an instance of [`HPPPLayout`](http://hppp.herokuapp.com/HPPPLayout_h/Classes/HPPPLayout/index.html) and can be created using class methods in [`HPPPLayoutFactory`](http://hppp.herokuapp.com/HPPPLayoutFactory_h/Classes/HPPPLayoutFactory/index.html). See the documentation for [`HPPPLayoutType`](http://hppp.herokuapp.com/HPPPLayoutFactory_h/Classes/HPPPLayoutFactory/index.html#//apple_ref/occ/tdef/HPPPLayoutFactory/HPPPLayoutType) for information on available layout strategies.
+Each [`HPPPPrintItem`](http://hppp.herokuapp.com/HPPPPrintItem_h/Classes/HPPPPrintItem/index.html) instance can be configured with a layout class that defines the strategy used to lay out the content on the page. The layout class is an instance of [`HPPPLayout`](http://hppp.herokuapp.com/HPPPLayout_h/Classes/HPPPLayout/index.html) and can be created using class methods in [`HPPPLayoutFactory`](http://hppp.herokuapp.com/HPPPLayoutFactory_h/Classes/HPPPLayoutFactory/index.html). 
 
 > __Note:__ It is possible to specify different layouts for different paper sizes by implementing the [`HPPPPrintDataSource`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html) protocol and responding to the [`printingItemForPaper:withCompletion:`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintDataSource/index.html#//apple_ref/occ/intfm/HPPPPrintDataSource/printingItemForPaper:withCompletion:) method.
 
@@ -424,12 +459,37 @@ Each [`HPPPPrintItem`](http://hppp.herokuapp.com/HPPPPrintItem_h/Classes/HPPPPri
 - (HPPPPrintItem *)createPrintItemWithAsset:(id)asset
 {
     HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:asset];
-    HPPPLayout  *layout = [HPPPLayoutFactory layoutWithType:HPPPLayoutTypeFit];
+    HPPPLayout  *layout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType]];
     printItem.layout = layout;
     return printItem;
 }
 
 ```
+
+There are three basic layout classes provided: [`HPPPLayoutFit`](http://hppp.herokuapp.com/HPPPLayoutFit_h/Classes/HPPPLayoutFit/index.html), [`HPPPLayoutFill`](http://hppp.herokuapp.com/HPPPLayoutFill_h/Classes/HPPPLayoutFill/index.html), and [`HPPPLayoutStretch`](http://hppp.herokuapp.com/HPPPLayoutStretch_h/Classes/HPPPLayoutStretch/index.html). 
+Custom layouts can be created by subclassing these 3 basic types or by subclassing the [`HPPPLayout`](http://hppp.herokuapp.com/HPPPLayout_h/Classes/HPPPLayout/index.html#//apple_ref/occ/cl/HPPPLayout) base class. 
+When creating a custom layout you must extend the [`HPPPLayoutFactory`](http://hppp.herokuapp.com/HPPPLayoutFactory_h/Classes/HPPPLayoutFactory/index.html) by implementing the [`HPPPLayoutFactoryDelegate`](http://hppp.herokuapp.com/HPPPLayoutFactory_h/Protocols/HPPPLayoutFactoryDelegate/index.html) protocol and using [`addDelegate:`](http://hppp.herokuapp.com/HPPPLayoutFactory_h/Classes/HPPPLayoutFactory/index.html#//apple_ref/occ/clm/HPPPLayoutFactory/addDelegate:).
+
+> __Note:__ By default the layout rectangle is the entire page. See [`assetPosition`](http://hppp.herokuapp.com/HPPPLayout_h/Classes/HPPPLayout/index.html#//apple_ref/occ/instp/HPPPLayout/assetPosition) for details on adjusting the layout rectangle.
+> This can be useful for things like centering the asset on the page without filling the page entirely or without changing the size of the asset.
+
+###### Fit Layout
+
+The default [`HPPPLayoutFit`](http://hppp.herokuapp.com/HPPPLayoutFit_h/Classes/HPPPLayoutFit/index.html) will reduce or enlarge the print asset until it just fits in the layout rectangle without cropping. 
+This means that either the horizontal or vertical edges of the asset will be touching the edge of the layout rectangle and the other dimension will include white space on either side.
+If the asset is the exact aspect ratio of the layout rectangle then both the horizontal and vertical edges will touch and the asset will completely cover the rectangle.
+When the asset does not fit exactly you can use the [`horizontalPosition`](http://hppp.herokuapp.com/HPPPLayoutFit_h/Classes/HPPPLayoutFit/index.html#//apple_ref/occ/instp/HPPPLayoutFit/horizontalPosition) and/or [`verticalPosition`](http://hppp.herokuapp.com/HPPPLayoutFit_h/Classes/HPPPLayoutFit/index.html#//apple_ref/occ/instp/HPPPLayoutFit/verticalPosition) properties to adjust where the asset is placed within the rectangle.
+
+###### Fill Layout
+
+The default [`HPPPLayoutFill`](http://hppp.herokuapp.com/HPPPLayoutFill_h/Classes/HPPPLayoutFill/index.html) will reduce or enlarge the print asset to the smallest possible size that completely fills the area of the layout rectangle without leaving any white space. 
+Note that this will often involve cropping either the horizontal or vertical edges of the asset. 
+If the asset is the exact aspect ratio of the layout rectangle then both the horizontal and vertical edges will touch and the asset will completely cover the rectangle without cropping.
+
+###### Stretch Layout
+
+The default [`HPPPLayoutStretch`](http://hppp.herokuapp.com/HPPPLayoutStretch_h/Classes/HPPPLayoutStretch/index.html) will adjust the size of the asset to exactly fit the layout rectangle. 
+If the asset is _not_ the exact aspect ratio of the layout rectangle then distortion of the asset will occur as it is stretched to fit.
 
 > __Tip:__ Almost all printer brands and models use a technique called "overspray" to acheive true borderless printing.
 They enlarge the printed file by 2-3% and actually print the given image _beyond_ the edge of the paper thus clipping the content at the very edge of the print item.
