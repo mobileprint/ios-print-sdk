@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *jobThumbnailImageView;
 @property (weak, nonatomic) IBOutlet UILabel *jobNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *jobDateLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *magnifyingGlassImageView;
 
 @end
 
@@ -45,6 +46,8 @@
     
     self.jobDateLabel.font = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFont];
     self.jobDateLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFontColor];
+    
+    self.magnifyingGlassImageView = [hppp.appearance.settings objectForKey:kHPPPJobSettingsMagnifyingGlassIcon];
 }
 
 - (void)setPrintLaterJob:(HPPPPrintLaterJob *)job

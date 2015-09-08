@@ -43,6 +43,9 @@ extern NSString * const kHPPPJobSettingsSecondaryFont;
 extern NSString * const kHPPPJobSettingsSecondaryFontColor;
 extern NSString * const kHPPPJobSettingsSelectedPageIcon;
 extern NSString * const kHPPPJobSettingsUnselectedPageIcon;
+extern NSString * const kHPPPJobSettingsSelectedJobIcon;
+extern NSString * const kHPPPJobSettingsUnselectedJobIcon;
+extern NSString * const kHPPPJobSettingsMagnifyingGlassIcon;
 
 // Main Action
 extern NSString * const kHPPPMainActionBackgroundColor;
@@ -73,6 +76,10 @@ extern NSString * const kHPPPOverlaySecondaryFontColor;
 extern NSString * const kHPPPOverlayLinkFont;
 extern NSString * const kHPPPOverlayLinkFontColor;
 extern NSString * const kHPPPOverlayBackgroundOpacity;
+
+// Activity
+extern NSString * const kHPPPActivityPrintIcon;
+extern NSString * const kHPPPActivityPrintQueueIcon;
 
 /*!
  * @abstract A dictionary containing all customizable style settings for the HPPhotoPrint user interface

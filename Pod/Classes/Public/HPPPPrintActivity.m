@@ -37,7 +37,7 @@
 
 - (UIImage *)_activityImage
 {
-    return [UIImage imageNamed:@"HPPPPrint"];
+    return [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPActivityPrintIcon];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems

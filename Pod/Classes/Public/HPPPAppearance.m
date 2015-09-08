@@ -43,6 +43,9 @@ NSString * const kHPPPJobSettingsSecondaryFont = @"kHPPPJobSettingsSecondaryFont
 NSString * const kHPPPJobSettingsSecondaryFontColor = @"kHPPPJobSettingsSecondaryFontColor";
 NSString * const kHPPPJobSettingsSelectedPageIcon = @"kHPPPJobSettingsSelectedPageIcon";
 NSString * const kHPPPJobSettingsUnselectedPageIcon = @"kHPPPJobSettingsUnselectedPageIcon";
+NSString * const kHPPPJobSettingsSelectedJobIcon = @"kHPPPJobSettingsSelectedJobIcon";
+NSString * const kHPPPJobSettingsUnselectedJobIcon = @"kHPPPJobSettingsUnselectedJobIcon";
+NSString * const kHPPPJobSettingsMagnifyingGlassIcon = @"kHPPPJobSettingsMagnifyingGlassIcon";
 
 // Main Action
 NSString * const kHPPPMainActionBackgroundColor = @"kHPPPMainActionBackgroundColor";
@@ -73,6 +76,10 @@ NSString * const kHPPPOverlaySecondaryFont = @"kHPPPOverlaySecondaryFont";
 NSString * const kHPPPOverlaySecondaryFontColor = @"kHPPPOverlaySecondaryFontColor";
 NSString * const kHPPPOverlayLinkFont = @"kHPPPOverlayLinkFont";
 NSString * const kHPPPOverlayLinkFontColor = @"kHPPPOverlayLinkFontColor";
+
+// Activity
+NSString * const kHPPPActivityPrintIcon = @"kHPPPActivityPrintIcon";
+NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
 
 - (NSDictionary *)settings
 {
@@ -117,7 +124,10 @@ NSString * const kHPPPOverlayLinkFontColor = @"kHPPPOverlayLinkFontColor";
                   kHPPPJobSettingsSecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
                   kHPPPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"HPPPSelected.png"],
                   kHPPPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"HPPPUnselected.png"],
-                                   
+                  kHPPPJobSettingsSelectedJobIcon:    [UIImage imageNamed:@"HPPPActiveCircle"],
+                  kHPPPJobSettingsUnselectedJobIcon:  [UIImage imageNamed:@"HPPPInactiveCircle"],
+                  kHPPPJobSettingsMagnifyingGlassIcon:[UIImage imageNamed:@"HPPPMagnify"],
+                  
                   // Main Action
                   kHPPPMainActionBackgroundColor:       [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
                   kHPPPMainActionStrokeColor:           [UIColor colorWithRed:0xC8/255.0F green:0xC7/255.0F blue:0xCC/255.0F alpha:1.0F],
@@ -146,7 +156,12 @@ NSString * const kHPPPOverlayLinkFontColor = @"kHPPPOverlayLinkFontColor";
                   kHPPPOverlaySecondaryFont:      [UIFont fontWithName:regularFont size:14],
                   kHPPPOverlaySecondaryFontColor: [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
                   kHPPPOverlayLinkFont:           [UIFont fontWithName:regularFont size:18],
-                  kHPPPOverlayLinkFontColor:      [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F]
+                  kHPPPOverlayLinkFontColor:      [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
+                  
+                  // Activity
+                  kHPPPActivityPrintIcon:      [UIImage imageNamed:@"HPPPPrint"],
+                  kHPPPActivityPrintQueueIcon: [UIImage imageNamed:@"HPPPPrintLater"],
+
                   };
     
     return _settings;

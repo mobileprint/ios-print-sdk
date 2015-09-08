@@ -253,9 +253,9 @@ NSString * const kJobListScreenName = @"Job List Screen";
     UIImage *checkMarkImage = nil;
     
     if ([self.mutableCheckMarkedPrintJobs containsObject:[NSNumber numberWithInteger:indexPath.row]]) {
-        checkMarkImage = [UIImage imageNamed:@"HPPPActiveCircle"];
+        checkMarkImage = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsSelectedJobIcon];
     } else {
-        checkMarkImage = [UIImage imageNamed:@"HPPPInactiveCircle"];
+        checkMarkImage = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsUnselectedJobIcon];
     }
     
     UIImageView *checkMarkImageView = [[UIImageView alloc] initWithImage:checkMarkImage];
@@ -273,12 +273,12 @@ NSString * const kJobListScreenName = @"Job List Screen";
     UIImage *checkMarkImage = nil;
     if (![self.mutableCheckMarkedPrintJobs containsObject:rowIndex]) {
         [self.mutableCheckMarkedPrintJobs addObject:rowIndex];
-        checkMarkImage = [UIImage imageNamed:@"HPPPActiveCircle"];
+        checkMarkImage = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsSelectedJobIcon];
         
         [self setJobsCounterLabel];
     } else {
         [self.mutableCheckMarkedPrintJobs removeObject:rowIndex];
-        checkMarkImage = [UIImage imageNamed:@"HPPPInactiveCircle"];
+        checkMarkImage = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsUnselectedJobIcon];
         
         [self setJobsCounterLabel];
     }
