@@ -70,12 +70,22 @@
  */
 + (id)initLayoutWithCoder:(NSCoder *)decoder;
 
+/*!
+ * @abstract Used to add a custom layout provider
+ */
 + (void)addDelegate:(id<HPPPLayoutFactoryDelegate>)delegate;
 
+/*!
+ * @abstract Used to remove a custom layout provider
+ */
 + (void)removeDelegate:(id<HPPPLayoutFactoryDelegate>)delegate;
 
 @end
 
+/*!
+ * @abstract This protocol allows for extending the layout factory with custom layout types
+ * @seealso HPPPLayoutFactory
+ */
 @protocol HPPPLayoutFactoryDelegate <NSObject>
 
 @optional
