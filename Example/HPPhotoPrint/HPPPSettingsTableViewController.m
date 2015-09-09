@@ -793,7 +793,8 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     
     return @{// General
              kHPPPGeneralDefaultDateFormat: @"MMMM d, h:mma",
-             
+             kHPPPGeneralTableSeparatorColor: [UIColor colorWithRed:0xFF/255.0F green:0.00/255.0F blue:0x00/255.0F alpha:1.0F],
+                                               
              // Background
              kHPPPBackgroundBackgroundColor:   [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
              kHPPPBackgroundPrimaryFont:       [UIFont fontWithName:regularFont size:14],
@@ -803,7 +804,6 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
              
              // Selection Options
              kHPPPSelectionOptionsBackgroundColor:   [UIColor colorWithRed:0xFF/255.0F green:0xA5/255.0F blue:0x00/255.0F alpha:1.0F],
-             kHPPPSelectionOptionsStrokeColor:       [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
              kHPPPSelectionOptionsPrimaryFont:       [UIFont fontWithName:regularFont size:16],
              kHPPPSelectionOptionsPrimaryFontColor:  [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
              kHPPPSelectionOptionsSecondaryFont:     [UIFont fontWithName:regularFont size:16],
@@ -813,7 +813,6 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
              
              // Job Settings
              kHPPPJobSettingsBackgroundColor:    [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
-             kHPPPJobSettingsStrokeColor:        [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
              kHPPPJobSettingsPrimaryFont:        [UIFont fontWithName:regularFont size:16],
              kHPPPJobSettingsPrimaryFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
              kHPPPJobSettingsSecondaryFont:      [UIFont fontWithName:regularFont size:12],
@@ -826,7 +825,6 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
              
              // Main Action
              kHPPPMainActionBackgroundColor:       [UIColor colorWithRed:0x8A/255.0F green:0x2B/255.0F blue:0xE2/255.0F alpha:1.0F],
-             kHPPPMainActionStrokeColor:           [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
              kHPPPMainActionLinkFont:              [UIFont fontWithName:regularFont size:18],
              kHPPPMainActionActiveLinkFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
              kHPPPMainActionInactiveLinkFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
@@ -837,14 +835,10 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
              
              // Form Field
              kHPPPFormFieldBackgroundColor:  [UIColor colorWithRed:0xFF/255.0F green:0xD7/255.0F blue:0x00/255.0F alpha:1.0F],
-             kHPPPFormFieldStrokeColor:      [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
              kHPPPFormFieldPrimaryFont:      [UIFont fontWithName:regularFont size:16],
              kHPPPFormFieldPrimaryFontColor: [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
              
-             // Multipage Graphics
-             kHPPPMultipageGraphicsStrokeColor: [UIColor colorWithRed:0x00 green:0x00 blue:0x00 alpha:1.0F],
-             
-             // Overlay
+            // Overlay
              kHPPPOverlayBackgroundColor:    [UIColor colorWithRed:0x8D/255.0F green:0xEE/255.0F blue:0xEE/255.0F alpha:1.0F],
              kHPPPOverlayBackgroundOpacity:  [NSNumber numberWithFloat:.60F],
              kHPPPOverlayPrimaryFont:        [UIFont fontWithName:regularFont size:16],

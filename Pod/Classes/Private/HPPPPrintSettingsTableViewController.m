@@ -94,6 +94,7 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
     
     self.tableView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.separatorColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
     
     if (IS_OS_8_OR_LATER) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:kHPPPPrinterAvailabilityNotification object:nil];

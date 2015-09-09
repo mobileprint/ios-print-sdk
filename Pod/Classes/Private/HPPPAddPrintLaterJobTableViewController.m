@@ -89,6 +89,7 @@ NSInteger const kHPPPPrintSettingsPageRangeRow = 1;
     
     self.view.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.tableView.separatorColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableHeaderView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];

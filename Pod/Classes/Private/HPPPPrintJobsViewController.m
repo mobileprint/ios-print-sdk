@@ -74,6 +74,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
     self.view.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.separatorColor = [hppp.appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
     
     [self initJobsCounterLabel];
     

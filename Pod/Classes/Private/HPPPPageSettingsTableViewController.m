@@ -170,6 +170,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
     
     self.tableView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.tableView.separatorColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     

@@ -16,6 +16,7 @@
 
 // General
 NSString * const kHPPPGeneralDefaultDateFormat = @"kHPPPGeneralDefaultDateFormat";
+NSString * const kHPPPGeneralTableSeparatorColor = @"kHPPPGeneralTableSeparatorColor";
 
 // Background
 NSString * const kHPPPBackgroundBackgroundColor = @"kHPPPBackgroundBackgroundColor";
@@ -26,7 +27,6 @@ NSString * const kHPPPBackgroundSecondaryFontColor = @"kHPPPBackgroundSecondaryF
 
 // Selection Options
 NSString * const kHPPPSelectionOptionsBackgroundColor = @"kHPPPSelectionOptionsBackgroundColor";
-NSString * const kHPPPSelectionOptionsStrokeColor = @"kHPPPSelectionOptionsStrokeColor";
 NSString * const kHPPPSelectionOptionsPrimaryFont = @"kHPPPSelectionOptionsPrimaryFont";
 NSString * const kHPPPSelectionOptionsPrimaryFontColor = @"kHPPPSelectionOptionsPrimaryFontColor";
 NSString * const kHPPPSelectionOptionsSecondaryFont = @"kHPPPSelectionOptionsSecondaryFont";
@@ -36,7 +36,6 @@ NSString * const kHPPPSelectionOptionsLinkFontColor = @"kHPPPSelectionOptionsLin
 
 // Job Settings
 NSString * const kHPPPJobSettingsBackgroundColor = @"kHPPPJobSettingsBackgroundColor";
-NSString * const kHPPPJobSettingsStrokeColor = @"kHPPPJobSettingsStrokeColor";
 NSString * const kHPPPJobSettingsPrimaryFont = @"kHPPPJobSettingsPrimaryFont";
 NSString * const kHPPPJobSettingsPrimaryFontColor = @"kHPPPJobSettingsPrimaryFontColor";
 NSString * const kHPPPJobSettingsSecondaryFont = @"kHPPPJobSettingsSecondaryFont";
@@ -49,7 +48,6 @@ NSString * const kHPPPJobSettingsMagnifyingGlassIcon = @"kHPPPJobSettingsMagnify
 
 // Main Action
 NSString * const kHPPPMainActionBackgroundColor = @"kHPPPMainActionBackgroundColor";
-NSString * const kHPPPMainActionStrokeColor = @"kHPPPMainActionStrokeColor";
 NSString * const kHPPPMainActionLinkFont = @"kHPPPMainActionLinkFont";
 NSString * const kHPPPMainActionActiveLinkFontColor = @"kHPPPMainActionActiveLinkFontColor";
 NSString * const kHPPPMainActionInactiveLinkFontColor = @"kHPPPMainActionInactiveLinkFontColor";
@@ -60,7 +58,6 @@ NSString * const kHPPPQueuePrimaryFontColor = @"kHPPPQueuePrimaryFontColor";
 
 // Form Field
 NSString * const kHPPPFormFieldBackgroundColor = @"kHPPPFormFieldBackgroundColor";
-NSString * const kHPPPFormFieldStrokeColor = @"kHPPPFormFieldStrokeColor";
 NSString * const kHPPPFormFieldPrimaryFont = @"kHPPPFormFieldPrimaryFont";
 NSString * const kHPPPFormFieldPrimaryFontColor = @"kHPPPFormFieldPrimaryFontColor";
 
@@ -96,7 +93,8 @@ NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
     NSString *lightFont   = @"HelveticaNeue-Medium";
     
     _settings = @{// General
-                  kHPPPGeneralDefaultDateFormat: @"MMMM d, h:mma",
+                  kHPPPGeneralDefaultDateFormat:   @"MMMM d, h:mma",
+                  kHPPPGeneralTableSeparatorColor: [UIColor colorWithRed:0xC8/255.0F green:0xC7/255.0F blue:0xCC/255.0F alpha:1.0F],
                   
                   // Background
                   kHPPPBackgroundBackgroundColor:   [UIColor colorWithRed:0xEF/255.0F green:0xEF/255.0F blue:0xF4/255.0F alpha:1.0F],
@@ -107,7 +105,6 @@ NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
                   
                   // Selection Options
                   kHPPPSelectionOptionsBackgroundColor:   [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
-                  kHPPPSelectionOptionsStrokeColor:       [UIColor colorWithRed:0xC8/255.0F green:0xC7/255.0F blue:0xCC/255.0F alpha:1.0F],
                   kHPPPSelectionOptionsPrimaryFont:       [UIFont fontWithName:regularFont size:16],
                   kHPPPSelectionOptionsPrimaryFontColor:  [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
                   kHPPPSelectionOptionsSecondaryFont:     [UIFont fontWithName:regularFont size:16],
@@ -117,7 +114,6 @@ NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
                   
                   // Job Settings
                   kHPPPJobSettingsBackgroundColor:    [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
-                  kHPPPJobSettingsStrokeColor:        [UIColor colorWithRed:0xC8/255.0F green:0xC7/255.0F blue:0xCC/255.0F alpha:1.0F],
                   kHPPPJobSettingsPrimaryFont:        [UIFont fontWithName:regularFont size:16],
                   kHPPPJobSettingsPrimaryFontColor:   [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
                   kHPPPJobSettingsSecondaryFont:      [UIFont fontWithName:regularFont size:12],
@@ -130,7 +126,6 @@ NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
                   
                   // Main Action
                   kHPPPMainActionBackgroundColor:       [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
-                  kHPPPMainActionStrokeColor:           [UIColor colorWithRed:0xC8/255.0F green:0xC7/255.0F blue:0xCC/255.0F alpha:1.0F],
                   kHPPPMainActionLinkFont:              [UIFont fontWithName:regularFont size:18],
                   kHPPPMainActionActiveLinkFontColor:   [UIColor colorWithRed:0x00/255.0F green:0x7A/255.0F blue:0xFF/255.0F alpha:1.0F],
                   kHPPPMainActionInactiveLinkFontColor: [UIColor colorWithRed:0xAA/255.0F green:0xAA/255.0F blue:0xAA/255.0F alpha:1.0F],
@@ -141,7 +136,6 @@ NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
                   
                   // Form Field
                   kHPPPFormFieldBackgroundColor:  [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
-                  kHPPPFormFieldStrokeColor:      [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
                   kHPPPFormFieldPrimaryFont:      [UIFont fontWithName:regularFont size:16],
                   kHPPPFormFieldPrimaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
                   

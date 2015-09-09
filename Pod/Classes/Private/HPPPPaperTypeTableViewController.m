@@ -37,6 +37,7 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
     
     self.tableView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.separatorColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
     
     NSArray *localizeTitleArray = @[HPPPLocalizedString(@"Plain Paper", @"Option of paper type"), HPPPLocalizedString(@"Photo Paper", @"Option of paper type")];
     
