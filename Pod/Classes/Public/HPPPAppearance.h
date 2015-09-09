@@ -20,52 +20,45 @@
 @interface HPPPAppearance : NSObject
 
 /*!
- * @abstract Used as a key in the settings dictionary to store the format used for displaying dates
- * @discussion Example value stored under this key: @"MMMM d, h:mma"
- * @seealso settings
- */
-extern NSString * const kHPPPGeneralDefaultDateFormat;
-
-/*!
- * @abstract Used as a key in the settings dictionary to store the separator color used in all UITableViews
- * @seealso settings
- */
-extern NSString * const kHPPPGeneralTableSeparatorColor;
-
-/*!
  * @abstract Used as a key in the settings dictionary to store the background color for background UI elements
  * @discussion See product documentation for a map of UI elements
  * @seealso settings
  */
-extern NSString * const kHPPPBackgroundBackgroundColor;
+extern NSString * const kHPPPGeneralBackgroundColor;
 
 /*!
  * @abstract Used as a key in the settings dictionary to store the primary font for background UI elements
  * @discussion See product documentation for a map of UI elements
  * @seealso settings
  */
-extern NSString * const kHPPPBackgroundPrimaryFont;
+extern NSString * const kHPPPGeneralBackgroundPrimaryFont;
 
 /*!
  * @abstract Used as a key in the settings dictionary to store the primary font color for background UI elements
  * @discussion See product documentation for a map of UI elements
  * @seealso settings
  */
-extern NSString * const kHPPPBackgroundPrimaryFontColor;
+extern NSString * const kHPPPGeneralBackgroundPrimaryFontColor;
 
 /*!
  * @abstract Used as a key in the settings dictionary to store the secondary font for background UI elements
  * @discussion See product documentation for a map of UI elements
  * @seealso settings
  */
-extern NSString * const kHPPPBackgroundSecondaryFont;
+extern NSString * const kHPPPGeneralBackgroundSecondaryFont;
 
 /*!
  * @abstract Used as a key in the settings dictionary to store the secondary font color for background UI elements
  * @discussion See product documentation for a map of UI elements
  * @seealso settings
  */
-extern NSString * const kHPPPBackgroundSecondaryFontColor;
+extern NSString * const kHPPPGeneralBackgroundSecondaryFontColor;
+
+/*!
+ * @abstract Used as a key in the settings dictionary to store the separator color used in all UITableViews
+ * @seealso settings
+ */
+extern NSString * const kHPPPGeneralTableSeparatorColor;
 
 
 /*!
@@ -331,5 +324,7 @@ extern NSString * const kHPPPActivityPrintQueueIcon;
  * @abstract A dictionary containing all customizable style settings for the HPPhotoPrint user interface
  */
 @property (strong, nonatomic) NSDictionary *settings;
+
+@property (strong, nonatomic) NSString *dateFormat;
 
 @end

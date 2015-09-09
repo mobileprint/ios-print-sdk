@@ -46,7 +46,7 @@
     UIColor *enableColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     UIColor *disableColor = [hppp.appearance.settings objectForKey:kHPPPMainActionInactiveLinkFontColor];
 
-    UIColor *separatorColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    UIColor *separatorColor = [hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
 
     UIFont *font = [hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
     

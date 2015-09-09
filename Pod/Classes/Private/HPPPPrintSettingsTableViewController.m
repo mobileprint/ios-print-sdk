@@ -92,7 +92,7 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
     
     [self updatePrinterAvailability];
     
-    self.tableView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.tableView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.separatorColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
     
@@ -256,8 +256,8 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
         if (!self.printSettings.printerIsAvailable) {
             footer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableView.frame.size.width, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
-            label.font = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFont];
-            label.textColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFontColor];
+            label.font = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFont];
+            label.textColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFontColor];
             if (self.useDefaultPrinter) {
                 label.text = HPPPLocalizedString(@"Default printer not currently available", nil);
             } else {

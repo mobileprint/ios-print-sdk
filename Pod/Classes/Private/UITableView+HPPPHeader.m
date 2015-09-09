@@ -26,8 +26,8 @@
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(TITLE_LEFT_OFFSET, HEADER_HEIGHT - TITLE_HEIGHT, self.frame.size.width, TITLE_HEIGHT)];
     titleLabel.text =  HPPPLocalizedString(@"SUPPORT:", @"Title of a table section");
-    titleLabel.font = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundPrimaryFont];
-    titleLabel.textColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundPrimaryFontColor];
+    titleLabel.font = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFont];
+    titleLabel.textColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFontColor];
     
     [headerView addSubview:titleLabel];
     

@@ -71,8 +71,8 @@ NSString * const kJobListScreenName = @"Job List Screen";
         }
     }
     
-    self.view.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
-    self.tableView.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.view.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
+    self.tableView.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.separatorColor = [hppp.appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
     
@@ -311,9 +311,9 @@ NSString * const kJobListScreenName = @"Job List Screen";
     textLabel.textAlignment = NSTextAlignmentCenter;
     textLabel.font = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
     textLabel.textColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
-    textLabel.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    textLabel.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
     textLabel.layer.borderWidth = 0.5f;
-    textLabel.layer.borderColor = [(UIColor *)[[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundPrimaryFontColor] CGColor];
+    textLabel.layer.borderColor = [(UIColor *)[[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFontColor] CGColor];
     
     NSString *text = nil;
     if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {

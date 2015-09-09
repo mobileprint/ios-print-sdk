@@ -15,15 +15,12 @@
 @implementation HPPPAppearance
 
 // General
-NSString * const kHPPPGeneralDefaultDateFormat = @"kHPPPGeneralDefaultDateFormat";
+NSString * const kHPPPGeneralBackgroundColor = @"kHPPPBackgroundBackgroundColor";
+NSString * const kHPPPGeneralBackgroundPrimaryFont = @"kHPPPBackgroundPrimaryFont";
+NSString * const kHPPPGeneralBackgroundPrimaryFontColor = @"kHPPPBackgroundPrimaryFontColor";
+NSString * const kHPPPGeneralBackgroundSecondaryFont = @"kHPPPBackgroundSecondaryFont";
+NSString * const kHPPPGeneralBackgroundSecondaryFontColor = @"kHPPPBackgroundSecondaryFontColor";
 NSString * const kHPPPGeneralTableSeparatorColor = @"kHPPPGeneralTableSeparatorColor";
-
-// Background
-NSString * const kHPPPBackgroundBackgroundColor = @"kHPPPBackgroundBackgroundColor";
-NSString * const kHPPPBackgroundPrimaryFont = @"kHPPPBackgroundPrimaryFont";
-NSString * const kHPPPBackgroundPrimaryFontColor = @"kHPPPBackgroundPrimaryFontColor";
-NSString * const kHPPPBackgroundSecondaryFont = @"kHPPPBackgroundSecondaryFont";
-NSString * const kHPPPBackgroundSecondaryFontColor = @"kHPPPBackgroundSecondaryFontColor";
 
 // Selection Options
 NSString * const kHPPPSelectionOptionsBackgroundColor = @"kHPPPSelectionOptionsBackgroundColor";
@@ -87,21 +84,23 @@ NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
     return _settings;
 }
 
+- (NSString *)dateFormat
+{
+  return @"MMMM d, h:mma";
+}
+
 - (NSDictionary *)defaultSettings
 {
     NSString *regularFont = @"HelveticaNeue";
     NSString *lightFont   = @"HelveticaNeue-Medium";
     
     _settings = @{// General
-                  kHPPPGeneralDefaultDateFormat:   @"MMMM d, h:mma",
-                  kHPPPGeneralTableSeparatorColor: [UIColor colorWithRed:0xC8/255.0F green:0xC7/255.0F blue:0xCC/255.0F alpha:1.0F],
-                  
-                  // Background
-                  kHPPPBackgroundBackgroundColor:   [UIColor colorWithRed:0xEF/255.0F green:0xEF/255.0F blue:0xF4/255.0F alpha:1.0F],
-                  kHPPPBackgroundPrimaryFont:       [UIFont fontWithName:regularFont size:14],
-                  kHPPPBackgroundPrimaryFontColor:  [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
-                  kHPPPBackgroundSecondaryFont:     [UIFont fontWithName:lightFont size:12],
-                  kHPPPBackgroundSecondaryFontColor:[UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
+                  kHPPPGeneralBackgroundColor:             [UIColor colorWithRed:0xEF/255.0F green:0xEF/255.0F blue:0xF4/255.0F alpha:1.0F],
+                  kHPPPGeneralBackgroundPrimaryFont:       [UIFont fontWithName:regularFont size:14],
+                  kHPPPGeneralBackgroundPrimaryFontColor:  [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
+                  kHPPPGeneralBackgroundSecondaryFont:     [UIFont fontWithName:lightFont size:12],
+                  kHPPPGeneralBackgroundSecondaryFontColor:[UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
+                  kHPPPGeneralTableSeparatorColor:         [UIColor colorWithRed:0xC8/255.0F green:0xC7/255.0F blue:0xCC/255.0F alpha:1.0F],
                   
                   // Selection Options
                   kHPPPSelectionOptionsBackgroundColor:   [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],

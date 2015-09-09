@@ -35,7 +35,7 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     
     self.hppp = [HPPP sharedInstance];
     
-    self.tableView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.tableView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.separatorColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
 }
