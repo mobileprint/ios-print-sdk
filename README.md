@@ -372,15 +372,14 @@ The folllowing example shows how to customize various fonts, colors, icons, and 
     NSString *regularFont = @"Baskerville-Bold";
     NSString *lightFont   = @"Baskerville-Italic";
     [HPPP sharedInstance].appearance.settings = @{
-         kHPPPGeneralDefaultDateFormat:   @"MMMM d, h:mma",
-         kHPPPGeneralTableSeparatorColor: [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
          
-         // Background
-         kHPPPBackgroundBackgroundColor:   [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
-         kHPPPBackgroundPrimaryFont:       [UIFont fontWithName:regularFont size:14],
-         kHPPPBackgroundPrimaryFontColor:  [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
-         kHPPPBackgroundSecondaryFont:     [UIFont fontWithName:lightFont size:12],
-         kHPPPBackgroundSecondaryFontColor:[UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+         // General
+         kHPPPGeneralBackgroundColor:             [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
+         kHPPPGeneralBackgroundPrimaryFont:       [UIFont fontWithName:regularFont size:14],
+         kHPPPGeneralBackgroundPrimaryFontColor:  [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPGeneralBackgroundSecondaryFont:     [UIFont fontWithName:lightFont size:12],
+         kHPPPGeneralBackgroundSecondaryFontColor:[UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPGeneralTableSeparatorColor:         [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
          
          // Selection Options
          kHPPPSelectionOptionsBackgroundColor:   [UIColor colorWithRed:0xFF/255.0F green:0xA5/255.0F blue:0x00/255.0F alpha:1.0F],
