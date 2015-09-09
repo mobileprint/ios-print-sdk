@@ -50,7 +50,8 @@ typedef enum {
  * @const HPPPLayoutHorizontalPositionLeft Specifies that the content should be laid out on the left edge of the containing rectangle
  * @const HPPPLayoutHorizontalPositionMiddle Specifies that the content should be laid out horizontally centered in the containing rectangle
  * @const HPPPLayoutHorizontalPositionRight Specifies that the content should be laid out on the right edge of the containing rectangle
- */typedef enum {
+ */
+typedef enum {
      HPPPLayoutHorizontalPositionLeft,
      HPPPLayoutHorizontalPositionMiddle,
      HPPPLayoutHorizontalPositionRight
