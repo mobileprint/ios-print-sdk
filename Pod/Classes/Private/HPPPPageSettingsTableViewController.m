@@ -60,6 +60,7 @@
 #define PAPER_TYPE_ROW_INDEX 1
 #define PRINT_SETTINGS_ROW_INDEX 0
 #define FILTER_ROW_INDEX 0
+#define PAGE_RANGE_ROW_INDEX 1
 
 #define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
 #define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", @"Printer details not available")
@@ -338,7 +339,12 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
     self.numberOfCopiesLabel.text = self.delegateManager.numCopiesLabelText;
     self.pageRangeCell.detailTextLabel.text = self.delegateManager.pageRangeText;
-    self.jobSummaryCell.textLabel.text = self.delegateManager.printJobSummaryText;
+    
+    if( self.addToPrintQueue ) {
+        self.jobSummaryCell.textLabel.text = self.delegateManager.printLaterJobSummaryText;
+    } else {
+        self.jobSummaryCell.textLabel.text = self.delegateManager.printJobSummaryText;
+    }
     
     [self changePaper];
     [self reloadPaperSelectionSection];
@@ -356,7 +362,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         }
     }
 
-    [self.tableView reloadData];
+    [self reloadTable];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -378,6 +384,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         self.pageRangeCell.hidden = YES;
         self.numberOfCopiesCell.hidden = YES;
     }
+    
+    [self reloadTable];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEstablished:) name:kHPPPWiFiConnectionEstablished object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionLost:) name:kHPPPWiFiConnectionLost object:nil];
@@ -408,7 +416,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
-    [self.tableView reloadData];
+    [self reloadTable];
 }
 
 - (void)viewDidLayoutSubviews
@@ -419,6 +427,24 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     if( self.pageRangeView ) {
         [self.pageRangeView refreshLayout:(CGRect)self.editViewFrame];
     }
+}
+
+- (void)reloadTable
+{
+//    NSIndexPath *path = [NSIndexPath indexPathForRow:PAGE_RANGE_ROW_INDEX inSection:NUMBER_OF_COPIES_SECTION];
+//    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:NO];
+    
+//    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:NUMBER_OF_COPIES_SECTION];
+//    [self.tableView reloadSections:indexSet withRowAnimation:NO];
+    
+    if (self.addToPrintQueue) {
+        self.selectPrinterCell.hidden = YES;
+        self.printSettingsCell.hidden = YES;
+        self.paperSizeCell.hidden = YES;
+        self.paperTypeCell.hidden = YES;
+    }
+    
+    [self.tableView reloadData];
 }
 
 - (void)dealloc
@@ -527,7 +553,11 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         self.printLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     }
     
-    self.printLabel.text = self.delegateManager.printLabelText;
+    if( self.addToPrintQueue ) {
+        self.printLabel.text = self.delegateManager.printLaterLabelText;
+    } else {
+        self.printLabel.text = self.delegateManager.printLabelText;
+    }
 }
 
 - (UIPrintInteractionController *)getSharedPrintInteractionController
@@ -765,13 +795,18 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         [self.pageRangeView cancelEditing];
         [self dismissEditView];
     }
-    else if ([self.delegate respondsToSelector:@selector(didCancelPrintFlow:)]) {
+    else if ([self.printDelegate respondsToSelector:@selector(didCancelPrintFlow:)]) {
         if (self.settingsOnly) {
             [self saveSettings];
         }
-        [self.delegate didCancelPrintFlow:self];
+        [self.printDelegate didCancelPrintFlow:self];
+    } else if ([self.printLaterDelegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
+        if (self.settingsOnly) {
+            [self saveSettings];
+        }
+        [self.printLaterDelegate didCancelAddPrintLaterFlow:self];
     } else {
-        HPPPLogWarn(@"No HPPPPrintDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
+        HPPPLogWarn(@"No HPPPPrintDelegate or HPPPAddPrintLaterDelegate has been set to respond to the end of the print flow.  Implement one of these delegates to dismiss the Page Settings view controller.");
     }
 }
 
@@ -929,7 +964,9 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         height = SEPARATOR_SECTION_FOOTER_HEIGHT;
     } else if (IS_OS_8_OR_LATER && ((section == PRINTER_SELECTION_SECTION) || (section == PAPER_SELECTION_SECTION))) {
         if ((!self.hppp.hidePaperTypeOption) && (self.delegateManager.printSettings.printerUrl == nil)) {
-            height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+            if( !self.addToPrintQueue ) {
+                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+            }
         }
     } else if (!IS_OS_8_OR_LATER && (section == PAPER_SELECTION_SECTION)) {
         height = SEPARATOR_SECTION_FOOTER_HEIGHT;
@@ -1272,8 +1309,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         
         [self setDefaultPrinter];
     
-        if ([self.delegate respondsToSelector:@selector(didFinishPrintFlow:)]) {
-            [self.delegate didFinishPrintFlow:self];
+        if ([self.printDelegate respondsToSelector:@selector(didFinishPrintFlow:)]) {
+            [self.printDelegate didFinishPrintFlow:self];
         }
         else {
             HPPPLogWarn(@"No HPPPPrintDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
@@ -1311,9 +1348,9 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.printManager.delegate = self;
 
     HPPPPrintManagerOptions options = HPPPPrintManagerOriginCustom;
-    if ([self.delegate class] == [HPPPPrintActivity class]) {
+    if ([self.printDelegate class] == [HPPPPrintActivity class]) {
         options = HPPPPrintManagerOriginShare;
-    } else if ([self.delegate class] == [HPPPPrintJobsViewController class]) {
+    } else if ([self.printDelegate class] == [HPPPPrintJobsViewController class]) {
         options = HPPPPrintManagerOriginQueue;
     }
 

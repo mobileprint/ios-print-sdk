@@ -76,6 +76,11 @@
 @property (strong, nonatomic) NSString *printLabelText;
 
 /*!
+ * @abstract The text to be used on an "Add to Print Queue" button
+ */
+@property (strong, nonatomic) NSString *printLaterLabelText;
+
+/*!
  * @abstract The text to be used to convey the number of copies to produced by the print job
  */
 @property (strong, nonatomic) NSString *numCopiesLabelText;
@@ -84,6 +89,11 @@
  * @abstract The text to be used to summarize the characteristics of the print job
  */
 @property (strong, nonatomic) NSString *printJobSummaryText;
+
+/*!
+ * @abstract The text to be used to summarize the characteristics of the print-later job
+ */
+@property (strong, nonatomic) NSString *printLaterJobSummaryText;
 
 /*!
  * @abstract The text to be used to convey the page range to be used in the print job
