@@ -1236,6 +1236,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                                             <outlet property="jobDateLabel" destination="WM5-gY-uef" id="Ep9-p6-yam"/>
                                             <outlet property="jobNameLabel" destination="Ucp-AD-mDT" id="jdx-Uv-vd2"/>
                                             <outlet property="jobThumbnailImageView" destination="8lB-uI-16w" id="dql-kc-3ya"/>
+                                            <outlet property="magnifyingGlassImageView" destination="iRY-xe-Hc1" id="L14-hq-dX3"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -34,7 +34,7 @@
 
 - (UIImage *)_activityImage
 {
-    return [UIImage imageNamed:@"HPPPPrintLater"];
+    return [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPActivityPrintQueueIcon];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems

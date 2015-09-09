@@ -169,7 +169,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         [[HPPPLogger sharedInstance] logWarn:@"HPPPPageSettingsTableViewController is intended to be embedded in navigation controller. Navigation problems and othe unexpected behavior may occur if used without a navigation controller."];
     }
     
-    self.tableView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.tableView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
+    self.tableView.separatorColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
@@ -254,7 +255,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.filterLabel.text = HPPPLocalizedString(@"Black & White mode", nil);
     self.blackAndWhiteModeSwitch.onTintColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     
-    self.pageViewCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.pageViewCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
     
     self.delegateManager.printSettings = [[HPPPPrintSettings alloc] init];
     [self.delegateManager loadLastUsed];
@@ -1004,8 +1005,8 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
                 footer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableView.frame.size.width, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
                 
                 UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
-                label.font = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFont];
-                label.textColor = [self.hppp.appearance.settings objectForKey:kHPPPBackgroundPrimaryFontColor];
+                label.font = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFont];
+                label.textColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFontColor];
                 if (self.printFromQueue) {
                     label.text = HPPPLocalizedString(@"Default printer not currently available", nil);
                 } else {

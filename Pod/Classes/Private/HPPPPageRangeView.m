@@ -115,7 +115,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
         [button setTitleColor:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor] forState:UIControlStateNormal];
         button.titleLabel.font = [baseFont fontWithSize:baseFont.pointSize+2];
         [button layer].borderWidth = 1.0f;
-        [button layer].borderColor = [[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsStrokeColor] CGColor];
+        [button layer].borderColor = [[self.hppp.appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor] CGColor];
         button.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
         [button addTarget:self action:@selector(onButtonDown:) forControlEvents:UIControlEventTouchUpInside];
 

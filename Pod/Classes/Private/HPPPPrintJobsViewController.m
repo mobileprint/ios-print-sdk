@@ -71,9 +71,10 @@ NSString * const kJobListScreenName = @"Job List Screen";
         }
     }
     
-    self.view.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
-    self.tableView.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    self.view.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
+    self.tableView.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.separatorColor = [hppp.appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
     
     [self initJobsCounterLabel];
     
@@ -253,9 +254,9 @@ NSString * const kJobListScreenName = @"Job List Screen";
     UIImage *checkMarkImage = nil;
     
     if ([self.mutableCheckMarkedPrintJobs containsObject:[NSNumber numberWithInteger:indexPath.row]]) {
-        checkMarkImage = [UIImage imageNamed:@"HPPPActiveCircle"];
+        checkMarkImage = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsSelectedJobIcon];
     } else {
-        checkMarkImage = [UIImage imageNamed:@"HPPPInactiveCircle"];
+        checkMarkImage = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsUnselectedJobIcon];
     }
     
     UIImageView *checkMarkImageView = [[UIImageView alloc] initWithImage:checkMarkImage];
@@ -273,12 +274,12 @@ NSString * const kJobListScreenName = @"Job List Screen";
     UIImage *checkMarkImage = nil;
     if (![self.mutableCheckMarkedPrintJobs containsObject:rowIndex]) {
         [self.mutableCheckMarkedPrintJobs addObject:rowIndex];
-        checkMarkImage = [UIImage imageNamed:@"HPPPActiveCircle"];
+        checkMarkImage = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsSelectedJobIcon];
         
         [self setJobsCounterLabel];
     } else {
         [self.mutableCheckMarkedPrintJobs removeObject:rowIndex];
-        checkMarkImage = [UIImage imageNamed:@"HPPPInactiveCircle"];
+        checkMarkImage = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsUnselectedJobIcon];
         
         [self setJobsCounterLabel];
     }
@@ -310,9 +311,9 @@ NSString * const kJobListScreenName = @"Job List Screen";
     textLabel.textAlignment = NSTextAlignmentCenter;
     textLabel.font = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
     textLabel.textColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
-    textLabel.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundBackgroundColor];
+    textLabel.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
     textLabel.layer.borderWidth = 0.5f;
-    textLabel.layer.borderColor = [(UIColor *)[[HPPP sharedInstance].appearance.settings objectForKey:kHPPPBackgroundPrimaryFontColor] CGColor];
+    textLabel.layer.borderColor = [(UIColor *)[[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFontColor] CGColor];
     
     NSString *text = nil;
     if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
