@@ -372,7 +372,8 @@ The folllowing example shows how to customize various fonts, colors, icons, and 
     NSString *regularFont = @"Baskerville-Bold";
     NSString *lightFont   = @"Baskerville-Italic";
     [HPPP sharedInstance].appearance.settings = @{
-         kHPPPGeneralDefaultDateFormat: @"MMMM d, h:mma",
+         kHPPPGeneralDefaultDateFormat:   @"MMMM d, h:mma",
+         kHPPPGeneralTableSeparatorColor: [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
          
          // Background
          kHPPPBackgroundBackgroundColor:   [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
@@ -383,7 +384,6 @@ The folllowing example shows how to customize various fonts, colors, icons, and 
          
          // Selection Options
          kHPPPSelectionOptionsBackgroundColor:   [UIColor colorWithRed:0xFF/255.0F green:0xA5/255.0F blue:0x00/255.0F alpha:1.0F],
-         kHPPPSelectionOptionsStrokeColor:       [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
          kHPPPSelectionOptionsPrimaryFont:       [UIFont fontWithName:regularFont size:16],
          kHPPPSelectionOptionsPrimaryFontColor:  [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
          kHPPPSelectionOptionsSecondaryFont:     [UIFont fontWithName:regularFont size:16],
@@ -393,7 +393,6 @@ The folllowing example shows how to customize various fonts, colors, icons, and 
          
          // Job Settings
          kHPPPJobSettingsBackgroundColor:    [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
-         kHPPPJobSettingsStrokeColor:        [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
          kHPPPJobSettingsPrimaryFont:        [UIFont fontWithName:regularFont size:16],
          kHPPPJobSettingsPrimaryFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
          kHPPPJobSettingsSecondaryFont:      [UIFont fontWithName:regularFont size:12],
@@ -403,7 +402,6 @@ The folllowing example shows how to customize various fonts, colors, icons, and 
          
          // Main Action
          kHPPPMainActionBackgroundColor:       [UIColor colorWithRed:0x8A/255.0F green:0x2B/255.0F blue:0xE2/255.0F alpha:1.0F],
-         kHPPPMainActionStrokeColor:           [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
          kHPPPMainActionLinkFont:              [UIFont fontWithName:regularFont size:18],
          kHPPPMainActionActiveLinkFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
          kHPPPMainActionInactiveLinkFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
@@ -414,12 +412,8 @@ The folllowing example shows how to customize various fonts, colors, icons, and 
          
          // Form Field
          kHPPPFormFieldBackgroundColor:  [UIColor colorWithRed:0xFF/255.0F green:0xD7/255.0F blue:0x00/255.0F alpha:1.0F],
-         kHPPPFormFieldStrokeColor:      [UIColor colorWithRed:0x33/255.0F green:0x33/255.0F blue:0x33/255.0F alpha:1.0F],
          kHPPPFormFieldPrimaryFont:      [UIFont fontWithName:regularFont size:16],
          kHPPPFormFieldPrimaryFontColor: [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
-         
-         // Multipage Graphics
-         kHPPPMultipageGraphicsStrokeColor: [UIColor colorWithRed:0xFF green:0xFF blue:0xFF alpha:1.0F],
          
          // Overlay
          kHPPPOverlayBackgroundColor:    [UIColor colorWithRed:0x8D/255.0F green:0xEE/255.0F blue:0xEE/255.0F alpha:1.0F],
