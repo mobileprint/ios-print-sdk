@@ -161,7 +161,6 @@ NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
                   // Activity
                   kHPPPActivityPrintIcon:      [UIImage imageNamed:@"HPPPPrint"],
                   kHPPPActivityPrintQueueIcon: [UIImage imageNamed:@"HPPPPrintLater"],
-
                   };
     
     return _settings;
