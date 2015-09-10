@@ -69,7 +69,7 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     cell.textLabel.text = self.hppp.paperSizes[indexPath.row];
     
     if ([cell.textLabel.text isEqualToString:self.currentPaper.sizeTitle]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsCheckmarkImage]];
     }
     
     return cell;
@@ -81,11 +81,11 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
 {
     for (NSInteger i = 0; i < self.hppp.paperSizes.count; i++) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = nil;
     }
     
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    selectedCell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsCheckmarkImage]];
     
     NSString *typeTitle = (SizeLetter == [HPPPPaper sizeFromTitle:selectedCell.textLabel.text] ? self.currentPaper.typeTitle : HPPPLocalizedString(@"Photo Paper", @"Option of paper type"));
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSizeTitle:selectedCell.textLabel.text paperTypeTitle:typeTitle];

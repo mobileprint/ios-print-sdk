@@ -800,13 +800,15 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
              kHPPPGeneralTableSeparatorColor:         [UIColor colorWithRed:0xFF/255.0F green:0.00/255.0F blue:0x00/255.0F alpha:1.0F],
              
              // Selection Options
-             kHPPPSelectionOptionsBackgroundColor:   [UIColor colorWithRed:0xFF/255.0F green:0xA5/255.0F blue:0x00/255.0F alpha:1.0F],
-             kHPPPSelectionOptionsPrimaryFont:       [UIFont fontWithName:regularFont size:16],
-             kHPPPSelectionOptionsPrimaryFontColor:  [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
-             kHPPPSelectionOptionsSecondaryFont:     [UIFont fontWithName:regularFont size:16],
-             kHPPPSelectionOptionsSecondaryFontColor:[UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
-             kHPPPSelectionOptionsLinkFont:          [UIFont fontWithName:regularFont size:16],
-             kHPPPSelectionOptionsLinkFontColor:     [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
+             kHPPPSelectionOptionsBackgroundColor:         [UIColor colorWithRed:0xFF/255.0F green:0xA5/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPSelectionOptionsPrimaryFont:             [UIFont fontWithName:regularFont size:16],
+             kHPPPSelectionOptionsPrimaryFontColor:        [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPSelectionOptionsSecondaryFont:           [UIFont fontWithName:regularFont size:16],
+             kHPPPSelectionOptionsSecondaryFontColor:      [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+             kHPPPSelectionOptionsLinkFont:                [UIFont fontWithName:regularFont size:16],
+             kHPPPSelectionOptionsLinkFontColor:           [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
+             kHPPPSelectionOptionsDisclosureIndicatorImage:[UIImage imageNamed:@"HPPPCheck"],
+             kHPPPSelectionOptionsCheckmarkImage:          [UIImage imageNamed:@"HPPPArrow"],
              
              // Job Settings
              kHPPPJobSettingsBackgroundColor:    [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
@@ -814,10 +816,10 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
              kHPPPJobSettingsPrimaryFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
              kHPPPJobSettingsSecondaryFont:      [UIFont fontWithName:regularFont size:12],
              kHPPPJobSettingsSecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
-             kHPPPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"HPPPSelected.png"],
-             kHPPPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"HPPPUnselected.png"],
-             kHPPPJobSettingsSelectedJobIcon:    [UIImage imageNamed:@"HPPPActiveCircle"],
-             kHPPPJobSettingsUnselectedJobIcon:  [UIImage imageNamed:@"HPPPInactiveCircle"],
+             kHPPPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"HPPPUnselected.png"],
+             kHPPPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"HPPPSelected.png"],
+             kHPPPJobSettingsSelectedJobIcon:    [UIImage imageNamed:@"HPPPInactiveCircle"],
+             kHPPPJobSettingsUnselectedJobIcon:  [UIImage imageNamed:@"HPPPActiveCircle"],
              kHPPPJobSettingsMagnifyingGlassIcon:[UIImage imageNamed:@"HPPPMagnify"],
              
              // Main Action

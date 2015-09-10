@@ -48,6 +48,8 @@ install_resource()
   esac
 }
           install_resource "../../Pod/Assets/HPPPActiveCircle@2x.png"
+                    install_resource "../../Pod/Assets/HPPPArrow@2x.png"
+                    install_resource "../../Pod/Assets/HPPPCheck@2x.png"
                     install_resource "../../Pod/Assets/HPPPDoNoEnter.png"
                     install_resource "../../Pod/Assets/HPPPDoNoEnter@2x.png"
                     install_resource "../../Pod/Assets/HPPPGear@2x.png"
