@@ -76,7 +76,7 @@ NSString * const kHPPPOfframpDeleteFromQueue = @"DeleteFromQueue";
 
 #pragma mark - Utils methods
 
-- (BOOL)addPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob fromController:(HPPPAddPrintLaterJobTableViewController *)controller
+- (BOOL)addPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob fromController:(HPPPPageSettingsTableViewController *)controller
 {
     NSString *fileName = [self.printLaterJobsDirectoryPath stringByAppendingPathComponent:printLaterJob.id];
     BOOL success = [NSKeyedArchiver archiveRootObject:printLaterJob toFile:fileName];
@@ -88,7 +88,7 @@ NSString * const kHPPPOfframpDeleteFromQueue = @"DeleteFromQueue";
         NSString *offramp = kHPPPOfframpAddToQueueCustom;
         if (!controller) {
             offramp = kHPPPOfframpAddToQueueDirect;
-        } else if ([controller.delegate class] == [HPPPPrintLaterActivity class]) {
+        } else if ([controller.printLaterDelegate class] == [HPPPPrintLaterActivity class]) {
             offramp = kHPPPOfframpAddToQueueShare;
         }
         

@@ -16,7 +16,6 @@
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPPrintJobsViewController.h"
 #import "HPPPPageSettingsTableViewController.h"
-#import "HPPPAddPrintLaterJobTableViewController.h"
 #import "HPPPWiFiReachability.h"
 #import "HPPPPrintManager.h"
 #import <CoreFoundation/CoreFoundation.h>
@@ -193,8 +192,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
 {
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:self.defaultPaper.paperSize paperType:Plain];
     HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:paper.sizeTitle];
-    
-    
+
     HPPPPageSettingsTableViewController *pageSettingsTableViewController;
     
     UIViewController *vc = [self printViewControllerWithDelegate:nil dataSource:nil printItem:printItem fromQueue:NO settingsOnly:NO];
@@ -207,6 +205,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)vc;
     }
     
+    pageSettingsTableViewController.printLaterJob = printLaterJob;
     pageSettingsTableViewController.printLaterDelegate = delegate;
     pageSettingsTableViewController.addToPrintQueue = YES;
     

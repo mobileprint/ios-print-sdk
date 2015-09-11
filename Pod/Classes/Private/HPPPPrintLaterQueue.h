@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "HPPPPrintLaterJob.h"
-#import "HPPPAddPrintLaterJobTableViewController.h"
+#import "HPPPPageSettingsTableViewController.h"
 
 /*!
  * @abstract Represents the list of queued print jobs
@@ -41,7 +41,7 @@ extern NSString * const kHPPPOfframpDeleteFromQueue;
  * @param printLaterJob The job to add
  * @param controller The controller (if any) used to add the job
  */
-- (BOOL)addPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob fromController:(HPPPAddPrintLaterJobTableViewController *)controller;
+- (BOOL)addPrintLaterJob:(HPPPPrintLaterJob *)printLaterJob fromController:(HPPPPageSettingsTableViewController *)controller;
 
 /*!
  * @abstract Removes a job to the print queue

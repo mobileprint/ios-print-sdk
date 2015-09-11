@@ -13,7 +13,7 @@
 #import "HPPP.h"
 #import "HPPPPrintLaterActivity.h"
 #import "HPPPPrintLaterQueue.h"
-#import "HPPPAddPrintLaterJobTableViewController.h"
+#import "HPPPPageSettingsTableViewController.h"
 #import "NSBundle+HPPPLocalizable.h"
 
 @interface HPPPPrintLaterActivity () <HPPPAddPrintLaterDelegate>
@@ -49,14 +49,14 @@
 
 #pragma mark - HPPPAddPrintLaterJobTableViewControllerDelegate
 
-- (void)didFinishAddPrintLaterFlow:(HPPPAddPrintLaterJobTableViewController *)addPrintLaterJobTableViewController
+- (void)didFinishAddPrintLaterFlow:(HPPPPageSettingsTableViewController *)addPrintLaterJobTableViewController
 {
     dispatch_async(dispatch_get_main_queue(), ^ {
         [self activityDidFinish:YES];
     });
 }
 
-- (void)didCancelAddPrintLaterFlow:(HPPPAddPrintLaterJobTableViewController *)addPrintLaterJobTableViewController
+- (void)didCancelAddPrintLaterFlow:(HPPPPageSettingsTableViewController *)addPrintLaterJobTableViewController
 {
     dispatch_async(dispatch_get_main_queue(), ^ {
         [self activityDidFinish:NO];

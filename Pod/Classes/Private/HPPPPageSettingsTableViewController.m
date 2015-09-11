@@ -35,10 +35,12 @@
 #import "HPPPLayoutFactory.h"
 #import "HPPPMultiPageView.h"
 #import "HPPPPageRangeView.h"
+#import "HPPPKeyboardView.h"
 #import "HPPPPageRange.h"
 #import "HPPPPrintManager.h"
 #import "HPPPPrintManager+Options.h"
 #import "HPPPPrintJobsViewController.h"
+#import "HPPPPrintLaterQueue.h"
 
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
@@ -51,9 +53,10 @@
 #define PRINTER_SELECTION_SECTION 2
 #define PAPER_SELECTION_SECTION 3
 #define PRINT_SETTINGS_SECTION 4
-#define NUMBER_OF_COPIES_SECTION 5
-#define FILTER_SECTION 6
-#define SUPPORT_SECTION 7
+#define PRINT_JOB_NAME_SECTION 5
+#define NUMBER_OF_COPIES_SECTION 6
+#define FILTER_SECTION 7
+#define SUPPORT_SECTION 8
 
 #define PRINTER_SELECTION_INDEX 0
 #define PAPER_SIZE_ROW_INDEX 0
@@ -99,11 +102,13 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *pageRangeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *filterCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *jobNameCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *numberOfCopiesCell;
 
 @property (strong, nonatomic) UIView *smokeyView;
 @property (strong, nonatomic) UIButton *smokeyCancelButton;
 @property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
+@property (strong, nonatomic) HPPPKeyboardView *keyboardView;
 @property (assign, nonatomic) CGRect editViewFrame;
 @property (strong, nonatomic) UIButton *pageSelectionMark;
 @property (strong, nonatomic) UIImage *selectedPageImage;
@@ -154,14 +159,17 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
     self.delegateManager.pageSettingsViewController = self;
     
+    self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:YES];
+    self.delegateManager.pageRange.range = kPageRangeAllPages;
+    self.delegateManager.numCopies = DEFAULT_NUMBER_OF_COPIES;
+
     if( self.printLaterJob ) {
-        self.delegateManager.pageRange = self.printLaterJob.pageRange;
-        self.delegateManager.blackAndWhite = self.printLaterJob.blackAndWhite;
-        self.delegateManager.numCopies = self.printLaterJob.numCopies;
-    } else {
-        self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:YES];
-        self.delegateManager.pageRange.range = kPageRangeAllPages;
-        self.delegateManager.numCopies = DEFAULT_NUMBER_OF_COPIES;
+        if( !self.addToPrintQueue ) {
+            self.delegateManager.pageRange = self.printLaterJob.pageRange;
+            self.delegateManager.blackAndWhite = self.printLaterJob.blackAndWhite;
+            self.delegateManager.numCopies = self.printLaterJob.numCopies;
+        }
+        self.delegateManager.jobName = self.printLaterJob.name;
     }
 
     if (self.navigationController) {
@@ -293,6 +301,11 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.pageRangeView.maxPageNum = self.printItem.numberOfPages;
     [self.navigationController.view addSubview:self.pageRangeView];
 
+    self.keyboardView = [[HPPPKeyboardView alloc] initWithFrame:self.view.frame];
+    self.keyboardView.delegate = self.delegateManager;
+    self.keyboardView.hidden = YES;
+    [self.navigationController.view addSubview:self.keyboardView];
+
     [self prepareUiForIosVersion];
     [self updatePrintSettingsUI];
     [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
@@ -335,8 +348,12 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
             break;
         }
     }
+    [self updateSelectedPageIcon:pageSelected];
+    
     [self dismissEditView];
 
+    self.jobNameCell.detailTextLabel.text = self.delegateManager.jobName;
+    
     self.numberOfCopiesLabel.text = self.delegateManager.numCopiesLabelText;
     self.pageRangeCell.detailTextLabel.text = self.delegateManager.pageRangeText;
     
@@ -375,14 +392,6 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
             [[HPPPWiFiReachability sharedInstance] noPrintingAlert];
         }
-    }
-
-    if (self.settingsOnly) {
-        self.printCell.hidden = YES;
-        self.cancelBarButtonItem.title = @"Done";
-        self.pageSelectionMark.hidden = YES;
-        self.pageRangeCell.hidden = YES;
-        self.numberOfCopiesCell.hidden = YES;
     }
     
     [self reloadTable];
@@ -431,20 +440,26 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)reloadTable
 {
-//    NSIndexPath *path = [NSIndexPath indexPathForRow:PAGE_RANGE_ROW_INDEX inSection:NUMBER_OF_COPIES_SECTION];
-//    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:NO];
-    
-//    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:NUMBER_OF_COPIES_SECTION];
-//    [self.tableView reloadSections:indexSet withRowAnimation:NO];
-    
     if (self.addToPrintQueue) {
         self.selectPrinterCell.hidden = YES;
         self.printSettingsCell.hidden = YES;
         self.paperSizeCell.hidden = YES;
         self.paperTypeCell.hidden = YES;
+    } else if (self.settingsOnly) {
+        self.printCell.hidden = YES;
+        self.cancelBarButtonItem.title = @"Done";
+        self.pageSelectionMark.hidden = YES;
+        self.pageRangeCell.hidden = YES;
+        self.numberOfCopiesCell.hidden = YES;
+    } else {
+        self.jobNameCell.hidden = YES;
     }
     
-    [self.tableView reloadData];
+    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSetWithIndex:PRINT_SUMMARY_SECTION];
+    [indexSet addIndex:PRINT_FUNCTION_SECTION];
+    [indexSet addIndex:NUMBER_OF_COPIES_SECTION];
+    [indexSet addIndex:FILTER_SECTION];
+    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)dealloc
@@ -671,17 +686,26 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 
 - (void)dismissEditView
 {
-    CGRect desiredFrame = self.pageRangeView.frame;
-    desiredFrame.origin.y = self.pageRangeView.frame.origin.y + self.pageRangeView.frame.size.height;
-    
-    [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
-        [self displaySmokeyView:NO];
-        self.pageRangeView.frame = desiredFrame;
-        [self setNavigationBarEditing:NO];
-    } completion:^(BOOL finished) {
-        self.pageRangeView.hidden = YES;
-        self.smokeyView.hidden = YES;
-    }];
+    if( !self.pageRangeView.hidden || !self.keyboardView.hidden ) {
+        UIView *editView;
+        if( self.pageRangeView.hidden ) {
+            editView = self.keyboardView;
+        } else {
+            editView = self.pageRangeView;
+        }
+        
+        CGRect desiredFrame = editView.frame;
+        desiredFrame.origin.y = editView.frame.origin.y + editView.frame.size.height;
+        
+        [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
+            [self displaySmokeyView:NO];
+            editView.frame = desiredFrame;
+            [self setNavigationBarEditing:NO];
+        } completion:^(BOOL finished) {
+            editView.hidden = YES;
+            self.smokeyView.hidden = YES;
+        }];
+    }
 }
 
 - (void)setNavigationBarEditing:(BOOL)editing
@@ -971,16 +995,20 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     } else if (!IS_OS_8_OR_LATER && (section == PAPER_SELECTION_SECTION)) {
         height = SEPARATOR_SECTION_FOOTER_HEIGHT;
     } else if (IS_OS_8_OR_LATER && (section == PRINT_SETTINGS_SECTION)) {
-        if (self.delegateManager.printSettings.printerUrl != nil) {
-            if (self.delegateManager.printSettings.printerIsAvailable) {
-                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-            } else {
-                height = PRINTER_WARNING_SECTION_FOOTER_HEIGHT;
+        if( !self.addToPrintQueue ) {
+            if (self.delegateManager.printSettings.printerUrl != nil) {
+                if (self.delegateManager.printSettings.printerIsAvailable) {
+                    height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+                } else {
+                    height = PRINTER_WARNING_SECTION_FOOTER_HEIGHT;
+                }
             }
         }
     } else if (IS_OS_8_OR_LATER && (section == NUMBER_OF_COPIES_SECTION)) {
         height = SEPARATOR_SECTION_FOOTER_HEIGHT;
     } else if (section == SUPPORT_SECTION) {
+        height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+    } else if (self.addToPrintQueue && (section == PRINT_JOB_NAME_SECTION)) {
         height = SEPARATOR_SECTION_FOOTER_HEIGHT;
     }
     
@@ -1002,7 +1030,11 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     } else if (cell == self.selectPrinterCell) {
         [self showPrinterSelection:tableView withCompletion:nil];
     } else if (cell == self.printCell){
+        if( self.addToPrintQueue ) {
+            [self addJobToPrintQueue];
+        } else {
             [self oneTouchPrint:tableView];
+        }
     } else if (cell == self.pageRangeCell){
         [self setEditFrames];
         self.pageRangeView.frame = self.editViewFrame;
@@ -1016,6 +1048,19 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
         }];
     
         [self.pageRangeView prepareForDisplay:self.pageRange.range];
+    }  else if (cell == self.jobNameCell) {
+        [self setEditFrames];
+        self.keyboardView.frame = self.editViewFrame;
+        
+        [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
+            [self displaySmokeyView:YES];
+            [self setNavigationBarEditing:YES];
+            self.keyboardView.hidden = NO;
+        } completion:^(BOOL finished) {
+            [self.keyboardView beginEditing];
+        }];
+        
+        [self.keyboardView prepareForDisplay:self.delegateManager.jobName];
     }
 }
 
@@ -1087,6 +1132,35 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     }
     
     return rowHeight;
+}
+
+#pragma mark - Print Queue
+
+- (void) addJobToPrintQueue
+{
+    self.printLaterJob.pageRange = self.delegateManager.pageRange;
+    self.printLaterJob.name = self.delegateManager.jobName;
+    self.printLaterJob.numCopies = self.delegateManager.numCopies;
+    self.printLaterJob.blackAndWhite = self.delegateManager.blackAndWhite;
+    
+    NSString *titleForInitialPaperSize = [HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize];
+    HPPPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:titleForInitialPaperSize];
+    
+    if (printItem == nil) {
+        HPPPLogError(@"At least the printing item for the initial paper size (%@) must be provided", titleForInitialPaperSize);
+    } else {
+        BOOL result = [[HPPPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob fromController:self];
+        
+        if (result) {
+            if ([self.printLaterDelegate respondsToSelector:@selector(didFinishAddPrintLaterFlow:)]) {
+                [self.printLaterDelegate didFinishAddPrintLaterFlow:self];
+            }
+        } else {
+            if ([self.printLaterDelegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
+                [self.printLaterDelegate didCancelAddPrintLaterFlow:self];
+            }
+        }
+    }
 }
 
 #pragma mark - Printing
