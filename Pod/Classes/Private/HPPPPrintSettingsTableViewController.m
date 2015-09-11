@@ -61,7 +61,11 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
     self.hppp = [HPPP sharedInstance];
     
     self.paperSizeCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
+    self.paperSizeCell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsDisclosureIndicatorImage]];
+    
     self.paperTypeCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
+    self.paperTypeCell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsDisclosureIndicatorImage]];
+    
     self.printerSelectCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     
     self.selectedPrinterLabel.text = self.printSettings.printerName;

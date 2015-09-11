@@ -30,6 +30,8 @@ NSString * const kHPPPSelectionOptionsSecondaryFont = @"kHPPPSelectionOptionsSec
 NSString * const kHPPPSelectionOptionsSecondaryFontColor = @"kHPPPSelectionOptionsSecondaryFontColor";
 NSString * const kHPPPSelectionOptionsLinkFont = @"kHPPPSelectionOptionsLinkFont";
 NSString * const kHPPPSelectionOptionsLinkFontColor = @"kHPPPSelectionOptionsLinkFontColor";
+NSString * const kHPPPSelectionOptionsDisclosureIndicatorImage = @"kHPPPSelectionOptionsDisclosureIndicatorImage";
+NSString * const kHPPPSelectionOptionsCheckmarkImage = @"kHPPPSelectionOptionsCheckmarkImage";
 
 // Job Settings
 NSString * const kHPPPJobSettingsBackgroundColor = @"kHPPPJobSettingsBackgroundColor";
@@ -57,9 +59,6 @@ NSString * const kHPPPQueuePrimaryFontColor = @"kHPPPQueuePrimaryFontColor";
 NSString * const kHPPPFormFieldBackgroundColor = @"kHPPPFormFieldBackgroundColor";
 NSString * const kHPPPFormFieldPrimaryFont = @"kHPPPFormFieldPrimaryFont";
 NSString * const kHPPPFormFieldPrimaryFontColor = @"kHPPPFormFieldPrimaryFontColor";
-
-// Multipage Graphics
-NSString * const kHPPPMultipageGraphicsStrokeColor = @"kHPPPMultipageGraphicsStrokeColor";
 
 // Overlay
 NSString * const kHPPPOverlayBackgroundColor = @"kHPPPOverlayBackgroundColor";
@@ -103,13 +102,15 @@ NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
                   kHPPPGeneralTableSeparatorColor:         [UIColor colorWithRed:0xC8/255.0F green:0xC7/255.0F blue:0xCC/255.0F alpha:1.0F],
                   
                   // Selection Options
-                  kHPPPSelectionOptionsBackgroundColor:   [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
-                  kHPPPSelectionOptionsPrimaryFont:       [UIFont fontWithName:regularFont size:16],
-                  kHPPPSelectionOptionsPrimaryFontColor:  [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
-                  kHPPPSelectionOptionsSecondaryFont:     [UIFont fontWithName:regularFont size:16],
-                  kHPPPSelectionOptionsSecondaryFontColor:[UIColor colorWithRed:0x8E/255.0F green:0x8E/255.0F blue:0x93/255.0F alpha:1.0F],
-                  kHPPPSelectionOptionsLinkFont:          [UIFont fontWithName:regularFont size:16],
-                  kHPPPSelectionOptionsLinkFontColor:     [UIColor colorWithRed:0x00/255.0F green:0x7A/255.0F blue:0xFF/255.0F alpha:1.0F],
+                  kHPPPSelectionOptionsBackgroundColor:         [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
+                  kHPPPSelectionOptionsPrimaryFont:             [UIFont fontWithName:regularFont size:16],
+                  kHPPPSelectionOptionsPrimaryFontColor:        [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+                  kHPPPSelectionOptionsSecondaryFont:           [UIFont fontWithName:regularFont size:16],
+                  kHPPPSelectionOptionsSecondaryFontColor:      [UIColor colorWithRed:0x8E/255.0F green:0x8E/255.0F blue:0x93/255.0F alpha:1.0F],
+                  kHPPPSelectionOptionsLinkFont:                [UIFont fontWithName:regularFont size:16],
+                  kHPPPSelectionOptionsLinkFontColor:           [UIColor colorWithRed:0x00/255.0F green:0x7A/255.0F blue:0xFF/255.0F alpha:1.0F],
+                  kHPPPSelectionOptionsDisclosureIndicatorImage:[UIImage imageNamed:@"HPPPArrow"],
+                  kHPPPSelectionOptionsCheckmarkImage:          [UIImage imageNamed:@"HPPPCheck"],
                   
                   // Job Settings
                   kHPPPJobSettingsBackgroundColor:    [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
@@ -117,8 +118,8 @@ NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
                   kHPPPJobSettingsPrimaryFontColor:   [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
                   kHPPPJobSettingsSecondaryFont:      [UIFont fontWithName:regularFont size:12],
                   kHPPPJobSettingsSecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
-                  kHPPPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"HPPPSelected.png"],
-                  kHPPPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"HPPPUnselected.png"],
+                  kHPPPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"HPPPSelected"],
+                  kHPPPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"HPPPUnselected"],
                   kHPPPJobSettingsSelectedJobIcon:    [UIImage imageNamed:@"HPPPActiveCircle"],
                   kHPPPJobSettingsUnselectedJobIcon:  [UIImage imageNamed:@"HPPPInactiveCircle"],
                   kHPPPJobSettingsMagnifyingGlassIcon:[UIImage imageNamed:@"HPPPMagnify"],
@@ -137,9 +138,6 @@ NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
                   kHPPPFormFieldBackgroundColor:  [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
                   kHPPPFormFieldPrimaryFont:      [UIFont fontWithName:regularFont size:16],
                   kHPPPFormFieldPrimaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
-                  
-                  // Multipage Graphics
-                  kHPPPMultipageGraphicsStrokeColor: [UIColor colorWithRed:0xFF green:0xFF blue:0xFF alpha:1.0F],
                   
                   // Overlay
                   kHPPPOverlayBackgroundColor:    [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],

@@ -393,13 +393,15 @@ The following example shows how to customize various fonts, colors, icons, and o
          kHPPPSelectionOptionsLinkFontColor:     [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
          
          // Job Settings
-         kHPPPJobSettingsBackgroundColor:    [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
-         kHPPPJobSettingsPrimaryFont:        [UIFont fontWithName:regularFont size:16],
-         kHPPPJobSettingsPrimaryFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
-         kHPPPJobSettingsSecondaryFont:      [UIFont fontWithName:regularFont size:12],
-         kHPPPJobSettingsSecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
-         kHPPPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"HPPPSelected.png"],
-         kHPPPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"HPPPUnselected.png"],
+         kHPPPJobSettingsBackgroundColor:              [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPJobSettingsPrimaryFont:                  [UIFont fontWithName:regularFont size:16],
+         kHPPPJobSettingsPrimaryFontColor:             [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPJobSettingsSecondaryFont:                [UIFont fontWithName:regularFont size:12],
+         kHPPPJobSettingsSecondaryFontColor:           [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
+         kHPPPJobSettingsSelectedPageIcon:             [UIImage imageNamed:@"HPPPSelected.png"],
+         kHPPPJobSettingsUnselectedPageIcon:           [UIImage imageNamed:@"HPPPUnselected.png"],
+         kHPPPSelectionOptionsDisclosureIndicatorImage:[UIImage imageNamed:@"HPPPArrow"],
+         kHPPPSelectionOptionsCheckmarkImage:          [UIImage imageNamed:@"HPPPCheck"],
          
          // Main Action
          kHPPPMainActionBackgroundColor:       [UIColor colorWithRed:0x8A/255.0F green:0x2B/255.0F blue:0xE2/255.0F alpha:1.0F],

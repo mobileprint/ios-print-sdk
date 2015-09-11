@@ -112,6 +112,22 @@ extern NSString * const kHPPPSelectionOptionsLinkFont;
  */
 extern NSString * const kHPPPSelectionOptionsLinkFontColor;
 
+/*!
+ * @abstract Used as a key in the settings dictionary to store the image used to show that more options will be presented
+ *  when a UITableViewCell is selected.
+ * @discussion See product documentation for a map of UI elements
+ * @seealso settings
+ */
+extern NSString * const kHPPPSelectionOptionsDisclosureIndicatorImage;
+
+/*!
+ * @abstract Used as a key in the settings dictionary to store the image used to show that a UITableViewCell is the currently
+ *  selected item within the UITableView.
+ * @discussion See product documentation for a map of UI elements
+ * @seealso settings
+ */
+extern NSString * const kHPPPSelectionOptionsCheckmarkImage;
+
 
 /*!
  * @abstract Used as a key in the settings dictionary to store the background color for Job Settings UI elements
