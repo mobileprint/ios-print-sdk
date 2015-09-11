@@ -14,7 +14,9 @@
 
 /*!
  * @abstract This class provides access to settings which control the visual appearance of the user interface
- * @discussion The maintains a dictionary of fonts, colors, icons, and other values used to customize the appearance of the user interface. Set one or more of the keys defined in this class to change the app appearance.
+ * @discussion It maintains a dictionary of fonts, colors, icons, and other values used to customize the appearance of the user interface. Set one or more of the keys defined in this class to change the app appearance.
+ * There is graphical overview available that shows where and how the print user interface can be customized. 
+ * Download the style <a href="http://d3fep8xjnjngo0.cloudfront.net/ios/StyleMap.pdf" target="_blank">Map</a> and <a href="http://d3fep8xjnjngo0.cloudfront.net/ios/StyleKey.pdf" target="_blank">Key</a> for reference.
  * @seealso settings
  */
 @interface HPPPAppearance : NSObject
@@ -109,6 +111,22 @@ extern NSString * const kHPPPSelectionOptionsLinkFont;
  * @seealso settings
  */
 extern NSString * const kHPPPSelectionOptionsLinkFontColor;
+
+/*!
+ * @abstract Used as a key in the settings dictionary to store the image used to show that more options will be presented
+ *  when a UITableViewCell is selected.
+ * @discussion See product documentation for a map of UI elements
+ * @seealso settings
+ */
+extern NSString * const kHPPPSelectionOptionsDisclosureIndicatorImage;
+
+/*!
+ * @abstract Used as a key in the settings dictionary to store the image used to show that a UITableViewCell is the currently
+ *  selected item within the UITableView.
+ * @discussion See product documentation for a map of UI elements
+ * @seealso settings
+ */
+extern NSString * const kHPPPSelectionOptionsCheckmarkImage;
 
 
 /*!

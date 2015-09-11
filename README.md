@@ -18,6 +18,7 @@
             - [Print Data Source](#print-data-source)
         - [Customization](#customization)
             - [Appearance](#appearance)
+            - [Interface Options](#interface-options)
             - [Print Layout](#print-layout)
     - [Print Later Workflow](#print-later-workflow)
         - [Print Job](#print-job)
@@ -30,8 +31,6 @@
         - [Registering Notifications](#registering-notifications)
 - [Author](#author)
 - [License](#license)
-
-<!-- end toc 4 -->
 
 ## Documentation
 
@@ -49,7 +48,7 @@ Add the private pod trunk as a source in your `Podfile`. It is important that th
 
 Add an entry for the __HPPhotoPrint__ pod with the desired version number:
 
-    pod 'HPPhotoPrint', '2.5,0'
+    pod 'HPPhotoPrint', '2.5.10'
 
 On the command line, switch to the directory containing the `Podfile` and run the install command:
 
@@ -360,10 +359,13 @@ The actual print output itself can be customized using the [`layout`](http://hpp
 
 ##### Appearance
 
-The visual appearance of the pringting user interface is controlled by setting values in the [`settings`](http://hppp.herokuapp.com//HPPPAppearance_h/Classes/HPPPAppearance/index.html#//apple_ref/occ/instp/HPPPAppearance/settings) dictionary. 
+The visual appearance of the printing user interface is controlled by setting values in the [`settings`](http://hppp.herokuapp.com//HPPPAppearance_h/Classes/HPPPAppearance/index.html#//apple_ref/occ/instp/HPPPAppearance/settings) dictionary. 
 The values that can be controlled are specified by key constants defined in the [`HPPPAppearance`](http://hppp.herokuapp.com/HPPPAppearance_h/Classes/HPPPAppearance/index.html#//apple_ref/occ/cl/HPPPAppearance) class.
-The folllowing example shows how to customize various fonts, colors, icons, and other values.
 
+> __Tip:__ There is graphical overview available that shows where and how the print user interface can be customized. 
+> Download the [Map](http://d3fep8xjnjngo0.cloudfront.net/ios/StyleMap.pdf) and [Key](http://d3fep8xjnjngo0.cloudfront.net/ios/StyleKey.pdf) for reference.
+
+The following example shows how to customize various fonts, colors, icons, and other values.
 
 ```objc
 
@@ -391,13 +393,15 @@ The folllowing example shows how to customize various fonts, colors, icons, and 
          kHPPPSelectionOptionsLinkFontColor:     [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
          
          // Job Settings
-         kHPPPJobSettingsBackgroundColor:    [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
-         kHPPPJobSettingsPrimaryFont:        [UIFont fontWithName:regularFont size:16],
-         kHPPPJobSettingsPrimaryFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
-         kHPPPJobSettingsSecondaryFont:      [UIFont fontWithName:regularFont size:12],
-         kHPPPJobSettingsSecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
-         kHPPPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"HPPPSelected.png"],
-         kHPPPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"HPPPUnselected.png"],
+         kHPPPJobSettingsBackgroundColor:              [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPJobSettingsPrimaryFont:                  [UIFont fontWithName:regularFont size:16],
+         kHPPPJobSettingsPrimaryFontColor:             [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
+         kHPPPJobSettingsSecondaryFont:                [UIFont fontWithName:regularFont size:12],
+         kHPPPJobSettingsSecondaryFontColor:           [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
+         kHPPPJobSettingsSelectedPageIcon:             [UIImage imageNamed:@"HPPPSelected.png"],
+         kHPPPJobSettingsUnselectedPageIcon:           [UIImage imageNamed:@"HPPPUnselected.png"],
+         kHPPPSelectionOptionsDisclosureIndicatorImage:[UIImage imageNamed:@"HPPPArrow"],
+         kHPPPSelectionOptionsCheckmarkImage:          [UIImage imageNamed:@"HPPPCheck"],
          
          // Main Action
          kHPPPMainActionBackgroundColor:       [UIColor colorWithRed:0x8A/255.0F green:0x2B/255.0F blue:0xE2/255.0F alpha:1.0F],

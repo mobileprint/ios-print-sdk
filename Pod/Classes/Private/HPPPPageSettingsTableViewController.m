@@ -199,6 +199,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.printLabel.text = HPPPLocalizedString(@"Print", @"Caption of the button for printing");
     
     self.printSettingsCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
+    self.printSettingsCell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsDisclosureIndicatorImage]];
     self.printSettingsLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     self.printSettingsLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.printSettingsLabel.text = HPPPLocalizedString(@"Settings", nil);
@@ -216,6 +217,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.selectedPrinterLabel.text = HPPPLocalizedString(@"Select Printer", nil);
     
     self.paperSizeCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
+    self.paperSizeCell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsDisclosureIndicatorImage]];
     self.paperSizeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     self.paperSizeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.paperSizeLabel.text = HPPPLocalizedString(@"Paper Size", nil);
@@ -224,6 +226,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     self.paperSizeSelectedLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     
     self.paperTypeCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
+    self.paperTypeCell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsDisclosureIndicatorImage]];
     self.paperTypeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     self.paperTypeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.paperTypeLabel.text = HPPPLocalizedString(@"Paper Type", nil);

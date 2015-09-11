@@ -50,7 +50,7 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
         i ++;
         
         if ([cell.textLabel.text isEqualToString:self.currentPaper.typeTitle]) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            cell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsCheckmarkImage]];
         }
     }
 }
@@ -67,12 +67,11 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     for (UITableViewCell *cell in self.paperTypeCells) {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = nil;
     }
     
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
-    
+    selectedCell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsCheckmarkImage]];
     
     HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSizeTitle:self.currentPaper.sizeTitle paperTypeTitle:selectedCell.textLabel.text];
     
