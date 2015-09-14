@@ -27,6 +27,7 @@ NSString * const kHPPPLastPrinterLocationSetting = @"kHPPPLastPrinterLocationSet
 NSString * const kHPPPLastPaperSizeSetting = @"kHPPPLastPaperSizeSetting";
 NSString * const kHPPPLastPaperTypeSetting = @"kHPPPLastPaperTypeSetting";
 NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteFilterSetting";
+NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
 
 #pragma mark - HPPPPageRangeViewDelegate
 
@@ -165,7 +166,7 @@ NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteF
         if( _printLaterJobSummaryText.length > 0 ) {
             _printLaterJobSummaryText = [_printLaterJobSummaryText stringByAppendingString:@"/"];
         }
-        _printLaterJobSummaryText = [_printLaterJobSummaryText stringByAppendingString:@"B&W"];
+        _printLaterJobSummaryText = [_printLaterJobSummaryText stringByAppendingString:kHPPPBlackAndWhiteIndicatorText];
     }
     
     if( _printLaterJobSummaryText.length > 0 ) {
@@ -189,11 +190,18 @@ NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteF
         _printJobSummaryText = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)[self.pageRange getUniquePages].count, (long)self.printItem.numberOfPages];
     }
     
-    if( _printJobSummaryText.length > 0 ) {
-        _printJobSummaryText = [_printJobSummaryText stringByAppendingString:@"/"];
+    if( self.blackAndWhite ) {
+        if( _printJobSummaryText.length > 0 ) {
+            _printJobSummaryText = [_printJobSummaryText stringByAppendingString:@"/"];
+        }
+        _printJobSummaryText = [_printJobSummaryText stringByAppendingString:kHPPPBlackAndWhiteIndicatorText];
     }
     
     if( self.printSettings.paper ) {
+        if( _printJobSummaryText.length > 0 ) {
+            _printJobSummaryText = [_printJobSummaryText stringByAppendingString:@"/"];
+        }
+
         _printJobSummaryText = [_printJobSummaryText stringByAppendingString:self.printSettings.paper.sizeTitle];
     }
     
