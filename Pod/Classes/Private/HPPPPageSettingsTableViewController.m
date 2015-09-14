@@ -143,6 +143,8 @@ int const kSaveDefaultPrinterIndex = 1;
 NSString * const kHPPPDefaultPrinterAddedNotification = @"kHPPPDefaultPrinterAddedNotification";
 NSString * const kHPPPDefaultPrinterRemovedNotification = @"kHPPPDefaultPrinterRemovedNotification";
 NSString * const kPageSettingsScreenName = @"Print Preview Screen";
+NSString * const kPrintFromQueueScreenName = @"Add Job Screen";
+NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 #pragma mark - UIView
 
@@ -150,7 +152,13 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 {
     [super viewDidLoad];
     
-    self.title = HPPPLocalizedString(@"Page Settings", @"Title of the Page Settings Screen");
+    if( self.addToPrintQueue ) {
+        self.title = HPPPLocalizedString(@"Add Print", @"Title of the Add Print to the Print Later Queue Screen");
+    } else if( self.settingsOnly ) {
+        self.title = HPPPLocalizedString(@"Print Settings", @"Title of the screen for setting default print settings");
+    } else {
+        self.title = HPPPLocalizedString(@"Page Settings", @"Title of the Page Settings Screen");
+    }
     
     self.hppp = [HPPP sharedInstance];
     
@@ -399,9 +407,17 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
     
     [self reloadTable];
     
+
+    NSString *screenName = kPageSettingsScreenName;
+    if (self.settingsOnly) {
+        screenName = kSettingsOnlyScreenName;
+    } else if (self.printFromQueue) {
+        screenName = kPrintFromQueueScreenName;
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEstablished:) name:kHPPPWiFiConnectionEstablished object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionLost:) name:kHPPPWiFiConnectionLost object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kPageSettingsScreenName forKey:kHPPPTrackableScreenNameKey]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:screenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
 -  (void)viewWillDisappear:(BOOL)animated
