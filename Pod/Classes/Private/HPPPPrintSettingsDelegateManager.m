@@ -36,6 +36,15 @@ NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteF
     [self.pageSettingsViewController refreshData];
 }
 
+#pragma mark - HPPPKeyboardViewDelegate
+
+- (void)didFinishEnteringText:(HPPPKeyboardView *)view text:(NSString *)text
+{
+    self.jobName = text;
+
+    [self.pageSettingsViewController refreshData];
+}
+
 #pragma mark - HPPPPrintSettingsTableViewControllerDelegate
 
 - (void)printSettingsTableViewController:(HPPPPrintSettingsTableViewController *)printSettingsTableViewController didChangePrintSettings:(HPPPPrintSettings *)printSettings
@@ -144,9 +153,33 @@ NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteF
 
 #pragma mark - Special Text Generation
 
-- (NSString *)printLaterSummaryText
+- (NSString *)printLaterJobSummaryText
 {
-    return nil;
+    _printLaterJobSummaryText = @"";
+    
+    if( 1 < self.printItem.numberOfPages && ![self allPagesSelected]) {
+        _printLaterJobSummaryText = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)[self.pageRange getUniquePages].count, (long)self.printItem.numberOfPages];
+    }
+    
+    if( self.blackAndWhite ) {
+        if( _printLaterJobSummaryText.length > 0 ) {
+            _printLaterJobSummaryText = [_printLaterJobSummaryText stringByAppendingString:@"/"];
+        }
+        _printLaterJobSummaryText = [_printLaterJobSummaryText stringByAppendingString:@"B&W"];
+    }
+    
+    if( _printLaterJobSummaryText.length > 0 ) {
+        _printLaterJobSummaryText = [_printLaterJobSummaryText stringByAppendingString:@"/"];
+    }
+    
+    NSString *copyText = @"Copies";
+    if( 1 == self.numCopies ) {
+        copyText = @"Copy";
+    }
+    
+    _printLaterJobSummaryText = [_printLaterJobSummaryText stringByAppendingString:[NSString stringWithFormat:@"%ld %@", (long)self.numCopies, copyText]];
+    
+    return _printLaterJobSummaryText;
 }
 
 - (NSString *)printJobSummaryText
@@ -184,6 +217,25 @@ NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteF
     }
     
     return _printLabelText;
+}
+
+- (NSString *)printLaterLabelText
+{
+    NSInteger numPagesToBePrinted = 0;
+    if( ![self noPagesSelected]) {
+        numPagesToBePrinted = [self.pageRange getPages].count * self.numCopies;
+    }
+    
+    BOOL printingOneCopyOfAllPages = (1 == self.numCopies && [self allPagesSelected]);
+    if( [self noPagesSelected]  ||  printingOneCopyOfAllPages ) {
+        _printLaterLabelText = @"Add to Print Queue";
+    } else if( 1 == numPagesToBePrinted ) {
+        _printLaterLabelText = @"Add 1 Page";
+    } else {
+        _printLaterLabelText = [NSString stringWithFormat:@"Add %ld Pages", (long)numPagesToBePrinted];
+    }
+    
+    return _printLaterLabelText;
 }
 
 - (NSString *)pageRangeText

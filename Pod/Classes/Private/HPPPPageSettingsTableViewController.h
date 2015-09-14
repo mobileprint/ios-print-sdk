@@ -43,7 +43,14 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  * @discussion This delegate is notified whenever the print flow completes or gets canceled.
  * @seealso HPPPPrintDelegate
  */
-@property (nonatomic, weak) id<HPPPPrintDelegate> delegate;
+@property (nonatomic, weak) id<HPPPPrintDelegate> printDelegate;
+
+/*!
+ * @abstract Notified when print-later events occur
+ * @discussion This delegate is notified whenever the print-later flow completes or gets canceled.
+ * @seealso HPPPPrintDelegate
+ */
+@property (nonatomic, weak) id<HPPPAddPrintLaterDelegate> printLaterDelegate;
 
 /*!
  * @abstract Provides the printable image asset
@@ -67,6 +74,11 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  * @abstract Indicates whether controller is used for settings only rather than actual printing
  */
 @property (assign, nonatomic) BOOL settingsOnly;
+
+/*!
+ * @abstract Indicates whether controller is used for printing or adding a job to the print queue
+ */
+@property (assign, nonatomic) BOOL addToPrintQueue;
 
 /*!
  * @abstract The printLaterJob, if any, associated with the page settings

@@ -16,7 +16,6 @@
 #import "HPPPPrintLaterQueue.h"
 #import "HPPPPrintJobsViewController.h"
 #import "HPPPPageSettingsTableViewController.h"
-#import "HPPPAddPrintLaterJobTableViewController.h"
 #import "HPPPWiFiReachability.h"
 #import "HPPPPrintManager.h"
 #import <CoreFoundation/CoreFoundation.h>
@@ -145,11 +144,12 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         UINavigationController *masterNavigationController = pageSettingsSplitViewController.viewControllers[0];
         masterNavigationController.navigationBar.translucent = NO;
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
-        pageSettingsTableViewController.delegate = delegate;
+        pageSettingsTableViewController.printDelegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
         pageSettingsTableViewController.printFromQueue = fromQueue;
         pageSettingsTableViewController.settingsOnly = settingsOnly;
         pageSettingsTableViewController.printItem = printItem;
+        pageSettingsTableViewController.addToPrintQueue = NO;
         pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
 
         if( 1 == pageSettingsSplitViewController.viewControllers.count ) {
@@ -175,10 +175,11 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPageSettingsTableViewController"];
         
         pageSettingsTableViewController.printItem = printItem;
-        pageSettingsTableViewController.delegate = delegate;
+        pageSettingsTableViewController.printDelegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
         pageSettingsTableViewController.printFromQueue = fromQueue;
         pageSettingsTableViewController.settingsOnly = settingsOnly;
+        pageSettingsTableViewController.addToPrintQueue = NO;
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;
         navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -189,49 +190,26 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
 
 - (UIViewController *)printLaterViewControllerWithDelegate:(id<HPPPAddPrintLaterDelegate>)delegate printLaterJob:(HPPPPrintLaterJob *)printLaterJob
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"HPPP" bundle:[NSBundle mainBundle]];
+    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:self.defaultPaper.paperSize paperType:Plain];
+    HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:paper.sizeTitle];
+
+    HPPPPageSettingsTableViewController *pageSettingsTableViewController;
     
-    if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
-        UISplitViewController *addToPrintQueueSplitViewController = (UISplitViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPAddToPrintQueueSplitViewController"];
-        
-        UINavigationController *masterNavigationController = addToPrintQueueSplitViewController.viewControllers[0];
-        masterNavigationController.navigationBar.translucent = NO;
-        HPPPAddPrintLaterJobTableViewController *addToPrintQueueViewController = (HPPPAddPrintLaterJobTableViewController *)masterNavigationController.topViewController;
-        addToPrintQueueViewController.delegate = delegate;
-        addToPrintQueueViewController.printLaterJob = printLaterJob;
-        addToPrintQueueSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-        
-        if( 1 == addToPrintQueueSplitViewController.viewControllers.count ) {
-            HPPPLogError(@"Preview pane failed to be created");
-            UINavigationController *detailsNavigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPreviewNavigationController"];
-            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithObjects:addToPrintQueueSplitViewController.viewControllers[0], nil];
-            [viewControllers addObject:detailsNavigationController];
-            addToPrintQueueSplitViewController.viewControllers = viewControllers;
-        }
-        
-        UINavigationController *detailsNavigationController = addToPrintQueueSplitViewController.viewControllers[1];
-        detailsNavigationController.navigationBar.translucent = NO;
-        HPPPPageViewController *pageViewController = (HPPPPageViewController *)detailsNavigationController.topViewController;
-        
-        HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:[HPPP sharedInstance].defaultPaper.paperSize paperType:Plain];
-        pageViewController.printItem = [printLaterJob.printItems objectForKey:paper.sizeTitle];
-        addToPrintQueueViewController.pageViewController = pageViewController;
-        
-        return addToPrintQueueSplitViewController;
+    UIViewController *vc = [self printViewControllerWithDelegate:nil dataSource:nil printItem:printItem fromQueue:NO settingsOnly:NO];
+    
+    if( [vc isKindOfClass:[UINavigationController class]] ) {
+        pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)((UINavigationController *)vc).topViewController;
+    } else if( [vc isKindOfClass:[UISplitViewController class]] ) {
+        pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)((UISplitViewController *)vc).viewControllers[0];
     } else {
-        // Is not possible to use UISplitViewController in iOS 7 without been the first view controller of the app. You can however do tricky workarounds like embbeding the Split View Controller in a Container View Controller, but that can end up in difficult bugs to find.
-        // From Apple Documentation (iOS 7):
-        // "you must always install the view from a UISplitViewController object as the root view of your application’s window. [...] Split view controllers cannot be presented modally."
-        HPPPAddPrintLaterJobTableViewController *addToPrintQueueViewController = (HPPPAddPrintLaterJobTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPAddPrintLaterJobTableViewController"];
-        
-        addToPrintQueueViewController.printLaterJob = printLaterJob;
-        addToPrintQueueViewController.delegate = delegate;
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:addToPrintQueueViewController];
-        navigationController.navigationBar.translucent = NO;
-        navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
-        
-        return navigationController;
+        pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)vc;
     }
+    
+    pageSettingsTableViewController.printLaterJob = printLaterJob;
+    pageSettingsTableViewController.printLaterDelegate = delegate;
+    pageSettingsTableViewController.addToPrintQueue = YES;
+    
+    return vc;
 }
 
 #pragma mark - Setter methods
