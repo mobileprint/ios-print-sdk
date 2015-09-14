@@ -27,8 +27,7 @@
 @property (strong, nonatomic) NSDateFormatter *formatter;
 @property (weak, nonatomic) IBOutlet HPPPLayoutPaperView *paperView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
-@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *paperWidthConstraint;
-@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *paperHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIView *smokeyView;
 
 @end
 
@@ -42,7 +41,9 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     
     HPPP *hppp = [HPPP sharedInstance];
     
-    self.view.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPOverlayBackgroundColor];
+    self.smokeyView.backgroundColor = [hppp.appearance.settings objectForKey:kHPPPOverlayBackgroundColor];
+    self.smokeyView.alpha = [[hppp.appearance.settings objectForKey:kHPPPOverlayBackgroundOpacity] floatValue];
+
     [self.doneButton setTitle:HPPPLocalizedString(@"Done", nil) forState:UIControlStateNormal];
     self.doneButton.titleLabel.font = [hppp.appearance.settings objectForKey:kHPPPOverlayLinkFont];
     [self.doneButton setTitleColor:[hppp.appearance.settings objectForKey:kHPPPOverlayLinkFontColor] forState:UIControlStateNormal];
@@ -106,13 +107,21 @@ extern NSString * const kHPPPLastPaperSizeSetting;
 
 - (void)dismissViewController
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:[self dismissalNotificationName]
+                                                        object:nil
+                                                      userInfo:nil];
+
     [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
         self.view.alpha = 0.0f;
         
     } completion:^(BOOL finished) {
         [self dismissViewControllerAnimated:NO completion:nil];
-        
     }];
+}
+
+- (NSString *)dismissalNotificationName
+{
+    return @"PrintQueuePreviewDismissed";
 }
 
 - (PaperSize)lastPaperUsed

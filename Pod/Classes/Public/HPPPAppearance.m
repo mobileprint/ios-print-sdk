@@ -141,7 +141,7 @@ NSString * const kHPPPActivityPrintQueueIcon = @"kHPPPActivityPrintQueueIcon";
                   
                   // Overlay
                   kHPPPOverlayBackgroundColor:    [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
-                  kHPPPOverlayBackgroundOpacity:  [NSNumber numberWithFloat:.60F],
+                  kHPPPOverlayBackgroundOpacity:  [NSNumber numberWithFloat:.80F],
                   kHPPPOverlayPrimaryFont:        [UIFont fontWithName:regularFont size:16],
                   kHPPPOverlayPrimaryFontColor:   [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
                   kHPPPOverlaySecondaryFont:      [UIFont fontWithName:regularFont size:14],

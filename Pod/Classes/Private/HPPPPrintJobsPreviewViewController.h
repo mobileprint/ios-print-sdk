@@ -21,4 +21,6 @@
 
 @property (strong, nonatomic) HPPPPrintLaterJob *printLaterJob;
 
+- (NSString *)dismissalNotificationName;
+
 @end
