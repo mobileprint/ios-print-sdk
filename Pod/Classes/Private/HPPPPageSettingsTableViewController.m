@@ -428,6 +428,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
     [self.refreshPrinterStatusTimer invalidate];
     self.refreshPrinterStatusTimer = nil;
+    
+    self.keyboardView.delegate = nil;
+    self.pageRangeView.delegate = nil;
+    self.printManager.delegate = nil;
 }
 
 -(void)viewDidAppear:(BOOL)animated
