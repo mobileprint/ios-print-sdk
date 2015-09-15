@@ -915,6 +915,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     self.delegateManager.blackAndWhite = self.blackAndWhiteModeSwitch.on;
     self.multiPageView.blackAndWhite = self.delegateManager.blackAndWhite;
+    [self refreshData];
 }
 
 #pragma mark - UITableViewDataSource

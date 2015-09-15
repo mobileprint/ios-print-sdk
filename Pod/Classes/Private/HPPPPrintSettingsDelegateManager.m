@@ -27,6 +27,7 @@ NSString * const kHPPPLastPrinterLocationSetting = @"kHPPPLastPrinterLocationSet
 NSString * const kHPPPLastPaperSizeSetting = @"kHPPPLastPaperSizeSetting";
 NSString * const kHPPPLastPaperTypeSetting = @"kHPPPLastPaperTypeSetting";
 NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteFilterSetting";
+NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
 
 #pragma mark - HPPPPageRangeViewDelegate
 
@@ -155,21 +156,43 @@ NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteF
 
 - (NSString *)printLaterJobSummaryText
 {
-    _printLaterJobSummaryText = @"";
+    _printLaterJobSummaryText = [self summaryText];
     
+    return _printLaterJobSummaryText;
+}
+
+- (NSString *)printJobSummaryText
+{
+    _printJobSummaryText = [self summaryText];
+    
+    if( self.printSettings.paper ) {
+        if( _printJobSummaryText.length > 0 ) {
+            _printJobSummaryText = [_printJobSummaryText stringByAppendingString:@"/"];
+        }
+
+        _printJobSummaryText = [_printJobSummaryText stringByAppendingString:self.printSettings.paper.sizeTitle];
+    }
+    
+    return _printJobSummaryText;
+}
+
+- (NSString *)summaryText
+{
+    NSString *summaryText = @"";
+
     if( 1 < self.printItem.numberOfPages && ![self allPagesSelected]) {
-        _printLaterJobSummaryText = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)[self.pageRange getUniquePages].count, (long)self.printItem.numberOfPages];
+        summaryText = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)[self.pageRange getUniquePages].count, (long)self.printItem.numberOfPages];
     }
     
     if( self.blackAndWhite ) {
-        if( _printLaterJobSummaryText.length > 0 ) {
-            _printLaterJobSummaryText = [_printLaterJobSummaryText stringByAppendingString:@"/"];
+        if( summaryText.length > 0 ) {
+            summaryText = [summaryText stringByAppendingString:@"/"];
         }
-        _printLaterJobSummaryText = [_printLaterJobSummaryText stringByAppendingString:@"B&W"];
+        summaryText = [summaryText stringByAppendingString:kHPPPBlackAndWhiteIndicatorText];
     }
     
-    if( _printLaterJobSummaryText.length > 0 ) {
-        _printLaterJobSummaryText = [_printLaterJobSummaryText stringByAppendingString:@"/"];
+    if( summaryText.length > 0 ) {
+        summaryText = [summaryText stringByAppendingString:@"/"];
     }
     
     NSString *copyText = @"Copies";
@@ -177,27 +200,9 @@ NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteF
         copyText = @"Copy";
     }
     
-    _printLaterJobSummaryText = [_printLaterJobSummaryText stringByAppendingString:[NSString stringWithFormat:@"%ld %@", (long)self.numCopies, copyText]];
+    summaryText = [summaryText stringByAppendingString:[NSString stringWithFormat:@"%ld %@", (long)self.numCopies, copyText]];
     
-    return _printLaterJobSummaryText;
-}
-
-- (NSString *)printJobSummaryText
-{
-    _printJobSummaryText = @"";
-    if( 1 < self.printItem.numberOfPages && ![self allPagesSelected]) {
-        _printJobSummaryText = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)[self.pageRange getUniquePages].count, (long)self.printItem.numberOfPages];
-    }
-    
-    if( _printJobSummaryText.length > 0 ) {
-        _printJobSummaryText = [_printJobSummaryText stringByAppendingString:@"/"];
-    }
-    
-    if( self.printSettings.paper ) {
-        _printJobSummaryText = [_printJobSummaryText stringByAppendingString:self.printSettings.paper.sizeTitle];
-    }
-    
-    return _printJobSummaryText;
+    return summaryText;
 }
 
 - (NSString *)printLabelText
