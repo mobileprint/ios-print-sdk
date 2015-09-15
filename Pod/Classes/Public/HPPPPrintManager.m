@@ -149,7 +149,7 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
                 [self processMetricsForPrintItem:printItem andPageRange:pageRange];
             }
             
-            if( [self.delegate respondsToSelector:@selector(didFinishPrintJob:completed:error:)] ) {
+            if( self.delegate && [self.delegate respondsToSelector:@selector(didFinishPrintJob:completed:error:)] ) {
                 [self.delegate didFinishPrintJob:controller completed:completed error:error];
             }
             

@@ -425,6 +425,13 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kHPPPWiFiConnectionEstablished object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kHPPPWiFiConnectionLost object:nil];
+
+    [self.refreshPrinterStatusTimer invalidate];
+    self.refreshPrinterStatusTimer = nil;
+    
+    self.keyboardView.delegate = nil;
+    self.pageRangeView.delegate = nil;
+    self.printManager.delegate = nil;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -483,9 +490,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 - (void)dealloc
 {
-    [self.refreshPrinterStatusTimer invalidate];
-    self.refreshPrinterStatusTimer = nil;
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
