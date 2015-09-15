@@ -101,10 +101,11 @@
 
 - (void)testPrintJobSummaryText {
     
-    NSString *expectedJobSummaryText = self.delegateManager.printSettings.paper.sizeTitle;
-    NSString *expected0PageText = [NSString stringWithFormat:@"0 of %ld Pages Selected/%@", (long)self.delegateManager.printItem.numberOfPages, self.delegateManager.printSettings.paper.sizeTitle];
-    NSString *expected1PageText = [NSString stringWithFormat:@"1 of %ld Pages Selected/%@", (long)self.delegateManager.printItem.numberOfPages, self.delegateManager.printSettings.paper.sizeTitle];
-    NSString *expected8PagesText = [NSString stringWithFormat:@"8 of %ld Pages Selected/%@", (long)self.delegateManager.printItem.numberOfPages, self.delegateManager.printSettings.paper.sizeTitle];
+    NSString *singleCopy = @"1 Copy";
+    NSString *expectedJobSummaryText = [NSString stringWithFormat:@"%@/%@", singleCopy, self.delegateManager.printSettings.paper.sizeTitle];
+    NSString *expected0PageText = [NSString stringWithFormat:@"0 of %ld Pages Selected/%@/%@", (long)self.delegateManager.printItem.numberOfPages, singleCopy, self.delegateManager.printSettings.paper.sizeTitle];
+    NSString *expected1PageText = [NSString stringWithFormat:@"1 of %ld Pages Selected/%@/%@", (long)self.delegateManager.printItem.numberOfPages, singleCopy, self.delegateManager.printSettings.paper.sizeTitle];
+    NSString *expected8PagesText = [NSString stringWithFormat:@"8 of %ld Pages Selected/B&W/%@/%@", (long)self.delegateManager.printItem.numberOfPages, singleCopy, self.delegateManager.printSettings.paper.sizeTitle];
     
     XCTAssert([expectedJobSummaryText isEqualToString:[self.delegateManager printJobSummaryText]], @"All Pages Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
     
@@ -115,9 +116,17 @@
     XCTAssert([expected1PageText isEqualToString:[self.delegateManager printJobSummaryText]], @"1 Page Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
 
     self.delegateManager.pageRange.range = @"1-8";
-    XCTAssert([expected8PagesText isEqualToString:[self.delegateManager printJobSummaryText]], @"8 Pages Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
+    self.delegateManager.blackAndWhite = YES;
+    XCTAssert([expected8PagesText isEqualToString:[self.delegateManager printJobSummaryText]], @"8 Pages, Black and White Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
 
     // Test multiple copies
+    NSString *twoCopies = @"2 Copies";
+    expectedJobSummaryText = [expectedJobSummaryText stringByReplacingOccurrencesOfString:singleCopy withString:twoCopies];
+    expected0PageText = [expected0PageText stringByReplacingOccurrencesOfString:singleCopy withString:twoCopies];
+    expected1PageText = [expected1PageText stringByReplacingOccurrencesOfString:singleCopy withString:twoCopies];
+    expected8PagesText = [expected8PagesText stringByReplacingOccurrencesOfString:singleCopy withString:twoCopies];
+
+    self.delegateManager.blackAndWhite = NO;
     self.delegateManager.numCopies = 2;
     self.delegateManager.pageRange.range = kPageRangeAllPages;
     XCTAssert([expectedJobSummaryText isEqualToString:[self.delegateManager printJobSummaryText]], @"2 Copies, All Pages Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
@@ -129,7 +138,51 @@
     XCTAssert([expected1PageText isEqualToString:[self.delegateManager printJobSummaryText]], @"2 Copies, 1 Page Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
     
     self.delegateManager.pageRange.range = @"1-8";
-    XCTAssert([expected8PagesText isEqualToString:[self.delegateManager printJobSummaryText]], @"2 Copies, 8 Pages Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
+    self.delegateManager.blackAndWhite = YES;
+    XCTAssert([expected8PagesText isEqualToString:[self.delegateManager printJobSummaryText]], @"2 Copies, 8 Pages, Black and White Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
+}
+
+- (void)testPrintLaterJobSummaryText {
+    
+    NSString *singleCopy = @"1 Copy";
+    NSString *expectedJobSummaryText = [NSString stringWithFormat:@"%@", singleCopy];
+    NSString *expected0PageText = [NSString stringWithFormat:@"0 of %ld Pages Selected/%@", (long)self.delegateManager.printItem.numberOfPages, singleCopy];
+    NSString *expected1PageText = [NSString stringWithFormat:@"1 of %ld Pages Selected/%@", (long)self.delegateManager.printItem.numberOfPages, singleCopy];
+    NSString *expected8PagesText = [NSString stringWithFormat:@"8 of %ld Pages Selected/B&W/%@", (long)self.delegateManager.printItem.numberOfPages, singleCopy];
+    
+    XCTAssert([expectedJobSummaryText isEqualToString:[self.delegateManager printLaterJobSummaryText]], @"All Pages Later Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
+    
+    self.delegateManager.pageRange.range = @"";
+    XCTAssert([expected0PageText isEqualToString:[self.delegateManager printLaterJobSummaryText]], @"0 Page Later Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
+    
+    self.delegateManager.pageRange.range = @"3";
+    XCTAssert([expected1PageText isEqualToString:[self.delegateManager printLaterJobSummaryText]], @"1 Page Later Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
+    
+    self.delegateManager.pageRange.range = @"1-8";
+    self.delegateManager.blackAndWhite = YES;
+    XCTAssert([expected8PagesText isEqualToString:[self.delegateManager printLaterJobSummaryText]], @"8 Pages, Black and White Later Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
+    
+    // Test multiple copies
+    NSString *twoCopies = @"2 Copies";
+    expectedJobSummaryText = [expectedJobSummaryText stringByReplacingOccurrencesOfString:singleCopy withString:twoCopies];
+    expected0PageText = [expected0PageText stringByReplacingOccurrencesOfString:singleCopy withString:twoCopies];
+    expected1PageText = [expected1PageText stringByReplacingOccurrencesOfString:singleCopy withString:twoCopies];
+    expected8PagesText = [expected8PagesText stringByReplacingOccurrencesOfString:singleCopy withString:twoCopies];
+    
+    self.delegateManager.blackAndWhite = NO;
+    self.delegateManager.numCopies = 2;
+    self.delegateManager.pageRange.range = kPageRangeAllPages;
+    XCTAssert([expectedJobSummaryText isEqualToString:[self.delegateManager printLaterJobSummaryText]], @"2 Copies, All Pages Later Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
+    
+    self.delegateManager.pageRange.range = @"";
+    XCTAssert([expected0PageText isEqualToString:[self.delegateManager printLaterJobSummaryText]], @"2 Copies, 0 Page Later Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
+    
+    self.delegateManager.pageRange.range = @"3";
+    XCTAssert([expected1PageText isEqualToString:[self.delegateManager printLaterJobSummaryText]], @"2 Copies, 1 Page Later Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
+    
+    self.delegateManager.pageRange.range = @"1-8";
+    self.delegateManager.blackAndWhite = YES;
+    XCTAssert([expected8PagesText isEqualToString:[self.delegateManager printLaterJobSummaryText]], @"2 Copies, 8 Pages, Black and White Later Job Summary Text: %@", [self.delegateManager printJobSummaryText]);
 }
 
 - (void)testSelectedPrinterText {
