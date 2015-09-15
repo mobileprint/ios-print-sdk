@@ -88,14 +88,15 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         
         self.handlePrintMetricsAutomatically = YES;
         self.lastOptionsUsed = [NSMutableDictionary dictionary];
-        self.defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
-        self.paperSizes = @[
-                            [HPPPPaper titleFromSize:Size4x6],
-                            [HPPPPaper titleFromSize:Size5x7],
-                            [HPPPPaper titleFromSize:SizeLetter]
-                            ];
-        
+        self.defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize5x7 paperType:HPPPPaperTypePhoto];
         self.appearance = [[HPPPAppearance alloc] init];
+        NSMutableArray *paperSizes = [NSMutableArray array];
+        for (HPPPPaper *paper in [HPPPPaper availablePapers]) {
+            if (![paperSizes containsObject:paper.sizeTitle]) {
+                [paperSizes addObject:paper.sizeTitle];
+            }
+        }
+        self.paperSizes = paperSizes;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleShareCompletedNotification:) name:kHPPPShareCompletedNotification object:nil];
     }
@@ -190,7 +191,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
 
 - (UIViewController *)printLaterViewControllerWithDelegate:(id<HPPPAddPrintLaterDelegate>)delegate printLaterJob:(HPPPPrintLaterJob *)printLaterJob
 {
-    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:self.defaultPaper.paperSize paperType:Plain];
+    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:self.defaultPaper.paperSize paperType:HPPPPaperTypePlain];
     HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:paper.sizeTitle];
 
     HPPPPageSettingsTableViewController *pageSettingsTableViewController;
@@ -201,6 +202,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)((UINavigationController *)vc).topViewController;
     } else if( [vc isKindOfClass:[UISplitViewController class]] ) {
         pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)((UISplitViewController *)vc).viewControllers[0];
+
     } else {
         pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)vc;
     }

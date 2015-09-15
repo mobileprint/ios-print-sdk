@@ -126,7 +126,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 {
     [HPPP sharedInstance].printJobName = @"Print POD Example";
     
-    [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
+    [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize5x7 paperType:HPPPPaperTypePhoto];
     
     [HPPP sharedInstance].handlePrintMetricsAutomatically = NO;
     
@@ -139,10 +139,10 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     [HPPP sharedInstance].supportActions =  @[action1, action2];
     
     [HPPP sharedInstance].paperSizes = @[
-                                         [HPPPPaper titleFromSize:Size4x5],
-                                         [HPPPPaper titleFromSize:Size4x6],
-                                         [HPPPPaper titleFromSize:Size5x7],
-                                         [HPPPPaper titleFromSize:SizeLetter]
+                                         [HPPPPaper titleFromSize:HPPPPaperSize4x5],
+                                         [HPPPPaper titleFromSize:HPPPPaperSize4x6],
+                                         [HPPPPaper titleFromSize:HPPPPaperSize5x7],
+                                         [HPPPPaper titleFromSize:HPPPPaperSizeLetter]
                                          ];
     
     [HPPP sharedInstance].interfaceOptions.multiPageMaximumGutter = 0;
@@ -672,7 +672,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 {
     HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType]];
     if (DefaultPrintRenderer != self.printItem.renderer) {
-        BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && SizeLetter == paper.paperSize);
+        BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && HPPPPaperSizeLetter == paper.paperSize);
         
         HPPPLayoutOrientation orientation = HPPPLayoutOrientationBestFit;
         if (defaultLetter || kOrientationPortrait == self.orientationSegmentControl.selectedSegmentIndex) {
@@ -713,7 +713,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 
 - (CGRect)defaultLetterPosition
 {
-    HPPPPaper *letterPaper = [[HPPPPaper alloc] initWithPaperSize:SizeLetter paperType:Plain];
+    HPPPPaper *letterPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeLetter paperType:HPPPPaperTypePlain];
     HPPPPaper *defaultPaper = [HPPP sharedInstance].defaultPaper;
     CGFloat maxDimension = fmaxf(defaultPaper.width, defaultPaper.height);
     CGFloat width = maxDimension / letterPaper.width * 100.0f;

@@ -86,7 +86,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
 - (void)configurePaper
 {
     [self.view layoutIfNeeded];
-    HPPPPaper *lastPaper = [[HPPPPaper alloc] initWithPaperSize:[self lastPaperUsed] paperType:Plain];
+    HPPPPaper *lastPaper = [[HPPPPaper alloc] initWithPaperSize:[self lastPaperUsed] paperType:HPPPPaperTypePlain];
     HPPPPrintItem *printItem = [self printItemForPaperSize:lastPaper.paperSize];
     [HPPPLayout preparePaperView:self.paperView withPaper:lastPaper image:[printItem previewImageForPaper:lastPaper] layout:printItem.layout];
     HPPPLayout *fitLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType] orientation:HPPPLayoutOrientationMatchContainer assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:YES];
@@ -124,16 +124,16 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     return @"PrintQueuePreviewDismissed";
 }
 
-- (PaperSize)lastPaperUsed
+- (NSUInteger)lastPaperUsed
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     NSNumber *lastSizeUsed = [defaults objectForKey:kHPPPLastPaperSizeSetting];
     
-    PaperSize paperSize = [HPPP sharedInstance].defaultPaper.paperSize;
+    NSUInteger paperSize = [HPPP sharedInstance].defaultPaper.paperSize;
     
     if (lastSizeUsed) {
-        paperSize = (PaperSize)[lastSizeUsed integerValue];
+        paperSize = [lastSizeUsed unsignedIntegerValue];
     }
     
     return paperSize;
@@ -153,7 +153,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     return CGSizeMake(finalSizeScale.width * width, finalSizeScale.height * height);
 }
 
-- (HPPPPrintItem *)printItemForPaperSize:(PaperSize)paperSize
+- (HPPPPrintItem *)printItemForPaperSize:(NSUInteger)paperSize
 {
     NSString *paperSizeTitle = [HPPPPaper titleFromSize:paperSize];
     HPPPPrintItem *printItem = [self.printLaterJob printItemForPaperSize:paperSizeTitle];

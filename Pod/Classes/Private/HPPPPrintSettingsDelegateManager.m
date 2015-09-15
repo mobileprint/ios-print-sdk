@@ -69,12 +69,12 @@ NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
 
 - (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
-    if (self.printSettings.paper.paperSize != SizeLetter && paper.paperSize == SizeLetter){
-        paper.paperType = Plain;
-        paper.typeTitle = [HPPPPaper titleFromType:Plain];
-    } else if (self.printSettings.paper.paperSize == SizeLetter && paper.paperSize != SizeLetter){
-        paper.paperType = Photo;
-        paper.typeTitle = [HPPPPaper titleFromType:Photo];
+    if (self.printSettings.paper.paperSize != HPPPPaperSizeLetter && paper.paperSize == HPPPPaperSizeLetter){
+        paper.paperType = HPPPPaperTypePlain;
+        paper.typeTitle = [HPPPPaper titleFromType:HPPPPaperTypePlain];
+    } else if (self.printSettings.paper.paperSize == HPPPPaperSizeLetter && paper.paperSize != HPPPPaperSizeLetter){
+        paper.paperType = HPPPPaperTypePhoto;
+        paper.typeTitle = [HPPPPaper titleFromType:HPPPPaperTypePhoto];
     }
     self.paper = paper;
     [self.pageSettingsViewController refreshData];
@@ -348,14 +348,14 @@ NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
     NSNumber *lastSizeUsed = [defaults objectForKey:kHPPPLastPaperSizeSetting];
     NSNumber *lastTypeUsed = [defaults objectForKey:kHPPPLastPaperTypeSetting];
     
-    PaperSize paperSize = (PaperSize)[HPPP sharedInstance].defaultPaper.paperSize;
+    NSUInteger paperSize = [HPPP sharedInstance].defaultPaper.paperSize;
     if (lastSizeUsed) {
-        paperSize = (PaperSize)[lastSizeUsed integerValue];
+        paperSize = [lastSizeUsed unsignedIntegerValue];
     }
     
-    PaperType paperType = SizeLetter == paperSize ? Plain : Photo;
-    if (SizeLetter == paperSize && lastTypeUsed) {
-        paperType = (PaperType)[lastTypeUsed integerValue];
+    NSUInteger paperType = HPPPPaperSizeLetter == paperSize ? HPPPPaperTypePlain : HPPPPaperTypePhoto;
+    if (HPPPPaperSizeLetter == paperSize && lastTypeUsed) {
+        paperType = [lastTypeUsed unsignedIntegerValue];
     }
     
     return [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:paperType];

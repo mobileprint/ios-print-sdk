@@ -163,7 +163,7 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == PAPER_SELECTION_SECTION) {
-        if (self.printSettings.paper.paperSize == SizeLetter) {
+        if (self.printSettings.paper.paperSize == HPPPPaperSizeLetter) {
             return 2;
         } else {
             return 1;
@@ -217,7 +217,7 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
                 rowHeight = tableView.rowHeight;
             }
         } else if (indexPath.row == PAPER_TYPE_ROW_INDEX) {
-            if ((!self.hppp.hidePaperTypeOption) && (self.printSettings.paper.paperSize == SizeLetter)) {
+            if ((!self.hppp.hidePaperTypeOption) && (self.printSettings.paper.paperSize == HPPPPaperSizeLetter)) {
                 rowHeight = tableView.rowHeight;
             }
         }
@@ -308,14 +308,14 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
     
     // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
-    if (paper.paperSize == SizeLetter) {
-        self.printSettings.paper.paperType = Plain;
-        self.printSettings.paper.typeTitle = [HPPPPaper titleFromType:Plain];
+    if (paper.paperSize == HPPPPaperSizeLetter) {
+        self.printSettings.paper.paperType = HPPPPaperTypePlain;
+        self.printSettings.paper.typeTitle = [HPPPPaper titleFromType:HPPPPaperTypePlain];
         self.selectedPaperTypeLabel.text = self.printSettings.paper.typeTitle;
         
     } else {
-        self.printSettings.paper.paperType = Photo;
-        self.printSettings.paper.typeTitle = [HPPPPaper titleFromType:Photo];
+        self.printSettings.paper.paperType = HPPPPaperTypePhoto;
+        self.printSettings.paper.typeTitle = [HPPPPaper titleFromType:HPPPPaperTypePhoto];
         self.selectedPaperTypeLabel.text = self.printSettings.paper.typeTitle;
     }
     [self.tableView endUpdates];

@@ -553,7 +553,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
             self.selectPrinterCell.hidden = NO;
             self.paperSizeCell.hidden = NO;
             self.printSettingsCell.hidden = YES;
-            self.paperTypeCell.hidden = (self.delegateManager.printSettings.paper.paperSize == SizeLetter) ? NO : YES;
+            self.paperTypeCell.hidden = (self.delegateManager.printSettings.paper.paperSize == HPPPPaperSizeLetter) ? NO : YES;
         } else {
             self.selectPrinterCell.hidden = YES;
             self.paperSizeCell.hidden = YES;
@@ -566,7 +566,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
             [self printerNotAvailable];
         }
     } else {
-        self.paperTypeCell.hidden = (self.delegateManager.printSettings.paper.paperSize == SizeLetter) ? NO : YES;
+        self.paperTypeCell.hidden = (self.delegateManager.printSettings.paper.paperSize == HPPPPaperSizeLetter) ? NO : YES;
     }
     [self.tableView endUpdates];
 }
@@ -938,7 +938,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if (section == SUPPORT_SECTION) {
         return self.hppp.supportActions.count;
     } else if (section == PAPER_SELECTION_SECTION) {
-        if (self.delegateManager.printSettings.paper.paperSize == SizeLetter) {
+        if (self.delegateManager.printSettings.paper.paperSize == HPPPPaperSizeLetter) {
             return 2;
         } else {
             return 1;
@@ -1144,7 +1144,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                 rowHeight = tableView.rowHeight;
             }
         } else if (indexPath.row == PAPER_TYPE_ROW_INDEX) {
-            if ((!self.hppp.hidePaperTypeOption) && (self.delegateManager.printSettings.paper.paperSize == SizeLetter)) {
+            if ((!self.hppp.hidePaperTypeOption) && (self.delegateManager.printSettings.paper.paperSize == HPPPPaperSizeLetter)) {
                 rowHeight = tableView.rowHeight;
             }
         }

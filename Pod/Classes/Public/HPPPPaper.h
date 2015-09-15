@@ -20,28 +20,36 @@
 @interface HPPPPaper : NSObject
 
 /*!
- * @abstract List of supported paper sizes
- * @const Size4x5 4" by 5" photo sticker media
- * @const Size4x6 4" by 6" photo paper
- * @const Size5x7 5" by 7" photo paper
- * @const SizeLetter Stander 8.5" x 11" letter paper
+ * @abstract List of default supported paper sizes
+ * @const HPPPPaperSize4x5 4" by 5" photo sticker media
+ * @const HPPPPaperSize4x6 4" by 6" photo paper
+ * @const HPPPPaperSize5x7 5" by 7" photo paper
+ * @const HPPPPaperSizeLetter Standard 8.5" x 11" letter paper
  */
 typedef enum {
-    Size4x5,
-    Size4x6,
-    Size5x7,
-    SizeLetter
-} PaperSize;
+    HPPPPaperSize4x5,
+    HPPPPaperSize4x6,
+    HPPPPaperSize5x7,
+    HPPPPaperSizeLetter
+} HPPPPaperSize;
 
 /*!
- * @abstract List of supported paper types
- * @const Plain Plain paper
- * @const Photo Photo paper
+ * @abstract List of default supported paper types
+ * @const HPPPPaperTypePlain Plain paper
+ * @const HPPPPaperTypePhoto Photo paper
  */
 typedef enum {
-    Plain,
-    Photo
-} PaperType;
+    HPPPPaperTypePlain,
+    HPPPPaperTypePhoto
+} HPPPPaperType;
+
+extern NSString * const kHPPPPaperSizeIdKey;
+extern NSString * const kHPPPPaperSizeTitleKey;
+extern NSString * const kHPPPPaperTypeIdKey;
+extern NSString * const kHPPPPaperWidthKey;
+extern NSString * const kHPPPPaperHeightKey;
+extern NSString * const kHPPPPaperPrinterWidthKey;
+extern NSString * const kHPPPPaperPrinterHeightKey;
 
 /*!
  * @abstract Label to display for the paper size
@@ -67,13 +75,13 @@ typedef enum {
  * @abstract @link PaperSize @/link used by this paper
  * @seealso PaperSize
  */
-@property (nonatomic, assign) PaperSize paperSize;
+@property (nonatomic, assign) NSUInteger paperSize;
 
 /*!
  * @abstract @link PaperType @/link used by this paper
  * @seealso PaperType
  */
-@property (nonatomic, assign) PaperType paperType;
+@property (nonatomic, assign) NSUInteger paperType;
 
 /*!
  * @abstract Initializer using enums
@@ -83,7 +91,7 @@ typedef enum {
  * @seealso PaperType
  * @returns The initialized HPPPPaper object
  */
-- (id)initWithPaperSize:(PaperSize)paperSize paperType:(PaperType)paperType;
+- (id)initWithPaperSize:(NSUInteger)paperSize paperType:(NSUInteger)paperType;
 
 
 /*!
@@ -121,7 +129,7 @@ typedef enum {
  * @seealso PaperSize
  * @seealso sizeFromTitle:
  */
-+ (NSString *)titleFromSize:(PaperSize)paperSize;
++ (NSString *)titleFromSize:(NSUInteger)paperSize;
 
 /*!
  * @abstract Retrieves the paper size for a given size title
@@ -130,7 +138,7 @@ typedef enum {
  * @seealso PaperSize
  * @seealso titleFromSize:
  */
-+ (PaperSize)sizeFromTitle:(NSString *)paperSizeTitle;
++ (NSUInteger)sizeFromTitle:(NSString *)paperSizeTitle;
 
 /*!
  * @abstract Retrieves the title for a given paper type
@@ -139,7 +147,7 @@ typedef enum {
  * @seealso PaperType
  * @seealso typeFromTitle:
  */
-+ (NSString *)titleFromType:(PaperType)paperType;
++ (NSString *)titleFromType:(NSUInteger)paperType;
 
 /*!
  * @abstract Retrieves the paper type for a given type title
@@ -148,6 +156,11 @@ typedef enum {
  * @seealso PaperType
  * @seealso titleFromType:
  */
-+ (PaperType)typeFromTitle:(NSString *)paperTypeTitle;
++ (NSUInteger)typeFromTitle:(NSString *)paperTypeTitle;
+
++ (NSArray *)availablePapers;
++ (BOOL)registerSize:(NSDictionary *)info;
++ (BOOL)registerType:(NSDictionary *)info;
++ (BOOL)associatePaperSize:(NSUInteger)sizeId withType:(NSUInteger)typeId;
 
 @end

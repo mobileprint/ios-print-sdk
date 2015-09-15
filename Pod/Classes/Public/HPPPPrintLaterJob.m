@@ -72,7 +72,7 @@ NSString * const kHPPPPrintLaterJobExtra = @"kHPPPPrintLaterJobExtra";
 
 - (UIImage *)previewImage
 {
-    HPPPPaper *initialPaper = [[HPPPPaper alloc] initWithPaperSize:[HPPP sharedInstance].defaultPaper.paperSize paperType:Plain];
+    HPPPPaper *initialPaper = [HPPP sharedInstance].defaultPaper;
     HPPPPrintItem *printItem = [self printItemForPaperSize:[HPPPPaper titleFromSize:[HPPP sharedInstance].defaultPaper.paperSize]];
     
     return [printItem previewImageForPaper:initialPaper];
