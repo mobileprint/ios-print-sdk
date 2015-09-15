@@ -34,6 +34,7 @@
 @property (strong, nonatomic) NSMutableArray *mutableCheckMarkedPrintJobs;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBarButtonItem;
+@property (strong, nonatomic) UIBarButtonItem *savedBarButton;
 @property (weak, nonatomic) IBOutlet HPPPPrintJobsActionView *printJobsActionView;
 @property (weak, nonatomic) IBOutlet UILabel *emptyPrintQueueLabel;
 
@@ -60,6 +61,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
     
     self.title = HPPPLocalizedString(@"Print Queue", nil);
     self.doneBarButtonItem.title = HPPPLocalizedString(@"Done", nil);
+    self.savedBarButton = self.doneBarButtonItem;
     
     if (IS_OS_8_OR_LATER) {
         HPPPPrintLaterManager *printLaterManager = [HPPPPrintLaterManager sharedInstance];
@@ -224,6 +226,11 @@ NSString * const kJobListScreenName = @"Job List Screen";
         [self setViewControllerPageRange:vc];
         [self presentViewController:vc animated:YES completion:nil];
     }
+}
+
+- (void)didDismissPreview
+{
+    self.navigationItem.rightBarButtonItem = self.savedBarButton;
 }
 
 #pragma mark - Table view data source
@@ -491,6 +498,13 @@ NSString * const kJobListScreenName = @"Job List Screen";
     HPPPPrintJobsPreviewViewController *vc = (HPPPPrintJobsPreviewViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPrintJobsPreviewViewController"];
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     vc.printLaterJob = printJobsTableViewCell.printLaterJob;
+
+    self.navigationItem.rightBarButtonItem = nil;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didDismissPreview)
+                                                 name:[vc dismissalNotificationName]
+                                               object:nil];
+
     [self presentViewController:vc animated:NO completion:nil];
 }
 
