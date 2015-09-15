@@ -362,8 +362,12 @@ The actual print output itself can be customized using the [`layout`](http://hpp
 The visual appearance of the printing user interface is controlled by setting values in the [`settings`](http://hppp.herokuapp.com//HPPPAppearance_h/Classes/HPPPAppearance/index.html#//apple_ref/occ/instp/HPPPAppearance/settings) dictionary. 
 The values that can be controlled are specified by key constants defined in the [`HPPPAppearance`](http://hppp.herokuapp.com/HPPPAppearance_h/Classes/HPPPAppearance/index.html#//apple_ref/occ/cl/HPPPAppearance) class.
 
-> __Tip:__ There is graphical overview available that shows where and how the print user interface can be customized. 
+> __Note:__ There is graphical overview available that shows where and how the print user interface can be customized. 
 > Download the [Map](http://d3fep8xjnjngo0.cloudfront.net/ios/StyleMap.pdf) and [Key](http://d3fep8xjnjngo0.cloudfront.net/ios/StyleKey.pdf) for reference.
+
+Map  | Key
+------------- | -------------
+[![Map](http://d3fep8xjnjngo0.cloudfront.net/ios/map.preview.png)](http://d3fep8xjnjngo0.cloudfront.net/ios/StyleMap.pdf)  | [![Key](http://d3fep8xjnjngo0.cloudfront.net/ios/key.preview.png)](http://d3fep8xjnjngo0.cloudfront.net/ios/StyleKey.pdf)
 
 The following example shows how to customize various fonts, colors, icons, and other values.
 
