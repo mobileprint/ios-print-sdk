@@ -42,7 +42,7 @@ typedef enum {
 /*!
  * @abstract The delegate that will receive callbacks from the print job
  */
-@property (strong, nonatomic) id<HPPPPrintManagerDelegate> delegate;
+@property (weak, nonatomic) id<HPPPPrintManagerDelegate> delegate;
 
 
 /*!

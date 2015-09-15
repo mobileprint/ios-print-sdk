@@ -24,7 +24,7 @@
  * @abstract A delegate that is called when the user is finished entering text into the text field
  * @seealso HPPPKeyboardViewDelegate
  */
-@property (strong, nonatomic) id<HPPPKeyboardViewDelegate> delegate;
+@property (weak, nonatomic) id<HPPPKeyboardViewDelegate> delegate;
 
 @end
 
