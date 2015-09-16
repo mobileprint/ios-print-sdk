@@ -137,14 +137,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     HPPPSupportAction *action2 = [[HPPPSupportAction alloc] initWithIcon:[UIImage imageNamed:@"print-instructions"] title:@"Print Instructions VC" viewController:navigationController];
     
     [HPPP sharedInstance].supportActions =  @[action1, action2];
-    
-    [HPPP sharedInstance].paperSizes = @[
-                                         [HPPPPaper titleFromSize:HPPPPaperSize4x5],
-                                         [HPPPPaper titleFromSize:HPPPPaperSize4x6],
-                                         [HPPPPaper titleFromSize:HPPPPaperSize5x7],
-                                         [HPPPPaper titleFromSize:HPPPPaperSizeLetter]
-                                         ];
-    
+
     [HPPP sharedInstance].interfaceOptions.multiPageMaximumGutter = 0;
     [HPPP sharedInstance].interfaceOptions.multiPageBleed = 40;
     [HPPP sharedInstance].interfaceOptions.multiPageBackgroundPageScale = 0.61803399;

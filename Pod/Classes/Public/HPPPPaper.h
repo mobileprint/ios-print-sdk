@@ -25,12 +25,23 @@
  * @const HPPPPaperSize4x6 4" by 6" photo paper
  * @const HPPPPaperSize5x7 5" by 7" photo paper
  * @const HPPPPaperSizeLetter Standard 8.5" x 11" letter paper
+ * @const HPPPPaperSizeA4 Standard 210mm x 297mm letter paper
+ * @const HPPPPaperSizeA5 Standard 148mm x 210mm
+ * @const HPPPPaperSizeA6 Standard 105mm x 148mm
+ * @const HPPPPaperSizeCustom Used to indicate last enum value used by the print library. Apps can register custom paper size ID using any value greater than HPPPPaperSizeCustom
  */
 typedef enum {
     HPPPPaperSize4x5,
     HPPPPaperSize4x6,
     HPPPPaperSize5x7,
-    HPPPPaperSizeLetter
+    HPPPPaperSizeLetter,
+    HPPPPaperSizeA4,
+    HPPPPaperSizeA5,
+    HPPPPaperSizeA6,
+    HPPPPaperSize10x13,
+    HPPPPaperSize10x15,
+    HPPPPaperSize13x18,
+    HPPPPaperSizeCustom
 } HPPPPaperSize;
 
 /*!

@@ -143,7 +143,8 @@ static NSArray *_supportedPaper = nil;
     _supportedType = @[];
     _supportedPaper = @[];
     
-    // Paper Size
+    // US Paper Sizes
+    
     [self registerSize:@{
                          kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSize4x5],
                          kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"4 x 5", @"Option for paper size"),
@@ -170,6 +171,53 @@ static NSArray *_supportedPaper = nil;
                          kHPPPPaperHeightKey:[NSNumber numberWithFloat:11.0]
                          }];
     
+
+    // International paper sizes
+    
+    float const kMillimetersPerInch = 25.4;
+    
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSizeA4],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"A4", @"Option for paper size"),
+                         kHPPPPaperWidthKey:[NSNumber numberWithFloat:210.0 / kMillimetersPerInch],
+                         kHPPPPaperHeightKey:[NSNumber numberWithFloat:297.0 / kMillimetersPerInch]
+                         }];
+    
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSizeA5],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"A5", @"Option for paper size"),
+                         kHPPPPaperWidthKey:[NSNumber numberWithFloat:148.0 / kMillimetersPerInch],
+                         kHPPPPaperHeightKey:[NSNumber numberWithFloat:210.0 / kMillimetersPerInch]
+                         }];
+
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSizeA6],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"A6", @"Option for paper size"),
+                         kHPPPPaperWidthKey:[NSNumber numberWithFloat:105.0 / kMillimetersPerInch],
+                         kHPPPPaperHeightKey:[NSNumber numberWithFloat:148.0 / kMillimetersPerInch]
+                         }];
+
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSize10x13],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"10x13cm", @"Option for paper size"),
+                         kHPPPPaperWidthKey:[NSNumber numberWithFloat:4.0],
+                         kHPPPPaperHeightKey:[NSNumber numberWithFloat:5.0],
+                         kHPPPPaperPrinterHeightKey:[NSNumber numberWithFloat:6.0]
+                         }];
+    
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSize10x15],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"10x15cm", @"Option for paper size"),
+                         kHPPPPaperWidthKey:[NSNumber numberWithFloat:4.0],
+                         kHPPPPaperHeightKey:[NSNumber numberWithFloat:6.0]
+                         }];
+    
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSize13x18],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"13x18cm", @"Option for paper size"),
+                         kHPPPPaperWidthKey:[NSNumber numberWithFloat:5.0],
+                         kHPPPPaperHeightKey:[NSNumber numberWithFloat:7.0]
+                         }];
     // Paper Type
     [self registerType:@{
                          kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperTypePlain],
@@ -186,6 +234,13 @@ static NSArray *_supportedPaper = nil;
     [self associatePaperSize:HPPPPaperSize5x7 withType:HPPPPaperTypePhoto];
     [self associatePaperSize:HPPPPaperSizeLetter withType:HPPPPaperTypePhoto];
     [self associatePaperSize:HPPPPaperSizeLetter withType:HPPPPaperTypePlain];
+    [self associatePaperSize:HPPPPaperSizeA4 withType:HPPPPaperTypePlain];
+    [self associatePaperSize:HPPPPaperSizeA4 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSizeA5 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSizeA6 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSize10x13 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSize10x15 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSize13x18 withType:HPPPPaperTypePhoto];
 }
 
 + (NSArray *)supportedSize
