@@ -18,6 +18,7 @@
 #import "HPPPLayoutFactory.h"
 #import "NSBundle+HPPPLocalizable.h"
 #import "UIView+HPPPBackground.h"
+#import "HPPPPrintSettingsDelegateManager.h"
 
 @interface HPPPPrintJobsPreviewViewController ()
 
@@ -86,9 +87,9 @@ extern NSString * const kHPPPLastPaperSizeSetting;
 - (void)configurePaper
 {
     [self.view layoutIfNeeded];
-    HPPPPaper *lastPaper = [[HPPPPaper alloc] initWithPaperSize:[self lastPaperUsed] paperType:HPPPPaperTypePlain];
-    HPPPPrintItem *printItem = [self printItemForPaperSize:lastPaper.paperSize];
-    [HPPPLayout preparePaperView:self.paperView withPaper:lastPaper image:[printItem previewImageForPaper:lastPaper] layout:printItem.layout];
+    HPPPPaper *lastPaperUsed = [HPPPPrintSettingsDelegateManager lastPaperUsed];
+    HPPPPrintItem *printItem = [self printItemForPaperSize:lastPaperUsed.paperSize];
+    [HPPPLayout preparePaperView:self.paperView withPaper:lastPaperUsed image:[printItem previewImageForPaper:lastPaperUsed] layout:printItem.layout];
     HPPPLayout *fitLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType] orientation:HPPPLayoutOrientationMatchContainer assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:YES];
     [fitLayout layoutContentView:self.paperView inContainerView:self.containerView];
 }

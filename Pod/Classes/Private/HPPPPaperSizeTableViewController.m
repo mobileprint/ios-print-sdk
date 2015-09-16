@@ -87,8 +87,11 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     selectedCell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsCheckmarkImage]];
     
-    NSString *typeTitle = (HPPPPaperSizeLetter == [HPPPPaper sizeFromTitle:selectedCell.textLabel.text] ? self.currentPaper.typeTitle : HPPPLocalizedString(@"Photo Paper", @"Option of paper type"));
-    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSizeTitle:selectedCell.textLabel.text paperTypeTitle:typeTitle];
+    NSUInteger selectedSize = [HPPPPaper sizeFromTitle:selectedCell.textLabel.text];
+    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:selectedSize paperType:HPPPPaperTypePhoto];
+    if ([paper supportsPlain]) {
+        paper = [[HPPPPaper alloc] initWithPaperSize:selectedSize paperType:self.currentPaper.paperType];
+    }
     
     [self.navigationController popViewControllerAnimated:YES];
     

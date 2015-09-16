@@ -69,14 +69,13 @@ NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
 
 - (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
-    if (self.printSettings.paper.paperSize != HPPPPaperSizeLetter && paper.paperSize == HPPPPaperSizeLetter){
-        paper.paperType = HPPPPaperTypePlain;
-        paper.typeTitle = [HPPPPaper titleFromType:HPPPPaperTypePlain];
-    } else if (self.printSettings.paper.paperSize == HPPPPaperSizeLetter && paper.paperSize != HPPPPaperSizeLetter){
-        paper.paperType = HPPPPaperTypePhoto;
-        paper.typeTitle = [HPPPPaper titleFromType:HPPPPaperTypePhoto];
+    HPPPPaper *adjustedPaper = paper;
+    if (![self.printSettings.paper supportsPlain] && [paper supportsPlain]){
+        adjustedPaper = [[HPPPPaper alloc] initWithPaperSize:paper.paperSize paperType:HPPPPaperTypePlain];
+    } else if ([self.printSettings.paper supportsPlain] && ![paper supportsPlain]){
+        adjustedPaper = [[HPPPPaper alloc] initWithPaperSize:paper.paperSize paperType:HPPPPaperTypePhoto];
     }
-    self.paper = paper;
+    self.paper = adjustedPaper;
     [self.pageSettingsViewController refreshData];
 }
 
@@ -316,7 +315,7 @@ NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
 
 - (void)loadLastUsed
 {
-    self.paper = [self lastPaperUsed];
+    self.paper = [HPPPPrintSettingsDelegateManager lastPaperUsed];
     
     HPPPDefaultSettingsManager *settings = [HPPPDefaultSettingsManager sharedInstance];
     if( [settings isDefaultPrinterSet] ) {
@@ -341,24 +340,22 @@ NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
     }
 }
 
-- (HPPPPaper *)lastPaperUsed
++ (HPPPPaper *)lastPaperUsed
 {
+    HPPPPaper *paper = [HPPP sharedInstance].defaultPaper;
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     NSNumber *lastSizeUsed = [defaults objectForKey:kHPPPLastPaperSizeSetting];
     NSNumber *lastTypeUsed = [defaults objectForKey:kHPPPLastPaperTypeSetting];
-    
-    NSUInteger paperSize = [HPPP sharedInstance].defaultPaper.paperSize;
-    if (lastSizeUsed) {
-        paperSize = [lastSizeUsed unsignedIntegerValue];
+    if (lastSizeUsed && lastTypeUsed) {
+        NSUInteger sizeId = [lastSizeUsed unsignedIntegerValue];
+        NSUInteger typeId = [lastTypeUsed unsignedIntegerValue];
+        if ([HPPPPaper validPaperSize:sizeId andType:typeId]) {
+            paper = [[HPPPPaper alloc] initWithPaperSize:sizeId paperType:typeId];
+        }
     }
     
-    NSUInteger paperType = HPPPPaperSizeLetter == paperSize ? HPPPPaperTypePlain : HPPPPaperTypePhoto;
-    if (HPPPPaperSizeLetter == paperSize && lastTypeUsed) {
-        paperType = [lastTypeUsed unsignedIntegerValue];
-    }
-    
-    return [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:paperType];
+    return paper;
 }
 
 - (void)savePrinterId:(NSString *)printerId

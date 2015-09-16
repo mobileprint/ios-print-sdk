@@ -122,7 +122,7 @@
     return [NSString stringWithFormat:@"%@, %@\nWidth %f Height %f\nPaper Size %lul\nPaper Type %lul", self.sizeTitle, self.typeTitle, self.width, self.height, (unsigned long)self.paperSize, (unsigned long)self.paperType];
 }
 
-#pragma mark - Supported paper
+#pragma mark - Supported paper initialization
 
 NSString * const kHPPPPaperSizeIdKey = @"kHPPPPaperSizeIdKey";
 NSString * const kHPPPPaperSizeTitleKey = @"kHPPPPaperSizeTitleKey";
@@ -267,18 +267,6 @@ static NSArray *_supportedPaper = nil;
     return _supportedPaper;
 }
 
-+ (NSArray *)availablePapers
-{
-    NSMutableArray *papers = [NSMutableArray array];
-    for (NSDictionary *association in self.supportedPaper) {
-        NSUInteger sizeId = [[association objectForKey:kHPPPPaperSizeIdKey] unsignedIntegerValue];
-        NSUInteger typeId = [[association objectForKey:kHPPPPaperTypeIdKey] unsignedIntegerValue];
-        HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:sizeId paperType:typeId];
-        [papers addObject:paper];
-    }
-    return papers;
-}
-
 + (BOOL)registerSize:(NSDictionary *)info
 {
     NSNumber *sizeId = [info objectForKey:kHPPPPaperSizeIdKey] ;
@@ -362,6 +350,31 @@ static NSArray *_supportedPaper = nil;
     return YES;
 }
 
+#pragma mark - Supported paper helpers
+
++ (NSArray *)availablePapers
+{
+    NSMutableArray *papers = [NSMutableArray array];
+    for (NSDictionary *association in self.supportedPaper) {
+        NSUInteger sizeId = [[association objectForKey:kHPPPPaperSizeIdKey] unsignedIntegerValue];
+        NSUInteger typeId = [[association objectForKey:kHPPPPaperTypeIdKey] unsignedIntegerValue];
+        HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:sizeId paperType:typeId];
+        [papers addObject:paper];
+    }
+    return papers;
+}
+
++ (BOOL)validPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType
+{
+    BOOL valid = NO;
+    for (HPPPPaper *paper in [self availablePapers]) {
+        if (paper.paperSize == paperSize && paper.paperType == paperType) {
+            valid = YES;
+            break;
+        }
+    }
+    return valid;
+}
 
 + (NSDictionary *)sizeForId:(NSUInteger)sizeId
 {
@@ -426,6 +439,44 @@ static NSArray *_supportedPaper = nil;
         }
     }
     return associationInfo;
+}
+
+#pragma mark - Supported paper type info
+
+- (NSArray *)supportedTypes
+{
+    NSMutableArray *paperTypes = [NSMutableArray array];
+    for (HPPPPaper *supportedPaper in [HPPP sharedInstance].supportedPapers) {
+        if (supportedPaper.paperSize == self.paperSize) {
+            NSNumber *supportedType = [NSNumber numberWithUnsignedInteger:supportedPaper.paperType];
+            if (![paperTypes containsObject:supportedType]) {
+                [paperTypes addObject:supportedType];
+            }
+        }
+    }
+    return paperTypes;
+}
+
+- (BOOL)supportsType:(NSUInteger)paperType
+{
+    BOOL supported = NO;
+    for (HPPPPaper *supportedPaper in [HPPP sharedInstance].supportedPapers) {
+        if (supportedPaper.paperSize == self.paperSize && supportedPaper.paperType == paperType) {
+            supported = YES;
+            break;
+        }
+    }
+    return supported;
+}
+
+- (BOOL)supportsPlain
+{
+    return [self supportsType:HPPPPaperTypePlain];
+}
+
+- (BOOL)supportsPhoto
+{
+    return [self supportsType:HPPPPaperTypePhoto];
 }
 
 @end

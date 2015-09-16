@@ -661,11 +661,16 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 
 #pragma mark - Layout
 
+- (BOOL)letterLayoutUsedBySize:(NSUInteger)paperSize
+{
+    return HPPPPaperSizeLetter == paperSize || HPPPPaperSizeA4 == paperSize;
+}
+
 - (HPPPLayout *)layoutForPaper:(HPPPPaper *)paper
 {
     HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType]];
     if (DefaultPrintRenderer != self.printItem.renderer) {
-        BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && HPPPPaperSizeLetter == paper.paperSize);
+        BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && [self letterLayoutUsedBySize:paper.paperSize]);
         
         HPPPLayoutOrientation orientation = HPPPLayoutOrientationBestFit;
         if (defaultLetter || kOrientationPortrait == self.orientationSegmentControl.selectedSegmentIndex) {
@@ -676,7 +681,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
         
         CGRect position = [HPPPLayout completeFillRectangle];
         if (defaultLetter) {
-            position = [self defaultLetterPosition];
+            position = [self defaultPositionForSize:paper.paperSize];
         } else {
             CGFloat x = [((UITextField *)self.positionTextField[0]).text floatValue];
             CGFloat y = [((UITextField *)self.positionTextField[1]).text floatValue];
@@ -704,9 +709,9 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     return layout;
 }
 
-- (CGRect)defaultLetterPosition
+- (CGRect)defaultPositionForSize:(NSUInteger)paperSize
 {
-    HPPPPaper *letterPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeLetter paperType:HPPPPaperTypePlain];
+    HPPPPaper *letterPaper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:HPPPPaperTypePlain];
     HPPPPaper *defaultPaper = [HPPP sharedInstance].defaultPaper;
     CGFloat maxDimension = fmaxf(defaultPaper.width, defaultPaper.height);
     CGFloat width = maxDimension / letterPaper.width * 100.0f;

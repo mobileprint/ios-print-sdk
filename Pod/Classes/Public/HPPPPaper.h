@@ -28,6 +28,9 @@
  * @const HPPPPaperSizeA4 Standard 210mm x 297mm letter paper
  * @const HPPPPaperSizeA5 Standard 148mm x 210mm
  * @const HPPPPaperSizeA6 Standard 105mm x 148mm
+ * @const HPPPPaperSize10x13 HP international equivalent for 4x5 inch
+ * @const HPPPPaperSize10x15 HP international equivalent for 4x6 inch
+ * @const HPPPPaperSize13x18 HP international equivalent for 5x7 inch
  * @const HPPPPaperSizeCustom Used to indicate last enum value used by the print library. Apps can register custom paper size ID using any value greater than HPPPPaperSizeCustom
  */
 typedef enum {
@@ -170,8 +173,13 @@ extern NSString * const kHPPPPaperPrinterHeightKey;
 + (NSUInteger)typeFromTitle:(NSString *)paperTypeTitle;
 
 + (NSArray *)availablePapers;
++ (BOOL)validPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType;
 + (BOOL)registerSize:(NSDictionary *)info;
-+ (BOOL)registerType:(NSDictionary *)info;
 + (BOOL)associatePaperSize:(NSUInteger)sizeId withType:(NSUInteger)typeId;
+
+- (NSArray *)supportedTypes;
+- (BOOL)supportsType:(NSUInteger)paperType;
+- (BOOL)supportsPlain;
+- (BOOL)supportsPhoto;
 
 @end

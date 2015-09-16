@@ -145,4 +145,6 @@
  */
 - (void)savePrinterId:(NSString *)printerId;
 
++ (HPPPPaper *)lastPaperUsed;
+
 @end

@@ -184,8 +184,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
 
 - (UIViewController *)printLaterViewControllerWithDelegate:(id<HPPPAddPrintLaterDelegate>)delegate printLaterJob:(HPPPPrintLaterJob *)printLaterJob
 {
-    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:self.defaultPaper.paperSize paperType:HPPPPaperTypePlain];
-    HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:paper.sizeTitle];
+    HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:self.defaultPaper.sizeTitle];
 
     HPPPPageSettingsTableViewController *pageSettingsTableViewController;
     
