@@ -40,7 +40,7 @@ Release notes can be found [here](https://github.com/IPGPTP/hp_photo_print/wiki/
 
 ## Installation
 
-The __HPPhotoPrint__ pod is not yet available publicly (i.e. via [cocoapods.org](http://cocoapods.org)). To install the pod you must have read access to this repo ([hp\_photo\_print](https://github.com/IPGPTP/hp_photo_print)) as well as HP's private pod trunk ([hp\_mss\_pods](https://github.com/IPGPTP/hp_mss_pods)). To request access send an email to hp-mobile-dev@hp.com.
+The __HPPhotoPrint__ pod is not yet available publicly (i.e. via [cocoapods.org](http://cocoapods.org)). To install the pod you must have read access to this repo ([hp\_photo\_print](https://github.com/IPGPTP/hp_photo_print)) as well as HP's private pod trunk ([hp\_mss\_pods](https://github.com/IPGPTP/hp_mss_pods)). To request access complete this [form](http://downloads.print-dev.com/mobile-print-sdk).
 
 Add the private pod trunk as a source in your `Podfile`. It is important that this entry is before the source for the public Cocoapod trunk:
 
@@ -80,16 +80,18 @@ The __HPPhotoPrint__ pod provides three main features.
 
 1. A print workflow that provides enhanced features beyond what standard iOS AirPrint provides (e.g. graphical print preview).
 2. A print queue that allows users to save jobs for printing later.
-3. The ability to notify with a reminder when they return to their printer.
+3. The ability to notify the user with a reminder when they return to their printer area and have jobs in queue.
 
 ### Print Workflow
 
-The print workflow can be invoked in one of three ways. 
-The first is through the standard iOS sharing view using a custom print activity provided by the pod. 
-The second is to present the printing view controller directly, for example when the user taps a "print" button in your app. 
-The third method is print directly without showing a UI. This is useful when all print settings have already been set/saved.
+The print workflow can be invoked in one of three ways:
+
+- The first is through the __standard iOS sharing__ view using a custom print activity provided by the pod. 
+- The second is to present the __printing view controller__ directly, for example when the user taps a "print" button in your app. 
+- The third method is __print directly__ without showing a UI. This is useful when all print settings have already been set/saved.
+
 All print methods can make use of a delegate to handle print completion (and canceling). 
-If your app needs custom printing for various paper sizes, a custom data source can be provided. 
+A custom data source can be provided by your app which allows it provide custom print assets (e.g. image, PDF) when the user selects different paper sizes.
 And finally, you can customize the appearance of printing views and how the print is laid out on the page.
 
 #### Share Activity (Print)
@@ -139,7 +141,7 @@ You must provide an initial image and optional delegate and data source (describ
 ```
 #### Direct Print
 
-To print directly without showing a user interface (e.g. print preview), you creat an instance of an [HPPPPrintManager](http://hppp.herokuapp.com/HPPPPrintManager_h/Classes/HPPPPrintManager/index.html) and call the [print:pageRange:numCopies:error](http://hppp.herokuapp.com/HPPPPrintManager_h/Classes/HPPPPrintManager/index.html#//apple_ref/occ/instm/HPPPPrintManager/print:pageRange:numCopies:error:) method.
+To print directly without showing a user interface (e.g. print preview), you create an instance of an [HPPPPrintManager](http://hppp.herokuapp.com/HPPPPrintManager_h/Classes/HPPPPrintManager/index.html) and call the [print:pageRange:numCopies:error](http://hppp.herokuapp.com/HPPPPrintManager_h/Classes/HPPPPrintManager/index.html#//apple_ref/occ/instm/HPPPPrintManager/print:pageRange:numCopies:error:) method.
 You can initialize the print manager to use the default/stored settings or you can pass in your own [HPPPPrintSettings](http://hppp.herokuapp.com/HPPPPrintSettings_h/Classes/HPPPPrintSettings/index.html) object. 
 Once initialized you can call the [print:pageRange:numCopies:error](http://hppp.herokuapp.com/HPPPPrintManager_h/Classes/HPPPPrintManager/index.html#//apple_ref/occ/instm/HPPPPrintManager/print:pageRange:numCopies:error:) method and use the [HPPPPrintManagerDelegate](http://hppp.herokuapp.com/HPPPPrintManager_h/Protocols/HPPPPrintManagerDelegate/index.html) to be notified when the print job is queued succesfully.
 
@@ -471,8 +473,15 @@ There are three basic layout classes provided: [`HPPPLayoutFit`](http://hppp.her
 Custom layouts can be created by subclassing these 3 basic types or by subclassing the [`HPPPLayout`](http://hppp.herokuapp.com/HPPPLayout_h/Classes/HPPPLayout/index.html#//apple_ref/occ/cl/HPPPLayout) base class. 
 When creating a custom layout you must extend the [`HPPPLayoutFactory`](http://hppp.herokuapp.com/HPPPLayoutFactory_h/Classes/HPPPLayoutFactory/index.html) by implementing the [`HPPPLayoutFactoryDelegate`](http://hppp.herokuapp.com/HPPPLayoutFactory_h/Protocols/HPPPLayoutFactoryDelegate/index.html) protocol and using [`addDelegate:`](http://hppp.herokuapp.com/HPPPLayoutFactory_h/Classes/HPPPLayoutFactory/index.html#//apple_ref/occ/clm/HPPPLayoutFactory/addDelegate:).
 
-> __Note:__ By default the layout rectangle is the entire page. See [`assetPosition`](http://hppp.herokuapp.com/HPPPLayout_h/Classes/HPPPLayout/index.html#//apple_ref/occ/instp/HPPPLayout/assetPosition) for details on adjusting the layout rectangle.
-> This can be useful for things like centering the asset on the page without filling the page entirely or without changing the size of the asset.
+By default the layout rectangle is the entire page. See [`assetPosition`](http://hppp.herokuapp.com/HPPPLayout_h/Classes/HPPPLayout/index.html#//apple_ref/occ/instp/HPPPLayout/assetPosition) for details on adjusting the layout rectangle. 
+This can be useful for things like centering the asset on the page without filling the page entirely or without changing the size of the asset.
+
+###### Layout Types
+
+Original | Fit  | Fill | Stretch
+--- | --- | --- | ---
+[![Map](http://d3fep8xjnjngo0.cloudfront.net/ios/original.thumb.jpg)](http://d3fep8xjnjngo0.cloudfront.net/ios/original.jpg) | [![Map](http://d3fep8xjnjngo0.cloudfront.net/ios/fit.thumb.jpg)](http://d3fep8xjnjngo0.cloudfront.net/ios/fit.jpg)  | [![Key](http://d3fep8xjnjngo0.cloudfront.net/ios/fill.thumb.jpg)](http://d3fep8xjnjngo0.cloudfront.net/ios/fill.jpg) | [![Key](http://d3fep8xjnjngo0.cloudfront.net/ios/stretch.thumb.jpg)](http://d3fep8xjnjngo0.cloudfront.net/ios/stretch.jpg)
+> __Note:__ The red outline box indicates the paper dimensions.
 
 ###### Fit Layout
 
