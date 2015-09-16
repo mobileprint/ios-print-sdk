@@ -88,16 +88,9 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
         
         self.handlePrintMetricsAutomatically = YES;
         self.lastOptionsUsed = [NSMutableDictionary dictionary];
-        self.defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize5x7 paperType:HPPPPaperTypePhoto];
         self.appearance = [[HPPPAppearance alloc] init];
-        NSMutableArray *paperSizes = [NSMutableArray array];
-        for (HPPPPaper *paper in [HPPPPaper availablePapers]) {
-            if (![paperSizes containsObject:paper.sizeTitle]) {
-                [paperSizes addObject:paper.sizeTitle];
-            }
-        }
-        self.paperSizes = paperSizes;
-        
+        self.supportedPapers = [HPPPPaper availablePapers];
+        self.defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize5x7 paperType:HPPPPaperTypePhoto];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleShareCompletedNotification:) name:kHPPPShareCompletedNotification object:nil];
     }
     

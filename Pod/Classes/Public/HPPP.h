@@ -253,12 +253,12 @@ extern NSString * const kHPPPNumberOfCopies;
 
 /*!
  * @abstract List of supported paper sizes
- * @discussion An array of string titles specifying the list of supported papers
+ * @discussion An array of HPPPPaper objects specifying the list of supported papers
  * @seealso HPPPPaper
  * @seealso PaperSize
  * @seealso titleFromSize:
  */
-@property (strong, nonatomic) NSArray *paperSizes;
+@property (strong, nonatomic) NSArray *supportedPapers;
 
 /*!
  * @abstract Default paper

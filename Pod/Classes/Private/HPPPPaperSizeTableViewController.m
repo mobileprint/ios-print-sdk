@@ -51,7 +51,7 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.hppp.paperSizes.count;
+    return [[self uniqueSizeTitles] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -66,7 +66,7 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     cell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     cell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     
-    cell.textLabel.text = self.hppp.paperSizes[indexPath.row];
+    cell.textLabel.text = [self uniqueSizeTitles][indexPath.row];
     
     if ([cell.textLabel.text isEqualToString:self.currentPaper.sizeTitle]) {
         cell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsCheckmarkImage]];
@@ -79,7 +79,7 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    for (NSInteger i = 0; i < self.hppp.paperSizes.count; i++) {
+    for (NSInteger i = 0; i < [[self uniqueSizeTitles] count]; i++) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
         cell.accessoryView = nil;
     }
@@ -95,6 +95,17 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     if ([self.delegate respondsToSelector:@selector(paperSizeTableViewController:didSelectPaper:)]) {
         [self.delegate paperSizeTableViewController:self didSelectPaper:paper];
     }
+}
+
+- (NSArray *)uniqueSizeTitles
+{
+    NSMutableArray *sizeTitles = [NSMutableArray array];
+    for (HPPPPaper *paper in [HPPP sharedInstance].supportedPapers) {
+        if (![sizeTitles containsObject:paper.sizeTitle]) {
+            [sizeTitles addObject:paper.sizeTitle];
+        }
+    }
+    return sizeTitles;
 }
 
 @end
