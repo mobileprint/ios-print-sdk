@@ -57,15 +57,63 @@ typedef enum {
     HPPPPaperTypePhoto
 } HPPPPaperType;
 
+/*!
+ * @abstract Dictionary key used to specify the paper size ID when registering a paper size
+ * @discussion An NSNumber value representing an unsigned integer
+ */
 extern NSString * const kHPPPPaperSizeIdKey;
+
+/*!
+ * @abstract Dictionary key used to specify the paper size ID when registering a paper size
+ * @discussion An NSString value used in the UI to represent the paper size
+ */
 extern NSString * const kHPPPPaperSizeTitleKey;
+
+/*!
+ * @abstract Dictionary key used to specify the paper type ID when registering a paper type
+ * @discussion An NSNumber value representing an unsigned integer
+ */
 extern NSString * const kHPPPPaperTypeIdKey;
+
+/*!
+ * @abstract Dictionary key used to specify the paper type ID when registering a paper type
+ * @discussion An NSString value used in the UI to represent the paper size
+ */
 extern NSString * const kHPPPPaperTypeTitleKey;
+
+/*!
+ * @abstract Dictionary key used to specify whether the paper type being registered is photo paper or not
+ * @discussion An NSNumber value representing a boolean value (YES or NO). This key is optional and the default value is NO.
+ */
 extern NSString * const kHPPPPaperTypePhotoKey;
-extern NSString * const kHPPPPaperWidthKey;
-extern NSString * const kHPPPPaperHeightKey;
-extern NSString * const kHPPPPaperPrinterWidthKey;
-extern NSString * const kHPPPPaperPrinterHeightKey;
+
+/*!
+ * @abstract Dictionary key used to specify physical width of the paper
+ * @discussion An NSNumber value representing a floating point width in inches
+ */
+extern NSString * const kHPPPPaperSizeWidthKey;
+
+/*!
+ * @abstract Dictionary key used to specify physical height of the paper
+ * @discussion An NSNumber value representing a floating point height in inches
+ */
+extern NSString * const kHPPPPaperSizeHeightKey;
+
+/*!
+ * @abstract Dictionary key used to specify paper width to report to the printer
+ * @discussion An NSNumber value representing a floating point width in inches.
+ * If this optional value is not included in the dictionary when the paper size is registered then the actual paper width will be used with the printer.
+ * Example: 4x5" paper reports 4x6" to the printer.
+ */
+extern NSString * const kHPPPPaperSizePrinterWidthKey;
+
+/*!
+ * @abstract Dictionary key used to specify paper height to report to the printer
+ * @discussion An NSNumber value representing a floating point height in inches. 
+ * If this optional value is not included in the dictionary when the paper size is registered then the actual paper height will be used with the printer. 
+ * Example: 4x5" paper reports 4x6" to the printer.
+ */
+extern NSString * const kHPPPPaperSizePrinterHeightKey;
 
 /*!
  * @abstract Label to display for the paper size
@@ -88,19 +136,25 @@ extern NSString * const kHPPPPaperPrinterHeightKey;
 @property (nonatomic, assign, readonly) float height;
 
 /*!
- * @abstract @link PaperSize @/link used by this paper
- * @seealso PaperSize
+ * @abstract The paper size used by this paper
+ * @seealso HPPPPaperSize
+ * @seealso registerSize:
+ * @seealso registerType:
+ * @seealso associatePaperSize:withType:
  */
 @property (nonatomic, assign, readonly) NSUInteger paperSize;
 
 /*!
- * @abstract @link PaperType @/link used by this paper
- * @seealso PaperType
+ * @abstract The paper type used by this paper
+ * @seealso HPPPPaperType
+ * @seealso registerSize:
+ * @seealso registerType:
+ * @seealso associatePaperSize:withType:
  */
 @property (nonatomic, assign, readonly) NSUInteger paperType;
 
 /*!
- * @abstract Indicates if this is photo paper
+ * @abstract Indicates that this is photo paper
  */
 @property (nonatomic, assign, readonly) BOOL photo;
 
@@ -108,9 +162,12 @@ extern NSString * const kHPPPPaperPrinterHeightKey;
  * @abstract Initializer using enums
  * @param paperSize The size of the paper
  * @param paperType The type of the paper
- * @seealso PaperSize
- * @seealso PaperType
  * @returns The initialized HPPPPaper object
+ * @seealso HPPPPaperSize
+ * @seealso HPPPPaperType
+ * @seealso registerSize:
+ * @seealso registerType:
+ * @seealso associatePaperSize:withType:
  */
 - (id)initWithPaperSize:(NSUInteger)paperSize paperType:(NSUInteger)paperType;
 
@@ -147,7 +204,6 @@ extern NSString * const kHPPPPaperPrinterHeightKey;
  * @abstract Retrieves the title for a given paper size
  * @discussion This method asserts that the size given is a valid paper size. An exception is raised if an invalid size is passed.
  * @returns Display title for the paper size
- * @seealso PaperSize
  * @seealso sizeFromTitle:
  */
 + (NSString *)titleFromSize:(NSUInteger)paperSize;
@@ -155,8 +211,7 @@ extern NSString * const kHPPPPaperPrinterHeightKey;
 /*!
  * @abstract Retrieves the paper size for a given size title
  * @description This method asserts that the string given is a valid paper size. An exception is raised if an invalid string is passed.
- * @returns @link PaperSize @/link for the size title
- * @seealso PaperSize
+ * @returns The paper size ID for the size title
  * @seealso titleFromSize:
  */
 + (NSUInteger)sizeFromTitle:(NSString *)paperSizeTitle;
@@ -165,7 +220,6 @@ extern NSString * const kHPPPPaperPrinterHeightKey;
  * @abstract Retrieves the title for a given paper type
  * @description This method asserts that the type given is a valid paper type. An exception is raised if an invalid type is passed.
  * @returns Display title for the paper type
- * @seealso PaperType
  * @seealso typeFromTitle:
  */
 + (NSString *)titleFromType:(NSUInteger)paperType;
@@ -173,21 +227,100 @@ extern NSString * const kHPPPPaperPrinterHeightKey;
 /*!
  * @abstract Retrieves the paper type for a given type title
  * @description This method asserts that the string given is a valid paper type. An exception is raised if an invalid string is passed.
- * @returns @link PaperType @/link for the type title
- * @seealso PaperType
+ * @returns The paper type ID for the type title
  * @seealso titleFromType:
  */
 + (NSUInteger)typeFromTitle:(NSString *)paperTypeTitle;
 
-+ (NSArray *)availablePapers;
-+ (BOOL)validPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType;
-+ (BOOL)supportedPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType;
+/*!
+ * @abstract Registers a paper size
+ * @param info An NSDictionary containing an ID, title, width, and height. Optionally includes special printer width and height.
+ * @returns YES or NO whether the paper size was added successfully
+ * @seealso kHPPPPaperSizeIdKey
+ * @seealso kHPPPPaperSizeTitleKey
+ * @seealso kHPPPPaperSizeWidthKey
+ * @seealso kHPPPPaperSizeHeightKey
+ * @seealso kHPPPPaperSizePrinterWidthKey
+ * @seealso kHPPPPaperSizePrinterHeightKey
+ * @seealso registerType:
+ * @seealso associatePaperSize:withType:
+ */
 + (BOOL)registerSize:(NSDictionary *)info;
+
+/*!
+ * @abstract Registers a paper type
+ * @param info An NSDictionary containing an ID, title, and flag indicating whether the type is photo paper or not.
+ * @returns YES or NO whether the paper type was added successfully
+ * @seealso kHPPPPaperTypeIdKey
+ * @seealso kHPPPPaperTypeTitleKey
+ * @seealso kHPPPPaperTypePhotoKey
+ * @seealso registerSize:
+ * @seealso associatePaperSize:withType:
+ */
 + (BOOL)registerType:(NSDictionary *)info;
+
+/*!
+ * @abstract Associates a paper size with a paper type
+ * @discussion Paper combinations cannot be used in the supported paper list until they are associated using this method.
+ * @param sizeId The ID of the paper size to be associated
+ * @param typeId The ID of the paper type to be associated
+ * @returns YES or NO whether the paper size and type were associated successfully
+ * @seealso registerSize:
+ * @seealso registerType:
+ */
 + (BOOL)associatePaperSize:(NSUInteger)sizeId withType:(NSUInteger)typeId;
 
-- (NSArray *)supportedTypes;
-- (BOOL)supportsType:(NSUInteger)paperType;
+/*!
+ * @abstract A list of all paper types
+ * @returns An array of HPPPPaper objects representing every registered paper size/type combination
+ * @seealso registerSize:
+ * @seealso registerType:
+ * @seealso associatePaperSize:withType:
+ */
++ (NSArray *)availablePapers;
+
+/*!
+ * @abstract Check if a paper combo is valid
+ * @discussion A paper size and type combination is valid if it has been registered using associatePaperSize:withType:
+ * @param paperSize The ID of the size to check
+ * @param paperType The ID of the type to check
+ * @returns YES or NO indicating whether the paper combination is valid or not
+ * @seealso registerSize:
+ * @seealso registerType:
+ * @seealso associatePaperSize:withType:
+ */
++ (BOOL)validPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType;
+
+/*!
+ * @abstract Check if a paper combo is supported by this application
+ * @discussion A paper size and type combination is supported if it is included in the supportedPapers list of the HPPP object. 
+ * Note that not all valid papers are necessarily supported by any given application.
+ * @param paperSize The ID of the size to check
+ * @param paperType The ID of the type to check
+ * @returns YES or NO indicating whether the paper combination is supported
+ * @seealso registerSize:
+ * @seealso registerType:
+ * @seealso associatePaperSize:withType:
+ */
++ (BOOL)supportedPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType;
+
+/*!
+ * @abstract Retrieves the default paper type for a given paper size
+ * @param paperSize The size of paper to lookup
+ * @returns An NSNumber object representing the unsigned integer ID value of the default type or nil if there are no types associated with the paper size
+ */
 + (NSNumber *)defaultTypeForSize:(NSUInteger)paperSize;
+
+/*!
+ * @abstract Retrieves a list of paper types supported by the paper size of this instance
+ * @returns An array of NSNumber objects representing the unsigned integer ID values of the paper types supported
+ */
+- (NSArray *)supportedTypes;
+
+/*!
+ * @abstract Checks if this paper size supports a given type
+ * @returns YES or NO indicating if this paper size supports the type given
+ */
+- (BOOL)supportsType:(NSUInteger)paperType;
 
 @end
