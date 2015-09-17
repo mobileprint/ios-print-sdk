@@ -50,6 +50,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITextField *deviceIDTextField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *showButtonsSegment;
 @property (weak, nonatomic) IBOutlet UITableViewCell *directPrintCell;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *paperSegmentControl;
 
 @end
 
@@ -72,6 +73,10 @@ int const kMetricsSegmentErrorIndex = 3;
 int const kShowButtonsSegmentDeviceIndex = 0;
 int const kShowButtonsSegmentOnIndex = 1;
 int const kShowButtonsSegmentOffIndex = 2;
+
+int const kPaperSegmentUSAIndex = 0;
+int const kPaperSegmentInternationalIndex = 1;
+int const kPaperSegmentAllIndex = 2;
 
 NSString * const kMetricsOfframpKey = @"off_ramp";
 NSString * const kMetricsAppTypeKey = @"app_type";
@@ -126,10 +131,9 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 {
     [HPPP sharedInstance].printJobName = @"Print POD Example";
     
-    [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize5x7 paperType:HPPPPaperTypePhoto];
-    
     [HPPP sharedInstance].handlePrintMetricsAutomatically = NO;
     
+    [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize5x7 paperType:HPPPPaperTypePhoto];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"PrintInstructions"];
     
@@ -144,6 +148,85 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     [HPPP sharedInstance].interfaceOptions.multiPageDoubleTapEnabled = YES;
     [HPPP sharedInstance].interfaceOptions.multiPageZoomOnSingleTap = NO;
     [HPPP sharedInstance].interfaceOptions.multiPageZoomOnDoubleTap = YES;
+    
+    [self configurePaper];
+}
+
+#pragma mark - Papers
+
+- (void)configurePaper
+{
+    [HPPPPaper registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:100],
+                         kHPPPPaperSizeTitleKey:@"2 x 6",
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:2.0],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:6.0]
+                         }];
+    
+    [HPPPPaper registerType:@{
+                              kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedInteger:102],
+                              kHPPPPaperTypeTitleKey:@"2-Up Perforated",
+                              kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
+                              }];
+    
+    [HPPPPaper registerType:@{
+                              kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedInteger:103],
+                              kHPPPPaperTypeTitleKey:@"3-Up Perforated",
+                              kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
+                              }];
+    
+    [HPPPPaper registerType:@{
+                              kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedInteger:104],
+                              kHPPPPaperTypeTitleKey:@"4-Up Perforated",
+                              kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
+                              }];
+
+    [HPPPPaper associatePaperSize:HPPPPaperSize5x7 withType:102];
+    [HPPPPaper associatePaperSize:HPPPPaperSize5x7 withType:103];
+    [HPPPPaper associatePaperSize:HPPPPaperSize5x7 withType:104];
+    [HPPPPaper associatePaperSize:100 withType:HPPPPaperTypePhoto];
+    
+    [self setSupportedPaper];
+}
+
+- (void)setSupportedPaper
+{
+    NSArray *papers = [HPPPPaper availablePapers];
+    [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize4x6 paperType:HPPPPaperTypePhoto];
+    if (kPaperSegmentUSAIndex == self.paperSegmentControl.selectedSegmentIndex) {
+        papers = [self papersWithSizes:@[
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize4x5],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize4x6],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize5x7],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeLetter],
+                                         ]];
+    } else if (kPaperSegmentInternationalIndex == self.paperSegmentControl.selectedSegmentIndex) {
+        [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeA6 paperType:HPPPPaperTypePhoto];
+        papers = [self papersWithSizes:@[
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeA4],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeA5],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeA6],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize10x13],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize10x15],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize13x18]
+                                         ]];
+    }
+    [HPPP sharedInstance].supportedPapers = papers;
+}
+
+- (NSArray *)papersWithSizes:(NSArray *)sizes
+{
+    NSMutableArray *papers = [NSMutableArray array];
+    for (HPPPPaper *paper in [HPPPPaper availablePapers]) {
+        if ([sizes containsObject:[NSNumber numberWithUnsignedInteger:paper.paperSize]]) {
+            [papers addObject:paper];
+        }
+    }
+    return papers;
+}
+
+- (IBAction)paperSegmentChanged:(id)sender {
+    [self setSupportedPaper];
 }
 
 #pragma mark - Navigation
