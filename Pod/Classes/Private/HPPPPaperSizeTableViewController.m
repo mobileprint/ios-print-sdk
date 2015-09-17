@@ -88,8 +88,9 @@ NSString * const kPaperSizeScreenName = @"Paper Size Screen";
     selectedCell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsCheckmarkImage]];
     
     NSUInteger selectedSize = [HPPPPaper sizeFromTitle:selectedCell.textLabel.text];
-    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:selectedSize paperType:HPPPPaperTypePhoto];
-    if ([paper supportsPlain]) {
+    NSUInteger defaultSize = [[HPPPPaper defaultTypeForSize:selectedSize] unsignedIntegerValue];
+    HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:selectedSize paperType:defaultSize];
+    if ([paper supportsType:self.currentPaper.paperType]) {
         paper = [[HPPPPaper alloc] initWithPaperSize:selectedSize paperType:self.currentPaper.paperType];
     }
     

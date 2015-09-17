@@ -60,6 +60,8 @@ typedef enum {
 extern NSString * const kHPPPPaperSizeIdKey;
 extern NSString * const kHPPPPaperSizeTitleKey;
 extern NSString * const kHPPPPaperTypeIdKey;
+extern NSString * const kHPPPPaperTypeTitleKey;
+extern NSString * const kHPPPPaperTypePhotoKey;
 extern NSString * const kHPPPPaperWidthKey;
 extern NSString * const kHPPPPaperHeightKey;
 extern NSString * const kHPPPPaperPrinterWidthKey;
@@ -68,34 +70,39 @@ extern NSString * const kHPPPPaperPrinterHeightKey;
 /*!
  * @abstract Label to display for the paper size
  */
-@property (nonatomic, strong) NSString *sizeTitle;
+@property (nonatomic, strong, readonly) NSString *sizeTitle;
 
 /*!
  * @abstract Label to display for the paper type
  */
-@property (nonatomic, strong) NSString *typeTitle;
+@property (nonatomic, strong, readonly) NSString *typeTitle;
 
 /*!
  * @abstract Physical width of the paper in inches
  */
-@property (nonatomic, assign) float width;
+@property (nonatomic, assign, readonly) float width;
 
 /*!
  * @abstract Physical height of the paper in inches
  */
-@property (nonatomic, assign) float height;
+@property (nonatomic, assign, readonly) float height;
 
 /*!
  * @abstract @link PaperSize @/link used by this paper
  * @seealso PaperSize
  */
-@property (nonatomic, assign) NSUInteger paperSize;
+@property (nonatomic, assign, readonly) NSUInteger paperSize;
 
 /*!
  * @abstract @link PaperType @/link used by this paper
  * @seealso PaperType
  */
-@property (nonatomic, assign) NSUInteger paperType;
+@property (nonatomic, assign, readonly) NSUInteger paperType;
+
+/*!
+ * @abstract Indicates if this is photo paper
+ */
+@property (nonatomic, assign, readonly) BOOL photo;
 
 /*!
  * @abstract Initializer using enums
@@ -174,12 +181,13 @@ extern NSString * const kHPPPPaperPrinterHeightKey;
 
 + (NSArray *)availablePapers;
 + (BOOL)validPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType;
++ (BOOL)supportedPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType;
 + (BOOL)registerSize:(NSDictionary *)info;
++ (BOOL)registerType:(NSDictionary *)info;
 + (BOOL)associatePaperSize:(NSUInteger)sizeId withType:(NSUInteger)typeId;
 
 - (NSArray *)supportedTypes;
 - (BOOL)supportsType:(NSUInteger)paperType;
-- (BOOL)supportsPlain;
-- (BOOL)supportsPhoto;
++ (NSNumber *)defaultTypeForSize:(NSUInteger)paperSize;
 
 @end

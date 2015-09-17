@@ -69,13 +69,13 @@ NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
 
 - (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
-    HPPPPaper *adjustedPaper = paper;
-    if (![self.printSettings.paper supportsPlain] && [paper supportsPlain]){
-        adjustedPaper = [[HPPPPaper alloc] initWithPaperSize:paper.paperSize paperType:HPPPPaperTypePlain];
-    } else if ([self.printSettings.paper supportsPlain] && ![paper supportsPlain]){
-        adjustedPaper = [[HPPPPaper alloc] initWithPaperSize:paper.paperSize paperType:HPPPPaperTypePhoto];
+    HPPPPaper *originalPaper = self.printSettings.paper;
+    HPPPPaper *newPaper = paper;
+    if (![[originalPaper supportedTypes] isEqualToArray:[newPaper supportedTypes]]) {
+        NSUInteger defaultType = [[HPPPPaper defaultTypeForSize:paper.paperSize] unsignedIntegerValue];
+        newPaper = [[HPPPPaper alloc] initWithPaperSize:paper.paperSize paperType:defaultType];
     }
-    self.paper = adjustedPaper;
+    self.paper = newPaper;
     [self.pageSettingsViewController refreshData];
 }
 
@@ -350,7 +350,7 @@ NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
     if (lastSizeUsed && lastTypeUsed) {
         NSUInteger sizeId = [lastSizeUsed unsignedIntegerValue];
         NSUInteger typeId = [lastTypeUsed unsignedIntegerValue];
-        if ([HPPPPaper validPaperSize:sizeId andType:typeId]) {
+        if ([HPPPPaper supportedPaperSize:sizeId andType:typeId]) {
             paper = [[HPPPPaper alloc] initWithPaperSize:sizeId paperType:typeId];
         }
     }

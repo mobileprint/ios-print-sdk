@@ -163,7 +163,7 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == PAPER_SELECTION_SECTION) {
-        if ([self.printSettings.paper supportsPlain]) {
+        if ([[self.printSettings.paper supportedTypes] count] > 1) {
             return 2;
         } else {
             return 1;
@@ -217,7 +217,7 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
                 rowHeight = tableView.rowHeight;
             }
         } else if (indexPath.row == PAPER_TYPE_ROW_INDEX) {
-            if (!self.hppp.hidePaperTypeOption && [self.printSettings.paper supportsPlain]) {
+            if (!self.hppp.hidePaperTypeOption && [[self.printSettings.paper supportedTypes] count] > 1) {
                 rowHeight = tableView.rowHeight;
             }
         }
@@ -300,14 +300,14 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
 
 - (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
-    HPPPPaper *adjustedPaper = paper;
-    if (![self.printSettings.paper supportsPlain] && [paper supportsPlain]){
-        adjustedPaper = [[HPPPPaper alloc] initWithPaperSize:paper.paperSize paperType:HPPPPaperTypePlain];
-    } else if ([self.printSettings.paper supportsPlain] && ![paper supportsPlain]){
-        adjustedPaper = [[HPPPPaper alloc] initWithPaperSize:paper.paperSize paperType:HPPPPaperTypePhoto];
+    HPPPPaper *originalPaper = self.printSettings.paper;
+    HPPPPaper *newPaper = paper;
+    if (![[originalPaper supportedTypes] isEqualToArray:[newPaper supportedTypes]]) {
+        NSUInteger defaultType = [[HPPPPaper defaultTypeForSize:paper.paperSize] unsignedIntegerValue];
+        newPaper = [[HPPPPaper alloc] initWithPaperSize:paper.paperSize paperType:defaultType];
     }
     
-    self.printSettings.paper = adjustedPaper;
+    self.printSettings.paper = newPaper;
     
     // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
