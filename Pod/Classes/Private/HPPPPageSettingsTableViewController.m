@@ -477,6 +477,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.pageSelectionMark.hidden = YES;
         self.pageRangeCell.hidden = YES;
         self.numberOfCopiesCell.hidden = YES;
+        self.jobNameCell.hidden = YES;
     } else {
         self.jobNameCell.hidden = YES;
     }
