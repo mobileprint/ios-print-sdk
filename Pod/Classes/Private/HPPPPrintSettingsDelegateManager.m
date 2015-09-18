@@ -28,6 +28,7 @@ NSString * const kHPPPLastPaperSizeSetting = @"kHPPPLastPaperSizeSetting";
 NSString * const kHPPPLastPaperTypeSetting = @"kHPPPLastPaperTypeSetting";
 NSString * const kHPPPLastBlackAndWhiteFilterSetting = @"kHPPPLastBlackAndWhiteFilterSetting";
 NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
+NSString * const kHPPPPrintSummarySeparatorText = @" / ";
 
 #pragma mark - HPPPPageRangeViewDelegate
 
@@ -166,10 +167,11 @@ NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
     
     if( self.printSettings.paper ) {
         if( _printJobSummaryText.length > 0 ) {
-            _printJobSummaryText = [_printJobSummaryText stringByAppendingString:@"/"];
+            _printJobSummaryText = [_printJobSummaryText stringByAppendingString:kHPPPPrintSummarySeparatorText];
         }
 
-        _printJobSummaryText = [_printJobSummaryText stringByAppendingString:self.printSettings.paper.sizeTitle];
+        NSString *paperString = [NSString stringWithFormat:@"%@ %@",self.printSettings.paper.sizeTitle, self.printSettings.paper.typeTitle];
+        _printJobSummaryText = [_printJobSummaryText stringByAppendingString:paperString];
     }
     
     return _printJobSummaryText;
@@ -180,18 +182,18 @@ NSString * const kHPPPBlackAndWhiteIndicatorText = @"B&W";
     NSString *summaryText = @"";
 
     if( 1 < self.printItem.numberOfPages && ![self allPagesSelected]) {
-        summaryText = [NSString stringWithFormat:@"%ld of %ld Pages Selected", (long)[self.pageRange getUniquePages].count, (long)self.printItem.numberOfPages];
+        summaryText = [NSString stringWithFormat:@"%ld of %ld Pages", (long)[self.pageRange getUniquePages].count, (long)self.printItem.numberOfPages];
     }
     
     if( self.blackAndWhite ) {
         if( summaryText.length > 0 ) {
-            summaryText = [summaryText stringByAppendingString:@"/"];
+            summaryText = [summaryText stringByAppendingString:kHPPPPrintSummarySeparatorText];
         }
         summaryText = [summaryText stringByAppendingString:kHPPPBlackAndWhiteIndicatorText];
     }
     
     if( summaryText.length > 0 ) {
-        summaryText = [summaryText stringByAppendingString:@"/"];
+        summaryText = [summaryText stringByAppendingString:kHPPPPrintSummarySeparatorText];
     }
     
     NSString *copyText = @"Copies";
