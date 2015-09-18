@@ -122,11 +122,6 @@
     return CGSizeMake(width, height);
 }
 
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"%@, %@\nWidth %f Height %f\nPaper Size %lul\nPaper Type %lul", self.sizeTitle, self.typeTitle, self.width, self.height, (unsigned long)self.paperSize, (unsigned long)self.paperType];
-}
-
 #pragma mark - Supported paper initialization
 
 NSString * const kHPPPPaperSizeIdKey = @"kHPPPPaperSizeIdKey";
@@ -503,6 +498,22 @@ static NSArray *_supportedPaper = nil;
         }
     }
     return paperType;
+}
+
+#pragma mark - Log description
+
+- (NSString *)description
+{
+    CGSize printerSize = [self printerPaperSize];
+    return [NSString stringWithFormat:@"%@, %@\nWidth %.2f Height %.2f\nPrinter Width %.2f Printer Height %.2f\nPaper Size %lul\nPaper Type %lul",
+            self.sizeTitle,
+            self.typeTitle,
+            self.width,
+            self.height,
+            printerSize.width,
+            printerSize.height,
+            (unsigned long)self.paperSize,
+            (unsigned long)self.paperType];
 }
 
 @end
