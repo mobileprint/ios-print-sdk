@@ -33,7 +33,7 @@
     self.printManager = [[HPPPPrintManager alloc] init];
     self.printManager.currentPrintSettings.printerName = @"dummyPrinterName";
     self.printManager.currentPrintSettings.printerUrl = [NSURL URLWithString:@"dummyPrinterUrl"];
-    self.printManager.currentPrintSettings.paper = [[HPPPPaper alloc] initWithPaperSizeTitle:HPPPPaperSize5x7 paperTypeTitle:HPPPPaperTypePhoto];
+    self.printManager.currentPrintSettings.paper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize5x7 paperType:HPPPPaperTypePhoto];
 }
 
 - (void)tearDown {

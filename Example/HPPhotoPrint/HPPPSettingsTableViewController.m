@@ -810,7 +810,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     NSMutableDictionary *printItems = [NSMutableDictionary dictionary];
     for (NSString *size in sizes) {
         HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:asset];
-        HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSizeTitle:size paperTypeTitle:@"Plain Paper"];
+        HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSizeTitle:size paperTypeTitle:@"Photo Paper"];
         printItem.layout = [self layoutForPaper:paper];
         [printItems addEntriesFromDictionary:@{ paper.sizeTitle: printItem }];
     }
