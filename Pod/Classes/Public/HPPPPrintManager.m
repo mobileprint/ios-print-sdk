@@ -182,7 +182,7 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     
     // This application prints photos. UIKit will pick a paper size and print
     // quality appropriate for this content type.
-    BOOL photoPaper = (self.currentPrintSettings.paper.paperSize != SizeLetter) || (self.currentPrintSettings.paper.paperType == Photo);
+    BOOL photoPaper = self.currentPrintSettings.paper.photo;
     
     if (photoPaper && color) {
         printInfo.outputType = UIPrintInfoOutputPhoto;

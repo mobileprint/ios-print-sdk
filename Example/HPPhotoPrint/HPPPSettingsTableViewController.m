@@ -50,6 +50,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITextField *deviceIDTextField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *showButtonsSegment;
 @property (weak, nonatomic) IBOutlet UITableViewCell *directPrintCell;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *paperSegmentControl;
 
 @end
 
@@ -72,6 +73,10 @@ int const kMetricsSegmentErrorIndex = 3;
 int const kShowButtonsSegmentDeviceIndex = 0;
 int const kShowButtonsSegmentOnIndex = 1;
 int const kShowButtonsSegmentOffIndex = 2;
+
+int const kPaperSegmentUSAIndex = 0;
+int const kPaperSegmentInternationalIndex = 1;
+int const kPaperSegmentAllIndex = 2;
 
 NSString * const kMetricsOfframpKey = @"off_ramp";
 NSString * const kMetricsAppTypeKey = @"app_type";
@@ -126,10 +131,9 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 {
     [HPPP sharedInstance].printJobName = @"Print POD Example";
     
-    [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:Size5x7 paperType:Photo];
-    
     [HPPP sharedInstance].handlePrintMetricsAutomatically = NO;
     
+    [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize5x7 paperType:HPPPPaperTypePhoto];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"PrintInstructions"];
     
@@ -137,20 +141,92 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     HPPPSupportAction *action2 = [[HPPPSupportAction alloc] initWithIcon:[UIImage imageNamed:@"print-instructions"] title:@"Print Instructions VC" viewController:navigationController];
     
     [HPPP sharedInstance].supportActions =  @[action1, action2];
-    
-    [HPPP sharedInstance].paperSizes = @[
-                                         [HPPPPaper titleFromSize:Size4x5],
-                                         [HPPPPaper titleFromSize:Size4x6],
-                                         [HPPPPaper titleFromSize:Size5x7],
-                                         [HPPPPaper titleFromSize:SizeLetter]
-                                         ];
-    
+
     [HPPP sharedInstance].interfaceOptions.multiPageMaximumGutter = 0;
     [HPPP sharedInstance].interfaceOptions.multiPageBleed = 40;
     [HPPP sharedInstance].interfaceOptions.multiPageBackgroundPageScale = 0.61803399;
     [HPPP sharedInstance].interfaceOptions.multiPageDoubleTapEnabled = YES;
     [HPPP sharedInstance].interfaceOptions.multiPageZoomOnSingleTap = NO;
     [HPPP sharedInstance].interfaceOptions.multiPageZoomOnDoubleTap = YES;
+    
+    [self configurePaper];
+}
+
+#pragma mark - Papers
+
+- (void)configurePaper
+{
+    [HPPPPaper registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:100],
+                         kHPPPPaperSizeTitleKey:@"2 x 6",
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:2.0],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:6.0]
+                         }];
+    
+    [HPPPPaper registerType:@{
+                              kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedInteger:102],
+                              kHPPPPaperTypeTitleKey:@"2-Up Perforated",
+                              kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
+                              }];
+    
+    [HPPPPaper registerType:@{
+                              kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedInteger:103],
+                              kHPPPPaperTypeTitleKey:@"3-Up Perforated",
+                              kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
+                              }];
+    
+    [HPPPPaper registerType:@{
+                              kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedInteger:104],
+                              kHPPPPaperTypeTitleKey:@"4-Up Perforated",
+                              kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
+                              }];
+
+    [HPPPPaper associatePaperSize:HPPPPaperSize5x7 withType:102];
+    [HPPPPaper associatePaperSize:HPPPPaperSize5x7 withType:103];
+    [HPPPPaper associatePaperSize:HPPPPaperSize5x7 withType:104];
+    [HPPPPaper associatePaperSize:100 withType:HPPPPaperTypePhoto];
+    
+    [self setSupportedPaper];
+}
+
+- (void)setSupportedPaper
+{
+    NSArray *papers = [HPPPPaper availablePapers];
+    [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize4x6 paperType:HPPPPaperTypePhoto];
+    if (kPaperSegmentUSAIndex == self.paperSegmentControl.selectedSegmentIndex) {
+        papers = [self papersWithSizes:@[
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize4x5],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize4x6],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize5x7],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeLetter],
+                                         ]];
+    } else if (kPaperSegmentInternationalIndex == self.paperSegmentControl.selectedSegmentIndex) {
+        [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeA6 paperType:HPPPPaperTypePhoto];
+        papers = [self papersWithSizes:@[
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeA4],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeA5],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeA6],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize10x13],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize10x15],
+                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize13x18]
+                                         ]];
+    }
+    [HPPP sharedInstance].supportedPapers = papers;
+}
+
+- (NSArray *)papersWithSizes:(NSArray *)sizes
+{
+    NSMutableArray *papers = [NSMutableArray array];
+    for (HPPPPaper *paper in [HPPPPaper availablePapers]) {
+        if ([sizes containsObject:[NSNumber numberWithUnsignedInteger:paper.paperSize]]) {
+            [papers addObject:paper];
+        }
+    }
+    return papers;
+}
+
+- (IBAction)paperSegmentChanged:(id)sender {
+    [self setSupportedPaper];
 }
 
 #pragma mark - Navigation
@@ -668,11 +744,16 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 
 #pragma mark - Layout
 
+- (BOOL)letterLayoutUsedBySize:(NSUInteger)paperSize
+{
+    return HPPPPaperSizeLetter == paperSize || HPPPPaperSizeA4 == paperSize;
+}
+
 - (HPPPLayout *)layoutForPaper:(HPPPPaper *)paper
 {
     HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType]];
     if (DefaultPrintRenderer != self.printItem.renderer) {
-        BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && SizeLetter == paper.paperSize);
+        BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && [self letterLayoutUsedBySize:paper.paperSize]);
         
         HPPPLayoutOrientation orientation = HPPPLayoutOrientationBestFit;
         if (defaultLetter || kOrientationPortrait == self.orientationSegmentControl.selectedSegmentIndex) {
@@ -683,7 +764,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
         
         CGRect position = [HPPPLayout completeFillRectangle];
         if (defaultLetter) {
-            position = [self defaultLetterPosition];
+            position = [self defaultPositionForSize:paper.paperSize];
         } else {
             CGFloat x = [((UITextField *)self.positionTextField[0]).text floatValue];
             CGFloat y = [((UITextField *)self.positionTextField[1]).text floatValue];
@@ -711,9 +792,9 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     return layout;
 }
 
-- (CGRect)defaultLetterPosition
+- (CGRect)defaultPositionForSize:(NSUInteger)paperSize
 {
-    HPPPPaper *letterPaper = [[HPPPPaper alloc] initWithPaperSize:SizeLetter paperType:Plain];
+    HPPPPaper *letterPaper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:HPPPPaperTypePlain];
     HPPPPaper *defaultPaper = [HPPP sharedInstance].defaultPaper;
     CGFloat maxDimension = fmaxf(defaultPaper.width, defaultPaper.height);
     CGFloat width = maxDimension / letterPaper.width * 100.0f;

@@ -15,9 +15,6 @@
 #import "HPPPPaper.h"
 #import "UIImage+HPPPResize.h"
 
-#define DEBUG_PRINT_LAYOUT NO
-#define MAXIMUM_ENLARGEMENT 1.25f
-
 @interface HPPPPrintPageRenderer()
 
 @property (strong, nonatomic) HPPPLayout *layout;

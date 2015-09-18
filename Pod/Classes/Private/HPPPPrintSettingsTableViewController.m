@@ -163,7 +163,7 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == PAPER_SELECTION_SECTION) {
-        if (self.printSettings.paper.paperSize == SizeLetter) {
+        if ([[self.printSettings.paper supportedTypes] count] > 1) {
             return 2;
         } else {
             return 1;
@@ -217,7 +217,7 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
                 rowHeight = tableView.rowHeight;
             }
         } else if (indexPath.row == PAPER_TYPE_ROW_INDEX) {
-            if ((!self.hppp.hidePaperTypeOption) && (self.printSettings.paper.paperSize == SizeLetter)) {
+            if (!self.hppp.hidePaperTypeOption && [[self.printSettings.paper supportedTypes] count] > 1) {
                 rowHeight = tableView.rowHeight;
             }
         }
@@ -300,24 +300,22 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
 
 - (void)paperSizeTableViewController:(HPPPPaperSizeTableViewController *)paperSizeTableViewController didSelectPaper:(HPPPPaper *)paper
 {
-    self.printSettings.paper = paper;
+    HPPPPaper *originalPaper = self.printSettings.paper;
+    HPPPPaper *newPaper = paper;
+    if (![[originalPaper supportedTypes] isEqualToArray:[newPaper supportedTypes]]) {
+        NSUInteger defaultType = [[HPPPPaper defaultTypeForSize:paper.paperSize] unsignedIntegerValue];
+        newPaper = [[HPPPPaper alloc] initWithPaperSize:paper.paperSize paperType:defaultType];
+    }
     
-    [self reloadPaperSelectionSection];
-    
-    self.selectedPaperSizeLabel.text = paper.sizeTitle;
+    self.printSettings.paper = newPaper;
     
     // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
-    if (paper.paperSize == SizeLetter) {
-        self.printSettings.paper.paperType = Plain;
-        self.printSettings.paper.typeTitle = [HPPPPaper titleFromType:Plain];
-        self.selectedPaperTypeLabel.text = self.printSettings.paper.typeTitle;
-        
-    } else {
-        self.printSettings.paper.paperType = Photo;
-        self.printSettings.paper.typeTitle = [HPPPPaper titleFromType:Photo];
-        self.selectedPaperTypeLabel.text = self.printSettings.paper.typeTitle;
-    }
+
+    self.selectedPaperSizeLabel.text = self.printSettings.paper.sizeTitle;
+    self.selectedPaperTypeLabel.text = self.printSettings.paper.typeTitle;
+    [self reloadPaperSelectionSection];
+
     [self.tableView endUpdates];
     
     if ([self.delegate respondsToSelector:@selector(printSettingsTableViewController:didChangePrintSettings:)]) {

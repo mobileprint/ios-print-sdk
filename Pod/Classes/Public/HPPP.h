@@ -13,7 +13,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "HPPPAppearance.h"
-#import "HPPPPaper.h"
 #import "HPPPPrintActivity.h"
 #import "HPPPPrintLaterActivity.h"
 #import "HPPPPrintLaterJob.h"
@@ -21,6 +20,7 @@
 #import "HPPPLogger.h"
 #import "HPPPInterfaceOptions.h"
 
+@class HPPPPaper;
 @class HPPPPrintItem;
 
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
@@ -253,20 +253,17 @@ extern NSString * const kHPPPNumberOfCopies;
 
 /*!
  * @abstract List of supported paper sizes
- * @discussion An array of string values specifying the title of the paper sizes to display. These titles are shown in the paper size selection page and must map to known @link PaperSize @/link defined in @link HPPPPaper @/link .
+ * @discussion An array of HPPPPaper objects specifying the list of supported papers
  * @seealso HPPPPaper
- * @seealso PaperSize
- * @seealso titleFromSize:
  */
-@property (strong, nonatomic) NSArray *paperSizes;
+@property (strong, nonatomic) NSArray *supportedPapers;
 
 /*!
  * @abstract Default paper
- * @discussion An @link HPPPPaper @/link object specifying the default paper size and type to use. This object is used to set the initial selection for paper size and paper type. It is also used as the value for paper size when the paper size selection is hidden. Default initial value is @link Size5x7 @/link .  Note that paper type does not apply to all paper sizes (e.g. 4x6 always uses photo paper regardless what paper type is specified). Default value is @link Photo @/link .
- * @seealso hidePaperSizeOption
- * @seealso PaperSize
- * @seealso hidePaperTypeOption
- * @seealso PaperType
+ * @discussion An @link HPPPPaper @/link object specifying the default paper size and type to use. 
+ * This object is used to set the initial selection for paper size and paper type. It is also used as the value for paper size when the paper size selection is hidden. 
+ * Default initial value is @link HPPPPaperSize5x7 @/link .  Note that paper type does not apply to all paper sizes (e.g. 4x6 always uses photo paper regardless what paper type is specified). 
+ * Default value is @link HPPPPaperTypePhoto @/link .
  */
 @property (strong, nonatomic) HPPPPaper *defaultPaper;
 

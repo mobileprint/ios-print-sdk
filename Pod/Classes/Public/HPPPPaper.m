@@ -10,49 +10,52 @@
 // the license agreement.
 //
 
+#import "HPPP.h"
 #import "HPPPPaper.h"
 #import "NSBundle+HPPPLocalizable.h"
 
-#define MAXIMUM_ENLARGEMENT 1.25f
-#define INVALID_PAPER -1;
-#define TYPE_PLAIN_TITLE HPPPLocalizedString(@"Plain Paper", @"Option of paper type")
-#define TYPE_PHOTO_TITLE HPPPLocalizedString(@"Photo Paper", @"Option of paper type")
-#define SIZE_4_X_5_TITLE @"4 x 5"
-#define SIZE_4_X_6_TITLE @"4 x 6"
-#define SIZE_5_X_7_TITLE @"5 x 7"
-#define SIZE_LETTER_TITLE @"8.5 x 11"
-
 @implementation HPPPPaper
 
-- (id)initWithPaperSize:(PaperSize)paperSize paperType:(PaperType)paperType
+
+- (id)initWithPaperSize:(NSUInteger)paperSize paperType:(NSUInteger)paperType
 {
+    if (nil == _supportedPaper) {
+        [HPPPPaper initializePaper];
+    }
+    
     self = [super init];
     
     if (self) {
-        self.paperSize = paperSize;
-        self.paperType = paperType;
-        self.typeTitle = [HPPPPaper titleFromType:paperType];
-        self.sizeTitle = [HPPPPaper titleFromSize:paperSize];
-        switch (paperSize) {
-            case Size4x5:
-                self.width = 4.0f;
-                self.height = 5.0f;
+        
+        HPPPPaper *paper = nil;
+        
+        for (NSDictionary *paperInfo in _supportedPaper) {
+            NSUInteger supportedSize = [[paperInfo objectForKey:kHPPPPaperSizeIdKey] unsignedIntegerValue];
+            NSUInteger supportedType = [[paperInfo objectForKey:kHPPPPaperTypeIdKey] unsignedIntegerValue];
+            if (paperSize == supportedSize && paperType == supportedType) {
+                NSDictionary *sizeInfo = [HPPPPaper sizeForId:paperSize];
+                NSDictionary *typeInfo = [HPPPPaper typeForId:paperType];
+                paper = self;
+                _paperSize = paperSize;
+                _paperType = paperType;
+                _sizeTitle = [sizeInfo objectForKey:kHPPPPaperSizeTitleKey];
+                _typeTitle = [typeInfo objectForKey:kHPPPPaperTypeTitleKey];
+                _width = [[sizeInfo objectForKey:kHPPPPaperSizeWidthKey] floatValue];
+                _height = [[sizeInfo objectForKey:kHPPPPaperSizeHeightKey] floatValue];
+                _photo = NO;
+                NSNumber *photo = [typeInfo objectForKey:kHPPPPaperTypePhotoKey];
+                if (photo) {
+                    _photo = [photo boolValue];
+                }
                 break;
-            case Size4x6:
-                self.width = 4.0f;
-                self.height = 6.0f;
-                break;
-            case Size5x7:
-                self.width = 5.0f;
-                self.height = 7.0f;
-                break;
-            case SizeLetter:
-                self.width = 8.5f;
-                self.height = 11.0f;
-                break;
-            default:
-                NSAssert(NO, @"Unknown paper size (enum): %ul", paperSize);
-        };
+            }
+        }
+        
+        if (!paper) {
+            NSAssert(NO, @"Unknown paper size (%lul) and type (%lul)", (unsigned long)paperSize, (unsigned long)paperType);
+        }
+        
+        self = paper;
     }
     
     return self;
@@ -63,80 +66,40 @@
     return [self initWithPaperSize:[HPPPPaper sizeFromTitle:paperSizeTitle] paperType:[HPPPPaper typeFromTitle:paperTypeTitle]];
 }
 
-+ (NSString *)titleFromSize:(PaperSize)paperSize
++ (NSString *)titleFromSize:(NSUInteger)sizeId
 {
-    NSString * paperSizeTitle = nil;
-    
-    switch (paperSize) {
-        case Size4x5:
-            paperSizeTitle = SIZE_4_X_5_TITLE;
-            break;
-        case Size4x6:
-            paperSizeTitle = SIZE_4_X_6_TITLE;
-            break;
-        case Size5x7:
-            paperSizeTitle = SIZE_5_X_7_TITLE;
-            break;
-        case SizeLetter:
-            paperSizeTitle = SIZE_LETTER_TITLE;
-            break;
-        default:
-            NSAssert(NO, @"Unknown paper size (enum): %ul", paperSize);
+    NSDictionary *sizeInfo = [self sizeForId:sizeId];
+    if (nil == sizeInfo) {
+        NSAssert(NO, @"Unknown paper size ID: %lul", (unsigned long)sizeId);
     }
-    
-    return paperSizeTitle;
+    return [sizeInfo objectForKey:kHPPPPaperSizeTitleKey];
 }
 
-+ (PaperSize)sizeFromTitle:(NSString *)paperSizeTitle
++ (NSUInteger)sizeFromTitle:(NSString *)title
 {
-    PaperSize paperSize = INVALID_PAPER;
-    
-    if ([paperSizeTitle isEqualToString:SIZE_4_X_5_TITLE]) {
-        paperSize = Size4x5;
-    } else if ([paperSizeTitle isEqualToString:SIZE_4_X_6_TITLE]) {
-        paperSize = Size4x6;
-    } else if ([paperSizeTitle isEqualToString:SIZE_5_X_7_TITLE]) {
-        paperSize = Size5x7;
-    } else if ([paperSizeTitle isEqualToString:SIZE_LETTER_TITLE]) {
-        paperSize = SizeLetter;
-    } else {
-        NSAssert(NO, @"Unknown paper size: %@", paperSizeTitle);
+    NSDictionary *sizeInfo = [self sizeForTitle:title];
+    if (nil == sizeInfo) {
+        NSAssert(NO, @"Unknown paper size title: %@", title);
     }
-    
-    return paperSize;
+    return [[sizeInfo objectForKey:kHPPPPaperSizeIdKey] unsignedIntegerValue];
 }
 
-+ (NSString *)titleFromType:(PaperType)paperType
++ (NSString *)titleFromType:(NSUInteger)typeId
 {
-    NSString * paperTypeTitle = nil;
-    
-    switch (paperType) {
-        case Plain:
-            paperTypeTitle = TYPE_PLAIN_TITLE;
-            break;
-        case Photo:
-            paperTypeTitle = TYPE_PHOTO_TITLE;
-            break;
-        default:
-            NSAssert(NO, @"Unknown paper type (enum): %ul", paperType);
+    NSDictionary *typeInfo = [self typeForId:typeId];
+    if (nil == typeInfo) {
+        NSAssert(NO, @"Unknown paper type ID: %lul", (unsigned long)typeId);
     }
-    
-    return paperTypeTitle;
+    return [typeInfo objectForKey:kHPPPPaperTypeTitleKey];
 }
 
-+ (PaperType)typeFromTitle:(NSString *)paperTypeTitle
++ (NSUInteger)typeFromTitle:(NSString *)title
 {
-    PaperType paperType = INVALID_PAPER;
-    
-    if ([paperTypeTitle isEqualToString:TYPE_PLAIN_TITLE]) {
-        paperType = Plain;
-    } else if ([paperTypeTitle isEqualToString:TYPE_PHOTO_TITLE]) {
-        paperType = Photo;
-    } else {
-        NSAssert(NO, @"Unknown paper type: %@", paperTypeTitle);
+    NSDictionary *typeInfo = [self typeForTitle:title];
+    if (nil == typeInfo) {
+        NSAssert(NO, @"Unknown paper type title: %@", title);
     }
-    
-    return paperType;
+    return [[typeInfo objectForKey:kHPPPPaperTypeIdKey] unsignedIntegerValue];
 }
 
 - (NSString *)paperWidthTitle
@@ -151,21 +114,406 @@
 
 - (CGSize)printerPaperSize
 {
-    CGSize pageSize = CGSizeMake(self.width * 72.0f, self.height * 72.0f);
+    NSDictionary *sizeInfo = [HPPPPaper sizeForId:self.paperSize];
+    NSNumber *printerWidth = [sizeInfo objectForKey:kHPPPPaperSizePrinterWidthKey];
+    NSNumber *printerHeight = [sizeInfo objectForKey:kHPPPPaperSizePrinterHeightKey];
+    CGFloat width = printerWidth ? [printerWidth floatValue] : self.width;
+    CGFloat height = printerHeight ? [printerHeight floatValue] : self.height;
+    return CGSizeMake(width, height);
+}
+
+#pragma mark - Supported paper initialization
+
+NSString * const kHPPPPaperSizeIdKey = @"kHPPPPaperSizeIdKey";
+NSString * const kHPPPPaperSizeTitleKey = @"kHPPPPaperSizeTitleKey";
+NSString * const kHPPPPaperTypeIdKey = @"kHPPPPaperTypeIdKey";
+NSString * const kHPPPPaperTypeTitleKey = @"kHPPPPaperTypeTitleKey";
+NSString * const kHPPPPaperTypePhotoKey = @"kHPPPPaperTypePhotoKey";
+NSString * const kHPPPPaperSizeWidthKey = @"kHPPPPaperWidthKey";
+NSString * const kHPPPPaperSizeHeightKey = @"kHPPPPaperHeightKey";
+NSString * const kHPPPPaperSizePrinterWidthKey = @"kHPPPPaperPrinterWidthKey";
+NSString * const kHPPPPaperSizePrinterHeightKey = @"kHPPPPaperPrinterHeightKey";
+
+static NSArray *_supportedSize = nil;
+static NSArray *_supportedType = nil;
+static NSArray *_supportedPaper = nil;
+
++ (void)initializePaper
+{
+    if (_supportedSize && _supportedType && _supportedPaper) {
+        return;
+    }
+
+    _supportedSize = @[];
+    _supportedType = @[];
+    _supportedPaper = @[];
     
-    // 4x5 prints force printing on 8.5x11 paper
-    //  ... fool AirPrint into printing from the 4x6 tray.
-    if( Size4x5 == self.paperSize )
-    {
-        pageSize = CGSizeMake(4.0f * 72.0f, 6.0f * 72.0f);
+    // US Paper Sizes
+    
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSize4x5],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"4 x 5", @"Option for paper size"),
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:4.0],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:5.0],
+                         kHPPPPaperSizePrinterHeightKey:[NSNumber numberWithFloat:6.0]
+                         }];
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSize4x6],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"4 x 6", @"Option for paper size"),
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:4.0],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:6.0]
+                         }];
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSize5x7],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"5 x 7", @"Option for paper size"),
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:5.0],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:7.0]
+                         }];
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSizeLetter],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"8.5 x 11", @"Option for paper size"),
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:8.5],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:11.0]
+                         }];
+    
+
+    // International paper sizes
+    
+    float const kMillimetersPerInch = 25.4;
+    
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSizeA4],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"A4", @"Option for paper size"),
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:210.0 / kMillimetersPerInch],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:297.0 / kMillimetersPerInch]
+                         }];
+    
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSizeA5],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"A5", @"Option for paper size"),
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:148.0 / kMillimetersPerInch],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:210.0 / kMillimetersPerInch]
+                         }];
+
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSizeA6],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"A6", @"Option for paper size"),
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:105.0 / kMillimetersPerInch],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:148.0 / kMillimetersPerInch]
+                         }];
+
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSize10x13],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"10x13cm", @"Option for paper size"),
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:4.0],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:5.0],
+                         kHPPPPaperSizePrinterHeightKey:[NSNumber numberWithFloat:6.0]
+                         }];
+    
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSize10x15],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"10x15cm", @"Option for paper size"),
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:4.0],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:6.0]
+                         }];
+    
+    [self registerSize:@{
+                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSize13x18],
+                         kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"13x18cm", @"Option for paper size"),
+                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:5.0],
+                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:7.0]
+                         }];
+    // Paper Type
+    [self registerType:@{
+                         kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperTypePlain],
+                         kHPPPPaperTypeTitleKey:HPPPLocalizedString(@"Plain Paper", @"Option for paper type"),
+                         kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:NO]
+                         }];
+    [self registerType:@{
+                         kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperTypePhoto],
+                         kHPPPPaperTypeTitleKey:HPPPLocalizedString(@"Photo Paper", @"Option for paper type"),
+                         kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
+                         }];
+
+    // Associations
+    [self associatePaperSize:HPPPPaperSize4x5 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSize4x6 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSize5x7 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSizeLetter withType:HPPPPaperTypePlain];
+    [self associatePaperSize:HPPPPaperSizeLetter withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSizeA4 withType:HPPPPaperTypePlain];
+    [self associatePaperSize:HPPPPaperSizeA4 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSizeA5 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSizeA6 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSize10x13 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSize10x15 withType:HPPPPaperTypePhoto];
+    [self associatePaperSize:HPPPPaperSize13x18 withType:HPPPPaperTypePhoto];
+}
+
++ (NSArray *)supportedSize
+{
+    [self initializePaper];
+    return _supportedSize;
+}
+
++ (NSArray *)supportedType
+{
+    [self initializePaper];
+    return _supportedType;
+}
+
++ (NSArray *)supportedPaper
+{
+    [self initializePaper];
+    return _supportedPaper;
+}
+
++ (BOOL)registerSize:(NSDictionary *)info
+{
+    [self initializePaper];
+
+    NSNumber *sizeId = [info objectForKey:kHPPPPaperSizeIdKey] ;
+    NSString *title = [info objectForKey:kHPPPPaperSizeTitleKey];
+    NSNumber *width = [info objectForKey:kHPPPPaperSizeWidthKey];
+    NSNumber *height = [info objectForKey:kHPPPPaperSizeHeightKey];
+    
+    if (nil == sizeId || nil == title || nil == width || nil == height) {
+        HPPPLogError(@"Attempted to register size with missing info:  %@", info);
+        return NO;
     }
     
-    return pageSize;
+    if (nil != [self sizeForId:[sizeId unsignedIntegerValue]]) {
+        HPPPLogError(@"Attempted to register size ID that already exists:  %lul", [sizeId unsignedIntegerValue]);
+        return NO;
+    }
+    
+    if (nil != [self sizeForTitle:title]) {
+        HPPPLogError(@"Attempted to register size title that already exists:  '%@'", title);
+        return NO;
+    }
+    
+    NSMutableArray *supportedSize = [_supportedSize mutableCopy];
+    [supportedSize addObject:info];
+    _supportedSize = supportedSize;
+    
+    return YES;
 }
+
++ (BOOL)registerType:(NSDictionary *)info
+{
+    [self initializePaper];
+
+    NSNumber *typeId = [info objectForKey:kHPPPPaperTypeIdKey] ;
+    NSString *title = [info objectForKey:kHPPPPaperTypeTitleKey];
+    
+    if (nil == typeId || nil == title) {
+        HPPPLogError(@"Attempted to register type with missing info:  %@", info);
+        return NO;
+    }
+    
+    if (nil != [self typeForId:[typeId unsignedIntegerValue]]) {
+        HPPPLogError(@"Attempted to register type ID that already exists:  %lul", [typeId unsignedIntegerValue]);
+        return NO;
+    }
+    
+    if (nil != [self typeForTitle:title]) {
+        HPPPLogError(@"Attempted to register type title that already exists:  '%@'", title);
+        return NO;
+    }
+    
+    NSMutableArray *supportedType = [_supportedType mutableCopy];
+    [supportedType addObject:info];
+    _supportedType = supportedType;
+    
+    return YES;
+}
+
++ (BOOL)associatePaperSize:(NSUInteger)sizeId withType:(NSUInteger)typeId
+{
+    [self initializePaper];
+
+    if (nil != [self associationForSizeId:sizeId andTypeId:typeId]) {
+        HPPPLogError(@"Attempted association already exists:  size (%lul) - type (%lul)", sizeId, typeId);
+        return NO;
+    }
+    
+    if (nil == [self sizeForId:sizeId]) {
+        HPPPLogError(@"Attempted to associate with nonexistant size:  %lul", sizeId);
+        return NO;
+    }
+    
+    if (nil == [self typeForId:typeId]) {
+        HPPPLogError(@"Attempted to associate with nonexistant type:  %lul", typeId);
+        return NO;
+    }
+    
+    NSMutableArray *supportedPaper = [_supportedPaper mutableCopy];
+    [supportedPaper addObject:@{
+                                kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:sizeId],
+                                kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedLong:typeId]
+                                }];
+    _supportedPaper = supportedPaper;
+    
+    return YES;
+}
+
+#pragma mark - Supported paper helpers
+
++ (NSArray *)availablePapers
+{
+    NSMutableArray *papers = [NSMutableArray array];
+    for (NSDictionary *association in self.supportedPaper) {
+        NSUInteger sizeId = [[association objectForKey:kHPPPPaperSizeIdKey] unsignedIntegerValue];
+        NSUInteger typeId = [[association objectForKey:kHPPPPaperTypeIdKey] unsignedIntegerValue];
+        HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:sizeId paperType:typeId];
+        [papers addObject:paper];
+    }
+    return papers;
+}
+
++ (BOOL)validPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType
+{
+    BOOL valid = NO;
+    for (HPPPPaper *paper in [self availablePapers]) {
+        if (paper.paperSize == paperSize && paper.paperType == paperType) {
+            valid = YES;
+            break;
+        }
+    }
+    return valid;
+}
+
++ (NSDictionary *)sizeForId:(NSUInteger)sizeId
+{
+    NSDictionary *sizeInfo = nil;
+    for (NSDictionary *info in _supportedSize) {
+        NSUInteger existingId = [[info objectForKey:kHPPPPaperSizeIdKey] unsignedIntegerValue];
+        if (existingId == sizeId) {
+            sizeInfo = info;
+            break;
+        }
+    }
+    return sizeInfo;
+}
+
++ (NSDictionary *)sizeForTitle:(NSString *)title
+{
+    NSDictionary *sizeInfo = nil;
+    for (NSDictionary *info in _supportedSize) {
+        NSString *existingTitle = [info objectForKey:kHPPPPaperSizeTitleKey];
+        if ([existingTitle isEqualToString:title]) {
+            sizeInfo = info;
+            break;
+        }
+    }
+    return sizeInfo;
+}
+
++ (NSDictionary *)typeForId:(NSUInteger)typeId
+{
+    NSDictionary *typeInfo = nil;
+    for (NSDictionary *info in _supportedType) {
+        NSUInteger existingId = [[info objectForKey:kHPPPPaperTypeIdKey] unsignedIntegerValue];
+        if (existingId == typeId) {
+            typeInfo = info;
+            break;
+        }
+    }
+    return typeInfo;
+}
+
++ (NSDictionary *)typeForTitle:(NSString *)title
+{
+    NSDictionary *typeInfo = nil;
+    for (NSDictionary *info in _supportedType) {
+        NSString *existingTitle = [info objectForKey:kHPPPPaperTypeTitleKey];
+        if ([existingTitle isEqualToString:title]) {
+            typeInfo = info;
+            break;
+        }
+    }
+    return typeInfo;
+}
+
++ (NSDictionary *)associationForSizeId:(NSUInteger)sizeId andTypeId:(NSUInteger)typeId
+{
+    NSDictionary *associationInfo = nil;
+    for (NSDictionary *info in _supportedPaper) {
+        NSUInteger existingSizeId = [[info objectForKey:kHPPPPaperSizeIdKey] unsignedIntegerValue];
+        NSUInteger existingTypeId = [[info objectForKey:kHPPPPaperTypeIdKey] unsignedIntegerValue];
+        if (existingSizeId == sizeId && existingTypeId == typeId) {
+            associationInfo = info;
+        }
+    }
+    return associationInfo;
+}
+
+#pragma mark - Supported paper type info
+
++ (BOOL)supportedPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType
+{
+    BOOL valid = NO;
+    for (HPPPPaper *paper in [HPPP sharedInstance].supportedPapers) {
+        if (paper.paperSize == paperSize && paper.paperType == paperType) {
+            valid = YES;
+            break;
+        }
+    }
+    return valid;
+}
+
+- (NSArray *)supportedTypes
+{
+    NSMutableArray *paperTypes = [NSMutableArray array];
+    for (HPPPPaper *supportedPaper in [HPPP sharedInstance].supportedPapers) {
+        if (supportedPaper.paperSize == self.paperSize) {
+            NSNumber *supportedType = [NSNumber numberWithUnsignedInteger:supportedPaper.paperType];
+            if (![paperTypes containsObject:supportedType]) {
+                [paperTypes addObject:supportedType];
+            }
+        }
+    }
+    return paperTypes;
+}
+
+- (BOOL)supportsType:(NSUInteger)paperType
+{
+    BOOL supported = NO;
+    for (HPPPPaper *supportedPaper in [HPPP sharedInstance].supportedPapers) {
+        if (supportedPaper.paperSize == self.paperSize && supportedPaper.paperType == paperType) {
+            supported = YES;
+            break;
+        }
+    }
+    return supported;
+}
+
++ (NSNumber *)defaultTypeForSize:(NSUInteger)paperSize
+{
+    NSNumber *paperType = nil;
+    for (NSDictionary *info in _supportedPaper) {
+        if (paperSize == [[info objectForKey:kHPPPPaperSizeIdKey] unsignedIntegerValue]) {
+            paperType = [info objectForKey:kHPPPPaperTypeIdKey];
+            break;
+        }
+    }
+    return paperType;
+}
+
+#pragma mark - Log description
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"Width %f Height %f\nPaper Size %ul\nPaper Type %ul", self.width, self.height, self.paperSize, self.paperType];
+    CGSize printerSize = [self printerPaperSize];
+    return [NSString stringWithFormat:@"%@, %@\nWidth %.2f Height %.2f\nPrinter Width %.2f Printer Height %.2f\nPaper Size %lul\nPaper Type %lul",
+            self.sizeTitle,
+            self.typeTitle,
+            self.width,
+            self.height,
+            printerSize.width,
+            printerSize.height,
+            (unsigned long)self.paperSize,
+            (unsigned long)self.paperType];
 }
 
 @end

@@ -21,7 +21,6 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
 @interface HPPPPaperTypeTableViewController ()
 
 @property (strong, nonatomic) HPPP *hppp;
-@property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *paperTypeCells;
 
 @end
 
@@ -38,21 +37,6 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
     self.tableView.backgroundColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.separatorColor = [[HPPP sharedInstance].appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
-    
-    NSArray *localizeTitleArray = @[HPPPLocalizedString(@"Plain Paper", @"Option of paper type"), HPPPLocalizedString(@"Photo Paper", @"Option of paper type")];
-    
-    NSInteger i = 0;
-    for (UITableViewCell *cell in self.paperTypeCells) {
-        cell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
-        cell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
-        cell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
-        cell.textLabel.text = [localizeTitleArray objectAtIndex:i];
-        i ++;
-        
-        if ([cell.textLabel.text isEqualToString:self.currentPaper.typeTitle]) {
-            cell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsCheckmarkImage]];
-        }
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -62,11 +46,40 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kPaperTypeScreenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[self uniqueTypeTitles] count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaperTypeTableViewCellIdentifier"];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PaperTypeTableViewCellIdentifier"];
+    }
+    
+    cell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
+    cell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    cell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
+    
+    cell.textLabel.text = [self uniqueTypeTitles][indexPath.row];
+    
+    if ([cell.textLabel.text isEqualToString:self.currentPaper.typeTitle]) {
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsCheckmarkImage]];
+    }
+    
+    return cell;
+}
+
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    for (UITableViewCell *cell in self.paperTypeCells) {
+    for (NSInteger i = 0; i < [[self uniqueTypeTitles] count]; i++) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
         cell.accessoryView = nil;
     }
     
@@ -80,6 +93,23 @@ NSString * const kPaperTypeScreenName = @"Paper Type Screen";
     if ([self.delegate respondsToSelector:@selector(paperTypeTableViewController:didSelectPaper:)]) {
         [self.delegate paperTypeTableViewController:self didSelectPaper:paper];
     }
+}
+
+- (NSArray *)uniqueTypeTitles
+{
+    NSMutableArray *typeTitles = [NSMutableArray array];
+    if (self.currentPaper) {
+        for (NSNumber *paperType in [self.currentPaper supportedTypes]) {
+            [typeTitles addObject:[HPPPPaper titleFromType:[paperType unsignedIntegerValue]]];
+        }
+    } else {
+        for (HPPPPaper *paper in [HPPP sharedInstance].supportedPapers) {
+            if (![typeTitles containsObject:paper.typeTitle]) {
+                [typeTitles addObject:paper.typeTitle];
+            }
+        }
+    }
+    return typeTitles;
 }
 
 @end
