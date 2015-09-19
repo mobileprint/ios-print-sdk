@@ -42,15 +42,11 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *paperTypeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printerSelectCell;
 
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
-
 @end
 
 @implementation HPPPPrintSettingsTableViewController
 
 NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
-
-@dynamic refreshControl;
 
 - (void)viewDidLoad
 {
@@ -102,10 +98,6 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
     
     if (IS_OS_8_OR_LATER) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:kHPPPPrinterAvailabilityNotification object:nil];
-        
-        self.refreshControl = [[UIRefreshControl alloc] init];
-        [self.refreshControl addTarget:self action:@selector(startRefreshing:) forControlEvents:UIControlEventValueChanged];
-        [self.tableView addSubview:self.refreshControl];
     }
 }
 
@@ -119,13 +111,6 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-#pragma mark - Pull to refresh
-
-- (void)startRefreshing:(UIRefreshControl *)refreshControl
-{
-    [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
 }
 
 #pragma mark - Utils
@@ -293,6 +278,9 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
         if ([self.delegate respondsToSelector:@selector(printSettingsTableViewController:didChangePrintSettings:)]) {
             [self.delegate printSettingsTableViewController:self didChangePrintSettings:self.printSettings];
         }
+        
+        self.selectedPaperSizeLabel.text = self.printSettings.paper.sizeTitle;
+        [self.tableView reloadData];
     }
 }
 
@@ -362,12 +350,6 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
     self.printSettings.printerIsAvailable = available;
     
     [self updatePrinterAvailability];
-    
-    if (IS_OS_8_OR_LATER) {
-        if (self.refreshControl.refreshing) {
-            [self.refreshControl endRefreshing];
-        }
-    }
 }
 
 @end

@@ -33,8 +33,7 @@
      HPPPPrintSettingsTableViewControllerDelegate,
      HPPPPaperSizeTableViewControllerDelegate,
      HPPPPaperTypeTableViewControllerDelegate,
-     UIPrinterPickerControllerDelegate,
-     UIPrintInteractionControllerDelegate>
+     UIPrinterPickerControllerDelegate>
 
 /*!
  * @abstract The view controller using the delegate manager.

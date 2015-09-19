@@ -23,7 +23,7 @@
 
 #define HPPP_DEFAULT_PRINT_JOB_NAME HPPPLocalizedString(@"Photo", @"Default job name of the print send to the printer")
 
-@interface HPPPPrintManager() <UIPrintInteractionControllerDelegate>
+@interface HPPPPrintManager() 
 
 @property (strong, nonatomic) HPPP *hppp;
 
@@ -232,13 +232,44 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
         [log appendFormat:@"Paper: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n", p.paperSize.width / 72.0, p.paperSize.height  / 72.0, p.printableRect.origin.x, p.printableRect.origin.y, p.printableRect.size.width, p.printableRect.size.height];
     }
     
-    UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:[self.currentPrintSettings.paper printerPaperSize] withPapersFromArray:paperList];
+    UIPrintPaper *paper = nil;
     
+    id<HPPPPrintPaperDelegate> paperDelegate = [HPPP sharedInstance].printPaperDelegate;
+    if (paperDelegate && [paperDelegate respondsToSelector:@selector(printInteractionController:choosePaper:forPrintSettings:)]) {
+        paper = [paperDelegate printInteractionController:printInteractionController choosePaper:paperList forPrintSettings:self.currentPrintSettings];
+    }
+    
+    if (!paper) {
+        paper = [UIPrintPaper bestPaperForPageSize:[self.currentPrintSettings.paper printerPaperSize] withPapersFromArray:paperList];
+    }
+        
     [log appendFormat:@"\nChosen: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n\n\n", paper.paperSize.width  / 72.0, paper.paperSize.height  / 72.0, paper.printableRect.origin.x, paper.printableRect.origin.y, paper.printableRect.size.width, paper.printableRect.size.height];
-    
     HPPPLogInfo(@"%@", log);
     
     return paper;
+}
+
+- (CGFloat)printInteractionController:(UIPrintInteractionController *)printInteractionController cutLengthForPaper:(UIPrintPaper *)paper
+{
+    NSMutableString *log = [NSMutableString stringWithFormat:@"\nReference: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n\n\n", paper.paperSize.width  / 72.0, paper.paperSize.height  / 72.0, paper.printableRect.origin.x, paper.printableRect.origin.y, paper.printableRect.size.width, paper.printableRect.size.height];
+
+    NSNumber *cutLength = nil;
+    
+    id<HPPPPrintPaperDelegate> paperDelegate = [HPPP sharedInstance].printPaperDelegate;
+    if (paperDelegate && [paperDelegate respondsToSelector:@selector(printInteractionController:cutLengthForPaper:forPrintSettings:)]) {
+        cutLength = [paperDelegate printInteractionController:printInteractionController cutLengthForPaper:paper forPrintSettings:self.currentPrintSettings];
+    }
+    
+    if (!cutLength) {
+        CGSize currentPaperSize = [self.currentPrintSettings.paper printerPaperSize];
+        CGFloat computedLength = paper.paperSize.width * currentPaperSize.height / currentPaperSize.width;
+        cutLength = [NSNumber numberWithFloat:computedLength];
+    }
+    
+    [log appendFormat:@"\nCut length: %.1f\n\n\n", [cutLength floatValue] / 72.0];
+    HPPPLogInfo(@"%@", log);
+    
+    return [cutLength floatValue];
 }
 
 #pragma mark - Print metrics
@@ -300,6 +331,58 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
                           kHPPPOfframpDeleteFromQueue ];
     
     return [offramps containsObject:offramp];
+}
+
+#pragma mark - Print settings
+
+- (void)setCurrentPrintSettings:(HPPPPrintSettings *)currentPrintSettings
+{
+    _currentPrintSettings = currentPrintSettings;
+    
+    id<HPPPPrintPaperDelegate> paperDelegate = [HPPP sharedInstance].printPaperDelegate;
+    
+    if (paperDelegate && [paperDelegate respondsToSelector:@selector(hidePaperSizeForPrintSettings:)]) {
+        [HPPP sharedInstance].hidePaperSizeOption = [paperDelegate hidePaperSizeForPrintSettings:currentPrintSettings];
+    }
+    
+    if (paperDelegate && [paperDelegate respondsToSelector:@selector(hidePaperTypeForPrintSettings:)]) {
+        [HPPP sharedInstance].hidePaperTypeOption = [paperDelegate hidePaperTypeForPrintSettings:currentPrintSettings];
+    }
+    
+    if (paperDelegate && [paperDelegate respondsToSelector:@selector(supportedPapersForPrintSettings:)]) {
+        NSArray *papers = [paperDelegate supportedPapersForPrintSettings:currentPrintSettings];
+        if ([papers count] > 0) {
+            [HPPP sharedInstance].supportedPapers = papers;
+        } else {
+            HPPPLogError(@"Paper delegate must specify at least one supported paper");
+        }
+    }
+    
+    [HPPP sharedInstance].defaultPaper = [[HPPP sharedInstance].supportedPapers firstObject];
+    if (paperDelegate && [paperDelegate respondsToSelector:@selector(defaultPaperForPrintSettings:)]) {
+        HPPPPaper *paper = [paperDelegate defaultPaperForPrintSettings:currentPrintSettings];
+        if ([self supportedPaper:paper]) {
+            [HPPP sharedInstance].defaultPaper = paper;
+        } else {
+            HPPPLogError(@"Default paper specified is not in supported paper list: size (%lul) - type (%lul)", (unsigned long)paper.paperSize, (unsigned long)paper.paperType);
+        }
+    }
+    
+    if (![HPPPPaper supportedPaperSize:currentPrintSettings.paper.paperSize andType:currentPrintSettings.paper.paperType]) {
+        _currentPrintSettings.paper = [HPPP sharedInstance].defaultPaper;
+    }
+}
+
+- (BOOL)supportedPaper:(HPPPPaper *)paper
+{
+    BOOL supported = NO;
+    for (HPPPPaper *supportedPaper in [HPPP sharedInstance].supportedPapers) {
+        if (paper.paperSize == supportedPaper.paperSize && paper.paperType == supportedPaper.paperType) {
+            supported = YES;
+            break;
+        }
+    }
+    return supported;
 }
 
 @end
