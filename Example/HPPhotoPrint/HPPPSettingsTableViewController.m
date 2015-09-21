@@ -184,7 +184,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
                                          [NSNumber numberWithUnsignedInteger:HPPPPaperSize13x18]
                                          ]];
     }
-    return papers;
+    return [self sortPapers:papers];
 }
 
 - (void)setSupportedPaper
@@ -201,6 +201,32 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
         }
     }
     return papers;
+}
+
+- (NSArray *)sortPapers:(NSArray *)papers
+{
+    NSMutableArray *sortedPapers = [NSMutableArray arrayWithArray:papers];
+    [sortedPapers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        HPPPPaper *paper1 = obj1;
+        HPPPPaper *paper2 = obj2;
+        if (paper1.paperSize < paper2.paperSize) {
+            return NSOrderedAscending;
+        } else if (paper1.paperSize > paper2.paperSize) {
+            return NSOrderedDescending;
+        } else {
+            if (paper1.paperType == k3UpPaperTypeId) {
+                return NSOrderedAscending;
+            } else if (paper2.paperType == k3UpPaperTypeId) {
+                return NSOrderedDescending;
+            } else if (paper1.paperType < paper2.paperType) {
+                return NSOrderedAscending;
+            } else if (paper1.paperType > paper2.paperType) {
+                return NSOrderedDescending;
+            }
+        }
+        return NSOrderedSame;
+    }];
+    return sortedPapers;
 }
 
 - (IBAction)paperSegmentChanged:(id)sender {

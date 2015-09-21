@@ -307,7 +307,9 @@ extern NSString * const kHPPPPaperSizePrinterHeightKey;
 /*!
  * @abstract Retrieves the default paper type for a given paper size
  * @param paperSize The size of paper to lookup
- * @returns An NSNumber object representing the unsigned integer ID value of the default type or nil if there are no types associated with the paper size
+ * @returns An NSNumber object representing the unsigned integer ID value of the default type or nil if there are no types associated with the paper size. 
+ * First looks for paper size in the supportedPapers property of the HPPP object. 
+ * If not found there, looks for size in list of all available papers. This allows app developers to override default by ordering the supportedPapers list.
  */
 + (NSNumber *)defaultTypeForSize:(NSUInteger)paperSize;
 

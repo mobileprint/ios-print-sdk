@@ -342,6 +342,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 -(void) refreshData
 {
+    self.printManager.currentPrintSettings = self.delegateManager.printSettings;
+
     [self setPageRangeLabelText:self.delegateManager.pageRangeText];
     BOOL pageSelected = NO;
     NSArray *pageNums = [self.delegateManager.pageRange getPages];
@@ -382,7 +384,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }
     }
 
-    self.printManager.currentPrintSettings = self.delegateManager.printSettings;
    [self reloadTable];
 }
 
@@ -390,6 +391,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     [super viewWillAppear:animated];
     
+    [self preparePrintManager];
+
     if (self.printItem) {
         [self configurePrintButton];
         [self refreshData];

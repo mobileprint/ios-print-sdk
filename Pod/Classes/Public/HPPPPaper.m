@@ -490,14 +490,19 @@ static NSArray *_supportedPaper = nil;
 
 + (NSNumber *)defaultTypeForSize:(NSUInteger)paperSize
 {
-    NSNumber *paperType = nil;
-    for (NSDictionary *info in _supportedPaper) {
-        if (paperSize == [[info objectForKey:kHPPPPaperSizeIdKey] unsignedIntegerValue]) {
-            paperType = [info objectForKey:kHPPPPaperTypeIdKey];
-            break;
+    for (HPPPPaper *paper in [HPPP sharedInstance].supportedPapers) {
+        if (paperSize == paper.paperSize) {
+            return [NSNumber numberWithUnsignedInteger:paper.paperType];
         }
     }
-    return paperType;
+    
+    for (NSDictionary *info in _supportedPaper) {
+        if (paperSize == [[info objectForKey:kHPPPPaperSizeIdKey] unsignedIntegerValue]) {
+            return [info objectForKey:kHPPPPaperTypeIdKey];
+        }
+    }
+
+    return nil;
 }
 
 #pragma mark - Log description
