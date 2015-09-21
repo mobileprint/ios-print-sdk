@@ -69,6 +69,7 @@ NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
     dispatch_once(&onceToken, ^{
         sharedInstance = [[HPPP alloc] init];
         sharedInstance.interfaceOptions = [[HPPPInterfaceOptions alloc] init];
+        sharedInstance.printPaperDelegate = nil;
     });
     
     return sharedInstance;

@@ -14,7 +14,7 @@
 #import <HPPPPrintItemFactory.h>
 #import <HPPPPrintManager.h>
 
-@interface HPPPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate, HPPPAddPrintLaterDelegate, HPPPPrintManagerDelegate>
+@interface HPPPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate, HPPPAddPrintLaterDelegate, HPPPPrintManagerDelegate, HPPPPrintPaperDelegate>
 
 typedef enum {
     Print,
@@ -88,14 +88,15 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 #pragma mark - Initialization
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     [self configureHPPP];
     
     self.shareBarButtonItem = [[UIBarButtonItem alloc]
-                                    initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                    target:self
-                                    action:@selector(shareTapped:)];
+                               initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                               target:self
+                               action:@selector(shareTapped:)];
     
     
     self.printBarButtonItem = [[UIBarButtonItem alloc]
@@ -105,11 +106,11 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
                                action:@selector(printTapped:)];
     
     self.printLaterBarButtonItem = [[UIBarButtonItem alloc]
-                               initWithImage:[UIImage imageNamed:@"printLaterIcon"]
-                               style:UIBarButtonItemStylePlain
-                               target:self
-                               action:@selector(printLaterTapped:)];
-
+                                    initWithImage:[UIImage imageNamed:@"printLaterIcon"]
+                                    style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(printLaterTapped:)];
+    
     self.printBarButtonItem.accessibilityIdentifier = @"printBarButtonItem";
     self.printLaterBarButtonItem.accessibilityIdentifier = @"printLaterBarButtonItem";
     
@@ -150,46 +151,18 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     [HPPP sharedInstance].interfaceOptions.multiPageZoomOnDoubleTap = YES;
     
     [self configurePaper];
+    [HPPP sharedInstance].printPaperDelegate = self;
 }
 
 #pragma mark - Papers
 
 - (void)configurePaper
 {
-    [HPPPPaper registerSize:@{
-                         kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:100],
-                         kHPPPPaperSizeTitleKey:@"2 x 6",
-                         kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:2.0],
-                         kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:6.0]
-                         }];
-    
-    [HPPPPaper registerType:@{
-                              kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedInteger:102],
-                              kHPPPPaperTypeTitleKey:@"2-Up Perforated",
-                              kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
-                              }];
-    
-    [HPPPPaper registerType:@{
-                              kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedInteger:103],
-                              kHPPPPaperTypeTitleKey:@"3-Up Perforated",
-                              kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
-                              }];
-    
-    [HPPPPaper registerType:@{
-                              kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedInteger:104],
-                              kHPPPPaperTypeTitleKey:@"4-Up Perforated",
-                              kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
-                              }];
-
-    [HPPPPaper associatePaperSize:HPPPPaperSize5x7 withType:102];
-    [HPPPPaper associatePaperSize:HPPPPaperSize5x7 withType:103];
-    [HPPPPaper associatePaperSize:HPPPPaperSize5x7 withType:104];
-    [HPPPPaper associatePaperSize:100 withType:HPPPPaperTypePhoto];
-    
+    [self configurePhotoStripPaper];
     [self setSupportedPaper];
 }
 
-- (void)setSupportedPaper
+- (NSArray *)paperList
 {
     NSArray *papers = [HPPPPaper availablePapers];
     [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize4x6 paperType:HPPPPaperTypePhoto];
@@ -211,7 +184,12 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
                                          [NSNumber numberWithUnsignedInteger:HPPPPaperSize13x18]
                                          ]];
     }
-    [HPPP sharedInstance].supportedPapers = papers;
+    return [self sortPapers:papers];
+}
+
+- (void)setSupportedPaper
+{
+    [HPPP sharedInstance].supportedPapers = [self paperList];
 }
 
 - (NSArray *)papersWithSizes:(NSArray *)sizes
@@ -223,6 +201,32 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
         }
     }
     return papers;
+}
+
+- (NSArray *)sortPapers:(NSArray *)papers
+{
+    NSMutableArray *sortedPapers = [NSMutableArray arrayWithArray:papers];
+    [sortedPapers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        HPPPPaper *paper1 = obj1;
+        HPPPPaper *paper2 = obj2;
+        if (paper1.paperSize < paper2.paperSize) {
+            return NSOrderedAscending;
+        } else if (paper1.paperSize > paper2.paperSize) {
+            return NSOrderedDescending;
+        } else {
+            if (paper1.paperType == k3UpPaperTypeId) {
+                return NSOrderedAscending;
+            } else if (paper2.paperType == k3UpPaperTypeId) {
+                return NSOrderedDescending;
+            } else if (paper1.paperType < paper2.paperType) {
+                return NSOrderedAscending;
+            } else if (paper1.paperType > paper2.paperType) {
+                return NSOrderedDescending;
+            }
+        }
+        return NSOrderedSame;
+    }];
+    return sortedPapers;
 }
 
 - (IBAction)paperSegmentChanged:(id)sender {
@@ -271,7 +275,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 - (void)setBarButtonItems
 {
     [[HPPPExperimentManager sharedInstance] updateVariationsWithDeviceID:self.deviceIDTextField.text];
-
+    
     NSMutableArray *icons = [NSMutableArray arrayWithArray:@[ self.shareBarButtonItem]];
     
     if (
@@ -286,9 +290,9 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
             }
         } else {
             [icons addObjectsFromArray:@[ self.printBarButtonItem]];
-             if (IS_OS_8_OR_LATER) {
-                 [icons addObjectsFromArray:@[ self.printLaterBarButtonItem]];
-             }
+            if (IS_OS_8_OR_LATER) {
+                [icons addObjectsFromArray:@[ self.printLaterBarButtonItem]];
+            }
         }
     }
     
@@ -752,9 +756,12 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 - (HPPPLayout *)layoutForPaper:(HPPPPaper *)paper
 {
     HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType]];
-    if (DefaultPrintRenderer != self.printItem.renderer) {
-        BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && [self letterLayoutUsedBySize:paper.paperSize]);
-        
+    if ([self aspectRatio3up]) {
+        layout = [self centeredlayoutForPaper:paper andImageSize:CGSizeMake(k3UpPaperSizeWidth, k3UpPaperSizeHeight)];
+    } else if ([self aspectRatio4up]) {
+        layout = [self centeredlayoutForPaper:paper andImageSize:CGSizeMake(k4UpPaperSizeWidth, k4UpPaperSizeHeight)];
+    } else if (DefaultPrintRenderer != self.printItem.renderer) {
+        BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && HPPPPaperSizeLetter == paper.paperSize);
         HPPPLayoutOrientation orientation = HPPPLayoutOrientationBestFit;
         if (defaultLetter || kOrientationPortrait == self.orientationSegmentControl.selectedSegmentIndex) {
             orientation = HPPPLayoutOrientationPortrait;
@@ -792,6 +799,24 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     return layout;
 }
 
+- (HPPPLayout *)centeredlayoutForPaper:(HPPPPaper *)paper andImageSize:(CGSize)imageSize
+{
+    CGFloat horizontalScale = paper.width / imageSize.width;
+    CGFloat verticalScale = paper.height / imageSize.height;
+    CGFloat scale = fminf(1.0, fminf(horizontalScale, verticalScale));
+    CGSize scaledImageSize = CGSizeApplyAffineTransform(imageSize, CGAffineTransformMakeScale(scale, scale));
+    CGPoint scaledImageOrigin = CGPointMake(paper.width / 2 - scaledImageSize.width / 2.0, paper.height / 2.0 - scaledImageSize.height / 2.0);
+    
+    CGRect assetPosition = CGRectMake(
+                                      scaledImageOrigin.x / paper.width * 100.0,
+                                      scaledImageOrigin.y / paper.height * 100.0,
+                                      scaledImageSize.width / paper.width * 100.0,
+                                      scaledImageSize.height / paper.height * 100.0);
+    
+    HPPPLayoutOrientation orientation = imageSize.width > imageSize.height ? HPPPLayoutOrientationLandscape : HPPPLayoutOrientationPortrait;
+    return [HPPPLayoutFactory layoutWithType:[HPPPLayoutStretch layoutType] orientation:orientation assetPosition:assetPosition allowContentRotation:NO];
+}
+
 - (CGRect)defaultPositionForSize:(NSUInteger)paperSize
 {
     HPPPPaper *letterPaper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:HPPPPaperTypePlain];
@@ -806,13 +831,13 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 
 - (NSDictionary *)printItemsForAsset:(id)asset
 {
-    NSArray *sizes = @[ @"4 x 5", @"4 x 6", @"5 x 7", @"8.5 x 11" ];
     NSMutableDictionary *printItems = [NSMutableDictionary dictionary];
-    for (NSString *size in sizes) {
-        HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:asset];
-        HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSizeTitle:size paperTypeTitle:@"Photo Paper"];
-        printItem.layout = [self layoutForPaper:paper];
-        [printItems addEntriesFromDictionary:@{ paper.sizeTitle: printItem }];
+    for (HPPPPaper *supportedPaper in [HPPPPaper availablePapers]) {
+        if (nil == [printItems objectForKey:supportedPaper.sizeTitle]) {
+            HPPPPrintItem *printItem = [HPPPPrintItemFactory printItemWithAsset:asset];
+            printItem.layout = [self layoutForPaper:supportedPaper];
+            [printItems addEntriesFromDictionary:@{ supportedPaper.sizeTitle:printItem }];
+        }
     }
     return printItems;
 }
@@ -856,7 +881,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 #pragma mark - Pod Appearance Testing
 - (IBAction)appearanceSettingsChanged:(id)sender {
     static NSDictionary *defaultSettings = nil;
-
+    
     HPPP *hppp = [HPPP sharedInstance];
     
     if( self.appearanceTestSettingsSwitch.on ) {
@@ -918,7 +943,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
              kHPPPFormFieldPrimaryFont:      [UIFont fontWithName:regularFont size:16],
              kHPPPFormFieldPrimaryFontColor: [UIColor colorWithRed:0xFF/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
              
-            // Overlay
+             // Overlay
              kHPPPOverlayBackgroundColor:    [UIColor colorWithRed:0x8D/255.0F green:0xEE/255.0F blue:0xEE/255.0F alpha:1.0F],
              kHPPPOverlayBackgroundOpacity:  [NSNumber numberWithFloat:.60F],
              kHPPPOverlayPrimaryFont:        [UIFont fontWithName:regularFont size:16],
@@ -927,11 +952,137 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
              kHPPPOverlaySecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0xFF/255.0F blue:0x00/255.0F alpha:1.0F],
              kHPPPOverlayLinkFont:           [UIFont fontWithName:regularFont size:18],
              kHPPPOverlayLinkFontColor:      [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0xFF/255.0F alpha:1.0F],
-
+             
              // Activity
              kHPPPActivityPrintIcon:      [UIImage imageNamed:@"HPPPPrint"],
              kHPPPActivityPrintQueueIcon: [UIImage imageNamed:@"HPPPPrintLater"],
              };
 }
+
+#pragma mark - HPPPPrintPaperDelegate
+
+- (BOOL)hidePaperSizeForPrintSettings:(HPPPPrintSettings *)printSettings
+{
+    return [printSettings.printerModel containsString:@"Label"];
+}
+
+- (BOOL)hidePaperTypeForPrintSettings:(HPPPPrintSettings *)printSettings
+{
+    return [printSettings.printerModel containsString:@"Label"];
+}
+
+- (HPPPPaper *)defaultPaperForPrintSettings:(HPPPPrintSettings *)printSettings
+{
+    HPPPPaper *defaultPaper = [[self paperList] firstObject];
+    if ([printSettings.printerModel containsString:@"Label"]) {
+        NSUInteger paperSize = [self aspectRatio4up] ? k4UpPaperSizeId : k3UpPaperSizeId;
+        defaultPaper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:kLabelPaperTypeId];
+    }
+    
+    return defaultPaper;
+
+}
+
+- (NSArray *)supportedPapersForPrintSettings:(HPPPPrintSettings *)printSettings
+{
+    NSArray *papers = [self paperList];
+    
+    if ([printSettings.printerModel containsString:@"Label"]) {
+        NSUInteger paperSize = [self aspectRatio4up] ? k4UpPaperSizeId : k3UpPaperSizeId;
+        papers = @[ [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:kLabelPaperTypeId] ];
+    }
+    
+    if (!IS_OS_8_OR_LATER) {
+        papers = [HPPPPaper availablePapers];
+    }
+    
+    return papers;
+}
+
+- (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList forPrintSettings:(HPPPPrintSettings *)printSettings
+{
+    HPPPLogInfo(@"CHOOSE PAPER");
+    return nil;
+}
+
+- (NSNumber *)printInteractionController:(UIPrintInteractionController *)printInteractionController cutLengthForPaper:(UIPrintPaper *)paper forPrintSettings:(HPPPPrintSettings *)printSettings
+{
+    HPPPLogInfo(@"CUT LENGTH");
+    return nil; //[NSNumber numberWithFloat:printSettings.paper.height * 72.0];
+}
+
+#pragma mark - Photo strip paper 
+
+NSUInteger const k3UpPaperSizeId = 100;
+NSString * const k3UpPaperSizeTitle = @"2 x 6";
+CGFloat const k3UpPaperSizeWidth = 2.0; // inches
+CGFloat const k3UpPaperSizeHeight = 6.0; // inches
+
+NSUInteger const k4UpPaperSizeId = 101;
+NSString * const k4UpPaperSizeTitle = @"1.5 x 8";
+CGFloat const k4UpPaperSizeWidth = 1.5; // inches
+CGFloat const k4UpPaperSizeHeight = 8.0; // inches
+
+NSUInteger const k3UpPaperTypeId = 100;
+NSString * const k3UpPaperTypeTitle = @"3-Up Perforated";
+BOOL const k3UpPaperTypePhoto = YES;
+
+NSUInteger const kLabelPaperTypeId = 101;
+NSString * const kLabelPaperTypeTitle = @"Label";
+BOOL const kLabelPaperTypePhoto = NO;
+
+- (void)configurePhotoStripPaper
+{
+    [HPPPPaper registerSize:@{
+                              kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedInteger:k3UpPaperSizeId],
+                              kHPPPPaperSizeTitleKey:k3UpPaperSizeTitle,
+                              kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:k3UpPaperSizeWidth],
+                              kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:k3UpPaperSizeHeight]
+                              }];
+    
+    [HPPPPaper registerSize:@{
+                              kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedInteger:k4UpPaperSizeId],
+                              kHPPPPaperSizeTitleKey:k4UpPaperSizeTitle,
+                              kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:k4UpPaperSizeWidth],
+                              kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:k4UpPaperSizeHeight]
+                              }];
+    
+    [HPPPPaper registerType:@{
+                              kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedInteger:k3UpPaperTypeId],
+                              kHPPPPaperTypeTitleKey:k3UpPaperTypeTitle,
+                              kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:k3UpPaperTypePhoto]
+                              }];
+    
+    [HPPPPaper registerType:@{
+                              kHPPPPaperTypeIdKey:[NSNumber numberWithUnsignedInteger:kLabelPaperTypeId],
+                              kHPPPPaperTypeTitleKey:kLabelPaperTypeTitle,
+                              kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:kLabelPaperTypePhoto]
+                              }];
+ 
+    [HPPPPaper associatePaperSize:HPPPPaperSize5x7 withType:k3UpPaperTypeId];
+    [HPPPPaper associatePaperSize:k3UpPaperSizeId withType:kLabelPaperTypeId];
+    [HPPPPaper associatePaperSize:k4UpPaperSizeId withType:kLabelPaperTypeId];
+}
+
+- (BOOL)aspectRatio3up
+{
+    BOOL is3up = NO;
+    if (self.printItem) {
+        CGSize printItemSize = [self.printItem sizeInUnits:Inches];
+        is3up = fabs((printItemSize.width / printItemSize.height) - (k3UpPaperSizeWidth / k3UpPaperSizeHeight)) < 0.001;
+    }
+    return is3up;
+}
+
+- (BOOL)aspectRatio4up
+{
+    BOOL is4up = NO;
+    if (self.printItem) {
+        CGSize printItemSize = [self.printItem sizeInUnits:Inches];
+        is4up = fabs((printItemSize.width / printItemSize.height) - (k4UpPaperSizeWidth / k4UpPaperSizeHeight)) < 0.001;
+    }
+    return is4up;
+}
+
 
 @end

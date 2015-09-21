@@ -118,7 +118,6 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
 
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSTimer *refreshPrinterStatusTimer;
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
@@ -135,8 +134,6 @@
 @end
 
 @implementation HPPPPageSettingsTableViewController
-
-@dynamic refreshControl;
 
 int const kSaveDefaultPrinterIndex = 1;
 
@@ -332,11 +329,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     if (IS_OS_8_OR_LATER) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:kHPPPPrinterAvailabilityNotification object:nil];
-        
-        self.refreshControl = [[UIRefreshControl alloc] init];
-        [self.refreshControl addTarget:self action:@selector(startRefreshing:) forControlEvents:UIControlEventValueChanged];
-        [self.tableView addSubview:self.refreshControl];
-        
         self.refreshPrinterStatusTimer = [NSTimer scheduledTimerWithTimeInterval:REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS
                                                                           target:self
                                                                         selector:@selector(refreshPrinterStatus:)
@@ -350,6 +342,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 -(void) refreshData
 {
+    self.printManager.currentPrintSettings = self.delegateManager.printSettings;
+
     [self setPageRangeLabelText:self.delegateManager.pageRangeText];
     BOOL pageSelected = NO;
     NSArray *pageNums = [self.delegateManager.pageRange getPages];
@@ -390,13 +384,15 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }
     }
 
-    [self reloadTable];
+   [self reloadTable];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
+    [self preparePrintManager];
+
     if (self.printItem) {
         [self configurePrintButton];
         [self refreshData];
@@ -484,6 +480,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSetWithIndex:PRINT_SUMMARY_SECTION];
     [indexSet addIndex:PRINT_FUNCTION_SECTION];
+    [indexSet addIndex:PAPER_SELECTION_SECTION];
     [indexSet addIndex:NUMBER_OF_COPIES_SECTION];
     [indexSet addIndex:FILTER_SECTION];
     [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
@@ -492,21 +489,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-#pragma mark - Pull to refresh
-
-- (void)startRefreshing:(UIRefreshControl *)refreshControl
-{
-    NSString *lastPrinterUrl = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_PRINTER_USED_URL_SETTING];
-    
-    if( nil != lastPrinterUrl ) {
-        [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
-    } else {
-        if (self.refreshControl.refreshing) {
-            [self.refreshControl endRefreshing];
-        }
-    }
 }
 
 - (void)refreshPrinterStatus:(NSTimer *)timer
@@ -604,7 +586,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
     
     if (nil != controller) {
-        controller.delegate = self.delegateManager;
+        controller.delegate = self.printManager;
     }
     
     return controller;
@@ -1562,12 +1544,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     }
     
     [self reloadPrinterSelectionSection];
-    
-    if (IS_OS_8_OR_LATER) {
-        if (self.refreshControl.refreshing) {
-            [self.refreshControl endRefreshing];
-        }
-    }
 }
 
 #pragma mark - Wi-Fi handling

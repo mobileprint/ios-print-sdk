@@ -104,19 +104,6 @@ NSString * const kHPPPPrintSummarySeparatorText = @" / ";
     [self.pageSettingsViewController refreshData];
 }
 
-#pragma mark - UIPrintInteractionControllerDelegate
-
-- (UIViewController *)printInteractionControllerParentViewController:(UIPrintInteractionController *)printInteractionController
-{
-    return nil;
-}
-
-- (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList
-{
-    UIPrintPaper * paper = [UIPrintPaper bestPaperForPageSize:[self.printSettings.paper printerPaperSize] withPapersFromArray:paperList];
-    return paper;
-}
-
 #pragma mark - Number of Copies
 
 - (void)setNumCopies:(NSInteger)numCopies
@@ -257,12 +244,15 @@ NSString * const kHPPPPrintSummarySeparatorText = @" / ";
 
 - (NSString *)printSettingsText
 {
-    _printSettingsText = [NSString stringWithFormat:@"%@, %@", self.printSettings.paper.sizeTitle, self.printSettings.paper.typeTitle];
-    
-    if( ![self.selectedPrinterText isEqualToString:kHPPPSelectPrinterPrompt] ) {
-        _printSettingsText = [_printSettingsText stringByAppendingString:[NSString stringWithFormat:@", %@", self.selectedPrinterText]];
+    NSMutableString *text = [NSMutableString stringWithString:@""];
+    if (![HPPP sharedInstance].hidePaperSizeOption) {
+        [text appendFormat:@"%@, ", self.printSettings.paper.sizeTitle];
     }
-    
+    if (![HPPP sharedInstance].hidePaperTypeOption) {
+        [text appendFormat:@"%@, ", self.printSettings.paper.typeTitle];
+    }
+    [text appendFormat:@"%@", self.selectedPrinterText];
+    _printSettingsText = text;
     return _printSettingsText;
 }
 

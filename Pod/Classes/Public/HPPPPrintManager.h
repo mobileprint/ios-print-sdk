@@ -32,7 +32,7 @@ typedef enum {
 /*!
  * @abstract Class used to print on iOS 8 and greater systems
  */
-@interface HPPPPrintManager : NSObject
+@interface HPPPPrintManager : NSObject <UIPrintInteractionControllerDelegate>
 
 /*!
  * @abstract Used to hold the print settings for the print job

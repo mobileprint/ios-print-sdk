@@ -19,9 +19,11 @@
 #import "HPPPSupportAction.h"
 #import "HPPPLogger.h"
 #import "HPPPInterfaceOptions.h"
+#import "HPPPPrintSettings.h"
 
 @class HPPPPaper;
 @class HPPPPrintItem;
+@protocol HPPPPrintPaperDelegate;
 
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 #define HPPP_ERROR_DOMAIN @"com.hp.hppp"
@@ -308,6 +310,8 @@ extern NSString * const kHPPPNumberOfCopies;
  */
 @property (strong, nonatomic) HPPPInterfaceOptions *interfaceOptions;
 
+@property (weak, nonatomic) id<HPPPPrintPaperDelegate>printPaperDelegate;
+
 /*!
  * @abstract Prepares a view controller suitable for the device and OS
  * @description This method prepares a view controller for displaying the print flow. It takes into consideration the device type and OS and prepares either a split view controller (iPad with iOS 8 or above) or a standard view controller. Both types are wrapped in a navigation controller. The controller returned is suitable for using with the UIActivity method 'activityViewController'.
@@ -532,5 +536,18 @@ extern NSString * const kHPPPNumberOfCopies;
  * @seealso didFinishAddPrintLaterFlow:
  */
 - (void)didCancelAddPrintLaterFlow:(UIViewController *)addPrintLaterJobTableViewController;
+
+@end
+
+@protocol HPPPPrintPaperDelegate <NSObject>
+
+@optional
+
+- (BOOL)hidePaperSizeForPrintSettings:(HPPPPrintSettings *)printSettings;
+- (BOOL)hidePaperTypeForPrintSettings:(HPPPPrintSettings *)printSettings;
+- (HPPPPaper *)defaultPaperForPrintSettings:(HPPPPrintSettings *)printSettings;
+- (NSArray *)supportedPapersForPrintSettings:(HPPPPrintSettings *)printSettings;
+- (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList forPrintSettings:(HPPPPrintSettings *)printSettings;
+- (NSNumber *)printInteractionController:(UIPrintInteractionController *)printInteractionController cutLengthForPaper:(UIPrintPaper *)paper forPrintSettings:(HPPPPrintSettings *)printSettings;
 
 @end
