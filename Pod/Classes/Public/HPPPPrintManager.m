@@ -361,7 +361,7 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     [HPPP sharedInstance].defaultPaper = [[HPPP sharedInstance].supportedPapers firstObject];
     if (paperDelegate && [paperDelegate respondsToSelector:@selector(defaultPaperForPrintSettings:)]) {
         HPPPPaper *paper = [paperDelegate defaultPaperForPrintSettings:currentPrintSettings];
-        if ([self supportedPaper:paper]) {
+        if ([HPPPPaper supportedPaperSize:paper.paperSize andType:paper.paperType]) {
             [HPPP sharedInstance].defaultPaper = paper;
         } else {
             HPPPLogError(@"Default paper specified is not in supported paper list: size (%lul) - type (%lul)", (unsigned long)paper.paperSize, (unsigned long)paper.paperType);
@@ -371,18 +371,6 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     if (![HPPPPaper supportedPaperSize:currentPrintSettings.paper.paperSize andType:currentPrintSettings.paper.paperType]) {
         _currentPrintSettings.paper = [HPPP sharedInstance].defaultPaper;
     }
-}
-
-- (BOOL)supportedPaper:(HPPPPaper *)paper
-{
-    BOOL supported = NO;
-    for (HPPPPaper *supportedPaper in [HPPP sharedInstance].supportedPapers) {
-        if (paper.paperSize == supportedPaper.paperSize && paper.paperType == supportedPaper.paperType) {
-            supported = YES;
-            break;
-        }
-    }
-    return supported;
 }
 
 @end
