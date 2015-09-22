@@ -198,16 +198,64 @@
 
 - (void)testPrintSettingsText {
     
-    // expected case
-    NSString *expectedPrintSummaryText = [NSString stringWithFormat:@"%@, %@, %@", self.delegateManager.printSettings.paper.sizeTitle, self.delegateManager.printSettings.paper.typeTitle, HPPPTestPrinterName];
+    NSString *printerPrompt = @"Select Printer";
     
-    XCTAssert([expectedPrintSummaryText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
-    
-    // nil printer case
+    // Hide size, hide type, no printer
+    NSString *expectedText = printerPrompt;
+    [HPPP sharedInstance].hidePaperSizeOption = YES;
+    [HPPP sharedInstance].hidePaperTypeOption = YES;
     self.delegateManager.printSettings.printerName = nil;
-    expectedPrintSummaryText = [NSString stringWithFormat:@"%@, %@", self.delegateManager.printSettings.paper.sizeTitle, self.delegateManager.printSettings.paper.typeTitle];
-    XCTAssert([expectedPrintSummaryText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
+    XCTAssert([expectedText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
+
+    // Show size, hide type, no printer
+    expectedText = [NSString stringWithFormat:@"%@, %@", self.delegateManager.printSettings.paper.sizeTitle, printerPrompt];
+    [HPPP sharedInstance].hidePaperSizeOption = NO;
+    [HPPP sharedInstance].hidePaperTypeOption = YES;
+    self.delegateManager.printSettings.printerName = nil;
+    XCTAssert([expectedText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
+
+    // Hide size, show type, no printer
+    expectedText = [NSString stringWithFormat:@"%@, %@", self.delegateManager.printSettings.paper.typeTitle, printerPrompt];
+    [HPPP sharedInstance].hidePaperSizeOption = YES;
+    [HPPP sharedInstance].hidePaperTypeOption = NO;
+    self.delegateManager.printSettings.printerName = nil;
+    XCTAssert([expectedText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
+
+    // Show size, show type, no printer
+    expectedText = [NSString stringWithFormat:@"%@, %@, %@", self.delegateManager.printSettings.paper.sizeTitle, self.delegateManager.printSettings.paper.typeTitle, printerPrompt];
+    [HPPP sharedInstance].hidePaperSizeOption = NO;
+    [HPPP sharedInstance].hidePaperTypeOption = NO;
+    self.delegateManager.printSettings.printerName = nil;
+    XCTAssert([expectedText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
+ 
+    // Hide size, hide type, yes printer
+    expectedText = HPPPTestPrinterName;
+    [HPPP sharedInstance].hidePaperSizeOption = YES;
+    [HPPP sharedInstance].hidePaperTypeOption = YES;
+    self.delegateManager.printSettings.printerName = HPPPTestPrinterName;
+    XCTAssert([expectedText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
     
+    // Show size, hide type, yes printer
+    expectedText = [NSString stringWithFormat:@"%@, %@", self.delegateManager.printSettings.paper.sizeTitle, HPPPTestPrinterName];
+    [HPPP sharedInstance].hidePaperSizeOption = NO;
+    [HPPP sharedInstance].hidePaperTypeOption = YES;
+    self.delegateManager.printSettings.printerName = HPPPTestPrinterName;
+    XCTAssert([expectedText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
+    
+    // Hide size, show type, yes printer
+    expectedText = [NSString stringWithFormat:@"%@, %@", self.delegateManager.printSettings.paper.typeTitle, HPPPTestPrinterName];
+    [HPPP sharedInstance].hidePaperSizeOption = YES;
+    [HPPP sharedInstance].hidePaperTypeOption = NO;
+    self.delegateManager.printSettings.printerName = HPPPTestPrinterName;
+    XCTAssert([expectedText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
+    
+    // Show size, show type, yes printer
+    expectedText = [NSString stringWithFormat:@"%@, %@, %@", self.delegateManager.printSettings.paper.sizeTitle, self.delegateManager.printSettings.paper.typeTitle, HPPPTestPrinterName];
+    [HPPP sharedInstance].hidePaperSizeOption = NO;
+    [HPPP sharedInstance].hidePaperTypeOption = NO;
+    self.delegateManager.printSettings.printerName = HPPPTestPrinterName;
+    XCTAssert([expectedText isEqualToString:[self.delegateManager printSettingsText]], @"Print Summary Text: %@", [self.delegateManager printSettingsText]);
+
 }
 
 @end
