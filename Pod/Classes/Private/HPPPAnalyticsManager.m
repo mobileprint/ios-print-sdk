@@ -125,6 +125,8 @@ NSString * const kHPPPMetricsNotCollected = @"Not Collected";
                 kHPPPNoPrint, kHPPPNumberOfCopies,
                 kHPPPNoPrint, kHPPPPaperSizeId,
                 kHPPPNoPrint, kHPPPPaperTypeId,
+                kHPPPNoPrint, kHPPPPaperWidthId,
+                kHPPPNoPrint, kHPPPPaperHeightId,
                 kHPPPNoPrint, kHPPPPrinterId,
                 kHPPPNoPrint, kHPPPPrinterDisplayLocation,
                 kHPPPNoPrint, kHPPPPrinterMakeAndModel,
