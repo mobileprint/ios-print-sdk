@@ -50,6 +50,8 @@ NSString * const kHPPPPrinterDetailsNotAvailable = @"Not Available";
     NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
     [lastOptionsUsed setValue:self.currentPrintSettings.paper.typeTitle forKey:kHPPPPaperTypeId];
     [lastOptionsUsed setValue:self.currentPrintSettings.paper.sizeTitle forKey:kHPPPPaperSizeId];
+    [lastOptionsUsed setValue:[NSNumber numberWithFloat:self.currentPrintSettings.paper.width] forKey:kHPPPPaperWidthId];
+    [lastOptionsUsed setValue:[NSNumber numberWithFloat:self.currentPrintSettings.paper.height] forKey:kHPPPPaperHeightId];
     [lastOptionsUsed setValue:[NSNumber numberWithBool:!self.currentPrintSettings.color] forKey:kHPPPBlackAndWhiteFilterId];
     [lastOptionsUsed setValue:[NSNumber numberWithInteger:self.numberOfCopies] forKey:kHPPPNumberOfCopies];
     

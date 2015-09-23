@@ -175,6 +175,21 @@ extern NSString * const kHPPPPaperSizeId;
  */
 extern NSString * const kHPPPPaperTypeId;
 
+
+/*!
+ * @abstract Used to retrieve width of the last paper size used
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the width in inches of the last paper used.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPPaperWidthId;
+
+/*!
+ * @abstract Used to retrieve height of the last paper size used
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the height in inches of the last paper used.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPPaperHeightId;
+
 /*!
  * @abstract Used to retrieve last black/white setting used
  * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain a true/false value indicating if black/white was chosen.
@@ -275,6 +290,8 @@ extern NSString * const kHPPPNumberOfCopies;
  * @seealso kHPPPBlackAndWhiteFilterId
  * @seealso kHPPPPaperSizeId
  * @seealso kHPPPPaperTypeId
+ * @seealso kHPPPPaperWidthId
+ * @seealso kHPPPPaperHeightId
  * @seealso kHPPPPrinterId
  * @seealso kHPPPPrinterDisplayName
  * @seealso kHPPPPrinterDisplayLocation
