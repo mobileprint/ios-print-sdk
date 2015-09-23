@@ -396,8 +396,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if (self.printItem) {
         [self configurePrintButton];
         [self refreshData];
-        if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
-            [[HPPPWiFiReachability sharedInstance] noPrintingAlert];
+        if( !self.addToPrintQueue && !self.settingsOnly ) {
+            if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
+                [[HPPPWiFiReachability sharedInstance] noPrintingAlert];
+            }
         }
     }
     
