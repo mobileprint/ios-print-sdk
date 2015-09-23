@@ -73,12 +73,12 @@ NSString * const kHPPPPrinterDetailsNotAvailable = @"Not Available";
 {
     NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionaryWithDictionary:[HPPP sharedInstance].lastOptionsUsed];
 
-    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.paperSize.width] forKey:kHPPPPrinterPaperWidthPoints];
-    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.paperSize.height] forKey:kHPPPPrinterPaperHeightPoints];
-    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.printableRect.size.width] forKey:kHPPPPrinterPaperAreaWidthPoints];
-    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.printableRect.size.height] forKey:kHPPPPrinterPaperAreaHeightPoints];
-    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.printableRect.origin.x] forKey:kHPPPPrinterPaperAreaXPoints];
-    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.printableRect.origin.y] forKey:kHPPPPrinterPaperAreaYPoints];
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.0f", paper.paperSize.width] forKey:kHPPPPrinterPaperWidthPoints];
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.0f", paper.paperSize.height] forKey:kHPPPPrinterPaperHeightPoints];
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.0f", paper.printableRect.size.width] forKey:kHPPPPrinterPaperAreaWidthPoints];
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.0f", paper.printableRect.size.height] forKey:kHPPPPrinterPaperAreaHeightPoints];
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.0f", paper.printableRect.origin.x] forKey:kHPPPPrinterPaperAreaXPoints];
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.0f", paper.printableRect.origin.y] forKey:kHPPPPrinterPaperAreaYPoints];
 
     [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
 }
