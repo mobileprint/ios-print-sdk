@@ -60,6 +60,13 @@ NSString * const kHPPPPrinterDisplayName = @"printer_name";
 NSString * const kHPPPNumberPagesDocument = @"number_pages_document";
 NSString * const kHPPPNumberPagesPrint = @"number_pages_print";
 
+NSString * const kHPPPPrinterPaperWidthPoints = @"printer_paper_width_points";
+NSString * const kHPPPPrinterPaperHeightPoints = @"printer_paper_height_points";
+NSString * const kHPPPPrinterPaperAreaWidthPoints = @"printer_paper_area_width_points";
+NSString * const kHPPPPrinterPaperAreaHeightPoints = @"printer_paper_area_height_points";
+NSString * const kHPPPPrinterPaperAreaXPoints = @"printer_paper_area_x_points";
+NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
+
 @implementation HPPP
 
 #pragma mark - Public methods

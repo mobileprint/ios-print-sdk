@@ -246,6 +246,8 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     [log appendFormat:@"\nChosen: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n\n\n", paper.paperSize.width  / 72.0, paper.paperSize.height  / 72.0, paper.printableRect.origin.x, paper.printableRect.origin.y, paper.printableRect.size.width, paper.printableRect.size.height];
     HPPPLogInfo(@"%@", log);
     
+    [self saveLastOptionsForPaper:paper];
+    
     return paper;
 }
 

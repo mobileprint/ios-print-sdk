@@ -243,6 +243,48 @@ extern NSString * const kHPPPPrinterMakeAndModel;
 extern NSString * const kHPPPNumberOfCopies;
 
 /*!
+ * @abstract Used to retrieve the width of the paper (in points) for the last job
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the width of the paper in points.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPPrinterPaperWidthPoints;
+
+/*!
+ * @abstract Used to retrieve the height of the paper (in points) for the last job
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the height of the paper in points.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPPrinterPaperHeightPoints;
+
+/*!
+ * @abstract Used to retrieve the width of the printing rectangle (in points) for the last job
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the width of the printing rectangle in points.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPPrinterPaperAreaWidthPoints;
+
+/*!
+ * @abstract Used to retrieve the height of the printing rectangle (in points) for the last job
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the height of the printing rectangle in points.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPPrinterPaperAreaHeightPoints;
+
+/*!
+ * @abstract Used to retrieve the x coordinate of the printing rectangle origin (in points) for the last job
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the x coordinate of the printing rectangle origin in points.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPPrinterPaperAreaXPoints;
+
+/*!
+ * @abstract Used to retrieve the y coordinate of the printing rectangle origin (in points) for the last job
+ * @discussion This key works with the dictionary contained in the @link lastOptionsUsed @/link property. If the last job was successful, the value for this key will contain the y coordinate of the printing rectangle origin in points.
+ * @seealso lastOptionsUsed
+ */
+extern NSString * const kHPPPPrinterPaperAreaYPoints;
+
+/*!
  * @abstract Job name of the print
  */
 @property (strong, nonatomic) NSString *printJobName;
@@ -297,6 +339,12 @@ extern NSString * const kHPPPNumberOfCopies;
  * @seealso kHPPPPrinterDisplayLocation
  * @seealso kHPPPPrinterMakeAndModel
  * @seealso kHPPPNumberOfCopies
+ * @seealso kHPPPPrinterPaperWidthPoints
+ * @seealso kHPPPPrinterPaperHeightPoints
+ * @seealso kHPPPPrinterPaperAreaWidthPoints
+ * @seealso kHPPPPrinterPaperAreaHeightPoints
+ * @seealso kHPPPPrinterPaperAreaXPoints
+ * @seealso kHPPPPrinterPaperAreaYPoints
  */
 @property (strong, nonatomic) NSDictionary *lastOptionsUsed;
 
