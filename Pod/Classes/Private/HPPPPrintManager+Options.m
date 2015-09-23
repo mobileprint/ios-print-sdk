@@ -47,11 +47,15 @@ NSString * const kHPPPPrinterDetailsNotAvailable = @"Not Available";
 
 - (void)saveLastOptionsForPrinter:(NSString *)printerID;
 {
-    NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionary];
+    NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionaryWithDictionary:[HPPP sharedInstance].lastOptionsUsed];
     [lastOptionsUsed setValue:self.currentPrintSettings.paper.typeTitle forKey:kHPPPPaperTypeId];
     [lastOptionsUsed setValue:self.currentPrintSettings.paper.sizeTitle forKey:kHPPPPaperSizeId];
     [lastOptionsUsed setValue:[NSNumber numberWithBool:!self.currentPrintSettings.color] forKey:kHPPPBlackAndWhiteFilterId];
     [lastOptionsUsed setValue:[NSNumber numberWithInteger:self.numberOfCopies] forKey:kHPPPNumberOfCopies];
+    
+    [lastOptionsUsed setValue:kHPPPPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayName];
+    [lastOptionsUsed setValue:kHPPPPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayLocation];
+    [lastOptionsUsed setValue:kHPPPPrinterDetailsNotAvailable forKey:kHPPPPrinterMakeAndModel];
     
     if (printerID) {
         [lastOptionsUsed setValue:printerID forKey:kHPPPPrinterId];
@@ -59,12 +63,23 @@ NSString * const kHPPPPrinterDetailsNotAvailable = @"Not Available";
             [lastOptionsUsed setValue:self.currentPrintSettings.printerName forKey:kHPPPPrinterDisplayName];
             [lastOptionsUsed setValue:self.currentPrintSettings.printerLocation forKey:kHPPPPrinterDisplayLocation];
             [lastOptionsUsed setValue:self.currentPrintSettings.printerModel forKey:kHPPPPrinterMakeAndModel];
-        } else {
-            [lastOptionsUsed setValue:kHPPPPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayName];
-            [lastOptionsUsed setValue:kHPPPPrinterDetailsNotAvailable forKey:kHPPPPrinterDisplayLocation];
-            [lastOptionsUsed setValue:kHPPPPrinterDetailsNotAvailable forKey:kHPPPPrinterMakeAndModel];
         }
     }
+    
+    [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
+}
+
+- (void)saveLastOptionsForPaper:(UIPrintPaper *)paper
+{
+    NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionaryWithDictionary:[HPPP sharedInstance].lastOptionsUsed];
+
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.paperSize.width] forKey:kHPPPPrinterPaperWidthPoints];
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.paperSize.height] forKey:kHPPPPrinterPaperHeightPoints];
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.printableRect.size.width] forKey:kHPPPPrinterPaperAreaWidthPoints];
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.printableRect.size.height] forKey:kHPPPPrinterPaperAreaHeightPoints];
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.printableRect.origin.x] forKey:kHPPPPrinterPaperAreaXPoints];
+    [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.2f", paper.printableRect.origin.y] forKey:kHPPPPrinterPaperAreaYPoints];
+
     [HPPP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
 }
 

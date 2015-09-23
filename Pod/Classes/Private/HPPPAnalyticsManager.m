@@ -47,6 +47,10 @@ NSString * const kHPPPMetricsAppType = @"app_type";
 NSString * const kHPPPMetricsAppTypeHP = @"HP";
 NSString * const kHPPPMetricsAppTypePartner = @"Partner";
 NSString * const kHPPPMetricsNotCollected = @"Not Collected";
+NSString * const kHPPPMetricsCountryCode = @"country_code";
+NSString * const kHPPPMetricsLanguageCode = @"language_code";
+NSString * const kHPPPMetricsTimezoneDescription = @"timezone_description";
+NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
 
 @interface HPPPAnalyticsManager ()
 
@@ -109,7 +113,11 @@ NSString * const kHPPPMetricsNotCollected = @"Not Collected";
                               kHPPPMetricsProductName : [self nonNullString:displayName],
                               kHPPPMetricsVersion : [self nonNullString:completeVersion],
                               kHPPPMetricsPrintLibraryVersion :[self nonNullString:printPodVersion],
-                              kHPPPMetricsWiFiSSID : [HPPPAnalyticsManager wifiName]
+                              kHPPPMetricsWiFiSSID : [HPPPAnalyticsManager wifiName],
+                              kHPPPMetricsCountryCode : [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode],
+                              kHPPPMetricsLanguageCode : [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode],
+                              kHPPPMetricsTimezoneDescription : [NSTimeZone systemTimeZone].description,
+                              kHPPPMetricsTimezoneOffsetSeconds : [NSString stringWithFormat:@"%ld", (long)[NSTimeZone systemTimeZone].secondsFromGMT]
                               };
     
     return metrics;
@@ -130,6 +138,12 @@ NSString * const kHPPPMetricsNotCollected = @"Not Collected";
                 kHPPPNoPrint, kHPPPPrinterMakeAndModel,
                 kHPPPNoPrint, kHPPPPrinterDisplayName,
                 kHPPPNoPrint, kHPPPNumberPagesPrint,
+                kHPPPNoPrint, kHPPPPrinterPaperWidthPoints,
+                kHPPPNoPrint, kHPPPPrinterPaperHeightPoints,
+                kHPPPNoPrint, kHPPPPrinterPaperAreaWidthPoints,
+                kHPPPNoPrint, kHPPPPrinterPaperAreaHeightPoints,
+                kHPPPNoPrint, kHPPPPrinterPaperAreaXPoints,
+                kHPPPNoPrint, kHPPPPrinterPaperAreaYPoints,
                 nil
                 ];
     }
