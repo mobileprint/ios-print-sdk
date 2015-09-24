@@ -1099,10 +1099,12 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                 UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
                 label.font = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFont];
                 label.textColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFontColor];
-                if (self.printFromQueue) {
-                    label.text = HPPPLocalizedString(@"Default printer not currently available", nil);
-                } else {
-                    label.text = HPPPLocalizedString(@"Recent printer not currently available", nil);
+                if( !self.settingsOnly && !self.addToPrintQueue ) {
+                    if (self.printFromQueue) {
+                        label.text = HPPPLocalizedString(@"Default printer not currently available", nil);
+                    } else {
+                        label.text = HPPPLocalizedString(@"Recent printer not currently available", nil);
+                    }
                 }
                 [footer addSubview:label];
             }
