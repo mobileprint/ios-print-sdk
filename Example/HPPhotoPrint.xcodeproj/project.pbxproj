@@ -38,6 +38,7 @@
 		651039BA1B73FAA10013E738 /* 236 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B71B73FAA10013E738 /* 236 Pages.pdf */; };
 		651357891B4C7BEE003B6935 /* HPPPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* HPPPSettingsTableViewController.m */; };
 		6531EB3E1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m */; };
+		6565921F1BB5EB6B00A08B22 /* HPPPPaperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6565921E1BB5EB6B00A08B22 /* HPPPPaperTest.m */; settings = {ASSET_TAGS = (); }; };
 		65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */; };
 		65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */; };
 		658088EF1BB1DACD00B35489 /* HPPPPrintManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 658088EE1BB1DACD00B35489 /* HPPPPrintManagerTest.m */; settings = {ASSET_TAGS = (); }; };
@@ -142,6 +143,7 @@
 		651357881B4C7BEE003B6935 /* HPPPSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPSettingsTableViewController.m; sourceTree = "<group>"; };
 		6531EB3C1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPMultiPageConfigurationViewController.h; sourceTree = "<group>"; };
 		6531EB3D1B30C85700412BBF /* HPPPMultiPageConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPMultiPageConfigurationViewController.m; sourceTree = "<group>"; };
+		6565921E1BB5EB6B00A08B22 /* HPPPPaperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPPaperTest.m; sourceTree = "<group>"; };
 		65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "44 Pages.pdf"; sourceTree = "<group>"; };
 		65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "51 Pages.pdf"; sourceTree = "<group>"; };
 		658088ED1BB1C63600B35489 /* HPPhotoPrint-cal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HPPhotoPrint-cal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -307,6 +309,7 @@
 				658088EE1BB1DACD00B35489 /* HPPPPrintManagerTest.m */,
 				F1B2023E1B7E970D00912E0B /* HPPPPrintSettingsDelegateManagerTest.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
+				6565921E1BB5EB6B00A08B22 /* HPPPPaperTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 			files = (
 				F1B2023F1B7E970D00912E0B /* HPPPPrintSettingsDelegateManagerTest.m in Sources */,
 				658088EF1BB1DACD00B35489 /* HPPPPrintManagerTest.m in Sources */,
+				6565921F1BB5EB6B00A08B22 /* HPPPPaperTest.m in Sources */,
 				F1998AF51B6808BD00E5320F /* HPPPPageRangeTest.m in Sources */,
 				F10BCCCC1B7A53CC001A5F3B /* HPPPDirectPrintTest.m in Sources */,
 			);
