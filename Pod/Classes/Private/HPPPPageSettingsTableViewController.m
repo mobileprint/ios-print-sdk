@@ -368,6 +368,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     [self changePaper];
     [self reloadPaperSelectionSection];
+    
     [self updatePageSettingsUI];
     [self updatePrintSettingsUI];
     [self updatePrintButtonUI];
@@ -465,28 +466,16 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 - (void)reloadTable
 {
-    if (self.addToPrintQueue) {
-        self.selectPrinterCell.hidden = YES;
-        self.printSettingsCell.hidden = YES;
-        self.paperSizeCell.hidden = YES;
-        self.paperTypeCell.hidden = YES;
-    } else if (self.settingsOnly) {
-        self.printCell.hidden = YES;
-        self.cancelBarButtonItem.title = @"Done";
-        self.pageSelectionMark.hidden = YES;
-        self.pageRangeCell.hidden = YES;
-        self.numberOfCopiesCell.hidden = YES;
-        self.jobNameCell.hidden = YES;
-    } else {
-        self.jobNameCell.hidden = YES;
-    }
-    
     NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSetWithIndex:PRINT_SUMMARY_SECTION];
     [indexSet addIndex:PRINT_FUNCTION_SECTION];
     [indexSet addIndex:NUMBER_OF_COPIES_SECTION];
-    
+
     if( !self.addToPrintQueue ) {
         [indexSet addIndex:PAPER_SELECTION_SECTION];
+        [indexSet addIndex:PRINTER_SELECTION_SECTION];
+        [indexSet addIndex:PRINT_SETTINGS_SECTION];
+    } else {
+        [indexSet addIndex:PRINT_JOB_NAME_SECTION];
     }
     
     [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
@@ -536,25 +525,42 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
-    if (IS_OS_8_OR_LATER){
-        if (self.delegateManager.printSettings.printerName == nil || self.settingsOnly){
-            self.selectPrinterCell.hidden = NO;
-            self.paperSizeCell.hidden = NO;
-            self.printSettingsCell.hidden = YES;
-            self.paperTypeCell.hidden = [[self.delegateManager.printSettings.paper supportedTypes] count] > 1 ? NO : YES;
-        } else {
-            self.selectPrinterCell.hidden = YES;
-            self.paperSizeCell.hidden = YES;
-            self.paperTypeCell.hidden = YES;
-            self.printSettingsCell.hidden = NO;
-        }
-        if (self.delegateManager.printSettings.printerIsAvailable){
-            [self printerIsAvailable];
-        } else {
-            [self printerNotAvailable];
-        }
+    
+    if (self.addToPrintQueue) {
+        self.selectPrinterCell.hidden = YES;
+        self.printSettingsCell.hidden = YES;
+        self.paperSizeCell.hidden = YES;
+        self.paperTypeCell.hidden = YES;
+    } else if (self.settingsOnly) {
+        self.printCell.hidden = YES;
+        self.cancelBarButtonItem.title = @"Done";
+        self.pageSelectionMark.hidden = YES;
+        self.pageRangeCell.hidden = YES;
+        self.numberOfCopiesCell.hidden = YES;
+        self.jobNameCell.hidden = YES;
     } else {
-        self.paperTypeCell.hidden = [[self.delegateManager.printSettings.paper supportedTypes] count] > 1 ? NO : YES;
+        self.jobNameCell.hidden = YES;
+        
+        if (IS_OS_8_OR_LATER){
+            if (self.delegateManager.printSettings.printerName == nil || self.settingsOnly){
+                self.selectPrinterCell.hidden = NO;
+                self.paperSizeCell.hidden = NO;
+                self.printSettingsCell.hidden = YES;
+                self.paperTypeCell.hidden = [[self.delegateManager.printSettings.paper supportedTypes] count] > 1 ? NO : YES;
+            } else {
+                self.selectPrinterCell.hidden = YES;
+                self.paperSizeCell.hidden = YES;
+                self.paperTypeCell.hidden = YES;
+                self.printSettingsCell.hidden = NO;
+            }
+            if (self.delegateManager.printSettings.printerIsAvailable){
+                [self printerIsAvailable];
+            } else {
+                [self printerNotAvailable];
+            }
+        } else {
+            self.paperTypeCell.hidden = [[self.delegateManager.printSettings.paper supportedTypes] count] > 1 ? NO : YES;
+        }
     }
     [self.tableView endUpdates];
 }
@@ -1005,9 +1011,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
             height = SEPARATOR_SECTION_FOOTER_HEIGHT;
         }
     } else if( self.addToPrintQueue ) {
-        if( section == PRINT_SUMMARY_SECTION  ||
-            section == PRINT_JOB_NAME_SECTION ||
-            section == PRINT_SETTINGS_SECTION    ) {
+        if( section == PRINT_SUMMARY_SECTION    ||
+            section == PRINT_FUNCTION_SECTION   ||
+            section == PRINT_JOB_NAME_SECTION   ||
+            section == NUMBER_OF_COPIES_SECTION   ) {
 
             height = SEPARATOR_SECTION_FOOTER_HEIGHT;
         }
