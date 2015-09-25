@@ -85,15 +85,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *paperSizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *paperTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *filterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pageRangeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pageRangeDetailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectPrinterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedPrinterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsDetailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *jobNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *jobNameDetailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberOfCopiesLabel;
 @property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
 
-@property (weak, nonatomic) IBOutlet UITableViewCell *pageViewCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *jobSummaryCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *selectPrinterCell;
@@ -251,10 +254,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.pageRangeCell.hidden = YES;
         self.pageSelectionMark.hidden = YES;
     } else {
-        self.pageRangeCell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
-        self.pageRangeCell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
-        self.pageRangeCell.detailTextLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
-        self.pageRangeCell.detailTextLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
+        self.pageRangeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+        self.pageRangeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
+        self.pageRangeDetailLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+        self.pageRangeDetailLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
 
         self.selectedPageImage = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSelectedPageIcon];
         self.unselectedPageImage = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsUnselectedPageIcon];
@@ -271,8 +274,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.filterLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
     self.filterLabel.text = HPPPLocalizedString(@"Black & White mode", nil);
     self.blackAndWhiteModeSwitch.onTintColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
-    
-    self.pageViewCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
     
     self.delegateManager.printSettings = [[HPPPPrintSettings alloc] init];
     [self.delegateManager loadLastUsed];
@@ -357,10 +358,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     [self dismissEditView];
 
-    self.jobNameCell.detailTextLabel.text = self.delegateManager.jobName;
+    self.jobNameDetailLabel.text = self.delegateManager.jobName;
     
     self.numberOfCopiesLabel.text = self.delegateManager.numCopiesLabelText;
-    self.pageRangeCell.detailTextLabel.text = self.delegateManager.pageRangeText;
+    self.pageRangeDetailLabel.text = self.delegateManager.pageRangeText;
     
     if( self.addToPrintQueue ) {
         self.jobSummaryCell.textLabel.text = self.delegateManager.printLaterJobSummaryText;
@@ -741,9 +742,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (void)setPageRangeLabelText:(NSString *)pageRange
 {
     if( pageRange.length ) {
-        self.pageRangeCell.detailTextLabel.text = pageRange;
+        self.pageRangeDetailLabel.text = pageRange;
     } else {
-        self.pageRangeCell.detailTextLabel.text = kPageRangeAllPages;
+        self.pageRangeDetailLabel.text = kPageRangeAllPages;
     }
 }
 
@@ -773,7 +774,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     }
     
     if( 1 < self.printItem.numberOfPages ) {
-        [self.delegateManager.pageRange setRange:self.pageRangeCell.detailTextLabel.text];
+        [self.delegateManager.pageRange setRange:self.pageRangeDetailLabel.text];
     }
     
     return self.delegateManager.pageRange;
