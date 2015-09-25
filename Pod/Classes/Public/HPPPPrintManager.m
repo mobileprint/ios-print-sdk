@@ -65,10 +65,10 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     self = [self init];
     
     if( self ) {
-        self.currentPrintSettings = printSettings;
-        if (!self.currentPrintSettings.paper) {
-            self.currentPrintSettings.paper = _settingsManager.paper;
+        if (!printSettings.paper) {
+            printSettings.paper = _settingsManager.paper;
         }
+        self.currentPrintSettings = printSettings;
     }
     
     return self;
@@ -370,7 +370,7 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
         }
     }
     
-    if (![HPPPPaper supportedPaperSize:currentPrintSettings.paper.paperSize andType:currentPrintSettings.paper.paperType]) {
+    if (!currentPrintSettings.paper || ![HPPPPaper supportedPaperSize:currentPrintSettings.paper.paperSize andType:currentPrintSettings.paper.paperType]) {
         _currentPrintSettings.paper = [HPPP sharedInstance].defaultPaper;
     }
 }
