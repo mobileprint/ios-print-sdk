@@ -358,6 +358,16 @@ static NSArray *_supportedPaper = nil;
     return YES;
 }
 
++ (void)resetPaperList
+{
+    _supportedSize = nil;
+    _supportedType = nil;
+    _supportedPaper = nil;
+    [self initializePaper];
+    [HPPP sharedInstance].supportedPapers = [self availablePapers];
+    [HPPP sharedInstance].defaultPaper = [[self availablePapers] firstObject];
+}
+
 #pragma mark - Supported paper helpers
 
 + (NSArray *)availablePapers

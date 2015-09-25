@@ -325,4 +325,10 @@ extern NSString * const kHPPPPaperSizePrinterHeightKey;
  */
 - (BOOL)supportsType:(NSUInteger)paperType;
 
+/*!
+ * @abstract Restores list of supported sizes, types, and associations to original default values
+ * @description Note that this method also resets the HPPP object's supportedPapers and defaultPaper properties to ensure consistency
+ */
++ (void)resetPaperList;
+
 @end

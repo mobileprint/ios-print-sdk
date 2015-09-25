@@ -306,10 +306,10 @@
 			children = (
 				F10BCCCB1B7A53CC001A5F3B /* HPPPDirectPrintTest.m */,
 				F1998AF41B6808BD00E5320F /* HPPPPageRangeTest.m */,
+				6565921E1BB5EB6B00A08B22 /* HPPPPaperTest.m */,
 				658088EE1BB1DACD00B35489 /* HPPPPrintManagerTest.m */,
 				F1B2023E1B7E970D00912E0B /* HPPPPrintSettingsDelegateManagerTest.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
-				6565921E1BB5EB6B00A08B22 /* HPPPPaperTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
