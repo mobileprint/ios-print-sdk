@@ -12,6 +12,7 @@
 
 #import "HPPP.h"
 #import "HPPPPaper.h"
+#import "HPPPPrintItem.h"
 #import "NSBundle+HPPPLocalizable.h"
 
 @implementation HPPPPaper
@@ -119,7 +120,7 @@
     NSNumber *printerHeight = [sizeInfo objectForKey:kHPPPPaperSizePrinterHeightKey];
     CGFloat width = printerWidth ? [printerWidth floatValue] : self.width;
     CGFloat height = printerHeight ? [printerHeight floatValue] : self.height;
-    return CGSizeMake(width, height);
+    return CGSizeMake(width * kHPPPPointsPerInch, height * kHPPPPointsPerInch);
 }
 
 #pragma mark - Supported paper initialization
