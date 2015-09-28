@@ -203,7 +203,8 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
     if( [vc isKindOfClass:[UINavigationController class]] ) {
         pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)((UINavigationController *)vc).topViewController;
     } else if( [vc isKindOfClass:[UISplitViewController class]] ) {
-        pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)((UISplitViewController *)vc).viewControllers[0];
+        UINavigationController *masterNavigationController = (UINavigationController *)((UISplitViewController *)vc).viewControllers[0];
+        pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
 
     } else {
         pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)vc;
