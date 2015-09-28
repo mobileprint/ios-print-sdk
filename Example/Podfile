@@ -6,4 +6,5 @@ end
 
 target 'Tests', :exclusive => true do
   pod "HPPhotoPrint", :path => "../"
+  pod "OCMock"
 end
