@@ -206,7 +206,8 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 - (NSArray *)sortPapers:(NSArray *)papers
 {
     NSMutableArray *sortedPapers = [NSMutableArray arrayWithArray:papers];
-    [sortedPapers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    
+    [sortedPapers sortUsingComparator:^NSComparisonResult(id obj1, id  obj2){
         HPPPPaper *paper1 = obj1;
         HPPPPaper *paper2 = obj2;
         if (paper1.paperSize < paper2.paperSize) {
