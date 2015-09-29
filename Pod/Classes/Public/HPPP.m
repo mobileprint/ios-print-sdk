@@ -150,11 +150,16 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
         pageSettingsTableViewController.printDelegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
-        pageSettingsTableViewController.printFromQueue = fromQueue;
-        pageSettingsTableViewController.settingsOnly = settingsOnly;
         pageSettingsTableViewController.printItem = printItem;
-        pageSettingsTableViewController.addToPrintQueue = NO;
         pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+        
+        if( fromQueue ) {
+            pageSettingsTableViewController.mode = HPPPPageSettingsModePrintFromQueue;
+        } else if( settingsOnly ) {
+            pageSettingsTableViewController.mode = HPPPPageSettingsModeSettingsOnly;
+        } else {
+            pageSettingsTableViewController.mode = HPPPPageSettingsModePrint;
+        }
 
         if( 1 == pageSettingsSplitViewController.viewControllers.count ) {
             HPPPLogError(@"Preview pane failed to be created");
@@ -181,9 +186,15 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
         pageSettingsTableViewController.printItem = printItem;
         pageSettingsTableViewController.printDelegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
-        pageSettingsTableViewController.printFromQueue = fromQueue;
-        pageSettingsTableViewController.settingsOnly = settingsOnly;
-        pageSettingsTableViewController.addToPrintQueue = NO;
+        
+        if( fromQueue ) {
+            pageSettingsTableViewController.mode = HPPPPageSettingsModePrintFromQueue;
+        } else if( settingsOnly ) {
+            pageSettingsTableViewController.mode = HPPPPageSettingsModeSettingsOnly;
+        } else {
+            pageSettingsTableViewController.mode = HPPPPageSettingsModePrint;
+        }
+
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;
         navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -212,7 +223,7 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
     
     pageSettingsTableViewController.printLaterJob = printLaterJob;
     pageSettingsTableViewController.printLaterDelegate = delegate;
-    pageSettingsTableViewController.addToPrintQueue = YES;
+    pageSettingsTableViewController.mode = HPPPPageSettingsModeAddToQueue;
     
     return vc;
 }

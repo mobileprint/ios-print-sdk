@@ -17,6 +17,18 @@
 #import "HPPP.h"
 
 /*!
+ * @abstract All of the different possible configurations for the HPPPPageSettingsTableViewController screen
+ * @discussion The HPPPPageSettingsTableViewController is used for print, print-from-queue, add-to-print-queue, etc.  
+ *   The mode property on HPPPPageSettingsTableViewController is set to display the proper configuration.
+ */
+typedef enum {
+    HPPPPageSettingsModePrint,
+    HPPPPageSettingsModePrintFromQueue,
+    HPPPPageSettingsModeAddToQueue,
+    HPPPPageSettingsModeSettingsOnly
+} HPPPPageSettingsMode;
+
+/*!
  * @abstract The view controller class for displaying the print preview
  * @discussion This class implements the view controller used for displaying the print preview screen and associated page settings used for printing.
  */
@@ -68,22 +80,30 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
 /*!
  * @abstract Indicates whether printing was initiated from the print queue
  */
-@property (assign, nonatomic) BOOL printFromQueue;
+//@property (assign, nonatomic) BOOL printFromQueue;
 
 /*!
  * @abstract Indicates whether controller is used for settings only rather than actual printing
  */
-@property (assign, nonatomic) BOOL settingsOnly;
+//@property (assign, nonatomic) BOOL settingsOnly;
 
 /*!
  * @abstract Indicates whether controller is used for printing or adding a job to the print queue
  */
-@property (assign, nonatomic) BOOL addToPrintQueue;
+//@property (assign, nonatomic) BOOL addToPrintQueue;
 
 /*!
  * @abstract The printLaterJob, if any, associated with the page settings
  */
 @property (assign, nonatomic) HPPPPrintLaterJob *printLaterJob;
+
+/*!
+ * @abstract The type of page settings screen to display
+ */
+@property (assign, nonatomic) HPPPPageSettingsMode mode;
+
+@property (assign, nonatomic) BOOL previewPane;
+@property (assign, nonatomic) BOOL pageSettingsPane;
 
 /*!
  * @abstract Causes a refresh of the data displayed by the view controller

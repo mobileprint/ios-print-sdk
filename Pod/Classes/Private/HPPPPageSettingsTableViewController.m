@@ -67,7 +67,6 @@
 #define kHPPPSelectPrinterPrompt HPPPLocalizedString(@"Select Printer", nil)
 #define kPrinterDetailsNotAvailable HPPPLocalizedString(@"Not Available", @"Printer details not available")
 
-
 @interface HPPPPageSettingsTableViewController ()
    <UIGestureRecognizerDelegate,
     HPPPMultiPageViewDelegate,
@@ -151,9 +150,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     [super viewDidLoad];
     
-    if( self.addToPrintQueue ) {
+    if( HPPPPageSettingsModeAddToQueue == self.mode ) {
         self.title = HPPPLocalizedString(@"Add Print", @"Title of the Add Print to the Print Later Queue Screen");
-    } else if( self.settingsOnly ) {
+    } else if( HPPPPageSettingsModeSettingsOnly == self.mode ) {
         self.title = HPPPLocalizedString(@"Print Settings", @"Title of the screen for setting default print settings");
     } else {
         self.title = HPPPLocalizedString(@"Page Settings", @"Title of the Page Settings Screen");
@@ -171,7 +170,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.delegateManager.numCopies = DEFAULT_NUMBER_OF_COPIES;
 
     if( self.printLaterJob ) {
-        if( !self.addToPrintQueue ) {
+        if( HPPPPageSettingsModeAddToQueue != self.mode ) {
             self.delegateManager.pageRange = self.printLaterJob.pageRange;
             self.delegateManager.blackAndWhite = self.printLaterJob.blackAndWhite;
             self.delegateManager.numCopies = self.printLaterJob.numCopies;
@@ -190,7 +189,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    if ((IS_IPAD && IS_OS_8_OR_LATER) || (self.settingsOnly && nil == self.printItem)) {
+    if ((IS_IPAD && IS_OS_8_OR_LATER) || (HPPPPageSettingsModeSettingsOnly == self.mode && nil == self.printItem)) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
     }
     
@@ -366,7 +365,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.numberOfCopiesLabel.text = self.delegateManager.numCopiesLabelText;
     self.pageRangeDetailLabel.text = self.delegateManager.pageRangeText;
     
-    if( self.addToPrintQueue ) {
+    if( HPPPPageSettingsModeAddToQueue == self.mode ) {
         self.jobSummaryCell.textLabel.text = self.delegateManager.printLaterJobSummaryText;
     } else {
         self.jobSummaryCell.textLabel.text = self.delegateManager.printJobSummaryText;
@@ -404,7 +403,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if (self.printItem) {
         [self configurePrintButton];
         [self refreshData];
-        if( !self.addToPrintQueue && !self.settingsOnly ) {
+        if( HPPPPageSettingsModeAddToQueue != self.mode && HPPPPageSettingsModeSettingsOnly != self.mode ) {
             if (![[HPPPWiFiReachability sharedInstance] isWifiConnected]) {
                 [[HPPPWiFiReachability sharedInstance] noPrintingAlert];
             }
@@ -415,9 +414,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
 
     NSString *screenName = kPageSettingsScreenName;
-    if (self.settingsOnly) {
+    if (HPPPPageSettingsModeSettingsOnly == self.mode) {
         screenName = kSettingsOnlyScreenName;
-    } else if (self.printFromQueue) {
+    } else if (HPPPPageSettingsModePrintFromQueue == self.mode) {
         screenName = kPrintFromQueueScreenName;
     }
     
@@ -476,7 +475,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     [indexSet addIndex:PRINT_FUNCTION_SECTION];
     [indexSet addIndex:NUMBER_OF_COPIES_SECTION];
 
-    if( !self.addToPrintQueue ) {
+    if( HPPPPageSettingsModeAddToQueue != self.mode ) {
         [indexSet addIndex:PAPER_SELECTION_SECTION];
         [indexSet addIndex:PRINTER_SELECTION_SECTION];
         [indexSet addIndex:PRINT_SETTINGS_SECTION];
@@ -532,12 +531,12 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
     
-    if (self.addToPrintQueue) {
+    if (HPPPPageSettingsModeAddToQueue == self.mode) {
         self.selectPrinterCell.hidden = YES;
         self.printSettingsCell.hidden = YES;
         self.paperSizeCell.hidden = YES;
         self.paperTypeCell.hidden = YES;
-    } else if (self.settingsOnly) {
+    } else if (HPPPPageSettingsModeSettingsOnly == self.mode) {
         self.printCell.hidden = YES;
         self.cancelBarButtonItem.title = @"Done";
         self.pageSelectionMark.hidden = YES;
@@ -548,7 +547,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.jobNameCell.hidden = YES;
         
         if (IS_OS_8_OR_LATER){
-            if (self.delegateManager.printSettings.printerName == nil || self.settingsOnly){
+            if (self.delegateManager.printSettings.printerName == nil || HPPPPageSettingsModeSettingsOnly == self.mode){
                 self.selectPrinterCell.hidden = NO;
                 self.paperSizeCell.hidden = NO;
                 self.printSettingsCell.hidden = YES;
@@ -592,7 +591,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.printLabel.textColor = [hppp.appearance.settings objectForKey:kHPPPMainActionActiveLinkFontColor];
     }
     
-    if( self.addToPrintQueue ) {
+    if( HPPPPageSettingsModeAddToQueue == self.mode ) {
         self.printLabel.text = self.delegateManager.printLaterLabelText;
     } else {
         self.printLabel.text = self.delegateManager.printLabelText;
@@ -844,12 +843,12 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         [self dismissEditView];
     }
     else if ([self.printDelegate respondsToSelector:@selector(didCancelPrintFlow:)]) {
-        if (self.settingsOnly) {
+        if (HPPPPageSettingsModeSettingsOnly == self.mode) {
             [self saveSettings];
         }
         [self.printDelegate didCancelPrintFlow:self];
     } else if ([self.printLaterDelegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
-        if (self.settingsOnly) {
+        if (HPPPPageSettingsModeSettingsOnly == self.mode) {
             [self saveSettings];
         }
         [self.printLaterDelegate didCancelAddPrintLaterFlow:self];
@@ -927,7 +926,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.hppp.supportActions.count != 0 && !self.settingsOnly)
+    if (self.hppp.supportActions.count != 0 && HPPPPageSettingsModeSettingsOnly != self.mode)
         return [super numberOfSectionsInTableView:tableView];
     else
         return ([super numberOfSectionsInTableView:tableView] - 1);
@@ -943,7 +942,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         } else {
             return 1;
         }
-    } else if (PRINT_SUMMARY_SECTION == section && self.settingsOnly && nil == self.printItem) {
+    } else if (PRINT_SUMMARY_SECTION == section && HPPPPageSettingsModeSettingsOnly == self.mode && nil == self.printItem) {
         return 0;
     }
     else {
@@ -1009,14 +1008,14 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     CGFloat height = ZERO_HEIGHT;
     
-    if( self.settingsOnly ) {
+    if( HPPPPageSettingsModeSettingsOnly == self.mode ) {
         if( section == PRINT_SUMMARY_SECTION     ||
             section == PRINTER_SELECTION_SECTION ||
             section == PAPER_SELECTION_SECTION      ) {
             
             height = SEPARATOR_SECTION_FOOTER_HEIGHT;
         }
-    } else if( self.addToPrintQueue ) {
+    } else if( HPPPPageSettingsModeAddToQueue == self.mode ) {
         if( section == PRINT_SUMMARY_SECTION    ||
             section == PRINT_FUNCTION_SECTION   ||
             section == PRINT_JOB_NAME_SECTION   ||
@@ -1045,7 +1044,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
             height = SEPARATOR_SECTION_FOOTER_HEIGHT;
         } else if (section == SUPPORT_SECTION) {
             height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-        } else if (self.addToPrintQueue && (section == PRINT_JOB_NAME_SECTION)) {
+        } else if (HPPPPageSettingsModeAddToQueue == self.mode && (section == PRINT_JOB_NAME_SECTION)) {
             height = SEPARATOR_SECTION_FOOTER_HEIGHT;
         }
     }
@@ -1068,7 +1067,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     } else if (cell == self.selectPrinterCell) {
         [self showPrinterSelection:tableView withCompletion:nil];
     } else if (cell == self.printCell){
-        if( self.addToPrintQueue ) {
+        if( HPPPPageSettingsModeAddToQueue == self.mode ) {
             [self addJobToPrintQueue];
         } else {
             [self oneTouchPrint:tableView];
@@ -1127,8 +1126,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                 UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, tableView.frame.size.width - 20.0f, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
                 label.font = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFont];
                 label.textColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFontColor];
-                if( !self.settingsOnly && !self.addToPrintQueue ) {
-                    if (self.printFromQueue) {
+                if( HPPPPageSettingsModeSettingsOnly != self.mode && HPPPPageSettingsModeAddToQueue != self.mode ) {
+                    if (HPPPPageSettingsModePrintFromQueue == self.mode) {
                         label.text = HPPPLocalizedString(@"Default printer not currently available", nil);
                     } else {
                         label.text = HPPPLocalizedString(@"Recent printer not currently available", nil);
@@ -1478,7 +1477,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 - (void)multiPageView:(HPPPMultiPageView *)multiPageView didChangeFromPage:(NSUInteger)oldPageNumber ToPage:(NSUInteger)newPageNumber
 {
-    if (!self.settingsOnly) {
+    if (HPPPPageSettingsModeSettingsOnly != self.mode) {
         BOOL pageSelected = NO;
         
         NSArray *pageNums = [self.pageRange getPages];
@@ -1496,7 +1495,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 - (void)multiPageView:(HPPPMultiPageView *)multiPageView didSingleTapPage:(NSUInteger)pageNumber
 {
-    if (!self.settingsOnly) {
+    if (HPPPPageSettingsModeSettingsOnly != self.mode) {
         [self respondToMultiPageViewAction];
     }
 }
@@ -1543,7 +1542,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         
         HPPPPrintSettingsTableViewController *vc = (HPPPPrintSettingsTableViewController *)segue.destinationViewController;
         vc.printSettings = self.delegateManager.printSettings;
-        vc.useDefaultPrinter = self.printFromQueue;
+        vc.useDefaultPrinter = (HPPPPageSettingsModePrintFromQueue == self.mode);
         vc.delegate = self.delegateManager;
     } else if ([segue.identifier isEqualToString:@"PaperSizeSegue"]) {
         

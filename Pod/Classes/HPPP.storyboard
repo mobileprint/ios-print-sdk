@@ -1579,8 +1579,8 @@
         <image name="HPPPMagnify.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4eJ-bv-9qP"/>
-        <segue reference="C3t-Tz-4rn"/>
+        <segue reference="zDj-Ll-E4w"/>
         <segue reference="E8A-CH-mPX"/>
+        <segue reference="4eJ-bv-9qP"/>
     </inferredMetricsTieBreakers>
 </document>
