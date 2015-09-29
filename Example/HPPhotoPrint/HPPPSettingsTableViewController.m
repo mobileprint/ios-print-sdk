@@ -168,7 +168,9 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize4x6 paperType:HPPPPaperTypePhoto];
     if (kPaperSegmentUSAIndex == self.paperSegmentControl.selectedSegmentIndex) {
         [HPPP sharedInstance].defaultPaper = [HPPPPaper standardUSADefaultPaper];
-        papers = [HPPPPaper standardUSAPapers];
+        NSMutableArray *standardPapers = [NSMutableArray arrayWithArray:[HPPPPaper standardUSAPapers]];
+        HPPPPaper *paper3Up = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize5x7 paperType:k3UpPaperTypeId];
+        papers = [standardPapers arrayByAddingObject:paper3Up];
     } else if (kPaperSegmentInternationalIndex == self.paperSegmentControl.selectedSegmentIndex) {
         [HPPP sharedInstance].defaultPaper = [HPPPPaper standardInternationalDefaultPaper];
         papers = [HPPPPaper standardInternationalPapers];
