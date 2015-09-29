@@ -1,7 +1,7 @@
 require 'calabash-cucumber/ibase'
 require_relative '../common/base_html_screen'
 
-class HomeScreen < Calabash::IBase
+class PrintPodScreen < Calabash::IBase
 
   def trait
       screen_title
