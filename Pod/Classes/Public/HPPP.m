@@ -148,19 +148,13 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
         UINavigationController *masterNavigationController = pageSettingsSplitViewController.viewControllers[0];
         masterNavigationController.navigationBar.translucent = NO;
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
+        pageSettingsTableViewController.pageSettingsPane = YES;
+        pageSettingsTableViewController.previewPane = NO;
         pageSettingsTableViewController.printDelegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
         pageSettingsTableViewController.printItem = printItem;
         pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
         
-        if( fromQueue ) {
-            pageSettingsTableViewController.mode = HPPPPageSettingsModePrintFromQueue;
-        } else if( settingsOnly ) {
-            pageSettingsTableViewController.mode = HPPPPageSettingsModeSettingsOnly;
-        } else {
-            pageSettingsTableViewController.mode = HPPPPageSettingsModePrint;
-        }
-
         if( 1 == pageSettingsSplitViewController.viewControllers.count ) {
             HPPPLogError(@"Preview pane failed to be created");
             UINavigationController *detailsNavigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPreviewNavigationController"];
@@ -171,11 +165,23 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
         
         UINavigationController *detailsNavigationController = pageSettingsSplitViewController.viewControllers[1];
         detailsNavigationController.navigationBar.translucent = NO;
-        HPPPPageViewController *pageViewController = (HPPPPageViewController *)detailsNavigationController.topViewController;
-        pageViewController.printItem = printItem;
-        pageSettingsTableViewController.pageViewController = pageViewController;
-
+        HPPPPageSettingsTableViewController *previewPane = (HPPPPageSettingsTableViewController *)detailsNavigationController.topViewController;
+        previewPane.dataSource = dataSource;
+        previewPane.printItem = printItem;
+        previewPane.pageSettingsPane = NO;
+        previewPane.previewPane = YES;
         
+        if( fromQueue ) {
+            pageSettingsTableViewController.mode = HPPPPageSettingsModePrintFromQueue;
+            previewPane.mode = HPPPPageSettingsModePrintFromQueue;
+        } else if( settingsOnly ) {
+            pageSettingsTableViewController.mode = HPPPPageSettingsModeSettingsOnly;
+            previewPane.mode = HPPPPageSettingsModeSettingsOnly;
+        } else {
+            pageSettingsTableViewController.mode = HPPPPageSettingsModePrint;
+            previewPane.mode = HPPPPageSettingsModePrint;
+        }
+
         return pageSettingsSplitViewController;
     } else {
         // Is not possible to use UISplitViewController in iOS 7 without been the first view controller of the app. You can however do tricky workarounds like embbeding the Split View Controller in a Container View Controller, but that can end up in difficult bugs to find.
@@ -183,6 +189,8 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
         // "you must always install the view from a UISplitViewController object as the root view of your application’s window. [...] Split view controllers cannot be presented modally."
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPageSettingsTableViewController"];
         
+        pageSettingsTableViewController.pageSettingsPane = NO;
+        pageSettingsTableViewController.previewPane = NO;
         pageSettingsTableViewController.printItem = printItem;
         pageSettingsTableViewController.printDelegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;

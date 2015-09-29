@@ -13,7 +13,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "HPPPPageViewController.h"
 #import "HPPP.h"
 
 /*!
@@ -70,12 +69,6 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  * @seealso HPPPPrintDataSource
  */
 @property (nonatomic, weak) id<HPPPPrintDataSource> dataSource;
-
-/*!
- * @abstract The graphical page representation part of the print preview
- * @discussion The pageViewController is reponsible for displaying a graphical representation of the print on the page. It is one part of the overall page settings view also known as the print preview.
- */
-@property (nonatomic, weak) HPPPPageViewController *pageViewController;
 
 /*!
  * @abstract Indicates whether printing was initiated from the print queue
