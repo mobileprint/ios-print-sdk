@@ -167,24 +167,13 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     NSArray *papers = [HPPPPaper availablePapers];
     [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize4x6 paperType:HPPPPaperTypePhoto];
     if (kPaperSegmentUSAIndex == self.paperSegmentControl.selectedSegmentIndex) {
-        papers = [self papersWithSizes:@[
-                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize4x5],
-                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize4x6],
-                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize5x7],
-                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeLetter],
-                                         ]];
+        [HPPP sharedInstance].defaultPaper = [HPPPPaper standardUSADefaultPaper];
+        papers = [HPPPPaper standardUSAPapers];
     } else if (kPaperSegmentInternationalIndex == self.paperSegmentControl.selectedSegmentIndex) {
-        [HPPP sharedInstance].defaultPaper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeA6 paperType:HPPPPaperTypePhoto];
-        papers = [self papersWithSizes:@[
-                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeA4],
-                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeA5],
-                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSizeA6],
-                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize10x13],
-                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize10x15],
-                                         [NSNumber numberWithUnsignedInteger:HPPPPaperSize13x18]
-                                         ]];
+        [HPPP sharedInstance].defaultPaper = [HPPPPaper standardInternationalDefaultPaper];
+        papers = [HPPPPaper standardInternationalPapers];
     }
-    return [self sortPapers:papers];
+    return papers;
 }
 
 - (void)setSupportedPaper
@@ -201,33 +190,6 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
         }
     }
     return papers;
-}
-
-- (NSArray *)sortPapers:(NSArray *)papers
-{
-    NSMutableArray *sortedPapers = [NSMutableArray arrayWithArray:papers];
-    
-    [sortedPapers sortUsingComparator:^NSComparisonResult(id obj1, id  obj2){
-        HPPPPaper *paper1 = obj1;
-        HPPPPaper *paper2 = obj2;
-        if (paper1.paperSize < paper2.paperSize) {
-            return NSOrderedAscending;
-        } else if (paper1.paperSize > paper2.paperSize) {
-            return NSOrderedDescending;
-        } else {
-            if (paper1.paperType == k3UpPaperTypeId) {
-                return NSOrderedAscending;
-            } else if (paper2.paperType == k3UpPaperTypeId) {
-                return NSOrderedDescending;
-            } else if (paper1.paperType < paper2.paperType) {
-                return NSOrderedAscending;
-            } else if (paper1.paperType > paper2.paperType) {
-                return NSOrderedDescending;
-            }
-        }
-        return NSOrderedSame;
-    }];
-    return sortedPapers;
 }
 
 - (IBAction)paperSegmentChanged:(id)sender {
