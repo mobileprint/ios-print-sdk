@@ -1,6 +1,6 @@
 # HPPhotoPrint
 
-[![Version](https://img.shields.io/badge/pod-2.5.10-blue.svg)](http://hppp.herokuapp.com)
+[![Version](https://img.shields.io/badge/pod-2.6.2-blue.svg)](http://hppp.herokuapp.com)
 [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](http://hppp.herokuapp.com)
 [![Awesome](https://img.shields.io/badge/awesomeness-verified-green.svg)](http://hppp.herokuapp.com)
 
@@ -16,9 +16,11 @@
         - [Protocols](#protocols)
             - [Print Delegate](#print-delegate)
             - [Print Data Source](#print-data-source)
+            - [Print Paper Delegate](#print-paper-delegate)
         - [Customization](#customization)
             - [Appearance](#appearance)
             - [Interface Options](#interface-options)
+            - [Print Paper](#print-paper)
             - [Print Layout](#print-layout)
     - [Print Later Workflow](#print-later-workflow)
         - [Print Job](#print-job)
@@ -48,7 +50,7 @@ Add the private pod trunk as a source in your `Podfile`. It is important that th
 
 Add an entry for the __HPPhotoPrint__ pod with the desired version number:
 
-    pod 'HPPhotoPrint', '2.5.10'
+    pod 'HPPhotoPrint', '2.6.2'
 
 On the command line, switch to the directory containing the `Podfile` and run the install command:
 
@@ -67,7 +69,7 @@ pod 'GoogleAnalytics-iOS-SDK'
 pod 'TTTAttributedLabel', '~> 1.10.1'
 pod 'XMLDictionary', '~> 1.4.0'
 pod 'CocoaLumberjack', '1.9.1'
-pod 'HPPhotoPrint', '2.5.10'
+pod 'HPPhotoPrint', '2.6.2'
 pod 'ZipArchive', '1.4.0'
 
 xcodeproj 'MyProject/MyProject.xcodeproj'
@@ -351,6 +353,12 @@ _Multiple Jobs with [HPPPPrintLaterJob](http://hppp.herokuapp.com/HPPPPrintLater
 }
 
 ```
+##### Print Paper Delegate
+
+You can optionally provide a delegate for managing paper by implementing the [`HPPPPrintPaperDelegate`](http://hppp.herokuapp.com/HPPP_h/Protocols/HPPPPrintPaperDelegate/index.html) protocol and setting the [`printPaperDelegate`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/printPaperDelegate) property of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class.
+This delegate receives callbacks that allow you to adjust paper-related features when the print settings are changed (e.g. new printer selected).
+Additionally, you can choose to handle the low-level print delegate callbacks that are normally part of the [`UIPrintInteractionControllerDelegate`](https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIPrintInteractionControllerDelegate_Protocol/index.html) protocol.
+These features allow you to control the paper features on a per-printer basis and support specialty printers such as roll-feed printers.
 
 #### Customization
 
@@ -450,6 +458,28 @@ Currently, only the muli-page preview interface is controlled via this object.
 [HPPP sharedInstance].interfaceOptions.multiPageZoomOnSingleTap = NO;
 [HPPP sharedInstance].interfaceOptions.multiPageZoomOnDoubleTap = YES;
 ```
+##### Print Paper
+
+The list of print papers presented to the user and used for printing can be customized via the [`defaultPaper`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/defaultPaper) and [`supportedPapers`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/supportedPapers) properties of the [`HPPP`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html) class.
+Each paper in the list of supported papers consists of a size (e.g. 5x7) and a type (e.g. photo paper). 
+There is a default list of available sizes and types to choose from.
+This list includes most common US and international paper sizes (see [`HPPPPaperSize`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html#//apple_ref/occ/tdef/HPPPPaper/HPPPPaperSize)). 
+It is also possible to register your own custom sizes and types.
+
+###### Size and type association
+
+[`HPPPPaper`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html) objects should be instantiated using the supplied [`initWithPaperSize:paperType:`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html#//apple_ref/occ/instm/HPPPPaper/initWithPaperSize:paperType:) method.
+This method requires that the size and type being created are allowed to be paired together.
+For example, by default it is not possible to create 4x6 plain paper, only 4x6 photo paper.
+See the next section for information about registering custom sizes, types, and associations.
+
+###### Custom size and types
+
+The [`HPPPPaper`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html) class maintains the list of available sizes, types, and which size/type combinations are allowed.
+Register custom sizes using the [`registerSize`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html#//apple_ref/occ/clm/HPPPPaper/registerSize:) class method. 
+Register custom types using the [`registerType`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html#//apple_ref/occ/clm/HPPPPaper/registerType:) class method.
+Register an existing size and type to be an allowed comination using the [`associatePaperSize:withType`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html#//apple_ref/occ/clm/HPPPPaper/associatePaperSize:withType:) class method.
+Once registered, you can instantiate the size/type combo as an [`HPPPPaper`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html) instance and use it in the [`supportedPapers`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/supportedPapers) list and [`defaultPaper`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instp/HPPP/defaultPaper) property.
 
 ##### Print Layout
 
