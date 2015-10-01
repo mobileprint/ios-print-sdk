@@ -144,7 +144,7 @@ static NSArray *_supportedPaper = nil;
     if (_supportedSize && _supportedType && _supportedPaper) {
         return;
     }
-
+    
     _supportedSize = @[];
     _supportedType = @[];
     _supportedPaper = @[];
@@ -177,7 +177,7 @@ static NSArray *_supportedPaper = nil;
                          kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:11.0]
                          }];
     
-
+    
     // International paper sizes
     
     float const kMillimetersPerInch = 25.4;
@@ -195,14 +195,14 @@ static NSArray *_supportedPaper = nil;
                          kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:148.0 / kMillimetersPerInch],
                          kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:210.0 / kMillimetersPerInch]
                          }];
-
+    
     [self registerSize:@{
                          kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSizeA6],
                          kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"A6", @"Option for paper size"),
                          kHPPPPaperSizeWidthKey:[NSNumber numberWithFloat:105.0 / kMillimetersPerInch],
                          kHPPPPaperSizeHeightKey:[NSNumber numberWithFloat:148.0 / kMillimetersPerInch]
                          }];
-
+    
     [self registerSize:@{
                          kHPPPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:HPPPPaperSize10x13],
                          kHPPPPaperSizeTitleKey:HPPPLocalizedString(@"10x13cm", @"Option for paper size"),
@@ -235,7 +235,7 @@ static NSArray *_supportedPaper = nil;
                          kHPPPPaperTypeTitleKey:HPPPLocalizedString(@"Photo Paper", @"Option for paper type"),
                          kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
                          }];
-
+    
     // Associations
     [self associatePaperSize:HPPPPaperSize4x5 withType:HPPPPaperTypePhoto];
     [self associatePaperSize:HPPPPaperSize4x6 withType:HPPPPaperTypePhoto];
@@ -272,7 +272,7 @@ static NSArray *_supportedPaper = nil;
 + (BOOL)registerSize:(NSDictionary *)info
 {
     [self initializePaper];
-
+    
     NSNumber *sizeId = [info objectForKey:kHPPPPaperSizeIdKey] ;
     NSString *title = [info objectForKey:kHPPPPaperSizeTitleKey];
     NSNumber *width = [info objectForKey:kHPPPPaperSizeWidthKey];
@@ -303,7 +303,7 @@ static NSArray *_supportedPaper = nil;
 + (BOOL)registerType:(NSDictionary *)info
 {
     [self initializePaper];
-
+    
     NSNumber *typeId = [info objectForKey:kHPPPPaperTypeIdKey] ;
     NSString *title = [info objectForKey:kHPPPPaperTypeTitleKey];
     
@@ -332,7 +332,7 @@ static NSArray *_supportedPaper = nil;
 + (BOOL)associatePaperSize:(NSUInteger)sizeId withType:(NSUInteger)typeId
 {
     [self initializePaper];
-
+    
     if (nil != [self associationForSizeId:sizeId andTypeId:typeId]) {
         HPPPLogError(@"Attempted association already exists:  size (%lul) - type (%lul)", sizeId, typeId);
         return NO;
@@ -379,7 +379,40 @@ static NSArray *_supportedPaper = nil;
         HPPPPaper *paper = [[HPPPPaper alloc] initWithPaperSize:sizeId paperType:typeId];
         [papers addObject:paper];
     }
-    return papers;
+    return [self sortPapers:papers];
+}
+
++ (HPPPPaper *)standardUSADefaultPaper
+{
+    return [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize4x6 paperType:HPPPPaperTypePhoto];
+}
+
++ (NSArray *)standardUSAPapers
+{
+    return @[
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize4x5 paperType:HPPPPaperTypePhoto],
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize4x6 paperType:HPPPPaperTypePhoto],
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize5x7 paperType:HPPPPaperTypePhoto],
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeLetter paperType:HPPPPaperTypePlain],
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeLetter paperType:HPPPPaperTypePhoto]
+             ];
+}
+
++ (HPPPPaper *)standardInternationalDefaultPaper
+{
+    return [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize10x15 paperType:HPPPPaperTypePhoto];
+}
+
++ (NSArray *)standardInternationalPapers
+{
+    return @[
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeA4 paperType:HPPPPaperTypePlain],
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeA4 paperType:HPPPPaperTypePhoto],
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeA5 paperType:HPPPPaperTypePhoto],
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeA6 paperType:HPPPPaperTypePhoto],
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize10x15 paperType:HPPPPaperTypePhoto],
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize13x18 paperType:HPPPPaperTypePhoto],
+             ];
 }
 
 + (BOOL)validPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType
@@ -459,6 +492,28 @@ static NSArray *_supportedPaper = nil;
     return associationInfo;
 }
 
++ (NSArray *)sortPapers:(NSArray *)papers
+{
+    NSMutableArray *sortedPapers = [NSMutableArray arrayWithArray:papers];
+    [sortedPapers sortUsingComparator:^NSComparisonResult(id obj1, id  obj2){
+        HPPPPaper *paper1 = obj1;
+        HPPPPaper *paper2 = obj2;
+        if (paper1.paperSize < paper2.paperSize) {
+            return NSOrderedAscending;
+        } else if (paper1.paperSize > paper2.paperSize) {
+            return NSOrderedDescending;
+        } else {
+            if (paper1.paperType < paper2.paperType) {
+                return NSOrderedAscending;
+            } else if (paper1.paperType > paper2.paperType) {
+                return NSOrderedDescending;
+            }
+        }
+        return NSOrderedSame;
+    }];
+    return sortedPapers;
+}
+
 #pragma mark - Supported paper type info
 
 + (BOOL)supportedPaperSize:(NSUInteger)paperSize andType:(NSUInteger)paperType
@@ -512,7 +567,7 @@ static NSArray *_supportedPaper = nil;
             return [info objectForKey:kHPPPPaperTypeIdKey];
         }
     }
-
+    
     return nil;
 }
 

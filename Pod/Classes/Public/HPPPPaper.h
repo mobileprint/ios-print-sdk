@@ -51,10 +51,12 @@ typedef enum {
  * @abstract List of default supported paper types
  * @const HPPPPaperTypePlain Plain paper
  * @const HPPPPaperTypePhoto Photo paper
+ * @const HPPPPaperTypeCustom Used to indicate last enum value used by the print library. Apps can register custom paper type ID using any value greater than HPPPPaperTypeCustom
  */
 typedef enum {
     HPPPPaperTypePlain,
-    HPPPPaperTypePhoto
+    HPPPPaperTypePhoto,
+    HPPPPaperTypeCustom
 } HPPPPaperType;
 
 /*!
@@ -278,6 +280,38 @@ extern NSString * const kHPPPPaperSizePrinterHeightKey;
  * @seealso associatePaperSize:withType:
  */
 + (NSArray *)availablePapers;
+
+/*!
+ * @abstract Standard default paper to use with the USA paper list
+ * @returns An HPPPPaper object to use as default paper
+ * @seealso standardUSAPapers
+ */
++ (HPPPPaper *)standardUSADefaultPaper;
+
+/*!
+ * @abstract A list of papers typically used in the the US
+ * @returns An array of HPPPPaper objects representing standard US papers
+ * @seealso HPPPPaperSize
+ * @seealso HPPPPaperType
+ * @seealso standardUSADefaultPaper
+ */
++ (NSArray *)standardUSAPapers;
+
+/*!
+ * @abstract Standard default paper to use with the international paper list
+ * @returns An HPPPPaper object to use as default paper
+ * @seealso standardInternationalPapers
+ */
++ (HPPPPaper *)standardInternationalDefaultPaper;
+
+/*!
+ * @abstract A list of papers typically used internationally (outside the US)
+ * @returns An array of HPPPPaper objects representing standard internationally papers
+ * @seealso HPPPPaperSize
+ * @seealso HPPPPaperType
+ * @seealso standardInternationalDefaultPaper
+ */
++ (NSArray *)standardInternationalPapers;
 
 /*!
  * @abstract Check if a paper combo is valid

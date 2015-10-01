@@ -376,7 +376,7 @@ extern NSString * const kHPPPPrinterPaperAreaYPoints;
 @property (strong, nonatomic) HPPPInterfaceOptions *interfaceOptions;
 
 /*!
- * @abstract Specifies an objec implementing the HPPPPrintPaperDelegate protocol
+ * @abstract Specifies an object implementing the HPPPPrintPaperDelegate protocol
  * @discussion The print paper delegate is used to control paper-related features
  * @seealso HPPPPrintPaperDelegate
  */

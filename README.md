@@ -466,6 +466,8 @@ There is a default list of available sizes and types to choose from.
 This list includes most common US and international paper sizes (see [`HPPPPaperSize`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html#//apple_ref/occ/tdef/HPPPPaper/HPPPPaperSize)). 
 It is also possible to register your own custom sizes and types.
 
+> __Tip:__ The are utility methods available for building standard paper lists for US and international papers. See [`standardUSAPapers`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html#//apple_ref/occ/clm/HPPPPaper/standardUSAPapers) and [`standardInternationalPapers`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html#//apple_ref/occ/clm/HPPPPaper/standardInternationalPapers).
+
 ###### Size and type association
 
 [`HPPPPaper`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html) objects should be instantiated using the supplied [`initWithPaperSize:paperType:`](http://hppp.herokuapp.com/HPPPPaper_h/Classes/HPPPPaper/index.html#//apple_ref/occ/instm/HPPPPaper/initWithPaperSize:paperType:) method.
