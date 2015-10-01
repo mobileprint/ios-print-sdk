@@ -227,6 +227,7 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
         UINavigationController *previewNavigationController = (UINavigationController *)((UISplitViewController *)vc).viewControllers[1];
         previewViewController = (HPPPPageSettingsTableViewController *)previewNavigationController.topViewController;
         previewViewController.mode = HPPPPageSettingsModeAddToQueue;
+        previewViewController.printLaterJob = printLaterJob;
     } else {
         pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)vc;
     }
