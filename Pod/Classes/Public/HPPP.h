@@ -375,6 +375,11 @@ extern NSString * const kHPPPPrinterPaperAreaYPoints;
  */
 @property (strong, nonatomic) HPPPInterfaceOptions *interfaceOptions;
 
+/*!
+ * @abstract Specifies an object implementing the HPPPPrintPaperDelegate protocol
+ * @discussion The print paper delegate is used to control paper-related features
+ * @seealso HPPPPrintPaperDelegate
+ */
 @property (weak, nonatomic) id<HPPPPrintPaperDelegate>printPaperDelegate;
 
 /*!
@@ -604,15 +609,73 @@ extern NSString * const kHPPPPrinterPaperAreaYPoints;
 
 @end
 
+/*!
+ * @abstract Defines a protocol for adjusting paper settings based on print settings
+ */
 @protocol HPPPPrintPaperDelegate <NSObject>
 
 @optional
 
+/*!
+ * @abstract Indicates whether or not the paper size should be hidden in the UI
+ * @discussion This delegate method allows for hiding the paper size field depending on the current print settings (e.g. hide for a specific type of printer)
+ * @param printSettings The print settings to use to decide if the paper size should be hidden
+ * @returns YES or NO
+ * @seealso hidePaperTypeForPrintSettings:
+ */
 - (BOOL)hidePaperSizeForPrintSettings:(HPPPPrintSettings *)printSettings;
+
+
+/*!
+ * @abstract Indicates whether or not the paper type should be hidden in the UI
+ * @discussion This delegate method allows for hiding the paper type field depending on the current print settings (e.g. hide for a specific type of printer)
+ * @param printSettings The print settings to use to decide if the paper type should be hidden
+ * @returns YES or NO
+ * @seealso hidePaperSizeForPrintSettings:
+ */
 - (BOOL)hidePaperTypeForPrintSettings:(HPPPPrintSettings *)printSettings;
+
+/*!
+ * @abstract Allows for changing the default paper for certain print settings
+ * @discussion The default paper specified must match one of the supported papers. If the default paper returned is not in the supported paper list, it will be ignored and the default paper will not change.
+ * @param printSettings The print settings to use to decide what default paper to use
+ * @returns An HPPPPaper object to use as the default paper
+ * @seealso supportedPapersForPrintSettings:
+ */
 - (HPPPPaper *)defaultPaperForPrintSettings:(HPPPPrintSettings *)printSettings;
+
+/*!
+ * @abstract Allows for changing the list of supported papers for certain print settings
+ * @param printSettings The print settings to use to decide what supported paper list to use
+ * @returns An array of HPPPPaper objects to use for the list of supported papers
+ * @seealso defaultPaperForPrintSettings:
+ * @seealso supportedPapers
+ */
 - (NSArray *)supportedPapersForPrintSettings:(HPPPPrintSettings *)printSettings;
+
+/*!
+ * @abstract Allows for handling of choose paper delegate based on print settings used
+ * @discussion This method provides a means of handling the low-level choosePaper delegate that is part of the UIPrintInteractionControllerDelegate protocol.
+ * If implemented, the value returned by this method will be used instead of the default processing used by the HPPhotoPrint pod.
+ * @param printInteractionController The print interaction controller being used to print
+ * @param paperList The list of papers passed to the original low-level method
+ * @param printSettings The print settings currently being used
+ * @returns A UIPrintPaper object that specifies the desired print geometry
+ * @seealso printInteractionController:cutLengthForPaper:forPrintSettings:
+ */
 - (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList forPrintSettings:(HPPPPrintSettings *)printSettings;
+
+/*!
+ * @abstract Allows for handling of cut length delegate based on print settings used
+ * @discussion This method provides a means of handling the low-level cutLengthForPaper: delegate that is part of the UIPrintInteractionControllerDelegate protocol.
+ * If implemented, the value returned by this method will be used instead of the default processing used by the HPPhotoPrint pod.
+ * Cut length is used for roll-based printers.
+ * @param printInteractionController The print interaction controller being used to print
+ * @param paper The paper used to determine the cut length
+ * @param printSettings The print settings currently being used
+ * @returns An NSNumber object representing the desired cut length in points
+ * @seealso printInteractionController:choosePaper:forPrintSettings:
+ */
 - (NSNumber *)printInteractionController:(UIPrintInteractionController *)printInteractionController cutLengthForPaper:(UIPrintPaper *)paper forPrintSettings:(HPPPPrintSettings *)printSettings;
 
 @end
