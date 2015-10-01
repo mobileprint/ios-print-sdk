@@ -28,6 +28,16 @@ typedef enum {
 } HPPPPageSettingsMode;
 
 /*!
+ * @abstract All of the different possible display types for the HPPPPageSettingsTableViewController screen
+ * @discussion The HPPPPageSettingsTableViewController can be used as a single view, a preview pane, or a page settings pane.
+ */
+typedef enum {
+    HPPPPageSettingsDisplayTypeSingleView,
+    HPPPPageSettingsDisplayTypePreviewPane,
+    HPPPPageSettingsDisplayTypePageSettingsPane
+} HPPPPageSettingsDisplayType;
+
+/*!
  * @abstract The view controller class for displaying the print preview
  * @discussion This class implements the view controller used for displaying the print preview screen and associated page settings used for printing.
  */
@@ -95,8 +105,10 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
  */
 @property (assign, nonatomic) HPPPPageSettingsMode mode;
 
-@property (assign, nonatomic) BOOL previewPane;
-@property (assign, nonatomic) BOOL pageSettingsPane;
+/*!
+ * @abstract The purpose of the display- single view, preview pane, or page settings pane
+ */
+@property (assign, nonatomic) HPPPPageSettingsDisplayType displayType;
 
 /*!
  * @abstract If this instance of HPPPPageSettingsTableViewController has a preview view controller for displaying the multiPageView and jobSummaryCell,

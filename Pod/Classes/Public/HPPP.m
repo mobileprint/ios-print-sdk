@@ -158,14 +158,12 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
         HPPPPageSettingsTableViewController *previewPane = (HPPPPageSettingsTableViewController *)detailsNavigationController.topViewController;
         previewPane.dataSource = dataSource;
         previewPane.printItem = printItem;
-        previewPane.pageSettingsPane = NO;
-        previewPane.previewPane = YES;
+        previewPane.displayType = HPPPPageSettingsDisplayTypePreviewPane;
         
         UINavigationController *masterNavigationController = pageSettingsSplitViewController.viewControllers[0];
         masterNavigationController.navigationBar.translucent = NO;
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
-        pageSettingsTableViewController.pageSettingsPane = YES;
-        pageSettingsTableViewController.previewPane = NO;
+        pageSettingsTableViewController.displayType = HPPPPageSettingsDisplayTypePageSettingsPane;
         pageSettingsTableViewController.printDelegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
         pageSettingsTableViewController.printItem = printItem;
@@ -190,8 +188,7 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
         // "you must always install the view from a UISplitViewController object as the root view of your application’s window. [...] Split view controllers cannot be presented modally."
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPageSettingsTableViewController"];
         
-        pageSettingsTableViewController.pageSettingsPane = NO;
-        pageSettingsTableViewController.previewPane = NO;
+        pageSettingsTableViewController.displayType = HPPPPageSettingsDisplayTypeSingleView;
         pageSettingsTableViewController.printItem = printItem;
         pageSettingsTableViewController.printDelegate = delegate;
         pageSettingsTableViewController.dataSource = dataSource;
@@ -217,6 +214,7 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
     HPPPPrintItem *printItem = [printLaterJob.printItems objectForKey:self.defaultPaper.sizeTitle];
 
     HPPPPageSettingsTableViewController *pageSettingsTableViewController;
+    HPPPPageSettingsTableViewController *previewViewController;
     
     UIViewController *vc = [self printViewControllerWithDelegate:nil dataSource:nil printItem:printItem fromQueue:NO settingsOnly:NO];
     
@@ -226,6 +224,9 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
         UINavigationController *masterNavigationController = (UINavigationController *)((UISplitViewController *)vc).viewControllers[0];
         pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
 
+        UINavigationController *previewNavigationController = (UINavigationController *)((UISplitViewController *)vc).viewControllers[1];
+        previewViewController = (HPPPPageSettingsTableViewController *)previewNavigationController.topViewController;
+        previewViewController.mode = HPPPPageSettingsModeAddToQueue;
     } else {
         pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)vc;
     }
