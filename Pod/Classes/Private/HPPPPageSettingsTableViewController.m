@@ -822,15 +822,23 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.numberOfCopiesLabel.text = self.delegateManager.numCopiesLabelText;
     self.pageRangeDetailLabel.text = self.delegateManager.pageRangeText;
     
-    if( self.previewViewController && !self.previewViewController.previewJobSummaryCell.hidden ) {
-        if( HPPPPageSettingsModeAddToQueue == self.mode ) {
-            self.previewViewController.previewJobSummaryCell.textLabel.text = self.delegateManager.jobName;
-            self.previewViewController.previewJobSummaryCell.detailTextLabel.text = self.delegateManager.printLaterJobSummaryText;
+    if( self.previewViewController ) {
+        if( !self.previewViewController.previewJobSummaryCell.hidden ) {
+            if( HPPPPageSettingsModeAddToQueue == self.mode ) {
+                self.previewViewController.previewJobSummaryCell.textLabel.text = self.delegateManager.jobName;
+                self.previewViewController.previewJobSummaryCell.detailTextLabel.text = self.delegateManager.printLaterJobSummaryText;
+            } else {
+                self.previewViewController.previewJobSummaryCell.detailTextLabel.text = self.delegateManager.printJobSummaryText;
+            }
         } else {
-            self.previewViewController.previewJobSummaryCell.detailTextLabel.text = self.delegateManager.printJobSummaryText;
+            if( HPPPPageSettingsModeAddToQueue == self.mode ) {
+                self.previewViewController.basicJobSummaryCell.textLabel.text = self.delegateManager.printLaterJobSummaryText;
+            } else {
+                self.previewViewController.basicJobSummaryCell.textLabel.text = self.delegateManager.printJobSummaryText;
+            }
         }
         [self.previewViewController refreshData];
-    } else if( self.previewJobSummaryCell.hidden ){
+    } else if( HPPPPageSettingsDisplayTypePreviewPane != self.displayType ){
         if( HPPPPageSettingsModeAddToQueue == self.mode ) {
             self.basicJobSummaryCell.textLabel.text = self.delegateManager.printLaterJobSummaryText;
         } else {
