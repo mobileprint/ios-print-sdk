@@ -1,3 +1,3 @@
 [submodule "Example/features/common_library"]
 	path = Example/features/common_library
-	url = git@github.com:IPGPTP/hp_mobile_app_common_test.git
+	url = https://github.com/IPGPTP/hp_mobile_app_common_test.git
