@@ -830,7 +830,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
             self.previewViewController.previewJobSummaryCell.detailTextLabel.text = self.delegateManager.printJobSummaryText;
         }
         [self.previewViewController refreshData];
-    } else if( HPPPPageSettingsDisplayTypePreviewPane != self.displayType ){
+    } else if( self.previewJobSummaryCell.hidden ){
         if( HPPPPageSettingsModeAddToQueue == self.mode ) {
             self.basicJobSummaryCell.textLabel.text = self.delegateManager.printLaterJobSummaryText;
         } else {
