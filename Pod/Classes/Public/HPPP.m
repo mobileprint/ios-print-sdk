@@ -145,16 +145,6 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         UISplitViewController *pageSettingsSplitViewController = (UISplitViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPageSettingsSplitViewController"];
         
-        UINavigationController *masterNavigationController = pageSettingsSplitViewController.viewControllers[0];
-        masterNavigationController.navigationBar.translucent = NO;
-        HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
-        pageSettingsTableViewController.pageSettingsPane = YES;
-        pageSettingsTableViewController.previewPane = NO;
-        pageSettingsTableViewController.printDelegate = delegate;
-        pageSettingsTableViewController.dataSource = dataSource;
-        pageSettingsTableViewController.printItem = printItem;
-        pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-        
         if( 1 == pageSettingsSplitViewController.viewControllers.count ) {
             HPPPLogError(@"Preview pane failed to be created");
             UINavigationController *detailsNavigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPreviewNavigationController"];
@@ -171,6 +161,17 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
         previewPane.pageSettingsPane = NO;
         previewPane.previewPane = YES;
         
+        UINavigationController *masterNavigationController = pageSettingsSplitViewController.viewControllers[0];
+        masterNavigationController.navigationBar.translucent = NO;
+        HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
+        pageSettingsTableViewController.pageSettingsPane = YES;
+        pageSettingsTableViewController.previewPane = NO;
+        pageSettingsTableViewController.printDelegate = delegate;
+        pageSettingsTableViewController.dataSource = dataSource;
+        pageSettingsTableViewController.printItem = printItem;
+        pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+        pageSettingsTableViewController.previewViewController = previewPane;
+       
         if( fromQueue ) {
             pageSettingsTableViewController.mode = HPPPPageSettingsModePrintFromQueue;
             previewPane.mode = HPPPPageSettingsModePrintFromQueue;

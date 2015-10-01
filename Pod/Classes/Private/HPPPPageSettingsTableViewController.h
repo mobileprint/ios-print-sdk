@@ -99,6 +99,12 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
 @property (assign, nonatomic) BOOL pageSettingsPane;
 
 /*!
+ * @abstract If this instance of HPPPPageSettingsTableViewController has a preview view controller for displaying the multiPageView and jobSummaryCell,
+ *  this is the preview view controller.
+ */
+@property (weak, nonatomic) HPPPPageSettingsTableViewController *previewViewController;
+
+/*!
  * @abstract Causes a refresh of the data displayed by the view controller
  */
 - (void)refreshData;
