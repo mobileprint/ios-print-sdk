@@ -25,7 +25,7 @@ Feature: Select a Print item and print
     Then I choose print button
     And I delete printer simulater generated files
 
-  @done-1
+  @done
   Scenario: Select 1 Page Landscape PDF and print
     Given I am on the "PrintPod" screen
     Then I should see "Print Item"
