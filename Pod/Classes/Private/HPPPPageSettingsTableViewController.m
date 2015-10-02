@@ -167,7 +167,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }
         
         CGRect headerFrame = self.tableView.tableHeaderView.frame;
-        headerFrame.size.height = self.tableView.frame.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height - self.jobSummaryCell.frame.size.height;
+        headerFrame.size.height = self.tableView.frame.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height - self.jobSummaryCell.frame.size.height - 5;
         self.tableView.tableHeaderView.frame = headerFrame;
     } else {
         if( HPPPPageSettingsModeAddToQueue == self.mode ) {
@@ -209,11 +209,11 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.basicJobSummaryCell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFont];
     self.basicJobSummaryCell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFontColor];
 
-    self.previewJobSummaryCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
-    self.previewJobSummaryCell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
-    self.previewJobSummaryCell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
-    self.previewJobSummaryCell.detailTextLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
-    self.previewJobSummaryCell.detailTextLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
+    self.previewJobSummaryCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsBackgroundColor];
+    self.previewJobSummaryCell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFont];
+    self.previewJobSummaryCell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsPrimaryFontColor];
+    self.previewJobSummaryCell.detailTextLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFont];
+    self.previewJobSummaryCell.detailTextLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFontColor];
 
     self.printCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPMainActionBackgroundColor];
     self.printLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPMainActionLinkFont];
@@ -374,7 +374,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }
         self.delegateManager.jobName = self.printLaterJob.name;
     }
-
+  
     [self preparePrintManager];
 
     if (self.printItem) {
