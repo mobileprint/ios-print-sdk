@@ -55,7 +55,8 @@
 #define PRINT_SETTINGS_SECTION 4
 #define PRINT_JOB_NAME_SECTION 5
 #define NUMBER_OF_COPIES_SECTION 6
-#define SUPPORT_SECTION 7
+#define BLACK_AND_WHITE_FILTER_SECTION 7
+#define SUPPORT_SECTION 8
 
 #define PRINTER_SELECTION_INDEX 0
 #define PAPER_SIZE_ROW_INDEX 0
@@ -521,6 +522,11 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     }
 }
 
+- (BOOL)showPageRange
+{
+    return self.printItem.numberOfPages > 1;
+}
+
 // Hide or show UI based on current print settings
 - (void)updatePageSettingsUI
 {
@@ -534,11 +540,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.numberOfCopiesCell.hidden = NO;
     self.paperSizeCell.hidden = self.hppp.hidePaperSizeOption;
     self.paperTypeCell.hidden = self.hppp.hidePaperTypeOption || [[self.delegateManager.printSettings.paper supportedTypes] count] == 1;
-    
-    if( 1 == self.printItem.numberOfPages ) {
-        self.pageRangeCell.hidden = YES;
-        self.pageSelectionMark.hidden = YES;
-    }
+    self.pageRangeCell.hidden = ![self showPageRange];
+    self.pageSelectionMark.hidden = ![self showPageRange];
     
     if (self.addToPrintQueue) {
         self.jobNameCell.hidden = NO;
@@ -946,6 +949,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }
     } else if (PRINT_SUMMARY_SECTION == section && self.settingsOnly && nil == self.printItem) {
         return 0;
+    } else if (NUMBER_OF_COPIES_SECTION == section) {
+        return [self showPageRange] ? 2 : 1;
     }
     else {
         return [super tableView:tableView numberOfRowsInSection:section];
