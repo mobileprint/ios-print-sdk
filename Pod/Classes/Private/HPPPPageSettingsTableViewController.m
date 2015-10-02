@@ -532,30 +532,29 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
     
+    self.printCell.hidden = NO;
+    self.selectPrinterCell.hidden = NO;
+    self.printSettingsCell.hidden = YES;
+    self.jobNameCell.hidden = YES;
+    self.pageRangeCell.hidden = NO;
+    self.numberOfCopiesCell.hidden = NO;
     self.paperSizeCell.hidden = self.hppp.hidePaperSizeOption;
     self.paperTypeCell.hidden = self.hppp.hidePaperTypeOption || [[self.delegateManager.printSettings.paper supportedTypes] count] == 1;
     
     if (self.addToPrintQueue) {
+        self.jobNameCell.hidden = NO;
         self.selectPrinterCell.hidden = YES;
-        self.printSettingsCell.hidden = YES;
         self.paperSizeCell.hidden = YES;
         self.paperTypeCell.hidden = YES;
     } else if (self.settingsOnly) {
-        self.printCell.hidden = YES;
         self.cancelBarButtonItem.title = @"Done";
         self.pageSelectionMark.hidden = YES;
+        self.printCell.hidden = YES;
         self.pageRangeCell.hidden = YES;
         self.numberOfCopiesCell.hidden = YES;
-        self.jobNameCell.hidden = YES;
-        self.printSettingsCell.hidden = YES;
     } else {
-        self.jobNameCell.hidden = YES;
-        
         if (IS_OS_8_OR_LATER){
-            if (self.delegateManager.printSettings.printerName == nil){
-                self.selectPrinterCell.hidden = NO;
-                self.printSettingsCell.hidden = YES;
-            } else {
+            if (nil != self.delegateManager.printSettings.printerName) {
                 self.selectPrinterCell.hidden = YES;
                 self.paperSizeCell.hidden = YES;
                 self.paperTypeCell.hidden = YES;
@@ -1012,7 +1011,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     CGFloat height = ZERO_HEIGHT;
     
     if( self.settingsOnly ) {
-        if( (section == PRINT_SUMMARY_SECTION && self.printItem)     ||
+        if( (section == PRINT_SUMMARY_SECTION && self.printItem) ||
             section == PRINTER_SELECTION_SECTION    ) {
             
             height = SEPARATOR_SECTION_FOOTER_HEIGHT;
@@ -1152,6 +1151,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+
     return cell.hidden ? 0.0 :tableView.rowHeight;
 }
 
