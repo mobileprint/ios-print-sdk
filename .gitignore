@@ -33,3 +33,5 @@ doc
 # Pods/
 
 /Example/Podfile.lock
+
+.ruby-*
