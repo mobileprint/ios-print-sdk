@@ -48,15 +48,16 @@
 #define DEFAULT_ROW_HEIGHT 44.0f
 #define DEFAULT_NUMBER_OF_COPIES 1
 
-#define PRINT_SUMMARY_SECTION 0
-#define PRINT_FUNCTION_SECTION 1
-#define PRINTER_SELECTION_SECTION 2
-#define PAPER_SELECTION_SECTION 3
-#define PRINT_SETTINGS_SECTION 4
-#define PRINT_JOB_NAME_SECTION 5
-#define NUMBER_OF_COPIES_SECTION 6
-#define BLACK_AND_WHITE_FILTER_SECTION 7
-#define SUPPORT_SECTION 8
+#define BASIC_PRINT_SUMMARY_SECTION 0
+#define PREVIEW_PRINT_SUMMARY_SECTION 1
+#define PRINT_FUNCTION_SECTION 2
+#define PRINTER_SELECTION_SECTION 3
+#define PAPER_SELECTION_SECTION 4
+#define PRINT_SETTINGS_SECTION 5
+#define PRINT_JOB_NAME_SECTION 6
+#define NUMBER_OF_COPIES_SECTION 7
+#define BLACK_AND_WHITE_FILTER_SECTION 8
+#define SUPPORT_SECTION 9
 
 #define PRINTER_SELECTION_INDEX 0
 #define PAPER_SIZE_ROW_INDEX 0
@@ -156,34 +157,17 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if( nil == self.delegateManager ) {
         self.delegateManager = [[HPPPPrintSettingsDelegateManager alloc] init];
     }
-
-    [self enablePreviewJobSummaryCell:NO];
-    
-    if( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
-        self.title = HPPPLocalizedString(@"Preview", @"Title of the Preview pane in any print or add-to-queue screen");
-        self.navigationItem.rightBarButtonItem = nil;
-        
-        if( HPPPPageSettingsModeAddToQueue == self.mode ) {
-            [self enablePreviewJobSummaryCell:YES];
-        }
-        
-        CGRect headerFrame = self.tableView.tableHeaderView.frame;
-        headerFrame.size.height = self.tableView.frame.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height - 2*self.jobSummaryCell.frame.size.height - 1;
-        self.tableView.tableHeaderView.frame = headerFrame;
-    } else {
-        if( HPPPPageSettingsModeAddToQueue == self.mode ) {
-            self.title = HPPPLocalizedString(@"Add Print", @"Title of the Add Print to the Print Later Queue Screen");
-            self.delegateManager.pageSettingsViewController = self;
-        } else if( HPPPPageSettingsModeSettingsOnly == self.mode ) {
-            self.title = HPPPLocalizedString(@"Print Settings", @"Title of the screen for setting default print settings");
-            self.delegateManager.pageSettingsViewController = self;
-        } else {
-            self.title = HPPPLocalizedString(@"Page Settings", @"Title of the Page Settings Screen");
-            self.delegateManager.pageSettingsViewController = self;
-        }
-    }
     
     self.hppp = [HPPP sharedInstance];
+    
+    if( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
+        self.navigationItem.rightBarButtonItem = nil;
+        
+        [self enablePreviewJobSummaryCell];
+    } else {
+        self.jobSummaryCell = self.basicJobSummaryCell;
+        self.previewJobSummaryCell.hidden = YES;
+    }
     
     self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:YES];
     self.delegateManager.pageRange.range = kPageRangeAllPages;
@@ -384,6 +368,21 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.delegateManager.jobName = self.printLaterJob.name;
     }
 
+    if( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
+        self.title = HPPPLocalizedString(@"Preview", @"Title of the Preview pane in any print or add-to-queue screen");
+    } else {
+        if( HPPPPageSettingsModeAddToQueue == self.mode ) {
+            self.title = HPPPLocalizedString(@"Add Print", @"Title of the Add Print to the Print Later Queue Screen");
+            self.delegateManager.pageSettingsViewController = self;
+        } else if( HPPPPageSettingsModeSettingsOnly == self.mode ) {
+            self.title = HPPPLocalizedString(@"Print Settings", @"Title of the screen for setting default print settings");
+            self.delegateManager.pageSettingsViewController = self;
+        } else {
+            self.title = HPPPLocalizedString(@"Page Settings", @"Title of the Page Settings Screen");
+            self.delegateManager.pageSettingsViewController = self;
+        }
+    }
+    
     [self refreshData];
     
     NSString *screenName = kPageSettingsScreenName;
@@ -529,7 +528,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.pageRangeCell.hidden = YES;
         self.filterCell.hidden = YES;
     } else if( HPPPPageSettingsDisplayTypePageSettingsPane == self.displayType ) {
-        self.jobSummaryCell.hidden = YES;
+        self.basicJobSummaryCell.hidden = YES;
+        self.previewJobSummaryCell.hidden = YES;
     }
     
     if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
@@ -864,9 +864,16 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
 }
 
-- (void)enablePreviewJobSummaryCell:(BOOL)enable
+- (void)positionPreviewJobSummaryCell
 {
-    if( enable ) {
+    CGRect headerFrame = self.tableView.tableHeaderView.frame;
+    headerFrame.size.height = self.tableView.frame.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height - self.jobSummaryCell.frame.size.height - 1;
+    self.tableView.tableHeaderView.frame = headerFrame;
+}
+
+- (void)enablePreviewJobSummaryCell
+{
+    if( HPPPPageSettingsModeAddToQueue == self.mode ) {
         self.jobSummaryCell = self.previewJobSummaryCell;
         self.basicJobSummaryCell.hidden = YES;
         self.previewJobSummaryCell.hidden = NO;
@@ -874,7 +881,18 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.jobSummaryCell = self.basicJobSummaryCell;
         self.previewJobSummaryCell.hidden = YES;
         self.basicJobSummaryCell.hidden = NO;
+        
+        CGRect frame = self.jobSummaryCell.frame;
+        frame.size.height = self.previewJobSummaryCell.frame.size.height;
+        self.jobSummaryCell.frame = frame;
     }
+    
+    [self positionPreviewJobSummaryCell];
+}
+
+- (BOOL)isPrintSummarySection:(NSInteger)section
+{
+    return (BASIC_PRINT_SUMMARY_SECTION == section || PREVIEW_PRINT_SUMMARY_SECTION == section);
 }
 
 #pragma mark - Printer availability
@@ -1014,7 +1032,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         } else {
             return 1;
         }
-    } else if (PRINT_SUMMARY_SECTION == section && HPPPPageSettingsModeSettingsOnly == self.mode && nil == self.printItem) {
+    } else if ([self isPrintSummarySection:section]           &&
+               HPPPPageSettingsModeSettingsOnly == self.mode  &&
+               nil == self.printItem) {
         return 0;
     } else if (NUMBER_OF_COPIES_SECTION == section) {
         return [self showPageRange] ? 2 : 1;
@@ -1082,54 +1102,56 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     CGFloat height = ZERO_HEIGHT;
  
-    if( HPPPPageSettingsModeSettingsOnly == self.mode ) {
-        if( (section == PRINT_SUMMARY_SECTION && self.printItem)     ||
-            section == PRINTER_SELECTION_SECTION    ) {
-            
-            height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-        }
-        
-        if ( section == PAPER_SELECTION_SECTION  &&
-            (!self.paperSizeCell.hidden || !self.paperTypeCell.hidden)) {
-            height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-        }
-    } else if( HPPPPageSettingsModeAddToQueue == self.mode ) {
-        if( section == PRINT_SUMMARY_SECTION    ||
-            section == PRINT_FUNCTION_SECTION   ||
-            section == PRINT_JOB_NAME_SECTION   ||
-            section == NUMBER_OF_COPIES_SECTION   ) {
-
-            height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-        }
-    } else if ( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
+    if ( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
         height = ZERO_HEIGHT;
-    }else {
-        if (section == PRINT_FUNCTION_SECTION  ||  section == PRINT_SUMMARY_SECTION) {
-            height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-        } else if (IS_OS_8_OR_LATER && ((section == PRINTER_SELECTION_SECTION) || (section == PAPER_SELECTION_SECTION))) {
-            if ( !self.hppp.hidePaperTypeOption && (self.delegateManager.printSettings.printerUrl == nil) ) {
+    } else {
+        if( HPPPPageSettingsModeSettingsOnly == self.mode ) {
+            if( (section == PREVIEW_PRINT_SUMMARY_SECTION && self.printItem) ||
+               section == PRINTER_SELECTION_SECTION ) {
+                
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
             }
-        } else if (!IS_OS_8_OR_LATER && (section == PAPER_SELECTION_SECTION)) {
-            height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-        } else if (IS_OS_8_OR_LATER && (section == PRINT_SETTINGS_SECTION)) {
-            if (self.delegateManager.printSettings.printerUrl != nil) {
-                if (self.delegateManager.printSettings.printerIsAvailable) {
-                    height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-                } else {
-                    height = PRINTER_WARNING_SECTION_FOOTER_HEIGHT;
-                }
+            
+            if ( section == PAPER_SELECTION_SECTION  &&
+                (!self.paperSizeCell.hidden || !self.paperTypeCell.hidden)) {
+                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
             }
-        } else if (IS_OS_8_OR_LATER && (section == NUMBER_OF_COPIES_SECTION)) {
-            height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-        } else if (section == SUPPORT_SECTION) {
-            height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-        } else if (HPPPPageSettingsModeAddToQueue == self.mode && (section == PRINT_JOB_NAME_SECTION)) {
-            height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+        } else if( HPPPPageSettingsModeAddToQueue == self.mode ) {
+            if( section == PREVIEW_PRINT_SUMMARY_SECTION ||
+                section == PRINT_FUNCTION_SECTION        ||
+                section == PRINT_JOB_NAME_SECTION        ||
+                section == NUMBER_OF_COPIES_SECTION        ) {
+                
+                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+            }
+        } else {
+            if (section == PRINT_FUNCTION_SECTION || section == PREVIEW_PRINT_SUMMARY_SECTION) {
+                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+            } else if (IS_OS_8_OR_LATER && ((section == PRINTER_SELECTION_SECTION) || (section == PAPER_SELECTION_SECTION))) {
+                if ( !self.hppp.hidePaperTypeOption && (self.delegateManager.printSettings.printerUrl == nil) ) {
+                    height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+                }
+            } else if (!IS_OS_8_OR_LATER && (section == PAPER_SELECTION_SECTION)) {
+                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+            } else if (IS_OS_8_OR_LATER && (section == PRINT_SETTINGS_SECTION)) {
+                if (self.delegateManager.printSettings.printerUrl != nil) {
+                    if (self.delegateManager.printSettings.printerIsAvailable) {
+                        height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+                    } else {
+                        height = PRINTER_WARNING_SECTION_FOOTER_HEIGHT;
+                    }
+                }
+            } else if (IS_OS_8_OR_LATER && (section == NUMBER_OF_COPIES_SECTION)) {
+                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+            } else if (section == SUPPORT_SECTION) {
+                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+            } else if (HPPPPageSettingsModeAddToQueue == self.mode && (section == PRINT_JOB_NAME_SECTION)) {
+                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+            }
         }
     }
     
-    if( HPPPPageSettingsDisplayTypePageSettingsPane == self.displayType && section == PRINT_SUMMARY_SECTION ) {
+    if( HPPPPageSettingsDisplayTypePageSettingsPane == self.displayType && [self isPrintSummarySection:section] ) {
         height = ZERO_HEIGHT;
     }
 
