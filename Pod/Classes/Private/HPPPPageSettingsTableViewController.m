@@ -55,7 +55,8 @@
 #define PRINT_SETTINGS_SECTION 4
 #define PRINT_JOB_NAME_SECTION 5
 #define NUMBER_OF_COPIES_SECTION 6
-#define SUPPORT_SECTION 7
+#define BLACK_AND_WHITE_FILTER_SECTION 7
+#define SUPPORT_SECTION 8
 
 #define PRINTER_SELECTION_INDEX 0
 #define PAPER_SIZE_ROW_INDEX 0
@@ -167,7 +168,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }
         
         CGRect headerFrame = self.tableView.tableHeaderView.frame;
-        headerFrame.size.height = self.tableView.frame.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height - self.jobSummaryCell.frame.size.height - 5;
+        headerFrame.size.height = self.tableView.frame.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height - 2*self.jobSummaryCell.frame.size.height - 1;
         self.tableView.tableHeaderView.frame = headerFrame;
     } else {
         if( HPPPPageSettingsModeAddToQueue == self.mode ) {
@@ -270,24 +271,20 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     self.pageRangeCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     [self setPageRangeLabelText:kPageRangeAllPages];
-    if( 1 == self.printItem.numberOfPages ) {
-        self.pageRangeCell.hidden = YES;
-        self.pageSelectionMark.hidden = YES;
-    } else {
-        self.pageRangeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
-        self.pageRangeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
-        self.pageRangeDetailLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
-        self.pageRangeDetailLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
 
-        self.selectedPageImage = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSelectedPageIcon];
-        self.unselectedPageImage = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsUnselectedPageIcon];
-        self.pageSelectionMark = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.pageSelectionMark setImage:self.selectedPageImage forState:UIControlStateNormal];
-        self.pageSelectionMark.backgroundColor = [UIColor clearColor];
-        self.pageSelectionMark.adjustsImageWhenHighlighted = NO;
-        [self.pageSelectionMark addTarget:self action:@selector(pageSelectionMarkClicked) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:self.pageSelectionMark];
-    }
+    self.pageRangeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
+    self.pageRangeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
+    self.pageRangeDetailLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.pageRangeDetailLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
+    
+    self.selectedPageImage = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSelectedPageIcon];
+    self.unselectedPageImage = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsUnselectedPageIcon];
+    self.pageSelectionMark = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.pageSelectionMark setImage:self.selectedPageImage forState:UIControlStateNormal];
+    self.pageSelectionMark.backgroundColor = [UIColor clearColor];
+    self.pageSelectionMark.adjustsImageWhenHighlighted = NO;
+    [self.pageSelectionMark addTarget:self action:@selector(pageSelectionMarkClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.pageSelectionMark];
     
     self.filterCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     self.filterLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
@@ -365,15 +362,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     self.pageRangeView.delegate = self.delegateManager;
     self.keyboardView.delegate = self.delegateManager;
-
-    if( self.printLaterJob ) {
-        if( HPPPPageSettingsModeAddToQueue != self.mode ) {
-            self.delegateManager.pageRange = self.printLaterJob.pageRange;
-            self.delegateManager.blackAndWhite = self.printLaterJob.blackAndWhite;
-            self.delegateManager.numCopies = self.printLaterJob.numCopies;
-        }
-        self.delegateManager.jobName = self.printLaterJob.name;
-    }
   
     [self preparePrintManager];
 
@@ -387,7 +375,16 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }
     }
     
-    [self.tableView reloadData];
+    if( self.printLaterJob ) {
+        if( HPPPPageSettingsModeAddToQueue != self.mode ) {
+            self.delegateManager.pageRange = self.printLaterJob.pageRange;
+            self.delegateManager.blackAndWhite = self.printLaterJob.blackAndWhite;
+            self.delegateManager.numCopies = self.printLaterJob.numCopies;
+        }
+        self.delegateManager.jobName = self.printLaterJob.name;
+    }
+
+    [self refreshData];
     
     NSString *screenName = kPageSettingsScreenName;
     if (HPPPPageSettingsModeSettingsOnly == self.mode) {
@@ -463,6 +460,11 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     }
 }
 
+- (BOOL)showPageRange
+{
+    return self.printItem.numberOfPages > 1;
+}
+
 // Hide or show UI that will always be hidden or shown based on the iOS version
 - (void) prepareUiForIosVersion
 {
@@ -478,36 +480,36 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
     
+    self.printCell.hidden = NO;
+    self.selectPrinterCell.hidden = NO;
+    self.printSettingsCell.hidden = YES;
+    self.jobNameCell.hidden = YES;
+    self.numberOfCopiesCell.hidden = NO;
     self.paperSizeCell.hidden = self.hppp.hidePaperSizeOption;
     self.paperTypeCell.hidden = self.hppp.hidePaperTypeOption || [[self.delegateManager.printSettings.paper supportedTypes] count] == 1;
+    self.pageRangeCell.hidden = ![self showPageRange];
+    self.pageSelectionMark.hidden = ![self showPageRange];
     
     if (HPPPPageSettingsModeAddToQueue == self.mode) {
         self.jobNameCell.hidden = NO;
         self.selectPrinterCell.hidden = YES;
-        self.printSettingsCell.hidden = YES;
         self.paperSizeCell.hidden = YES;
         self.paperTypeCell.hidden = YES;
     } else if (HPPPPageSettingsModeSettingsOnly == self.mode) {
-        self.jobNameCell.hidden = YES;
-        self.printCell.hidden = YES;
         self.cancelBarButtonItem.title = @"Done";
-        self.pageSelectionMark.hidden = YES;
-        self.pageRangeCell.hidden = YES;
+        self.printCell.hidden = YES;
         self.numberOfCopiesCell.hidden = YES;
-        self.printSettingsCell.hidden = YES;
+        self.pageRangeCell.hidden = YES;
+        self.pageSelectionMark.hidden = YES;
     } else {
-        self.jobNameCell.hidden = YES;
-        
         if (IS_OS_8_OR_LATER){
-            if (self.delegateManager.printSettings.printerName == nil){
-                self.selectPrinterCell.hidden = NO;
-                self.printSettingsCell.hidden = YES;
-            } else {
+            if (nil != self.delegateManager.printSettings.printerName){
                 self.selectPrinterCell.hidden = YES;
                 self.paperSizeCell.hidden = YES;
                 self.paperTypeCell.hidden = YES;
                 self.printSettingsCell.hidden = NO;
             }
+            
             if (self.delegateManager.printSettings.printerIsAvailable){
                 [self printerIsAvailable];
             } else {
@@ -533,9 +535,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
         NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
         if (numberOfJobs > 1) {
-            self.numberOfCopiesCell.hidden = TRUE;
-            self.filterCell.hidden = TRUE;
-            self.pageRangeCell.hidden = TRUE;
+            self.numberOfCopiesCell.hidden = YES;
+            self.filterCell.hidden = YES;
+            self.pageRangeCell.hidden = YES;
             self.printLabel.text = HPPPLocalizedString(@"Print All", @"Print all pages in a document");
         }
     }
@@ -1014,6 +1016,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }
     } else if (PRINT_SUMMARY_SECTION == section && HPPPPageSettingsModeSettingsOnly == self.mode && nil == self.printItem) {
         return 0;
+    } else if (NUMBER_OF_COPIES_SECTION == section) {
+        return [self showPageRange] ? 2 : 1;
     }
     else {
         return [super tableView:tableView numberOfRowsInSection:section];
@@ -1077,7 +1081,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     CGFloat height = ZERO_HEIGHT;
-    
+ 
     if( HPPPPageSettingsModeSettingsOnly == self.mode ) {
         if( (section == PRINT_SUMMARY_SECTION && self.printItem)     ||
             section == PRINTER_SELECTION_SECTION    ) {
@@ -1128,7 +1132,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if( HPPPPageSettingsDisplayTypePageSettingsPane == self.displayType && section == PRINT_SUMMARY_SECTION ) {
         height = ZERO_HEIGHT;
     }
-    
+
     return height;
 }
 
@@ -1225,7 +1229,13 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    return cell.hidden ? 0.0 :tableView.rowHeight;
+    CGFloat rowHeight = tableView.rowHeight;
+    
+    if( HPPPPageSettingsDisplayTypePreviewPane == self.displayType && cell == self.jobSummaryCell ) {
+        rowHeight = 2 * tableView.rowHeight;
+    }
+    
+    return cell.hidden ? 0.0 : rowHeight;
 }
 
 #pragma mark - Print Queue
