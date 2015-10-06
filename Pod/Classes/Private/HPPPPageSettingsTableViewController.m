@@ -96,6 +96,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *jobNameDetailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberOfCopiesLabel;
 @property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
+@property (weak, nonatomic) IBOutlet UILabel *footerHeadingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *footerTextLabel;
 
 @property (weak, nonatomic) UITableViewCell *jobSummaryCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *basicJobSummaryCell;
@@ -109,6 +111,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *printSettingsCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *jobNameCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *numberOfCopiesCell;
+@property (weak, nonatomic) IBOutlet UIView *footerView;
 
 @property (strong, nonatomic) UIView *smokeyView;
 @property (strong, nonatomic) UIButton *smokeyCancelButton;
@@ -179,7 +182,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.tableView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
     self.tableView.separatorColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralTableSeparatorColor];
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     if (HPPPPageSettingsDisplayTypePageSettingsPane == self.displayType  ||  (HPPPPageSettingsModeSettingsOnly == self.mode && nil == self.printItem)) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -187,6 +189,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     self.multiPageView.delegate = self;
     
+    self.tableView.tableFooterView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
+    self.tableView.tableHeaderView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundColor];
+
     self.basicJobSummaryCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsBackgroundColor];
     self.basicJobSummaryCell.textLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFont];
     self.basicJobSummaryCell.textLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSecondaryFontColor];
@@ -288,6 +293,11 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     [self reloadPaperSelectionSection];
     
+    self.footerHeadingLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFont];
+    self.footerHeadingLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundPrimaryFontColor];
+    self.footerTextLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundSecondaryFont];
+    self.footerTextLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundSecondaryFontColor];
+    
     self.smokeyView = [[UIView alloc] init];
     self.smokeyView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPOverlayBackgroundColor];
     self.smokeyView.alpha = 0.0f;
@@ -380,6 +390,12 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
             self.title = HPPPLocalizedString(@"Page Settings", @"Title of the Page Settings Screen");
             self.delegateManager.pageSettingsViewController = self;
         }
+    }
+    
+    if( HPPPPageSettingsModeAddToQueue == self.mode  &&  HPPPPageSettingsDisplayTypePreviewPane != self.displayType ) {
+        self.tableView.tableFooterView = self.footerView;
+    } else {
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     }
     
     [self refreshData];

@@ -163,6 +163,34 @@
                                 <constraint firstItem="O09-Jj-DX6" firstAttribute="top" secondItem="kgV-PV-Qp9" secondAttribute="top" constant="10" id="cdM-PS-yfB"/>
                             </constraints>
                         </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="NN3-QO-OVU" userLabel="footerView">
+                            <rect key="frame" x="0.0" y="3377" width="600" height="120"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is Print Queue?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDw-e4-vuW" userLabel="heading">
+                                    <rect key="frame" x="18" y="22" width="127" height="15"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ta-OU-sbx" userLabel="text">
+                                    <rect key="frame" x="18" y="49" width="564" height="29"/>
+                                    <string key="text">Add a print to the Print Queue and receive a notification when you are near your printer. 
+Tap your notification or simply come back to this app to print your projects.</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="PDw-e4-vuW" firstAttribute="leading" secondItem="NN3-QO-OVU" secondAttribute="leading" constant="18" id="GzQ-vG-Z7x"/>
+                                <constraint firstItem="0ta-OU-sbx" firstAttribute="leading" secondItem="NN3-QO-OVU" secondAttribute="leading" constant="18" id="KnO-F5-GBQ"/>
+                                <constraint firstAttribute="trailing" secondItem="0ta-OU-sbx" secondAttribute="trailing" constant="18" id="aNF-1e-KiZ"/>
+                                <constraint firstItem="PDw-e4-vuW" firstAttribute="top" secondItem="NN3-QO-OVU" secondAttribute="top" constant="22" id="nWd-hE-tAJ"/>
+                                <constraint firstItem="0ta-OU-sbx" firstAttribute="top" secondItem="PDw-e4-vuW" secondAttribute="bottom" constant="12" id="sn4-n6-IWq"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection headerTitle="" id="o64-US-Ew0" userLabel="BasicJobSummarySection">
                                 <cells>
@@ -920,6 +948,9 @@
                         <outlet property="cancelBarButtonItem" destination="w3y-3p-k4Q" id="hKV-Iq-ZQt"/>
                         <outlet property="filterCell" destination="zdC-Hp-iWY" id="qDE-h9-pxz"/>
                         <outlet property="filterLabel" destination="Dhm-nA-O6p" id="lgx-kD-jtq"/>
+                        <outlet property="footerHeadingLabel" destination="PDw-e4-vuW" id="3NL-Ob-CmJ"/>
+                        <outlet property="footerTextLabel" destination="0ta-OU-sbx" id="Gmy-U1-bfx"/>
+                        <outlet property="footerView" destination="NN3-QO-OVU" id="Djn-OR-P3b"/>
                         <outlet property="jobNameCell" destination="jS7-S4-483" id="jfT-Ij-v0d"/>
                         <outlet property="jobNameDetailLabel" destination="nw7-tD-NLn" id="nvm-XI-GEH"/>
                         <outlet property="jobNameLabel" destination="aJg-4j-jfd" id="wJH-PY-Yn8"/>
