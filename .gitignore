@@ -35,3 +35,4 @@ doc
 /Example/Podfile.lock
 
 .ruby-*
+Example/Gemfile.lock
