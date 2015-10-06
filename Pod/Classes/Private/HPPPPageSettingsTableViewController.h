@@ -13,8 +13,29 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "HPPPPageViewController.h"
 #import "HPPP.h"
+
+/*!
+ * @abstract All of the different possible configurations for the HPPPPageSettingsTableViewController screen
+ * @discussion The HPPPPageSettingsTableViewController is used for print, print-from-queue, add-to-print-queue, etc.  
+ *   The mode property on HPPPPageSettingsTableViewController is set to display the proper configuration.
+ */
+typedef enum {
+    HPPPPageSettingsModePrint,
+    HPPPPageSettingsModePrintFromQueue,
+    HPPPPageSettingsModeAddToQueue,
+    HPPPPageSettingsModeSettingsOnly
+} HPPPPageSettingsMode;
+
+/*!
+ * @abstract All of the different possible display types for the HPPPPageSettingsTableViewController screen
+ * @discussion The HPPPPageSettingsTableViewController can be used as a single view, a preview pane, or a page settings pane.
+ */
+typedef enum {
+    HPPPPageSettingsDisplayTypeSingleView,
+    HPPPPageSettingsDisplayTypePreviewPane,
+    HPPPPageSettingsDisplayTypePageSettingsPane
+} HPPPPageSettingsDisplayType;
 
 /*!
  * @abstract The view controller class for displaying the print preview
@@ -60,30 +81,25 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
 @property (nonatomic, weak) id<HPPPPrintDataSource> dataSource;
 
 /*!
- * @abstract The graphical page representation part of the print preview
- * @discussion The pageViewController is reponsible for displaying a graphical representation of the print on the page. It is one part of the overall page settings view also known as the print preview.
- */
-@property (nonatomic, weak) HPPPPageViewController *pageViewController;
-
-/*!
- * @abstract Indicates whether printing was initiated from the print queue
- */
-@property (assign, nonatomic) BOOL printFromQueue;
-
-/*!
- * @abstract Indicates whether controller is used for settings only rather than actual printing
- */
-@property (assign, nonatomic) BOOL settingsOnly;
-
-/*!
- * @abstract Indicates whether controller is used for printing or adding a job to the print queue
- */
-@property (assign, nonatomic) BOOL addToPrintQueue;
-
-/*!
  * @abstract The printLaterJob, if any, associated with the page settings
  */
 @property (assign, nonatomic) HPPPPrintLaterJob *printLaterJob;
+
+/*!
+ * @abstract The type of page settings screen to display
+ */
+@property (assign, nonatomic) HPPPPageSettingsMode mode;
+
+/*!
+ * @abstract The purpose of the display- single view, preview pane, or page settings pane
+ */
+@property (assign, nonatomic) HPPPPageSettingsDisplayType displayType;
+
+/*!
+ * @abstract If this instance of HPPPPageSettingsTableViewController has a preview view controller for displaying the multiPageView and jobSummaryCell,
+ *  this is the preview view controller.
+ */
+@property (weak, nonatomic) HPPPPageSettingsTableViewController *previewViewController;
 
 /*!
  * @abstract Causes a refresh of the data displayed by the view controller

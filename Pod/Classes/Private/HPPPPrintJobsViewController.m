@@ -202,13 +202,25 @@ NSString * const kJobListScreenName = @"Job List Screen";
 
 - (void)setViewControllerPageRange:(UIViewController *)vc
 {
+    HPPPPageSettingsTableViewController *previewController = nil;
+    
     if ( [vc isKindOfClass:[UINavigationController class]] ) {
         vc = ((UINavigationController *)vc).topViewController;
+    } else if ( [vc isKindOfClass:[UISplitViewController class]] ) {
+        UINavigationController *navController = ((UISplitViewController *)vc).viewControllers[1];
+        previewController = (HPPPPageSettingsTableViewController *)navController.topViewController;
+        
+        navController = ((UISplitViewController *)vc).viewControllers[0];
+        vc = (HPPPPageSettingsTableViewController *)navController.topViewController;
     }
     
     if( [vc isKindOfClass:[HPPPPageSettingsTableViewController class]] ) {
-        HPPPPageSettingsTableViewController *pageSettingsVc = (HPPPPageSettingsTableViewController *)vc;
-        pageSettingsVc.printLaterJob = self.selectedPrintJob;
+        HPPPPageSettingsTableViewController *pageSettingsController = (HPPPPageSettingsTableViewController *)vc;
+        pageSettingsController.printLaterJob = self.selectedPrintJob;
+    }
+    
+    if( nil != previewController  &&  [previewController isKindOfClass:[HPPPPageSettingsTableViewController class]] ) {
+        previewController.printLaterJob = self.selectedPrintJob;
     }
 }
 
