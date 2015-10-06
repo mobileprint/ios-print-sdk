@@ -10,7 +10,10 @@ class PrintPodScreen < Calabash::IBase
   def screen_title
     "label marked:'Print Pod"
   end
-
+    
+  def share_icon
+    touch("view marked:'Share'")
+  end
        
   def navigate
         await

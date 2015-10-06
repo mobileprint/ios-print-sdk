@@ -31,7 +31,11 @@ class ShareScreen < Calabash::IBase
 
 
   def navigate
-
+      unless current_page?
+          print_pod_screen = go_to(PrintPodScreen)
+        sleep(WAIT_SCREENLOAD)
+      touch print_pod_screen.share_icon
+    end
     await
   end
 
