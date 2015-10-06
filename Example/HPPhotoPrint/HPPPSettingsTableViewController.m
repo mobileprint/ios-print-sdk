@@ -51,6 +51,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UISegmentedControl *showButtonsSegment;
 @property (weak, nonatomic) IBOutlet UITableViewCell *directPrintCell;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *paperSegmentControl;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 
 @end
 
@@ -121,6 +122,8 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionEstablished object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionLost object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintQueueNotification:) name:kHPPPPrintQueueNotification object:nil];
+    
+    self.versionLabel.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 }
 
 - (void)dealloc

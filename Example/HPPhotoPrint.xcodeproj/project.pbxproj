@@ -393,9 +393,11 @@
 				4B89F834ABF1DC87CED4EC0F /* Check Pods Manifest.lock */,
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
+				65930B401BC46A6B003307D0 /* ShellScript */,
 				6003F588195388D20070C39A /* Resources */,
 				542373FFA571279CCE085671 /* Copy Pods Resources */,
 				F14A1C5F1B28F594000C5855 /* Embed App Extensions */,
+				65930B411BC474A3003307D0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -602,6 +604,32 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HPPhotoPrint/Pods-HPPhotoPrint-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		65930B401BC46A6B003307D0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "# adapted from:  http://stackoverflow.com/questions/3878624/how-do-i-programmatically-determine-if-there-are-uncommited-changes\nsha=$(git rev-parse --short HEAD | tr [a-z] [A-Z]);\nbuildNumber=\"$sha *\";\ngit diff --quiet HEAD && buildNumber=\"$sha\";\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		65930B411BC474A3003307D0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=\"DEV\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
 		bb4e230704dbf7e8eb5b9bf3 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
