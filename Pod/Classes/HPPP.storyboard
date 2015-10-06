@@ -187,7 +187,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="" id="UvT-Bk-QDv" userLabel="PreviewJobSummarySection">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="vzE-AK-Tky" detailTextLabel="YwN-Es-gwc" rowHeight="88" style="IBUITableViewCellStyleSubtitle" id="YJC-33-I4T" userLabel="Preview Job Summary Cell">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="vzE-AK-Tky" detailTextLabel="YwN-Es-gwc" rowHeight="88" style="IBUITableViewCellStyleSubtitle" id="YJC-33-I4T" userLabel="Preview Job Summary Cell">
                                         <rect key="frame" x="0.0" y="432" width="600" height="88"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YJC-33-I4T" id="x9n-5a-G65">

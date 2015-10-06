@@ -421,6 +421,17 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
+    if( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
+        CGRect frame = self.tableView.tableHeaderView.frame;
+        frame.size.height = size.height - self.jobSummaryCell.frame.size.height - 1;
+        self.tableView.tableHeaderView.frame = frame;
+        
+        [self.multiPageView refreshLayout];
+        
+        // without this seemingly useless line, the header view is not displayed in the appropriate frame
+        self.tableView.tableHeaderView = self.tableView.tableHeaderView;
+    }
+    
     [self.tableView reloadData];
 }
 
