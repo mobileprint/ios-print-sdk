@@ -375,8 +375,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.delegateManager.jobName = self.printLaterJob.name;
     }
     
-    [self configureJobSummaryCell];
-    
     if( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
         self.title = HPPPLocalizedString(@"Preview", @"Title of the Preview pane in any print or add-to-queue screen");
     } else {
@@ -398,6 +396,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     }
     
+    [self configureJobSummaryCell];
+
     [self refreshData];
     
     NSString *screenName = kPageSettingsScreenName;
@@ -887,8 +887,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (void)positionPreviewJobSummaryCell
 {
     CGRect headerFrame = self.tableView.tableHeaderView.frame;
-    headerFrame.size.height = self.tableView.frame.size.height - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height - self.jobSummaryCell.frame.size.height - 1;
+    headerFrame.size.height = self.view.frame.size.height - self.jobSummaryCell.frame.size.height - 1;
     self.tableView.tableHeaderView.frame = headerFrame;
+    self.tableView.tableHeaderView = self.tableView.tableHeaderView;
 }
 
 - (void)configureJobSummaryCell
@@ -905,9 +906,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     CGRect frame = self.jobSummaryCell.frame;
     if( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
-        frame.size.height = self.previewJobSummaryCell.frame.size.height;
-        self.jobSummaryCell.frame = frame;
-        
+        if( CGFLOAT_MIN < self.previewJobSummaryCell.frame.size.height ) {
+            frame.size.height = self.previewJobSummaryCell.frame.size.height;
+            self.jobSummaryCell.frame = frame;
+        }
         [self positionPreviewJobSummaryCell];
     } else {
         frame.size.height = self.basicJobSummaryCell.frame.size.height;
