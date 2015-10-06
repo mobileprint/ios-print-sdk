@@ -81,21 +81,6 @@ extern NSString * const kHPPPDefaultPrinterRemovedNotification;
 @property (nonatomic, weak) id<HPPPPrintDataSource> dataSource;
 
 /*!
- * @abstract Indicates whether printing was initiated from the print queue
- */
-//@property (assign, nonatomic) BOOL printFromQueue;
-
-/*!
- * @abstract Indicates whether controller is used for settings only rather than actual printing
- */
-//@property (assign, nonatomic) BOOL settingsOnly;
-
-/*!
- * @abstract Indicates whether controller is used for printing or adding a job to the print queue
- */
-//@property (assign, nonatomic) BOOL addToPrintQueue;
-
-/*!
  * @abstract The printLaterJob, if any, associated with the page settings
  */
 @property (assign, nonatomic) HPPPPrintLaterJob *printLaterJob;

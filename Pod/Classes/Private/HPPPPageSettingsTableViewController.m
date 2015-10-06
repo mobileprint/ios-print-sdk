@@ -162,12 +162,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     if( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
         self.navigationItem.rightBarButtonItem = nil;
-        
-        [self enablePreviewJobSummaryCell];
-    } else {
-        self.jobSummaryCell = self.basicJobSummaryCell;
-        self.previewJobSummaryCell.hidden = YES;
     }
+    
+    [self configureJobSummaryCell];
     
     self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:YES];
     self.delegateManager.pageRange.range = kPageRangeAllPages;
@@ -367,7 +364,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }
         self.delegateManager.jobName = self.printLaterJob.name;
     }
-
+    
+    [self configureJobSummaryCell];
+    
     if( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
         self.title = HPPPLocalizedString(@"Preview", @"Title of the Preview pane in any print or add-to-queue screen");
     } else {
@@ -497,6 +496,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     } else if (HPPPPageSettingsModeSettingsOnly == self.mode) {
         self.cancelBarButtonItem.title = @"Done";
         self.printCell.hidden = YES;
+        self.jobSummaryCell.hidden = YES;
         self.numberOfCopiesCell.hidden = YES;
         self.pageRangeCell.hidden = YES;
         self.pageSelectionMark.hidden = YES;
@@ -824,23 +824,14 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.numberOfCopiesLabel.text = self.delegateManager.numCopiesLabelText;
     self.pageRangeDetailLabel.text = self.delegateManager.pageRangeText;
     
-    if( self.previewViewController ) {
-        if( !self.previewViewController.previewJobSummaryCell.hidden ) {
-            if( HPPPPageSettingsModeAddToQueue == self.mode ) {
-                self.previewViewController.previewJobSummaryCell.textLabel.text = self.delegateManager.jobName;
-                self.previewViewController.previewJobSummaryCell.detailTextLabel.text = self.delegateManager.printLaterJobSummaryText;
-            } else {
-                self.previewViewController.previewJobSummaryCell.detailTextLabel.text = self.delegateManager.printJobSummaryText;
-            }
+    if( !self.previewJobSummaryCell.hidden ) {
+        self.previewJobSummaryCell.textLabel.text = self.delegateManager.jobName;
+        if( HPPPPageSettingsModeAddToQueue == self.mode ) {
+            self.previewJobSummaryCell.detailTextLabel.text = self.delegateManager.printLaterJobSummaryText;
         } else {
-            if( HPPPPageSettingsModeAddToQueue == self.mode ) {
-                self.previewViewController.basicJobSummaryCell.textLabel.text = self.delegateManager.printLaterJobSummaryText;
-            } else {
-                self.previewViewController.basicJobSummaryCell.textLabel.text = self.delegateManager.printJobSummaryText;
-            }
+            self.previewJobSummaryCell.detailTextLabel.text = self.delegateManager.printJobSummaryText;
         }
-        [self.previewViewController refreshData];
-    } else if( HPPPPageSettingsDisplayTypePreviewPane != self.displayType ){
+    } else {
         if( HPPPPageSettingsModeAddToQueue == self.mode ) {
             self.basicJobSummaryCell.textLabel.text = self.delegateManager.printLaterJobSummaryText;
         } else {
@@ -871,9 +862,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.tableView.tableHeaderView.frame = headerFrame;
 }
 
-- (void)enablePreviewJobSummaryCell
+- (void)configureJobSummaryCell
 {
-    if( HPPPPageSettingsModeAddToQueue == self.mode ) {
+    if( HPPPPageSettingsModeAddToQueue == self.mode || HPPPPageSettingsModePrintFromQueue == self.mode ) {
         self.jobSummaryCell = self.previewJobSummaryCell;
         self.basicJobSummaryCell.hidden = YES;
         self.previewJobSummaryCell.hidden = NO;
@@ -881,13 +872,17 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.jobSummaryCell = self.basicJobSummaryCell;
         self.previewJobSummaryCell.hidden = YES;
         self.basicJobSummaryCell.hidden = NO;
-        
-        CGRect frame = self.jobSummaryCell.frame;
-        frame.size.height = self.previewJobSummaryCell.frame.size.height;
-        self.jobSummaryCell.frame = frame;
     }
     
-    [self positionPreviewJobSummaryCell];
+    CGRect frame = self.jobSummaryCell.frame;
+    if( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
+        frame.size.height = self.previewJobSummaryCell.frame.size.height;
+        self.jobSummaryCell.frame = frame;
+        
+        [self positionPreviewJobSummaryCell];
+    } else {
+        frame.size.height = self.basicJobSummaryCell.frame.size.height;
+    }
 }
 
 - (BOOL)isPrintSummarySection:(NSInteger)section
