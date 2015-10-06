@@ -1,14 +1,14 @@
 Feature: Verify Share functionalities
 
   @reset
-	@TA11948
+  @done
 	Scenario:Verify Share icon
 		Given I am on the "PrintPod" screen
 		When I select the share button
 		Then I should see the "Share" screen
         
     @reset
-	@TA11948
+    @done
     Scenario:Verify print from share after incrementing copies
 	Given I am on the "Share" screen
 		When I touch "Print"
@@ -22,7 +22,7 @@ Feature: Verify Share functionalities
         Then I touch Print button labeled "Print 2 Pages"
         
     @reset
-	@TA11948
+    @done
     Scenario:Verify print from share with B&W mode on
 	Given I am on the "Share" screen
 		When I touch "Print"
@@ -37,7 +37,7 @@ Feature: Verify Share functionalities
 		
         
         @reset
-	@TA11948
+        @done
     Scenario:Verify add to print queue from share
 	   Given I am on the "Share" screen
 		And I touch Print Queue

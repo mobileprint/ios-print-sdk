@@ -1,7 +1,7 @@
 Feature: Verify Share functionalities
 
   @reset
-	@TA11948
+	@done
 	Scenario: Verify paper sizes for USA option
 		Given I am on the "PrintPod" screen
         Then I touch "USA"
@@ -20,7 +20,7 @@ Feature: Verify Share functionalities
         | 8.5 x 11    |
         
         @reset
-	@TA11948
+        @done
 	Scenario: Verify paper sizes for International option
 		Given I am on the "PrintPod" screen
         Then I touch "International"
@@ -41,7 +41,7 @@ Feature: Verify Share functionalities
         | 10x13cm  |
         
          @reset
-	@TA11948
+         @done
 	Scenario: Verify paper sizes for All option
 		Given I am on the "PrintPod" screen
         Then I touch "All"
@@ -67,7 +67,7 @@ Feature: Verify Share functionalities
         | 1.5 x 8  |
         
         @reset
-	@TA11948
+        @done
 	Scenario Outline: Verify photo print for paper sizes for International option
 		Given I am on the "PrintPod" screen
         Then I touch "International"
@@ -95,7 +95,7 @@ Feature: Verify Share functionalities
         | 10x13cm  |
         
           @reset
-	@TA11948
+          @done
 	Scenario Outline: Verify pdf print for paper sizes for International option
 		Given I am on the "PrintPod" screen
         Then I touch "International"
