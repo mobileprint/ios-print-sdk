@@ -443,6 +443,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if( self.pageRangeView ) {
         [self.pageRangeView refreshLayout:(CGRect)self.editViewFrame];
     }
+    
+    [self.tableView bringSubviewToFront:self.pageSelectionMark];
 }
 
 - (void)dealloc
