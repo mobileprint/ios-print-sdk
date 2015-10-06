@@ -26,7 +26,7 @@ Feature: Select item and add to print queue
     Then I should see the "Print Queue" screen
     When I touch "Done"
 
-  @done-1
+  @done
   Scenario: Select 1 page PDF and add to print queue
     Given I am on the "PrintPod" screen
     Then I should see the "Share Item" screen
