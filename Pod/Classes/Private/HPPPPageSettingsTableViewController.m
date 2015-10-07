@@ -876,6 +876,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     [self updatePrintButtonUI];
     
     [self.tableView reloadData];
+    
+    if( self.previewViewController ) {
+        [self.previewViewController refreshData];
+    }
 }
 
 - (void)refreshPrinterStatus:(NSTimer *)timer
