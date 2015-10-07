@@ -38,15 +38,6 @@ NSString * const kHPPPPrintSummarySeparatorText = @" / ";
     [self.pageSettingsViewController refreshData];
 }
 
-#pragma mark - HPPPKeyboardViewDelegate
-
-- (void)didFinishEnteringText:(HPPPKeyboardView *)view text:(NSString *)text
-{
-    self.jobName = text;
-
-    [self.pageSettingsViewController refreshData];
-}
-
 #pragma mark - HPPPPrintSettingsTableViewControllerDelegate
 
 - (void)printSettingsTableViewController:(HPPPPrintSettingsTableViewController *)printSettingsTableViewController didChangePrintSettings:(HPPPPrintSettings *)printSettings
