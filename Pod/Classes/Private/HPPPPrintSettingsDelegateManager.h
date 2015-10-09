@@ -15,7 +15,6 @@
 #import "HPPPPrintItem.h"
 
 #import "HPPPPageRangeView.h"
-#import "HPPPKeyboardView.h"
 #import "HPPPPrintSettingsTableViewController.h"
 #import "HPPPPaperSizeTableViewController.h"
 #import "HPPPPaperTypeTableViewController.h"
@@ -29,7 +28,6 @@
  */
 @interface HPPPPrintSettingsDelegateManager : NSObject
     <HPPPPageRangeViewDelegate,
-     HPPPKeyboardViewDelegate,
      HPPPPrintSettingsTableViewControllerDelegate,
      HPPPPaperSizeTableViewControllerDelegate,
      HPPPPaperTypeTableViewControllerDelegate,

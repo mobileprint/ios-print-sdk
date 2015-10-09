@@ -72,7 +72,8 @@
    <UIGestureRecognizerDelegate,
     HPPPMultiPageViewDelegate,
     UIAlertViewDelegate,
-    HPPPPrintManagerDelegate>
+    HPPPPrintManagerDelegate,
+    UITextFieldDelegate>
 
 @property (strong, nonatomic) HPPPPrintManager *printManager;
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
@@ -92,7 +93,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsDetailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *jobNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *jobNameDetailLabel;
+@property (weak, nonatomic) IBOutlet UITextField *jobNameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *numberOfCopiesLabel;
 @property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
 @property (weak, nonatomic) IBOutlet UILabel *footerHeadingLabel;
@@ -243,8 +244,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.jobNameCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     self.jobNameLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
     self.jobNameLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
-    self.jobNameDetailLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
-    self.jobNameDetailLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
+    self.jobNameTextField.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.jobNameTextField.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
+    self.jobNameTextField.returnKeyType = UIReturnKeyDone;
+    self.jobNameTextField.delegate = self;
     
     self.numberOfCopiesCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     self.numberOfCopiesLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
@@ -758,7 +761,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     }
     [self updateSelectedPageIcon:pageSelected];
     
-    self.jobNameDetailLabel.text = self.delegateManager.jobName;
+    self.jobNameTextField.text = self.delegateManager.jobName;
     
     self.numberOfCopiesLabel.text = self.delegateManager.numCopiesLabelText;
     self.pageRangeDetailTextField.text = self.delegateManager.pageRangeText;
@@ -833,6 +836,19 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (BOOL)isPrintSummarySection:(NSInteger)section
 {
     return (BASIC_PRINT_SUMMARY_SECTION == section || PREVIEW_PRINT_SUMMARY_SECTION == section);
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.delegateManager.jobName = textField.text;
+    [self refreshData];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.jobNameTextField resignFirstResponder];
+    
+    return NO;
 }
 
 - (void)setPageRangeKeyboardView
