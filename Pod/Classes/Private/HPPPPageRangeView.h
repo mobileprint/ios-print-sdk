@@ -20,18 +20,21 @@
  * @abstract A view for selecting a page range.  
  * @discussion This view contains a keyboard and text field tailored for page range entry.
  */
-@interface HPPPPageRangeView : HPPPOverlayEditView
+@interface HPPPPageRangeView : UIView
+
+/*!
+ * @abstract Initializer for HPPPPageRangeView
+ * @param frame The frame of the view with the UITextField
+ * @param textField The textField that is making use of the HPPPPageRangeView
+ * @param maxPageNum The maximum allowed page number for the page range
+ */
+- (id)initWithFrame:(CGRect)frame textField:(UITextField *)textField maxPageNum:(NSInteger)maxPageNum;
 
 /*!
  * @abstract A delegate that is called when the user selects a page range
  * @seealso HPPPPageRangeViewDelegate
  */
 @property (weak, nonatomic) id<HPPPPageRangeViewDelegate> delegate;
-
-/*!
- * @abstract Indicates the maximum page number allowed in the page range
- */
-@property (assign, nonatomic) NSInteger maxPageNum;
 
 /*!
  * @abstract String used to inform users that all pages are selected

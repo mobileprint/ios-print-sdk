@@ -16,13 +16,15 @@
 
 @interface HPPPPageRangeView () <UITextFieldDelegate>
 
-@property (strong, nonatomic) IBOutlet UIView *containingView;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) UITextField *textField;
+@property (assign, nonatomic) NSInteger maxPageNum;
+
 @property (strong, nonatomic) NSMutableArray *buttons;
 @property (strong, nonatomic) NSString *pageRangeString;
 @property (strong, nonatomic) UIView *buttonContainer;
 @property (assign, nonatomic) int buttonContainerOriginY;
-@property (strong, nonatomic) HPPP *hppp;
+@property (assign, nonatomic) CGRect screenFrame;
+@property (strong, nonatomic) HPPP* hppp;
 
 @end
 
@@ -37,16 +39,26 @@ static NSString *kAllButtonText = @"ALL";
 static NSString *kAllPagesIndicator = @"";
 static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
-- (void)initWithXibName:(NSString *)xibName
+- (id)initWithFrame:(CGRect)frame textField:(UITextField *)textField maxPageNum:(NSInteger)maxPageNum
 {
-    [super initWithXibName:xibName];
-    
+    return [((HPPPPageRangeView *)[super initWithFrame:frame]) loadView:textField maxPageNum:maxPageNum];
+}
+
+- (id) loadView:(UITextField *)textField maxPageNum:(NSInteger)maxPageNum
+{
+    self.textField = textField;
     self.textField.delegate = self;
     self.textField.placeholder = kPlaceholderText;
     self.buttons = [[NSMutableArray alloc] init];
     self.buttonContainer = [[UIView alloc] init];
     [self addSubview:self.buttonContainer];
+    self.maxPageNum = maxPageNum;
+    self.screenFrame = [[UIScreen mainScreen] bounds];
     self.hppp = [HPPP sharedInstance];
+    
+    [self prepareForDisplay:self.textField.text];
+    
+    return self;
 }
 
 - (void)dealloc
@@ -69,7 +81,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 {
     [self removeButtons];
 
-    if( IS_LANDSCAPE ) {
+    if( IS_LANDSCAPE || IS_IPAD ) {
         [self addButtonsLandscape];
     } else {
         [self addButtonsPortrait];
@@ -94,15 +106,15 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
 - (void)layoutButtons:(NSArray *)buttonTitles buttonsPerRow:(NSInteger)buttonsPerRow wideAllButton:(BOOL)doubleWideAllButton
 {
-    UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width, self.frame.size.height, 1, 1)];
-    self.textField.inputView = dummyView; // Hide keyboard, but show blinking cursor
     UIFont *baseFont = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     
-    int buttonWidth = self.frame.size.width/buttonsPerRow + 1;
+    int buttonWidth = self.screenFrame.size.width/buttonsPerRow + 1;
     int buttonHeight = .8 * buttonWidth;
-    self.buttonContainerOriginY = self.frame.size.height - (((buttonTitles.count+doubleWideAllButton)/buttonsPerRow)*buttonHeight);
+    self.buttonContainerOriginY = 0;
+    int buttonContainerHeight = self.frame.size.height - (((buttonTitles.count+doubleWideAllButton)/buttonsPerRow)*buttonHeight);
 
-    self.buttonContainer.frame = CGRectMake(0, self.buttonContainerOriginY, self.frame.size.width, self.frame.size.height - self.buttonContainerOriginY);
+    self.frame = CGRectMake(0, self.buttonContainerOriginY, self.screenFrame.size.width, self.frame.size.height - buttonContainerHeight);
+    self.buttonContainer.frame = self.frame;
     
     int yOrigin = 0;
     for( int i = 0, buttonOffset = 0; i<[buttonTitles count]; i++ ) {
@@ -137,9 +149,9 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
         }
         
         // Make sure we have at least a 1 pixel margin on the right side.
-        if( button.frame.origin.x + button.frame.size.width >= self.frame.size.width ) {
+        if( button.frame.origin.x + button.frame.size.width >= self.screenFrame.size.width ) {
             CGRect frame = button.frame;
-            int diff = (button.frame.origin.x + button.frame.size.width) - self.frame.size.width;
+            int diff = (button.frame.origin.x + button.frame.size.width) - self.screenFrame.size.width;
             frame.size.width -= diff;
             button.frame = frame;
         }
@@ -148,11 +160,6 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
         
         [self.buttons addObject:button];
     }
-    
-    // now place the button container out of view
-    CGRect frame = self.buttonContainer.frame;
-    frame.origin.y = self.frame.size.height;
-    self.buttonContainer.frame = frame;
 }
 
 - (void)removeButtons
@@ -162,33 +169,41 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
     }
 }
 
+#pragma mark - UITextField delegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [self prepareForDisplay:textField.text];
+    [self beginEditing];
+    
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self commitEditing];
+}
+
 #pragma mark - HPPPEditView implementation
 
 - (void)prepareForDisplay:(NSString *)initialText
 {
     [self addButtons];
 
-    if( NSOrderedSame == [initialText caseInsensitiveCompare:kAllButtonText] ) {
+    if( NSOrderedSame == [initialText caseInsensitiveCompare:kAllButtonText] ||
+        NSOrderedSame == [initialText caseInsensitiveCompare:kPageRangeNoPages]) {
         self.pageRangeString = kAllPagesIndicator;
     } else {
         self.pageRangeString = initialText;
     }
 
-    self.textField.alpha = 0.0F;
     self.textField.text = self.pageRangeString;
-    self.textField.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPFormFieldBackgroundColor];
-    self.textField.font = [self.hppp.appearance.settings objectForKey:kHPPPFormFieldPrimaryFont];
-    self.textField.textColor = [self.hppp.appearance.settings objectForKey:kHPPPFormFieldPrimaryFontColor];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillMove:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
 - (void)beginEditing
 {
-    UITextPosition *newPosition = [self.textField positionFromPosition:0 offset:self.textField.text.length];
+    UITextPosition *newPosition = [self.textField positionFromPosition:[self.textField beginningOfDocument] offset:self.textField.text.length];
     self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
-    
-    [self.textField becomeFirstResponder];
 }
 
 - (void)cancelEditing
@@ -201,8 +216,6 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
 - (void)commitEditing
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
     NSString *finalRange = self.textField.text;
     
     if( [finalRange isEqualToString:kAllButtonText]  ||  [finalRange isEqualToString:kAllPagesIndicator] ) {
@@ -224,7 +237,8 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 - (IBAction)onButtonDown:(UIButton *)button
 {
     if( [kBackButtonText isEqualToString:button.titleLabel.text] ) {
-        if( ![kAllButtonText isEqualToString:self.textField.text] ) {
+        if( ![kAllButtonText isEqualToString:self.textField.text] &&
+            [self.textField.text length] > 0 ) {
             [self replaceCurrentRange:@"" forceDeletion:TRUE];
             if( self.textField.text.length == 0 ) {
                 self.textField.text = [kAllButtonText copy];
@@ -288,42 +302,6 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
         UITextPosition *newPosition = [self.textField positionFromPosition:selectedTextRange.start offset:string.length];
         self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
     }
-}
-
--(void) keyboardWillMove:(NSNotification *)notification
-{
-    NSDictionary *userInfo = notification.userInfo;
-    
-    CGFloat height = self.textField.frame.size.height;
-    
-    // Start and end frame positions for the traditional keyboard
-    CGRect startFrame;
-    CGRect endFrame;
-    [[userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&startFrame];
-    [[userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&endFrame];
-    
-    // The animations to perform
-    void (^animations)() = ^() {
-        if( endFrame.origin.y < startFrame.origin.y ) {
-            self.textField.frame = CGRectMake(18, 20, self.bounds.size.width-36, height);
-            self.buttonContainer.frame = CGRectMake(0, self.buttonContainerOriginY, self.bounds.size.width, self.bounds.size.height - self.buttonContainerOriginY);
-            self.textField.alpha = 1.0F;
-        } else {
-            self.textField.frame = CGRectMake(18, self.frame.size.height, self.bounds.size.width-36, height);
-            self.buttonContainer.frame = CGRectMake(0, self.frame.size.height, self.bounds.size.width, height);
-        }
-    };
-    
-    // Perform the animations on the traditonal keyboard's animation curve and duration
-    NSNumber *durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curveValue = userInfo[UIKeyboardAnimationCurveUserInfoKey];
-    NSTimeInterval animationDuration = durationValue.doubleValue;
-    UIViewAnimationCurve animationCurve = curveValue.intValue;
-    [UIView animateWithDuration:animationDuration
-                          delay:0.0
-                        options:(animationCurve << 16)
-                     animations:animations
-                     completion:nil];
 }
 
 @end

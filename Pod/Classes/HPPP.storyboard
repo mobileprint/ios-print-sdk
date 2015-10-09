@@ -466,18 +466,20 @@ Tap your notification or simply come back to this app to print your projects.</s
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="1, 3-7" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Cy-TW-ffU">
-                                                    <rect key="frame" x="544" y="12" width="42" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gj8-Zo-R2d">
+                                                    <rect key="frame" x="286" y="14" width="300" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="300" id="Ivq-Hb-HHH"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="4Cy-TW-ffU" firstAttribute="trailing" secondItem="bQD-vF-yOJ" secondAttribute="trailingMargin" constant="-6" id="1mS-El-Ywa"/>
                                                 <constraint firstItem="r3L-G4-U1t" firstAttribute="leading" secondItem="bQD-vF-yOJ" secondAttribute="leadingMargin" constant="6" id="A1G-Tk-mBk"/>
+                                                <constraint firstItem="gj8-Zo-R2d" firstAttribute="trailing" secondItem="bQD-vF-yOJ" secondAttribute="trailingMargin" constant="-6" id="H6L-N7-MA1"/>
                                                 <constraint firstItem="r3L-G4-U1t" firstAttribute="centerY" secondItem="bQD-vF-yOJ" secondAttribute="centerY" id="KJv-XN-6la"/>
-                                                <constraint firstItem="4Cy-TW-ffU" firstAttribute="centerY" secondItem="bQD-vF-yOJ" secondAttribute="centerY" id="kp6-g6-FA3"/>
+                                                <constraint firstItem="gj8-Zo-R2d" firstAttribute="centerY" secondItem="bQD-vF-yOJ" secondAttribute="centerY" id="Z9Q-Sk-mRF"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -959,7 +961,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                         <outlet property="numberOfCopiesLabel" destination="4sH-Cb-1H4" id="cOy-TQ-rrj"/>
                         <outlet property="numberOfCopiesStepper" destination="GrB-y6-lo8" id="Uqg-j3-9jW"/>
                         <outlet property="pageRangeCell" destination="26Z-ee-pHd" id="oe1-fU-PI9"/>
-                        <outlet property="pageRangeDetailLabel" destination="4Cy-TW-ffU" id="pGW-oP-wMP"/>
+                        <outlet property="pageRangeDetailTextField" destination="gj8-Zo-R2d" id="ifw-hG-BA2"/>
                         <outlet property="pageRangeLabel" destination="r3L-G4-U1t" id="YEZ-e5-LbR"/>
                         <outlet property="paperSizeCell" destination="WsN-5r-Kfs" id="QZ5-I0-iCI"/>
                         <outlet property="paperSizeLabel" destination="sTk-Bm-Rcy" id="jB5-Ue-i6U"/>
