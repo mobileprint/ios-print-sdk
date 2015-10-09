@@ -133,6 +133,7 @@
 @property (strong, nonatomic) NSMutableArray *numCopySelections;
 
 @property (assign, nonatomic) BOOL editing;
+@property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
 
@@ -316,10 +317,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                                                                          repeats:YES];
     }
     
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                 action:@selector(handleTap:)];
-    [self.tableView addGestureRecognizer:recognizer];
-
     [self preparePrintManager];
     [self refreshData];
 }
@@ -851,14 +848,14 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     [self cancelJobNameEditing];
     [((HPPPPageRangeKeyboardView*)self.pageRangeDetailTextField.inputView) cancelEditing];
-    self.editing = NO;
+    [self stopEditing];
 }
 
 - (void)cancelJobNameEditing
 {
     self.jobNameTextField.text = self.delegateManager.jobName;
     [self.jobNameTextField resignFirstResponder];
-    self.editing = NO;
+    [self stopEditing];
 }
 
 #pragma mark - UITextField delegate
@@ -871,7 +868,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         [((HPPPPageRangeKeyboardView *)self.pageRangeDetailTextField.inputView) commitEditing];
     }
     
-    self.editing = NO;
+    [self stopEditing];
     
     [self refreshData];
 }
@@ -884,7 +881,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         [self.pageRangeDetailTextField resignFirstResponder];
     }
     
-    self.editing = NO;
+    [self stopEditing];
     
     return NO;
 }
@@ -893,11 +890,20 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     self.editing = YES;
     
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self.tableView addGestureRecognizer:self.tapGestureRecognizer];
+
     if( textField == self.pageRangeDetailTextField ) {
         [((HPPPPageRangeKeyboardView *)self.pageRangeDetailTextField.inputView) prepareForDisplay];
     }
     
     return YES;
+}
+
+-(void)stopEditing
+{
+    self.editing = NO;
+    [self.tableView removeGestureRecognizer:self.tapGestureRecognizer];
 }
 
 -(void)handleTap:(UITapGestureRecognizer *)sender{
@@ -1190,10 +1196,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }
     } else if (cell == self.pageRangeCell){
         [self.pageRangeDetailTextField becomeFirstResponder];
-        self.editing = YES;
     }  else if (cell == self.jobNameCell) {
         [self.jobNameTextField becomeFirstResponder];
-        self.editing = YES;
     }
 }
 
