@@ -54,8 +54,6 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
     self.maxPageNum = maxPageNum;
     self.hppp = [HPPP sharedInstance];
     
-    [self prepareForDisplay:self.textField.text];
-    
     return self;
 }
 
@@ -74,6 +72,8 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
         [self layoutIfNeeded];
     }
 }
+
+#pragma mark - Button layouts
 
 - (void)addButtons
 {
@@ -174,8 +174,20 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    [self prepareForDisplay:textField.text];
-    [self beginEditing];
+    [self addButtons];
+    
+    if( NSOrderedSame == [textField.text caseInsensitiveCompare:kAllButtonText] ||
+       NSOrderedSame == [textField.text caseInsensitiveCompare:kPageRangeNoPages]) {
+        self.pageRangeString = kAllPagesIndicator;
+    } else {
+        self.pageRangeString = textField.text;
+    }
+    
+    self.textField.text = self.pageRangeString;
+    
+    UITextPosition *newPosition = [self.textField positionFromPosition:[self.textField beginningOfDocument] offset:self.textField.text.length];
+    self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
+
     
     return YES;
 }
@@ -183,54 +195,6 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [self commitEditing];
-}
-
-#pragma mark - HPPPEditView implementation
-
-- (void)prepareForDisplay:(NSString *)initialText
-{
-    [self addButtons];
-
-    if( NSOrderedSame == [initialText caseInsensitiveCompare:kAllButtonText] ||
-        NSOrderedSame == [initialText caseInsensitiveCompare:kPageRangeNoPages]) {
-        self.pageRangeString = kAllPagesIndicator;
-    } else {
-        self.pageRangeString = initialText;
-    }
-
-    self.textField.text = self.pageRangeString;
-}
-
-- (void)beginEditing
-{
-    UITextPosition *newPosition = [self.textField positionFromPosition:[self.textField beginningOfDocument] offset:self.textField.text.length];
-    self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
-}
-
-- (void)cancelEditing
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.textField.text = self.pageRangeString;
-    
-    [self.textField resignFirstResponder];
-}
-
-- (void)commitEditing
-{
-    NSString *finalRange = self.textField.text;
-    
-    if( [finalRange isEqualToString:kAllButtonText]  ||  [finalRange isEqualToString:kAllPagesIndicator] ) {
-        finalRange = kPageRangeAllPages;
-    }
-    
-    HPPPPageRange *pageRange = [[HPPPPageRange alloc] initWithString:finalRange allPagesIndicator:kPageRangeAllPages maxPageNum:self.maxPageNum sortAscending:TRUE];
-
-    if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
-        [self.delegate didSelectPageRange:self pageRange:pageRange];
-    }
-
-    [self.textField resignFirstResponder];
-    self.pageRangeString = pageRange.range;
 }
 
 #pragma mark - Button handler
@@ -260,6 +224,34 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
         
         [self replaceCurrentRange:button.titleLabel.text forceDeletion:FALSE];
     }
+}
+
+#pragma mark - Text commits and cancels
+
+- (void)cancelEditing
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.textField.text = self.pageRangeString;
+    
+    [self.textField resignFirstResponder];
+}
+
+- (void)commitEditing
+{
+    NSString *finalRange = self.textField.text;
+    
+    if( [finalRange isEqualToString:kAllButtonText]  ||  [finalRange isEqualToString:kAllPagesIndicator] ) {
+        finalRange = kPageRangeAllPages;
+    }
+    
+    HPPPPageRange *pageRange = [[HPPPPageRange alloc] initWithString:finalRange allPagesIndicator:kPageRangeAllPages maxPageNum:self.maxPageNum sortAscending:TRUE];
+    
+    if( self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectPageRange:pageRange:)]) {
+        [self.delegate didSelectPageRange:self pageRange:pageRange];
+    }
+    
+    [self.textField resignFirstResponder];
+    self.pageRangeString = pageRange.range;
 }
 
 #pragma mark - Text eval and modification

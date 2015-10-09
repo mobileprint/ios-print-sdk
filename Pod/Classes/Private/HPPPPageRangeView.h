@@ -11,7 +11,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HPPPOverlayEditView.h"
 #import "HPPPPageRange.h"
 
 @protocol HPPPPageRangeViewDelegate;

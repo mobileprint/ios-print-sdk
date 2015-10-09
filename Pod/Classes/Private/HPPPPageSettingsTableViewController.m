@@ -838,25 +838,32 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     return (BASIC_PRINT_SUMMARY_SECTION == section || PREVIEW_PRINT_SUMMARY_SECTION == section);
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    self.delegateManager.jobName = textField.text;
-    [self refreshData];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self.jobNameTextField resignFirstResponder];
-    
-    return NO;
-}
-
 - (void)setPageRangeKeyboardView
 {
     HPPPPageRangeView *pageRangeKeyboardView = [[HPPPPageRangeView alloc] initWithFrame:self.view.frame textField:self.pageRangeDetailTextField maxPageNum:[self.printItem numberOfPages]];
     pageRangeKeyboardView.delegate = self.delegateManager;
     self.pageRangeDetailTextField.inputView = pageRangeKeyboardView;
     [self.pageRangeDetailTextField resignFirstResponder];
+}
+
+#pragma mark - UITextField delegate
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if( self.jobNameTextField == textField ) {
+        self.delegateManager.jobName = textField.text;
+    }
+    
+    [self refreshData];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if( self.jobNameTextField == textField ) {
+        [self.jobNameTextField resignFirstResponder];
+    }
+    
+    return NO;
 }
 
 #pragma mark - Printer availability
@@ -1141,7 +1148,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     } else if (cell == self.pageRangeCell){
         [self.pageRangeDetailTextField becomeFirstResponder];
     }  else if (cell == self.jobNameCell) {
-        
+        [self.jobNameTextField becomeFirstResponder];
     }
 }
 
