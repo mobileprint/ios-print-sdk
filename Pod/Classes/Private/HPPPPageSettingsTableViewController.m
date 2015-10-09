@@ -35,7 +35,6 @@
 #import "HPPPLayoutFactory.h"
 #import "HPPPMultiPageView.h"
 #import "HPPPPageRangeView.h"
-#import "HPPPKeyboardView.h"
 #import "HPPPPageRange.h"
 #import "HPPPPrintManager.h"
 #import "HPPPPrintManager+Options.h"
@@ -73,7 +72,8 @@
    <UIGestureRecognizerDelegate,
     HPPPMultiPageViewDelegate,
     UIAlertViewDelegate,
-    HPPPPrintManagerDelegate>
+    HPPPPrintManagerDelegate,
+    UITextFieldDelegate>
 
 @property (strong, nonatomic) HPPPPrintManager *printManager;
 @property (strong, nonatomic) HPPPWiFiReachability *wifiReachability;
@@ -93,7 +93,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *printSettingsDetailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *jobNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *jobNameDetailLabel;
+@property (weak, nonatomic) IBOutlet UITextField *jobNameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *numberOfCopiesLabel;
 @property (weak, nonatomic) IBOutlet HPPPMultiPageView *multiPageView;
 @property (weak, nonatomic) IBOutlet UILabel *footerHeadingLabel;
@@ -116,7 +116,6 @@
 @property (strong, nonatomic) UIView *smokeyView;
 @property (strong, nonatomic) UIButton *smokeyCancelButton;
 @property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
-@property (strong, nonatomic) HPPPKeyboardView *keyboardView;
 @property (assign, nonatomic) CGRect editViewFrame;
 @property (strong, nonatomic) UIButton *pageSelectionMark;
 @property (strong, nonatomic) UIImage *selectedPageImage;
@@ -247,8 +246,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.jobNameCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     self.jobNameLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
     self.jobNameLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
-    self.jobNameDetailLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
-    self.jobNameDetailLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
+    self.jobNameTextField.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.jobNameTextField.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
+    self.jobNameTextField.returnKeyType = UIReturnKeyDone;
+    self.jobNameTextField.delegate = self;
     
     self.numberOfCopiesCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
     self.numberOfCopiesLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
@@ -317,10 +318,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.pageRangeView.maxPageNum = self.printItem.numberOfPages;
     [self.navigationController.view addSubview:self.pageRangeView];
 
-    self.keyboardView = [[HPPPKeyboardView alloc] initWithFrame:self.view.frame];
-    self.keyboardView.hidden = YES;
-    [self.navigationController.view addSubview:self.keyboardView];
-
     [self prepareUiForIosVersion];
     [self updatePrintSettingsUI];
     [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
@@ -352,7 +349,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     [super viewWillAppear:animated];
     
     self.pageRangeView.delegate = self.delegateManager;
-    self.keyboardView.delegate = self.delegateManager;
   
     [self preparePrintManager];
 
@@ -421,7 +417,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     [self.refreshPrinterStatusTimer invalidate];
     self.refreshPrinterStatusTimer = nil;
     
-    self.keyboardView.delegate = nil;
     self.pageRangeView.delegate = nil;
     self.printManager.delegate = nil;
 }
@@ -723,13 +718,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 - (void)dismissEditView
 {
-    if( !self.pageRangeView.hidden || !self.keyboardView.hidden ) {
-        UIView *editView;
-        if( self.pageRangeView.hidden ) {
-            editView = self.keyboardView;
-        } else {
-            editView = self.pageRangeView;
-        }
+    if( !self.pageRangeView.hidden ) {
+        UIView *editView = self.pageRangeView;
         
         CGRect desiredFrame = editView.frame;
         desiredFrame.origin.y = editView.frame.origin.y + editView.frame.size.height;
@@ -848,7 +838,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     [self dismissEditView];
     
-    self.jobNameDetailLabel.text = self.delegateManager.jobName;
+    self.jobNameTextField.text = self.delegateManager.jobName;
     
     self.numberOfCopiesLabel.text = self.delegateManager.numCopiesLabelText;
     self.pageRangeDetailLabel.text = self.delegateManager.pageRangeText;
@@ -923,6 +913,19 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (BOOL)isPrintSummarySection:(NSInteger)section
 {
     return (BASIC_PRINT_SUMMARY_SECTION == section || PREVIEW_PRINT_SUMMARY_SECTION == section);
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.delegateManager.jobName = textField.text;
+    [self refreshData];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.jobNameTextField resignFirstResponder];
+    
+    return NO;
 }
 
 #pragma mark - Printer availability
@@ -1221,19 +1224,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }];
     
         [self.pageRangeView prepareForDisplay:self.pageRange.range];
-    }  else if (cell == self.jobNameCell) {
-        [self setEditFrames];
-        self.keyboardView.frame = self.editViewFrame;
-        
-        [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
-            [self displaySmokeyView:YES];
-            [self setNavigationBarEditing:YES];
-            self.keyboardView.hidden = NO;
-        } completion:^(BOOL finished) {
-            [self.keyboardView beginEditing];
-        }];
-        
-        [self.keyboardView prepareForDisplay:self.delegateManager.jobName];
     }
 }
 
