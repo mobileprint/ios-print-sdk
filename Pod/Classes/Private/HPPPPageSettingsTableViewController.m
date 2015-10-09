@@ -34,7 +34,7 @@
 #import "HPPPSupportAction.h"
 #import "HPPPLayoutFactory.h"
 #import "HPPPMultiPageView.h"
-#import "HPPPPageRangeView.h"
+#import "HPPPPageRangeKeyboardView.h"
 #import "HPPPPageRange.h"
 #import "HPPPPrintManager.h"
 #import "HPPPPrintManager+Options.h"
@@ -840,7 +840,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 - (void)setPageRangeKeyboardView
 {
-    HPPPPageRangeView *pageRangeKeyboardView = [[HPPPPageRangeView alloc] initWithFrame:self.view.frame textField:self.pageRangeDetailTextField maxPageNum:[self.printItem numberOfPages]];
+    HPPPPageRangeKeyboardView *pageRangeKeyboardView = [[HPPPPageRangeKeyboardView alloc] initWithFrame:self.view.frame textField:self.pageRangeDetailTextField maxPageNum:[self.printItem numberOfPages]];
     pageRangeKeyboardView.delegate = self.delegateManager;
     self.pageRangeDetailTextField.inputView = pageRangeKeyboardView;
     [self.pageRangeDetailTextField resignFirstResponder];

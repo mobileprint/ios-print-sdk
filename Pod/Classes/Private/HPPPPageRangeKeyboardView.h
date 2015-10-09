@@ -19,7 +19,7 @@
  * @abstract A view for selecting a page range.  
  * @discussion This view contains a keyboard and text field tailored for page range entry.
  */
-@interface HPPPPageRangeView : UIView
+@interface HPPPPageRangeKeyboardView : UIView
 
 /*!
  * @abstract Initializer for HPPPPageRangeView
@@ -59,5 +59,5 @@ extern NSString * const kPageRangeNoPages;
  * @param view The page range view
  * @param pageRange The selected page range
  */
-- (void)didSelectPageRange:(HPPPPageRangeView *)pageRangeView pageRange:(HPPPPageRange *)pageRange;
+- (void)didSelectPageRange:(HPPPPageRangeKeyboardView *)pageRangeView pageRange:(HPPPPageRange *)pageRange;
 @end

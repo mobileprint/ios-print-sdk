@@ -11,10 +11,10 @@
 //
 
 #import "HPPP.h"
-#import "HPPPPageRangeView.h"
+#import "HPPPPageRangeKeyboardView.h"
 #import "UIColor+HPPPStyle.h"
 
-@interface HPPPPageRangeView () <UITextFieldDelegate>
+@interface HPPPPageRangeKeyboardView () <UITextFieldDelegate>
 
 @property (weak, nonatomic) UITextField *textField;
 @property (assign, nonatomic) NSInteger maxPageNum;
@@ -27,7 +27,7 @@
 
 @end
 
-@implementation HPPPPageRangeView
+@implementation HPPPPageRangeKeyboardView
 
 NSString * const kPageRangeAllPages = @"All";
 NSString * const kPageRangeNoPages = @"No pages selected";
@@ -40,7 +40,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
 - (id)initWithFrame:(CGRect)frame textField:(UITextField *)textField maxPageNum:(NSInteger)maxPageNum
 {
-    return [((HPPPPageRangeView *)[super initWithFrame:frame]) loadView:textField maxPageNum:maxPageNum];
+    return [((HPPPPageRangeKeyboardView *)[super initWithFrame:frame]) loadView:textField maxPageNum:maxPageNum];
 }
 
 - (id) loadView:(UITextField *)textField maxPageNum:(NSInteger)maxPageNum
