@@ -13,7 +13,7 @@
 #import <UIKit/UIKit.h>
 #import "HPPPPageRange.h"
 
-@protocol HPPPPageRangeViewDelegate;
+@protocol HPPPPageRangeKeyboardViewDelegate;
 
 /*!
  * @abstract A view for selecting a page range.  
@@ -33,7 +33,7 @@
  * @abstract A delegate that is called when the user selects a page range
  * @seealso HPPPPageRangeViewDelegate
  */
-@property (weak, nonatomic) id<HPPPPageRangeViewDelegate> delegate;
+@property (weak, nonatomic) id<HPPPPageRangeKeyboardViewDelegate> delegate;
 
 /*!
  * @abstract String used to inform users that all pages are selected
@@ -51,7 +51,7 @@ extern NSString * const kPageRangeNoPages;
 /*!
  * @abstract Protocol used to indicate that a page range was selected
  */
-@protocol HPPPPageRangeViewDelegate <NSObject>
+@protocol HPPPPageRangeKeyboardViewDelegate <NSObject>
 @optional
 
 /*!
