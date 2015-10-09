@@ -133,6 +133,8 @@
 
 @property (assign, nonatomic) BOOL showCurlOnAppear;
 
+@property (weak, nonatomic) UIResponder *firstResponder;
+
 @end
 
 @implementation HPPPPageSettingsTableViewController
@@ -364,9 +366,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     }
     
-    HPPPPageRangeView *pageRangeKeyboardView = [[HPPPPageRangeView alloc] initWithFrame:self.view.frame textField:self.pageRangeDetailTextField maxPageNum:[self.printItem numberOfPages]];
-    pageRangeKeyboardView.delegate = self.delegateManager;
-    self.pageRangeDetailTextField.inputView = pageRangeKeyboardView;
+    [self setPageRangeKeyboardView];
     
     [self configureJobSummaryCell];
 
@@ -417,6 +417,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         // without this seemingly useless line, the header view is not displayed in the appropriate frame
         self.tableView.tableHeaderView = self.tableView.tableHeaderView;
     }
+    
+    [self setPageRangeKeyboardView];
     
     [self.tableView reloadData];
 }
@@ -833,6 +835,14 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     return (BASIC_PRINT_SUMMARY_SECTION == section || PREVIEW_PRINT_SUMMARY_SECTION == section);
 }
 
+- (void)setPageRangeKeyboardView
+{
+    HPPPPageRangeView *pageRangeKeyboardView = [[HPPPPageRangeView alloc] initWithFrame:self.view.frame textField:self.pageRangeDetailTextField maxPageNum:[self.printItem numberOfPages]];
+    pageRangeKeyboardView.delegate = self.delegateManager;
+    self.pageRangeDetailTextField.inputView = pageRangeKeyboardView;
+    [self.pageRangeDetailTextField resignFirstResponder];
+}
+
 #pragma mark - Printer availability
 
 - (void)printerNotAvailable
@@ -1113,7 +1123,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
             [self oneTouchPrint:tableView];
         }
     } else if (cell == self.pageRangeCell){
-        
+        [self.pageRangeDetailTextField becomeFirstResponder];
     }  else if (cell == self.jobNameCell) {
         
     }

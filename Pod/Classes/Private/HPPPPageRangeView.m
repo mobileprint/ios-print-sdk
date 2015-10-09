@@ -23,7 +23,6 @@
 @property (strong, nonatomic) NSString *pageRangeString;
 @property (strong, nonatomic) UIView *buttonContainer;
 @property (assign, nonatomic) int buttonContainerOriginY;
-@property (assign, nonatomic) CGRect screenFrame;
 @property (strong, nonatomic) HPPP* hppp;
 
 @end
@@ -53,7 +52,6 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
     self.buttonContainer = [[UIView alloc] init];
     [self addSubview:self.buttonContainer];
     self.maxPageNum = maxPageNum;
-    self.screenFrame = [[UIScreen mainScreen] bounds];
     self.hppp = [HPPP sharedInstance];
     
     [self prepareForDisplay:self.textField.text];
@@ -106,14 +104,17 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
 - (void)layoutButtons:(NSArray *)buttonTitles buttonsPerRow:(NSInteger)buttonsPerRow wideAllButton:(BOOL)doubleWideAllButton
 {
+    // The keyboard will take the width of the entire screen, not just our frame
+    CGRect screenFrame = [[UIScreen mainScreen] bounds];
+                    
     UIFont *baseFont = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     
-    int buttonWidth = self.screenFrame.size.width/buttonsPerRow + 1;
+    int buttonWidth = screenFrame.size.width/buttonsPerRow + 1;
     int buttonHeight = .8 * buttonWidth;
     self.buttonContainerOriginY = 0;
     int buttonContainerHeight = self.frame.size.height - (((buttonTitles.count+doubleWideAllButton)/buttonsPerRow)*buttonHeight);
 
-    self.frame = CGRectMake(0, self.buttonContainerOriginY, self.screenFrame.size.width, self.frame.size.height - buttonContainerHeight);
+    self.frame = CGRectMake(0, self.buttonContainerOriginY, screenFrame.size.width, self.frame.size.height - buttonContainerHeight);
     self.buttonContainer.frame = self.frame;
     
     int yOrigin = 0;
@@ -149,9 +150,9 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
         }
         
         // Make sure we have at least a 1 pixel margin on the right side.
-        if( button.frame.origin.x + button.frame.size.width >= self.screenFrame.size.width ) {
+        if( button.frame.origin.x + button.frame.size.width >= screenFrame.size.width ) {
             CGRect frame = button.frame;
-            int diff = (button.frame.origin.x + button.frame.size.width) - self.screenFrame.size.width;
+            int diff = (button.frame.origin.x + button.frame.size.width) - screenFrame.size.width;
             frame.size.width -= diff;
             button.frame = frame;
         }
