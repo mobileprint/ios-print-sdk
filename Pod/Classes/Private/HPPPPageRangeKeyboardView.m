@@ -14,7 +14,7 @@
 #import "HPPPPageRangeKeyboardView.h"
 #import "UIColor+HPPPStyle.h"
 
-@interface HPPPPageRangeKeyboardView () <UITextFieldDelegate>
+@interface HPPPPageRangeKeyboardView ()
 
 @property (weak, nonatomic) UITextField *textField;
 @property (assign, nonatomic) NSInteger maxPageNum;
@@ -46,7 +46,6 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 - (id) loadView:(UITextField *)textField maxPageNum:(NSInteger)maxPageNum
 {
     self.textField = textField;
-    self.textField.delegate = self;
     self.textField.placeholder = kPlaceholderText;
     self.buttons = [[NSMutableArray alloc] init];
     self.buttonContainer = [[UIView alloc] init];
@@ -170,17 +169,17 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
     }
 }
 
-#pragma mark - UITextField delegate
+#pragma mark - Preparing for display
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+- (BOOL)prepareForDisplay
 {
     [self addButtons];
     
-    if( NSOrderedSame == [textField.text caseInsensitiveCompare:kAllButtonText] ||
-       NSOrderedSame == [textField.text caseInsensitiveCompare:kPageRangeNoPages]) {
+    if( NSOrderedSame == [self.textField.text caseInsensitiveCompare:kAllButtonText] ||
+       NSOrderedSame == [self.textField.text caseInsensitiveCompare:kPageRangeNoPages]) {
         self.pageRangeString = kAllPagesIndicator;
     } else {
-        self.pageRangeString = textField.text;
+        self.pageRangeString = self.textField.text;
     }
     
     self.textField.text = self.pageRangeString;
@@ -190,11 +189,6 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
     
     return YES;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    [self commitEditing];
 }
 
 #pragma mark - Button handler
@@ -230,9 +224,7 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
 - (void)cancelEditing
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.textField.text = self.pageRangeString;
-    
     [self.textField resignFirstResponder];
 }
 

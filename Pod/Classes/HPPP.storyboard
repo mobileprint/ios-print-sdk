@@ -194,7 +194,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                         <sections>
                             <tableViewSection headerTitle="" id="o64-US-Ew0" userLabel="BasicJobSummarySection">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="RdE-OM-cbr" rowHeight="54" style="IBUITableViewCellStyleDefault" id="X9q-qQ-Jz0" userLabel="Basic Job Summary Cell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="RdE-OM-cbr" rowHeight="54" style="IBUITableViewCellStyleDefault" id="X9q-qQ-Jz0" userLabel="Basic Job Summary Cell">
                                         <rect key="frame" x="0.0" y="358" width="600" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X9q-qQ-Jz0" id="onD-ip-tTx">
@@ -215,7 +215,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                             </tableViewSection>
                             <tableViewSection headerTitle="" id="UvT-Bk-QDv" userLabel="PreviewJobSummarySection">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="vzE-AK-Tky" detailTextLabel="YwN-Es-gwc" rowHeight="88" style="IBUITableViewCellStyleSubtitle" id="YJC-33-I4T" userLabel="Preview Job Summary Cell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="vzE-AK-Tky" detailTextLabel="YwN-Es-gwc" rowHeight="88" style="IBUITableViewCellStyleSubtitle" id="YJC-33-I4T" userLabel="Preview Job Summary Cell">
                                         <rect key="frame" x="0.0" y="432" width="600" height="88"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YJC-33-I4T" id="x9n-5a-G65">
@@ -409,7 +409,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                                                         <constraint firstAttribute="width" constant="200" id="fzg-Ss-eVC"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>

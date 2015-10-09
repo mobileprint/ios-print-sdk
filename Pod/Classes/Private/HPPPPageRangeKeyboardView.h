@@ -30,6 +30,21 @@
 - (id)initWithFrame:(CGRect)frame textField:(UITextField *)textField maxPageNum:(NSInteger)maxPageNum;
 
 /*!
+ * @abstract Commits all edits made while the keyboard has been open
+ */
+- (void)commitEditing;
+
+/*!
+ * @abstract Cancels all editing done while the keyboard has been open
+ */
+- (void)cancelEditing;
+
+/*!
+ * @abstract Prepares the keyboard and textfield for display
+ */
+- (BOOL)prepareForDisplay;
+
+/*!
  * @abstract A delegate that is called when the user selects a page range
  * @seealso HPPPPageRangeViewDelegate
  */
