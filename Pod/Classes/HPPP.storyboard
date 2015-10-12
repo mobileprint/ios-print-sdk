@@ -154,13 +154,21 @@
                                     <rect key="frame" x="0.0" y="10" width="600" height="338"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
+                                <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wU6-u8-HA7" userLabel="Inactivity View">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="358"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="O09-Jj-DX6" secondAttribute="bottom" constant="10" id="5dM-U6-3SK"/>
                                 <constraint firstItem="O09-Jj-DX6" firstAttribute="leading" secondItem="kgV-PV-Qp9" secondAttribute="leading" id="PzF-Pc-e0u"/>
                                 <constraint firstAttribute="trailing" secondItem="O09-Jj-DX6" secondAttribute="trailing" id="SMA-KQ-tGT"/>
+                                <constraint firstItem="wU6-u8-HA7" firstAttribute="centerY" secondItem="kgV-PV-Qp9" secondAttribute="centerY" id="Xnz-OT-WDp"/>
                                 <constraint firstItem="O09-Jj-DX6" firstAttribute="top" secondItem="kgV-PV-Qp9" secondAttribute="top" constant="10" id="cdM-PS-yfB"/>
+                                <constraint firstItem="wU6-u8-HA7" firstAttribute="centerX" secondItem="kgV-PV-Qp9" secondAttribute="centerX" id="gQa-rT-Fgo"/>
+                                <constraint firstItem="wU6-u8-HA7" firstAttribute="height" secondItem="kgV-PV-Qp9" secondAttribute="height" id="hQC-4v-CFY"/>
+                                <constraint firstItem="wU6-u8-HA7" firstAttribute="width" secondItem="kgV-PV-Qp9" secondAttribute="width" id="jf6-fO-clQ"/>
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="NN3-QO-OVU" userLabel="footerView">
@@ -956,6 +964,7 @@ Tap your notification or simply come back to this app to print your projects.</s
                         <outlet property="footerHeadingLabel" destination="PDw-e4-vuW" id="3NL-Ob-CmJ"/>
                         <outlet property="footerTextLabel" destination="0ta-OU-sbx" id="Gmy-U1-bfx"/>
                         <outlet property="footerView" destination="NN3-QO-OVU" id="Djn-OR-P3b"/>
+                        <outlet property="headerInactivityView" destination="wU6-u8-HA7" id="xFs-4S-nRp"/>
                         <outlet property="jobNameCell" destination="dM8-YB-Auh" id="GhH-NN-KCY"/>
                         <outlet property="jobNameLabel" destination="kVB-Ng-nr8" id="ZPy-Di-y1H"/>
                         <outlet property="jobNameTextField" destination="kps-nb-uzb" id="sDo-kN-GBl"/>

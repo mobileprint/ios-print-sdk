@@ -133,7 +133,7 @@
 @property (strong, nonatomic) NSMutableArray *numCopySelections;
 
 @property (assign, nonatomic) BOOL editing;
-@property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
+@property (weak, nonatomic) IBOutlet UIView *headerInactivityView;
 
 @end
 
@@ -316,7 +316,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                                                                         userInfo:nil
                                                                          repeats:YES];
     }
-    
+
     [self preparePrintManager];
     [self refreshData];
 }
@@ -380,8 +380,15 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         screenName = kPrintFromQueueScreenName;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEstablished:) name:kHPPPWiFiConnectionEstablished object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionLost:) name:kHPPPWiFiConnectionLost object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(connectionEstablished:)
+                                                 name:kHPPPWiFiConnectionEstablished
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(connectionLost:)
+                                                 name:kHPPPWiFiConnectionLost
+                                               object:nil];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:screenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
@@ -653,6 +660,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if (self.previewViewController) {
         _multiPageView = self.previewViewController.multiPageView;
         _multiPageView.delegate = self;
+        
+        _headerInactivityView = self.previewViewController.headerInactivityView;
     }
     
     return _multiPageView;
@@ -836,28 +845,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     return (BASIC_PRINT_SUMMARY_SECTION == section || PREVIEW_PRINT_SUMMARY_SECTION == section);
 }
 
-- (void)setPageRangeKeyboardView
-{
-    HPPPPageRangeKeyboardView *pageRangeKeyboardView = [[HPPPPageRangeKeyboardView alloc] initWithFrame:self.view.frame textField:self.pageRangeDetailTextField maxPageNum:[self.printItem numberOfPages]];
-    pageRangeKeyboardView.delegate = self.delegateManager;
-    self.pageRangeDetailTextField.inputView = pageRangeKeyboardView;
-    [self.pageRangeDetailTextField resignFirstResponder];
-}
-
-- (void)cancelAllEditing
-{
-    [self cancelJobNameEditing];
-    [((HPPPPageRangeKeyboardView*)self.pageRangeDetailTextField.inputView) cancelEditing];
-    [self stopEditing];
-}
-
-- (void)cancelJobNameEditing
-{
-    self.jobNameTextField.text = self.delegateManager.jobName;
-    [self.jobNameTextField resignFirstResponder];
-    [self stopEditing];
-}
-
 #pragma mark - UITextField delegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -890,25 +877,81 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     self.editing = YES;
     
-    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [self.tableView addGestureRecognizer:self.tapGestureRecognizer];
-
     if( textField == self.pageRangeDetailTextField ) {
         [((HPPPPageRangeKeyboardView *)self.pageRangeDetailTextField.inputView) prepareForDisplay];
+        self.jobNameTextField.userInteractionEnabled = NO;
+    } else {
+        self.pageRangeDetailTextField.userInteractionEnabled = NO;
     }
     
     return YES;
 }
 
+#pragma  mark - Job Name and Page Range editing
+
 -(void)stopEditing
 {
     self.editing = NO;
-    [self.tableView removeGestureRecognizer:self.tapGestureRecognizer];
+}
+
+- (void)setPageRangeKeyboardView
+{
+    HPPPPageRangeKeyboardView *pageRangeKeyboardView = [[HPPPPageRangeKeyboardView alloc] initWithFrame:self.view.frame textField:self.pageRangeDetailTextField maxPageNum:[self.printItem numberOfPages]];
+    pageRangeKeyboardView.delegate = self.delegateManager;
+    self.pageRangeDetailTextField.inputView = pageRangeKeyboardView;
+    [self.pageRangeDetailTextField resignFirstResponder];
+}
+
+- (void)cancelAllEditing
+{
+    [self cancelJobNameEditing];
+    [((HPPPPageRangeKeyboardView*)self.pageRangeDetailTextField.inputView) cancelEditing];
+    self.pageRangeDetailTextField.text = self.delegateManager.pageRangeText;
+    [self stopEditing];
+}
+
+- (void)cancelJobNameEditing
+{
+    self.jobNameTextField.text = self.delegateManager.jobName;
+    [self.jobNameTextField resignFirstResponder];
+    [self stopEditing];
 }
 
 -(void)handleTap:(UITapGestureRecognizer *)sender{
 
     [self cancelAllEditing];
+}
+
+- (void)setEditing:(BOOL)editing
+{
+    static UITapGestureRecognizer *tableViewTaps;
+    static UITapGestureRecognizer *headerInactivityViewTaps;
+    _editing = editing;
+    
+    if( _editing ) {
+        tableViewTaps = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        headerInactivityViewTaps = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [self.tableView addGestureRecognizer:tableViewTaps];
+        [self.headerInactivityView addGestureRecognizer:headerInactivityViewTaps];
+        self.headerInactivityView.alpha = 0.1F;
+        self.headerInactivityView.userInteractionEnabled = YES;
+        
+        self.numberOfCopiesStepper.userInteractionEnabled = NO;
+        self.blackAndWhiteModeSwitch.userInteractionEnabled = NO;
+        self.pageSelectionMark.userInteractionEnabled = NO;
+    } else {
+        [self.tableView removeGestureRecognizer:tableViewTaps];
+        [self.headerInactivityView removeGestureRecognizer:headerInactivityViewTaps];
+        self.headerInactivityView.alpha = 0.0F;
+        self.headerInactivityView.userInteractionEnabled = NO;
+        
+        self.numberOfCopiesStepper.userInteractionEnabled = YES;
+        self.blackAndWhiteModeSwitch.userInteractionEnabled = YES;
+        self.pageSelectionMark.userInteractionEnabled = YES;
+        
+        self.jobNameTextField.userInteractionEnabled = YES;
+        self.pageRangeDetailTextField.userInteractionEnabled = YES;
+    }
 }
 
 #pragma mark - Printer availability
