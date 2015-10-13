@@ -32,7 +32,7 @@ NSString * const kHPPPPrintSummarySeparatorText = @" / ";
 
 #pragma mark - HPPPPageRangeViewDelegate
 
-- (void)didSelectPageRange:(HPPPPageRangeView *)view pageRange:(HPPPPageRange *)pageRange
+- (void)didSelectPageRange:(HPPPPageRangeKeyboardView *)view pageRange:(HPPPPageRange *)pageRange
 {
     self.pageRange = pageRange;
     [self.pageSettingsViewController refreshData];

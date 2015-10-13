@@ -11,27 +11,44 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HPPPOverlayEditView.h"
 #import "HPPPPageRange.h"
 
-@protocol HPPPPageRangeViewDelegate;
+@protocol HPPPPageRangeKeyboardViewDelegate;
 
 /*!
  * @abstract A view for selecting a page range.  
  * @discussion This view contains a keyboard and text field tailored for page range entry.
  */
-@interface HPPPPageRangeView : HPPPOverlayEditView
+@interface HPPPPageRangeKeyboardView : UIView
+
+/*!
+ * @abstract Initializer for HPPPPageRangeView
+ * @param frame The frame of the view with the UITextField
+ * @param textField The textField that is making use of the HPPPPageRangeView
+ * @param maxPageNum The maximum allowed page number for the page range
+ */
+- (id)initWithFrame:(CGRect)frame textField:(UITextField *)textField maxPageNum:(NSInteger)maxPageNum;
+
+/*!
+ * @abstract Commits all edits made while the keyboard has been open
+ */
+- (void)commitEditing;
+
+/*!
+ * @abstract Cancels all editing done while the keyboard has been open
+ */
+- (void)cancelEditing;
+
+/*!
+ * @abstract Prepares the keyboard and textfield for display
+ */
+- (BOOL)prepareForDisplay;
 
 /*!
  * @abstract A delegate that is called when the user selects a page range
  * @seealso HPPPPageRangeViewDelegate
  */
-@property (weak, nonatomic) id<HPPPPageRangeViewDelegate> delegate;
-
-/*!
- * @abstract Indicates the maximum page number allowed in the page range
- */
-@property (assign, nonatomic) NSInteger maxPageNum;
+@property (weak, nonatomic) id<HPPPPageRangeKeyboardViewDelegate> delegate;
 
 /*!
  * @abstract String used to inform users that all pages are selected
@@ -49,7 +66,7 @@ extern NSString * const kPageRangeNoPages;
 /*!
  * @abstract Protocol used to indicate that a page range was selected
  */
-@protocol HPPPPageRangeViewDelegate <NSObject>
+@protocol HPPPPageRangeKeyboardViewDelegate <NSObject>
 @optional
 
 /*!
@@ -57,5 +74,5 @@ extern NSString * const kPageRangeNoPages;
  * @param view The page range view
  * @param pageRange The selected page range
  */
-- (void)didSelectPageRange:(HPPPPageRangeView *)pageRangeView pageRange:(HPPPPageRange *)pageRange;
+- (void)didSelectPageRange:(HPPPPageRangeKeyboardView *)pageRangeView pageRange:(HPPPPageRange *)pageRange;
 @end

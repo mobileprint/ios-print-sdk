@@ -34,7 +34,7 @@
 #import "HPPPSupportAction.h"
 #import "HPPPLayoutFactory.h"
 #import "HPPPMultiPageView.h"
-#import "HPPPPageRangeView.h"
+#import "HPPPPageRangeKeyboardView.h"
 #import "HPPPPageRange.h"
 #import "HPPPPrintManager.h"
 #import "HPPPPrintManager+Options.h"
@@ -86,7 +86,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *paperTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *filterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *pageRangeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pageRangeDetailLabel;
+@property (weak, nonatomic) IBOutlet UITextField *pageRangeDetailTextField;
 @property (weak, nonatomic) IBOutlet UILabel *printLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectPrinterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedPrinterLabel;
@@ -113,10 +113,6 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *numberOfCopiesCell;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 
-@property (strong, nonatomic) UIView *smokeyView;
-@property (strong, nonatomic) UIButton *smokeyCancelButton;
-@property (strong, nonatomic) HPPPPageRangeView *pageRangeView;
-@property (assign, nonatomic) CGRect editViewFrame;
 @property (strong, nonatomic) UIButton *pageSelectionMark;
 @property (strong, nonatomic) UIImage *selectedPageImage;
 @property (strong, nonatomic) UIImage *unselectedPageImage;
@@ -136,7 +132,8 @@
 @property (strong, nonatomic) NSMutableArray *blackAndWhiteSelections;
 @property (strong, nonatomic) NSMutableArray *numCopySelections;
 
-@property (assign, nonatomic) BOOL showCurlOnAppear;
+@property (assign, nonatomic) BOOL editing;
+@property (weak, nonatomic) IBOutlet UIView *headerInactivityView;
 
 @end
 
@@ -249,6 +246,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.jobNameTextField.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
     self.jobNameTextField.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     self.jobNameTextField.returnKeyType = UIReturnKeyDone;
+    self.jobNameTextField.enablesReturnKeyAutomatically = YES;
     self.jobNameTextField.delegate = self;
     
     self.numberOfCopiesCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
@@ -261,8 +259,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
     self.pageRangeLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFont];
     self.pageRangeLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsPrimaryFontColor];
-    self.pageRangeDetailLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
-    self.pageRangeDetailLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
+    self.pageRangeDetailTextField.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
+    self.pageRangeDetailTextField.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
+    self.pageRangeDetailTextField.delegate = self;
     
     self.selectedPageImage = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsSelectedPageIcon];
     self.unselectedPageImage = [self.hppp.appearance.settings objectForKey:kHPPPJobSettingsUnselectedPageIcon];
@@ -299,25 +298,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.footerTextLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundSecondaryFont];
     self.footerTextLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundSecondaryFontColor];
     
-    self.smokeyView = [[UIView alloc] init];
-    self.smokeyView.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPOverlayBackgroundColor];
-    self.smokeyView.alpha = 0.0f;
-    self.smokeyView.hidden = YES;
-    self.smokeyView.userInteractionEnabled = NO;
-    
-    self.smokeyCancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.smokeyCancelButton setTitle:HPPPLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
-    [self.smokeyCancelButton setTintColor:[self.hppp.appearance.settings objectForKey:kHPPPOverlayPrimaryFontColor]];
-    self.smokeyCancelButton.titleLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPOverlayPrimaryFont];
-    [self.smokeyView addSubview:self.smokeyCancelButton];
-    
-    [self.navigationController.view addSubview:self.smokeyView];
-    
-    self.pageRangeView = [[HPPPPageRangeView alloc] initWithFrame:self.view.frame];
-    self.pageRangeView.hidden = YES;
-    self.pageRangeView.maxPageNum = self.printItem.numberOfPages;
-    [self.navigationController.view addSubview:self.pageRangeView];
-
     [self prepareUiForIosVersion];
     [self updatePrintSettingsUI];
     [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
@@ -328,8 +308,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         
         self.printLabel.text = [self stringFromNumberOfPrintingItems:numberOfJobs copies:1];
     }
-
-    self.showCurlOnAppear = YES;
     
     if (IS_OS_8_OR_LATER && HPPPPageSettingsDisplayTypePreviewPane != self.displayType) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidCheckPrinterAvailability:) name:kHPPPPrinterAvailabilityNotification object:nil];
@@ -339,7 +317,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                                                                         userInfo:nil
                                                                          repeats:YES];
     }
-    
+
     [self preparePrintManager];
     [self refreshData];
 }
@@ -348,8 +326,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     [super viewWillAppear:animated];
     
-    self.pageRangeView.delegate = self.delegateManager;
-  
     [self preparePrintManager];
 
     if (self.printItem) {
@@ -392,6 +368,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     }
     
+    [self setPageRangeKeyboardView];
+    
     [self configureJobSummaryCell];
 
     [self refreshData];
@@ -403,8 +381,15 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         screenName = kPrintFromQueueScreenName;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEstablished:) name:kHPPPWiFiConnectionEstablished object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionLost:) name:kHPPPWiFiConnectionLost object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(connectionEstablished:)
+                                                 name:kHPPPWiFiConnectionEstablished
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(connectionLost:)
+                                                 name:kHPPPWiFiConnectionLost
+                                               object:nil];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:kHPPPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:screenName forKey:kHPPPTrackableScreenNameKey]];
 }
 
@@ -417,7 +402,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     [self.refreshPrinterStatusTimer invalidate];
     self.refreshPrinterStatusTimer = nil;
     
-    self.pageRangeView.delegate = nil;
     self.printManager.delegate = nil;
 }
 
@@ -443,6 +427,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.tableView.tableHeaderView = self.tableView.tableHeaderView;
     }
     
+    [self setPageRangeKeyboardView];
+    
     [self.tableView reloadData];
 }
 
@@ -450,10 +436,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     [self.view layoutIfNeeded];
     [self.multiPageView refreshLayout];
-    [self setEditFrames];
-    if( self.pageRangeView ) {
-        [self.pageRangeView refreshLayout:(CGRect)self.editViewFrame];
-    }
     
     [self.tableView bringSubviewToFront:self.pageSelectionMark];
 }
@@ -679,60 +661,11 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if (self.previewViewController) {
         _multiPageView = self.previewViewController.multiPageView;
         _multiPageView.delegate = self;
+        
+        _headerInactivityView = self.previewViewController.headerInactivityView;
     }
     
     return _multiPageView;
-}
-
-- (void)setEditFrames
-{
-    self.editViewFrame = [self.navigationController.view convertRect:self.view.frame fromView:[self.view superview]];
-    self.smokeyView.frame = [[UIScreen mainScreen] bounds];
-    
-    // We can't make use of hidden methods, so this position is hard-coded... at a decent risk of truncation and bad position
-    //  Hidden method: self.smokeyCancelButton.frame = [self.navigationController.view convertRect:((UIView*)[self.cancelButtonItem performSelector:@selector(view)]).frame fromView:self.navigationController.navigationBar];
-    if( IS_PORTRAIT ) {
-        int cancelButtonWidth = 54;
-        int cancelButtonRightMargin = IS_IPAD ? 20 : 8;
-        int cancelButtonXOrigin = self.smokeyView.frame.size.width - (cancelButtonWidth + cancelButtonRightMargin);
-        self.smokeyCancelButton.frame = CGRectMake(cancelButtonXOrigin, 27, cancelButtonWidth, 30);
-    } else {
-        int cancelButtonWidth = 54;
-        int cancelButtonRightMargin = 20;
-        int cancelButtonXOrigin = self.smokeyView.frame.size.width - (cancelButtonWidth + cancelButtonRightMargin);
-        self.smokeyCancelButton.frame = CGRectMake(cancelButtonXOrigin, 7, cancelButtonWidth, 30);
-    }
-}
-
--(void)displaySmokeyView:(BOOL)display
-{
-    self.tableView.scrollEnabled = !display;
-    
-    if( display ) {
-        self.smokeyView.hidden = NO;
-        self.smokeyView.alpha = [[[HPPP sharedInstance].appearance.settings objectForKey:kHPPPOverlayBackgroundOpacity] floatValue];
-    } else {
-        self.smokeyView.alpha = 0.0f;
-    }
-}
-
-- (void)dismissEditView
-{
-    if( !self.pageRangeView.hidden ) {
-        UIView *editView = self.pageRangeView;
-        
-        CGRect desiredFrame = editView.frame;
-        desiredFrame.origin.y = editView.frame.origin.y + editView.frame.size.height;
-        
-        [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
-            [self displaySmokeyView:NO];
-            editView.frame = desiredFrame;
-            [self setNavigationBarEditing:NO];
-        } completion:^(BOOL finished) {
-            editView.hidden = YES;
-            self.smokeyView.hidden = YES;
-        }];
-    }
 }
 
 - (void)setNavigationBarEditing:(BOOL)editing
@@ -760,9 +693,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (void)setPageRangeLabelText:(NSString *)pageRange
 {
     if( pageRange.length ) {
-        self.pageRangeDetailLabel.text = pageRange;
+        self.pageRangeDetailTextField.text = pageRange;
     } else {
-        self.pageRangeDetailLabel.text = kPageRangeAllPages;
+        self.pageRangeDetailTextField.text = kPageRangeAllPages;
     }
 }
 
@@ -796,7 +729,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     }
     
     if( 1 < self.printItem.numberOfPages ) {
-        [self.delegateManager.pageRange setRange:self.pageRangeDetailLabel.text];
+        [self.delegateManager.pageRange setRange:self.pageRangeDetailTextField.text];
     }
     
     return self.delegateManager.pageRange;
@@ -836,12 +769,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     }
     [self updateSelectedPageIcon:pageSelected];
     
-    [self dismissEditView];
-    
     self.jobNameTextField.text = self.delegateManager.jobName;
     
     self.numberOfCopiesLabel.text = self.delegateManager.numCopiesLabelText;
-    self.pageRangeDetailLabel.text = self.delegateManager.pageRangeText;
+    self.pageRangeDetailTextField.text = self.delegateManager.pageRangeText;
     
     if( !self.previewJobSummaryCell.hidden ) {
         self.previewJobSummaryCell.textLabel.text = self.delegateManager.jobName;
@@ -915,17 +846,113 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     return (BASIC_PRINT_SUMMARY_SECTION == section || PREVIEW_PRINT_SUMMARY_SECTION == section);
 }
 
+#pragma mark - UITextField delegate
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    self.delegateManager.jobName = textField.text;
+    if( self.jobNameTextField == textField ) {
+        self.delegateManager.jobName = textField.text;
+    } else if( self.pageRangeDetailTextField == textField ) {
+        [((HPPPPageRangeKeyboardView *)self.pageRangeDetailTextField.inputView) commitEditing];
+    }
+    
+    [self stopEditing];
+    
     [self refreshData];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self.jobNameTextField resignFirstResponder];
+    if( self.jobNameTextField == textField ) {
+        [self.jobNameTextField resignFirstResponder];
+    } else if( self.pageRangeDetailTextField == textField ) {
+        [self.pageRangeDetailTextField resignFirstResponder];
+    }
+    
+    [self stopEditing];
     
     return NO;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    self.editing = YES;
+    
+    if( textField == self.pageRangeDetailTextField ) {
+        [((HPPPPageRangeKeyboardView *)self.pageRangeDetailTextField.inputView) prepareForDisplay];
+        self.jobNameTextField.userInteractionEnabled = NO;
+    } else {
+        self.pageRangeDetailTextField.userInteractionEnabled = NO;
+    }
+    
+    return YES;
+}
+
+#pragma  mark - Job Name and Page Range editing
+
+-(void)stopEditing
+{
+    self.editing = NO;
+}
+
+- (void)setPageRangeKeyboardView
+{
+    HPPPPageRangeKeyboardView *pageRangeKeyboardView = [[HPPPPageRangeKeyboardView alloc] initWithFrame:self.view.frame textField:self.pageRangeDetailTextField maxPageNum:[self.printItem numberOfPages]];
+    pageRangeKeyboardView.delegate = self.delegateManager;
+    self.pageRangeDetailTextField.inputView = pageRangeKeyboardView;
+    [self.pageRangeDetailTextField resignFirstResponder];
+}
+
+- (void)cancelAllEditing
+{
+    [self cancelJobNameEditing];
+    [((HPPPPageRangeKeyboardView *)self.pageRangeDetailTextField.inputView) cancelEditing];
+    self.pageRangeDetailTextField.text = self.delegateManager.pageRangeText;
+    [self stopEditing];
+}
+
+- (void)cancelJobNameEditing
+{
+    self.jobNameTextField.text = self.delegateManager.jobName;
+    [self.jobNameTextField resignFirstResponder];
+    [self stopEditing];
+}
+
+-(void)handleTap:(UITapGestureRecognizer *)sender{
+
+    [self cancelAllEditing];
+}
+
+- (void)setEditing:(BOOL)editing
+{
+    static UITapGestureRecognizer *tableViewTaps;
+    static UITapGestureRecognizer *headerInactivityViewTaps;
+    _editing = editing;
+    
+    if( _editing ) {
+        tableViewTaps = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        headerInactivityViewTaps = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [self.tableView addGestureRecognizer:tableViewTaps];
+        [self.headerInactivityView addGestureRecognizer:headerInactivityViewTaps];
+        self.headerInactivityView.alpha = 0.1F;
+        self.headerInactivityView.userInteractionEnabled = YES;
+        
+        self.numberOfCopiesStepper.userInteractionEnabled = NO;
+        self.blackAndWhiteModeSwitch.userInteractionEnabled = NO;
+        self.pageSelectionMark.userInteractionEnabled = NO;
+    } else {
+        [self.tableView removeGestureRecognizer:tableViewTaps];
+        [self.headerInactivityView removeGestureRecognizer:headerInactivityViewTaps];
+        self.headerInactivityView.alpha = 0.0F;
+        self.headerInactivityView.userInteractionEnabled = NO;
+        
+        self.numberOfCopiesStepper.userInteractionEnabled = YES;
+        self.blackAndWhiteModeSwitch.userInteractionEnabled = YES;
+        self.pageSelectionMark.userInteractionEnabled = YES;
+        
+        self.jobNameTextField.userInteractionEnabled = YES;
+        self.pageRangeDetailTextField.userInteractionEnabled = YES;
+    }
 }
 
 #pragma mark - Printer availability
@@ -959,22 +986,22 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 - (IBAction)closeButtonTapped:(id)sender
 {
-    if (!self.pageRangeView.hidden) {
-        [self.pageRangeView cancelEditing];
-        [self dismissEditView];
-    }
-    else if ([self.printDelegate respondsToSelector:@selector(didCancelPrintFlow:)]) {
-        if (HPPPPageSettingsModeSettingsOnly == self.mode) {
-            [self saveSettings];
-        }
-        [self.printDelegate didCancelPrintFlow:self];
-    } else if ([self.printLaterDelegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
-        if (HPPPPageSettingsModeSettingsOnly == self.mode) {
-            [self saveSettings];
-        }
-        [self.printLaterDelegate didCancelAddPrintLaterFlow:self];
+    if( self.editing ) {
+        [self cancelAllEditing];
     } else {
-        HPPPLogWarn(@"No HPPPPrintDelegate or HPPPAddPrintLaterDelegate has been set to respond to the end of the print flow.  Implement one of these delegates to dismiss the Page Settings view controller.");
+        if ([self.printDelegate respondsToSelector:@selector(didCancelPrintFlow:)]) {
+            if (HPPPPageSettingsModeSettingsOnly == self.mode) {
+                [self saveSettings];
+            }
+            [self.printDelegate didCancelPrintFlow:self];
+        } else if ([self.printLaterDelegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
+            if (HPPPPageSettingsModeSettingsOnly == self.mode) {
+                [self saveSettings];
+            }
+            [self.printLaterDelegate didCancelAddPrintLaterFlow:self];
+        } else {
+            HPPPLogWarn(@"No HPPPPrintDelegate or HPPPAddPrintLaterDelegate has been set to respond to the end of the print flow.  Implement one of these delegates to dismiss the Page Settings view controller.");
+        }
     }
 }
 
@@ -1212,18 +1239,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
             [self oneTouchPrint:tableView];
         }
     } else if (cell == self.pageRangeCell){
-        [self setEditFrames];
-        self.pageRangeView.frame = self.editViewFrame;
-        
-        [UIView animateWithDuration:HPPP_ANIMATION_DURATION animations:^{
-            [self displaySmokeyView:YES];
-            [self setNavigationBarEditing:YES];
-            self.pageRangeView.hidden = NO;
-        } completion:^(BOOL finished) {
-            [self.pageRangeView beginEditing];
-        }];
-    
-        [self.pageRangeView prepareForDisplay:self.pageRange.range];
+        [self.pageRangeDetailTextField becomeFirstResponder];
+    }  else if (cell == self.jobNameCell) {
+        [self.jobNameTextField becomeFirstResponder];
     }
 }
 
