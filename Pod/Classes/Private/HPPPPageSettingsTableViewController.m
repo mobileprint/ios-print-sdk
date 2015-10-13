@@ -246,6 +246,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.jobNameTextField.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
     self.jobNameTextField.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     self.jobNameTextField.returnKeyType = UIReturnKeyDone;
+    self.jobNameTextField.enablesReturnKeyAutomatically = YES;
     self.jobNameTextField.delegate = self;
     
     self.numberOfCopiesCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
@@ -905,7 +906,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (void)cancelAllEditing
 {
     [self cancelJobNameEditing];
-    [((HPPPPageRangeKeyboardView*)self.pageRangeDetailTextField.inputView) cancelEditing];
+    [((HPPPPageRangeKeyboardView *)self.pageRangeDetailTextField.inputView) cancelEditing];
     self.pageRangeDetailTextField.text = self.delegateManager.pageRangeText;
     [self stopEditing];
 }
