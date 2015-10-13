@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "HPPPLayout.h"
+#import "HPPPPaper.h"
 
 /*!
  * @abstract Renders the print image(s) onto the page
@@ -20,19 +21,8 @@
 @interface HPPPPrintPageRenderer : UIPrintPageRenderer
 
 /*!
- * @abstract An array of images to print
- * @discussion There should be one image in the array for each job being printed. These images are already customized for the paper size (if applicable)
- */
-@property (nonatomic, strong) NSArray *images;
-
-/*!
- * @abstract The number of copies to print
- */
-@property (nonatomic, assign) NSInteger numberOfCopies;
-
-/*!
  * @abstract Initializes the renderer with an array of images to print
  */
-- (id)initWithImages:(NSArray *)images andLayout:(HPPPLayout *)layout;
+- (id)initWithImages:(NSArray *)images layout:(HPPPLayout *)layout paper:(HPPPPaper *)paper copies:(NSInteger)copies;
 
 @end

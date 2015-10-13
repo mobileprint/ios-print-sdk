@@ -40,6 +40,8 @@ NSInteger const kHPPPSelectImagePDFSection = 5;
     self.dpiList = @[ @"72dpi", @"300dpi" ];
     self.orientationList = @[ @"portrait", @"landscape" ];
     self.sampleImages = @[
+                          @"The Kiss",
+                          @"Bird",
                           @"3up",
                           @"4up",
                           @"Balloons",

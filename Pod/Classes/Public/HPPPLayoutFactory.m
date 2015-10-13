@@ -22,6 +22,8 @@ NSString * const kHPPPLayoutTypeKey = @"kHPPPLayoutTypeKey";
 NSString * const kHPPPLayoutOrientationKey = @"kHPPPLayoutOrientationKey";
 NSString * const kHPPPLayoutPositionKey = @"kHPPPLayoutPositionKey";
 NSString * const kHPPPLayoutAllowRotationKey = @"kHPPPLayoutAllowRotationKey";
+NSString * const kHPPPLayoutBorderInchesKey = @"kHPPPLayoutBorderInchesKey";
+NSString * const kHPPPLayoutAssetPositionKey = @"kHPPPLayoutAssetPositionKey";
 
 static NSMutableArray *factoryDelegates = nil;
 
@@ -90,7 +92,16 @@ static NSMutableArray *factoryDelegates = nil;
     HPPPLayout *layout = nil;
     
     if ([[HPPPLayoutFit layoutType] isEqualToString:layoutType]) {
-        HPPPLayoutFit *layoutFit = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:allowRotation];
+    
+        CGRect assetPosition = [HPPPLayout completeFillRectangle];
+        if (layoutOptions) {
+            NSDictionary *assetPositionDictionary = [layoutOptions objectForKey:kHPPPLayoutAssetPositionKey];
+            if (assetPositionDictionary) {
+                CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)assetPositionDictionary, &assetPosition);
+            }
+        }
+        
+        HPPPLayoutFit *layoutFit = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
         
         if( nil != layoutOptions ) {
             if( [layoutOptions objectForKey:kHPPPLayoutHorizontalPositionKey] ) {
@@ -99,6 +110,10 @@ static NSMutableArray *factoryDelegates = nil;
             
             if( [layoutOptions objectForKey:kHPPPLayoutVerticalPositionKey] ) {
                 layoutFit.verticalPosition = [[layoutOptions objectForKey:kHPPPLayoutVerticalPositionKey] intValue];
+            }
+            
+            if( [layoutOptions objectForKey:kHPPPLayoutBorderInchesKey] ) {
+                layoutFit.borderInches = [[layoutOptions objectForKey:kHPPPLayoutBorderInchesKey] floatValue];
             }
         }
         
@@ -140,7 +155,8 @@ static NSMutableArray *factoryDelegates = nil;
     [encoder encodeObject:[NSNumber numberWithInt:layout.orientation] forKey:kHPPPLayoutOrientationKey];
     [encoder encodeBool:layout.allowContentRotation forKey:kHPPPLayoutAllowRotationKey];
     [encoder encodeCGRect:layout.assetPosition forKey:kHPPPLayoutPositionKey];
-    
+    [encoder encodeFloat:layout.borderInches forKey:kHPPPLayoutBorderInchesKey];
+
     if( [HPPPLayoutFit layoutType] == type ) {
         HPPPLayoutFit *layoutFit = (HPPPLayoutFit*)layout;
         [encoder encodeObject:[NSNumber numberWithInt:layoutFit.horizontalPosition] forKey:kHPPPLayoutHorizontalPositionKey];
@@ -186,8 +202,10 @@ static NSMutableArray *factoryDelegates = nil;
             HPPPLayoutOrientation orientation = [decoder containsValueForKey:kHPPPLayoutOrientationKey] ? [[decoder decodeObjectForKey:kHPPPLayoutOrientationKey] intValue] : HPPPLayoutOrientationBestFit;
             CGRect positionRect = [decoder containsValueForKey:kHPPPLayoutPositionKey] ? [decoder decodeCGRectForKey:kHPPPLayoutPositionKey] : [HPPPLayout completeFillRectangle];
             BOOL allowRotation = [decoder containsValueForKey:kHPPPLayoutPositionKey] ? [decoder decodeBoolForKey:kHPPPLayoutAllowRotationKey] : YES;
+            float borderInches = [decoder containsValueForKey:kHPPPLayoutTypeKey] ? [decoder decodeFloatForKey:kHPPPLayoutBorderInchesKey] : 0.0;
             
             layout = [self layoutWithType:layoutType orientation:orientation assetPosition:positionRect allowContentRotation:allowRotation];
+            layout.borderInches = borderInches;
             
             if( [HPPPLayoutFit layoutType] == layoutType ) {
                 HPPPLayoutFit *layoutFit = (HPPPLayoutFit *)layout;

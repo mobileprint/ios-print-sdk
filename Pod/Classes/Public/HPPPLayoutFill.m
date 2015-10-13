@@ -16,11 +16,28 @@
 
 @implementation HPPPLayoutFill
 
+- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position allowContentRotation:(BOOL)allowRotation;
+{
+    if (!CGRectEqualToRect(position, [HPPPLayout completeFillRectangle])) {
+        // Have to disable asset position support until cropping with scaled image can be figured out -- jbt 6/11/15
+        HPPPLogError(@"The HPPPLayoutFill layout type only supports the complete fill asset position (0, 0, 100, 100). The asset poisitoin specified will be ignored (%.1f, %.1f, %.1f, %.1f).", position.origin.x, position.origin.y, position.size.width, position.size.height);
+    }
+
+    return [super initWithOrientation:orientation assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:allowRotation];
+}
+
+- (void)setBorderInches:(float)borderInches
+{
+    if (borderInches != 0) {
+        // Have to disable border support until cropping with scaled image can be figured out -- jbt 10/13/15
+        HPPPLogError(@"The HPPPLayoutFill layout type does not support non-zero border. The border specified will be ignored (%.1f).", borderInches);
+    }
+
+    [super setBorderInches:0];
+}
+
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
 {
-    // Have to disable asset position support until cropping with scaled image can be figured out -- jbt 6/11/15
-    // CGRect containerRect = [self assetPositionForRect:rect];
-    [self checkAssetPosition];
     CGRect containerRect = rect;
     
     CGRect contentRect = CGRectMake(0, 0, image.size.width, image.size.height);
@@ -36,9 +53,6 @@
 
 - (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView
 {
-    // Have to disable asset position support until cropping with scaled image can be figured out -- jbt 6/11/15
-    // CGRect containerRect = [self assetPositionForRect:containerView.bounds];
-    [self checkAssetPosition];
     CGRect containerRect = containerView.bounds;
     
     CGRect contentRect = contentView.bounds;
@@ -96,14 +110,6 @@
     maskLayer.path = path;
     CGPathRelease(path);
     contentView.layer.mask = maskLayer;
-}
-
-// Have to disable asset position support until cropping with scaled image can be figured out -- jbt 6/11/15
-- (void)checkAssetPosition
-{
-    if (!CGRectEqualToRect(self.assetPosition, [HPPPLayout completeFillRectangle])) {
-        HPPPLogWarn(@"The HPPPLayoutFill layout type only supports the complete fill asset position (0, 0, 100, 100). The asset poisitoin specified will be ignored (%.1f, %.1f, %.1f, %.1f).", self.assetPosition.origin.x, self.assetPosition.origin.y, self.assetPosition.size.width, self.assetPosition.size.height);
-    }
 }
 
 @end

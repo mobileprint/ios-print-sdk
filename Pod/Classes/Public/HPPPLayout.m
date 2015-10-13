@@ -24,6 +24,7 @@
         _orientation = orientation;
         _assetPosition = CGRectStandardize(position);
         _allowContentRotation = allowRotation;
+        _borderInches = 0.0;
     }
     return self;
 }
@@ -89,6 +90,7 @@
 
 + (void)preparePaperView:(HPPPLayoutPaperView *)paperView withPaper:(HPPPPaper *)paper
 {
+    CGFloat referenceWidth = paper.width;
     CGFloat paperAspectRatio = paper.width / paper.height;
     HPPPLayoutOrientation orientation = [HPPPLayout paperOrientationForImage:paperView.image andLayout:paperView.layout];
     CGFloat height = 100.0f;
@@ -96,7 +98,9 @@
     if (HPPPLayoutOrientationLandscape == orientation) {
         width = 100.f;
         height = width * paperAspectRatio;
+        referenceWidth = paper.height;
     }
+    paperView.referenceWidthInches = referenceWidth;
     paperView.frame = CGRectMake(0, 0, width, height);
 }
 

@@ -12,6 +12,7 @@
 
 #import "HPPP.h"
 #import "HPPPPrintItemPDF.h"
+#import "HPPPLayoutFactory.h"
 
 @interface HPPPPrintItemPDF()
 
@@ -38,6 +39,7 @@
             self.pdfData = data;
             self.pdfDocument = pdf;
             self.pageImages = [NSMutableDictionary dictionary];
+            self.layout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType]];
         }
         item = self;
     } else {
@@ -50,6 +52,11 @@
 - (void)dealloc
 {
     CGPDFDocumentRelease(self.pdfDocument);
+}
+
+- (void)setLayout:(HPPPLayout *)layout
+{
+    HPPPLogError(@"Cannot set layout of PDF print item (always uses to centered fit layout)");
 }
 
 #pragma mark - Asset attributes

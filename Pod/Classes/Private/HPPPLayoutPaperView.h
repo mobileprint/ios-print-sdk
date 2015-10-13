@@ -12,10 +12,12 @@
 
 #import <UIKit/UIKit.h>
 #import "HPPPLayout.h"
+#import "HPPPPaper.h"
 
 @interface HPPPLayoutPaperView : UIView
 
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) HPPPLayout *layout;
+@property (assign, nonatomic) CGFloat referenceWidthInches;
 
 @end

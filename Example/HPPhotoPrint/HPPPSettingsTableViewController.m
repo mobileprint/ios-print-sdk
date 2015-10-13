@@ -52,19 +52,34 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITableViewCell *directPrintCell;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *paperSegmentControl;
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *verticalSegmentControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *horizontalSegmentControl;
+@property (weak, nonatomic) IBOutlet UITextField *borderWidthTextField;
+@property (weak, nonatomic) IBOutlet UISwitch *allowRotationSwitch;
+@property (weak, nonatomic) IBOutlet UITableViewCell *veritcalRow;
+@property (weak, nonatomic) IBOutlet UITableViewCell *horizontalRow;
+@property (weak, nonatomic) IBOutlet UITableViewCell *assetPositionRow;
+@property (weak, nonatomic) IBOutlet UITableViewCell *borderWidthRow;
 
 @end
 
 @implementation HPPPSettingsTableViewController
 
-int const kLayoutDefaultIndex = 0;
-int const kLayoutFitIndex = 1;
-int const kLayoutFillIndex = 2;
-int const kLayoutStretchIndex = 3;
+int const kLayoutFitIndex = 0;
+int const kLayoutFillIndex = 1;
+int const kLayoutStretchIndex = 2;
 
 int const kOrientationBest = 0;
 int const kOrientationPortrait = 1;
 int const kOrientationLandscape = 2;
+
+int const kVerticalTopIndex = 0;
+int const kVerticalMiddleIndex = 1;
+int const kVerticalBottomIndex = 2;
+
+int const kHorizontalLeftIndex = 0;
+int const kHorizontalCenterIndex = 1;
+int const kHorizontalRightIndex = 2;
 
 int const kMetricsSegmentHPIndex = 0;
 int const kMetricsSegmentPartnerIndex = 1;
@@ -506,6 +521,12 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    return cell.hidden ? 0.0 : tableView.rowHeight;
+}
+
 #pragma mark - Metrics
 
 - (IBAction)metricsSegmentChanged:(id)sender {
@@ -716,52 +737,70 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 
 #pragma mark - Layout
 
-- (BOOL)letterLayoutUsedBySize:(NSUInteger)paperSize
-{
-    return HPPPPaperSizeLetter == paperSize || HPPPPaperSizeA4 == paperSize;
+- (IBAction)layoutValueChanged:(id)sender {
+    
+    BOOL hideAlignmentRows = kLayoutFitIndex != self.layoutSegmentControl.selectedSegmentIndex;
+    self.veritcalRow.hidden = hideAlignmentRows;
+    self.horizontalRow.hidden = hideAlignmentRows;
+    
+    BOOL hidePositionAdjustmentRows = kLayoutFillIndex == self.layoutSegmentControl.selectedSegmentIndex;
+    self.assetPositionRow.hidden = hidePositionAdjustmentRows;
+    self.borderWidthRow.hidden = hidePositionAdjustmentRows;
+    
+    [self.tableView reloadData];
 }
 
 - (HPPPLayout *)layoutForPaper:(HPPPPaper *)paper
 {
-    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType]];
-    if ([self aspectRatio3up]) {
-        layout = [self centeredlayoutForPaper:paper andImageSize:CGSizeMake(k3UpPaperSizeWidth, k3UpPaperSizeHeight)];
-    } else if ([self aspectRatio4up]) {
-        layout = [self centeredlayoutForPaper:paper andImageSize:CGSizeMake(k4UpPaperSizeWidth, k4UpPaperSizeHeight)];
-    } else if (DefaultPrintRenderer != self.printItem.renderer) {
-        BOOL defaultLetter = (kLayoutDefaultIndex == self.layoutSegmentControl.selectedSegmentIndex && HPPPPaperSizeLetter == paper.paperSize);
-        HPPPLayoutOrientation orientation = HPPPLayoutOrientationBestFit;
-        if (defaultLetter || kOrientationPortrait == self.orientationSegmentControl.selectedSegmentIndex) {
-            orientation = HPPPLayoutOrientationPortrait;
-        } else if (kOrientationLandscape == self.orientationSegmentControl.selectedSegmentIndex) {
-            orientation = HPPPLayoutOrientationLandscape;
+    NSString *layoutType = [HPPPLayoutFit layoutType];
+    if (kLayoutFillIndex == self.layoutSegmentControl.selectedSegmentIndex) {
+        layoutType = [HPPPLayoutFill layoutType];
+    } else if (kLayoutStretchIndex == self.layoutSegmentControl.selectedSegmentIndex) {
+        layoutType = [HPPPLayoutStretch layoutType];
+    }
+
+    HPPPLayoutOrientation orientation = HPPPLayoutOrientationBestFit;
+    if (kOrientationLandscape == self.orientationSegmentControl.selectedSegmentIndex) {
+        orientation = HPPPLayoutOrientationLandscape;
+    } else if (kOrientationPortrait == self.orientationSegmentControl.selectedSegmentIndex) {
+        orientation = HPPPLayoutOrientationPortrait;
+    }
+
+    CGRect assetPosition = [HPPPLayout completeFillRectangle];
+    CGFloat x = [((UITextField *)self.positionTextField[0]).text floatValue];
+    CGFloat y = [((UITextField *)self.positionTextField[1]).text floatValue];
+    CGFloat width = [((UITextField *)self.positionTextField[2]).text floatValue];
+    CGFloat height = [((UITextField *)self.positionTextField[3]).text floatValue];
+    if (width > 0 && height > 0) {
+        assetPosition = CGRectMake(x, y, width, height);
+    }
+
+    CGFloat borderWidth = [self.borderWidthTextField.text floatValue];
+    
+    BOOL allowRotation = self.allowRotationSwitch.on;
+    
+    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:layoutType orientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
+    layout.borderInches = borderWidth;
+    
+    if ([layoutType isEqualToString:[HPPPLayoutFit layoutType]]) {
+
+        HPPPLayoutHorizontalPosition horizontalPosition = HPPPLayoutHorizontalPositionMiddle;
+        if (kHorizontalLeftIndex == self.horizontalSegmentControl.selectedSegmentIndex) {
+            horizontalPosition = HPPPLayoutHorizontalPositionLeft;
+        } else if (kHorizontalRightIndex == self.horizontalSegmentControl.selectedSegmentIndex) {
+            horizontalPosition = HPPPLayoutHorizontalPositionRight;
         }
-        
-        CGRect position = [HPPPLayout completeFillRectangle];
-        if (defaultLetter) {
-            position = [self defaultPositionForSize:paper.paperSize];
-        } else {
-            CGFloat x = [((UITextField *)self.positionTextField[0]).text floatValue];
-            CGFloat y = [((UITextField *)self.positionTextField[1]).text floatValue];
-            CGFloat width = [((UITextField *)self.positionTextField[2]).text floatValue];
-            CGFloat height = [((UITextField *)self.positionTextField[3]).text floatValue];
-            if (width > 0 && height > 0) {
-                position = CGRectMake(x, y, width, height);
-            }
+
+        HPPPLayoutVerticalPosition verticalPosition = HPPPLayoutVerticalPositionMiddle;
+        if (kVerticalTopIndex == self.verticalSegmentControl.selectedSegmentIndex) {
+            verticalPosition = HPPPLayoutVerticalPositionTop;
+        } else if (kVerticalBottomIndex == self.verticalSegmentControl.selectedSegmentIndex) {
+            verticalPosition = HPPPLayoutVerticalPositionBottom;
         }
-        
-        BOOL allowRotation = !defaultLetter;
-        
-        NSString * type = [HPPPLayoutFit layoutType];
-        if (defaultLetter || kLayoutFitIndex == self.layoutSegmentControl.selectedSegmentIndex || DefaultPrintRenderer == self.printItem.renderer) {
-            type = [HPPPLayoutFit layoutType];
-        } else if (kLayoutFillIndex == self.layoutSegmentControl.selectedSegmentIndex) {
-            type = [HPPPLayoutFill layoutType];
-        } else if (kLayoutStretchIndex == self.layoutSegmentControl.selectedSegmentIndex) {
-            type = [HPPPLayoutStretch layoutType];
-        }
-        
-        layout = [HPPPLayoutFactory layoutWithType:type orientation:orientation assetPosition:position allowContentRotation:allowRotation];
+
+        HPPPLayoutFit *fitLayout = (HPPPLayoutFit *)layout;
+        fitLayout.horizontalPosition = horizontalPosition;
+        fitLayout.verticalPosition = verticalPosition;
     }
     
     return layout;

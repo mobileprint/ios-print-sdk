@@ -12,11 +12,12 @@
 
 #import "HPPPLayoutPaperView.h"
 
-
 @implementation HPPPLayoutPaperView
 
 - (void)drawRect:(CGRect)rect {
-    [self.layout drawContentImage:self.image inRect:rect];
+    CGFloat adjustedBorder = rect.size.width * self.layout.borderInches / self.referenceWidthInches;
+    CGRect insetRect = CGRectInset(rect, adjustedBorder, adjustedBorder);
+    [self.layout drawContentImage:self.image inRect:insetRect];
 }
 
 @end

@@ -13,6 +13,11 @@
 #import "HPPPLayout.h"
 
 /*!
+ * @abstract Layout intended to best fill the paper without stretching or cropping.
+ */
+@interface HPPPLayoutFit : HPPPLayout
+
+/*!
  * @abstract A key for specifying the desired horizontal position of the layout
  * @discussion This key is to be used when calling the layoutWithType:orientation:layoutOptions:allowRotation
  *  function on the HPPPLayoutFactoryClass.  Use this key as a key on the layoutOptions dictionary to specify
@@ -27,11 +32,6 @@ extern NSString * const kHPPPLayoutHorizontalPositionKey;
  *  which HPPPLayoutVerticalPosition to use with the layout.
  */
 extern NSString * const kHPPPLayoutVerticalPositionKey;
-
-/*!
- * @abstract Layout intended to best fill the paper without stretching or cropping.
- */
-@interface HPPPLayoutFit : HPPPLayout
 
 /*!
  * @abstract List of supported vertical layout strategies
