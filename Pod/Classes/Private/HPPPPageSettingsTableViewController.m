@@ -250,7 +250,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.jobNameTextField.font = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFont];
     self.jobNameTextField.textColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsSecondaryFontColor];
     self.jobNameTextField.returnKeyType = UIReturnKeyDone;
-    self.jobNameTextField.enablesReturnKeyAutomatically = YES;
     self.jobNameTextField.delegate = self;
     
     self.numberOfCopiesCell.backgroundColor = [self.hppp.appearance.settings objectForKey:kHPPPSelectionOptionsBackgroundColor];
@@ -855,7 +854,13 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if( self.jobNameTextField == textField ) {
-        self.delegateManager.jobName = textField.text;
+        NSString *text = [textField.text stringByTrimmingCharactersInSet:
+                          [NSCharacterSet whitespaceCharacterSet]];
+        if( 0 < [text length] ) {
+            self.delegateManager.jobName = text;
+        } else {
+            textField.text = self.delegateManager.jobName;
+        }
     } else if( self.pageRangeDetailTextField == textField ) {
         [((HPPPPageRangeKeyboardView *)self.pageRangeDetailTextField.inputView) commitEditing];
     }
