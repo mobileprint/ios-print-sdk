@@ -165,7 +165,11 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     [self configureJobSummaryCell];
     
-    self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:YES];
+    if( nil != self.printItem ) {
+        self.delegateManager.pageRange = [[HPPPPageRange alloc] initWithString:kPageRangeAllPages allPagesIndicator:kPageRangeAllPages maxPageNum:self.printItem.numberOfPages sortAscending:YES];
+    } else {
+        self.delegateManager.pageRange = nil;
+    }
     self.delegateManager.pageRange.range = kPageRangeAllPages;
     self.delegateManager.numCopies = DEFAULT_NUMBER_OF_COPIES;
 
