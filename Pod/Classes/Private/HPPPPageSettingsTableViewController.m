@@ -1352,6 +1352,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
             [self startPrinting];
         }
     } else {
+        self.printItem.layout.paper = self.printManager.currentPrintSettings.paper;
         [self displaySystemPrintFromView:self.printCell];
     }
 }

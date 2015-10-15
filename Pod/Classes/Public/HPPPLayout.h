@@ -149,4 +149,16 @@ typedef enum {
  */
 @property (assign, nonatomic, readonly) BOOL allowContentRotation;
 
+/*!
+ * @abstract Indicates the print paper that the layout will be applied to
+ * @description This is used to ensure things like border width are scaled properly in printing and previews
+ */
+@property (weak, nonatomic) HPPPPaper *paper;
+
+/*!
+ * @abstract Width of the border in inches
+ * @description Border is applied equally on all sides of the print rectangle before any other layout logic is performed
+ */
+@property (assign, nonatomic) float borderInches;
+
 @end

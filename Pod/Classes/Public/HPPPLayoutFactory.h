@@ -24,6 +24,18 @@
 @interface HPPPLayoutFactory : NSObject
 
 /*!
+ * @abstract Key used for the border inches
+ * @description Key is used for options dictionary as well as en/decoding layout to file system
+ */
+extern NSString * const kHPPPLayoutBorderInchesKey;
+
+/*!
+ * @abstract Key used for the asset position
+ * @description Key is used for options dictionary as well as en/decoding layout to file system
+ */
+extern NSString * const kHPPPLayoutAssetPositionKey;
+
+/*!
  * @abstract Creates a layout of the given type
  * @param layoutType The type of layout to create. See HPPPLayoutType for standard types.
  * @return The layout created or nil if not layout could be created

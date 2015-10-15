@@ -13,10 +13,10 @@
 #import "HPPPLayoutFit.h"
 #import "UIImage+HPPPResize.h"
 
+@implementation HPPPLayoutFit
+
 NSString * const kHPPPLayoutHorizontalPositionKey = @"kHPPPLayoutHorizontalPositionKey";
 NSString * const kHPPPLayoutVerticalPositionKey = @"kHPPPLayoutVerticalPositionKey";
-
-@implementation HPPPLayoutFit
 
 - (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position allowContentRotation:(BOOL)allowRotation;
 {
@@ -68,15 +68,15 @@ NSString * const kHPPPLayoutVerticalPositionKey = @"kHPPPLayoutVerticalPositionK
     CGFloat y = containerRect.origin.y + (containerRect.size.height - height) / 2.0;
     
     if( HPPPLayoutVerticalPositionTop == self.verticalPosition ) {
-        y = 0;
+        y = containerRect.origin.y;
     } else if( HPPPLayoutVerticalPositionBottom == self.verticalPosition ) {
-        y = containerRect.size.height - height;
+        y = containerRect.origin.y + containerRect.size.height - height;
     }
     
     if( HPPPLayoutHorizontalPositionLeft == self.horizontalPosition ) {
-        x = 0;
+        x = containerRect.origin.x;
     } else if( HPPPLayoutHorizontalPositionRight == self.horizontalPosition ) {
-        x = containerRect.size.width - width;
+        x = containerRect.origin.x + containerRect.size.width - width;
     }
     
     return CGRectMake(x, y, width, height);

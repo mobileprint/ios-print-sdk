@@ -127,12 +127,16 @@ static NSNumber *lastPinchScale = nil;
 - (void)setPaper:(HPPPPaper *)paper
 {
     _paper = paper;
+    if (self.layout) {
+        self.layout.paper = paper;
+    }
     [self layoutPagesIfNeeded];
 }
 
 - (void)setLayout:(HPPPLayout *)layout
 {
     _layout = layout;
+    _layout.paper = self.paper;
     [self layoutPagesIfNeeded];
 }
 
@@ -155,6 +159,7 @@ static NSNumber *lastPinchScale = nil;
 {
     _paper = paper;
     _layout = layout;
+    _layout.paper = _paper;
     self.pageImages = pages;
 }
 

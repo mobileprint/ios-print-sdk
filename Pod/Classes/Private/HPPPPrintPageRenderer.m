@@ -17,19 +17,24 @@
 
 @interface HPPPPrintPageRenderer()
 
-@property (strong, nonatomic) HPPPLayout *layout;
+@property (readonly, strong, nonatomic) HPPPLayout *layout;
+@property (readonly, strong, nonatomic) HPPPPaper *paper;
+@property (readonly, strong, nonatomic) NSArray *images;
+@property (readonly, assign, nonatomic) NSInteger numberOfCopies;
 
 @end
 
 @implementation HPPPPrintPageRenderer
 
-- (id)initWithImages:(NSArray *)images andLayout:(HPPPLayout *)layout;
+- (id)initWithImages:(NSArray *)images layout:(HPPPLayout *)layout paper:(HPPPPaper *)paper copies:(NSInteger)copies
 {
     self = [super init];
     
     if (self) {
-        self.images = images;
-        self.layout = layout;
+        _images = images;
+        _layout = layout;
+        _paper = paper;
+        _numberOfCopies = copies;
     }
     
     return self;
@@ -45,7 +50,13 @@
 - (void)drawContentForPageAtIndex:(NSInteger)index inRect:(CGRect)contentRect
 {
     UIImage *image = self.images[(int) (index / self.numberOfCopies)];
-    [self.layout drawContentImage:image inRect:contentRect];
+    
+    CGSize contentPaperSize = CGSizeMake(self.paper.width * kHPPPPointsPerInch, self.paper.height * kHPPPPointsPerInch);
+    CGSize printerPaperSize = [self.paper printerPaperSize];
+    CGSize renderContentSize = CGSizeMake(contentRect.size.width * contentPaperSize.width / printerPaperSize.width, contentRect.size.height * contentPaperSize.height / printerPaperSize.height);
+    CGRect insetContentRect = CGRectInset(CGRectMake(0, 0, renderContentSize.width, renderContentSize.height), self.layout.borderInches * kHPPPPointsPerInch, self.layout.borderInches * kHPPPPointsPerInch);
+    
+    [self.layout drawContentImage:image inRect:insetContentRect];
 }
 
 @end
