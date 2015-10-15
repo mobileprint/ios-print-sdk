@@ -174,7 +174,7 @@ NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
     if ([HPPP sharedInstance].uniqueDeviceIdPerApp) {
         [deviceIdSeed appendString:[[NSBundle mainBundle] bundleIdentifier]];
     }
-    return [self obfuscateValue:deviceIdSeed];
+    return [HPPPAnalyticsManager obfuscateValue:deviceIdSeed];
 }
 
 - (NSArray *)partnerExcludedMetrics
@@ -195,7 +195,7 @@ NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
 }
 
 // The following is adapted from http://stackoverflow.com/questions/2018550/how-do-i-create-an-md5-hash-of-a-string-in-cocoa
-- (NSString *)obfuscateValue:(NSString *)value
++ (NSString *)obfuscateValue:(NSString *)value
 {
     const char *cstr = [value UTF8String];
     unsigned char result[16];
@@ -221,7 +221,7 @@ NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
     for (NSString *key in [self obfuscatedMetrics]) {
         NSString *value = [metrics objectForKey:key];
         if (value) {
-            NSString *obfsucatedValue = [self obfuscateValue:value];
+            NSString *obfsucatedValue = [HPPPAnalyticsManager obfuscateValue:value];
             [metrics setObject:obfsucatedValue forKey:key];
         }
     }
