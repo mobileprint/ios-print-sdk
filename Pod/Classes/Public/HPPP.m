@@ -67,6 +67,8 @@ NSString * const kHPPPPrinterPaperAreaHeightPoints = @"printer_paper_area_height
 NSString * const kHPPPPrinterPaperAreaXPoints = @"printer_paper_area_x_points";
 NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
 
+BOOL const kHPPPDefaultUniqueDeviceIdPerApp = YES;
+
 @implementation HPPP
 
 #pragma mark - Public methods
@@ -79,6 +81,7 @@ NSString * const kHPPPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
         sharedInstance = [[HPPP alloc] init];
         sharedInstance.interfaceOptions = [[HPPPInterfaceOptions alloc] init];
         sharedInstance.printPaperDelegate = nil;
+        sharedInstance.uniqueDeviceIdPerApp = kHPPPDefaultUniqueDeviceIdPerApp;
     });
     
     return sharedInstance;

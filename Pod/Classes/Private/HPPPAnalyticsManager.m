@@ -52,12 +52,6 @@ NSString * const kHPPPMetricsLanguageCode = @"language_code";
 NSString * const kHPPPMetricsTimezoneDescription = @"timezone_description";
 NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
 
-@interface HPPPAnalyticsManager ()
-
-@property (nonatomic, strong, readonly) NSString *userUniqueIdentifier;
-
-@end
-
 @implementation HPPPAnalyticsManager
 
 #pragma mark - Initialization
@@ -68,15 +62,9 @@ NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedManager = [[self alloc] init];
-        [sharedManager setupSettings];
     });
     
     return sharedManager;
-}
-
-- (void)setupSettings
-{
-    _userUniqueIdentifier = [[UIDevice currentDevice].identifierForVendor UUIDString];
 }
 
 - (NSURL *)metricsServerURL
@@ -104,7 +92,7 @@ NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
     NSString *printPodVersion = [self podVersion];
     NSDictionary *metrics = @{
                               kHPPPMetricsDeviceBrand : [self nonNullString:kHPPPManufacturer],
-                              kHPPPMetricsDeviceID : [self nonNullString:self.userUniqueIdentifier],
+                              kHPPPMetricsDeviceID : [self nonNullString:[self userUniqueIdentifier]],
                               kHPPPMetricsDeviceType : [self nonNullString:[self platform]],
                               kHPPPMetricsManufacturer : [self nonNullString:kHPPPManufacturer],
                               kHPPPMetricsOSType : [self nonNullString:kHPPPOSType],
@@ -177,6 +165,16 @@ NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
     version = [NSString stringWithFormat:@"%d.%d.%d", COCOAPODS_VERSION_MAJOR_HPPhotoPrint, COCOAPODS_VERSION_MINOR_HPPhotoPrint, COCOAPODS_VERSION_PATCH_HPPhotoPrint];
 #endif
     return version;
+}
+
+
+- (NSString *)userUniqueIdentifier
+{
+    NSMutableString *deviceIdSeed = [NSMutableString stringWithString:[[UIDevice currentDevice].identifierForVendor UUIDString]];
+    if ([HPPP sharedInstance].uniqueDeviceIdPerApp) {
+        [deviceIdSeed appendString:[[NSBundle mainBundle] bundleIdentifier]];
+    }
+    return [self obfuscateValue:deviceIdSeed];
 }
 
 - (NSArray *)partnerExcludedMetrics

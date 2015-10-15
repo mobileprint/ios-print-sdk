@@ -383,6 +383,12 @@ extern NSString * const kHPPPPrinterPaperAreaYPoints;
 @property (weak, nonatomic) id<HPPPPrintPaperDelegate>printPaperDelegate;
 
 /*!
+ * @abstract Specifies that each app is assigned a unique device ID regardless of vendor
+ * @discussion By default, Apple assigns a common device ID that is shared among all apps owned by a given vender. This setting causes a unique ID to be assigned to all apps regardless of vendor.
+ */
+@property (assign, nonatomic) BOOL uniqueDeviceIdPerApp;
+
+/*!
  * @abstract Prepares a view controller suitable for the device and OS
  * @description This method prepares a view controller for displaying the print flow. It takes into consideration the device type and OS and prepares either a split view controller (iPad with iOS 8 or above) or a standard view controller. Both types are wrapped in a navigation controller. The controller returned is suitable for using with the UIActivity method 'activityViewController'.
  * @param delegate An optional delegate object that implements the HPPPPrintDelegate protocol
