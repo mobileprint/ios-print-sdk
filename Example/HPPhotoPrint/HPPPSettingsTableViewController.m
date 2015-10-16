@@ -13,6 +13,7 @@
 #import <HPPPLayoutFactory.h>
 #import <HPPPPrintItemFactory.h>
 #import <HPPPPrintManager.h>
+#import <CommonCrypto/CommonDigest.h>
 
 @interface HPPPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, HPPPPrintDelegate, HPPPPrintDataSource, HPPPSelectPrintItemTableViewControllerDelegate, HPPPAddPrintLaterDelegate, HPPPPrintManagerDelegate, HPPPPrintPaperDelegate>
 
@@ -45,13 +46,10 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITableViewCell *extendedMetricsCell;
 @property (weak, nonatomic) IBOutlet UISwitch *printPreviewSwitch;
 @property (assign, nonatomic) SelectItemAction action;
-@property (weak, nonatomic) IBOutlet UITableViewCell *useDeviceIDCell;
 @property (weak, nonatomic) IBOutlet UISwitch *detectWiFiSwitch;
-@property (weak, nonatomic) IBOutlet UITextField *deviceIDTextField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *showButtonsSegment;
 @property (weak, nonatomic) IBOutlet UITableViewCell *directPrintCell;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *paperSegmentControl;
-@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *verticalSegmentControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *horizontalSegmentControl;
 @property (weak, nonatomic) IBOutlet UITextField *borderWidthTextField;
@@ -60,6 +58,12 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITableViewCell *horizontalRow;
 @property (weak, nonatomic) IBOutlet UITableViewCell *assetPositionRow;
 @property (weak, nonatomic) IBOutlet UITableViewCell *borderWidthRow;
+@property (weak, nonatomic) IBOutlet UILabel *SHALabel;
+@property (weak, nonatomic) IBOutlet UILabel *SHAModifiedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *unmodifiedDeviceIdLabel;
+@property (weak, nonatomic) IBOutlet UILabel *reportedDeviceIdLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *useUniqueIdPerAppSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *reportedIdTitleLabel;
 
 @end
 
@@ -101,6 +105,8 @@ NSString * const kMetricsAppTypeHP = @"HP";
 NSString * const kAddJobClientNamePrefix = @"From Client";
 NSString * const kAddJobShareNamePrefix = @"From Share";
 
+NSInteger const kLengthOfSHA = 7;
+
 #pragma mark - Initialization
 
 - (void)viewDidLoad {
@@ -130,7 +136,6 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     self.printBarButtonItem.accessibilityIdentifier = @"printBarButtonItem";
     self.printLaterBarButtonItem.accessibilityIdentifier = @"printLaterBarButtonItem";
     
-    [self useDeviceID];
     [self setBarButtonItems];
     [self.appearanceTestSettingsSwitch setOn:NO];
     
@@ -138,7 +143,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionLost object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintQueueNotification:) name:kHPPPPrintQueueNotification object:nil];
     
-    self.versionLabel.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    [self setDeviceInfo];
 }
 
 - (void)dealloc
@@ -257,7 +262,7 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 
 - (void)setBarButtonItems
 {
-    [[HPPPExperimentManager sharedInstance] updateVariationsWithDeviceID:self.deviceIDTextField.text];
+    [[HPPPExperimentManager sharedInstance] updateVariationsWithDeviceID:[self userUniqueIdentifier]];
     
     NSMutableArray *icons = [NSMutableArray arrayWithArray:@[ self.shareBarButtonItem]];
     
@@ -282,11 +287,6 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     self.navigationItem.rightBarButtonItems = icons;
 }
 
-- (void)useDeviceID
-{
-    self.deviceIDTextField.text = [[UIDevice currentDevice].identifierForVendor UUIDString];
-}
-
 - (IBAction)showButtonsSegmentChanged:(id)sender {
     [self setBarButtonItems];
 }
@@ -295,25 +295,9 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
     [self setBarButtonItems];
 }
 
-- (IBAction)deviceIDTextChanged:(id)sender {
-    [self setBarButtonItems];
-    [self setDeviceIDCellState];
-}
-
 - (void)connectionChanged:(NSNotification *)notification
 {
     [self setBarButtonItems];
-}
-
-- (void)setDeviceIDCellState
-{
-    if ([self.deviceIDTextField.text isEqualToString:[[UIDevice currentDevice].identifierForVendor UUIDString]]) {
-        self.useDeviceIDCell.alpha = 0.5;
-        self.useDeviceIDCell.userInteractionEnabled = NO;
-    } else {
-        self.useDeviceIDCell.alpha = 1.0;
-        self.useDeviceIDCell.userInteractionEnabled = YES;
-    }
 }
 
 #pragma mark - Print
@@ -495,7 +479,6 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self setDeviceIDCellState];
     if (!IS_OS_8_OR_LATER && (cell == self.showPrintQueueCell || cell == self.showGeoHelperCell || cell == self.directPrintCell)) {
         cell.alpha = 0.5;
         cell.userInteractionEnabled = NO;
@@ -513,11 +496,6 @@ NSString * const kAddJobShareNamePrefix = @"From Share";
         [self toggleMetricsSwitch:self.automaticMetricsSwitch];
     } else if (selectedCell == self.extendedMetricsCell) {
         [self toggleMetricsSwitch:self.extendedMetricsSwitch];
-    } else if (selectedCell == self.useDeviceIDCell) {
-        [self useDeviceID];
-        [self setBarButtonItems];
-        [self setDeviceIDCellState];
-        selectedCell.selected = NO;
     }
 }
 
@@ -1091,5 +1069,65 @@ BOOL const kLabelPaperTypePhoto = NO;
     return is4up;
 }
 
+#pragma mark - Information
+
+- (void)setDeviceInfo
+{
+    self.SHALabel.text = [self SHA];
+    self.SHAModifiedLabel.text = [self SHAModified] ? @"Yes" : @"No";
+    self.unmodifiedDeviceIdLabel.text = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    self.reportedDeviceIdLabel.text = [self userUniqueIdentifier];
+    self.useUniqueIdPerAppSwitch.on = [HPPP sharedInstance].uniqueDeviceIdPerApp;
+    NSString *scope = [HPPP sharedInstance].uniqueDeviceIdPerApp ? @"app" : @"vendor";
+    self.reportedIdTitleLabel.text = [NSString stringWithFormat:@"Reported ID (per %@)", scope];
+}
+
+- (NSString *)SHA
+{
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSString *SHA = version;
+    if ([self SHAModified]) {
+        SHA = [version substringToIndex:kLengthOfSHA - 1];
+    }
+    return SHA;
+}
+
+- (BOOL)SHAModified
+{
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    return [version containsString:@" *"];
+}
+
+- (IBAction)useUniqueIdPerAppChanged:(id)sender {
+    [HPPP sharedInstance].uniqueDeviceIdPerApp = self.useUniqueIdPerAppSwitch.on;
+    [self setDeviceInfo];
+    [self setBarButtonItems];
+}
+
+#pragma mark - Private HPPPAnalyticsManager
+
+- (NSString *)userUniqueIdentifier
+{
+    NSMutableString *deviceIdSeed = [NSMutableString stringWithString:[[UIDevice currentDevice].identifierForVendor UUIDString]];
+    if ([HPPP sharedInstance].uniqueDeviceIdPerApp) {
+        [deviceIdSeed appendString:[[NSBundle mainBundle] bundleIdentifier]];
+    }
+    return [self obfuscateValue:deviceIdSeed];
+}
+
+// The following is adapted from http://stackoverflow.com/questions/2018550/how-do-i-create-an-md5-hash-of-a-string-in-cocoa
+- (NSString *)obfuscateValue:(NSString *)value
+{
+    const char *cstr = [value UTF8String];
+    unsigned char result[16];
+    CC_MD5(cstr, (CC_LONG)strlen(cstr), result);
+    return [NSString stringWithFormat:
+            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
+}
 
 @end
