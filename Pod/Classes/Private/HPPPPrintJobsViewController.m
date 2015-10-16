@@ -37,6 +37,7 @@
 @property (strong, nonatomic) UIBarButtonItem *savedBarButton;
 @property (weak, nonatomic) IBOutlet HPPPPrintJobsActionView *printJobsActionView;
 @property (weak, nonatomic) IBOutlet UILabel *emptyPrintQueueLabel;
+@property (strong, nonatomic) NSArray *allPrintLaterJobs;
 
 @end
 
@@ -158,6 +159,15 @@ NSString * const kJobListScreenName = @"Job List Screen";
 
 #pragma mark - Utils
 
+- (NSArray *)allPrintLaterJobs
+{
+    if (nil == _allPrintLaterJobs) {
+        _allPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
+    }
+    
+    return _allPrintLaterJobs;
+}
+
 - (void)setSelectAllButtonStatus
 {
     if (self.mutableCheckMarkedPrintJobs.count > 0) {
@@ -264,7 +274,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     HPPPPrintJobsTableViewCell *jobCell = (HPPPPrintJobsTableViewCell *)cell;
-    HPPPPrintLaterJob *job = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs][indexPath.row];
+    HPPPPrintLaterJob *job = self.allPrintLaterJobs[indexPath.row];
     
     jobCell.delegate = self;
     
@@ -461,10 +471,9 @@ NSString * const kJobListScreenName = @"Job List Screen";
                                                                       preferredStyle:style];
     
     [alertController addAction:[UIAlertAction actionWithTitle:HPPPLocalizedString(@"Delete", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        NSArray *allPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
         
         for (NSNumber *index in checkMarkedPrintJobs) {
-            HPPPPrintLaterJob *printLaterJob = allPrintLaterJobs[index.integerValue];
+            HPPPPrintLaterJob *printLaterJob = self.allPrintLaterJobs[index.integerValue];
             [[HPPPPrintLaterQueue sharedInstance] deletePrintLaterJob:printLaterJob];
             [self.mutableCheckMarkedPrintJobs removeObject:index];
         }
@@ -492,10 +501,8 @@ NSString * const kJobListScreenName = @"Job List Screen";
 {
     NSMutableArray *jobs = [NSMutableArray arrayWithCapacity:self.mutableCheckMarkedPrintJobs.count];
     
-    NSArray *allPrintLaterJobs = [[HPPPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
-    
     for (NSNumber *index in self.mutableCheckMarkedPrintJobs) {
-        HPPPPrintLaterJob *printLaterJob = allPrintLaterJobs[index.integerValue];
+        HPPPPrintLaterJob *printLaterJob = self.allPrintLaterJobs[index.integerValue];
         [jobs addObject:printLaterJob];
     }
     
