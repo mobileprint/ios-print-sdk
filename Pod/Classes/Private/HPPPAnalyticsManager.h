@@ -19,7 +19,9 @@ extern NSString * const kHPPPOfframpKey;
 + (HPPPAnalyticsManager *)sharedManager;
 
 + (NSString *)wifiName;
-    
+
++ (NSString *)obfuscateValue:(NSString *)value;
+
 - (void)trackShareEventWithPrintItem:(HPPPPrintItem *)printItem andOptions:(NSDictionary *)options;
 
 @end

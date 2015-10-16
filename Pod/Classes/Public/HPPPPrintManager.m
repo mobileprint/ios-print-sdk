@@ -237,10 +237,12 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     
     id<HPPPPrintPaperDelegate> paperDelegate = [HPPP sharedInstance].printPaperDelegate;
     if (paperDelegate && [paperDelegate respondsToSelector:@selector(printInteractionController:choosePaper:forPrintSettings:)]) {
+        HPPPLogInfo(@"Attempting to choose paper using HPPPPrintPaperDelegate");
         paper = [paperDelegate printInteractionController:printInteractionController choosePaper:paperList forPrintSettings:self.currentPrintSettings];
     }
     
     if (!paper) {
+        HPPPLogInfo(@"Attempting to choose paper using system call");
         paper = [UIPrintPaper bestPaperForPageSize:[self.currentPrintSettings.paper printerPaperSize] withPapersFromArray:paperList];
     }
         
