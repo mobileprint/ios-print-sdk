@@ -410,6 +410,7 @@ static NSArray *_supportedPaper = nil;
              [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeA4 paperType:HPPPPaperTypePhoto],
              [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeA5 paperType:HPPPPaperTypePhoto],
              [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSizeA6 paperType:HPPPPaperTypePhoto],
+             [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize10x13 paperType:HPPPPaperTypePhoto],
              [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize10x15 paperType:HPPPPaperTypePhoto],
              [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize13x18 paperType:HPPPPaperTypePhoto],
              ];
