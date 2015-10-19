@@ -56,7 +56,7 @@
 
 - (void)setLayout:(HPPPLayout *)layout
 {
-    HPPPLogError(@"Cannot set layout of PDF print item (always uses to centered fit layout)");
+    HPPPLogError(@"Cannot set layout of PDF print item (always uses centered fit layout)");
 }
 
 #pragma mark - Asset attributes
