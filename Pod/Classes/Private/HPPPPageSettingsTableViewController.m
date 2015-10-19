@@ -550,6 +550,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
             self.printLabel.text = HPPPLocalizedString(@"Print All", @"Print all pages in a document");
         }
     }
+    
+    if( !IS_OS_8_OR_LATER ) {
+        self.selectPrinterCell.hidden = YES;
+    }
 
     [self.tableView endUpdates];
 }
