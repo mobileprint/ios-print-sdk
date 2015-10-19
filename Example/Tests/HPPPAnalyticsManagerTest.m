@@ -113,7 +113,7 @@ NSString * const kTestAnalyticsDeviceIdKey = @"device_id";
 
 - (NSString *)vendorUniqueDeviceId
 {
-    return [HPPPAnalyticsManager obfuscateValue:[[UIDevice currentDevice].identifierForVendor UUIDString]];
+    return [[UIDevice currentDevice].identifierForVendor UUIDString];
 }
 
 @end
