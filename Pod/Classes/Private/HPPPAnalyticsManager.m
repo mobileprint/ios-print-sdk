@@ -170,11 +170,12 @@ NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
 
 - (NSString *)userUniqueIdentifier
 {
-    NSMutableString *deviceIdSeed = [NSMutableString stringWithString:[[UIDevice currentDevice].identifierForVendor UUIDString]];
+    NSString *identifier = [[UIDevice currentDevice].identifierForVendor UUIDString];
     if ([HPPP sharedInstance].uniqueDeviceIdPerApp) {
-        [deviceIdSeed appendString:[[NSBundle mainBundle] bundleIdentifier]];
+        NSString *seed = [NSString stringWithFormat:@"%@%@", identifier, [[NSBundle mainBundle] bundleIdentifier]];
+        identifier = [HPPPAnalyticsManager obfuscateValue:seed];
     }
-    return [HPPPAnalyticsManager obfuscateValue:deviceIdSeed];
+    return identifier;
 }
 
 - (NSArray *)partnerExcludedMetrics
