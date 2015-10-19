@@ -150,9 +150,9 @@ BOOL const kHPPPDefaultUniqueDeviceIdPerApp = YES;
         
         if( 1 == pageSettingsSplitViewController.viewControllers.count ) {
             HPPPLogError(@"Preview pane failed to be created");
+            UINavigationController *activeNavigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPActiveNavigationController"];
             UINavigationController *detailsNavigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPreviewNavigationController"];
-            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithObjects:pageSettingsSplitViewController.viewControllers[0], nil];
-            [viewControllers addObject:detailsNavigationController];
+            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithObjects:activeNavigationController, detailsNavigationController, nil];
             pageSettingsSplitViewController.viewControllers = viewControllers;
         }
         
