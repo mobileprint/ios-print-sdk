@@ -152,7 +152,10 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
         // split on commas
         NSArray *chunks = [pageRange componentsSeparatedByString:@","];
         for (NSString *chunk in chunks) {
-            if( [chunk containsString:@"-"] ) {
+            
+            
+            
+            if( [chunk rangeOfString:@"-"].location != NSNotFound ) {
                 // split on the dash
                 NSArray *rangeChunks = [chunk componentsSeparatedByString:@"-"];
                 NSAssert(2 == rangeChunks.count, @"Bad page range");
@@ -251,7 +254,7 @@ NSString * const kHPPPPageRangeSortAscending = @"kHPPPPageRangeSortAscending";
         // split on commas
         NSArray *chunks = [pageRange componentsSeparatedByString:@","];
         for (NSString *chunk in chunks) {
-            if( [chunk containsString:@"-"] ) {
+            if( [chunk rangeOfString:@"-"].location != NSNotFound ) {
                 // split on the dash
                 NSArray *rangeChunks = [chunk componentsSeparatedByString:@"-"];
                 NSAssert(2 == rangeChunks.count, @"Bad page range");

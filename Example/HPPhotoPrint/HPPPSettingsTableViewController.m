@@ -946,20 +946,25 @@ NSInteger const kLengthOfSHA = 7;
 
 #pragma mark - HPPPPrintPaperDelegate
 
+- (BOOL)labelPrinter:(HPPPPrintSettings *)printSettings
+{
+    return [printSettings.printerModel rangeOfString:@"Label"].location != NSNotFound;
+}
+
 - (BOOL)hidePaperSizeForPrintSettings:(HPPPPrintSettings *)printSettings
 {
-    return [printSettings.printerModel containsString:@"Label"];
+    return [self labelPrinter:printSettings];
 }
 
 - (BOOL)hidePaperTypeForPrintSettings:(HPPPPrintSettings *)printSettings
 {
-    return [printSettings.printerModel containsString:@"Label"];
+    return [self labelPrinter:printSettings];
 }
 
 - (HPPPPaper *)defaultPaperForPrintSettings:(HPPPPrintSettings *)printSettings
 {
     HPPPPaper *defaultPaper = [[self paperList] firstObject];
-    if ([printSettings.printerModel containsString:@"Label"]) {
+    if ([self labelPrinter:printSettings]) {
         NSUInteger paperSize = [self aspectRatio4up] ? k4UpPaperSizeId : k3UpPaperSizeId;
         defaultPaper = [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:kLabelPaperTypeId];
     }
@@ -972,7 +977,7 @@ NSInteger const kLengthOfSHA = 7;
 {
     NSArray *papers = [self paperList];
     
-    if ([printSettings.printerModel containsString:@"Label"]) {
+    if ([self labelPrinter:printSettings]) {
         NSUInteger paperSize = [self aspectRatio4up] ? k4UpPaperSizeId : k3UpPaperSizeId;
         papers = @[ [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:kLabelPaperTypeId] ];
     }
@@ -1095,7 +1100,7 @@ BOOL const kLabelPaperTypePhoto = NO;
 - (BOOL)SHAModified
 {
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    return [version containsString:@" *"];
+    return [version rangeOfString:@" *"].location != NSNotFound;
 }
 
 - (IBAction)useUniqueIdPerAppChanged:(id)sender {
