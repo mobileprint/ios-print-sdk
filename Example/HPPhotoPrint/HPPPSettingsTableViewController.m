@@ -1113,11 +1113,12 @@ BOOL const kLabelPaperTypePhoto = NO;
 
 - (NSString *)userUniqueIdentifier
 {
-    NSMutableString *deviceIdSeed = [NSMutableString stringWithString:[[UIDevice currentDevice].identifierForVendor UUIDString]];
+    NSString *identifier = [[UIDevice currentDevice].identifierForVendor UUIDString];
     if ([HPPP sharedInstance].uniqueDeviceIdPerApp) {
-        [deviceIdSeed appendString:[[NSBundle mainBundle] bundleIdentifier]];
+        NSString *seed = [NSString stringWithFormat:@"%@%@", identifier, [[NSBundle mainBundle] bundleIdentifier]];
+        identifier = [self obfuscateValue:seed];
     }
-    return [self obfuscateValue:deviceIdSeed];
+    return identifier;
 }
 
 // The following is adapted from http://stackoverflow.com/questions/2018550/how-do-i-create-an-md5-hash-of-a-string-in-cocoa
