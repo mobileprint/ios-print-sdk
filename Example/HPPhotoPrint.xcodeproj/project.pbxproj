@@ -44,6 +44,9 @@
 		658088EF1BB1DACD00B35489 /* HPPPPrintManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 658088EE1BB1DACD00B35489 /* HPPPPrintManagerTest.m */; settings = {ASSET_TAGS = (); }; };
 		65B3A9541B82989700ED76DD /* HPPPExperimentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B3A9531B82989700ED76DD /* HPPPExperimentManager.m */; };
 		65C0652E1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C0652D1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m */; };
+		65DC4A811BD596E90004F903 /* HPPPLayoutFillTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DC4A801BD596E90004F903 /* HPPPLayoutFillTest.m */; settings = {ASSET_TAGS = (); }; };
+		65DC4A831BD5A8D90004F903 /* HPPPPrintItemPDFTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DC4A821BD5A8D90004F903 /* HPPPPrintItemPDFTest.m */; settings = {ASSET_TAGS = (); }; };
+		65DC4A841BD5A9A00004F903 /* 1 Page.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AE1B03B0A400DCE2B4 /* 1 Page.pdf */; };
 		65F44B5B1BD02D4400EF42AB /* HPPPAnalyticsManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F44B5A1BD02D4400EF42AB /* HPPPAnalyticsManagerTest.m */; settings = {ASSET_TAGS = (); }; };
 		65F44B5C1BD081FB00EF42AB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		65FFC9B31B03B0A400DCE2B4 /* 1 Page (landscape).pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AD1B03B0A400DCE2B4 /* 1 Page (landscape).pdf */; };
@@ -154,6 +157,8 @@
 		65B3A9531B82989700ED76DD /* HPPPExperimentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPExperimentManager.m; sourceTree = "<group>"; };
 		65C0652C1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPPSelectPrintItemTableViewController.h; sourceTree = "<group>"; };
 		65C0652D1B0BF26200E56D83 /* HPPPSelectPrintItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPSelectPrintItemTableViewController.m; sourceTree = "<group>"; };
+		65DC4A801BD596E90004F903 /* HPPPLayoutFillTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPLayoutFillTest.m; sourceTree = "<group>"; };
+		65DC4A821BD5A8D90004F903 /* HPPPPrintItemPDFTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPPrintItemPDFTest.m; sourceTree = "<group>"; };
 		65F44B5A1BD02D4400EF42AB /* HPPPAnalyticsManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPPAnalyticsManagerTest.m; sourceTree = "<group>"; };
 		65FFC9AD1B03B0A400DCE2B4 /* 1 Page (landscape).pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "1 Page (landscape).pdf"; sourceTree = "<group>"; };
 		65FFC9AE1B03B0A400DCE2B4 /* 1 Page.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "1 Page.pdf"; sourceTree = "<group>"; };
@@ -309,8 +314,10 @@
 			children = (
 				65F44B5A1BD02D4400EF42AB /* HPPPAnalyticsManagerTest.m */,
 				F10BCCCB1B7A53CC001A5F3B /* HPPPDirectPrintTest.m */,
+				65DC4A801BD596E90004F903 /* HPPPLayoutFillTest.m */,
 				F1998AF41B6808BD00E5320F /* HPPPPageRangeTest.m */,
 				6565921E1BB5EB6B00A08B22 /* HPPPPaperTest.m */,
+				65DC4A821BD5A8D90004F903 /* HPPPPrintItemPDFTest.m */,
 				658088EE1BB1DACD00B35489 /* HPPPPrintManagerTest.m */,
 				F1B2023E1B7E970D00912E0B /* HPPPPrintSettingsDelegateManagerTest.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
@@ -505,6 +512,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65DC4A841BD5A9A00004F903 /* 1 Page.pdf in Resources */,
 				65F44B5C1BD081FB00EF42AB /* Images.xcassets in Resources */,
 				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
@@ -690,12 +698,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65DC4A811BD596E90004F903 /* HPPPLayoutFillTest.m in Sources */,
 				F1B2023F1B7E970D00912E0B /* HPPPPrintSettingsDelegateManagerTest.m in Sources */,
 				658088EF1BB1DACD00B35489 /* HPPPPrintManagerTest.m in Sources */,
 				65F44B5B1BD02D4400EF42AB /* HPPPAnalyticsManagerTest.m in Sources */,
 				6565921F1BB5EB6B00A08B22 /* HPPPPaperTest.m in Sources */,
 				F1998AF51B6808BD00E5320F /* HPPPPageRangeTest.m in Sources */,
 				F10BCCCC1B7A53CC001A5F3B /* HPPPDirectPrintTest.m in Sources */,
+				65DC4A831BD5A8D90004F903 /* HPPPPrintItemPDFTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
