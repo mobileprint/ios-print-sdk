@@ -226,11 +226,11 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
 
 - (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList
 {
-    
-    NSMutableString *log = [NSMutableString stringWithFormat:@"\n\n\nReference: %.1f x %.1f\n\n", self.currentPrintSettings.paper.width, self.currentPrintSettings.paper.height];
+    CGSize referencePaperPointSize = [self.currentPrintSettings.paper printerPaperSize];
+    NSMutableString *log = [NSMutableString stringWithFormat:@"\n\n\nReference: %.1f x %.1f\n\n", referencePaperPointSize.width / kHPPPPointsPerInch, referencePaperPointSize.height / kHPPPPointsPerInch];
     
     for (UIPrintPaper *p in paperList) {
-        [log appendFormat:@"Paper: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n", p.paperSize.width / 72.0, p.paperSize.height  / 72.0, p.printableRect.origin.x, p.printableRect.origin.y, p.printableRect.size.width, p.printableRect.size.height];
+        [log appendFormat:@"Paper: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n", p.paperSize.width / kHPPPPointsPerInch, p.paperSize.height  / kHPPPPointsPerInch, p.printableRect.origin.x, p.printableRect.origin.y, p.printableRect.size.width, p.printableRect.size.height];
     }
     
     UIPrintPaper *paper = nil;
@@ -243,10 +243,10 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     
     if (!paper) {
         HPPPLogInfo(@"Attempting to choose paper using system call");
-        paper = [UIPrintPaper bestPaperForPageSize:[self.currentPrintSettings.paper printerPaperSize] withPapersFromArray:paperList];
+        paper = [UIPrintPaper bestPaperForPageSize:referencePaperPointSize withPapersFromArray:paperList];
     }
         
-    [log appendFormat:@"\nChosen: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n\n\n", paper.paperSize.width  / 72.0, paper.paperSize.height  / 72.0, paper.printableRect.origin.x, paper.printableRect.origin.y, paper.printableRect.size.width, paper.printableRect.size.height];
+    [log appendFormat:@"\nChosen: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n\n\n", paper.paperSize.width  / kHPPPPointsPerInch, paper.paperSize.height  / kHPPPPointsPerInch, paper.printableRect.origin.x, paper.printableRect.origin.y, paper.printableRect.size.width, paper.printableRect.size.height];
     HPPPLogInfo(@"%@", log);
     
     [self saveLastOptionsForPaper:paper];
@@ -256,7 +256,7 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
 
 - (CGFloat)printInteractionController:(UIPrintInteractionController *)printInteractionController cutLengthForPaper:(UIPrintPaper *)paper
 {
-    NSMutableString *log = [NSMutableString stringWithFormat:@"\nReference: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n\n\n", paper.paperSize.width  / 72.0, paper.paperSize.height  / 72.0, paper.printableRect.origin.x, paper.printableRect.origin.y, paper.printableRect.size.width, paper.printableRect.size.height];
+    NSMutableString *log = [NSMutableString stringWithFormat:@"\nReference: %.1f x %.1f -- x: %.1f  y: %.1f  w: %.1f  h: %.1f\n\n\n", paper.paperSize.width  / kHPPPPointsPerInch, paper.paperSize.height  / kHPPPPointsPerInch, paper.printableRect.origin.x, paper.printableRect.origin.y, paper.printableRect.size.width, paper.printableRect.size.height];
 
     NSNumber *cutLength = nil;
     
@@ -271,7 +271,7 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
         cutLength = [NSNumber numberWithFloat:computedLength];
     }
     
-    [log appendFormat:@"\nCut length: %.1f\n\n\n", [cutLength floatValue] / 72.0];
+    [log appendFormat:@"\nCut length: %.1f\n\n\n", [cutLength floatValue] / kHPPPPointsPerInch];
     HPPPLogInfo(@"%@", log);
     
     return [cutLength floatValue];
