@@ -948,7 +948,12 @@ NSInteger const kLengthOfSHA = 7;
 
 - (BOOL)labelPrinter:(HPPPPrintSettings *)printSettings
 {
-    return [printSettings.printerModel rangeOfString:@"Label"].location != NSNotFound;
+    BOOL retValue = FALSE;
+    if( nil != printSettings.printerModel ) {
+        retValue = ([printSettings.printerModel rangeOfString:@"Label"].location != NSNotFound);
+    }
+    
+    return retValue;
 }
 
 - (BOOL)hidePaperSizeForPrintSettings:(HPPPPrintSettings *)printSettings

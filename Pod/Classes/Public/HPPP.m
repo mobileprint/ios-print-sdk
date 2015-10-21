@@ -149,7 +149,7 @@ BOOL const kHPPPDefaultUniqueDeviceIdPerApp = YES;
         UISplitViewController *pageSettingsSplitViewController = (UISplitViewController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPageSettingsSplitViewController"];
         
         if( 1 == pageSettingsSplitViewController.viewControllers.count ) {
-            HPPPLogError(@"Preview pane failed to be created");
+            HPPPLogError(@"Only one navController created for the pageSettingsSplitViewController... correcting");
             UINavigationController *activeNavigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPActiveNavigationController"];
             UINavigationController *detailsNavigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"HPPPPreviewNavigationController"];
             NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithObjects:activeNavigationController, detailsNavigationController, nil];
@@ -157,6 +157,11 @@ BOOL const kHPPPDefaultUniqueDeviceIdPerApp = YES;
         }
         
         UINavigationController *detailsNavigationController = pageSettingsSplitViewController.viewControllers[1];
+        if( nil == (HPPPPageSettingsTableViewController *)detailsNavigationController.topViewController ) {
+            HPPPLogError(@"Preview pane view controller failed to be created... correcting");
+            HPPPPageSettingsTableViewController *previewPane = [storyboard instantiateViewControllerWithIdentifier:@"HPPPPageSettingsTableViewController"];
+            [detailsNavigationController pushViewController:previewPane animated:NO];
+        }
         detailsNavigationController.navigationBar.translucent = NO;
         HPPPPageSettingsTableViewController *previewPane = (HPPPPageSettingsTableViewController *)detailsNavigationController.topViewController;
         previewPane.dataSource = dataSource;
@@ -164,6 +169,11 @@ BOOL const kHPPPDefaultUniqueDeviceIdPerApp = YES;
         previewPane.displayType = HPPPPageSettingsDisplayTypePreviewPane;
         
         UINavigationController *masterNavigationController = pageSettingsSplitViewController.viewControllers[0];
+        if( nil == (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController ) {
+            HPPPLogError(@"Page Settings view controller failed to be created... correcting");
+            HPPPPageSettingsTableViewController *pageSettingsTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"HPPPPageSettingsTableViewController"];
+            [masterNavigationController pushViewController:pageSettingsTableViewController animated:NO];
+        }
         masterNavigationController.navigationBar.translucent = NO;
         HPPPPageSettingsTableViewController *pageSettingsTableViewController = (HPPPPageSettingsTableViewController *)masterNavigationController.topViewController;
         pageSettingsTableViewController.displayType = HPPPPageSettingsDisplayTypePageSettingsPane;
