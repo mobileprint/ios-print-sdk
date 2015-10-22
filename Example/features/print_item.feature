@@ -13,6 +13,7 @@ Feature: Select a Print item and print
     And I delete printer simulater generated files
 
   @done
+  @smoke
   Scenario: Select Balloons image and print
     Given I am on the "PrintPod" screen
     Then I should see "Print Item"
@@ -26,6 +27,7 @@ Feature: Select a Print item and print
     And I delete printer simulater generated files
 
   @done
+  @smoke
   Scenario: Select 1 Page Landscape PDF and print
     Given I am on the "PrintPod" screen
     Then I should see "Print Item"

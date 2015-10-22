@@ -1,6 +1,7 @@
 Feature: Select item and add to print queue
 
   @done
+  @smoke
   Scenario: Select 4x6 image and add to print queue
     Given I am on the "PrintPod" screen
     Then I should see the "Share Item" screen
