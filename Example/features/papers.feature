@@ -4,7 +4,9 @@ Feature: Verify Share functionalities
 	@done
 	Scenario: Verify paper sizes for USA option
 		Given I am on the "PrintPod" screen
+        And I scroll screen down
         Then I touch "USA"
+        And I scroll screen up
 		And I touch "Print Item"
         And I scroll screen to find "Cat"
         And I touch "Cat"
@@ -23,7 +25,9 @@ Feature: Verify Share functionalities
         @done
 	Scenario: Verify paper sizes for International option
 		Given I am on the "PrintPod" screen
+        And I scroll screen down
         Then I touch "International"
+        And I scroll screen up
 		And I touch "Print Item"
         And I scroll screen to find "Cat"
         And I touch "Cat"
@@ -44,7 +48,9 @@ Feature: Verify Share functionalities
          @done
 	Scenario: Verify paper sizes for All option
 		Given I am on the "PrintPod" screen
+        And I scroll screen down
         Then I touch "All"
+        And I scroll screen up
 		And I touch "Print Item"
         And I scroll screen to find "Cat"
         And I touch "Cat"
@@ -70,7 +76,9 @@ Feature: Verify Share functionalities
         @done
 	Scenario Outline: Verify photo print for paper sizes for International option
 		Given I am on the "PrintPod" screen
+        And I scroll screen down
         Then I touch "International"
+        And I scroll screen up
 		And I touch "Print Item"
         And I scroll screen to find "Cat"
         And I touch "Cat"
@@ -98,7 +106,9 @@ Feature: Verify Share functionalities
           @done
 	Scenario Outline: Verify pdf print for paper sizes for International option
 		Given I am on the "PrintPod" screen
+        And I scroll screen down
         Then I touch "International"
+        And I scroll screen up
 		And I touch "Print Item"
         And I scroll screen to find "1 Page"
         And I touch "1 Page"
