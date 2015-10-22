@@ -131,7 +131,7 @@ Feature: Select item and add to print queue
     And I scroll screen down
     And I scroll down until "Simulated InkJet" is visible in the list
     And I wait for some seconds
-    Then I touch "Print All"
+    Then I touch "Print"
     
 		
     
