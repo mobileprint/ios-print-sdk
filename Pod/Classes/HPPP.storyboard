@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="localizable" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1831,9 +1831,9 @@ Tap your notification or simply come back to this app to print your projects.</s
         <image name="HPPPMagnify.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4eJ-bv-9qP"/>
-        <segue reference="koY-qX-HW0"/>
         <segue reference="C3t-Tz-4rn"/>
-        <segue reference="E8A-CH-mPX"/>
+        <segue reference="koY-qX-HW0"/>
+        <segue reference="gpl-F0-UT5"/>
+        <segue reference="OHc-hu-xz3"/>
     </inferredMetricsTieBreakers>
 </document>
