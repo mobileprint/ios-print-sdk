@@ -1,7 +1,7 @@
 Feature: Select item and add to print queue
 
   @reset
-  @TA11948
+  @done
   Scenario: Verify item added to print queue
     Given I am on the "PrintPod" screen
     Then I should see the "Share Item" screen
@@ -19,7 +19,7 @@ Feature: Select item and add to print queue
     And I should see the added item 
     
     @reset
-  @TA11948
+    @done
   Scenario: verify print for the item from print queue
     Given I am on the "PrintPod" screen
     Then I should see the "Share Item" screen
@@ -37,13 +37,13 @@ Feature: Select item and add to print queue
     Then I touch "Next"
     Then I should see the "Page Settings" screen
     Then I run print simulator 
-    And I scroll screen down
+    And I scroll screen "down"
     And I scroll down until "Simulated InkJet" is visible in the list
     Then I click print button
     Then I wait for some seconds
     
     @reset
-  @TA11948
+    @done
   Scenario: Verify Print queue buttons
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -65,7 +65,7 @@ Feature: Select item and add to print queue
     And I check "Next" button "Disabled"
     
     @reset
-  @TA11948
+    @done
   Scenario: Verify print queue job selection and deselection
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -86,7 +86,7 @@ Feature: Select item and add to print queue
     And I verify "2" jobs "Unselected"
         
     @reset
-  @TA11948
+    @done
         Scenario: Verify print queue job deletion
         Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -109,7 +109,8 @@ Feature: Select item and add to print queue
         And I check selected job is deleted
         
         @reset
-  @TA11948
+        @done
+        @smoke
         Scenario: Verify print queue job print for multiple jobs
         Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -128,7 +129,7 @@ Feature: Select item and add to print queue
         Then I touch "Next"
         Then I should see the "Page Settings" screen
         Then I run print simulator 
-    And I scroll screen down
+    And I scroll screen "down"
     And I scroll down until "Simulated InkJet" is visible in the list
     And I wait for some seconds
     Then I touch "Print"

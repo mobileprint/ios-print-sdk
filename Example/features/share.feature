@@ -14,7 +14,7 @@ Feature: Verify Share functionalities
 		When I touch "Print"
 		Then I am on the "Page Settings" screen
         Then I run print simulator
-        And I scroll screen down
+        And I scroll screen "down"
         When I touch "Increment"
 		Then The number of copies must be 2
         And I scroll down until "Simulated InkJet" is visible in the list
@@ -23,12 +23,13 @@ Feature: Verify Share functionalities
         
     @reset
     @done
+    @smoke
     Scenario:Verify print from share with B&W mode on
 	Given I am on the "Share" screen
 		When I touch "Print"
 		Then I am on the "Page Settings" screen
         Then I run print simulator
-        And I scroll screen down
+        And I scroll screen "down"
         When I touch switch
 		Then switch should turn ON
         And I scroll down until "Simulated InkJet" is visible in the list
@@ -38,6 +39,7 @@ Feature: Verify Share functionalities
         
         @reset
         @done
+        @smoke
     Scenario:Verify add to print queue from share
 	   Given I am on the "Share" screen
 		And I touch Print Queue
