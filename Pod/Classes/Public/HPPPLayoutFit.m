@@ -18,9 +18,9 @@
 NSString * const kHPPPLayoutHorizontalPositionKey = @"kHPPPLayoutHorizontalPositionKey";
 NSString * const kHPPPLayoutVerticalPositionKey = @"kHPPPLayoutVerticalPositionKey";
 
-- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position allowContentRotation:(BOOL)allowRotation;
+- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position;
 {
-    self = [super initWithOrientation:orientation assetPosition:position allowContentRotation:allowRotation];
+    self = [super initWithOrientation:orientation assetPosition:position];
     if (self) {
         _horizontalPosition = HPPPLayoutHorizontalPositionMiddle;
         _verticalPosition = HPPPLayoutVerticalPositionMiddle;

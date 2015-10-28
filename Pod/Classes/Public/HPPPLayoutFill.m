@@ -16,14 +16,14 @@
 
 @implementation HPPPLayoutFill
 
-- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position allowContentRotation:(BOOL)allowRotation;
+- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position;
 {
     if (!CGRectEqualToRect(position, [HPPPLayout completeFillRectangle])) {
         // Have to disable asset position support until cropping with scaled image can be figured out -- jbt 6/11/15
         HPPPLogError(@"The HPPPLayoutFill layout type only supports the complete fill asset position (0, 0, 100, 100). The asset poisitoin specified will be ignored (%.1f, %.1f, %.1f, %.1f).", position.origin.x, position.origin.y, position.size.width, position.size.height);
     }
 
-    return [super initWithOrientation:orientation assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:allowRotation];
+    return [super initWithOrientation:orientation assetPosition:[HPPPLayout completeFillRectangle]];
 }
 
 - (void)setBorderInches:(float)borderInches

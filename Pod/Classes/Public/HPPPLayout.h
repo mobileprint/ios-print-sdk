@@ -45,20 +45,18 @@ typedef enum {
  * @abstract Creates a layout with a specific asset position
  * @param position A CGRect of percentage-based values that locates the layout content rectangle on the page
  * @param orientation An HPPPLayoutOrientation value specifiying the orientation strategy to use
- * @param allowRotation A boolean specifiying if content is allowed to be rotated to optimize layout
  * @discussion Note that the iOS method CGRectStandardize will be used to ensure positive size values of the asset position rectangle.
  * @seealso assetPosition
  * @seealso orientation
- * @seealso allowContentRotation
  */
-- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position allowContentRotation:(BOOL)allowRotation;
+- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position;
 
 /*!
  * @abstract Draws the image onto a content rectangle
  * @param image The image asset to draw
  * @param rect The reference rectangle onto which the image is drawn.
  * @discussion The actual content rectangle used for layout will be computed using the rectangle passed in with the assetPosition percentages applied.
- * @seealso initWithOrientation:assetPosition:allowContentRotation:
+ * @seealso initWithOrientation:assetPosition
  */
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect;
 
@@ -138,16 +136,8 @@ typedef enum {
  * @abstract The orientation of the layout
  * @discussion This property controls how the layout handles content orientation relative to the container orientation.
  * @seealso HPPPLayoutOrientation
- * @seealso allowContentRotation
  */
 @property (assign, nonatomic, readonly) HPPPLayoutOrientation orientation;
-
-/*!
- * @abstract Specifies whether the layout allows the content to be rotated to optimize the orientation
- * @seealso orientation
- * @seealso HPPPLayoutOrientation
- */
-@property (assign, nonatomic, readonly) BOOL allowContentRotation;
 
 /*!
  * @abstract Indicates the print paper that the layout will be applied to

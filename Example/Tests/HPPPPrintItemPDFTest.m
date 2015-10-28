@@ -72,10 +72,6 @@
               HPPPLayoutVerticalPositionMiddle == fitLayout.verticalPosition,
               @"Expected layout horizontal position to be HPPPLayoutVerticalPositionMiddle (instead = %d)",
               fitLayout.verticalPosition);
-    
-    XCTAssert(
-              fitLayout.allowContentRotation,
-              @"Expected layout to allow content rotation");
 }
 
 - (void)testSetLayout

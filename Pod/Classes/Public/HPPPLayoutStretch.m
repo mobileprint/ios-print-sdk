@@ -11,13 +11,19 @@
 //
 
 #import "HPPPLayoutStretch.h"
+#import "UIImage+HPPPResize.h"
 
 @implementation HPPPLayoutStretch
 
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
 {
+    UIImage *contentImage = image;
+    CGRect contentRect = CGRectMake(0, 0, image.size.width, image.size.height);
     CGRect containerRect = [self assetPositionForRect:rect];
-    [image drawInRect:containerRect];
+    if ([self rotationNeededForContent:contentRect withContainer:containerRect]) {
+        contentImage = [image HPPPRotate];
+    }
+    [contentImage drawInRect:containerRect];
 }
 
 - (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView

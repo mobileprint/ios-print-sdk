@@ -29,7 +29,7 @@ static NSMutableArray *factoryDelegates = nil;
 
 + (HPPPLayout *)layoutWithType:(NSString *)layoutType
 {
-    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:layoutType orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:YES];
+    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:layoutType orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle]];
     
     if( nil == layout  &&  nil != factoryDelegates) {
         for (id<HPPPLayoutFactoryDelegate> delegate in factoryDelegates) {
@@ -48,27 +48,26 @@ static NSMutableArray *factoryDelegates = nil;
 + (HPPPLayout *)layoutWithType:(NSString *)layoutType
                    orientation:(HPPPLayoutOrientation)orientation
                  assetPosition:(CGRect)assetPosition
-          allowContentRotation:(BOOL)allowRotation
 {
     HPPPLayout *layout = nil;
     
     if ([[HPPPLayoutFill layoutType] isEqualToString:layoutType] || nil == layoutType) {
-        layout = [[HPPPLayoutFill alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
+        layout = [[HPPPLayoutFill alloc] initWithOrientation:orientation assetPosition:assetPosition];
     } else if ([[HPPPLayoutFit layoutType] isEqualToString:layoutType]) {
-        HPPPLayoutFit *layoutFit = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
+        HPPPLayoutFit *layoutFit = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition];
         layoutFit.horizontalPosition = HPPPLayoutHorizontalPositionMiddle;
         layoutFit.verticalPosition = HPPPLayoutVerticalPositionMiddle;
         layout = layoutFit;
     } else if ([[HPPPLayoutStretch layoutType] isEqualToString:layoutType]) {
-        layout = [[HPPPLayoutStretch alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
+        layout = [[HPPPLayoutStretch alloc] initWithOrientation:orientation assetPosition:assetPosition];
     } else {
         if( nil != factoryDelegates) {
             for (id<HPPPLayoutFactoryDelegate> delegate in factoryDelegates) {
-                if( [delegate respondsToSelector:@selector(layoutWithType:orientation:assetPosition:allowContentRotation:)] ) {
+                if( [delegate respondsToSelector:@selector(layoutWithType:orientation:assetPosition:)] ) {
                     layout = [delegate layoutWithType:layoutType
                                           orientation:orientation
                                         assetPosition:assetPosition
-                                 allowContentRotation:allowRotation];
+                                 ];
                     if (layout) {
                         break;
                     }
@@ -87,7 +86,6 @@ static NSMutableArray *factoryDelegates = nil;
 + (HPPPLayout *)layoutWithType:(NSString *)layoutType
                    orientation:(HPPPLayoutOrientation)orientation
                  layoutOptions:(NSDictionary *)layoutOptions
-          allowContentRotation:(BOOL)allowRotation
 {
     HPPPLayout *layout = nil;
     
@@ -101,7 +99,7 @@ static NSMutableArray *factoryDelegates = nil;
             }
         }
         
-        HPPPLayoutFit *layoutFit = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
+        HPPPLayoutFit *layoutFit = [[HPPPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition];
         
         if( nil != layoutOptions ) {
             if( [layoutOptions objectForKey:kHPPPLayoutHorizontalPositionKey] ) {
@@ -121,11 +119,10 @@ static NSMutableArray *factoryDelegates = nil;
     } else {
         if( nil != factoryDelegates) {
             for (id<HPPPLayoutFactoryDelegate> delegate in factoryDelegates) {
-                if( [delegate respondsToSelector:@selector(layoutWithType:orientation:layoutOptions:allowContentRotation:)] ) {
+                if( [delegate respondsToSelector:@selector(layoutWithType:orientation:layoutOptions:)] ) {
                     layout = [delegate layoutWithType:layoutType
                                           orientation:orientation
-                                        layoutOptions:layoutOptions
-                                 allowContentRotation:allowRotation];
+                                        layoutOptions:layoutOptions];
                     if (layout) {
                         break;
                     }
@@ -153,7 +150,6 @@ static NSMutableArray *factoryDelegates = nil;
 
     [encoder encodeObject:type forKey:kHPPPLayoutTypeKey];
     [encoder encodeObject:[NSNumber numberWithInt:layout.orientation] forKey:kHPPPLayoutOrientationKey];
-    [encoder encodeBool:layout.allowContentRotation forKey:kHPPPLayoutAllowRotationKey];
     [encoder encodeCGRect:layout.assetPosition forKey:kHPPPLayoutPositionKey];
     [encoder encodeFloat:layout.borderInches forKey:kHPPPLayoutBorderInchesKey];
 
@@ -201,10 +197,9 @@ static NSMutableArray *factoryDelegates = nil;
         if( layoutType ) {
             HPPPLayoutOrientation orientation = [decoder containsValueForKey:kHPPPLayoutOrientationKey] ? [[decoder decodeObjectForKey:kHPPPLayoutOrientationKey] intValue] : HPPPLayoutOrientationBestFit;
             CGRect positionRect = [decoder containsValueForKey:kHPPPLayoutPositionKey] ? [decoder decodeCGRectForKey:kHPPPLayoutPositionKey] : [HPPPLayout completeFillRectangle];
-            BOOL allowRotation = [decoder containsValueForKey:kHPPPLayoutPositionKey] ? [decoder decodeBoolForKey:kHPPPLayoutAllowRotationKey] : YES;
             float borderInches = [decoder containsValueForKey:kHPPPLayoutTypeKey] ? [decoder decodeFloatForKey:kHPPPLayoutBorderInchesKey] : 0.0;
             
-            layout = [self layoutWithType:layoutType orientation:orientation assetPosition:positionRect allowContentRotation:allowRotation];
+            layout = [self layoutWithType:layoutType orientation:orientation assetPosition:positionRect];
             layout.borderInches = borderInches;
             
             if( [HPPPLayoutFit layoutType] == layoutType ) {

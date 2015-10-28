@@ -17,13 +17,12 @@
 
 #pragma mark - Initialization
 
-- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position allowContentRotation:(BOOL)allowRotation;
+- (id)initWithOrientation:(HPPPLayoutOrientation)orientation assetPosition:(CGRect)position;
 {
     self = [super init];
     if (self) {
         _orientation = orientation;
         _assetPosition = CGRectStandardize(position);
-        _allowContentRotation = allowRotation;
         _borderInches = 0.0;
     }
     return self;
@@ -74,14 +73,12 @@
         
         BOOL contentMatchesContainer = ((contentIsPortrait && containerIsPortrait) || (contentIsLandscape && containerIsLandscape));
 
-        if (self.allowContentRotation) {
-            if (HPPPLayoutOrientationBestFit == self.orientation) {
-                rotationNeeded = !contentMatchesContainer;
-            } else if (HPPPLayoutOrientationPortrait == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsPortrait)) {
-                rotationNeeded = containerIsLandscape;
-            } else if (HPPPLayoutOrientationLandscape == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsLandscape)) {
-                rotationNeeded = containerIsPortrait;
-            }
+        if (HPPPLayoutOrientationBestFit == self.orientation) {
+            rotationNeeded = !contentMatchesContainer;
+        } else if (HPPPLayoutOrientationPortrait == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsPortrait)) {
+            rotationNeeded = containerIsLandscape;
+        } else if (HPPPLayoutOrientationLandscape == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsLandscape)) {
+            rotationNeeded = containerIsPortrait;
         }
     }
     

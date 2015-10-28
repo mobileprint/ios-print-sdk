@@ -19,7 +19,7 @@
 
 /*!
  * @abstract A key for specifying the desired horizontal position of the layout
- * @discussion This key is to be used when calling the layoutWithType:orientation:layoutOptions:allowRotation
+ * @discussion This key is to be used when calling the layoutWithType:orientation:layoutOptions:
  *  function on the HPPPLayoutFactoryClass.  Use this key as a key on the layoutOptions dictionary to specify
  *  which HPPPLayoutHorizontalPosition to use with the layout.
  */
@@ -27,7 +27,7 @@ extern NSString * const kHPPPLayoutHorizontalPositionKey;
 
 /*!
  * @abstract A key for specifying the desired vertical position of the layout
- * @discussion This key is to be used when calling the layoutWithType:orientation:layoutOptions:allowRotation
+ * @discussion This key is to be used when calling the layoutWithType:orientation:layoutOptions:
  *  function on the HPPPLayoutFactoryClass.  Use this key as a key on the layoutOptions dictionary to specify
  *  which HPPPLayoutVerticalPosition to use with the layout.
  */

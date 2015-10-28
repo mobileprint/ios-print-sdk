@@ -47,7 +47,7 @@ CGFloat const kPageAlpha = 1.0;
 - (void)refreshLayout
 {
     if (self.paperView && self.paper) {
-        HPPPLayout *paperLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType] orientation:HPPPLayoutOrientationMatchContainer assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:NO];
+        HPPPLayout *paperLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType] orientation:HPPPLayoutOrientationMatchContainer assetPosition:[HPPPLayout completeFillRectangle]];
         [HPPPLayout preparePaperView:self.paperView withPaper:self.paper];
         [paperLayout layoutContentView:self.paperView inContainerView:self];
         self.paperView.hidden = NO;
