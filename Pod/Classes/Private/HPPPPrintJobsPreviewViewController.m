@@ -90,7 +90,7 @@ extern NSString * const kHPPPLastPaperSizeSetting;
     HPPPPaper *lastPaperUsed = [HPPPPrintSettingsDelegateManager lastPaperUsed];
     HPPPPrintItem *printItem = [self printItemForPaperSize:lastPaperUsed.paperSize];
     [HPPPLayout preparePaperView:self.paperView withPaper:lastPaperUsed image:[printItem previewImageForPaper:lastPaperUsed] layout:printItem.layout];
-    HPPPLayout *fitLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType] orientation:HPPPLayoutOrientationMatchContainer assetPosition:[HPPPLayout completeFillRectangle]];
+    HPPPLayout *fitLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFit layoutType] orientation:HPPPLayoutOrientationFixed assetPosition:[HPPPLayout completeFillRectangle]];
     [fitLayout layoutContentView:self.paperView inContainerView:self.containerView];
 }
 

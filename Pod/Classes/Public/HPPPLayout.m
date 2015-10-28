@@ -64,7 +64,7 @@
     BOOL containerIsSquare = (CGFLOAT_MIN >= fabs(containerRect.size.width - containerRect.size.height));
     
     BOOL rotationNeeded = NO;
-    if (!contentIsSquare && !containerIsSquare) {
+    if (!contentIsSquare && !containerIsSquare && self.orientation != HPPPLayoutOrientationFixed) {
         BOOL contentIsPortrait = (contentRect.size.width < contentRect.size.height);
         BOOL contentIsLandscape = !contentIsPortrait;
         
@@ -75,9 +75,9 @@
 
         if (HPPPLayoutOrientationBestFit == self.orientation) {
             rotationNeeded = !contentMatchesContainer;
-        } else if (HPPPLayoutOrientationPortrait == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsPortrait)) {
+        } else if (HPPPLayoutOrientationPortrait == self.orientation) {
             rotationNeeded = containerIsLandscape;
-        } else if (HPPPLayoutOrientationLandscape == self.orientation || (HPPPLayoutOrientationMatchContainer == self.orientation && containerIsLandscape)) {
+        } else if (HPPPLayoutOrientationLandscape == self.orientation) {
             rotationNeeded = containerIsPortrait;
         }
     }

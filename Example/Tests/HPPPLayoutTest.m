@@ -91,20 +91,19 @@ typedef enum {
     [self checkLayoutOrientation:HPPPLayoutOrientationBestFit container:HPPPLayoutTestSquare content:HPPPLayoutTestSquare rotationNeeded:NO];
 }
 
-- (void)testRotationNeededLayoutMatchContainer
+- (void)testRotationNeededLayoutFixed
 {
+    [self checkLayoutOrientation:HPPPLayoutOrientationFixed container:HPPPLayoutTestLandscape content:HPPPLayoutTestLandscape rotationNeeded:NO];
+    [self checkLayoutOrientation:HPPPLayoutOrientationFixed container:HPPPLayoutTestLandscape content:HPPPLayoutTestPortrait rotationNeeded:NO];
+    [self checkLayoutOrientation:HPPPLayoutOrientationFixed container:HPPPLayoutTestLandscape content:HPPPLayoutTestSquare rotationNeeded:NO];
     
-    [self checkLayoutOrientation:HPPPLayoutOrientationMatchContainer container:HPPPLayoutTestLandscape content:HPPPLayoutTestLandscape rotationNeeded:NO];
-    [self checkLayoutOrientation:HPPPLayoutOrientationMatchContainer container:HPPPLayoutTestLandscape content:HPPPLayoutTestPortrait rotationNeeded:NO];
-    [self checkLayoutOrientation:HPPPLayoutOrientationMatchContainer container:HPPPLayoutTestLandscape content:HPPPLayoutTestSquare rotationNeeded:NO];
+    [self checkLayoutOrientation:HPPPLayoutOrientationFixed container:HPPPLayoutTestPortrait content:HPPPLayoutTestLandscape rotationNeeded:NO];
+    [self checkLayoutOrientation:HPPPLayoutOrientationFixed container:HPPPLayoutTestPortrait content:HPPPLayoutTestPortrait rotationNeeded:NO];
+    [self checkLayoutOrientation:HPPPLayoutOrientationFixed container:HPPPLayoutTestPortrait content:HPPPLayoutTestSquare rotationNeeded:NO];
     
-    [self checkLayoutOrientation:HPPPLayoutOrientationMatchContainer container:HPPPLayoutTestPortrait content:HPPPLayoutTestLandscape rotationNeeded:NO];
-    [self checkLayoutOrientation:HPPPLayoutOrientationMatchContainer container:HPPPLayoutTestPortrait content:HPPPLayoutTestPortrait rotationNeeded:NO];
-    [self checkLayoutOrientation:HPPPLayoutOrientationMatchContainer container:HPPPLayoutTestPortrait content:HPPPLayoutTestSquare rotationNeeded:NO];
-    
-    [self checkLayoutOrientation:HPPPLayoutOrientationMatchContainer container:HPPPLayoutTestSquare content:HPPPLayoutTestLandscape rotationNeeded:NO];
-    [self checkLayoutOrientation:HPPPLayoutOrientationMatchContainer container:HPPPLayoutTestSquare content:HPPPLayoutTestPortrait rotationNeeded:NO];
-    [self checkLayoutOrientation:HPPPLayoutOrientationMatchContainer container:HPPPLayoutTestSquare content:HPPPLayoutTestSquare rotationNeeded:NO];
+    [self checkLayoutOrientation:HPPPLayoutOrientationFixed container:HPPPLayoutTestSquare content:HPPPLayoutTestLandscape rotationNeeded:NO];
+    [self checkLayoutOrientation:HPPPLayoutOrientationFixed container:HPPPLayoutTestSquare content:HPPPLayoutTestPortrait rotationNeeded:NO];
+    [self checkLayoutOrientation:HPPPLayoutOrientationFixed container:HPPPLayoutTestSquare content:HPPPLayoutTestSquare rotationNeeded:NO];
 }
 
 - (void)checkLayoutOrientation:(HPPPLayoutOrientation)layoutOrientation container:(HPPPLayoutTestOrientation)containerOrientation content:(HPPPLayoutTestOrientation)contentOrientation rotationNeeded:(BOOL)expectedRotation;

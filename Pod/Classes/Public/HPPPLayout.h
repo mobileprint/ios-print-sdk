@@ -26,13 +26,13 @@
  * @const HPPPLayoutOrientationPortrait Specifies that the content should be laid out on a portrait page regardless of the content aspect ratio
  * @const HPPPLayoutOrientationLandscape Specifies that the content should be laid out on a landscape page regardless of the content aspect ratio
  * @const HPPPLayoutOrientationBestFit Specifies that the content should be laid out on a portrait page if the content is portrait and a landscape page if the content is landscape
- * @const HPPPLayoutOrientationMatchContainer Specifies that the a portrait or landscape layout should be used to match the container orientation
+ * @const HPPPLayoutOrientationFixed Specifies that the orientation is fixed to the existing orientation of the container
  */
 typedef enum {
     HPPPLayoutOrientationPortrait,
     HPPPLayoutOrientationLandscape,
     HPPPLayoutOrientationBestFit,
-    HPPPLayoutOrientationMatchContainer
+    HPPPLayoutOrientationFixed
 } HPPPLayoutOrientation;
 
 /*!
