@@ -8,10 +8,10 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   HPPhotoPrint:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  HPPhotoPrint: 3cd2de13ca24bce1fdc41f10e8cac47ecc10af30
+  HPPhotoPrint: 2e654364731bf8d240c0a9de009aa7c090a2ba42
   OCMock: 28def049ef47f996b515a8eeea958be7ccab2dbb
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.39.0
