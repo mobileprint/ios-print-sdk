@@ -53,18 +53,18 @@ typedef enum {
 
     [self checkLayoutOrientation:HPPPLayoutOrientationLandscape container:HPPPLayoutTestPortrait content:HPPPLayoutTestLandscape rotationNeeded:YES];
     [self checkLayoutOrientation:HPPPLayoutOrientationLandscape container:HPPPLayoutTestPortrait content:HPPPLayoutTestPortrait rotationNeeded:YES];
-    [self checkLayoutOrientation:HPPPLayoutOrientationLandscape container:HPPPLayoutTestPortrait content:HPPPLayoutTestSquare rotationNeeded:NO];
+    [self checkLayoutOrientation:HPPPLayoutOrientationLandscape container:HPPPLayoutTestPortrait content:HPPPLayoutTestSquare rotationNeeded:YES];
 
-    [self checkLayoutOrientation:HPPPLayoutOrientationLandscape container:HPPPLayoutTestSquare content:HPPPLayoutTestLandscape rotationNeeded:NO];
-    [self checkLayoutOrientation:HPPPLayoutOrientationLandscape container:HPPPLayoutTestSquare content:HPPPLayoutTestPortrait rotationNeeded:NO];
-    [self checkLayoutOrientation:HPPPLayoutOrientationLandscape container:HPPPLayoutTestSquare content:HPPPLayoutTestSquare rotationNeeded:NO];
+    [self checkLayoutOrientation:HPPPLayoutOrientationLandscape container:HPPPLayoutTestSquare content:HPPPLayoutTestLandscape rotationNeeded:YES];
+    [self checkLayoutOrientation:HPPPLayoutOrientationLandscape container:HPPPLayoutTestSquare content:HPPPLayoutTestPortrait rotationNeeded:YES];
+    [self checkLayoutOrientation:HPPPLayoutOrientationLandscape container:HPPPLayoutTestSquare content:HPPPLayoutTestSquare rotationNeeded:YES];
 }
 
 - (void)testRotationNeededLayoutPortrait
 {
     [self checkLayoutOrientation:HPPPLayoutOrientationPortrait container:HPPPLayoutTestLandscape content:HPPPLayoutTestLandscape rotationNeeded:YES];
     [self checkLayoutOrientation:HPPPLayoutOrientationPortrait container:HPPPLayoutTestLandscape content:HPPPLayoutTestPortrait rotationNeeded:YES];
-    [self checkLayoutOrientation:HPPPLayoutOrientationPortrait container:HPPPLayoutTestLandscape content:HPPPLayoutTestSquare rotationNeeded:NO];
+    [self checkLayoutOrientation:HPPPLayoutOrientationPortrait container:HPPPLayoutTestLandscape content:HPPPLayoutTestSquare rotationNeeded:YES];
     
     [self checkLayoutOrientation:HPPPLayoutOrientationPortrait container:HPPPLayoutTestPortrait content:HPPPLayoutTestLandscape rotationNeeded:NO];
     [self checkLayoutOrientation:HPPPLayoutOrientationPortrait container:HPPPLayoutTestPortrait content:HPPPLayoutTestPortrait rotationNeeded:NO];

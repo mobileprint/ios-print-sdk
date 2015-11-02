@@ -64,21 +64,25 @@
     BOOL containerIsSquare = (CGFLOAT_MIN >= fabs(containerRect.size.width - containerRect.size.height));
     
     BOOL rotationNeeded = NO;
-    if (!contentIsSquare && !containerIsSquare && self.orientation != HPPPLayoutOrientationFixed) {
-        BOOL contentIsPortrait = (contentRect.size.width < contentRect.size.height);
+    if (self.orientation != HPPPLayoutOrientationFixed) {
+        BOOL contentIsPortrait = contentIsSquare || (contentRect.size.width < contentRect.size.height);
         BOOL contentIsLandscape = !contentIsPortrait;
         
-        BOOL containerIsPortrait = (containerRect.size.width < containerRect.size.height);
+        BOOL containerIsPortrait = containerIsSquare || (containerRect.size.width < containerRect.size.height);
         BOOL containerIsLandscape = !containerIsPortrait;
         
         BOOL contentMatchesContainer = ((contentIsPortrait && containerIsPortrait) || (contentIsLandscape && containerIsLandscape));
 
-        if (HPPPLayoutOrientationBestFit == self.orientation) {
-            rotationNeeded = !contentMatchesContainer;
-        } else if (HPPPLayoutOrientationPortrait == self.orientation) {
+        if (HPPPLayoutOrientationPortrait == self.orientation) {
             rotationNeeded = containerIsLandscape;
         } else if (HPPPLayoutOrientationLandscape == self.orientation) {
             rotationNeeded = containerIsPortrait;
+        } else if (HPPPLayoutOrientationBestFit == self.orientation) {
+            if (!containerIsSquare && !contentIsSquare) {
+                rotationNeeded = !contentMatchesContainer;
+            } else {
+                HPPPLogWarn(@"Cannot use HPPPLayoutOrientationBestFit when content or container is square. Will NOT rotate content.");
+            }
         }
     }
     
