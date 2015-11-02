@@ -43,7 +43,7 @@
 
 - (void)testInitWithNonDefaultAssetPosition
 {
-    HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:CGRectMake(5, 5, 90, 90) allowContentRotation:NO];
+    HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:CGRectMake(5, 5, 90, 90)];
     
     XCTAssert(
               CGRectEqualToRect(fillLayout.assetPosition, [HPPPLayout completeFillRectangle]),
@@ -62,7 +62,7 @@
         return [arg containsString:@"The HPPPLayoutFill layout type only supports the complete fill asset position"];
     }]];
     
-    HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:NO];
+    HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle]];
     
     XCTAssert(
               CGRectEqualToRect(fillLayout.assetPosition, [HPPPLayout completeFillRectangle]),
@@ -73,7 +73,7 @@
 
 - (void)testInitBorderInches
 {
-    HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:NO];
+    HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle]];
     
     XCTAssert(
               0 == fillLayout.borderInches,
@@ -83,7 +83,7 @@
 
 - (void)testSetNonZeroBorderInches
 {
-    HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:NO];
+    HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle]];
     fillLayout.borderInches = 1.0;
     
     XCTAssert(
@@ -103,7 +103,7 @@
         return [arg containsString:@"The HPPPLayoutFill layout type does not support non-zero border"];
     }]];
     
-    HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle] allowContentRotation:NO];
+    HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle]];
     fillLayout.borderInches = 0.0;
     
     XCTAssert(

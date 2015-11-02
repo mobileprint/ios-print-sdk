@@ -53,7 +53,6 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UISegmentedControl *verticalSegmentControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *horizontalSegmentControl;
 @property (weak, nonatomic) IBOutlet UITextField *borderWidthTextField;
-@property (weak, nonatomic) IBOutlet UISwitch *allowRotationSwitch;
 @property (weak, nonatomic) IBOutlet UITableViewCell *veritcalRow;
 @property (weak, nonatomic) IBOutlet UITableViewCell *horizontalRow;
 @property (weak, nonatomic) IBOutlet UITableViewCell *assetPositionRow;
@@ -754,10 +753,8 @@ NSInteger const kLengthOfSHA = 7;
     }
 
     CGFloat borderWidth = [self.borderWidthTextField.text floatValue];
-    
-    BOOL allowRotation = self.allowRotationSwitch.on;
-    
-    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:layoutType orientation:orientation assetPosition:assetPosition allowContentRotation:allowRotation];
+       
+    HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:layoutType orientation:orientation assetPosition:assetPosition];
     layout.borderInches = borderWidth;
     
     if ([layoutType isEqualToString:[HPPPLayoutFit layoutType]]) {
@@ -799,7 +796,7 @@ NSInteger const kLengthOfSHA = 7;
                                       scaledImageSize.height / paper.height * 100.0);
     
     HPPPLayoutOrientation orientation = imageSize.width > imageSize.height ? HPPPLayoutOrientationLandscape : HPPPLayoutOrientationPortrait;
-    return [HPPPLayoutFactory layoutWithType:[HPPPLayoutStretch layoutType] orientation:orientation assetPosition:assetPosition allowContentRotation:NO];
+    return [HPPPLayoutFactory layoutWithType:[HPPPLayoutStretch layoutType] orientation:orientation assetPosition:assetPosition];
 }
 
 - (CGRect)defaultPositionForSize:(NSUInteger)paperSize
