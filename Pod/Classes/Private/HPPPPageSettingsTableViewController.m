@@ -438,7 +438,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (void)viewDidLayoutSubviews
 {
     [self.view layoutIfNeeded];
-    [self.multiPageView refreshLayout];
     
     [self.tableView bringSubviewToFront:self.pageSelectionMark];
 }
@@ -452,18 +451,23 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 - (void)changePaper
 {
-    if ([self.dataSource respondsToSelector:@selector(printingItemForPaper:withCompletion:)] && [self.dataSource respondsToSelector:@selector(previewImageForPaper:withCompletion:)]) {
-        [self.dataSource printingItemForPaper:self.delegateManager.printSettings.paper withCompletion:^(HPPPPrintItem *printItem) {
-            if (printItem) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.printItem = printItem;
-                });
-            } else {
-                HPPPLogError(@"Missing printing item or preview image");
-            }
-        }];
-    } else {
-        [self configureMultiPageViewWithPrintItem:self.printItem];
+    static HPPPPaper *currentPaper = nil;
+    if( currentPaper != self.delegateManager.printSettings.paper ) {
+        currentPaper = self.delegateManager.printSettings.paper;
+        
+        if ([self.dataSource respondsToSelector:@selector(printingItemForPaper:withCompletion:)] && [self.dataSource respondsToSelector:@selector(previewImageForPaper:withCompletion:)]) {
+            [self.dataSource printingItemForPaper:self.delegateManager.printSettings.paper withCompletion:^(HPPPPrintItem *printItem) {
+                if (printItem) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.printItem = printItem;
+                    });
+                } else {
+                    HPPPLogError(@"Missing printing item or preview image");
+                }
+            }];
+        } else {
+            [self configureMultiPageViewWithPrintItem:self.printItem];
+        }
     }
 }
 

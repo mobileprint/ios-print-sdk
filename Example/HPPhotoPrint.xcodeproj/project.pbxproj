@@ -412,7 +412,7 @@
 				542373FFA571279CCE085671 /* Copy Pods Resources */,
 				F14A1C5F1B28F594000C5855 /* Embed App Extensions */,
 				65930B411BC474A3003307D0 /* ShellScript */,
-				FA7EFAC2E6BC67B54A24689F /* Embed Pods Frameworks */,
+				FD6E6F4A0BE613F78694C39F /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -432,7 +432,7 @@
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
 				1C5F881ACDDE30D48333F2B5 /* Copy Pods Resources */,
-				7C323829261189FF3C37B3CE /* Embed Pods Frameworks */,
+				F875A0C61017ADF1C26D4A13 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -455,6 +455,7 @@
 				ORGANIZATIONNAME = James;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
+						DevelopmentTeam = UJ5KAZ5V7V;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -649,7 +650,7 @@
 			shellPath = /bin/sh;
 			shellScript = "buildNumber=\"DEV\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
-		7C323829261189FF3C37B3CE /* Embed Pods Frameworks */ = {
+		F875A0C61017ADF1C26D4A13 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -664,7 +665,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FA7EFAC2E6BC67B54A24689F /* Embed Pods Frameworks */ = {
+		FD6E6F4A0BE613F78694C39F /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -920,6 +921,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -941,6 +943,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -975,7 +978,7 @@
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/HPPhotoPrint\"",
 					"\"$(PODS_ROOT)/Headers/Build/HPPhotoPrint\"",
-					"\"${PODS_ROOT}/Headers/Private/HPPhotoPrint\"",
+					"\"$(PODS_ROOT)/Headers/Private/HPPhotoPrint\"",
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
@@ -1001,7 +1004,7 @@
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/HPPhotoPrint\"",
 					"\"$(PODS_ROOT)/Headers/Build/HPPhotoPrint\"",
-					"\"${PODS_ROOT}/Headers/Private/HPPhotoPrint\"",
+					"\"$(PODS_ROOT)/Headers/Private/HPPhotoPrint\"",
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
