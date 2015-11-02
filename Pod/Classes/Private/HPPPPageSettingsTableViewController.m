@@ -54,9 +54,10 @@
 #define PAPER_SELECTION_SECTION 4
 #define PRINT_SETTINGS_SECTION 5
 #define PRINT_JOB_NAME_SECTION 6
-#define NUMBER_OF_COPIES_SECTION 7
-#define BLACK_AND_WHITE_FILTER_SECTION 8
-#define SUPPORT_SECTION 9
+#define PAGE_RANGE_SECTION 7
+#define NUMBER_OF_COPIES_SECTION 8
+#define BLACK_AND_WHITE_FILTER_SECTION 9
+#define SUPPORT_SECTION 10
 
 #define PRINTER_SELECTION_INDEX 0
 #define PAPER_SIZE_ROW_INDEX 0
@@ -301,7 +302,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.footerTextLabel.font = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundSecondaryFont];
     self.footerTextLabel.textColor = [self.hppp.appearance.settings objectForKey:kHPPPGeneralBackgroundSecondaryFontColor];
     
-    [self prepareUiForIosVersion];
     [self updatePrintSettingsUI];
     [[HPPPPrinter sharedInstance] checkLastPrinterUsedAvailability];
     [self updatePageSettingsUI];
@@ -482,6 +482,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if (!IS_OS_8_OR_LATER){
         self.selectPrinterCell.hidden = YES;
         self.printSettingsCell.hidden = YES;
+        self.numberOfCopiesCell.hidden = YES;
     }
 }
 
@@ -555,9 +556,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         }
     }
     
-    if( !IS_OS_8_OR_LATER ) {
-        self.selectPrinterCell.hidden = YES;
-    }
+    [self prepareUiForIosVersion];
 
     [self.tableView endUpdates];
 }
@@ -588,17 +587,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     } else {
         self.printLabel.text = self.delegateManager.printLabelText;
     }
-}
-
-- (UIPrintInteractionController *)getSharedPrintInteractionController
-{
-    UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
-    
-    if (nil != controller) {
-        controller.delegate = self.printManager;
-    }
-    
-    return controller;
 }
 
 - (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
@@ -1024,16 +1012,11 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 - (void)displaySystemPrintFromView:(UIView *)view
 {
-    // Obtain the shared UIPrintInteractionController
-    UIPrintInteractionController *controller = [self getSharedPrintInteractionController];
-    
-    if (!controller) {
-        HPPPLogError(@"Couldn't get shared UIPrintInteractionController!");
-        return;
-    }
-    
+    UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
+    controller.delegate = self.printManager;
     controller.showsNumberOfCopies = NO;
-    
+    controller.showsPageRange = NO;
+
     self.printManager.currentPrintSettings = self.delegateManager.printSettings;
     [self.printManager prepareController:controller printItem:self.printItem color:!self.blackAndWhiteModeSwitch.on pageRange:self.pageRange numCopies:self.numberOfCopies];
     
@@ -1101,6 +1084,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+   
     if (section == SUPPORT_SECTION) {
         return self.hppp.supportActions.count;
     } else if (section == PAPER_SELECTION_SECTION) {
@@ -1113,8 +1097,11 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                HPPPPageSettingsModeSettingsOnly == self.mode  &&
                nil == self.printItem) {
         return 0;
-    } else if (NUMBER_OF_COPIES_SECTION == section) {
-        return [self showPageRange] ? 2 : 1;
+
+    } else if (PAGE_RANGE_SECTION == section && ![self showPageRange]) {
+        return 0;
+    } else if (NUMBER_OF_COPIES_SECTION == section && !IS_OS_8_OR_LATER) {
+        return 0;
     }
     else {
         return [super tableView:tableView numberOfRowsInSection:section];
@@ -1179,7 +1166,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     CGFloat height = ZERO_HEIGHT;
  
-    if ( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
+    if ( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ||
+        0 == [self tableView:tableView numberOfRowsInSection:section]) {
         height = ZERO_HEIGHT;
     } else {
         if( HPPPPageSettingsModeSettingsOnly == self.mode ) {
@@ -1218,7 +1206,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                         height = PRINTER_WARNING_SECTION_FOOTER_HEIGHT;
                     }
                 }
-            } else if (IS_OS_8_OR_LATER && (section == NUMBER_OF_COPIES_SECTION)) {
+            } else if (section == PAGE_RANGE_SECTION) {
+                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+            }
+            else if (IS_OS_8_OR_LATER && (section == NUMBER_OF_COPIES_SECTION)) {
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
             } else if (section == SUPPORT_SECTION) {
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
