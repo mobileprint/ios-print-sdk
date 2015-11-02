@@ -56,6 +56,14 @@
     CGSize renderContentSize = CGSizeMake(contentRect.size.width * contentPaperSize.width / printerPaperSize.width, contentRect.size.height * contentPaperSize.height / printerPaperSize.height);
     CGRect insetContentRect = CGRectInset(CGRectMake(0, 0, renderContentSize.width, renderContentSize.height), self.layout.borderInches * kHPPPPointsPerInch, self.layout.borderInches * kHPPPPointsPerInch);
     
+    if ( _layout.orientation == HPPPLayoutOrientationLandscape ) {
+        
+        // if the image is square
+        if ( CGFLOAT_MIN >= fabs(image.size.width-image.size.height) ) {
+            image = [image HPPPRotate];
+        }
+    }
+    
     [self.layout drawContentImage:image inRect:insetContentRect];
 }
 
