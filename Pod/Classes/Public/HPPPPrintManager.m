@@ -112,29 +112,16 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
     *errorPtr = [NSError errorWithDomain:HPPP_ERROR_DOMAIN code:error userInfo:nil];
 }
 
-- (UIPrintInteractionController *)getSharedPrintInteractionController
-{
-    UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
-    
-    if (nil != controller) {
-        controller.delegate = self;
-    }
-    
-    return controller;
-}
-
 - (void)doPrintWithPrintItem:(HPPPPrintItem *)printItem
                        color:(BOOL)color
                    pageRange:(HPPPPageRange *)pageRange
                    numCopies:(NSInteger)numCopies
 {
     if (self.currentPrintSettings.printerUrl != nil) {
-        UIPrintInteractionController *controller = [self getSharedPrintInteractionController];
-        if (!controller) {
-            HPPPLogError(@"Couldn't get shared UIPrintInteractionController!");
-            return;
-        }
-        controller.showsNumberOfCopies = NO;
+        
+        UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
+        controller.delegate = self;
+
         [self prepareController:controller printItem:printItem color:color pageRange:pageRange numCopies:numCopies];
         UIPrinter *printer = [UIPrinter printerWithURL:self.currentPrintSettings.printerUrl];
         [controller printToPrinter:printer completionHandler:^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
@@ -169,8 +156,8 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
 {   
     // Obtain a printInfo so that we can set our printing defaults.
     UIPrintInfo *printInfo = [UIPrintInfo printInfo];
-    
-    self.numberOfCopies = numCopies;
+
+    self.numberOfCopies = IS_OS_8_OR_LATER ? numCopies : 1;
     
     // The path to the image may or may not be a good name for our print job
     // but that's all we've got.
@@ -200,10 +187,10 @@ NSString * const kHPPPOfframpDirect = @"PrintWithNoUI";
         if (![printItem.printAsset isKindOfClass:[UIImage class]]) {
             HPPPLogWarn(@"Using custom print renderer with non-image class:  %@", printItem.printAsset);
         }
-        HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[[printItem printAssetForPageRange:pageRange]] layout:printItem.layout paper:self.currentPrintSettings.paper copies:numCopies];
+        HPPPPrintPageRenderer *renderer = [[HPPPPrintPageRenderer alloc] initWithImages:@[[printItem printAssetForPageRange:pageRange]] layout:printItem.layout paper:self.currentPrintSettings.paper copies:self.numberOfCopies];
         controller.printPageRenderer = renderer;
     } else {
-        if (1 == numCopies) {
+        if (1 == self.numberOfCopies) {
             controller.printingItem = [printItem printAssetForPageRange:pageRange];
         } else {
             NSMutableArray *items = [NSMutableArray array];
