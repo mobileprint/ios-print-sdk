@@ -89,7 +89,6 @@ NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
     NSString *osVersion = [[UIDevice currentDevice] systemVersion];
     NSString *displayName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
     NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
-    NSString *printPodVersion = [self podVersion];
     NSDictionary *metrics = @{
                               kHPPPMetricsDeviceBrand : [self nonNullString:kHPPPManufacturer],
                               kHPPPMetricsDeviceID : [self nonNullString:[self userUniqueIdentifier]],
@@ -100,7 +99,7 @@ NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
                               kHPPPMetricsProductID : [self nonNullString:bundleID],
                               kHPPPMetricsProductName : [self nonNullString:displayName],
                               kHPPPMetricsVersion : [self nonNullString:completeVersion],
-                              kHPPPMetricsPrintLibraryVersion :[self nonNullString:printPodVersion],
+                              kHPPPMetricsPrintLibraryVersion :kHPPPLibraryVersion,
                               kHPPPMetricsWiFiSSID : [HPPPAnalyticsManager wifiName],
                               kHPPPMetricsCountryCode : [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode],
                               kHPPPMetricsLanguageCode : [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode],
@@ -157,16 +156,6 @@ NSString * const kHPPPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
     
     return options;
 }
-
-- (NSString *)podVersion
-{
-    NSString *version = @"";
-#ifdef COCOAPODS_VERSION_MAJOR_HPPhotoPrint
-    version = [NSString stringWithFormat:@"%d.%d.%d", COCOAPODS_VERSION_MAJOR_HPPhotoPrint, COCOAPODS_VERSION_MINOR_HPPhotoPrint, COCOAPODS_VERSION_PATCH_HPPhotoPrint];
-#endif
-    return version;
-}
-
 
 - (NSString *)userUniqueIdentifier
 {
