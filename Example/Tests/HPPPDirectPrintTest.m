@@ -12,8 +12,11 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "HPPP.h"
 #import "HPPPPrintItemFactory.h"
 #import "HPPPPrintManager.h"
+#import <HPPPLogger.h>
+#import <OCMock/OCMock.h>
 
 @interface HPPPDirectPrintTest : XCTestCase
 
@@ -23,6 +26,9 @@
 @end
 
 @implementation HPPPDirectPrintTest
+{
+    id _loggerMock;
+}
 
 - (void)setUp {
     [super setUp];
@@ -34,11 +40,14 @@
     self.printManager.currentPrintSettings.printerName = @"dummyPrinterName";
     self.printManager.currentPrintSettings.printerUrl = [NSURL URLWithString:@"dummyPrinterUrl"];
     self.printManager.currentPrintSettings.paper = [[HPPPPaper alloc] initWithPaperSize:HPPPPaperSize5x7 paperType:HPPPPaperTypePhoto];
+
+    _loggerMock = OCMPartialMock([HPPPLogger sharedInstance]);
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+    [_loggerMock stopMocking];
 }
 
 - (void)testNoPrinterUrl {
@@ -49,15 +58,15 @@
                    numCopies:1
                        error:&error];
     
-    XCTAssert(HPPPPrintManagerErrorNoPrinterUrl == error.code, @"Expected HPPPPrintManagerErrorNoPrinterUrl for nil value, recieved %@", error);
+    [self verifyError:error expectedName:@"HPPPPrintManagerErrorNoPrinterUrl" expectedCode:HPPPPrintManagerErrorNoPrinterUrl];
     
     self.printManager.currentPrintSettings.printerUrl = [NSURL URLWithString:@""];
     [self.printManager print:self.printItem
                    pageRange:nil
                    numCopies:1
                        error:&error];
-    
-    XCTAssert(HPPPPrintManagerErrorNoPrinterUrl == error.code, @"Expected HPPPPrintManagerErrorNoPrinterUrl for empty string, recieved %@", error);
+
+    [self verifyError:error expectedName:@"HPPPPrintManagerErrorNoPrinterUrl" expectedCode:HPPPPrintManagerErrorNoPrinterUrl];
 }
 
 - (void)testPrinterNotAvailable {
@@ -67,9 +76,9 @@
                    pageRange:nil
                    numCopies:1
                        error:&error];
+  
     
-    XCTAssert(HPPPPrintManagerErrorPrinterNotAvailable == error.code, @"Expected HPPPPrintManagerErrorPrinterNotAvailable, recieved %@", error);
-    
+    [self verifyError:error expectedName:@"HPPPPrintManagerErrorPrinterNotAvailable" expectedCode:HPPPPrintManagerErrorPrinterNotAvailable];
 }
 
 - (void)testNoPaperType {
@@ -80,8 +89,7 @@
                    numCopies:1
                        error:&error];
     
-    XCTAssert(HPPPPrintManagerErrorNoPaperType == error.code, @"Expected HPPPPrintManagerErrorNoPaperType, recieved %@", error);
-
+    [self verifyError:error expectedName:@"HPPPPrintManagerErrorNoPaperType" expectedCode:HPPPPrintManagerErrorNoPaperType];
 }
 
 - (void)testSuccess {
@@ -91,9 +99,31 @@
                    numCopies:1
                        error:&error];
     
-    XCTAssert(HPPPPrintManagerErrorNone == error.code, @"Expected HPPPPrintManagerErrorNone, recieved %@", error);
-    
+    [self verifyError:error expectedName:@"HPPPPrintManagerErrorNone" expectedCode:HPPPPrintManagerErrorNone];
 }
 
+#pragma mark - Error verification
+
+- (void)verifyError:(NSError *)error expectedName:(NSString *)expectedName expectedCode:(NSInteger)expectedCode
+{
+    if (IS_OS_8_OR_LATER) {
+        XCTAssert(expectedCode == error.code, @"Expected error %@ (%d), recieved %@", expectedName, expectedCode ,error);
+    } else {
+        [self checkiOS7Error:error];
+    }
+}
+
+- (void)checkiOS7Error:(NSError *)error
+{
+    XCTAssert(HPPPPrintManagerErrorDirectPrintNotSupported == error.code, @"Expected HPPPPrintManagerErrorDirectPrintNotSupported for iOS 7, recieved %@", error);
+
+    OCMVerify([_loggerMock logWarn:[OCMArg checkWithBlock:^BOOL(id obj) {
+        NSString *arg = obj;
+        return [arg rangeOfString:@"directPrint not completed - only available on iOS 8 and later"].location != NSNotFound;
+    }]]);
+    
+    [_loggerMock stopMocking];
+    _loggerMock = OCMPartialMock([HPPPLogger sharedInstance]);
+}
 
 @end

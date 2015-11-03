@@ -85,7 +85,7 @@
     
     OCMVerify([_loggerMock logError:[OCMArg checkWithBlock:^BOOL(id obj) {
         NSString *arg = obj;
-        return [arg containsString:@"Cannot set layout of PDF print item"];
+        return [arg rangeOfString:@"Cannot set layout of PDF print item"].location != NSNotFound;
     }]]);
 }
 

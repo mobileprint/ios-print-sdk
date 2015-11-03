@@ -130,8 +130,6 @@ NSString * const kHPPPTestNumberOfCopiesKey = @"kHPPPTestNumberOfCopiesKey";
 
 - (void)testsaveLastOptionsForPrinter
 {
-//    [lastOptionsUsed setValue:[NSNumber numberWithInteger:self.numberOfCopies] forKey:kHPPPNumberOfCopies];
-
     NSDictionary *defaultSettings = [self defaultSettings];
     [HPPP sharedInstance].lastOptionsUsed = @{};
     _printManager = [[HPPPPrintManager alloc] init];
@@ -152,11 +150,12 @@ NSString * const kHPPPTestNumberOfCopiesKey = @"kHPPPTestNumberOfCopiesKey";
     NSNumber *height = [[HPPP sharedInstance].lastOptionsUsed objectForKey:kHPPPPaperHeightId];
     XCTAssert([height floatValue] == expectedPaper.height, @"Expected last paper height (%.3f) to equal expected paper height (%.3f)", [height floatValue], expectedPaper.height);
     
+    NSNumber *expectedBlackAndWhite = IS_OS_8_OR_LATER ? [defaultSettings objectForKey:kHPPPTestBlackAndWhiteKey] : [NSNumber numberWithBool:NO];
     XCTAssert(
-              [defaultSettings objectForKey:kHPPPTestBlackAndWhiteKey] == [[HPPP sharedInstance].lastOptionsUsed objectForKey:kHPPPBlackAndWhiteFilterId],
+              expectedBlackAndWhite == [[HPPP sharedInstance].lastOptionsUsed objectForKey:kHPPPBlackAndWhiteFilterId],
               @"Expected last B/W option (%@) to equal expected B/W option (%@)",
               [[HPPP sharedInstance].lastOptionsUsed objectForKey:kHPPPPaperTypeId],
-              [defaultSettings objectForKey:kHPPPTestBlackAndWhiteKey]);
+              expectedBlackAndWhite);
     
     XCTAssert(
               [defaultSettings objectForKey:kHPPPTestNumberOfCopiesKey] == [[HPPP sharedInstance].lastOptionsUsed objectForKey:kHPPPNumberOfCopies],
@@ -279,15 +278,16 @@ NSString * const kHPPPTestNumberOfCopiesKey = @"kHPPPTestNumberOfCopiesKey";
     [self checkSetting:@"Printer Available" value:value expected:expected];
     
     value = [NSString stringWithFormat:@"%ul", _printManager.currentPrintSettings.color];
-    expected = [NSString stringWithFormat:@"%ul", ![[expectedSettings objectForKey:kHPPPTestBlackAndWhiteKey] boolValue]];
+    BOOL blackAndWhite = IS_OS_8_OR_LATER ? [[expectedSettings objectForKey:kHPPPTestBlackAndWhiteKey] boolValue]: NO;
+    expected = [NSString stringWithFormat:@"%ul", !blackAndWhite];
     [self checkSetting:@"Color Filter" value:value expected:expected];
     
     value = [NSString stringWithFormat:@"%lul", (unsigned long)_printManager.currentPrintSettings.paper.paperSize];
-    expected = [NSString stringWithFormat:@"%lul", [[expectedSettings objectForKey:kHPPPTestPaperSizeKey] unsignedIntegerValue]];
+    expected = [NSString stringWithFormat:@"%ul", [[expectedSettings objectForKey:kHPPPTestPaperSizeKey] unsignedIntegerValue]];
     [self checkSetting:@"Paper Size" value:value expected:expected];
     
     value = [NSString stringWithFormat:@"%lul", (unsigned long)_printManager.currentPrintSettings.paper.paperType];
-    expected = [NSString stringWithFormat:@"%lul", [[expectedSettings objectForKey:kHPPPTestPaperTypeKey] unsignedIntegerValue]];
+    expected = [NSString stringWithFormat:@"%ul", [[expectedSettings objectForKey:kHPPPTestPaperTypeKey] unsignedIntegerValue]];
     [self checkSetting:@"Paper Type" value:value expected:expected];
 }
 

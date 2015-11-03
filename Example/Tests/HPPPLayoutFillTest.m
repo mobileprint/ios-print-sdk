@@ -51,7 +51,7 @@
     
     OCMVerify([_loggerMock logError:[OCMArg checkWithBlock:^BOOL(id obj) {
         NSString *arg = obj;
-        return [arg containsString:@"The HPPPLayoutFill layout type only supports the complete fill asset position"];
+        return [arg rangeOfString:@"The HPPPLayoutFill layout type only supports the complete fill asset position"].location != NSNotFound;
     }]]);
 }
 
@@ -59,7 +59,7 @@
 {
     [[_loggerMock reject] logError:[OCMArg checkWithBlock:^BOOL(id obj) {
         NSString *arg = obj;
-        return [arg containsString:@"The HPPPLayoutFill layout type only supports the complete fill asset position"];
+        return [arg rangeOfString:@"The HPPPLayoutFill layout type only supports the complete fill asset position"].location != NSNotFound;
     }]];
     
     HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle]];
@@ -92,7 +92,7 @@
     
     OCMVerify([_loggerMock logError:[OCMArg checkWithBlock:^BOOL(id obj) {
         NSString *arg = obj;
-        return [arg containsString:@"The HPPPLayoutFill layout type does not support non-zero border"];
+        return [arg rangeOfString:@"The HPPPLayoutFill layout type does not support non-zero border"].location != NSNotFound;
     }]]);
 }
 
@@ -100,7 +100,7 @@
 {
     [[_loggerMock reject] logError:[OCMArg checkWithBlock:^BOOL(id obj) {
         NSString *arg = obj;
-        return [arg containsString:@"The HPPPLayoutFill layout type does not support non-zero border"];
+        return [arg rangeOfString:@"The HPPPLayoutFill layout type does not support non-zero border"].location != NSNotFound;
     }]];
     
     HPPPLayout *fillLayout = [HPPPLayoutFactory layoutWithType:[HPPPLayoutFill layoutType] orientation:HPPPLayoutOrientationBestFit assetPosition:[HPPPLayout completeFillRectangle]];
