@@ -413,6 +413,7 @@
 				F14A1C5F1B28F594000C5855 /* Embed App Extensions */,
 				65930B411BC474A3003307D0 /* ShellScript */,
 				FD6E6F4A0BE613F78694C39F /* Embed Pods Frameworks */,
+				65D1A2911BE9844C0091A571 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -649,6 +650,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "buildNumber=\"DEV\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		65D1A2911BE9844C0091A571 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "set -e\n\nhppp=$(cat \"../Pod/Classes/Public/HPPP.m\")\nhppp_regex=\"kHPPPLibraryVersion = @\\\"([0-9]+\\.[0-9]+\\.[0-9]+)\"\n[[ $hppp =~ $hppp_regex ]]\nhppp_version=\"${BASH_REMATCH[1]}\"\n\npod=$(cat \"../HPPhotoPrint.podspec\")\npod_regex=\"s.version *= *\\\"([0-9]+\\.[0-9]+\\.[0-9]+)\"\n[[ $pod =~ $pod_regex ]]\npod_version=\"${BASH_REMATCH[1]}\"\n\nif [ \"$hppp_version\" == \"$pod_version\" ];\nthen\necho \"HPPP ($hppp_version) is equal to pod version ($pod_version)\"\nfi\n\nif [ \"$hppp_version\" != \"$pod_version\" ];\nthen\necho \"kHPPPLibraryVersion ($hppp_version) is NOT equal to pod version ($pod_version)\"\nexit 1\nfi";
+			showEnvVarsInLog = 0;
 		};
 		F875A0C61017ADF1C26D4A13 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

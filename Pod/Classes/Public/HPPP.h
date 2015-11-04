@@ -61,6 +61,12 @@ extern NSString * const kPrintCategoryIdentifier;
 @interface HPPP : NSObject
 
 /*!
+ * @abstract Indicates the version of the print library
+ * @discussion Full version history can be found at: https://github.com/IPGPTP/hp_photo_print/wiki/Release-Notes
+ */
+extern NSString * const kHPPPLibraryVersion;
+
+/*!
  * @abstract Notifies subscribers that a share action was completed
  * @discussion Clients can use this notification to indicate that the user completed a sharing action. This is useful for collecting and reporting analytics.
  */
