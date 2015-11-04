@@ -67,6 +67,8 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UILabel *reportedDeviceIdLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *useUniqueIdPerAppSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *reportedIdTitleLabel;
+@property (weak, nonatomic) IBOutlet UITableViewCell *configurePrintCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *printPreviewCell;
 
 @end
 
@@ -168,7 +170,7 @@ NSInteger const kLengthOfSHA = 7;
     HPPPSupportAction *action2 = [[HPPPSupportAction alloc] initWithIcon:[UIImage imageNamed:@"print-instructions"] title:@"Print Instructions VC" viewController:navigationController];
     
     [HPPP sharedInstance].supportActions =  @[action1, action2];
-
+    
     [HPPP sharedInstance].interfaceOptions.multiPageMaximumGutter = 0;
     [HPPP sharedInstance].interfaceOptions.multiPageBleed = 40;
     [HPPP sharedInstance].interfaceOptions.multiPageBackgroundPageScale = 0.61803399;
@@ -482,10 +484,21 @@ NSInteger const kLengthOfSHA = 7;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!IS_OS_8_OR_LATER && (cell == self.showPrintQueueCell || cell == self.showGeoHelperCell || cell == self.directPrintCell)) {
+    if (!IS_OS_8_OR_LATER && [self iOS7NotSupportedCell:cell]) {
         cell.alpha = 0.5;
         cell.userInteractionEnabled = NO;
     }
+}
+
+- (BOOL)iOS7NotSupportedCell:(UITableViewCell *)cell
+{
+    return (
+            cell == self.showPrintQueueCell ||
+            cell == self.showGeoHelperCell ||
+            cell == self.directPrintCell ||
+            cell == self.configurePrintCell ||
+            cell == self.printPreviewCell
+            );
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -739,14 +752,14 @@ NSInteger const kLengthOfSHA = 7;
     } else if (kLayoutStretchIndex == self.layoutSegmentControl.selectedSegmentIndex) {
         layoutType = [HPPPLayoutStretch layoutType];
     }
-
+    
     HPPPLayoutOrientation orientation = HPPPLayoutOrientationBestFit;
     if (kOrientationLandscape == self.orientationSegmentControl.selectedSegmentIndex) {
         orientation = HPPPLayoutOrientationLandscape;
     } else if (kOrientationPortrait == self.orientationSegmentControl.selectedSegmentIndex) {
         orientation = HPPPLayoutOrientationPortrait;
     }
-
+    
     CGRect assetPosition = [HPPPLayout completeFillRectangle];
     CGFloat x = [((UITextField *)self.positionTextField[0]).text floatValue];
     CGFloat y = [((UITextField *)self.positionTextField[1]).text floatValue];
@@ -755,28 +768,28 @@ NSInteger const kLengthOfSHA = 7;
     if (width > 0 && height > 0) {
         assetPosition = CGRectMake(x, y, width, height);
     }
-
+    
     CGFloat borderWidth = [self.borderWidthTextField.text floatValue];
-       
+    
     HPPPLayout *layout = [HPPPLayoutFactory layoutWithType:layoutType orientation:orientation assetPosition:assetPosition];
     layout.borderInches = borderWidth;
     
     if ([layoutType isEqualToString:[HPPPLayoutFit layoutType]]) {
-
+        
         HPPPLayoutHorizontalPosition horizontalPosition = HPPPLayoutHorizontalPositionMiddle;
         if (kHorizontalLeftIndex == self.horizontalSegmentControl.selectedSegmentIndex) {
             horizontalPosition = HPPPLayoutHorizontalPositionLeft;
         } else if (kHorizontalRightIndex == self.horizontalSegmentControl.selectedSegmentIndex) {
             horizontalPosition = HPPPLayoutHorizontalPositionRight;
         }
-
+        
         HPPPLayoutVerticalPosition verticalPosition = HPPPLayoutVerticalPositionMiddle;
         if (kVerticalTopIndex == self.verticalSegmentControl.selectedSegmentIndex) {
             verticalPosition = HPPPLayoutVerticalPositionTop;
         } else if (kVerticalBottomIndex == self.verticalSegmentControl.selectedSegmentIndex) {
             verticalPosition = HPPPLayoutVerticalPositionBottom;
         }
-
+        
         HPPPLayoutFit *fitLayout = (HPPPLayoutFit *)layout;
         fitLayout.horizontalPosition = horizontalPosition;
         fitLayout.verticalPosition = verticalPosition;
@@ -976,7 +989,7 @@ NSInteger const kLengthOfSHA = 7;
     }
     
     return defaultPaper;
-
+    
 }
 
 - (NSArray *)supportedPapersForPrintSettings:(HPPPPrintSettings *)printSettings
@@ -1007,7 +1020,7 @@ NSInteger const kLengthOfSHA = 7;
     return nil; //[NSNumber numberWithFloat:printSettings.paper.height * 72.0];
 }
 
-#pragma mark - Photo strip paper 
+#pragma mark - Photo strip paper
 
 NSUInteger const k3UpPaperSizeId = 100;
 NSString * const k3UpPaperSizeTitle = @"2 x 6";
@@ -1054,7 +1067,7 @@ BOOL const kLabelPaperTypePhoto = NO;
                               kHPPPPaperTypeTitleKey:kLabelPaperTypeTitle,
                               kHPPPPaperTypePhotoKey:[NSNumber numberWithBool:kLabelPaperTypePhoto]
                               }];
- 
+    
     [HPPPPaper associatePaperSize:HPPPPaperSize5x7 withType:k3UpPaperTypeId];
     [HPPPPaper associatePaperSize:k3UpPaperSizeId withType:kLabelPaperTypeId];
     [HPPPPaper associatePaperSize:k4UpPaperSizeId withType:kLabelPaperTypeId];
