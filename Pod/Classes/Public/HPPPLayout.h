@@ -56,7 +56,7 @@ typedef enum {
  * @param image The image asset to draw
  * @param rect The reference rectangle onto which the image is drawn.
  * @discussion The actual content rectangle used for layout will be computed using the rectangle passed in with the assetPosition percentages applied.
- * @seealso initWithOrientation:assetPosition
+ * @seealso initWithOrientation:assetPosition:
  */
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect;
 

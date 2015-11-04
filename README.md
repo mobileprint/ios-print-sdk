@@ -1,6 +1,6 @@
 # HPPhotoPrint
 
-[![Version](https://img.shields.io/badge/pod-2.6.2-blue.svg)](http://hppp.herokuapp.com)
+[![Version](https://img.shields.io/badge/pod-2.6.9-blue.svg)](http://hppp.herokuapp.com)
 [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](http://hppp.herokuapp.com)
 [![Awesome](https://img.shields.io/badge/awesomeness-verified-green.svg)](http://hppp.herokuapp.com)
 
@@ -50,7 +50,7 @@ Add the private pod trunk as a source in your `Podfile`. It is important that th
 
 Add an entry for the __HPPhotoPrint__ pod with the desired version number:
 
-    pod 'HPPhotoPrint', '2.6.2'
+    pod 'HPPhotoPrint', '2.6.9'
 
 On the command line, switch to the directory containing the `Podfile` and run the install command:
 
@@ -69,7 +69,7 @@ pod 'GoogleAnalytics-iOS-SDK'
 pod 'TTTAttributedLabel', '~> 1.10.1'
 pod 'XMLDictionary', '~> 1.4.0'
 pod 'CocoaLumberjack', '1.9.1'
-pod 'HPPhotoPrint', '2.6.2'
+pod 'HPPhotoPrint', '2.6.9'
 pod 'ZipArchive', '1.4.0'
 
 xcodeproj 'MyProject/MyProject.xcodeproj'

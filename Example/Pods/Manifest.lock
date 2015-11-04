@@ -1,5 +1,5 @@
 PODS:
-  - HPPhotoPrint (2.6.8)
+  - HPPhotoPrint (2.6.9)
   - OCMock (3.2)
 
 DEPENDENCIES:
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HPPhotoPrint: 2e654364731bf8d240c0a9de009aa7c090a2ba42
+  HPPhotoPrint: 0a7838e9348f48cd1bd1f067597a65cc674f58c8
   OCMock: 28def049ef47f996b515a8eeea958be7ccab2dbb
 
 COCOAPODS: 0.39.0
