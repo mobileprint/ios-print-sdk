@@ -1000,11 +1000,7 @@ NSInteger const kLengthOfSHA = 7;
         NSUInteger paperSize = [self aspectRatio4up] ? k4UpPaperSizeId : k3UpPaperSizeId;
         papers = @[ [[HPPPPaper alloc] initWithPaperSize:paperSize paperType:kLabelPaperTypeId] ];
     }
-    
-    if (!IS_OS_8_OR_LATER) {
-        papers = [HPPPPaper availablePapers];
-    }
-    
+
     return papers;
 }
 
