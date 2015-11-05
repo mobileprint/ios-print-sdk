@@ -395,6 +395,13 @@ extern NSString * const kHPPPPrinterPaperAreaYPoints;
 @property (assign, nonatomic) BOOL uniqueDeviceIdPerApp;
 
 /*!
+ * @abstract Indicates whether the cancel button on page settings screen is on the left or right of the navigationItem
+ * @discussion If this value is true, the cancel button will show on the left of the navigation item on PageSettings otherwise it will appear on the right.  Default is right.
+ */
+@property (assign, nonatomic) BOOL pageSettingsCancelButtonLeft;
+
+
+/*!
  * @abstract Prepares a view controller suitable for the device and OS
  * @description This method prepares a view controller for displaying the print flow. It takes into consideration the device type and OS and prepares either a split view controller (iPad with iOS 8 or above) or a standard view controller. Both types are wrapped in a navigation controller. The controller returned is suitable for using with the UIActivity method 'activityViewController'.
  * @param delegate An optional delegate object that implements the HPPPPrintDelegate protocol

@@ -69,6 +69,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UILabel *reportedIdTitleLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *configurePrintCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printPreviewCell;
+@property (weak, nonatomic) IBOutlet UISwitch *cancelButtonPositionLeft;
 
 @end
 
@@ -143,12 +144,16 @@ NSInteger const kLengthOfSHA = 7;
     
     [self setBarButtonItems];
     [self.appearanceTestSettingsSwitch setOn:NO];
+    [self.cancelButtonPositionLeft setOn:NO];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionEstablished object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:kHPPPWiFiConnectionLost object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePrintQueueNotification:) name:kHPPPPrintQueueNotification object:nil];
     
     [self setDeviceInfo];
+}
+- (IBAction)cancelButtonSwitchChange:(id)sender {
+    [HPPP sharedInstance].pageSettingsCancelButtonLeft = self.cancelButtonPositionLeft.isOn;
 }
 
 - (void)dealloc

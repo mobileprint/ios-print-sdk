@@ -1203,6 +1203,35 @@
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="h2R-uX-uQG" userLabel="Cancel Button Right">
+                                        <rect key="frame" x="0.0" y="1630" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h2R-uX-uQG" id="TjG-Sb-Dm6">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DfF-Zf-4s0" userLabel="Cancel Button Pos Switch">
+                                                    <rect key="frame" x="543" y="7" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="cancelButtonSwitchChange:" destination="p4c-XR-IBR" eventType="valueChanged" id="NWK-nf-AKR"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Cancel Btn Position Left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmo-E3-5JP" userLabel="Cancel Button Right Pos">
+                                                    <rect key="frame" x="28" y="12" width="495" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="DfF-Zf-4s0" firstAttribute="trailing" secondItem="TjG-Sb-Dm6" secondAttribute="trailingMargin" id="4lW-HR-5Uu"/>
+                                                <constraint firstItem="rmo-E3-5JP" firstAttribute="leading" secondItem="TjG-Sb-Dm6" secondAttribute="leadingMargin" constant="20" id="7w0-ex-z1d"/>
+                                                <constraint firstItem="DfF-Zf-4s0" firstAttribute="leading" secondItem="rmo-E3-5JP" secondAttribute="trailing" constant="20" id="FIf-zi-pyw"/>
+                                                <constraint firstAttribute="centerY" secondItem="DfF-Zf-4s0" secondAttribute="centerY" id="OcK-fA-Kha"/>
+                                                <constraint firstAttribute="centerY" secondItem="rmo-E3-5JP" secondAttribute="centerY" id="qsn-5L-HVU"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -1222,6 +1251,7 @@
                         <outlet property="borderWidthRow" destination="GLs-5b-Z0d" id="9Xf-9K-HS6"/>
                         <outlet property="borderWidthTextField" destination="OdU-GY-6f5" id="IiE-rI-VfU"/>
                         <outlet property="configurePrintCell" destination="grr-Vh-MM3" id="ddA-Rr-WW3"/>
+                        <outlet property="cancelButtonPositionLeft" destination="DfF-Zf-4s0" id="77g-Zs-8ee"/>
                         <outlet property="detectWiFiSwitch" destination="KIF-8f-osR" id="Gk0-q3-e5Z"/>
                         <outlet property="directPrintCell" destination="ztg-kL-WPP" id="Sje-sG-65B"/>
                         <outlet property="extendedMetricsCell" destination="E0s-7Q-2xp" id="w6w-xD-FGy"/>
