@@ -1,6 +1,6 @@
 {
   "name": "HPPhotoPrint",
-  "version": "2.6.9",
+  "version": "2.6.10",
   "summary": "AirPrint photo printing with preview.",
   "description": "Select paper size, printer, view preview and send to print throught AirPrint.",
   "homepage": "http://hppp.herokuapp.com",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/IPGPTP/hp_photo_print.git",
-    "tag": "2.6.9"
+    "tag": "2.6.10"
   },
   "documentation_url": "http://hppp.herokuapp.com",
   "platforms": {
