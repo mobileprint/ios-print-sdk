@@ -128,6 +128,11 @@ BOOL const kHPPPDefaultUniqueDeviceIdPerApp = YES;
     return retVal;
 }
 
+- (BOOL)pageSettingsCancelButtonLeft
+{
+    return _pageSettingsCancelButtonLeft;
+}
+
 #pragma mark - Metrics 
 
 - (void)handleShareCompletedNotification:(NSNotification *)notification

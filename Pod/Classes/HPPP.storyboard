@@ -1113,18 +1113,12 @@ Tap your notification or simply come back to this app to print your projects.</s
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Page Settings" id="tyb-xP-2ia">
                         <barButtonItem key="backBarButtonItem" title=" " id="2DA-dI-8xn" userLabel="Bar Button Item - Hide Back Buttom Text"/>
-                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="w3y-3p-k4Q">
-                            <connections>
-                                <action selector="closeButtonTapped:" destination="Ddr-Or-99s" id="Cf8-1i-x9b"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="basicJobSummaryCell" destination="X9q-qQ-Jz0" id="eVf-x5-wBx"/>
                         <outlet property="blackAndWhiteModeSwitch" destination="QQm-6m-v5W" id="e8Q-4T-CJf"/>
-                        <outlet property="cancelBarButtonItem" destination="w3y-3p-k4Q" id="hKV-Iq-ZQt"/>
                         <outlet property="filterCell" destination="zdC-Hp-iWY" id="qDE-h9-pxz"/>
                         <outlet property="filterLabel" destination="Dhm-nA-O6p" id="lgx-kD-jtq"/>
                         <outlet property="footerHeadingLabel" destination="PDw-e4-vuW" id="3NL-Ob-CmJ"/>
