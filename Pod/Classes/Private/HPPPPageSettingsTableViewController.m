@@ -474,6 +474,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                 }
             }];
         } else {
+            if( nil != self.printLaterJob ) {
+                self.printItem = [self.printLaterJob printItemForPaperSize:self.delegateManager.paper.sizeTitle];
+            }
+
             [self configureMultiPageViewWithPrintItem:self.printItem];
         }
     }

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'F236B271F1CE467B30C69CC0'
+               BlueprintIdentifier = 'DB143A65EBFDA6C61C914D3E'
                BlueprintName = 'HPPhotoPrint'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libHPPhotoPrint.a'>
