@@ -166,10 +166,11 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         self.navigationItem.leftBarButtonItem = self.cancelBarButtonItem;
     } else {
         self.navigationItem.rightBarButtonItem = self.cancelBarButtonItem;
-    }
+    }    
     
     if( HPPPPageSettingsDisplayTypePreviewPane == self.displayType ) {
         self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = nil;
     }
     
     [self configureJobSummaryCell];
