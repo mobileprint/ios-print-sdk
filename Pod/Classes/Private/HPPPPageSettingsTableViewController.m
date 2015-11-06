@@ -991,7 +991,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 #pragma mark - Button actions
 
-- (IBAction)closeButtonTapped:(id)sender
+- (IBAction)cancelButtonTapped:(id)sender
 {
     if( self.editing ) {
         [self cancelAllEditing];
@@ -1010,11 +1010,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
             HPPPLogWarn(@"No HPPPPrintDelegate or HPPPAddPrintLaterDelegate has been set to respond to the end of the print flow.  Implement one of these delegates to dismiss the Page Settings view controller.");
         }
     }
-}
-
-- (IBAction)cancelButtonTapped:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)displaySystemPrintFromView:(UIView *)view
