@@ -21,7 +21,7 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import "HPPPLayoutFactory.h"
 
-NSString * const kHPPPLibraryVersion = @"2.6.9";
+NSString * const kHPPPLibraryVersion = @"2.6.10";
 
 NSString * const kLaterActionIdentifier = @"LATER_ACTION_IDENTIFIER";
 NSString * const kPrintActionIdentifier = @"PRINT_ACTION_IDENTIFIER";
