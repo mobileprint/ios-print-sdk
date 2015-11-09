@@ -666,7 +666,7 @@ Notifications events are handled in the app delegate. Add the following two hand
 
 The __HPPhotoPrint__ pod will automatically register the user notification for print later reminders. 
 However, if your app uses other notifications of its own, then you must register the print later notification yourself at the time you register your other app notifications. 
-Just make sure to include [`printLaterUserNotificationCategory`](http://hppp.herokuapp.com/HPPPPrintLaterManager_h/Classes/HPPPPrintLaterManager/index.html#//apple_ref/occ/instp/HPPPPrintLaterManager/printLaterUserNotificationCategory) in [`UIUserNotificationSettings`](https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIUserNotificationSettings_class/index.html) when you call [`registerUserNotificationSettings`](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/#//apple_ref/occ/instm/UIApplication/registerUserNotificationSettings:). 
+Just make sure to include [`printLaterUserNotificationCategory`](http://hppp.herokuapp.com/HPPP_h/Classes/HPPP/index.html#//apple_ref/occ/instm/HPPP/printLaterUserNotificationCategory) in [`UIUserNotificationSettings`](https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIUserNotificationSettings_class/index.html) when you call [`registerUserNotificationSettings`](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/#//apple_ref/occ/instm/UIApplication/registerUserNotificationSettings:). 
 The pod will detect that you have done this and will _not_ overwrite existing notification registrations.
 
 ## Author
