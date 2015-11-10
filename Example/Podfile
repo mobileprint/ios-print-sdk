@@ -1,10 +1,10 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-target 'HPPhotoPrint', :exclusive => true do
-  pod "HPPhotoPrint", :path => "../"
+target 'MobilePrintSDK', :exclusive => true do
+  pod "MobilePrintSDK", :path => "../"
 end
 
 target 'Tests', :exclusive => true do
-  pod "HPPhotoPrint", :path => "../"
+  pod "MobilePrintSDK", :path => "../"
   pod "OCMock"
 end

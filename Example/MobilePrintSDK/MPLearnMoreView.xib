@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MPLearnMoreView"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="1295"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJz-7v-1Jf">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Printing from mobile is easy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="296" translatesAutoresizingMaskIntoConstraints="NO" id="Ypy-wn-Mz5">
+                            <rect key="frame" x="12" y="18" width="296" height="21"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="mX0-HZ-3tB"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Ypy-wn-Mz5" secondAttribute="trailing" constant="12" id="KU7-mF-0XQ"/>
+                        <constraint firstItem="Ypy-wn-Mz5" firstAttribute="leading" secondItem="IJz-7v-1Jf" secondAttribute="leading" constant="12" id="Wdr-lS-QBv"/>
+                        <constraint firstItem="Ypy-wn-Mz5" firstAttribute="top" secondItem="IJz-7v-1Jf" secondAttribute="top" constant="18" id="aFx-1t-NdF"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gpn-Qw-h9Z">
+                    <rect key="frame" x="0.0" y="274" width="320" height="630"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to print from your home" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0k-u1-oMS">
+                            <rect key="frame" x="12" y="0.0" width="296" height="21"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="O6n-oG-lnl"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" lineBreakMode="wordWrap" numberOfLines="14" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="296" translatesAutoresizingMaskIntoConstraints="NO" id="Mmz-wq-oAU">
+                            <rect key="frame" x="12" y="23" width="296" height="67"/>
+                            <animations/>
+                            <string key="text">Easily print your card from this device to an HP printer using AirPrint. Just make sure your device and printer are operating on the same network.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oSQ-7K-C7V">
+                            <rect key="frame" x="0.0" y="259" width="320" height="0.0"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" id="5ez-Fr-8f3"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nr0-Vk-925">
+                            <rect key="frame" x="0.0" y="283" width="320" height="195"/>
+                            <animations/>
+                            <color key="backgroundColor" red="1" green="0.36078431370000003" blue="0.3921568627" alpha="1" colorSpace="deviceRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h13-3g-PGG">
+                            <rect key="frame" x="0.0" y="497" width="320" height="130"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="oSQ-7K-C7V" firstAttribute="trailing" secondItem="Nr0-Vk-925" secondAttribute="trailing" id="3DO-8o-x4r"/>
+                        <constraint firstItem="h13-3g-PGG" firstAttribute="top" secondItem="gpn-Qw-h9Z" secondAttribute="top" constant="497" id="4gm-jq-W3F"/>
+                        <constraint firstItem="h13-3g-PGG" firstAttribute="top" secondItem="Nr0-Vk-925" secondAttribute="bottom" constant="19" id="4rA-9M-S0Q"/>
+                        <constraint firstItem="Nr0-Vk-925" firstAttribute="trailing" secondItem="h13-3g-PGG" secondAttribute="trailing" id="9Hd-Br-YgJ"/>
+                        <constraint firstItem="Mmz-wq-oAU" firstAttribute="leading" secondItem="P0k-u1-oMS" secondAttribute="leading" id="Bfx-JI-N6O"/>
+                        <constraint firstItem="P0k-u1-oMS" firstAttribute="top" secondItem="gpn-Qw-h9Z" secondAttribute="top" id="WoZ-7i-qkZ"/>
+                        <constraint firstItem="P0k-u1-oMS" firstAttribute="leading" secondItem="gpn-Qw-h9Z" secondAttribute="leading" constant="12" id="X6g-BJ-Wpy"/>
+                        <constraint firstAttribute="bottom" secondItem="h13-3g-PGG" secondAttribute="bottom" constant="3" id="Yqp-Su-Cyf"/>
+                        <constraint firstAttribute="trailing" secondItem="P0k-u1-oMS" secondAttribute="trailing" constant="12" id="bvF-xw-7Fe"/>
+                        <constraint firstItem="oSQ-7K-C7V" firstAttribute="top" relation="lessThanOrEqual" secondItem="Mmz-wq-oAU" secondAttribute="bottom" constant="200" id="caX-vV-kFP"/>
+                        <constraint firstItem="Nr0-Vk-925" firstAttribute="top" secondItem="oSQ-7K-C7V" secondAttribute="bottom" constant="24" id="dWe-Mh-AOX"/>
+                        <constraint firstItem="Nr0-Vk-925" firstAttribute="top" secondItem="gpn-Qw-h9Z" secondAttribute="top" constant="283" id="ftm-3a-SsO"/>
+                        <constraint firstItem="Mmz-wq-oAU" firstAttribute="trailing" secondItem="P0k-u1-oMS" secondAttribute="trailing" id="gDD-jP-G7m"/>
+                        <constraint firstItem="oSQ-7K-C7V" firstAttribute="leading" secondItem="Nr0-Vk-925" secondAttribute="leading" id="hvd-kW-VCd"/>
+                        <constraint firstItem="oSQ-7K-C7V" firstAttribute="leading" secondItem="gpn-Qw-h9Z" secondAttribute="leading" id="iGo-Da-yaB"/>
+                        <constraint firstAttribute="trailing" secondItem="Nr0-Vk-925" secondAttribute="trailing" id="jYw-fd-vfv"/>
+                        <constraint firstItem="Mmz-wq-oAU" firstAttribute="top" secondItem="P0k-u1-oMS" secondAttribute="bottom" constant="2" id="rw6-FZ-Mxk"/>
+                        <constraint firstItem="Nr0-Vk-925" firstAttribute="leading" secondItem="h13-3g-PGG" secondAttribute="leading" id="xrf-ly-PqM"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ljg-fV-lu3">
+                    <rect key="frame" x="0.0" y="958" width="320" height="91"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to print from your office" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6O-WQ-97k">
+                            <rect key="frame" x="12" y="0.0" width="296" height="21"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="296" translatesAutoresizingMaskIntoConstraints="NO" id="ozC-2f-A4v">
+                            <rect key="frame" x="12" y="23" width="296" height="49"/>
+                            <animations/>
+                            <attributedString key="attributedText">
+                                <fragment content="You can print easily and securely from your smartphone or tablet without accessing the corporate network. Learn More.">
+                                    <attributes>
+                                        <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="B6O-WQ-97k" secondAttribute="trailing" constant="12" id="JuR-kj-pvw"/>
+                        <constraint firstItem="B6O-WQ-97k" firstAttribute="leading" secondItem="Ljg-fV-lu3" secondAttribute="leading" constant="12" id="Nk4-Mo-nsV"/>
+                        <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="ozC-2f-A4v" secondAttribute="bottom" constant="47" id="aYS-6W-5us"/>
+                        <constraint firstItem="ozC-2f-A4v" firstAttribute="leading" secondItem="B6O-WQ-97k" secondAttribute="leading" id="has-pt-EYg"/>
+                        <constraint firstItem="B6O-WQ-97k" firstAttribute="top" secondItem="Ljg-fV-lu3" secondAttribute="top" id="mVc-C9-PEt"/>
+                        <constraint firstItem="ozC-2f-A4v" firstAttribute="top" secondItem="B6O-WQ-97k" secondAttribute="bottom" constant="2" id="mqL-Vi-6tx"/>
+                        <constraint firstItem="ozC-2f-A4v" firstAttribute="trailing" secondItem="B6O-WQ-97k" secondAttribute="trailing" id="pjL-k5-tG8"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JgY-WW-V9M">
+                    <rect key="frame" x="0.0" y="1103" width="320" height="192"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make your prints stand out" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="296" translatesAutoresizingMaskIntoConstraints="NO" id="AsO-WN-F0B">
+                            <rect key="frame" x="12" y="15" width="296" height="21"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="esv-0A-p5J"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="AsO-WN-F0B" firstAttribute="top" secondItem="JgY-WW-V9M" secondAttribute="top" constant="15" id="g7B-4a-DiX"/>
+                        <constraint firstItem="AsO-WN-F0B" firstAttribute="centerX" secondItem="JgY-WW-V9M" secondAttribute="centerX" id="plI-ra-MEp"/>
+                        <constraint firstItem="AsO-WN-F0B" firstAttribute="leading" secondItem="JgY-WW-V9M" secondAttribute="leading" constant="12" id="v9N-Hk-yIi"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Ljg-fV-lu3" firstAttribute="leading" secondItem="gpn-Qw-h9Z" secondAttribute="leading" id="0VU-tI-UL0"/>
+                <constraint firstItem="JgY-WW-V9M" firstAttribute="leading" secondItem="Ljg-fV-lu3" secondAttribute="leading" id="7ll-fR-gzA"/>
+                <constraint firstItem="JgY-WW-V9M" firstAttribute="top" secondItem="Ljg-fV-lu3" secondAttribute="bottom" constant="54" id="AdK-zg-0uY"/>
+                <constraint firstItem="Ljg-fV-lu3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="958" id="BH0-fw-WFi"/>
+                <constraint firstAttribute="bottom" secondItem="JgY-WW-V9M" secondAttribute="bottom" id="Edo-Io-Naj"/>
+                <constraint firstItem="IJz-7v-1Jf" firstAttribute="trailing" secondItem="gpn-Qw-h9Z" secondAttribute="trailing" id="IaI-8V-5yt"/>
+                <constraint firstItem="Ljg-fV-lu3" firstAttribute="top" secondItem="gpn-Qw-h9Z" secondAttribute="bottom" constant="54" id="Id5-Yh-SVL"/>
+                <constraint firstItem="IJz-7v-1Jf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="J9i-H6-ABc"/>
+                <constraint firstAttribute="trailing" secondItem="JgY-WW-V9M" secondAttribute="trailing" id="VG2-Xq-d9B"/>
+                <constraint firstItem="JgY-WW-V9M" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1103" id="X22-It-LrQ"/>
+                <constraint firstItem="IJz-7v-1Jf" firstAttribute="leading" secondItem="gpn-Qw-h9Z" secondAttribute="leading" id="ewI-Zg-m49"/>
+                <constraint firstItem="gpn-Qw-h9Z" firstAttribute="trailing" secondItem="Ljg-fV-lu3" secondAttribute="trailing" id="idG-aI-Rjl"/>
+                <constraint firstItem="Ljg-fV-lu3" firstAttribute="trailing" secondItem="JgY-WW-V9M" secondAttribute="trailing" id="ivr-BT-5TI"/>
+                <constraint firstItem="gpn-Qw-h9Z" firstAttribute="top" secondItem="IJz-7v-1Jf" secondAttribute="bottom" constant="34" id="jA8-82-qyE"/>
+                <constraint firstItem="gpn-Qw-h9Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="274" id="oq2-A0-qMg"/>
+                <constraint firstItem="JgY-WW-V9M" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rYZ-F8-cOT"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="82" y="490.5"/>
+        </view>
+    </objects>
+</document>

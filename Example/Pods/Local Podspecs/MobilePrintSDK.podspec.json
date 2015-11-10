@@ -1,0 +1,47 @@
+{
+  "name": "MobilePrintSDK",
+  "version": "3.0.0",
+  "summary": "Implements AirPrint with custom layouts, graphical preview, print later queue, and more.",
+  "description": "Select paper size, printer, view preview and send to print through AirPrint.",
+  "homepage": "http://mobileprint.herokuapp.com",
+  "screenshots": [
+    "http://a1.mzstatic.com/us/r30/Purple3/v4/a0/13/56/a0135614-df34-c64a-c943-a01c2340ac85/screen568x568.jpeg",
+    "http://a3.mzstatic.com/us/r30/Purple1/v4/a1/4b/61/a14b61da-9582-3047-94e4-7791ce69a62e/screen568x568.jpeg"
+  ],
+  "license": "MIT",
+  "authors": {
+    "HP Inc.": "print-sdk@hp.com"
+  },
+  "source": {
+    "git": "https://github.azc.ext.hp.com/PINT/mobile_print_sdk.git",
+    "tag": "3.0.0"
+  },
+  "documentation_url": "http://mobileprint.herokuapp.com",
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": [
+    "Pod/Classes/**/*.{h,m}",
+    "Pod/Libraries/Reachability/*.{h,m}"
+  ],
+  "resources": [
+    "Pod/Assets/*.png",
+    "Pod/Assets/Fonts/*.ttf",
+    "Pod/Classes/**/*.xib",
+    "Pod/Classes/*.storyboard",
+    "Pod/*.bundle"
+  ],
+  "public_header_files": [
+    "Pod/Classes/Public/**/*.h",
+    "Pod/Libraries/Reachability/*.h"
+  ],
+  "private_header_files": [
+    "Pod/Classes/Private/**/*.h"
+  ],
+  "prefix_header_contents": "#import \"MPLogger.h\"",
+  "frameworks": [
+    "Foundation",
+    "UIKit"
+  ]
+}

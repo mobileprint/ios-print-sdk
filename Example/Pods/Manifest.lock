@@ -1,17 +1,17 @@
 PODS:
-  - HPPhotoPrint (2.6.11)
+  - MobilePrintSDK (3.0.0)
   - OCMock (3.2)
 
 DEPENDENCIES:
-  - HPPhotoPrint (from `../`)
+  - MobilePrintSDK (from `../`)
   - OCMock
 
 EXTERNAL SOURCES:
-  HPPhotoPrint:
+  MobilePrintSDK:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HPPhotoPrint: d4505c08dd54464581ee9db567c44ec16eed1739
+  MobilePrintSDK: a3b896a05ee7fcc809c2552f6bde753eabdf9c9b
   OCMock: 28def049ef47f996b515a8eeea958be7ccab2dbb
 
 COCOAPODS: 0.39.0

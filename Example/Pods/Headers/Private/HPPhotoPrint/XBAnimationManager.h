@@ -1,1 +1,0 @@
-../../../../../Pod/Libraries/XBPageCurl/XBAnimationManager.h
