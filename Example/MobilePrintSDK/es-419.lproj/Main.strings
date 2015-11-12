@@ -1,0 +1,219 @@
+
+/* Class = "UITableViewSection"; headerTitle = "Print Settings"; ObjectID = "02A-4j-KZb"; */
+"02A-4j-KZb.headerTitle" = "Print Settings";
+
+/* Class = "UISegmentedControl"; 0OB-gL-e5R.segmentTitles[0] = "USA"; ObjectID = "0OB-gL-e5R"; */
+"0OB-gL-e5R.segmentTitles[0]" = "USA";
+
+/* Class = "UISegmentedControl"; 0OB-gL-e5R.segmentTitles[1] = "International"; ObjectID = "0OB-gL-e5R"; */
+"0OB-gL-e5R.segmentTitles[1]" = "International";
+
+/* Class = "UISegmentedControl"; 0OB-gL-e5R.segmentTitles[2] = "All"; ObjectID = "0OB-gL-e5R"; */
+"0OB-gL-e5R.segmentTitles[2]" = "All";
+
+/* Class = "UILabel"; text = "Use Automatic Metrics"; ObjectID = "0lP-Cs-Uqd"; */
+"0lP-Cs-Uqd.text" = "Use Automatic Metrics";
+
+/* Class = "UILabel"; text = "Double-Tap Enabled"; ObjectID = "30S-CV-BfS"; */
+"30S-CV-BfS.text" = "Double-Tap Enabled";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "3Mz-K5-1rp"; */
+"3Mz-K5-1rp.text" = "Title";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "4Ol-Iz-bx5"; */
+"4Ol-Iz-bx5.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Use unique ID per app"; ObjectID = "5jB-7Y-WQn"; */
+"5jB-7Y-WQn.text" = "Use unique ID per app";
+
+/* Class = "UISegmentedControl"; 5lK-HE-uAj.segmentTitles[0] = "Left"; ObjectID = "5lK-HE-uAj"; */
+"5lK-HE-uAj.segmentTitles[0]" = "Left";
+
+/* Class = "UISegmentedControl"; 5lK-HE-uAj.segmentTitles[1] = "Center"; ObjectID = "5lK-HE-uAj"; */
+"5lK-HE-uAj.segmentTitles[1]" = "Center";
+
+/* Class = "UISegmentedControl"; 5lK-HE-uAj.segmentTitles[2] = "Right"; ObjectID = "5lK-HE-uAj"; */
+"5lK-HE-uAj.segmentTitles[2]" = "Right";
+
+/* Class = "UITableViewSection"; headerTitle = "Multi-Page Swipe"; ObjectID = "5zy-7o-aJ0"; */
+"5zy-7o-aJ0.headerTitle" = "Multi-Page Swipe";
+
+/* Class = "UILabel"; text = "Detect Wi-Fi"; ObjectID = "826-1t-wuY"; */
+"826-1t-wuY.text" = "Detect Wi-Fi";
+
+/* Class = "UILabel"; text = "Zoom on Single Tap"; ObjectID = "8Di-vy-c6Z"; */
+"8Di-vy-c6Z.text" = "Zoom on Single Tap";
+
+/* Class = "UINavigationItem"; title = "Multi-Page Configuration"; ObjectID = "A1U-rq-a5x"; */
+"A1U-rq-a5x.title" = "Multi-Page Configuration";
+
+/* Class = "UILabel"; text = "Test Settings"; ObjectID = "APm-vC-nSG"; */
+"APm-vC-nSG.text" = "Test Settings";
+
+/* Class = "UILabel"; text = "Maximum Gutter"; ObjectID = "ASg-p9-iZ7"; */
+"ASg-p9-iZ7.text" = "Maximum Gutter";
+
+/* Class = "UILabel"; text = "Zoom on Double Tap"; ObjectID = "Aoz-Al-dCn"; */
+"Aoz-Al-dCn.text" = "Zoom on Double Tap";
+
+/* Class = "UINavigationItem"; title = "Print Pod"; ObjectID = "BeI-AF-9PB"; */
+"BeI-AF-9PB.title" = "Print Pod";
+
+/* Class = "UITableViewSection"; headerTitle = "Metrics"; ObjectID = "DMF-1D-fRx"; */
+"DMF-1D-fRx.headerTitle" = "Metrics";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "G1h-4N-xXa"; */
+"G1h-4N-xXa.title" = "Cancel";
+
+/* Class = "UILabel"; text = "Bleed"; ObjectID = "GCX-7M-08t"; */
+"GCX-7M-08t.text" = "Bleed";
+
+/* Class = "UILabel"; text = "Direct Print Item"; ObjectID = "I8Y-xg-0at"; */
+"I8Y-xg-0at.text" = "Direct Print Item";
+
+/* Class = "UISegmentedControl"; IEJ-qx-7kc.segmentTitles[0] = "Fit"; ObjectID = "IEJ-qx-7kc"; */
+"IEJ-qx-7kc.segmentTitles[0]" = "Fit";
+
+/* Class = "UISegmentedControl"; IEJ-qx-7kc.segmentTitles[1] = "Fill"; ObjectID = "IEJ-qx-7kc"; */
+"IEJ-qx-7kc.segmentTitles[1]" = "Fill";
+
+/* Class = "UISegmentedControl"; IEJ-qx-7kc.segmentTitles[2] = "Stretch"; ObjectID = "IEJ-qx-7kc"; */
+"IEJ-qx-7kc.segmentTitles[2]" = "Stretch";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "ILj-vG-QFA"; */
+"ILj-vG-QFA.text" = "Detail";
+
+/* Class = "UILabel"; text = "Reported ID"; ObjectID = "KTg-SU-wR7"; */
+"KTg-SU-wR7.text" = "Reported ID";
+
+/* Class = "UISegmentedControl"; Ldf-Hd-kmD.segmentTitles[0] = "HP"; ObjectID = "Ldf-Hd-kmD"; */
+"Ldf-Hd-kmD.segmentTitles[0]" = "HP";
+
+/* Class = "UISegmentedControl"; Ldf-Hd-kmD.segmentTitles[1] = "Partner"; ObjectID = "Ldf-Hd-kmD"; */
+"Ldf-Hd-kmD.segmentTitles[1]" = "Partner";
+
+/* Class = "UISegmentedControl"; Ldf-Hd-kmD.segmentTitles[2] = "None"; ObjectID = "Ldf-Hd-kmD"; */
+"Ldf-Hd-kmD.segmentTitles[2]" = "None";
+
+/* Class = "UISegmentedControl"; Ldf-Hd-kmD.segmentTitles[3] = "Error"; ObjectID = "Ldf-Hd-kmD"; */
+"Ldf-Hd-kmD.segmentTitles[3]" = "Error";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "NeM-6u-OA3"; */
+"NeM-6u-OA3.title" = "Cancel";
+
+/* Class = "UITextField"; placeholder = "Border Width"; ObjectID = "OdU-GY-6f5"; */
+"OdU-GY-6f5.placeholder" = "Border Width";
+
+/* Class = "UITableViewSection"; headerTitle = "Bar Button Items"; ObjectID = "OgM-iB-KWp"; */
+"OgM-iB-KWp.headerTitle" = "Bar Button Items";
+
+/* Class = "UILabel"; text = "SHA"; ObjectID = "PeW-iZ-LyL"; */
+"PeW-iZ-LyL.text" = "SHA";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "QGg-TY-yv2"; */
+"QGg-TY-yv2.title" = "Done";
+
+/* Class = "UITextField"; placeholder = "Height"; ObjectID = "Qq1-sG-11g"; */
+"Qq1-sG-11g.placeholder" = "Height";
+
+/* Class = "UITextField"; placeholder = "Top"; ObjectID = "Rr7-qs-Eba"; */
+"Rr7-qs-Eba.placeholder" = "Top";
+
+/* Class = "UILabel"; text = "Print Item"; ObjectID = "SeK-d7-GKa"; */
+"SeK-d7-GKa.text" = "Print Item";
+
+/* Class = "UILabel"; text = "Code Modified"; ObjectID = "TIl-zc-Azc"; */
+"TIl-zc-Azc.text" = "Code Modified";
+
+/* Class = "UILabel"; text = "Debug"; ObjectID = "Tmj-Fu-0td"; */
+"Tmj-Fu-0td.text" = "Debug";
+
+/* Class = "UITextField"; placeholder = "Left"; ObjectID = "VND-cz-qIU"; */
+"VND-cz-qIU.placeholder" = "Left";
+
+/* Class = "UITableViewSection"; headerTitle = "Layout"; ObjectID = "VR6-AE-PWo"; */
+"VR6-AE-PWo.headerTitle" = "Layout";
+
+/* Class = "UITableViewSection"; headerTitle = "Papers"; ObjectID = "WUs-wm-6TQ"; */
+"WUs-wm-6TQ.headerTitle" = "Papers";
+
+/* Class = "UILabel"; text = "Configure"; ObjectID = "X8f-81-KGM"; */
+"X8f-81-KGM.text" = "Configure";
+
+/* Class = "UILabel"; text = "Minimum Gutter"; ObjectID = "XKY-z6-bk1"; */
+"XKY-z6-bk1.text" = "Minimum Gutter";
+
+/* Class = "UILabel"; text = "Share Item"; ObjectID = "ZCi-lb-I30"; */
+"ZCi-lb-I30.text" = "Share Item";
+
+/* Class = "UILabel"; text = "Background Page Scale"; ObjectID = "b3p-Mx-XTc"; */
+"b3p-Mx-XTc.text" = "Background Page Scale";
+
+/* Class = "UITableViewSection"; headerTitle = "Pod Appearance Settings"; ObjectID = "cPp-ds-KLq"; */
+"cPp-ds-KLq.headerTitle" = "Pod Appearance Settings";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "fEF-LL-0o5"; */
+"fEF-LL-0o5.text" = "Detail";
+
+/* Class = "UITableViewSection"; headerTitle = "Info"; ObjectID = "fHx-cj-kzD"; */
+"fHx-cj-kzD.headerTitle" = "Info";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "fNM-mt-Pho"; */
+"fNM-mt-Pho.text" = "Detail";
+
+/* Class = "UITableViewSection"; headerTitle = "Geo Location Notifcation"; ObjectID = "fn4-Ck-BSm"; */
+"fn4-Ck-BSm.headerTitle" = "Geo Location Notifcation";
+
+/* Class = "UINavigationItem"; title = "Print Instructions"; ObjectID = "g5a-tJ-huK"; */
+"g5a-tJ-huK.title" = "Print Instructions";
+
+/* Class = "UILabel"; text = "Unmodified Device ID"; ObjectID = "kdf-cW-Os0"; */
+"kdf-cW-Os0.text" = "Unmodified Device ID";
+
+/* Class = "UITextField"; placeholder = "Width"; ObjectID = "m0a-zD-GxG"; */
+"m0a-zD-GxG.placeholder" = "Width";
+
+/* Class = "UILabel"; text = "Configure"; ObjectID = "m7w-2Z-vXa"; */
+"m7w-2Z-vXa.text" = "Configure";
+
+/* Class = "UILabel"; text = "Send Extended Metrics"; ObjectID = "qfT-zT-cH8"; */
+"qfT-zT-cH8.text" = "Send Extended Metrics";
+
+/* Class = "UILabel"; text = "Cancel Btn Position Left"; ObjectID = "rmo-E3-5JP"; */
+"rmo-E3-5JP.text" = "Cancel Btn Position Left";
+
+/* Class = "UILabel"; text = "Print Preview"; ObjectID = "sK0-1Y-sAj"; */
+"sK0-1Y-sAj.text" = "Print Preview";
+
+/* Class = "UISegmentedControl"; uPw-kn-VR8.segmentTitles[0] = "Top"; ObjectID = "uPw-kn-VR8"; */
+"uPw-kn-VR8.segmentTitles[0]" = "Top";
+
+/* Class = "UISegmentedControl"; uPw-kn-VR8.segmentTitles[1] = "Middle"; ObjectID = "uPw-kn-VR8"; */
+"uPw-kn-VR8.segmentTitles[1]" = "Middle";
+
+/* Class = "UISegmentedControl"; uPw-kn-VR8.segmentTitles[2] = "Bottom"; ObjectID = "uPw-kn-VR8"; */
+"uPw-kn-VR8.segmentTitles[2]" = "Bottom";
+
+/* Class = "UILabel"; text = "Show Print Queue"; ObjectID = "vQT-aB-Ukj"; */
+"vQT-aB-Ukj.text" = "Show Print Queue";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "w1a-DQ-gDb"; */
+"w1a-DQ-gDb.text" = "Detail";
+
+/* Class = "UISegmentedControl"; xXp-Er-FTv.segmentTitles[0] = "Best"; ObjectID = "xXp-Er-FTv"; */
+"xXp-Er-FTv.segmentTitles[0]" = "Best";
+
+/* Class = "UISegmentedControl"; xXp-Er-FTv.segmentTitles[1] = "Portrait"; ObjectID = "xXp-Er-FTv"; */
+"xXp-Er-FTv.segmentTitles[1]" = "Portrait";
+
+/* Class = "UISegmentedControl"; xXp-Er-FTv.segmentTitles[2] = "Landscape"; ObjectID = "xXp-Er-FTv"; */
+"xXp-Er-FTv.segmentTitles[2]" = "Landscape";
+
+/* Class = "UISegmentedControl"; xaX-Ej-3zy.segmentTitles[0] = "Device"; ObjectID = "xaX-Ej-3zy"; */
+"xaX-Ej-3zy.segmentTitles[0]" = "Device";
+
+/* Class = "UISegmentedControl"; xaX-Ej-3zy.segmentTitles[1] = "On"; ObjectID = "xaX-Ej-3zy"; */
+"xaX-Ej-3zy.segmentTitles[1]" = "On";
+
+/* Class = "UISegmentedControl"; xaX-Ej-3zy.segmentTitles[2] = "Off"; ObjectID = "xaX-Ej-3zy"; */
+"xaX-Ej-3zy.segmentTitles[2]" = "Off";
