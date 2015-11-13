@@ -663,7 +663,19 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if (self.delegateManager.printSettings.paper) {
         self.multiPageView.blackAndWhite = self.delegateManager.blackAndWhite;
         [self.multiPageView setInterfaceOptions:[MP sharedInstance].interfaceOptions];
-        NSArray *images = [printItem previewImagesForPaper:self.delegateManager.printSettings.paper];
+
+        NSInteger totalNumPages = printItem.numberOfPages;
+        NSMutableArray *images = [[NSMutableArray alloc] initWithCapacity:totalNumPages];
+        NSInteger numPagesToPopulate = self.multiPageView.numBufferPages + 1;
+        for (NSInteger i=0; i<totalNumPages; i++) {
+            
+            if( i < numPagesToPopulate ) {
+                images[i] = [printItem previewImageForPage:i+1 paper:self.delegateManager.printSettings.paper];
+            } else {
+                images[i] = [NSNull null];
+            }
+        }
+
         [self.multiPageView setPages:images paper:self.delegateManager.printSettings.paper layout:printItem.layout];
     }
 }
@@ -1616,6 +1628,16 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 }
 
 #pragma mark - MPMultipageViewDelegate
+
+- (UIImage *)multiPageView:(MPMultiPageView *)multiPageView getImageForPage:(NSUInteger)pageNumber
+{
+    UIImage *image = nil;
+    
+    if( pageNumber <= self.printItem.numberOfPages ) {
+        image = [self.printItem previewImageForPage:pageNumber paper:self.delegateManager.printSettings.paper];
+    }
+    return image;
+}
 
 - (void)multiPageView:(MPMultiPageView *)multiPageView didChangeFromPage:(NSUInteger)oldPageNumber ToPage:(NSUInteger)newPageNumber
 {

@@ -34,8 +34,15 @@
 @property (assign, nonatomic) BOOL zoomOnDoubleTap;
 @property (strong, nonatomic) UITapGestureRecognizer *singleTapRecognizer;
 @property (strong, nonatomic) UITapGestureRecognizer *doubleTapRecognizer;
-@property (strong, nonatomic) NSArray *blackAndWhitePageImages;
 @property (assign, nonatomic) CGPoint zoomInitialOffset;
+@property (strong, nonatomic) NSMutableArray *blackAndWhitePageImages;
+@property (strong, nonatomic) NSMutableArray *pageViews;
+@property (assign, nonatomic) NSInteger startingIdx;
+@property (assign, nonatomic) NSInteger endingIdx;
+@property (assign, nonatomic) BOOL switchedToBlackAndWhite;
+@property (assign, nonatomic) BOOL switchedToColor;
+@property (weak, nonatomic) UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) UILabel *pageNumberLabel;
 
 @end
 
@@ -59,7 +66,11 @@ CGFloat const kMPZoomAutoCloseScale = 1.1;
 
 NSUInteger const kMPZoomScrollViewTag = 99;
 
+NSUInteger const kMPMultiPageDefaultNumBufferPages = 10;
+
 static NSNumber *lastPinchScale = nil;
+
+#pragma mark - Class Methods
 
 #pragma mark - Initialization
 
@@ -73,7 +84,29 @@ static NSNumber *lastPinchScale = nil;
         self.backgroundPageScale = kMPMultiPageDefaultBackgroundPageScale;
         self.backgroundColor = [self getColor:@"Background"];
         self.scrollView.backgroundColor = [self getColor:@"Scroll View"];
+        self.numBufferPages = kMPMultiPageDefaultNumBufferPages;
+        self.pageViews = [[NSMutableArray alloc] init];
+        self.blackAndWhitePageImages = [[NSMutableArray alloc] init];
+        self.startingIdx = 0;
+        self.endingIdx = 0;
+        self.switchedToBlackAndWhite = NO;
+        self.switchedToColor = NO;
+        self.scrollView.showsHorizontalScrollIndicator = NO;
+        self.scrollView.showsVerticalScrollIndicator = NO;
+        
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [self addSubview:spinner];
+        self.spinner = spinner;
+        
+        UILabel *label = [[UILabel alloc] init];
+        label.font = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundPrimaryFont];
+        label.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundPrimaryFontColor];
+        [self addSubview:label];
+        self.pageNumberLabel = label;
+        self.pageNumberLabel.hidden = YES;
+
         _currentPage = 1;
+        
         [self initializePageGestures];
     }
     return self;
@@ -140,22 +173,31 @@ static NSNumber *lastPinchScale = nil;
     [self layoutPagesIfNeeded];
 }
 
-- (void)setPageImages:(NSArray *)pages
+- (void)setPageImages:(NSMutableArray *)pages
 {
     _pageImages = pages;
-    _blackAndWhitePageImages = nil;
+    
+    for (int i=0; i<pages.count; i++) {
+        self.pageViews[i] = [NSNull null];
+        self.blackAndWhitePageImages[i] = [NSNull null];
+    }
+    
+    [self positionPageNumberLabel];
+    [self positionSpinner];
+
     [self updatePages];
 }
 
 - (void)setBlackAndWhite:(BOOL)blackAndWhite
 {
     _blackAndWhite = blackAndWhite;
+    _switchedToColor = !_blackAndWhite;
     [self updatePages];
 }
 
 #pragma mark - Pages
 
-- (void)setPages:(NSArray *)pages paper:(MPPaper *)paper layout:(MPLayout *)layout;
+- (void)setPages:(NSMutableArray *)pages paper:(MPPaper *)paper layout:(MPLayout *)layout
 {
     _paper = paper;
     _layout = layout;
@@ -163,19 +205,103 @@ static NSNumber *lastPinchScale = nil;
     self.pageImages = pages;
 }
 
+// This is the starting point of updating the UIScrollView
+//  updatePageImages -> updatePages -> createPageViews -> layoutPagesIfNeeded
+- (void)updatePageImages:(NSUInteger)newPageNumber
+{
+    NSUInteger oldPageNumber = self.currentPage;
+    if (oldPageNumber != newPageNumber) {
+        _currentPage = newPageNumber;
+        MPLogDebug(@"Changed from page %lu to page %lu", (unsigned long)oldPageNumber, (unsigned long)newPageNumber);
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(multiPageView:getImageForPage:)]) {
+            
+             for (NSInteger i = 0; i < [self lowBufferIndex]; i++) {
+                self.pageImages[i] = [NSNull null];
+            }
+
+            for (NSInteger i = [self lowBufferIndex]; i <= [self highBufferIndex]; i++) {
+                    if( [NSNull null] == self.pageImages[i] ) {
+                        UIImage *newImage = [self.delegate multiPageView:self getImageForPage:i+1];
+                        if( nil != newImage ) {
+                            self.pageImages[i] = newImage;
+                        } else {
+                            MPLogError(@"Page %d returned a nil image", i+1);
+                        }
+                    }
+            }
+            
+            for (NSInteger i = [self highBufferIndex] + 1; i < self.pageImages.count; i++) {
+                self.pageImages[i] = [NSNull null];
+            }
+        }
+        
+        [self updatePages];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(multiPageView:didChangeFromPage:ToPage:)]) {
+            [self.delegate multiPageView:self didChangeFromPage:oldPageNumber ToPage:newPageNumber];
+        }
+
+    }
+    [self setZoomLevels];
+}
+
 - (void)createPageViews
 {
     NSArray *pageImages = self.blackAndWhite ? self.blackAndWhitePageImages : self.pageImages;
-    [[self.scrollView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    for (int idx = 0; idx < pageImages.count; idx++) {
-        MPLayoutPaperView *paperView = [[MPLayoutPaperView alloc] init];
-        paperView.image = pageImages[idx];
-        paperView.layout = self.layout;
-        paperView.backgroundColor = [UIColor whiteColor];
-        MPLayoutPaperCellView *paperCell = [[MPLayoutPaperCellView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) paperView:paperView paper:self.paper];
-        paperCell.backgroundColor = [self getColor:@"Page Cell"];
-        paperCell.tag = kMPPageBaseTag + idx;
-        [self.scrollView addSubview:paperCell];
+
+    self.startingIdx = [self lowBufferIndex];
+    self.endingIdx   = [self highBufferIndex];
+
+    for (NSInteger idx = 0; idx < [self lowBufferIndex]; idx++) {
+        if( [NSNull null] != self.pageViews[idx] ) {
+            [(MPLayoutPaperCellView *)self.pageViews[idx] removeFromSuperview];
+            self.pageViews[idx] = [NSNull null];
+        }
+    }
+    
+    for (NSInteger idx = self.startingIdx; idx < pageImages.count  &&  idx <= self.endingIdx; idx++) {
+        if( [NSNull null] == self.pageViews[idx]  ||  self.switchedToBlackAndWhite || self.switchedToColor ) {
+            
+            MPLayoutPaperView *paperView = nil;
+            MPLayoutPaperCellView *paperCell = nil;
+            
+            if( [NSNull null] != self.pageViews[idx] ) {
+                paperCell = self.pageViews[idx];
+                paperView = paperCell.paperView;
+            } else {
+                paperView = [[MPLayoutPaperView alloc] init];
+                paperView.layout = self.layout;
+                paperView.backgroundColor = [UIColor whiteColor];
+                
+                // The paperCell's frame is correctly set in layoutPagesIfNeeded
+                paperCell = [[MPLayoutPaperCellView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) paperView:paperView paper:self.paper];
+                
+                paperCell.backgroundColor = [self getColor:@"Page Cell"];
+                paperCell.tag = kMPPageBaseTag + idx;
+            }
+            
+            // if the black and white images aren't ready yet, display the color images
+            if( pageImages == self.blackAndWhitePageImages  &&  [NSNull null] == pageImages[idx] ) {
+                if( [NSNull null] != self.pageImages[idx] ) {
+                    paperView.image = self.pageImages[idx];
+                }
+            } else if( [NSNull null] != pageImages[idx] ) {
+                paperView.image = pageImages[idx];
+            }
+            
+            [self.scrollView addSubview:paperCell];
+            self.pageViews[idx] = paperCell;
+        } else {
+            [self.scrollView addSubview:self.pageViews[idx]];
+        }
+    }
+    
+    for (NSInteger idx = [self highBufferIndex] + 1; idx < pageImages.count; idx++) {
+        if( [NSNull null] != self.pageViews[idx] ) {
+            [(MPLayoutPaperCellView *)self.pageViews[idx] removeFromSuperview];
+            self.pageViews[idx] = [NSNull null];
+        }
     }
 }
 
@@ -190,35 +316,45 @@ static NSNumber *lastPinchScale = nil;
 
 - (void)updatePages
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        if (self.blackAndWhite) {
+    // for black and white images, update a second time once the black-and-white conversion finishes
+    if (self.blackAndWhite) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            
             [self processBlackAndWhiteImages];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self createPageViews];
-            [self layoutPagesIfNeeded];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self createPageViews];
+                [self layoutPagesIfNeeded];
+            });
         });
-    });
+    } else {
+        [self createPageViews];
+        [self layoutPagesIfNeeded];
+    }
 }
 
 - (void)processBlackAndWhiteImages
 {
-    if (!self.blackAndWhitePageImages) {
-        NSMutableArray *pageImages = [NSMutableArray array];
-        for (UIImage *pageImage in self.pageImages) {
-            @autoreleasepool {
-                CIImage *image = [[CIImage alloc] initWithCGImage:pageImage.CGImage options:nil];
-                CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
-                [filter setValue:image forKey:kCIInputImageKey];
-                CIImage *result = [filter valueForKey:kCIOutputImageKey];
-                CIContext *context = [CIContext contextWithOptions:nil];
-                CGImageRef cgImage = [context createCGImage:result fromRect:[result extent]];
-                [pageImages addObject:[UIImage imageWithCGImage:cgImage scale:pageImage.scale orientation:pageImage.imageOrientation]];
-                CGImageRelease(cgImage);
+    for (NSUInteger i = 0; i < self.blackAndWhitePageImages.count; i++) {
+        if (self.pageImages[i] != [NSNull null] ) {
+            if (self.blackAndWhitePageImages[i] == [NSNull null]) {
+                @autoreleasepool {
+                    UIImage *pageImage = self.pageImages[i];
+                    CIImage *image = [[CIImage alloc] initWithCGImage:pageImage.CGImage options:nil];
+                    CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
+                    [filter setValue:image forKey:kCIInputImageKey];
+                    CIImage *result = [filter valueForKey:kCIOutputImageKey];
+                    CIContext *context = [CIContext contextWithOptions:nil];
+                    CGImageRef cgImage = [context createCGImage:result fromRect:[result extent]];
+                    self.blackAndWhitePageImages[i] = [UIImage imageWithCGImage:cgImage scale:pageImage.scale orientation:pageImage.imageOrientation];
+                    CGImageRelease(cgImage);
+                }
             }
+        } else {
+            self.blackAndWhitePageImages[i] = [NSNull null];
         }
-        self.blackAndWhitePageImages = pageImages;
     }
+    
+    self.switchedToBlackAndWhite = YES;
 }
 
 - (MPLayoutPaperCellView *)currentPaperCellView
@@ -228,6 +364,24 @@ static NSNumber *lastPinchScale = nil;
         cell = (MPLayoutPaperCellView *)[self viewWithTag:kMPPageBaseTag + self.currentPage - 1];
     }
     return cell;
+}
+
+- (NSInteger)lowBufferIndex
+{
+    NSInteger idx = _currentPage - 1 - kMPMultiPageDefaultNumBufferPages;
+    idx = idx > 0 ? idx : 0;
+    
+    return idx;
+}
+
+- (NSInteger)highBufferIndex
+{
+    NSInteger maxAllowedIndex = self.pageImages.count - 1;
+    
+    NSInteger idx = _currentPage - 1 + kMPMultiPageDefaultNumBufferPages;
+    idx = idx <= maxAllowedIndex ? idx : maxAllowedIndex;
+    
+    return idx;
 }
 
 #pragma mark - Layout
@@ -247,26 +401,36 @@ static NSNumber *lastPinchScale = nil;
     
     [self resetZoomLevels];
     [self updateHorizontalConstraints];
+    
     CGFloat scrollWidth = self.scrollView.bounds.size.width;
     CGFloat scrollHeight = self.scrollView.bounds.size.height;
     CGFloat pageWidth = scrollWidth - self.actualGutter;
     CGFloat pageHeight = self.scrollView.bounds.size.height;
     self.scrollView.contentSize = CGSizeMake(scrollWidth * self.pageImages.count, scrollHeight);
-    NSUInteger idx = 0;
+    NSInteger idx = [self lowBufferIndex];
+
     for (UIView *subview in self.scrollView.subviews) {
         if ([subview isKindOfClass:[MPLayoutPaperCellView class]]) {
-            MPLayoutPaperCellView *paperCellView = (MPLayoutPaperCellView *)subview;
-            CGRect cellFrame = CGRectMake(0.5 * self.actualGutter + idx * scrollWidth, 0, pageWidth , pageHeight);
-            paperCellView.frame = cellFrame;
-            paperCellView.paper = self.paper;
+            if (subview.frame.origin.x < 0.5 * self.actualGutter  ||  self.switchedToBlackAndWhite  ||  self.switchedToColor) {
+                MPLayoutPaperCellView *paperCellView = (MPLayoutPaperCellView *)subview;
+                CGRect cellFrame = CGRectMake(0.5 * self.actualGutter + idx * scrollWidth, 0, pageWidth , pageHeight);
+                paperCellView.frame = cellFrame;
+                paperCellView.paper = self.paper;
+            }
             idx++;
         }
     }
+
+    self.switchedToBlackAndWhite = NO;
+    self.switchedToColor = NO;
+    
     [self.scrollView setNeedsLayout];
     if (self.currentPage > self.pageImages.count + 1) {
         [self changePageNumber:1];
     }
     [self changeToPage:self.currentPage animated:NO];
+    
+    [self showSpinner:NO];
 }
 
 - (void)updateHorizontalConstraints
@@ -277,9 +441,11 @@ static NSNumber *lastPinchScale = nil;
     
     CGFloat paperAspectRatio = self.paper.width / self.paper.height;
     for (UIImage *image in self.pageImages) {
-        if (MPLayoutOrientationLandscape == [MPLayout paperOrientationForImage:image andLayout:self.layout]) {
-            paperAspectRatio = self.paper.height / self.paper.width;
-            break;
+        if( (NSNull *)image != [NSNull null] ) {
+            if (MPLayoutOrientationLandscape == [MPLayout paperOrientationForImage:image andLayout:self.layout]) {
+                paperAspectRatio = self.paper.height / self.paper.width;
+                break;
+            }
         }
     }
     
@@ -307,11 +473,9 @@ static NSNumber *lastPinchScale = nil;
 
 - (void)resetZoomLevels
 {
-    NSUInteger idx = 0;
     for (UIView *subview in self.scrollView.subviews) {
         if ([subview isKindOfClass:[MPLayoutPaperCellView class]]) {
             subview.transform = CGAffineTransformIdentity;
-            idx++;
         }
     }
 }
@@ -332,8 +496,9 @@ static NSNumber *lastPinchScale = nil;
     NSUInteger enteringViewIndex = viewIndex + 1;
     CGFloat enteringRatio = viewRatio;
     CGFloat enteringViewScale = backgroundScale + (1.0 - backgroundScale) * enteringRatio;
-    
-    NSUInteger idx = 0;
+
+    NSInteger idx = self.startingIdx;
+
     for (UIView *subview in self.scrollView.subviews) {
         if ([subview isKindOfClass:[MPLayoutPaperCellView class]]) {
             CGFloat scale = backgroundScale;
@@ -375,6 +540,15 @@ static NSNumber *lastPinchScale = nil;
 {
     if (kMPZoomScrollViewTag != scrollView.tag) {
         [self setZoomLevels];
+        
+        if (scrollView.contentOffset.x < scrollView.bounds.size.width * self.startingIdx  ||
+            scrollView.contentOffset.x > scrollView.bounds.size.width * self.endingIdx) {
+            [self showSpinner:YES];
+        } else {
+            [self showSpinner:NO];
+        }
+        
+        [self updatePageNumberLabelText];
     }
 }
 
@@ -475,15 +649,7 @@ static NSNumber *lastPinchScale = nil;
 
 - (void)changePageNumber:(NSUInteger)newPageNumber
 {
-    NSUInteger oldPageNumber = self.currentPage;
-    if (oldPageNumber != newPageNumber) {
-        _currentPage = newPageNumber;
-        MPLogInfo(@"Changed from page %lu to page %lu", (unsigned long)oldPageNumber, (unsigned long)newPageNumber);
-        if (self.delegate && [self.delegate respondsToSelector:@selector(multiPageView:didChangeFromPage:ToPage:)]) {
-            [self.delegate multiPageView:self didChangeFromPage:oldPageNumber ToPage:newPageNumber];
-        }
-    }
-    [self setZoomLevels];
+    [self updatePageImages:newPageNumber];
 }
 
 #pragma mark - Zooming
@@ -590,6 +756,52 @@ static NSNumber *lastPinchScale = nil;
     [self.zoomScrollView addGestureRecognizer:doubleTapGesture];
     
     [singleTapRecognizer requireGestureRecognizerToFail:doubleTapGesture];
+}
+
+#pragma mark - Page Number Label
+
+- (void)showPageNumberLabel:(BOOL)show
+{
+    self.pageNumberLabel.hidden = !show;
+}
+
+- (void)positionPageNumberLabel
+{
+    self.pageNumberLabel.textAlignment = NSTextAlignmentCenter;
+    CGRect frame = self.pageNumberLabel.frame;
+    frame.size.width = 100;
+    frame.size.height = 15;
+    frame.origin.y = self.frame.size.height - frame.size.height;
+    frame.origin.x = (self.frame.size.width - frame.size.width)/2;
+    self.pageNumberLabel.frame = frame;
+    
+    [self updatePageNumberLabelText];
+}
+
+- (void)updatePageNumberLabelText
+{
+    self.pageNumberLabel.text = [NSString stringWithFormat:@"%d / %d", (int)(self.scrollView.contentOffset.x / self.scrollView.bounds.size.width) + 1, self.pageImages.count];
+}
+
+#pragma mark - Spinner
+
+- (void)positionSpinner
+{
+    CGRect frame = self.spinner.frame;
+    frame.origin.x = (self.frame.size.width - frame.size.width)/2;
+    frame.origin.y = (self.frame.size.height - frame.size.height)/2;
+    self.spinner.frame = frame;
+}
+
+- (void)showSpinner:(BOOL)show
+{
+    if (show && self.spinner.hidden) {
+        self.spinner.hidden = NO;
+        [self.spinner startAnimating];
+    } else if (!show && !self.spinner.hidden) {
+        self.spinner.hidden = YES;
+        [self.spinner stopAnimating];
+    }
 }
 
 #pragma mark - Debug
