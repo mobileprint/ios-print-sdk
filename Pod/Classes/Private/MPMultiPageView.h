@@ -28,7 +28,7 @@
 @property (assign, nonatomic, readonly) NSUInteger currentPage;
 @property (assign, nonatomic) NSInteger numBufferPages;
 
-- (void)setPages:(NSArray *)pages paper:(MPPaper *)paper layout:(MPLayout *)layout;
+- (void)configurePages:(NSUInteger)numPages paper:(MPPaper *)paper layout:(MPLayout *)layout;
 - (void)changeToPage:(NSUInteger)pageNumber animated:(BOOL)animated;
 - (void)refreshLayout;
 - (void)setInterfaceOptions:(MPInterfaceOptions *)options;

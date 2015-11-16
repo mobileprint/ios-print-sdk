@@ -85,6 +85,7 @@ static NSNumber *lastPinchScale = nil;
         self.backgroundColor = [self getColor:@"Background"];
         self.scrollView.backgroundColor = [self getColor:@"Scroll View"];
         self.numBufferPages = kMPMultiPageDefaultNumBufferPages;
+        self.pageImages = [[NSMutableArray alloc] init];
         self.pageViews = [[NSMutableArray alloc] init];
         self.blackAndWhitePageImages = [[NSMutableArray alloc] init];
         self.startingIdx = 0;
@@ -173,21 +174,6 @@ static NSNumber *lastPinchScale = nil;
     [self layoutPagesIfNeeded];
 }
 
-- (void)setPageImages:(NSMutableArray *)pages
-{
-    _pageImages = pages;
-    
-    for (int i=0; i<pages.count; i++) {
-        self.pageViews[i] = [NSNull null];
-        self.blackAndWhitePageImages[i] = [NSNull null];
-    }
-    
-    [self positionPageNumberLabel];
-    [self positionSpinner];
-
-    [self updatePages];
-}
-
 - (void)setBlackAndWhite:(BOOL)blackAndWhite
 {
     _blackAndWhite = blackAndWhite;
@@ -197,12 +183,24 @@ static NSNumber *lastPinchScale = nil;
 
 #pragma mark - Pages
 
-- (void)setPages:(NSMutableArray *)pages paper:(MPPaper *)paper layout:(MPLayout *)layout
+- (void)configurePages:(NSUInteger)numPages paper:(MPPaper *)paper layout:(MPLayout *)layout
 {
     _paper = paper;
     _layout = layout;
     _layout.paper = _paper;
-    self.pageImages = pages;
+    
+    for (NSUInteger i=0; i<numPages; i++) {
+        self.pageImages[i] = [NSNull null];
+        self.blackAndWhitePageImages[i] = [NSNull null];
+        self.pageViews[i] = [NSNull null];
+    }
+
+    self.currentPage = 2;
+    [self changePageNumber:1];
+    [self positionPageNumberLabel];
+    [self positionSpinner];
+    
+    [self updatePages];
 }
 
 // This is the starting point of updating the UIScrollView
@@ -226,7 +224,7 @@ static NSNumber *lastPinchScale = nil;
                         if( nil != newImage ) {
                             self.pageImages[i] = newImage;
                         } else {
-                            MPLogError(@"Page %d returned a nil image", i+1);
+                            MPLogError(@"Page %ld returned a nil image", i+1);
                         }
                     }
             }
