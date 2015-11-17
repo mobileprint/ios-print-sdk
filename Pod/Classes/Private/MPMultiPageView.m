@@ -64,6 +64,9 @@ CGFloat const kMPZoomMaximumScale = 8.0;
 CGFloat const kMPZoomInitialScale = 2.0;
 CGFloat const kMPZoomAutoCloseScale = 1.1;
 
+CGFloat const kMPMultiPageViewPageLabelWidth = 100.0;
+CGFloat const kMPMultiPageViewPageLabelHeight = 15.0;
+
 NSUInteger const kMPZoomScrollViewTag = 99;
 
 NSUInteger const kMPMultiPageDefaultNumBufferPages = 10;
@@ -772,8 +775,8 @@ static NSNumber *lastPinchScale = nil;
 {
     self.pageNumberLabel.textAlignment = NSTextAlignmentCenter;
     CGRect frame = self.pageNumberLabel.frame;
-    frame.size.width = 100;
-    frame.size.height = 15;
+    frame.size.width = kMPMultiPageViewPageLabelWidth;
+    frame.size.height = kMPMultiPageViewPageLabelHeight;
     frame.origin.y = self.frame.size.height - frame.size.height;
     frame.origin.x = (self.frame.size.width - frame.size.width)/2;
     self.pageNumberLabel.frame = frame;
