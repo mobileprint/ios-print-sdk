@@ -403,6 +403,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kMPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:screenName forKey:kMPTrackableScreenNameKey]];
+
+    [self.multiPageView refreshLayout];
 }
 
 -  (void)viewWillDisappear:(BOOL)animated
@@ -415,13 +417,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.refreshPrinterStatusTimer = nil;
     
     self.printManager.delegate = nil;
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-        
-    [self.multiPageView refreshLayout];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator

@@ -195,8 +195,7 @@ static NSNumber *lastPinchScale = nil;
         self.pageViews[i] = [NSNull null];
     }
 
-    self.currentPage = 2;
-    [self changePageNumber:1];
+    [self updatePageImages:1 forceReload:YES];
     [self positionPageNumberLabel];
     [self positionSpinner];
     
@@ -205,10 +204,10 @@ static NSNumber *lastPinchScale = nil;
 
 // This is the starting point of updating the UIScrollView
 //  updatePageImages -> updatePages -> createPageViews -> layoutPagesIfNeeded
-- (void)updatePageImages:(NSUInteger)newPageNumber
+- (void)updatePageImages:(NSUInteger)newPageNumber forceReload:(BOOL)forceReload
 {
     NSUInteger oldPageNumber = self.currentPage;
-    if (oldPageNumber != newPageNumber) {
+    if (oldPageNumber != newPageNumber  ||  forceReload) {
         _currentPage = newPageNumber;
         MPLogDebug(@"Changed from page %lu to page %lu", (unsigned long)oldPageNumber, (unsigned long)newPageNumber);
         
@@ -308,7 +307,7 @@ static NSNumber *lastPinchScale = nil;
     if (pageNumber >= 1 && pageNumber <= self.pageImages.count) {
         CGFloat scrollWidth = self.scrollView.bounds.size.width;
         [self.scrollView setContentOffset:CGPointMake(scrollWidth * (pageNumber - 1), 0) animated:animated];
-        [self changePageNumber:pageNumber];
+        [self updatePageImages:pageNumber forceReload:NO];
     }
 }
 
@@ -397,9 +396,10 @@ static NSNumber *lastPinchScale = nil;
         return;
     }
     
+    static CGFloat lastScrollWidth = 0;
+    
     [self resetZoomLevels];
     [self updateHorizontalConstraints];
-    
     CGFloat scrollWidth = self.scrollView.bounds.size.width;
     CGFloat scrollHeight = self.scrollView.bounds.size.height;
     CGFloat pageWidth = scrollWidth - self.actualGutter;
@@ -409,7 +409,11 @@ static NSNumber *lastPinchScale = nil;
 
     for (UIView *subview in self.scrollView.subviews) {
         if ([subview isKindOfClass:[MPLayoutPaperCellView class]]) {
-            if (subview.frame.origin.x < 0.5 * self.actualGutter  ||  self.switchedToBlackAndWhite  ||  self.switchedToColor) {
+            if (subview.frame.origin.x < 0.5 * self.actualGutter  ||
+                self.switchedToBlackAndWhite                      ||
+                self.switchedToColor                              ||
+                lastScrollWidth != scrollWidth) {
+                
                 MPLayoutPaperCellView *paperCellView = (MPLayoutPaperCellView *)subview;
                 CGRect cellFrame = CGRectMake(0.5 * self.actualGutter + idx * scrollWidth, 0, pageWidth , pageHeight);
                 paperCellView.frame = cellFrame;
@@ -424,11 +428,17 @@ static NSNumber *lastPinchScale = nil;
     
     [self.scrollView setNeedsLayout];
     if (self.currentPage > self.pageImages.count + 1) {
-        [self changePageNumber:1];
+        [self updatePageImages:1 forceReload:NO];
     }
     [self changeToPage:self.currentPage animated:NO];
     
     [self showSpinner:NO];
+    
+    if (lastScrollWidth != scrollWidth) {
+        [self positionPageNumberLabel];
+        [self positionSpinner];
+        lastScrollWidth = scrollWidth;
+    }
 }
 
 - (void)updateHorizontalConstraints
@@ -530,7 +540,7 @@ static NSNumber *lastPinchScale = nil;
 {
     if (kMPZoomScrollViewTag != scrollView.tag) {
         NSUInteger newPageNumber = (int)scrollView.contentOffset.x / (int)scrollView.bounds.size.width + 1;
-        [self changePageNumber:newPageNumber];
+        [self updatePageImages:newPageNumber forceReload:NO];
     }
 }
 
@@ -643,11 +653,6 @@ static NSNumber *lastPinchScale = nil;
     if (self.delegate && [self.delegate respondsToSelector:@selector(multiPageView:didDoubleTapPage:)]) {
         [self.delegate multiPageView:self didDoubleTapPage:pageNumber];
     }
-}
-
-- (void)changePageNumber:(NSUInteger)newPageNumber
-{
-    [self updatePageImages:newPageNumber];
 }
 
 #pragma mark - Zooming
@@ -778,7 +783,7 @@ static NSNumber *lastPinchScale = nil;
 
 - (void)updatePageNumberLabelText
 {
-    self.pageNumberLabel.text = [NSString stringWithFormat:@"%d / %d", (int)(self.scrollView.contentOffset.x / self.scrollView.bounds.size.width) + 1, self.pageImages.count];
+    self.pageNumberLabel.text = [NSString stringWithFormat:@"%d / %lu", (int)(self.scrollView.contentOffset.x / self.scrollView.bounds.size.width) + 1, (unsigned long)self.pageImages.count];
 }
 
 #pragma mark - Spinner
