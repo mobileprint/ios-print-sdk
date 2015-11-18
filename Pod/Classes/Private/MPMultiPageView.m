@@ -196,9 +196,12 @@ static NSNumber *lastPinchScale = nil;
         self.pageImages[i] = [NSNull null];
         self.blackAndWhitePageImages[i] = [NSNull null];
         self.pageViews[i] = [NSNull null];
+        for (UIView *view in self.scrollView.subviews) {
+            [view removeFromSuperview];
+        }
     }
 
-    [self updatePageImages:1 forceReload:YES];
+    [self updatePageImages:1];
     [self positionPageNumberLabel];
     [self positionSpinner];
     
@@ -207,10 +210,10 @@ static NSNumber *lastPinchScale = nil;
 
 // This is the starting point of updating the UIScrollView
 //  updatePageImages -> updatePages -> createPageViews -> layoutPagesIfNeeded
-- (void)updatePageImages:(NSUInteger)newPageNumber forceReload:(BOOL)forceReload
+- (void)updatePageImages:(NSUInteger)newPageNumber
 {
     NSUInteger oldPageNumber = self.currentPage;
-    if (oldPageNumber != newPageNumber  ||  forceReload) {
+    if (oldPageNumber != newPageNumber  ||  0 == self.scrollView.subviews.count) {
         _currentPage = newPageNumber;
         MPLogDebug(@"Changed from page %lu to page %lu", (unsigned long)oldPageNumber, (unsigned long)newPageNumber);
         
@@ -226,7 +229,7 @@ static NSNumber *lastPinchScale = nil;
                         if( nil != newImage ) {
                             self.pageImages[i] = newImage;
                         } else {
-                            MPLogError(@"Page %ld returned a nil image", i+1);
+                            MPLogError(@"Page %d returned a nil image", i+1);
                         }
                     }
             }
@@ -310,7 +313,7 @@ static NSNumber *lastPinchScale = nil;
     if (pageNumber >= 1 && pageNumber <= self.pageImages.count) {
         CGFloat scrollWidth = self.scrollView.bounds.size.width;
         [self.scrollView setContentOffset:CGPointMake(scrollWidth * (pageNumber - 1), 0) animated:animated];
-        [self updatePageImages:pageNumber forceReload:NO];
+        [self updatePageImages:pageNumber];
     }
 }
 
@@ -431,7 +434,7 @@ static NSNumber *lastPinchScale = nil;
     
     [self.scrollView setNeedsLayout];
     if (self.currentPage > self.pageImages.count + 1) {
-        [self updatePageImages:1 forceReload:NO];
+        [self updatePageImages:1];
     }
     [self changeToPage:self.currentPage animated:NO];
     
@@ -543,7 +546,7 @@ static NSNumber *lastPinchScale = nil;
 {
     if (kMPZoomScrollViewTag != scrollView.tag) {
         NSUInteger newPageNumber = (int)scrollView.contentOffset.x / (int)scrollView.bounds.size.width + 1;
-        [self updatePageImages:newPageNumber forceReload:NO];
+        [self updatePageImages:newPageNumber];
     }
 }
 
@@ -552,8 +555,10 @@ static NSNumber *lastPinchScale = nil;
     if (kMPZoomScrollViewTag != scrollView.tag) {
         [self setZoomLevels];
         
-        if (scrollView.contentOffset.x < scrollView.bounds.size.width * self.startingIdx  ||
-            scrollView.contentOffset.x > scrollView.bounds.size.width * self.endingIdx) {
+        if (scrollView.contentOffset.x > 0 &&
+            (scrollView.contentOffset.x < scrollView.bounds.size.width * self.startingIdx  ||
+             scrollView.contentOffset.x > scrollView.bounds.size.width * self.endingIdx) &&
+            scrollView.contentOffset.x < scrollView.bounds.size.width * (self.pageImages.count-1)) {
             [self showSpinner:YES];
         } else {
             [self showSpinner:NO];
