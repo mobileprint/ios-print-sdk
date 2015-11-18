@@ -51,6 +51,12 @@ NSString * const kMPPrintAssetKey = @"kMPPrintAssetKey";
     return nil;
 }
 
+- (UIImage *)previewImageForPage:(NSUInteger)page paper:(MPPaper *)paper
+{
+    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
+    return nil;
+}
+
 - (id)printAssetForPageRange:(MPPageRange *)pageRange
 {
     NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));

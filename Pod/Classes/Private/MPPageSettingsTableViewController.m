@@ -403,6 +403,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kMPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:screenName forKey:kMPTrackableScreenNameKey]];
+
+    [self.multiPageView refreshLayout];
 }
 
 -  (void)viewWillDisappear:(BOOL)animated
@@ -415,13 +417,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.refreshPrinterStatusTimer = nil;
     
     self.printManager.delegate = nil;
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-        
-    [self.multiPageView refreshLayout];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -663,8 +658,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if (self.delegateManager.printSettings.paper) {
         self.multiPageView.blackAndWhite = self.delegateManager.blackAndWhite;
         [self.multiPageView setInterfaceOptions:[MP sharedInstance].interfaceOptions];
-        NSArray *images = [printItem previewImagesForPaper:self.delegateManager.printSettings.paper];
-        [self.multiPageView setPages:images paper:self.delegateManager.printSettings.paper layout:printItem.layout];
+
+        [self.multiPageView configurePages:printItem.numberOfPages paper:self.delegateManager.printSettings.paper layout:printItem.layout];
     }
 }
 
@@ -1616,6 +1611,16 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 }
 
 #pragma mark - MPMultipageViewDelegate
+
+- (UIImage *)multiPageView:(MPMultiPageView *)multiPageView getImageForPage:(NSUInteger)pageNumber
+{
+    UIImage *image = nil;
+    
+    if( pageNumber <= self.printItem.numberOfPages ) {
+        image = [self.printItem previewImageForPage:pageNumber paper:self.delegateManager.printSettings.paper];
+    }
+    return image;
+}
 
 - (void)multiPageView:(MPMultiPageView *)multiPageView didChangeFromPage:(NSUInteger)oldPageNumber ToPage:(NSUInteger)newPageNumber
 {

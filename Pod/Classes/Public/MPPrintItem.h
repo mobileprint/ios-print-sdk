@@ -109,6 +109,14 @@ typedef enum {
 - (NSArray *)previewImagesForPaper:(MPPaper *)paper;
 
 /*!
+ * @abstract Retrieves the preview image for a given paper for the specified page of the print asset
+ * @param page The page of the print asset to be retrieved
+ * @param paper The paper that the print asset will be printed on. Determines the size and aspect ratio of the preview.
+ * @return An array of preview image
+ */
+- (UIImage *)previewImageForPage:(NSUInteger)page paper:(MPPaper *)paper;
+
+/*!
  * @abstract Used to serialize the print asset during encoding
  * @param encoder The encoder used by the NSCoder protocol
  * @discussion Override this method if the print asset needs special processing to be encoded

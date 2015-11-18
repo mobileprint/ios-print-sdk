@@ -148,6 +148,11 @@
     return previewImage;
 }
 
+- (UIImage *)previewImageForPage:(NSUInteger)page paper:(MPPaper *)paper
+{
+    return [self previewImageForPage:page];
+}
+
 - (UIImage *)defaultPreviewImage
 {
     return [self previewImageForPage:1];
