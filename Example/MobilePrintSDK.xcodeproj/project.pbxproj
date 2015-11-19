@@ -42,6 +42,8 @@
 		65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */; };
 		65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */; };
 		658088EF1BB1DACD00B35489 /* MPPrintManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 658088EE1BB1DACD00B35489 /* MPPrintManagerTest.m */; };
+		658840E11BFE437A001B178D /* 1397 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 658840E01BFE437A001B178D /* 1397 Pages.pdf */; };
+		658840E21BFE437A001B178D /* 1397 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 658840E01BFE437A001B178D /* 1397 Pages.pdf */; };
 		65B3A9541B82989700ED76DD /* MPExperimentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B3A9531B82989700ED76DD /* MPExperimentManager.m */; };
 		65C0652E1B0BF26200E56D83 /* MPSelectPrintItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C0652D1B0BF26200E56D83 /* MPSelectPrintItemTableViewController.m */; };
 		65DC4A811BD596E90004F903 /* MPLayoutFillTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DC4A801BD596E90004F903 /* MPLayoutFillTest.m */; };
@@ -154,6 +156,7 @@
 		65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "51 Pages.pdf"; sourceTree = "<group>"; };
 		658088ED1BB1C63600B35489 /* MobilePrintSDK-cal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MobilePrintSDK-cal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		658088EE1BB1DACD00B35489 /* MPPrintManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPrintManagerTest.m; sourceTree = "<group>"; };
+		658840E01BFE437A001B178D /* 1397 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "1397 Pages.pdf"; sourceTree = "<group>"; };
 		65B3A9521B82989700ED76DD /* MPExperimentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPExperimentManager.h; sourceTree = "<group>"; };
 		65B3A9531B82989700ED76DD /* MPExperimentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPExperimentManager.m; sourceTree = "<group>"; };
 		65C0652C1B0BF26200E56D83 /* MPSelectPrintItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSelectPrintItemTableViewController.h; sourceTree = "<group>"; };
@@ -392,6 +395,7 @@
 				65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */,
 				651039B61B73FAA10013E738 /* 115 Pages.pdf */,
 				651039B71B73FAA10013E738 /* 236 Pages.pdf */,
+				658840E01BFE437A001B178D /* 1397 Pages.pdf */,
 			);
 			name = PDF;
 			sourceTree = "<group>";
@@ -547,6 +551,7 @@
 				65FFC9B41B03B0A400DCE2B4 /* 1 Page.pdf in Resources */,
 				65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				658840E11BFE437A001B178D /* 1397 Pages.pdf in Resources */,
 				6003F5A1195388D20070C39A /* Main.storyboard in Resources */,
 				65FFC9B61B03B0A400DCE2B4 /* 4 Pages.pdf in Resources */,
 				651039B81B73FAA10013E738 /* 15 Pages.pdf in Resources */,
@@ -579,6 +584,7 @@
 				0e5d0520d0eabd24d04360de /* 1 Page.pdf in Resources */,
 				e8243186526a602fd60a7f1e /* 51 Pages.pdf in Resources */,
 				5a7d337f642119fd7623ef30 /* Images.xcassets in Resources */,
+				658840E21BFE437A001B178D /* 1397 Pages.pdf in Resources */,
 				1bd736cfaa9ca59cefc4a555 /* Main.storyboard in Resources */,
 				b48c69b51a7148ec365f4757 /* 4 Pages.pdf in Resources */,
 				ae17836f4726fc0a846d6c99 /* 15 Pages.pdf in Resources */,
