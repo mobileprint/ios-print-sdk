@@ -38,12 +38,17 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>db-5jtd6dqn40szzxv</string>
+				<string>db-bfo9khlc2u90stq</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>DEV</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>dbapi-1</string>
+		<string>dbapi-3</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MKDirectionsApplicationSupportedModes</key>

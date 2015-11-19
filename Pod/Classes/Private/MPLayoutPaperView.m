@@ -17,7 +17,10 @@
 - (void)drawRect:(CGRect)rect {
     CGFloat adjustedBorder = rect.size.width * self.layout.borderInches / self.referenceWidthInches;
     CGRect insetRect = CGRectInset(rect, adjustedBorder, adjustedBorder);
-    [self.layout drawContentImage:self.image inRect:insetRect];
+    
+    if( (NSNull *)self.image != [NSNull null] ) {
+        [self.layout drawContentImage:self.image inRect:insetRect];
+    }
 }
 
 @end

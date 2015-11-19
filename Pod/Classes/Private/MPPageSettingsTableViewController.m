@@ -160,7 +160,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     self.mp = [MP sharedInstance];
     
-    self.cancelBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonTapped:)];
+    self.cancelBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:MPLocalizedString(@"Cancel", @"button bar cancel button") style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonTapped:)];
 
     if( self.mp.pageSettingsCancelButtonLeft ) {
         self.navigationItem.leftBarButtonItem = self.cancelBarButtonItem;
@@ -257,6 +257,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.jobNameCell.backgroundColor = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
     self.jobNameLabel.font = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsSecondaryFont];
     self.jobNameLabel.textColor = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
+    self.jobNameLabel.text = MPLocalizedString(@"Name", @"job name label");
     self.jobNameTextField.font = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsSecondaryFont];
     self.jobNameTextField.textColor = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsSecondaryFontColor];
     self.jobNameTextField.returnKeyType = UIReturnKeyDone;
@@ -308,8 +309,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     self.footerHeadingLabel.font = [self.mp.appearance.settings objectForKey:kMPGeneralBackgroundPrimaryFont];
     self.footerHeadingLabel.textColor = [self.mp.appearance.settings objectForKey:kMPGeneralBackgroundPrimaryFontColor];
+    self.footerHeadingLabel.text = MPLocalizedString(@"What is Print Queue?", @"footer heading describing print queue");
     self.footerTextLabel.font = [self.mp.appearance.settings objectForKey:kMPGeneralBackgroundSecondaryFont];
     self.footerTextLabel.textColor = [self.mp.appearance.settings objectForKey:kMPGeneralBackgroundSecondaryFontColor];
+    self.footerTextLabel.text = MPLocalizedString(@"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects.", @"fotter text describing print queue");
     
     [self updatePrintSettingsUI];
     [[MPPrinter sharedInstance] checkLastPrinterUsedAvailability];
@@ -403,6 +406,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kMPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:screenName forKey:kMPTrackableScreenNameKey]];
+
+    [self.multiPageView refreshLayout];
 }
 
 -  (void)viewWillDisappear:(BOOL)animated
@@ -415,13 +420,6 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     self.refreshPrinterStatusTimer = nil;
     
     self.printManager.delegate = nil;
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-        
-    [self.multiPageView refreshLayout];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -663,8 +661,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     if (self.delegateManager.printSettings.paper) {
         self.multiPageView.blackAndWhite = self.delegateManager.blackAndWhite;
         [self.multiPageView setInterfaceOptions:[MP sharedInstance].interfaceOptions];
-        NSArray *images = [printItem previewImagesForPaper:self.delegateManager.printSettings.paper];
-        [self.multiPageView setPages:images paper:self.delegateManager.printSettings.paper layout:printItem.layout];
+
+        [self.multiPageView configurePages:printItem.numberOfPages paper:self.delegateManager.printSettings.paper layout:printItem.layout];
     }
 }
 
@@ -1419,7 +1417,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         MPLogWarn(@"%lu MPPrintItems and %lu MPPageRanges.  Using default values for all MPPageRanges.", (unsigned long)self.itemsToPrint.count, (unsigned long)self.pageRanges.count);
         self.pageRanges = [[NSMutableArray alloc] initWithCapacity:self.itemsToPrint.count];
         for (int i=0; i<self.itemsToPrint.count; i++) {
-            [self.pageRanges insertObject:[[MPPageRange alloc] initWithString:@"All" allPagesIndicator:@"All" maxPageNum:firstItem.numberOfPages sortAscending:TRUE] atIndex:i];
+            [self.pageRanges insertObject:[[MPPageRange alloc] initWithString:MPLocalizedString(@"All", nil) allPagesIndicator:MPLocalizedString(@"All", nil) maxPageNum:firstItem.numberOfPages sortAscending:TRUE] atIndex:i];
         }
     }
     
@@ -1616,6 +1614,16 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 }
 
 #pragma mark - MPMultipageViewDelegate
+
+- (UIImage *)multiPageView:(MPMultiPageView *)multiPageView getImageForPage:(NSUInteger)pageNumber
+{
+    UIImage *image = nil;
+    
+    if( pageNumber <= self.printItem.numberOfPages ) {
+        image = [self.printItem previewImageForPage:pageNumber paper:self.delegateManager.printSettings.paper];
+    }
+    return image;
+}
 
 - (void)multiPageView:(MPMultiPageView *)multiPageView didChangeFromPage:(NSUInteger)oldPageNumber ToPage:(NSUInteger)newPageNumber
 {

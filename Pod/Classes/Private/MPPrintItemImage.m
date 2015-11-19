@@ -105,6 +105,11 @@
     return @[ [self defaultPreviewImage] ];
 }
 
+- (UIImage *)previewImageForPage:(NSUInteger)page paper:(MPPaper *)paper
+{
+    return [self defaultPreviewImage];
+}
+
 #pragma mark - NSCoding
 
 - (void)encodeAssetWithCoder:(NSCoder *)encoder
