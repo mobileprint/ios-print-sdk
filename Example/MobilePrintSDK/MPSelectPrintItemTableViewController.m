@@ -66,7 +66,8 @@ NSInteger const kMPSelectImagePDFSection = 5;
                      @"44 Pages",
                      @"51 Pages",
                      @"115 Pages",
-                     @"236 Pages"
+                     @"236 Pages",
+                     @"1397 Pages"
                      ];
 }
 
