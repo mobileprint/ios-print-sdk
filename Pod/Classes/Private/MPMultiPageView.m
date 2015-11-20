@@ -43,6 +43,7 @@
 @property (assign, nonatomic) BOOL switchedToColor;
 @property (weak, nonatomic) UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) UILabel *pageNumberLabel;
+@property (assign, nonatomic) NSInteger blackAndWhiteCallNum;
 
 @end
 
@@ -69,7 +70,7 @@ CGFloat const kMPMultiPageViewPageLabelHeight = 15.0;
 
 NSUInteger const kMPZoomScrollViewTag = 99;
 
-NSUInteger const kMPMultiPageDefaultNumBufferPages = 10;
+NSUInteger const kMPMultiPageDefaultNumBufferPages = 5;
 
 static NSNumber *lastPinchScale = nil;
 
@@ -95,6 +96,7 @@ static NSNumber *lastPinchScale = nil;
         self.endingIdx = 0;
         self.switchedToBlackAndWhite = NO;
         self.switchedToColor = NO;
+        self.blackAndWhiteCallNum = 0;
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.showsVerticalScrollIndicator = NO;
         
@@ -204,8 +206,6 @@ static NSNumber *lastPinchScale = nil;
     [self updatePageImages:1];
     [self positionPageNumberLabel];
     [self positionSpinner];
-    
-    [self updatePages];
 }
 
 // This is the starting point of updating the UIScrollView
@@ -229,7 +229,7 @@ static NSNumber *lastPinchScale = nil;
                         if( nil != newImage ) {
                             self.pageImages[i] = newImage;
                         } else {
-                            MPLogError(@"Page %ld returned a nil image", i+1);
+                            MPLogError(@"Page %d returned a nil image", i+1);
                         }
                     }
             }
@@ -323,7 +323,7 @@ static NSNumber *lastPinchScale = nil;
     if (self.blackAndWhite) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             
-            [self processBlackAndWhiteImages];
+            [self processBlackAndWhiteImages:++self.blackAndWhiteCallNum];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self createPageViews];
                 [self layoutPagesIfNeeded];
@@ -335,9 +335,14 @@ static NSNumber *lastPinchScale = nil;
     }
 }
 
-- (void)processBlackAndWhiteImages
+- (void)processBlackAndWhiteImages:(NSInteger)callNum
 {
-    for (NSUInteger i = 0; i < self.blackAndWhitePageImages.count; i++) {
+
+    // This function is executed on a background thread
+    //  The calls can queue up, but we only care about the last call made.
+    //  self.blackAndWhiteCallNum ensures that we cancel older calls as soon as a new one is made.
+    
+    for (NSUInteger i = 0; i < self.blackAndWhitePageImages.count && callNum == self.blackAndWhiteCallNum; i++) {
         if (self.pageImages[i] != [NSNull null] ) {
             if (self.blackAndWhitePageImages[i] == [NSNull null]) {
                 @autoreleasepool {
