@@ -12,7 +12,7 @@ class PrintPodScreen < Calabash::IBase
   end
     
   def share_icon
-    touch("view marked:'Share'")
+    "view marked:'Share'"
   end
        
   def navigate
