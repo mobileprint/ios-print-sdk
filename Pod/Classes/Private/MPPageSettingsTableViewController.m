@@ -426,6 +426,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 
+    [self.multiPageView cancelZoom];
+
     self.multiPageView.rotationInProgress = YES;
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         [self refreshPreviewLayout:size];

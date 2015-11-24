@@ -714,6 +714,13 @@ static NSNumber *lastPinchScale = nil;
     [self setPagesVisible:NO animated:animated];
 }
 
+- (void)cancelZoom
+{
+    if (self.zoomScrollView) {
+        [self removeZoomView];
+    }
+}
+
 - (void)removeZoomView
 {
     lastPinchScale = nil;
