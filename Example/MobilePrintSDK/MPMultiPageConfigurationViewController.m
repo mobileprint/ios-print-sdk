@@ -92,7 +92,7 @@
 {
     UITextField *textField = (UITextField *)[self.view viewWithTag:10 + idx * 10];
     UISlider *slider = (UISlider *)[self.view viewWithTag:10 + idx * 10 + 1];
-    textField.text = [NSString stringWithFormat:@"%lu", value];
+    textField.text = [NSString stringWithFormat:@"%lu", (unsigned long)value];
     slider.value = value;
 }
 
