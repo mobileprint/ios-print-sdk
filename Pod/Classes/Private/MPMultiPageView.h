@@ -34,6 +34,7 @@
 - (void)refreshLayout;
 - (void)setInterfaceOptions:(MPInterfaceOptions *)options;
 - (void)showPageNumberLabel:(BOOL)show;
+- (void)cancelZoom;
 
 @end
 
