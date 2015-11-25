@@ -423,7 +423,6 @@ static NSNumber *lastPinchScale = nil;
                 
                 MPLayoutPaperCellView *paperCellView = (MPLayoutPaperCellView *)subview;
                 CGRect cellFrame = CGRectMake(0.5 * self.actualGutter + idx * scrollWidth, 0, pageWidth , pageHeight);
-                NSLog(@"%ld:  %0.f, %0.f, %0.f, %0.f", (long)idx, cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
                 paperCellView.frame = cellFrame;
                 paperCellView.paper = self.paper;
             }
@@ -545,6 +544,13 @@ static NSNumber *lastPinchScale = nil;
 }
 
 #pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    if (kMPZoomScrollViewTag == scrollView.tag) {
+        [self centerInScrollView];
+    }
+}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
@@ -704,12 +710,13 @@ static NSNumber *lastPinchScale = nil;
     CGFloat offsetX = (zoomSourceView.bounds.size.width - self.zoomScrollView.bounds.size.width) / 2.0;
     CGFloat offsetY = (zoomSourceView.bounds.size.height - self.zoomScrollView.bounds.size.height) / 2.0;
     self.zoomInitialOffset = CGPointMake(offsetX, offsetY);
-    self.zoomScrollView.contentSize = zoomSourceView.bounds.size;
+    self.zoomScrollView.contentSize = paperCell.bounds.size;
     self.zoomScrollView.contentOffset = self.zoomInitialOffset;
     
     [self.superview addSubview:self.zoomScrollView];
     [self currentPaperCellView].hidden = YES;
     [self initializeZoomGestures];
+    
     [self.zoomScrollView setZoomScale:scale animated:animated];
     [self setPagesVisible:NO animated:animated];
 }
@@ -755,7 +762,7 @@ static NSNumber *lastPinchScale = nil;
 - (void)hideZoomViewAnimated:(BOOL)animated
 {
     [self.zoomScrollView setZoomScale:1.0 animated:animated];
-    [self.zoomScrollView setContentOffset:self.zoomInitialOffset animated:animated];
+    [self.zoomScrollView setContentOffset:CGPointZero animated:animated];
     [self setPagesVisible:YES animated:animated];
 }
 
@@ -781,6 +788,18 @@ static NSNumber *lastPinchScale = nil;
     [self.zoomScrollView addGestureRecognizer:doubleTapGesture];
     
     [singleTapRecognizer requireGestureRecognizerToFail:doubleTapGesture];
+}
+
+// The following is adapted from http://stackoverflow.com/questions/1316451/center-content-of-uiscrollview-when-smaller
+- (void)centerInScrollView
+{
+    UIView *subView = [self.zoomScrollView.subviews objectAtIndex:0];
+    
+    CGFloat offsetX = MAX((self.zoomScrollView.bounds.size.width - self.zoomScrollView.contentSize.width) * 0.5, 0.0);
+    CGFloat offsetY = MAX((self.zoomScrollView.bounds.size.height - self.zoomScrollView.contentSize.height) * 0.5, 0.0);
+    
+    subView.center = CGPointMake(self.zoomScrollView.contentSize.width * 0.5 + offsetX,
+                                 self.zoomScrollView.contentSize.height * 0.5 + offsetY);
 }
 
 #pragma mark - Page Number Label
