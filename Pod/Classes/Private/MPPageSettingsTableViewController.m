@@ -407,6 +407,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kMPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:screenName forKey:kMPTrackableScreenNameKey]];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)  name:UIDeviceOrientationDidChangeNotification  object:nil];
+
     [self.multiPageView refreshLayout];
 }
 
@@ -436,6 +438,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
         [self.tableView reloadData];
         self.multiPageView.rotationInProgress = NO;
     }];
+}
+
+- (void)orientationChanged:(NSNotification *)notification{
+    [self.multiPageView cancelZoom];
 }
 
 - (void)refreshPreviewLayout:(CGSize)size
