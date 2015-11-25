@@ -696,6 +696,8 @@ static NSNumber *lastPinchScale = nil;
     self.zoomScrollView.autoresizingMask = UIViewAutoresizingNone;
     self.zoomScrollView.delegate = self;
     self.zoomScrollView.tag = kMPZoomScrollViewTag;
+    self.zoomScrollView.showsHorizontalScrollIndicator = NO;
+    self.zoomScrollView.showsVerticalScrollIndicator = NO;
     
     CGRect pageRect = CGRectMake(0, 0, zoomSourceView.bounds.size.width, zoomSourceView.bounds.size.height);
     MPLayoutPaperView *paperView = [[MPLayoutPaperView alloc] init];
