@@ -407,6 +407,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kMPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:screenName forKey:kMPTrackableScreenNameKey]];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)  name:UIDeviceOrientationDidChangeNotification  object:nil];
+
     [self.multiPageView refreshLayout];
 }
 
@@ -425,28 +427,50 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    
+
+    [self.multiPageView cancelZoom];
+
+    self.multiPageView.rotationInProgress = YES;
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self refreshPreviewLayout:size];
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self refreshPreviewLayout:size];
+        [self.tableView reloadData];
+        self.multiPageView.rotationInProgress = NO;
+    }];
+}
+
+- (void)orientationChanged:(NSNotification *)notification{
+    [self.multiPageView cancelZoom];
+}
+
+- (void)refreshPreviewLayout:(CGSize)size
+{
     if( MPPageSettingsDisplayTypePreviewPane == self.displayType ) {
-        CGRect frame = self.tableView.tableHeaderView.frame;
-        frame.size.height = size.height - self.jobSummaryCell.frame.size.height - 1;
-        self.tableView.tableHeaderView.frame = frame;
-        
-        [self.multiPageView refreshLayout];
-        
-        // without this seemingly useless line, the header view is not displayed in the appropriate frame
-        self.tableView.tableHeaderView = self.tableView.tableHeaderView;
+        [self setPreviewPaneFrame:size];
     }
-    
     [self setPageRangeKeyboardView];
-    
-    [self.tableView reloadData];
+    [self.multiPageView refreshLayout];
+}
+
+- (void)setPreviewPaneFrame:(CGSize)size
+{
+    CGRect frame = self.tableView.tableHeaderView.frame;
+    frame.size.height = size.height - self.jobSummaryCell.frame.size.height - 1;
+    self.tableView.tableHeaderView.frame = frame;
+    // without this seemingly useless line, the header view is not displayed in the appropriate frame
+    self.tableView.tableHeaderView = self.tableView.tableHeaderView;
 }
 
 - (void)viewDidLayoutSubviews
 {
     [self.view layoutIfNeeded];
-    
     [self.tableView bringSubviewToFront:self.pageSelectionMark];
+    
+    if (!IS_OS_8_OR_LATER) {
+        // This is needed because viewWillTransitionToSize is iOS 8 and above
+        [self refreshPreviewLayout:self.view.bounds.size];
+    }
 }
 
 - (void)dealloc
