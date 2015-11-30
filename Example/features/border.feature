@@ -1,7 +1,7 @@
-Feature: Select a Print item and print
+Feature: Select a Print item and print for different border types
 
  
-    @TA1243711
+    @TA12437
     @reset
      Scenario Outline: Verify force border layout for all paper sizes
     Given I am on the "PrintPod" screen

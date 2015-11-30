@@ -1,4 +1,4 @@
-Feature: Select a Print item and print
+Feature: Select a Print item and print from client UI
 
  
     @TA12437
