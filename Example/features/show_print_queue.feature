@@ -4,13 +4,13 @@ Feature: Select item and add to print queue
   @done
   Scenario: Verify item added to print queue
     Given I am on the "PrintPod" screen
-    Then I should see the "Share Item" screen
     And I touch "Share Item"
     And I touch "4x6 portrait"
     And I touch Print Queue
     And I wait for some seconds
     Then I should see the "Add Print" screen
     And I touch "Add to Print Queue"
+    And I wait for some seconds
     Then I should see the "Print Queue" screen
     When I touch "Done"
     Then I should see the "PrintPod" screen
@@ -22,13 +22,13 @@ Feature: Select item and add to print queue
     @done
   Scenario: verify print for the item from print queue
     Given I am on the "PrintPod" screen
-    Then I should see the "Share Item" screen
     And I touch "Share Item"
     And I touch "4x6 portrait"
     And I touch Print Queue
     And I wait for some seconds
     Then I should see the "Add Print" screen
     And I touch "Add to Print Queue"
+     And I wait for some seconds
     Then I should see the "Print Queue" screen
     When I touch "Done"
     Then I should see the "PrintPod" screen
@@ -51,6 +51,7 @@ Feature: Select item and add to print queue
     And I touch Print Queue
     And I wait for some seconds
     And I touch "Add to Print Queue"
+     And I wait for some seconds
     When I touch "Done"
     And I touch "Share Item"
     And I touch "4x6 portrait"
@@ -73,6 +74,7 @@ Feature: Select item and add to print queue
     And I touch Print Queue
     And I wait for some seconds
     And I touch "Add to Print Queue"
+     And I wait for some seconds
     When I touch "Done"
     And I touch "Share Item"
     And I touch "4x6 portrait"
@@ -94,6 +96,7 @@ Feature: Select item and add to print queue
     And I touch Print Queue
     And I wait for some seconds
     And I touch "Add to Print Queue"
+     And I wait for some seconds
     When I touch "Done"
     And I touch "Share Item"
     And I touch "4x6 portrait"
@@ -118,6 +121,7 @@ Feature: Select item and add to print queue
     And I touch Print Queue
     And I wait for some seconds
     And I touch "Add to Print Queue"
+    And I wait for some seconds
     When I touch "Done"
     And I touch "Share Item"
     And I touch "4x6 portrait"
