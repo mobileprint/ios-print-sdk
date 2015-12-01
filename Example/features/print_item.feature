@@ -74,7 +74,7 @@ Feature: Select a Print item and print
         | 3up   |
         | 4up   |
         
-  @TA12437
+  @done
   @reset
      Scenario Outline: Verify share item to add print queue 3up and 4up
     Given I am on the "Share Item" screen
@@ -92,7 +92,7 @@ Feature: Select a Print item and print
         | 3up   |
         | 4up   |
         
-    @TA12437
+    @done
     @reset
      Scenario: Verify Direct Print Item
     Given I am on the "PrintPod" screen
