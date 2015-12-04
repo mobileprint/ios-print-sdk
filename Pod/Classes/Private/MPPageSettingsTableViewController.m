@@ -148,6 +148,9 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 NSString * const kPrintFromQueueScreenName = @"Add Job Screen";
 NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
+CGFloat const kMPPreviewLandscapeHeightCorrection = 10.0;
+CGFloat const kMPPreviewPortraitHeightRatio = 0.61803399; // golden ratio
+
 #pragma mark - UIView
 
 - (void)viewDidLoad
@@ -409,6 +412,8 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)  name:UIDeviceOrientationDidChangeNotification  object:nil];
 
+    [self setPreviewPaneFrame];
+
     [self.multiPageView refreshLayout];
 }
 
@@ -432,9 +437,9 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
     self.multiPageView.rotationInProgress = YES;
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        [self refreshPreviewLayout:size];
+        [self refreshPreviewLayout];
     } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        [self refreshPreviewLayout:size];
+        [self refreshPreviewLayout];
         [self.tableView reloadData];
         self.multiPageView.rotationInProgress = NO;
     }];
@@ -444,20 +449,32 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     [self.multiPageView cancelZoom];
 }
 
-- (void)refreshPreviewLayout:(CGSize)size
+- (void)refreshPreviewLayout
 {
-    if( MPPageSettingsDisplayTypePreviewPane == self.displayType ) {
-        [self setPreviewPaneFrame:size];
-    }
+    [self setPreviewPaneFrame];
     [self setPageRangeKeyboardView];
     [self.multiPageView refreshLayout];
 }
 
-- (void)setPreviewPaneFrame:(CGSize)size
+- (void)setPreviewPaneFrame
 {
+    CGSize size = self.tableView.bounds.size;
     CGRect frame = self.tableView.tableHeaderView.frame;
-    frame.size.height = size.height - self.jobSummaryCell.frame.size.height - 1;
+    BOOL landscape = size.width > size.height;
+    
+    CGFloat height = 0.0;
+    if (MPPageSettingsDisplayTypePreviewPane == self.displayType) {
+        height = size.height - self.jobSummaryCell.frame.size.height - 1;
+    } else if (landscape && MPPageSettingsDisplayTypeSingleView == self.displayType) {
+        CGFloat correction = self.printCell.frame.origin.y + self.printCell.frame.size.height - frame.size.height + kMPPreviewLandscapeHeightCorrection;
+        height = size.height - correction;
+    } else if (!landscape && MPPageSettingsDisplayTypeSingleView == self.displayType) {
+        height = size.height * kMPPreviewPortraitHeightRatio;
+    }
+    
+    frame.size.height = height;
     self.tableView.tableHeaderView.frame = frame;
+    
     // without this seemingly useless line, the header view is not displayed in the appropriate frame
     self.tableView.tableHeaderView = self.tableView.tableHeaderView;
 }
@@ -469,7 +486,7 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
     
     if (!IS_OS_8_OR_LATER) {
         // This is needed because viewWillTransitionToSize is iOS 8 and above
-        [self refreshPreviewLayout:self.view.bounds.size];
+        [self setPreviewPaneFrame];
     }
 }
 
