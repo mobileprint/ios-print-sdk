@@ -161,9 +161,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
 
 - (NSArray *)allPrintLaterJobs
 {
-    if (nil == _allPrintLaterJobs) {
-        _allPrintLaterJobs = [[MPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
-    }
+    _allPrintLaterJobs = [[MPPrintLaterQueue sharedInstance] retrieveAllPrintLaterJobs];
     
     return _allPrintLaterJobs;
 }
