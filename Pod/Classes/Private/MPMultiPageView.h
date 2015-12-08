@@ -27,12 +27,14 @@
 @property (assign, nonatomic) BOOL blackAndWhite;
 @property (assign, nonatomic, readonly) NSUInteger currentPage;
 @property (assign, nonatomic) NSInteger numBufferPages;
+@property (assign, nonatomic) BOOL rotationInProgress;
 
 - (void)configurePages:(NSUInteger)numPages paper:(MPPaper *)paper layout:(MPLayout *)layout;
 - (void)changeToPage:(NSUInteger)pageNumber animated:(BOOL)animated;
 - (void)refreshLayout;
 - (void)setInterfaceOptions:(MPInterfaceOptions *)options;
 - (void)showPageNumberLabel:(BOOL)show;
+- (void)cancelZoom;
 
 @end
 

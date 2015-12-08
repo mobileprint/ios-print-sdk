@@ -72,8 +72,12 @@ NSString * const kMPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
     NSURL *productionURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@:%@@%@", kMPMetricsUsername, kMPMetricsPassword, kMPMetricsServer]];
     NSURL *testURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@@%@", kMPMetricsUsername, kMPMetricsPassword, kMPMetricsServerTestBuilds]];
     NSString *provisionPath = [[NSBundle mainBundle] pathForResource:@"embedded" ofType:@"mobileprovision"];
+
+    // The following is adapted from: http://stackoverflow.com/questions/26081543/how-to-tell-at-runtime-whether-an-ios-app-is-running-through-a-testflight-beta-i
+    BOOL sandboxReceipt = [[[[NSBundle mainBundle] appStoreReceiptURL] lastPathComponent] isEqualToString:@"sandboxReceipt"];
+    
     NSURL *metricsURL = testURL;
-    if (!provisionPath && !TARGET_IPHONE_SIMULATOR) {
+    if (!provisionPath && !sandboxReceipt && !TARGET_IPHONE_SIMULATOR) {
         metricsURL = productionURL;
     }
     return metricsURL;

@@ -148,6 +148,9 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 NSString * const kPrintFromQueueScreenName = @"Add Job Screen";
 NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
+CGFloat const kMPPreviewLandscapeHeightCorrection = 10.0;
+CGFloat const kMPPreviewPortraitHeightRatio = 0.61803399; // golden ratio
+
 #pragma mark - UIView
 
 - (void)viewDidLoad
@@ -407,6 +410,10 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kMPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:screenName forKey:kMPTrackableScreenNameKey]];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)  name:UIDeviceOrientationDidChangeNotification  object:nil];
+
+    [self setPreviewPaneFrame];
+
     [self.multiPageView refreshLayout];
 }
 
@@ -425,28 +432,62 @@ NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
+    [self.multiPageView cancelZoom];
+
+    self.multiPageView.rotationInProgress = YES;
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self refreshPreviewLayout];
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self refreshPreviewLayout];
+        [self.tableView reloadData];
+        self.multiPageView.rotationInProgress = NO;
+    }];
+}
+
+- (void)orientationChanged:(NSNotification *)notification{
+    [self.multiPageView cancelZoom];
+}
+
+- (void)refreshPreviewLayout
+{
+    [self setPreviewPaneFrame];
+    [self setPageRangeKeyboardView];
+    [self.multiPageView refreshLayout];
+}
+
+- (void)setPreviewPaneFrame
+{
+    CGSize size = self.tableView.bounds.size;
+    CGRect frame = self.tableView.tableHeaderView.frame;
+    BOOL landscape = size.width > size.height;
     
-    if( MPPageSettingsDisplayTypePreviewPane == self.displayType ) {
-        CGRect frame = self.tableView.tableHeaderView.frame;
-        frame.size.height = size.height - self.jobSummaryCell.frame.size.height - 1;
-        self.tableView.tableHeaderView.frame = frame;
-        
-        [self.multiPageView refreshLayout];
-        
-        // without this seemingly useless line, the header view is not displayed in the appropriate frame
-        self.tableView.tableHeaderView = self.tableView.tableHeaderView;
+    CGFloat height = 0.0;
+    if (MPPageSettingsDisplayTypePreviewPane == self.displayType) {
+        height = size.height - self.jobSummaryCell.frame.size.height - 1;
+    } else if (landscape && MPPageSettingsDisplayTypeSingleView == self.displayType) {
+        CGFloat correction = self.printCell.frame.origin.y + self.printCell.frame.size.height - frame.size.height + kMPPreviewLandscapeHeightCorrection;
+        height = size.height - correction;
+    } else if (!landscape && MPPageSettingsDisplayTypeSingleView == self.displayType) {
+        height = size.height * kMPPreviewPortraitHeightRatio;
     }
     
-    [self setPageRangeKeyboardView];
+    frame.size.height = height;
+    self.tableView.tableHeaderView.frame = frame;
     
-    [self.tableView reloadData];
+    // without this seemingly useless line, the header view is not displayed in the appropriate frame
+    self.tableView.tableHeaderView = self.tableView.tableHeaderView;
 }
 
 - (void)viewDidLayoutSubviews
 {
     [self.view layoutIfNeeded];
-    
     [self.tableView bringSubviewToFront:self.pageSelectionMark];
+    
+    if (!IS_OS_8_OR_LATER) {
+        // This is needed because viewWillTransitionToSize is iOS 8 and above
+        [self setPreviewPaneFrame];
+    }
 }
 
 - (void)dealloc

@@ -99,6 +99,7 @@ static NSNumber *lastPinchScale = nil;
         self.blackAndWhiteCallNum = 0;
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.showsVerticalScrollIndicator = NO;
+        self.rotationInProgress = NO;
         
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [self addSubview:spinner];
@@ -110,7 +111,7 @@ static NSNumber *lastPinchScale = nil;
         [self addSubview:label];
         self.pageNumberLabel = label;
         self.pageNumberLabel.hidden = YES;
-
+        
         _currentPage = 1;
         
         [self initializePageGestures];
@@ -128,7 +129,7 @@ static NSNumber *lastPinchScale = nil;
     singleTapRecognizer.numberOfTapsRequired = 1;
     singleTapRecognizer.numberOfTouchesRequired = 1;
     [self.scrollView addGestureRecognizer:singleTapRecognizer];
-
+    
     if (self.doubleTapEnabled) {
         UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlePageDoubleTap:)];
         doubleTapGesture.numberOfTapsRequired = 2;
@@ -202,7 +203,7 @@ static NSNumber *lastPinchScale = nil;
             [view removeFromSuperview];
         }
     }
-
+    
     [self updatePageImages:1];
     [self positionPageNumberLabel];
     [self positionSpinner];
@@ -219,19 +220,19 @@ static NSNumber *lastPinchScale = nil;
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(multiPageView:getImageForPage:)]) {
             
-             for (NSInteger i = 0; i < [self lowBufferIndex]; i++) {
+            for (NSInteger i = 0; i < [self lowBufferIndex]; i++) {
                 self.pageImages[i] = [NSNull null];
             }
-
+            
             for (NSInteger i = [self lowBufferIndex]; i <= [self highBufferIndex]; i++) {
-                    if( [NSNull null] == self.pageImages[i] ) {
-                        UIImage *newImage = [self.delegate multiPageView:self getImageForPage:i+1];
-                        if( nil != newImage ) {
-                            self.pageImages[i] = newImage;
-                        } else {
-                            MPLogError(@"Page %d returned a nil image", i+1);
-                        }
+                if( [NSNull null] == self.pageImages[i] ) {
+                    UIImage *newImage = [self.delegate multiPageView:self getImageForPage:i+1];
+                    if( nil != newImage ) {
+                        self.pageImages[i] = newImage;
+                    } else {
+                        MPLogError(@"Page %ld returned a nil image", i+1);
                     }
+                }
             }
             
             for (NSInteger i = [self highBufferIndex] + 1; i < self.pageImages.count; i++) {
@@ -244,18 +245,19 @@ static NSNumber *lastPinchScale = nil;
         if (self.delegate && [self.delegate respondsToSelector:@selector(multiPageView:didChangeFromPage:ToPage:)]) {
             [self.delegate multiPageView:self didChangeFromPage:oldPageNumber ToPage:newPageNumber];
         }
-
+        
     }
+
     [self setZoomLevels];
 }
 
 - (void)createPageViews
 {
     NSArray *pageImages = self.blackAndWhite ? self.blackAndWhitePageImages : self.pageImages;
-
+    
     self.startingIdx = [self lowBufferIndex];
     self.endingIdx   = [self highBufferIndex];
-
+    
     for (NSInteger idx = 0; idx < [self lowBufferIndex]; idx++) {
         if( [NSNull null] != self.pageViews[idx] ) {
             [(MPLayoutPaperCellView *)self.pageViews[idx] removeFromSuperview];
@@ -434,7 +436,7 @@ static NSNumber *lastPinchScale = nil;
         return;
     }
     
-    static CGFloat lastScrollWidth = 0;
+    static CGSize lastScrollViewSize = {0, 0};
     
     [self resetZoomLevels];
     [self updateHorizontalConstraints];
@@ -444,13 +446,13 @@ static NSNumber *lastPinchScale = nil;
     CGFloat pageHeight = self.scrollView.bounds.size.height;
     self.scrollView.contentSize = CGSizeMake(scrollWidth * self.pageImages.count, scrollHeight);
     NSInteger idx = [self lowBufferIndex];
-
+    
     for (UIView *subview in self.scrollView.subviews) {
         if ([subview isKindOfClass:[MPLayoutPaperCellView class]]) {
             if (subview.frame.origin.x < 0.5 * self.actualGutter  ||
                 self.switchedToBlackAndWhite                      ||
                 self.switchedToColor                              ||
-                lastScrollWidth != scrollWidth) {
+                !CGSizeEqualToSize(lastScrollViewSize, self.scrollView.bounds.size)) {
                 
                 MPLayoutPaperCellView *paperCellView = (MPLayoutPaperCellView *)subview;
                 CGRect cellFrame = CGRectMake(0.5 * self.actualGutter + idx * scrollWidth, 0, pageWidth , pageHeight);
@@ -460,7 +462,7 @@ static NSNumber *lastPinchScale = nil;
             idx++;
         }
     }
-
+    
     self.switchedToBlackAndWhite = NO;
     self.switchedToColor = NO;
     
@@ -472,10 +474,10 @@ static NSNumber *lastPinchScale = nil;
     
     [self showSpinner:NO];
     
-    if (lastScrollWidth != scrollWidth) {
+    if (!CGSizeEqualToSize(lastScrollViewSize, self.scrollView.bounds.size)) {
         [self positionPageNumberLabel];
         [self positionSpinner];
-        lastScrollWidth = scrollWidth;
+        lastScrollViewSize = self.scrollView.bounds.size;
     }
 }
 
@@ -542,11 +544,12 @@ static NSNumber *lastPinchScale = nil;
     NSUInteger enteringViewIndex = viewIndex + 1;
     CGFloat enteringRatio = viewRatio;
     CGFloat enteringViewScale = backgroundScale + (1.0 - backgroundScale) * enteringRatio;
-
+    
     NSInteger idx = self.startingIdx;
-
+    
     for (UIView *subview in self.scrollView.subviews) {
         if ([subview isKindOfClass:[MPLayoutPaperCellView class]]) {
+            subview.transform = CGAffineTransformIdentity;
             CGFloat scale = backgroundScale;
             CGFloat progress = 1.0;
             CGFloat direction = (idx < enteringViewIndex) ? 1.0 : -1.0;
@@ -562,6 +565,7 @@ static NSNumber *lastPinchScale = nil;
             CGAffineTransform combinedTransform = CGAffineTransformTranslate(scaleTransform, correctionX, 0);
             subview.transform = combinedTransform;
             idx++;
+            
         }
     }
     
@@ -574,6 +578,13 @@ static NSNumber *lastPinchScale = nil;
 
 #pragma mark - UIScrollViewDelegate
 
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    if (kMPZoomScrollViewTag == scrollView.tag) {
+        [self centerInScrollView];
+    }
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     if (kMPZoomScrollViewTag != scrollView.tag) {
@@ -585,7 +596,10 @@ static NSNumber *lastPinchScale = nil;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (kMPZoomScrollViewTag != scrollView.tag) {
-        [self setZoomLevels];
+        
+        if (!self.rotationInProgress) {
+            [self setZoomLevels];
+        }
         
         if (scrollView.contentOffset.x > 0 &&
             (scrollView.contentOffset.x < scrollView.bounds.size.width * self.startingIdx  ||
@@ -704,7 +718,7 @@ static NSNumber *lastPinchScale = nil;
     }
     
     NSArray *pageImages = self.blackAndWhite ? self.blackAndWhitePageImages : self.pageImages;
-
+    
     MPLayoutPaperCellView *zoomSourceView = [self currentPaperCellView];
     
     self.zoomScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
@@ -715,6 +729,8 @@ static NSNumber *lastPinchScale = nil;
     self.zoomScrollView.autoresizingMask = UIViewAutoresizingNone;
     self.zoomScrollView.delegate = self;
     self.zoomScrollView.tag = kMPZoomScrollViewTag;
+    self.zoomScrollView.showsHorizontalScrollIndicator = NO;
+    self.zoomScrollView.showsVerticalScrollIndicator = NO;
     
     CGRect pageRect = CGRectMake(0, 0, zoomSourceView.bounds.size.width, zoomSourceView.bounds.size.height);
     MPLayoutPaperView *paperView = [[MPLayoutPaperView alloc] init];
@@ -729,14 +745,22 @@ static NSNumber *lastPinchScale = nil;
     CGFloat offsetX = (zoomSourceView.bounds.size.width - self.zoomScrollView.bounds.size.width) / 2.0;
     CGFloat offsetY = (zoomSourceView.bounds.size.height - self.zoomScrollView.bounds.size.height) / 2.0;
     self.zoomInitialOffset = CGPointMake(offsetX, offsetY);
-    self.zoomScrollView.contentSize = zoomSourceView.bounds.size;
+    self.zoomScrollView.contentSize = paperCell.bounds.size;
     self.zoomScrollView.contentOffset = self.zoomInitialOffset;
-
+    
     [self.superview addSubview:self.zoomScrollView];
     [self currentPaperCellView].hidden = YES;
     [self initializeZoomGestures];
+    
     [self.zoomScrollView setZoomScale:scale animated:animated];
     [self setPagesVisible:NO animated:animated];
+}
+
+- (void)cancelZoom
+{
+    if (self.zoomScrollView) {
+        [self removeZoomView];
+    }
 }
 
 - (void)removeZoomView
@@ -773,7 +797,7 @@ static NSNumber *lastPinchScale = nil;
 - (void)hideZoomViewAnimated:(BOOL)animated
 {
     [self.zoomScrollView setZoomScale:1.0 animated:animated];
-    [self.zoomScrollView setContentOffset:self.zoomInitialOffset animated:animated];
+    [self.zoomScrollView setContentOffset:CGPointZero animated:animated];
     [self setPagesVisible:YES animated:animated];
 }
 
@@ -799,6 +823,18 @@ static NSNumber *lastPinchScale = nil;
     [self.zoomScrollView addGestureRecognizer:doubleTapGesture];
     
     [singleTapRecognizer requireGestureRecognizerToFail:doubleTapGesture];
+}
+
+// The following is adapted from http://stackoverflow.com/questions/1316451/center-content-of-uiscrollview-when-smaller
+- (void)centerInScrollView
+{
+    UIView *subView = [self.zoomScrollView.subviews objectAtIndex:0];
+    
+    CGFloat offsetX = MAX((self.zoomScrollView.bounds.size.width - self.zoomScrollView.contentSize.width) * 0.5, 0.0);
+    CGFloat offsetY = MAX((self.zoomScrollView.bounds.size.height - self.zoomScrollView.contentSize.height) * 0.5, 0.0);
+    
+    subView.center = CGPointMake(self.zoomScrollView.contentSize.width * 0.5 + offsetX,
+                                 self.zoomScrollView.contentSize.height * 0.5 + offsetY);
 }
 
 #pragma mark - Page Number Label
