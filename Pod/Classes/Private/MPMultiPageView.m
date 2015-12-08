@@ -285,7 +285,7 @@ static NSNumber *lastPinchScale = nil;
             }
             
             // We synchronize the reading of pageImages in case we are reading from self.blackAndWhiteImages
-            NSObject *image;
+            NSObject *image = [NSNull null];
             @synchronized(self.blackAndWhitePageImages) {
                image = pageImages[idx];
             }
@@ -347,8 +347,6 @@ static NSNumber *lastPinchScale = nil;
 {
     BOOL completed = YES;
     
-    NSLog(@"Processing call num: %d", callNum);
-    
     // This function is executed on a background thread
     //  The calls can queue up, but we only care about the last call made.
     //  self.blackAndWhiteCallNum ensures that we cancel older calls as soon as a new one is made.
@@ -359,7 +357,7 @@ static NSNumber *lastPinchScale = nil;
         if (callNum == self.blackAndWhiteCallNum) {
             if (self.pageImages[i] != [NSNull null]) {
                 
-                NSObject *image;
+                NSObject *image = [NSNull null];
                 @synchronized(self.blackAndWhitePageImages) {
                     image = self.blackAndWhitePageImages[i];
                 }
