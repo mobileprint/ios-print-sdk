@@ -43,6 +43,7 @@
 @property (assign, nonatomic) BOOL switchedToColor;
 @property (weak, nonatomic) UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) UILabel *pageNumberLabel;
+@property (assign, nonatomic) NSInteger blackAndWhiteCallNum;
 
 @end
 
@@ -69,7 +70,7 @@ CGFloat const kMPMultiPageViewPageLabelHeight = 15.0;
 
 NSUInteger const kMPZoomScrollViewTag = 99;
 
-NSUInteger const kMPMultiPageDefaultNumBufferPages = 10;
+NSUInteger const kMPMultiPageDefaultNumBufferPages = 5;
 
 static NSNumber *lastPinchScale = nil;
 
@@ -95,6 +96,7 @@ static NSNumber *lastPinchScale = nil;
         self.endingIdx = 0;
         self.switchedToBlackAndWhite = NO;
         self.switchedToColor = NO;
+        self.blackAndWhiteCallNum = 0;
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.showsVerticalScrollIndicator = NO;
         self.rotationInProgress = NO;
@@ -205,8 +207,6 @@ static NSNumber *lastPinchScale = nil;
     [self updatePageImages:1];
     [self positionPageNumberLabel];
     [self positionSpinner];
-    
-    [self updatePages];
 }
 
 // This is the starting point of updating the UIScrollView
@@ -247,6 +247,7 @@ static NSNumber *lastPinchScale = nil;
         }
         
     }
+
     [self setZoomLevels];
 }
 
@@ -285,13 +286,19 @@ static NSNumber *lastPinchScale = nil;
                 paperCell.tag = kMPPageBaseTag + idx;
             }
             
+            // We synchronize the reading of pageImages in case we are reading from self.blackAndWhiteImages
+            NSObject *image = [NSNull null];
+            @synchronized(self.blackAndWhitePageImages) {
+               image = pageImages[idx];
+            }
+
             // if the black and white images aren't ready yet, display the color images
-            if( pageImages == self.blackAndWhitePageImages  &&  [NSNull null] == pageImages[idx] ) {
+            if( pageImages == self.blackAndWhitePageImages  &&  [NSNull null] == image ) {
                 if( [NSNull null] != self.pageImages[idx] ) {
                     paperView.image = self.pageImages[idx];
                 }
             } else if( [NSNull null] != pageImages[idx] ) {
-                paperView.image = pageImages[idx];
+                paperView.image = (UIImage *)image;
             }
             
             [self.scrollView addSubview:paperCell];
@@ -324,11 +331,13 @@ static NSNumber *lastPinchScale = nil;
     if (self.blackAndWhite) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             
-            [self processBlackAndWhiteImages];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self createPageViews];
-                [self layoutPagesIfNeeded];
-            });
+            if ([self processBlackAndWhiteImages:++self.blackAndWhiteCallNum]) {
+                self.switchedToBlackAndWhite = YES;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self createPageViews];
+                    [self layoutPagesIfNeeded];
+                });
+            }
         });
     } else {
         [self createPageViews];
@@ -336,29 +345,53 @@ static NSNumber *lastPinchScale = nil;
     }
 }
 
-- (void)processBlackAndWhiteImages
+- (BOOL)processBlackAndWhiteImages:(NSInteger)callNum
 {
+    BOOL completed = YES;
+    
+    // This function is executed on a background thread
+    //  The calls can queue up, but we only care about the last call made.
+    //  self.blackAndWhiteCallNum ensures that we cancel older calls as soon as a new one is made.
+    //  Also, this thread writes to self.blackAndWhitePageImages, thus we synchronize all reads/writes of this
+    //  object both in this function and in functions that will be executed simultaneously on the main thread.
+    
     for (NSUInteger i = 0; i < self.blackAndWhitePageImages.count; i++) {
-        if (self.pageImages[i] != [NSNull null] ) {
-            if (self.blackAndWhitePageImages[i] == [NSNull null]) {
-                @autoreleasepool {
-                    UIImage *pageImage = self.pageImages[i];
-                    CIImage *image = [[CIImage alloc] initWithCGImage:pageImage.CGImage options:nil];
-                    CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
-                    [filter setValue:image forKey:kCIInputImageKey];
-                    CIImage *result = [filter valueForKey:kCIOutputImageKey];
-                    CIContext *context = [CIContext contextWithOptions:nil];
-                    CGImageRef cgImage = [context createCGImage:result fromRect:[result extent]];
-                    self.blackAndWhitePageImages[i] = [UIImage imageWithCGImage:cgImage scale:pageImage.scale orientation:pageImage.imageOrientation];
-                    CGImageRelease(cgImage);
+        if (callNum == self.blackAndWhiteCallNum) {
+            if (self.pageImages[i] != [NSNull null]) {
+                
+                NSObject *image = [NSNull null];
+                @synchronized(self.blackAndWhitePageImages) {
+                    image = self.blackAndWhitePageImages[i];
+                }
+                
+                if ( image == [NSNull null] ) {
+                    @autoreleasepool {
+                        UIImage *pageImage = self.pageImages[i];
+                        CIImage *image = [[CIImage alloc] initWithCGImage:pageImage.CGImage options:nil];
+                        CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
+                        [filter setValue:image forKey:kCIInputImageKey];
+                        CIImage *result = [filter valueForKey:kCIOutputImageKey];
+                        CIContext *context = [CIContext contextWithOptions:nil];
+                        CGImageRef cgImage = [context createCGImage:result fromRect:[result extent]];
+                        
+                        @synchronized(self.blackAndWhitePageImages) {
+                            self.blackAndWhitePageImages[i] = [UIImage imageWithCGImage:cgImage scale:pageImage.scale orientation:pageImage.imageOrientation];
+                        }
+                        
+                        CGImageRelease(cgImage);
+                    }
+                }
+            } else {
+                @synchronized(self.blackAndWhitePageImages) {
+                    self.blackAndWhitePageImages[i] = [NSNull null];
                 }
             }
         } else {
-            self.blackAndWhitePageImages[i] = [NSNull null];
+            completed = NO;
         }
     }
-    
-    self.switchedToBlackAndWhite = YES;
+
+    return completed;
 }
 
 - (MPLayoutPaperCellView *)currentPaperCellView
