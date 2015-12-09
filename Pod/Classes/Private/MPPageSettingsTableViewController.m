@@ -148,8 +148,7 @@ NSString * const kPageSettingsScreenName = @"Print Preview Screen";
 NSString * const kPrintFromQueueScreenName = @"Add Job Screen";
 NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
-CGFloat const kMPPreviewLandscapeHeightCorrection = 10.0;
-CGFloat const kMPPreviewPortraitHeightRatio = 0.61803399; // golden ratio
+CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 
 #pragma mark - UIView
 
@@ -447,6 +446,7 @@ CGFloat const kMPPreviewPortraitHeightRatio = 0.61803399; // golden ratio
 
 - (void)orientationChanged:(NSNotification *)notification{
     [self.multiPageView cancelZoom];
+    [self refreshPreviewLayout];
 }
 
 - (void)refreshPreviewLayout
@@ -460,16 +460,13 @@ CGFloat const kMPPreviewPortraitHeightRatio = 0.61803399; // golden ratio
 {
     CGSize size = self.tableView.bounds.size;
     CGRect frame = self.tableView.tableHeaderView.frame;
-    BOOL landscape = size.width > size.height;
     
     CGFloat height = 0.0;
     if (MPPageSettingsDisplayTypePreviewPane == self.displayType) {
         height = size.height - self.jobSummaryCell.frame.size.height - 1;
-    } else if (landscape && MPPageSettingsDisplayTypeSingleView == self.displayType) {
-        CGFloat correction = self.printCell.frame.origin.y + self.printCell.frame.size.height - frame.size.height + kMPPreviewLandscapeHeightCorrection;
-        height = size.height - correction;
-    } else if (!landscape && MPPageSettingsDisplayTypeSingleView == self.displayType) {
-        height = size.height * kMPPreviewPortraitHeightRatio;
+    } else if (MPPageSettingsDisplayTypeSingleView == self.displayType) {
+        CGFloat printHeight = 2 * (self.tableView.rowHeight + SEPARATOR_SECTION_FOOTER_HEIGHT);
+        height = fminf(size.height - printHeight, size.height * kMPPreviewHeightRatio);
     }
     
     frame.size.height = height;
@@ -483,11 +480,6 @@ CGFloat const kMPPreviewPortraitHeightRatio = 0.61803399; // golden ratio
 {
     [self.view layoutIfNeeded];
     [self.tableView bringSubviewToFront:self.pageSelectionMark];
-    
-    if (!IS_OS_8_OR_LATER) {
-        // This is needed because viewWillTransitionToSize is iOS 8 and above
-        [self setPreviewPaneFrame];
-    }
 }
 
 - (void)dealloc
