@@ -230,7 +230,7 @@ static NSNumber *lastPinchScale = nil;
                     if( nil != newImage ) {
                         self.pageImages[i] = newImage;
                     } else {
-                        MPLogError(@"Page %ld returned a nil image", i+1);
+                        MPLogError(@"Page %ld returned a nil image", (long)i+1);
                     }
                 }
             }

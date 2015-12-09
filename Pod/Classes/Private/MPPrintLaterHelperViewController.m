@@ -130,15 +130,14 @@
 
 #pragma mark - MKMapViewDelegate
 
-- (MKOverlayView *)mapView:(MKMapView *)map viewForOverlay:(id <MKOverlay>)overlay
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
-    MKCircleView *circleView = [[MKCircleView alloc] initWithOverlay:overlay];
-    circleView.lineWidth = 1;
-    
-    circleView.strokeColor = [UIColor redColor];
-    circleView.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.3];
-    
-    return circleView;
+    MKCircle *circle = [MKCircle circleWithCenterCoordinate:[overlay coordinate] radius:kDefaultPrinterRadiusInMeters];
+    MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:circle];
+    circleRenderer.lineWidth = 1;
+    circleRenderer.strokeColor = [UIColor redColor];
+    circleRenderer.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.3];
+    return circleRenderer;
 }
 
 #pragma mark - CLLocationManagerDelegate
