@@ -73,6 +73,22 @@
 		60B7E3CCED6A238E73F00D8EDE62A67D /* MPPrintSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72947FCFBA0109CEAEF3F7DF828F7B2 /* MPPrintSettingsTableViewController.m */; };
 		6242367A34B9C314A7459398D22EDC64 /* MPPrintLaterHelperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD09BF25DC5A07D3C62A69E4FB4E1CE1 /* MPPrintLaterHelperViewController.m */; };
 		62F33821A903501783DDC7FB72A9ABC8 /* MPLayoutFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = AB4255912EABF9A56863F593146B08DA /* MPLayoutFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6512C4AD1C1907EA0061B6CB /* MPLayoutPrepStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 6512C4AB1C1907EA0061B6CB /* MPLayoutPrepStep.h */; };
+		6512C4AE1C1907EA0061B6CB /* MPLayoutPrepStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C4AC1C1907EA0061B6CB /* MPLayoutPrepStep.m */; };
+		6512C4B11C1908270061B6CB /* MPLayoutPrepStepAdjust.h in Headers */ = {isa = PBXBuildFile; fileRef = 6512C4AF1C1908270061B6CB /* MPLayoutPrepStepAdjust.h */; };
+		6512C4B21C1908270061B6CB /* MPLayoutPrepStepAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C4B01C1908270061B6CB /* MPLayoutPrepStepAdjust.m */; };
+		6512C4B51C1908480061B6CB /* MPLayoutPrepStepRotate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6512C4B31C1908480061B6CB /* MPLayoutPrepStepRotate.h */; };
+		6512C4B61C1908480061B6CB /* MPLayoutPrepStepRotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C4B41C1908480061B6CB /* MPLayoutPrepStepRotate.m */; };
+		6512C4B91C190E760061B6CB /* MPLayoutAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 6512C4B71C190E760061B6CB /* MPLayoutAlgorithm.h */; };
+		6512C4BA1C190E760061B6CB /* MPLayoutAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C4B81C190E760061B6CB /* MPLayoutAlgorithm.m */; };
+		6512C4BD1C190E900061B6CB /* MPLayoutAlgorithmFit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6512C4BB1C190E900061B6CB /* MPLayoutAlgorithmFit.h */; };
+		6512C4BE1C190E900061B6CB /* MPLayoutAlgorithmFit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C4BC1C190E900061B6CB /* MPLayoutAlgorithmFit.m */; };
+		6512C4C11C190EA10061B6CB /* MPLayoutAlgorithmFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 6512C4BF1C190EA10061B6CB /* MPLayoutAlgorithmFill.h */; };
+		6512C4C21C190EA10061B6CB /* MPLayoutAlgorithmFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C4C01C190EA10061B6CB /* MPLayoutAlgorithmFill.m */; };
+		6512C4C51C190EB30061B6CB /* MPLayoutAlgorithmStretch.h in Headers */ = {isa = PBXBuildFile; fileRef = 6512C4C31C190EB30061B6CB /* MPLayoutAlgorithmStretch.h */; };
+		6512C4C61C190EB30061B6CB /* MPLayoutAlgorithmStretch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C4C41C190EB30061B6CB /* MPLayoutAlgorithmStretch.m */; };
+		6512C4C91C1916560061B6CB /* MPLayoutComposite.h in Headers */ = {isa = PBXBuildFile; fileRef = 6512C4C71C1916560061B6CB /* MPLayoutComposite.h */; };
+		6512C4CA1C1916560061B6CB /* MPLayoutComposite.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C4C81C1916560061B6CB /* MPLayoutComposite.m */; };
 		651F3096B56BFF131C5F956001D7BAAB /* OCMArg.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C2607D3107818A07E721EC2E5B83A1 /* OCMArg.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		672FE514B7C1EB583AF6CEB2538025A7 /* OCMBoxedReturnValueProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D6F72303754C772814AFD42964E77A1 /* OCMBoxedReturnValueProvider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		682182C22CEF4269565B31E4BA9A7796 /* MPPrintSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABE88FC519F8CD3533D80FF906C6195E /* MPPrintSettingsTableViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -312,6 +328,22 @@
 		6498B4FF9064590990B196DFADDD170E /* MPPrintItemImage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemImage.m; sourceTree = "<group>"; };
 		64C64150DBED740A6F22E690AAD4244B /* MPDashedLineView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPDashedLineView.h; sourceTree = "<group>"; };
 		64E524FBDD2ADF7B9CAD06BDC3324EE5 /* OCMArgAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMArgAction.h; path = Source/OCMock/OCMArgAction.h; sourceTree = "<group>"; };
+		6512C4AB1C1907EA0061B6CB /* MPLayoutPrepStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLayoutPrepStep.h; sourceTree = "<group>"; };
+		6512C4AC1C1907EA0061B6CB /* MPLayoutPrepStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStep.m; sourceTree = "<group>"; };
+		6512C4AF1C1908270061B6CB /* MPLayoutPrepStepAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLayoutPrepStepAdjust.h; sourceTree = "<group>"; };
+		6512C4B01C1908270061B6CB /* MPLayoutPrepStepAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStepAdjust.m; sourceTree = "<group>"; };
+		6512C4B31C1908480061B6CB /* MPLayoutPrepStepRotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLayoutPrepStepRotate.h; sourceTree = "<group>"; };
+		6512C4B41C1908480061B6CB /* MPLayoutPrepStepRotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStepRotate.m; sourceTree = "<group>"; };
+		6512C4B71C190E760061B6CB /* MPLayoutAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithm.h; sourceTree = "<group>"; };
+		6512C4B81C190E760061B6CB /* MPLayoutAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithm.m; sourceTree = "<group>"; };
+		6512C4BB1C190E900061B6CB /* MPLayoutAlgorithmFit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithmFit.h; sourceTree = "<group>"; };
+		6512C4BC1C190E900061B6CB /* MPLayoutAlgorithmFit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithmFit.m; sourceTree = "<group>"; };
+		6512C4BF1C190EA10061B6CB /* MPLayoutAlgorithmFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithmFill.h; sourceTree = "<group>"; };
+		6512C4C01C190EA10061B6CB /* MPLayoutAlgorithmFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithmFill.m; sourceTree = "<group>"; };
+		6512C4C31C190EB30061B6CB /* MPLayoutAlgorithmStretch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithmStretch.h; sourceTree = "<group>"; };
+		6512C4C41C190EB30061B6CB /* MPLayoutAlgorithmStretch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithmStretch.m; sourceTree = "<group>"; };
+		6512C4C71C1916560061B6CB /* MPLayoutComposite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLayoutComposite.h; sourceTree = "<group>"; };
+		6512C4C81C1916560061B6CB /* MPLayoutComposite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutComposite.m; sourceTree = "<group>"; };
 		653C43191CACBCCB9601C30C5B8D3F27 /* MPInterfaceOptions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPInterfaceOptions.m; sourceTree = "<group>"; };
 		662752C0FDF6135C9CC3DEB9DA750726 /* OCMArgAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMArgAction.m; path = Source/OCMock/OCMArgAction.m; sourceTree = "<group>"; };
 		66D0145DAA667A3CD1C2487E62F745DB /* MPPrintItemImage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItemImage.h; sourceTree = "<group>"; };
@@ -861,6 +893,22 @@
 				7EB2EB69913F4A8030CE22FD2107E938 /* UIView+MPAnimation.m */,
 				05F96B46C229DB1D998967002C31DC6E /* UIView+MPBackground.h */,
 				5A196DFC6F08FE8633FB95AA42425607 /* UIView+MPBackground.m */,
+				6512C4AB1C1907EA0061B6CB /* MPLayoutPrepStep.h */,
+				6512C4AC1C1907EA0061B6CB /* MPLayoutPrepStep.m */,
+				6512C4AF1C1908270061B6CB /* MPLayoutPrepStepAdjust.h */,
+				6512C4B01C1908270061B6CB /* MPLayoutPrepStepAdjust.m */,
+				6512C4B31C1908480061B6CB /* MPLayoutPrepStepRotate.h */,
+				6512C4B41C1908480061B6CB /* MPLayoutPrepStepRotate.m */,
+				6512C4B71C190E760061B6CB /* MPLayoutAlgorithm.h */,
+				6512C4B81C190E760061B6CB /* MPLayoutAlgorithm.m */,
+				6512C4BB1C190E900061B6CB /* MPLayoutAlgorithmFit.h */,
+				6512C4BC1C190E900061B6CB /* MPLayoutAlgorithmFit.m */,
+				6512C4BF1C190EA10061B6CB /* MPLayoutAlgorithmFill.h */,
+				6512C4C01C190EA10061B6CB /* MPLayoutAlgorithmFill.m */,
+				6512C4C31C190EB30061B6CB /* MPLayoutAlgorithmStretch.h */,
+				6512C4C41C190EB30061B6CB /* MPLayoutAlgorithmStretch.m */,
+				6512C4C71C1916560061B6CB /* MPLayoutComposite.h */,
+				6512C4C81C1916560061B6CB /* MPLayoutComposite.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -935,10 +983,14 @@
 				D5E83FA6F51B95745C343AD8351FA9AE /* MPAppearance.h in Headers */,
 				AEB389BA419F96C165232B75769B21DE /* MPDashedLineView.h in Headers */,
 				D08A8A7F7B9A9F15ECED757C1D735232 /* MPDefaultSettingsManager.h in Headers */,
+				6512C4BD1C190E900061B6CB /* MPLayoutAlgorithmFit.h in Headers */,
 				88F823FF1942093D989E59F8799DD53F /* MPInterfaceOptions.h in Headers */,
 				59422C2A55CB65D8F474E35F2FC4D32C /* MPLayout.h in Headers */,
+				6512C4C91C1916560061B6CB /* MPLayoutComposite.h in Headers */,
 				62F33821A903501783DDC7FB72A9ABC8 /* MPLayoutFactory.h in Headers */,
+				6512C4C11C190EA10061B6CB /* MPLayoutAlgorithmFill.h in Headers */,
 				7FCE3F94A7429D7370828DAC66E7ACE3 /* MPLayoutFill.h in Headers */,
+				6512C4B51C1908480061B6CB /* MPLayoutPrepStepRotate.h in Headers */,
 				55BABC3DD10633AECF499837D32925A4 /* MPLayoutFit.h in Headers */,
 				52B38655EC3E8F5F728893A82467A5E6 /* MPLayoutPaperCellView.h in Headers */,
 				AF4601682817A3346A9FCB42BF2B4FF3 /* MPLayoutPaperView.h in Headers */,
@@ -946,6 +998,7 @@
 				A97CF372AFCE72F3572E0668663CB076 /* MPLogger.h in Headers */,
 				1708EBF0D9369CA7303F94FE34AFFB26 /* MPMultiPageView.h in Headers */,
 				D6E9E6FD5327CA2BBDDA80CD9D280D86 /* MPPageRange.h in Headers */,
+				6512C4B91C190E760061B6CB /* MPLayoutAlgorithm.h in Headers */,
 				EAC69EB9A6F1B7C5421CF4B0A1DFB536 /* MPPageRangeKeyboardView.h in Headers */,
 				E16778A6A3239484F2A824D2297CA94A /* MPPageSettingsTableViewController.h in Headers */,
 				FF56DE899779F1DC2CDF72C40876D496 /* MPPageViewController.h in Headers */,
@@ -968,10 +1021,12 @@
 				CB85D32531F15FB1E7ABD4FBEBDA8BE1 /* MPPrintLaterManager.h in Headers */,
 				8897045F55C3FEB16D760C8FD57852E5 /* MPPrintLaterQueue.h in Headers */,
 				BC310303A7D0D0F8C3733DE39E664389 /* MPPrintManager+Options.h in Headers */,
+				6512C4AD1C1907EA0061B6CB /* MPLayoutPrepStep.h in Headers */,
 				8F3A1C21BFBB1B06ED1A36DD5D42F05E /* MPPrintManager.h in Headers */,
 				7F27176759D90FBE0ECA5319DCABA55C /* MPPrintPageRenderer.h in Headers */,
 				EEEDF5C3652CDA0636DE0FF40FDCE624 /* MPPrintSettings.h in Headers */,
 				0100E2D6A8C5155D0264954970A3427E /* MPPrintSettingsDelegateManager.h in Headers */,
+				6512C4B11C1908270061B6CB /* MPLayoutPrepStepAdjust.h in Headers */,
 				682182C22CEF4269565B31E4BA9A7796 /* MPPrintSettingsTableViewController.h in Headers */,
 				2C4E3DBB6090B976E70E4E31B6264BFD /* MPReachability.h in Headers */,
 				05D109477B8873D5576F360231302CC2 /* MPRuleView.h in Headers */,
@@ -985,6 +1040,7 @@
 				51D86CBBA6C5FA07C91E7600C0E2A561 /* UITableView+MPHeader.h in Headers */,
 				B82DF8FA554D007B2631459D7898B609 /* UIView+MPAnimation.h in Headers */,
 				22F11446F8A43A83779FCE36DB0D0F63 /* UIView+MPBackground.h in Headers */,
+				6512C4C51C190EB30061B6CB /* MPLayoutAlgorithmStretch.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1189,6 +1245,7 @@
 				5893AE72562DA2C6601844E5002AC413 /* MP.m in Sources */,
 				BB3FCF9C1BFC3CAF19C44E3BA34C1932 /* MPAnalyticsManager.m in Sources */,
 				DDA642640929EA5E830C661133051ED4 /* MPAppearance.m in Sources */,
+				6512C4BA1C190E760061B6CB /* MPLayoutAlgorithm.m in Sources */,
 				DD39BF2DC9F380EFF954D5BD9AE8E525 /* MPDashedLineView.m in Sources */,
 				FF4249DACEB04CAB604868FF206C1237 /* MPDefaultSettingsManager.m in Sources */,
 				3087791B1924CCCD91C7B587C04707A1 /* MPInterfaceOptions.m in Sources */,
@@ -1198,9 +1255,11 @@
 				51FA37DA416872FEE0F8C51C40E3A0DC /* MPLayoutFit.m in Sources */,
 				1FDC1C8178DA54D57607A790BABD6AF7 /* MPLayoutPaperCellView.m in Sources */,
 				4573AABED7D6FC6E313612A26A6655C4 /* MPLayoutPaperView.m in Sources */,
+				6512C4B61C1908480061B6CB /* MPLayoutPrepStepRotate.m in Sources */,
 				DF139F8CCBADA036114656EB08A65DFE /* MPLayoutStretch.m in Sources */,
 				0ADEEC5905A45D9DC5850A21966BC414 /* MPLogger.m in Sources */,
 				85CDC6EB27D84DE7C0E0F95401DA5687 /* MPMultiPageView.m in Sources */,
+				6512C4C61C190EB30061B6CB /* MPLayoutAlgorithmStretch.m in Sources */,
 				C11E55B471A1B8498EBA00667EECF83C /* MPPageRange.m in Sources */,
 				F1AE672BB6B7642EC389231B37FA2F1C /* MPPageRangeKeyboardView.m in Sources */,
 				B2F481937A327563B782E8CA41FEA337 /* MPPageSettingsTableViewController.m in Sources */,
@@ -1209,15 +1268,18 @@
 				3FA93CDAFB1DF64C6FCCFE24D10CD7A6 /* MPPaperSizeTableViewController.m in Sources */,
 				8875362674FCB76749625F51308C7B25 /* MPPaperTypeTableViewController.m in Sources */,
 				8A4438BB967123DE8DB0B7D90B7A3671 /* MPPrintActivity.m in Sources */,
+				6512C4AE1C1907EA0061B6CB /* MPLayoutPrepStep.m in Sources */,
 				CF4A67360190AA500B42B901C4233AF6 /* MPPrinter.m in Sources */,
 				14D0E0EB7CEE8D88F93D488EDD837E4D /* MPPrintItem.m in Sources */,
 				FDF36CC56EC7DBED26696A4733AD12C8 /* MPPrintItemFactory.m in Sources */,
 				DCDD7DDE64C956A1413E20FF78B2A986 /* MPPrintItemImage.m in Sources */,
 				445A1C8594A998333D30B1596E04F0D6 /* MPPrintItemPDF.m in Sources */,
 				4578F80BE2921FD7C209F5A7CB051F8B /* MPPrintJobsActionView.m in Sources */,
+				6512C4C21C190EA10061B6CB /* MPLayoutAlgorithmFill.m in Sources */,
 				D5E164DE9F4C31036E854892057C4416 /* MPPrintJobsPreviewViewController.m in Sources */,
 				CD6FDFABC6B9AD5B5C5EB54771684D91 /* MPPrintJobsTableViewCell.m in Sources */,
 				952B57597963F4D978FA0B84D7E6CEB6 /* MPPrintJobsViewController.m in Sources */,
+				6512C4BE1C190E900061B6CB /* MPLayoutAlgorithmFit.m in Sources */,
 				7EEB35E7F8DCC18098FEDC8D6B26547B /* MPPrintLaterActivity.m in Sources */,
 				6242367A34B9C314A7459398D22EDC64 /* MPPrintLaterHelperViewController.m in Sources */,
 				F1DEB2BA8E4A5278C8F9BB4B2BB2B0FE /* MPPrintLaterJob.m in Sources */,
@@ -1234,10 +1296,12 @@
 				17977206BACEEFAEB940E20DDF16936A /* MPSupportAction.m in Sources */,
 				0DCAD780F46E4AD6C6BD11880A450E83 /* MPView.m in Sources */,
 				E38DA8BE89299DB178610F4DA61A08AE /* MPWiFiReachability.m in Sources */,
+				6512C4B21C1908270061B6CB /* MPLayoutPrepStepAdjust.m in Sources */,
 				2DC846BFA06984420D6CB5AC829EACA4 /* NSBundle+MPLocalizable.m in Sources */,
 				979A343B573CEF1636FB7D79A4531B4C /* UIColor+MPHexString.m in Sources */,
 				E23EF1FF46C2521D9B764B4868198761 /* UIColor+MPStyle.m in Sources */,
 				E8DE2C6912FF211D752CD725A2F99A4C /* UIImage+MPResize.m in Sources */,
+				6512C4CA1C1916560061B6CB /* MPLayoutComposite.m in Sources */,
 				179A746FF17C23393452DEAEAA97E611 /* UITableView+MPHeader.m in Sources */,
 				B4E4C28C162E49CD69F9072C11482074 /* UIView+MPAnimation.m in Sources */,
 				84A97A3F79A9C88C57EDD0E6B3AE9B5F /* UIView+MPBackground.m in Sources */,

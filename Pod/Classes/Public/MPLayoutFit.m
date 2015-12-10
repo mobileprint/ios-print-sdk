@@ -37,7 +37,7 @@ NSString * const kMPLayoutVerticalPositionKey = @"kMPLayoutVerticalPositionKey";
         contentImage = [image MPRotate];
         contentRect = CGRectMake(0, 0, contentImage.size.width, contentImage.size.height);
     }
-
+	
     [contentImage drawInRect:[self computeRectWithContentRect:contentRect andContainerRect:containerRect]];
 }
 
