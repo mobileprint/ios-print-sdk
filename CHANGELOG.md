@@ -3,6 +3,7 @@
 
 - Change handling of multi-page PDF documents optimize loading and memory use 
 - Localization into various languages
+- Print Queue screen now displays accurate job list after deleting a job(s)
 
 #### 3.0.0
 ###### Tuesday, November 10, 2015
