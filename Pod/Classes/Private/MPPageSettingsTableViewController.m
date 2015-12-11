@@ -435,9 +435,9 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
     [self.multiPageView cancelZoom];
 
     self.multiPageView.rotationInProgress = YES;
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self refreshPreviewLayout];
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self refreshPreviewLayout];
         [self.tableView reloadData];
         self.multiPageView.rotationInProgress = NO;
