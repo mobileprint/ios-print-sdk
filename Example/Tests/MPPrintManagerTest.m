@@ -16,6 +16,28 @@
 #import <MPPaper.h>
 #import <MPPrintManager.h>
 #import <MPPrintManager+Options.h>
+#import <MPPrintJobsViewController.h>
+
+@interface MPGenericDelegate : NSObject<MPPrintDelegate> @end
+@implementation MPGenericDelegate
+- (void)didFinishPrintFlow:(UIViewController *)printViewController {}
+- (void)didCancelPrintFlow:(UIViewController *)printViewController {}
+@end
+
+@interface MPGenericDataSource : NSObject<MPPrintDataSource>
+@property (assign, nonatomic) NSInteger jobCount;
+@end
+@implementation MPGenericDataSource
+- (void)printingItemForPaper:(MPPaper *)paper withCompletion:(void (^)(MPPrintItem * printItem))completion {}
+- (void)previewImageForPaper:(MPPaper *)paper withCompletion:(void (^)(UIImage *previewImage))completion {}
+- (NSInteger)numberOfPrintingItems { return self.jobCount; }
+@end
+
+@interface MPDerivedActivityDelegate : MPPrintActivity @end
+@implementation MPDerivedActivityDelegate @end
+
+@interface MPDerivedQueueDelegate : MPPrintJobsViewController @end
+@implementation MPDerivedQueueDelegate @end
 
 @interface MPPrintManagerTest : XCTestCase
 
@@ -140,13 +162,13 @@ NSString * const kMPTestNumberOfCopiesKey = @"kMPTestNumberOfCopiesKey";
     
     NSString *paperSize = [[MP sharedInstance].lastOptionsUsed objectForKey:kMPPaperSizeId];
     XCTAssert([expectedPaper.sizeTitle isEqualToString:paperSize], @"Expected last paper size (%@) to equal expected paper size (%@)", paperSize, expectedPaper.sizeTitle);
-
+    
     NSString *paperType = [[MP sharedInstance].lastOptionsUsed objectForKey:kMPPaperTypeId];
     XCTAssert([expectedPaper.typeTitle isEqualToString:paperType], @"Expected last paper type (%@) to equal expected paper type (%@)", paperType, expectedPaper.typeTitle);
-
+    
     NSNumber *width = [[MP sharedInstance].lastOptionsUsed objectForKey:kMPPaperWidthId];
     XCTAssert([width floatValue] == expectedPaper.width, @"Expected last paper width (%.3f) to equal expected paper width (%.3f)", [width floatValue], expectedPaper.width);
-
+    
     NSNumber *height = [[MP sharedInstance].lastOptionsUsed objectForKey:kMPPaperHeightId];
     XCTAssert([height floatValue] == expectedPaper.height, @"Expected last paper height (%.3f) to equal expected paper height (%.3f)", [height floatValue], expectedPaper.height);
     
@@ -164,6 +186,80 @@ NSString * const kMPTestNumberOfCopiesKey = @"kMPTestNumberOfCopiesKey";
               [[MP sharedInstance].lastOptionsUsed objectForKey:kMPNumberOfCopies]);
     
     // TODO: still need to test "no printer" and "printer mismatch" scenarios
+}
+
+#pragma mark - Test setting options
+
+- (void)testPrintCustom
+{
+    MPPrintManager *printManager = [[MPPrintManager alloc] init];
+    MPGenericDelegate *delegate = [[MPGenericDelegate alloc] init];
+    MPGenericDataSource *dataSource = [[MPGenericDataSource alloc] init];
+    [printManager setOptionsForPrintDelegate:delegate dataSource:dataSource];
+    [self expectOptions:printManager.options include:YES value:MPPrintManagerOriginCustom name:@"MPPrintManagerOriginCustom"];
+    [self expectOptions:printManager.options include:NO value:MPPrintManagerMultiJob name:@"MPPrintManagerMultiJob"];
+}
+
+- (void)testPrintFromShare
+{
+    MPPrintManager *printManager = [[MPPrintManager alloc] init];
+    MPPrintActivity *delegate = [[MPPrintActivity alloc] init];
+    MPGenericDataSource *dataSource = [[MPGenericDataSource alloc] init];
+    [printManager setOptionsForPrintDelegate:(id<MPPrintDelegate>)delegate dataSource:dataSource];
+    [self expectOptions:printManager.options include:YES value:MPPrintManagerOriginShare name:@"MPPrintManagerOriginShare"];
+    [self expectOptions:printManager.options include:NO value:MPPrintManagerMultiJob name:@"MPPrintManagerMultiJob"];
+}
+
+- (void)testPrintFromQueue
+{
+    MPPrintManager *printManager = [[MPPrintManager alloc] init];
+    MPPrintJobsViewController *delegate = [[MPPrintJobsViewController alloc] init];
+    MPGenericDataSource *dataSource = [[MPGenericDataSource alloc] init];
+    [printManager setOptionsForPrintDelegate:(id<MPPrintDelegate>)delegate dataSource:dataSource];
+    [self expectOptions:printManager.options include:YES value:MPPrintManagerOriginQueue name:@"MPPrintManagerOriginQueue"];
+    [self expectOptions:printManager.options include:NO value:MPPrintManagerMultiJob name:@"MPPrintManagerMultiJob"];
+}
+
+- (void)testPrintMultiple
+{
+    MPPrintManager *printManager = [[MPPrintManager alloc] init];
+    MPGenericDelegate *delegate = [[MPGenericDelegate alloc] init];
+    MPGenericDataSource *dataSource = [[MPGenericDataSource alloc] init];
+    dataSource.jobCount = 2;
+    [printManager setOptionsForPrintDelegate:delegate dataSource:dataSource];
+    [self expectOptions:printManager.options include:YES value:MPPrintManagerMultiJob name:@"MPPrintManagerMultiJob"];
+}
+
+- (void)testDerivedActivity
+{
+    MPPrintManager *printManager = [[MPPrintManager alloc] init];
+    MPDerivedActivityDelegate *delegate = [[MPDerivedActivityDelegate alloc] init];
+    MPGenericDataSource *dataSource = [[MPGenericDataSource alloc] init];
+    [printManager setOptionsForPrintDelegate:(id<MPPrintDelegate>)delegate dataSource:dataSource];
+    [self expectOptions:printManager.options include:YES value:MPPrintManagerOriginShare name:@"MPPrintManagerOriginShare"];
+    [self expectOptions:printManager.options include:NO value:MPPrintManagerMultiJob name:@"MPPrintManagerMultiJob"];
+}
+
+- (void)testDerivedQueue
+{
+    MPPrintManager *printManager = [[MPPrintManager alloc] init];
+    MPDerivedQueueDelegate *delegate = [[MPDerivedQueueDelegate alloc] init];
+    MPGenericDataSource *dataSource = [[MPGenericDataSource alloc] init];
+    [printManager setOptionsForPrintDelegate:(id<MPPrintDelegate>)delegate dataSource:dataSource];
+    [self expectOptions:printManager.options include:YES value:MPPrintManagerOriginQueue name:@"MPPrintManagerOriginQueue"];
+    [self expectOptions:printManager.options include:NO value:MPPrintManagerMultiJob name:@"MPPrintManagerMultiJob"];
+}
+
+- (void)expectOptions:(MPPrintManagerOptions)options include:(BOOL)include value:(MPPrintManagerOptions)value name:(NSString *)name
+{
+    BOOL expectationMet = include ? (options & value) : !(options & value);
+    XCTAssert(
+              expectationMet,
+              @"Expected options (%lu) %@to include %@ (%lu)",
+              (unsigned long)options,
+              include ? @"" : @"not ",
+              name,
+              (unsigned long)include);
 }
 
 #pragma mark - Defaults helpers
@@ -311,3 +407,5 @@ NSString * const kMPTestNumberOfCopiesKey = @"kMPTestNumberOfCopiesKey";
 }
 
 @end
+
+

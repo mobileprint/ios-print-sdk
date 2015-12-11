@@ -10,6 +10,9 @@
 // the license agreement.
 //
 
+@protocol MPPrintDelegate;
+@protocol MPPrintDataSource;
+
 @interface MPPrintManager (Options)
 
 typedef NS_OPTIONS(NSUInteger, MPPrintManagerOptions) {
@@ -25,5 +28,7 @@ typedef NS_OPTIONS(NSUInteger, MPPrintManagerOptions) {
 
 - (void)saveLastOptionsForPrinter:(NSString *)printerID;
 - (void)saveLastOptionsForPaper:(UIPrintPaper *)paper;
+
+- (void)setOptionsForPrintDelegate:(id<MPPrintDelegate>)delegate dataSource:(id<MPPrintDataSource>)dataSource;
 
 @end
