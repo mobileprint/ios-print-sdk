@@ -1629,20 +1629,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
     }
     self.printManager.delegate = self;
 
-    MPPrintManagerOptions options = MPPrintManagerOriginCustom;
-    if ([self.printDelegate isKindOfClass:[MPPrintActivity class]]) {
-        options = MPPrintManagerOriginShare;
-    } else if ([self.printDelegate isKindOfClass:[MPPrintJobsViewController class]]) {
-        options = MPPrintManagerOriginQueue;
-    }
-
-    if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
-        if ([self.dataSource numberOfPrintingItems] > 1) {
-            options += MPPrintManagerMultiJob;
-        }
-    }
-    
-    self.printManager.options = options;
+    [self.printManager setOptionsForPrintDelegate:self.printDelegate dataSource:self.dataSource];
 }
 
 #pragma mark - MPMultipageViewDelegate

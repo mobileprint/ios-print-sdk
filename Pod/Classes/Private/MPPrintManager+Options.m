@@ -13,6 +13,7 @@
 #import "MP.h"
 #import "MPPrintManager.h"
 #import "MPPrintManager+Options.h"
+#import "MPPrintJobsViewController.h"
 #import <objc/runtime.h>
 
 // The following technique is adapted from:  http://stackoverflow.com/questions/8733104/objective-c-property-instance-variable-in-category
@@ -83,6 +84,24 @@ NSString * const kMPPrinterDetailsNotAvailable = @"Not Available";
     [lastOptionsUsed setValue:[NSString stringWithFormat:@"%.0f", paper.printableRect.origin.y] forKey:kMPPrinterPaperAreaYPoints];
 
     [MP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
+}
+
+- (void)setOptionsForPrintDelegate:(id<MPPrintDelegate>)delegate dataSource:(id<MPPrintDataSource>)dataSource
+{
+    MPPrintManagerOptions options = MPPrintManagerOriginCustom;
+    if ([delegate isKindOfClass:[MPPrintActivity class]]) {
+        options = MPPrintManagerOriginShare;
+    } else if ([delegate isKindOfClass:[MPPrintJobsViewController class]]) {
+        options = MPPrintManagerOriginQueue;
+    }
+    
+    if ([dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
+        if ([dataSource numberOfPrintingItems] > 1) {
+            options += MPPrintManagerMultiJob;
+        }
+    }
+    
+    self.options = options;
 }
 
 @end
