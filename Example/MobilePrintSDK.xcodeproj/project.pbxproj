@@ -61,6 +61,7 @@
 		78cd8fb9b1bee9474f0c1617 /* 115 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B61B73FAA10013E738 /* 115 Pages.pdf */; };
 		7d9d68fa6acc2cb2dcaeabfb /* MPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */; };
 		8385D3FA9834DD987A3B752B /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 824DD1CAED53617BFC879B9B /* libPods-Tests.a */; };
+		92BAEA5F1C1F51170033A200 /* MPLayoutFitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */; };
 		93acf3685826df4abe0f66ad /* MPLearnMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DE1A38BCE50079144C /* MPLearnMoreView.m */; };
 		9ee14810a090fa40eec00a4c /* MPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* MPMultiPageConfigurationViewController.m */; };
 		AEBDAE10899722AFD450C051 /* libPods-MobilePrintSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 080854DE6C4D61428EC1D8E8 /* libPods-MobilePrintSDK.a */; };
@@ -173,6 +174,7 @@
 		7337A2AC7BAEB8252FAAC8BB /* Pods-MobilePrintSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.release.xcconfig"; sourceTree = "<group>"; };
 		7d45322c23338821ae339a35 /* CFNetwork.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		824DD1CAED53617BFC879B9B /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFitTest.m; sourceTree = "<group>"; };
 		B4517B52F9E6A6FBAF719728 /* Pods-MobilePrintSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		B6412EFA41C9FD7C470C1D44 /* MobilePrintSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MobilePrintSDK.podspec; path = ../MobilePrintSDK.podspec; sourceTree = "<group>"; };
 		C6C2E8C63C60FC48B6767AD6 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				65F44B5A1BD02D4400EF42AB /* MPAnalyticsManagerTest.m */,
 				F10BCCCB1B7A53CC001A5F3B /* MPDirectPrintTest.m */,
 				F10C7EBA1BE1808400ACB162 /* MPLayoutTest.m */,
+				92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */,
 				65DC4A801BD596E90004F903 /* MPLayoutFillTest.m */,
 				F1998AF41B6808BD00E5320F /* MPPageRangeTest.m */,
 				6565921E1BB5EB6B00A08B22 /* MPPaperTest.m */,
@@ -795,6 +798,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92BAEA5F1C1F51170033A200 /* MPLayoutFitTest.m in Sources */,
 				65DC4A811BD596E90004F903 /* MPLayoutFillTest.m in Sources */,
 				F1B2023F1B7E970D00912E0B /* MPPrintSettingsDelegateManagerTest.m in Sources */,
 				658088EF1BB1DACD00B35489 /* MPPrintManagerTest.m in Sources */,
