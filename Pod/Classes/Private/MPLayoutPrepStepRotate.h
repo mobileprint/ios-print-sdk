@@ -14,4 +14,15 @@
 
 @interface MPLayoutPrepStepRotate : MPLayoutPrepStep
 
+typedef enum {
+    MPLayoutPrepStepRotateOrientationPortrait,
+    MPLayoutPrepStepRotateOrientationLandscape,
+    MPLayoutPrepStepRotateOrientationBestFit,
+    MPLayoutPrepStepRotateOrientationFixed
+} MPLayoutPrepStepRotateOrientation;
+
+@property (assign, nonatomic, readonly) MPLayoutPrepStepRotateOrientation orientation;
+
+- (id)initWithOrientation:(MPLayoutPrepStepRotateOrientation)orientation;
+
 @end

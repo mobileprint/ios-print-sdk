@@ -14,10 +14,16 @@
 
 @implementation MPLayoutAlgorithmStretch
 
+#pragma mark - Layout
 
 - (void)drawImage:(UIImage *)image inContainer:(CGRect)containerRect
 {
     [image drawInRect:containerRect];
+}
+
+- (void)resizeContentView:(UIView *)contentView containerView:(UIView *)containerView contentRect:(CGRect)contentRect containerRect:(CGRect)containerRect
+{
+    [self applyConstraintsWithFrame:containerRect toContentView:contentView inContainerView:containerView];
 }
 
 @end

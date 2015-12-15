@@ -26,7 +26,9 @@ typedef enum {
     MPLayoutAlgorithmFitRight
 } MPLayoutAlgorithmFitHorizontalPosition;
 
-@property (assign, nonatomic) MPLayoutAlgorithmFitHorizontalPosition horizontalPosition;
-@property (assign, nonatomic) MPLayoutAlgorithmFitVerticalPosition verticalPosition;
+@property (assign, nonatomic, readonly) MPLayoutAlgorithmFitHorizontalPosition horizontalPosition;
+@property (assign, nonatomic, readonly) MPLayoutAlgorithmFitVerticalPosition verticalPosition;
+
+- (id)initWithHorizontalPosition:(MPLayoutAlgorithmFitHorizontalPosition)horizontalPosition andVerticalPosition:(MPLayoutAlgorithmFitVerticalPosition)verticalPosition;
 
 @end

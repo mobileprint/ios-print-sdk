@@ -15,6 +15,26 @@
 
 @implementation MPLayoutPrepStepRotate
 
+MPLayoutPrepStepRotateOrientation const kMPLayoutPrepStepRotateDefaultOrientation = MPLayoutPrepStepRotateOrientationBestFit;
+
+#pragma mark - Initialization
+
+- (id)init
+{
+    return [self initWithOrientation:kMPLayoutPrepStepRotateDefaultOrientation];
+}
+
+- (id)initWithOrientation:(MPLayoutPrepStepRotateOrientation)orientation
+{
+    self = [super init];
+    if (self) {
+        _orientation = orientation;
+    }
+    return self;
+}
+
+#pragma mark - Layout
+
 - (UIImage *)imageForImage:(UIImage *)image inContainer:(CGRect)containerRect
 {
     CGRect contentRect = CGRectMake(0, 0, image.size.width, image.size.height);
@@ -25,13 +45,24 @@
     return adjustedImage;
 }
 
+- (CGRect)contentRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect
+{
+    CGRect adjustedRect = contentRect;
+    if ([self rotationNeededForContent:contentRect withContainer:containerRect]) {
+        adjustedRect = CGRectMake(contentRect.origin.x, contentRect.origin.y, contentRect.size.height, contentRect.size.width);
+    }
+    return adjustedRect;
+}
+
+#pragma mark - Computation
+
 - (BOOL)rotationNeededForContent:(CGRect)contentRect withContainer:(CGRect)containerRect
 {
     BOOL contentIsSquare = (CGFLOAT_MIN >= fabs(contentRect.size.width - contentRect.size.height));
     BOOL containerIsSquare = (CGFLOAT_MIN >= fabs(containerRect.size.width - containerRect.size.height));
     
     BOOL rotationNeeded = NO;
-    if (self.layout.orientation != MPLayoutOrientationFixed) {
+    if (self.orientation != MPLayoutOrientationFixed) {
         BOOL contentIsPortrait = contentIsSquare || (contentRect.size.width < contentRect.size.height);
         BOOL contentIsLandscape = !contentIsPortrait;
         
@@ -40,11 +71,11 @@
         
         BOOL contentMatchesContainer = ((contentIsPortrait && containerIsPortrait) || (contentIsLandscape && containerIsLandscape));
         
-        if (MPLayoutOrientationPortrait == self.layout.orientation) {
+        if (MPLayoutOrientationPortrait == self.orientation) {
             rotationNeeded = containerIsLandscape;
-        } else if (MPLayoutOrientationLandscape == self.layout.orientation) {
+        } else if (MPLayoutOrientationLandscape == self.orientation) {
             rotationNeeded = containerIsPortrait;
-        } else if (MPLayoutOrientationBestFit == self.layout.orientation) {
+        } else if (MPLayoutOrientationBestFit == self.orientation) {
             if (!containerIsSquare && !contentIsSquare) {
                 rotationNeeded = !contentMatchesContainer;
             } else {

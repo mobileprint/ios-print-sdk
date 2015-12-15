@@ -14,16 +14,7 @@
 
 @implementation MPLayoutPrepStep
 
-- (id)initWithLayout:(MPLayout *)layout
-{
-    self = [super init];
-    
-    if (self) {
-        _layout = layout;
-    }
-    
-    return self;
-}
+#pragma mark - Layout
 
 - (UIImage *)imageForImage:(UIImage *)image inContainer:(CGRect)containerRect
 {
@@ -31,7 +22,13 @@
     return nil;
 }
 
-- (CGRect)containerForImage:(UIImage *)image inContainer:(CGRect)containerRect
+- (CGRect)contentRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect
+{
+    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
+    return CGRectZero;
+}
+
+- (CGRect)containerRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect
 {
     NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
     return CGRectZero;

@@ -14,11 +14,42 @@
 
 @implementation MPLayoutAlgorithmFit
 
+MPLayoutAlgorithmFitHorizontalPosition const kMPLayoutAlgorithmFitDefaultHorizontalPosition = MPLayoutAlgorithmFitCenter;
+MPLayoutAlgorithmFitVerticalPosition const kMPLayoutAlgorithmFitDefaultVerticalPosition = MPLayoutAlgorithmFitMiddle;
+
+#pragma mark - Initialization
+
+- (id)init
+{
+    return [self initWithHorizontalPosition:kMPLayoutAlgorithmFitDefaultHorizontalPosition
+                        andVerticalPosition:kMPLayoutAlgorithmFitDefaultVerticalPosition];
+}
+
+- (id)initWithHorizontalPosition:(MPLayoutAlgorithmFitHorizontalPosition)horizontalPosition andVerticalPosition:(MPLayoutAlgorithmFitVerticalPosition)verticalPosition
+{
+    self = [super init];
+    if (self) {
+        _horizontalPosition = horizontalPosition;
+        _verticalPosition = verticalPosition;
+    }
+    return self;
+}
+
+#pragma mark - Layout
+
 - (void)drawImage:(UIImage *)image inContainer:(CGRect)containerRect
 {
     CGRect contentRect = CGRectMake(0, 0, image.size.width, image.size.height);
     [image drawInRect:[self computeRectWithContentRect:contentRect andContainerRect:containerRect]];
 }
+
+- (void)resizeContentView:(UIView *)contentView containerView:(UIView *)containerView contentRect:(CGRect)contentRect containerRect:(CGRect)containerRect
+{
+    CGRect contentframe = [self computeRectWithContentRect:contentRect andContainerRect:containerRect];
+    [self applyConstraintsWithFrame:contentframe toContentView:contentView inContainerView:containerView];
+}
+
+#pragma mark - Computation
 
 - (CGRect)computeRectWithContentRect:(CGRect)contentRect andContainerRect:(CGRect)containerRect
 {
@@ -47,5 +78,7 @@
     
     return CGRectMake(x, y, width, height);
 }
+
+
 
 @end

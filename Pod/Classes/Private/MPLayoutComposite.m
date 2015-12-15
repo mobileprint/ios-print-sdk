@@ -21,6 +21,8 @@
 
 @implementation MPLayoutComposite
 
+#pragma mark - Initialization
+
 - (id)initWithAlgorithm:(MPLayoutAlgorithm *)algorithm andPrepSteps:(NSArray<MPLayoutPrepStep *> *)prepSteps
 {
     self = [super init];
@@ -33,18 +35,36 @@
     return self;
 }
 
+#pragma mark - Layout
+
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
 {
     UIImage *layoutImage = image;
+    CGRect layoutContent = CGRectMake(0, 0, layoutImage.size.width, layoutImage.size.height);
     CGRect layoutContainer = rect;
     for (MPLayoutPrepStep *step in self.prepSteps) {
         UIImage *newImage = [step imageForImage:layoutImage inContainer:layoutContainer];
-        CGRect newContainer = [step containerForImage:layoutImage inContainer:layoutContainer];
+        CGRect newContainer = [step containerRectForContent:layoutContent inContainer:layoutContainer];
         layoutImage = newImage;
+        layoutContent = CGRectMake(0, 0, newImage.size.width, newImage.size.height);
         layoutContainer = newContainer;
     }
     
     [self.algorithm drawImage:layoutImage inContainer:layoutContainer];
+}
+
+- (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView
+{
+    CGRect layoutContent = contentView.bounds;
+    CGRect layoutContainer = containerView.bounds;
+    for (MPLayoutPrepStep *step in self.prepSteps) {
+        CGRect newContent = [step contentRectForContent:layoutContent inContainer:layoutContainer];
+        CGRect newContainer = [step containerRectForContent:layoutContent inContainer:layoutContainer];
+        layoutContent = newContent;
+        layoutContainer = newContainer;
+    }
+    
+    [self.algorithm resizeContentView:contentView containerView:containerView contentRect:layoutContent containerRect:layoutContainer];
 }
 
 @end

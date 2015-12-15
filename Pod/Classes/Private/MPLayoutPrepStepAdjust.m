@@ -14,12 +14,38 @@
 
 @implementation MPLayoutPrepStepAdjust
 
-- (CGRect)containerForImage:(UIImage *)image inContainer:(CGRect)containerRect
+CGFloat const kMPLayoutPrepStepAdjustDefaultX = 0.0;
+CGFloat const kMPLayoutPrepStepAdjustDefaultY = 0.0;
+CGFloat const kMPLayoutPrepStepAdjustDefaultWidth = 100.0;
+CGFloat const kMPLayoutPrepStepAdjustDefaultHeight = 100.0;
+
+#pragma mark - Initialization
+
+- (id)init
 {
-    return CGRectMake(containerRect.origin.x + containerRect.size.width * self.layout.assetPosition.origin.x / 100.0f,
-                      containerRect.origin.y + containerRect.size.height * self.layout.assetPosition.origin.y / 100.0f,
-                      containerRect.size.width * self.layout.assetPosition.size.width / 100.0f,
-                      containerRect.size.height * self.layout.assetPosition.size.height / 100.0f);
+    return [self initWithAdjustment:CGRectMake(kMPLayoutPrepStepAdjustDefaultX,
+                                               kMPLayoutPrepStepAdjustDefaultY,
+                                               kMPLayoutPrepStepAdjustDefaultWidth,
+                                               kMPLayoutPrepStepAdjustDefaultHeight)];
+}
+
+- (id)initWithAdjustment:(CGRect)adjustment
+{
+    self = [super init];
+    if (self) {
+        _adjustment = adjustment;
+    }
+    return self;
+}
+
+#pragma mark - Layout
+
+- (CGRect)containerRectForImage:(CGRect)contentRect inContainer:(CGRect)containerRect
+{
+    return CGRectMake(containerRect.origin.x + containerRect.size.width * self.adjustment.origin.x / 100.0f,
+                      containerRect.origin.y + containerRect.size.height * self.adjustment.origin.y / 100.0f,
+                      containerRect.size.width * self.adjustment.size.width / 100.0f,
+                      containerRect.size.height * self.adjustment.size.height / 100.0f);
 }
 
 @end

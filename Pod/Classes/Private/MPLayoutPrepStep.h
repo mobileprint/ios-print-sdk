@@ -15,11 +15,8 @@
 
 @interface MPLayoutPrepStep : NSObject
 
-@property (strong, nonatomic, readonly) MPLayout *layout;
-
-- (id)initWithLayout:(MPLayout *)layout;
-
 - (UIImage *)imageForImage:(UIImage *)image inContainer:(CGRect)containerRect;
-- (CGRect)containerForImage:(UIImage *)image inContainer:(CGRect)containerRect;
+- (CGRect)contentRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect;
+- (CGRect)containerRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect;
 
 @end

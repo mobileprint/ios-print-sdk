@@ -16,10 +16,9 @@
 
 @interface MPLayoutAlgorithm : NSObject
 
-@property (strong, nonatomic, readonly) MPLayout *layout;
-
-- (id)initWithLayout:(MPLayout *)layout;
-
 - (void)drawImage:(UIImage *)image inContainer:(CGRect)containerRect;
+- (void)resizeContentView:(UIView *)contentView containerView:(UIView *)containerView contentRect:(CGRect)contentRect containerRect:(CGRect)containerRect;
+
+- (void)applyConstraintsWithFrame:(CGRect)frame toContentView:(UIView *)contentView inContainerView:(UIView *)containerView;
 
 @end

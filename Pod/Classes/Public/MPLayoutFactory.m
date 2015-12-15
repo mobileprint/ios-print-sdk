@@ -16,6 +16,12 @@
 #import "MPLayoutFit.h"
 #import "MPLayoutStretch.h"
 
+#import "MPLayoutPrepStep.h"
+#import "MPLayoutPrepStepAdjust.h"
+#import "MPLayoutPrepStepRotate.h"
+#import "MPLayoutAlgorithm.h"
+#import "MPLayoutAlgorithmFit.h"
+
 @implementation MPLayoutFactory
 
 NSString * const kMPLayoutTypeKey = @"kMPLayoutTypeKey";

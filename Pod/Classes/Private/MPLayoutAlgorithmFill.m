@@ -14,11 +14,22 @@
 
 @implementation MPLayoutAlgorithmFill
 
+#pragma mark - Layout
+
 - (void)drawImage:(UIImage *)image inContainer:(CGRect)containerRect
 {
     CGRect contentRect = CGRectMake(0, 0, image.size.width, image.size.height);
     [image drawInRect:[self computeLayoutRectWithContentRect:contentRect andContainerRect:containerRect]];
 }
+
+- (void)resizeContentView:(UIView *)contentView containerView:(UIView *)containerView contentRect:(CGRect)contentRect containerRect:(CGRect)containerRect
+{
+    CGRect layoutRect = [self computeLayoutRectWithContentRect:contentRect andContainerRect:containerRect];
+    [self applyConstraintsWithFrame:layoutRect toContentView:contentView inContainerView:containerView];
+    [self maskContentView:contentView withContainerRect:(CGRect)containerRect];
+}
+
+#pragma mark - Computation
 
 - (CGRect)computeLayoutRectWithContentRect:(CGRect)contentRect andContainerRect:(CGRect)containerRect
 {
@@ -33,6 +44,17 @@
     CGFloat x = containerRect.origin.x - (width - containerRect.size.width) / 2.0;
     CGFloat y = containerRect.origin.y -  (height - containerRect.size.height) / 2.0;
     return CGRectMake(x, y, width, height);
+}
+
+// The following was adapted from:  http://stackoverflow.com/questions/11391058/simply-mask-a-uiview-with-a-rectangle
+- (void)maskContentView:(UIView *)contentView withContainerRect:(CGRect)containerRect
+{
+    CGRect clippingRect = CGRectMake(containerRect.origin.x - contentView.frame.origin.x, containerRect.origin.y - contentView.frame.origin.y, containerRect.size.width, containerRect.size.height);
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    CGPathRef path = CGPathCreateWithRect(clippingRect, NULL);
+    maskLayer.path = path;
+    CGPathRelease(path);
+    contentView.layer.mask = maskLayer;
 }
 
 @end

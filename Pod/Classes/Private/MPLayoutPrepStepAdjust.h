@@ -14,4 +14,8 @@
 
 @interface MPLayoutPrepStepAdjust : MPLayoutPrepStep
 
+@property (assign, nonatomic, readonly) CGRect adjustment;
+
+- (id)initWithAdjustment:(CGRect)adjustment;
+
 @end
