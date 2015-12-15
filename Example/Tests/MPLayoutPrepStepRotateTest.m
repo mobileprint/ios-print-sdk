@@ -12,17 +12,13 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <OCMock/OCMock.h>
-#import <MPLayoutFactory.h>
+#import <MPLayoutPrepStepRotate.h>
 
-@interface MPLayoutTest : XCTestCase
+@interface MPLayoutPrepStepRotateTest : XCTestCase
 
 @end
 
-@implementation MPLayoutTest
-{
-    id _loggerMock;
-}
+@implementation MPLayoutPrepStepRotateTest
 
 typedef enum {
     MPLayoutTestSquare,
@@ -108,16 +104,43 @@ typedef enum {
 
 - (void)checkLayoutOrientation:(MPLayoutOrientation)layoutOrientation container:(MPLayoutTestOrientation)containerOrientation content:(MPLayoutTestOrientation)contentOrientation rotationNeeded:(BOOL)expectedRotation;
 {
-    MPLayout *layout = [[MPLayout alloc] initWithOrientation:layoutOrientation assetPosition:[MPLayout completeFillRectangle]];
+    MPLayoutPrepStepRotate *rotateStep = [[MPLayoutPrepStepRotate alloc] initWithOrientation:layoutOrientation];
+    
+    
     CGRect contentRect = [self rectWithOrientation:contentOrientation];
+    UIImage *contentImage = [self sampleImage:contentRect.size];
     CGRect containerRect = [self rectWithOrientation:containerOrientation];
-    BOOL recommendedRotation = [layout rotationNeededForContent:contentRect withContainer:containerRect];
+    CGFloat expectedWidth = contentRect.size.width;
+    CGFloat expectedHeight = contentRect.size.height;
+    if (expectedRotation) {
+        expectedWidth = contentRect.size.height;
+        expectedHeight = contentRect.size.width;
+    }
+
+    CGRect layoutRect = [rotateStep contentRectForContent:contentRect inContainer:containerRect];
+    UIImage *layoutImage = [rotateStep imageForImage:contentImage inContainer:containerRect];
+    
     XCTAssert(
-              expectedRotation == recommendedRotation,
-              @"Expected recommended rotation (%@) to equal expected rotation (%@)",
-              recommendedRotation ? @"YES" : @"NO",
-              expectedRotation ? @"YES" : @"NO"
+              layoutRect.size.width == expectedWidth && layoutRect.size.height == expectedHeight,
+              @"Layout rect (%.0f x %.0f) is not equal to expected layout rect (%.0f x %.0f)",
+              layoutRect.size.width, layoutRect.size.height,
+              expectedWidth, expectedHeight
     );
+    
+    XCTAssert(
+              layoutImage.size.width == expectedWidth && layoutImage.size.height == expectedHeight,
+              @"Layout image size (%.0f x %.0f) is not equal to expected layout image size (%.0f x %.0f)",
+              layoutRect.size.width, layoutRect.size.height,
+              expectedWidth, expectedHeight
+              );
+}
+
+- (UIImage *)sampleImage:(CGSize)size
+{
+    UIGraphicsBeginImageContext(size);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 - (CGRect)rectWithOrientation:(MPLayoutTestOrientation)orientation

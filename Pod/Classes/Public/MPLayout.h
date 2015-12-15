@@ -94,21 +94,6 @@ typedef enum {
 - (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView;
 
 /*!
- * @abstract Computes an adjusted content rect
- * @discussion Applies the assetPosition percentages to the given rect to compute a rect with adjusted orign and size.
- */
-- (CGRect)assetPositionForRect:(CGRect)rect;
-
-/*!
- * @abstract Determines of content rotation is required
- * @param contentRect The content rectangle being laid out
- * @param containerRect The container rectangle in which the content is being laid out
- * @discussion Uses the orientation stragey specified in the layout to determine whether or not the content should be rotated.
- * @seealso MPLayoutOrientation
- */
-- (BOOL)rotationNeededForContent:(CGRect)contentRect withContainer:(CGRect)containerRect;
-
-/*!
  * @abstract The asset position that fills the container completely
  * @discussion This assetPosition will fill the entire page with the asset. This means an asset position of origin 0%, 0% and size 100%, 100%.
  * @seealso assetPosition
@@ -142,14 +127,6 @@ typedef enum {
  * @return The best paper orientation for the given image and layout
  */
 + (MPLayoutOrientation)paperOrientationForImage:(UIImage *)image andLayout:(MPLayout *)layout;
-
-/*!
- * @abstract Applies the content position using layout constraints
- * @param frame The desired content position within the container
- * @param contentView The UIView representing the content
- * @param containerView The UIView representing the container
- */
-- (void)applyConstraintsWithFrame:(CGRect)frame toContentView:(UIView *)contentView inContainerView:(UIView *)containerView;
 
 /*!
  * @abstract The adjusted position of the content

@@ -70,7 +70,7 @@
 		E32115E11A38BCE50079144C /* MPLearnMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32115DF1A38BCE50079144C /* MPLearnMoreView.xib */; };
 		E35DD5981B0666F400E9BC97 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E35DD5971B0666F400E9BC97 /* MapKit.framework */; };
 		F10BCCCC1B7A53CC001A5F3B /* MPDirectPrintTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F10BCCCB1B7A53CC001A5F3B /* MPDirectPrintTest.m */; };
-		F10C7EBB1BE1808400ACB162 /* MPLayoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F10C7EBA1BE1808400ACB162 /* MPLayoutTest.m */; };
+		F10C7EBB1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F10C7EBA1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m */; };
 		F16A57BA1AF2B0EA00F7265E /* MPExampleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F16A57B91AF2B0EA00F7265E /* MPExampleLogger.m */; };
 		F1998AF51B6808BD00E5320F /* MPPageRangeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F1998AF41B6808BD00E5320F /* MPPageRangeTest.m */; };
 		F1B2023F1B7E970D00912E0B /* MPPrintSettingsDelegateManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B2023E1B7E970D00912E0B /* MPPrintSettingsDelegateManagerTest.m */; };
@@ -188,7 +188,7 @@
 		EE7EBCBC7723D10BF4D13C7F /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F081076366F4C76425844536 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F10BCCCB1B7A53CC001A5F3B /* MPDirectPrintTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPDirectPrintTest.m; sourceTree = "<group>"; };
-		F10C7EBA1BE1808400ACB162 /* MPLayoutTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutTest.m; sourceTree = "<group>"; };
+		F10C7EBA1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStepRotateTest.m; sourceTree = "<group>"; };
 		F16A57B81AF2B0EA00F7265E /* MPExampleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPExampleLogger.h; sourceTree = "<group>"; };
 		F16A57B91AF2B0EA00F7265E /* MPExampleLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPExampleLogger.m; sourceTree = "<group>"; };
 		F1998AF41B6808BD00E5320F /* MPPageRangeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPageRangeTest.m; sourceTree = "<group>"; };
@@ -351,7 +351,7 @@
 			children = (
 				65F44B5A1BD02D4400EF42AB /* MPAnalyticsManagerTest.m */,
 				F10BCCCB1B7A53CC001A5F3B /* MPDirectPrintTest.m */,
-				F10C7EBA1BE1808400ACB162 /* MPLayoutTest.m */,
+				F10C7EBA1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m */,
 				92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */,
 				65DC4A801BD596E90004F903 /* MPLayoutFillTest.m */,
 				F1998AF41B6808BD00E5320F /* MPPageRangeTest.m */,
@@ -802,7 +802,7 @@
 				65DC4A811BD596E90004F903 /* MPLayoutFillTest.m in Sources */,
 				F1B2023F1B7E970D00912E0B /* MPPrintSettingsDelegateManagerTest.m in Sources */,
 				658088EF1BB1DACD00B35489 /* MPPrintManagerTest.m in Sources */,
-				F10C7EBB1BE1808400ACB162 /* MPLayoutTest.m in Sources */,
+				F10C7EBB1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m in Sources */,
 				65F44B5B1BD02D4400EF42AB /* MPAnalyticsManagerTest.m in Sources */,
 				6565921F1BB5EB6B00A08B22 /* MPPaperTest.m in Sources */,
 				F1998AF51B6808BD00E5320F /* MPPageRangeTest.m in Sources */,
