@@ -21,6 +21,9 @@
 #import "MPLayoutPrepStepRotate.h"
 #import "MPLayoutAlgorithm.h"
 #import "MPLayoutAlgorithmFit.h"
+#import "MPLayoutAlgorithmFill.h"
+#import "MPLayoutAlgorithmStretch.h"
+#import "MPLayoutComposite.h"
 
 @implementation MPLayoutFactory
 
@@ -57,15 +60,23 @@ static NSMutableArray *factoryDelegates = nil;
 {
     MPLayout *layout = nil;
     
+    MPLayoutPrepStepAdjust *adjustStep = [[MPLayoutPrepStepAdjust alloc] initWithAdjustment:assetPosition];
+    MPLayoutPrepStepRotate *rotateStep = [[MPLayoutPrepStepRotate alloc] initWithOrientation:(MPLayoutPrepStepRotateOrientation)orientation];
+    NSArray<MPLayoutPrepStep *> *prepSteps = @[];
+    MPLayoutAlgorithm *algorithm = nil;
+
     if ([[MPLayoutFill layoutType] isEqualToString:layoutType] || nil == layoutType) {
-        layout = [[MPLayoutFill alloc] initWithOrientation:orientation assetPosition:assetPosition];
+        algorithm = [[MPLayoutAlgorithmFill alloc] init];
+        prepSteps = @[ rotateStep ];
+        layout = [[MPLayoutComposite alloc] initWithAlgorithm:algorithm andPrepSteps:prepSteps];
     } else if ([[MPLayoutFit layoutType] isEqualToString:layoutType]) {
-        MPLayoutFit *layoutFit = [[MPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition];
-        layoutFit.horizontalPosition = MPLayoutHorizontalPositionMiddle;
-        layoutFit.verticalPosition = MPLayoutVerticalPositionMiddle;
-        layout = layoutFit;
+        algorithm = [[MPLayoutAlgorithmFit alloc] init];
+        prepSteps = @[ adjustStep, rotateStep ];
+        layout = [[MPLayoutComposite alloc] initWithAlgorithm:algorithm andPrepSteps:prepSteps];
     } else if ([[MPLayoutStretch layoutType] isEqualToString:layoutType]) {
-        layout = [[MPLayoutStretch alloc] initWithOrientation:orientation assetPosition:assetPosition];
+        algorithm = [[MPLayoutAlgorithmStretch alloc] init];
+        prepSteps = @[ adjustStep, rotateStep ];
+        layout = [[MPLayoutComposite alloc] initWithAlgorithm:algorithm andPrepSteps:prepSteps];
     } else {
         if( nil != factoryDelegates) {
             for (id<MPLayoutFactoryDelegate> delegate in factoryDelegates) {

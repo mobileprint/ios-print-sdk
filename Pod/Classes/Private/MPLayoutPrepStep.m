@@ -18,20 +18,23 @@
 
 - (UIImage *)imageForImage:(UIImage *)image inContainer:(CGRect)containerRect
 {
-    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
-    return nil;
+    return image;
+//    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
+//    return nil;
 }
 
 - (CGRect)contentRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect
 {
-    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
-    return CGRectZero;
+    return contentRect;
+//    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
+//    return CGRectZero;
 }
 
 - (CGRect)containerRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect
 {
-    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
-    return CGRectZero;
+    return containerRect;
+//    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
+//    return CGRectZero;
 }
 
 @end
