@@ -36,6 +36,22 @@ extern NSString * const kMPLayoutBorderInchesKey;
 extern NSString * const kMPLayoutAssetPositionKey;
 
 /*!
+ * @abstract A key for specifying the desired horizontal position of the layout
+ * @discussion This key is to be used when calling the layoutWithType:orientation:layoutOptions:
+ *  function on the MPLayoutFactoryClass.  Use this key as a key on the layoutOptions dictionary to specify
+ *  which MPLayoutHorizontalPosition to use with the layout.
+ */
+extern NSString * const kMPLayoutHorizontalPositionKey;
+
+/*!
+ * @abstract A key for specifying the desired vertical position of the layout
+ * @discussion This key is to be used when calling the layoutWithType:orientation:layoutOptions:
+ *  function on the MPLayoutFactoryClass.  Use this key as a key on the layoutOptions dictionary to specify
+ *  which MPLayoutVerticalPosition to use with the layout.
+ */
+extern NSString * const kMPLayoutVerticalPositionKey;
+
+/*!
  * @abstract Creates a layout of the given type
  * @param layoutType The type of layout to create. See MPLayoutType for standard types.
  * @return The layout created or nil if not layout could be created

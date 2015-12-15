@@ -14,18 +14,18 @@
 
 @implementation MPLayoutAlgorithmFit
 
-MPLayoutAlgorithmFitHorizontalPosition const kMPLayoutAlgorithmFitDefaultHorizontalPosition = MPLayoutAlgorithmFitCenter;
-MPLayoutAlgorithmFitVerticalPosition const kMPLayoutAlgorithmFitDefaultVerticalPosition = MPLayoutAlgorithmFitMiddle;
+MPLayoutHorizontalPosition const kMPDefaultHorizontalPosition = MPLayoutHorizontalPositionMiddle;
+MPLayoutVerticalPosition const kMPDefaultVerticalPosition = MPLayoutVerticalPositionMiddle;
 
 #pragma mark - Initialization
 
 - (id)init
 {
-    return [self initWithHorizontalPosition:kMPLayoutAlgorithmFitDefaultHorizontalPosition
-                        andVerticalPosition:kMPLayoutAlgorithmFitDefaultVerticalPosition];
+    return [self initWithHorizontalPosition:kMPDefaultHorizontalPosition
+                        andVerticalPosition:kMPDefaultVerticalPosition];
 }
 
-- (id)initWithHorizontalPosition:(MPLayoutAlgorithmFitHorizontalPosition)horizontalPosition andVerticalPosition:(MPLayoutAlgorithmFitVerticalPosition)verticalPosition
+- (id)initWithHorizontalPosition:(MPLayoutHorizontalPosition)horizontalPosition andVerticalPosition:(MPLayoutVerticalPosition)verticalPosition
 {
     self = [super init];
     if (self) {
@@ -64,21 +64,19 @@ MPLayoutAlgorithmFitVerticalPosition const kMPLayoutAlgorithmFitDefaultVerticalP
     CGFloat x = containerRect.origin.x + (containerRect.size.width - width) / 2.0;
     CGFloat y = containerRect.origin.y + (containerRect.size.height - height) / 2.0;
     
-    if( MPLayoutAlgorithmFitTop == self.verticalPosition ) {
+    if( MPLayoutVerticalPositionTop == self.verticalPosition ) {
         y = containerRect.origin.y;
-    } else if( MPLayoutAlgorithmFitBottom == self.verticalPosition ) {
+    } else if( MPLayoutVerticalPositionBottom == self.verticalPosition ) {
         y = containerRect.origin.y + containerRect.size.height - height;
     }
     
-    if( MPLayoutAlgorithmFitLeft == self.horizontalPosition ) {
+    if( MPLayoutHorizontalPositionLeft == self.horizontalPosition ) {
         x = containerRect.origin.x;
-    } else if( MPLayoutAlgorithmFitRight == self.horizontalPosition ) {
+    } else if( MPLayoutHorizontalPositionRight == self.horizontalPosition ) {
         x = containerRect.origin.x + containerRect.size.width - width;
     }
     
     return CGRectMake(x, y, width, height);
 }
-
-
 
 @end

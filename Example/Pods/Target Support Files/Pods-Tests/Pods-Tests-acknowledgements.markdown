@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## MobilePrintSDK
 
-Copyright (c) 2014 HP Inc. <print-sdk@hp.com>
+Copyright (c) 2015 HP Inc. <print-sdk@hp.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

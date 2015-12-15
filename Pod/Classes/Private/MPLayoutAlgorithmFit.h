@@ -14,21 +14,9 @@
 
 @interface MPLayoutAlgorithmFit : MPLayoutAlgorithm
 
-typedef enum {
-    MPLayoutAlgorithmFitTop,
-    MPLayoutAlgorithmFitMiddle,
-    MPLayoutAlgorithmFitBottom
-} MPLayoutAlgorithmFitVerticalPosition;
+@property (assign, nonatomic, readonly) MPLayoutHorizontalPosition horizontalPosition;
+@property (assign, nonatomic, readonly) MPLayoutVerticalPosition verticalPosition;
 
-typedef enum {
-    MPLayoutAlgorithmFitLeft,
-    MPLayoutAlgorithmFitCenter,
-    MPLayoutAlgorithmFitRight
-} MPLayoutAlgorithmFitHorizontalPosition;
-
-@property (assign, nonatomic, readonly) MPLayoutAlgorithmFitHorizontalPosition horizontalPosition;
-@property (assign, nonatomic, readonly) MPLayoutAlgorithmFitVerticalPosition verticalPosition;
-
-- (id)initWithHorizontalPosition:(MPLayoutAlgorithmFitHorizontalPosition)horizontalPosition andVerticalPosition:(MPLayoutAlgorithmFitVerticalPosition)verticalPosition;
+- (id)initWithHorizontalPosition:(MPLayoutHorizontalPosition)horizontalPosition andVerticalPosition:(MPLayoutVerticalPosition)verticalPosition;
 
 @end

@@ -16,15 +16,6 @@
 #import "MPLayoutFit.h"
 #import "MPLayoutStretch.h"
 
-#import "MPLayoutPrepStep.h"
-#import "MPLayoutPrepStepAdjust.h"
-#import "MPLayoutPrepStepRotate.h"
-#import "MPLayoutAlgorithm.h"
-#import "MPLayoutAlgorithmFit.h"
-#import "MPLayoutAlgorithmFill.h"
-#import "MPLayoutAlgorithmStretch.h"
-#import "MPLayoutComposite.h"
-
 @implementation MPLayoutFactory
 
 NSString * const kMPLayoutTypeKey = @"kMPLayoutTypeKey";
@@ -33,6 +24,8 @@ NSString * const kMPLayoutPositionKey = @"kMPLayoutPositionKey";
 NSString * const kMPLayoutAllowRotationKey = @"kMPLayoutAllowRotationKey";
 NSString * const kMPLayoutBorderInchesKey = @"kMPLayoutBorderInchesKey";
 NSString * const kMPLayoutAssetPositionKey = @"kMPLayoutAssetPositionKey";
+NSString * const kMPLayoutHorizontalPositionKey = @"kMPLayoutHorizontalPositionKey";
+NSString * const kMPLayoutVerticalPositionKey = @"kMPLayoutVerticalPositionKey";
 
 static NSMutableArray *factoryDelegates = nil;
 
@@ -60,23 +53,15 @@ static NSMutableArray *factoryDelegates = nil;
 {
     MPLayout *layout = nil;
     
-    MPLayoutPrepStepAdjust *adjustStep = [[MPLayoutPrepStepAdjust alloc] initWithAdjustment:assetPosition];
-    MPLayoutPrepStepRotate *rotateStep = [[MPLayoutPrepStepRotate alloc] initWithOrientation:(MPLayoutPrepStepRotateOrientation)orientation];
-    NSArray<MPLayoutPrepStep *> *prepSteps = @[];
-    MPLayoutAlgorithm *algorithm = nil;
-
     if ([[MPLayoutFill layoutType] isEqualToString:layoutType] || nil == layoutType) {
-        algorithm = [[MPLayoutAlgorithmFill alloc] init];
-        prepSteps = @[ rotateStep ];
-        layout = [[MPLayoutComposite alloc] initWithAlgorithm:algorithm andPrepSteps:prepSteps];
+        layout = [[MPLayoutFill alloc] initWithOrientation:orientation assetPosition:assetPosition];
     } else if ([[MPLayoutFit layoutType] isEqualToString:layoutType]) {
-        algorithm = [[MPLayoutAlgorithmFit alloc] init];
-        prepSteps = @[ adjustStep, rotateStep ];
-        layout = [[MPLayoutComposite alloc] initWithAlgorithm:algorithm andPrepSteps:prepSteps];
+        MPLayoutFit *layoutFit = [[MPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition];
+        layoutFit.horizontalPosition = MPLayoutHorizontalPositionMiddle;
+        layoutFit.verticalPosition = MPLayoutVerticalPositionMiddle;
+        layout = layoutFit;
     } else if ([[MPLayoutStretch layoutType] isEqualToString:layoutType]) {
-        algorithm = [[MPLayoutAlgorithmStretch alloc] init];
-        prepSteps = @[ adjustStep, rotateStep ];
-        layout = [[MPLayoutComposite alloc] initWithAlgorithm:algorithm andPrepSteps:prepSteps];
+        layout = [[MPLayoutStretch alloc] initWithOrientation:orientation assetPosition:assetPosition];
     } else {
         if( nil != factoryDelegates) {
             for (id<MPLayoutFactoryDelegate> delegate in factoryDelegates) {
@@ -84,7 +69,7 @@ static NSMutableArray *factoryDelegates = nil;
                     layout = [delegate layoutWithType:layoutType
                                           orientation:orientation
                                         assetPosition:assetPosition
-                                 ];
+                              ];
                     if (layout) {
                         break;
                     }

@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MobilePrintSDK: a3b896a05ee7fcc809c2552f6bde753eabdf9c9b
+  MobilePrintSDK: 67fdd99a833896d4d3f41d6820c483282cd9bb87
   OCMock: 28def049ef47f996b515a8eeea958be7ccab2dbb
 
 COCOAPODS: 0.39.0

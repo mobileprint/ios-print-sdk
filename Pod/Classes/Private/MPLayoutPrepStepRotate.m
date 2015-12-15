@@ -15,16 +15,16 @@
 
 @implementation MPLayoutPrepStepRotate
 
-MPLayoutPrepStepRotateOrientation const kMPLayoutPrepStepRotateDefaultOrientation = MPLayoutPrepStepRotateOrientationBestFit;
+MPLayoutOrientation const kMPDefaultOrientation = MPLayoutOrientationBestFit;
 
 #pragma mark - Initialization
 
 - (id)init
 {
-    return [self initWithOrientation:kMPLayoutPrepStepRotateDefaultOrientation];
+    return [self initWithOrientation:kMPDefaultOrientation];
 }
 
-- (id)initWithOrientation:(MPLayoutPrepStepRotateOrientation)orientation
+- (id)initWithOrientation:(MPLayoutOrientation)orientation
 {
     self = [super init];
     if (self) {
