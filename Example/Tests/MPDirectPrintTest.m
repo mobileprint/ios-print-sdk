@@ -89,7 +89,7 @@
                    numCopies:1
                        error:&error];
     
-    [self verifyError:error expectedName:@"MPPrintManagerErrorNoPaperType" expectedCode:MPPrintManagerErrorNoPaperType];
+    [self verifyError:error expectedName:@"MPPrintManagerErrorNoPaperType" expectedCode:MPPrintManagerErrorPrinterNotAvailable];
 }
 
 - (void)testSuccess {
