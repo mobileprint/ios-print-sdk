@@ -27,12 +27,14 @@
  * @const MPLayoutOrientationLandscape Specifies that the content should be laid out on a landscape page regardless of the content aspect ratio
  * @const MPLayoutOrientationBestFit Specifies that the content should be laid out on a portrait page if the content is portrait and a landscape page if the content is landscape
  * @const MPLayoutOrientationFixed Specifies that the orientation is fixed to the existing orientation of the container
+ * @const MPLayoutOrientationIgnored Specifies that the orientation is not used in the layout logic
  */
 typedef enum {
     MPLayoutOrientationPortrait,
     MPLayoutOrientationLandscape,
     MPLayoutOrientationBestFit,
-    MPLayoutOrientationFixed
+    MPLayoutOrientationFixed,
+    MPLayoutOrientationIgnored
 } MPLayoutOrientation;
 
 
@@ -75,6 +77,17 @@ typedef enum {
  * @seealso orientation
  */
 - (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position;
+
+/*!
+ * @abstract Creates a layout with a specific asset position
+ * @param position A CGRect of percentage-based values that locates the layout content rectangle on the page
+ * @param orientation An MPLayoutOrientation value specifiying the orientation strategy to use
+ * @param shouldRotate Indicates whether to include rotation in the layout logic
+ * @discussion Note that the iOS method CGRectStandardize will be used to ensure positive size values of the asset position rectangle.
+ * @seealso assetPosition
+ * @seealso orientation
+ */
+- (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position shouldRotate:(BOOL)shouldRotate;
 
 /*!
  * @abstract Draws the image onto a content rectangle

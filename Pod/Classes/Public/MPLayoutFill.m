@@ -31,13 +31,21 @@
 
 - (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position;
 {
+    return [self initWithOrientation:orientation assetPosition:position shouldRotate:YES];
+}
+
+- (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position shouldRotate:(BOOL)shouldRotate
+{
     if (!CGRectEqualToRect(position, [MPLayout completeFillRectangle])) {
         MPLogError(@"The MPLayoutFill layout type only supports the complete fill asset position");
     }
+
+    MPLayoutAlgorithmFill *algorithm = [[MPLayoutAlgorithmFill alloc] init];
     
     _rotateStep = [[MPLayoutPrepStepRotate alloc] initWithOrientation:orientation];
-    MPLayoutAlgorithmFill *algorithm = [[MPLayoutAlgorithmFill alloc] init];
-    return self = [super initWithAlgorithm:algorithm andPrepSteps:@[_rotateStep]];
+    NSArray<MPLayoutPrepStep *> *prepSteps = shouldRotate ? @[ _rotateStep ] : @[];
+
+    return self = [super initWithAlgorithm:algorithm andPrepSteps:prepSteps];
 }
 
 - (CGRect)assetPosition

@@ -19,6 +19,11 @@
 
 - (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position;
 {
+    return [self initWithOrientation:orientation assetPosition:position shouldRotate:YES];
+}
+
+- (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position shouldRotate:(BOOL)shouldRotate
+{
     self = [super init];
     if (self) {
         _orientation = orientation;

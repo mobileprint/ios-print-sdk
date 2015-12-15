@@ -32,10 +32,18 @@
 
 - (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position;
 {
+    return [self initWithOrientation:orientation assetPosition:position shouldRotate:YES];
+}
+
+- (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position shouldRotate:(BOOL)shouldRotate
+{
+    MPLayoutAlgorithmStretch *algorithm = [[MPLayoutAlgorithmStretch alloc] init];
+    
     _adjustStep = [[MPLayoutPrepStepAdjust alloc] initWithAdjustment:position];
     _rotateStep = [[MPLayoutPrepStepRotate alloc] initWithOrientation:orientation];
-    MPLayoutAlgorithmStretch *algorithm = [[MPLayoutAlgorithmStretch alloc] init];
-    return self = [super initWithAlgorithm:algorithm andPrepSteps:@[_adjustStep, _rotateStep]];
+    NSArray<MPLayoutPrepStep *> *prepSteps = shouldRotate ? @[ _adjustStep, _rotateStep ] : @[ _adjustStep ];
+
+    return self = [super initWithAlgorithm:algorithm andPrepSteps:prepSteps];
 }
 
 - (CGRect)assetPosition

@@ -40,7 +40,7 @@ CGFloat const kMPLayoutPrepStepAdjustDefaultHeight = 100.0;
 
 #pragma mark - Layout
 
-- (CGRect)containerRectForImage:(CGRect)contentRect inContainer:(CGRect)containerRect
+- (CGRect)containerRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect
 {
     return CGRectMake(containerRect.origin.x + containerRect.size.width * self.adjustment.origin.x / 100.0f,
                       containerRect.origin.y + containerRect.size.height * self.adjustment.origin.y / 100.0f,

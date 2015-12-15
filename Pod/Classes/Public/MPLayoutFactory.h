@@ -52,6 +52,14 @@ extern NSString * const kMPLayoutHorizontalPositionKey;
 extern NSString * const kMPLayoutVerticalPositionKey;
 
 /*!
+ * @abstract A key for specifying whether or not the layout should rotate content
+ * @discussion This key is to be used when calling the layoutWithType:orientation:layoutOptions:
+ *  function on the MPLayoutFactoryClass.  Use this key as a key on the layoutOptions dictionary to specify
+ *  whether to include a rotation prep step in the layout.
+ */
+extern NSString * const kMPLayoutShouldRotateKey;
+
+/*!
  * @abstract Creates a layout of the given type
  * @param layoutType The type of layout to create. See MPLayoutType for standard types.
  * @return The layout created or nil if not layout could be created
@@ -68,6 +76,19 @@ extern NSString * const kMPLayoutVerticalPositionKey;
 + (MPLayout *)layoutWithType:(NSString *)layoutType
                    orientation:(MPLayoutOrientation)orientation
                  assetPosition:(CGRect)assetPosition;
+
+/*!
+ * @abstract Creates a layout of the given type and asset position
+ * @param layoutType The type of layout to create. See MPLayoutType for standard types.
+ * @param orientation The orientation strategy used by the layout
+ * @param assetPosition A CGRect of percentage-based values that locates the layout content rectangle on the page
+ * @param shouldRotate Indicates whether to include rotation in the layout logic
+ * @return The layout created or nil if not layout could be created
+ */
++ (MPLayout *)layoutWithType:(NSString *)layoutType
+                 orientation:(MPLayoutOrientation)orientation
+               assetPosition:(CGRect)assetPosition
+                shouldRotate:(BOOL)shouldRotate;
 
 /*!
  * @abstract Creates a layout of the given type and asset position
@@ -127,9 +148,22 @@ extern NSString * const kMPLayoutVerticalPositionKey;
  * @param assetPosition A CGRect of percentage-based values that locates the layout content rectangle on the page
  * @return The layout created or nil if not layout could be created
  */
-- (MPLayout *)layoutWithType:(NSString *)layoutType
++ (MPLayout *)layoutWithType:(NSString *)layoutType
                    orientation:(MPLayoutOrientation)orientation
                  assetPosition:(CGRect)assetPosition;
+
+/*!
+ * @abstract Creates a layout of the given type and asset position
+ * @param layoutType The type of layout to create
+ * @param orientation The orientation strategy used by the layout
+ * @param assetPosition A CGRect of percentage-based values that locates the layout content rectangle on the page
+ * @param shouldRotate Indicates whether the layout should include rotation step
+ * @return The layout created or nil if not layout could be created
+ */
+- (MPLayout *)layoutWithType:(NSString *)layoutType
+                 orientation:(MPLayoutOrientation)orientation
+               assetPosition:(CGRect)assetPosition
+                shouldRotate:(BOOL)shouldRotate;
 
 /*!
  * @abstract Creates a layout of the given type and asset position
