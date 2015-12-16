@@ -142,7 +142,7 @@ Feature: Select item and add to print queue
     @reset
   @done
   @TA12558
-  Scenario: Verify item added to print queue
+  Scenario: Verify name edited on Print Queue screen
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
     And I touch "4x6 portrait"
@@ -161,7 +161,7 @@ Feature: Select item and add to print queue
   @reset
   @done
   @TA12558
-  Scenario: Verify item added to print queue
+  Scenario: Verify multiple item deletion from print queue
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
    And I touch "4x6 portrait"
@@ -182,7 +182,7 @@ Feature: Select item and add to print queue
   @reset
   @done
   @TA12558
-  Scenario: Verify item added to print queue
+  Scenario: Verify item names and item deletion from print queue
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
     And I touch "4x6 portrait"
