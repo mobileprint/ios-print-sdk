@@ -139,7 +139,66 @@ Feature: Select item and add to print queue
     Then I touch "Print"
     
 		
-    
-    
-
-  
+    @reset
+  @done
+  @TA12558
+  Scenario: Verify item added to print queue
+    Given I am on the "PrintPod" screen
+    And I touch "Share Item"
+    And I touch "4x6 portrait"
+    And I touch Print Queue
+    And I wait for some seconds
+    Then I should see the "Add Print" screen
+    Then I modify the name
+    And I touch "Add to Print Queue"
+    And I wait for some seconds
+    Then I should see the "Print Queue" screen
+    Then I verify names displayed in Print Queue screen
+    And I touch "Delete" button
+    And I verify warning message displayed
+    And I touch "Delete"
+  	
+  @reset
+  @done
+  @TA12558
+  Scenario: Verify item added to print queue
+    Given I am on the "PrintPod" screen
+    And I touch "Share Item"
+   And I touch "4x6 portrait"
+    And I touch Print Queue
+    And I wait for some seconds
+    Then I should see the "Add Print" screen
+    Then I modify the name 
+    And I touch "Add to Print Queue"
+    And I wait for some seconds
+    When I touch "Done"
+    Then I add "1" more jobs
+    Then I verify names displayed in Print Queue screen
+    And I touch "Select All" button
+    And I touch "Delete" button
+    And I verify warning message displayed
+    And I touch "Delete"
+        
+  @reset
+  @done
+  @TA12558
+  Scenario: Verify item added to print queue
+    Given I am on the "PrintPod" screen
+    And I touch "Share Item"
+    And I touch "4x6 portrait"
+    And I touch Print Queue
+    And I wait for some seconds
+    Then I should see the "Add Print" screen
+    Then I modify the name 
+     And I touch "Add to Print Queue"
+    And I wait for some seconds
+    When I touch "Done"
+    Then I add "2" more jobs
+    Then I verify names displayed in Print Queue screen
+    And I "Select" a job
+    And I touch "Delete" button
+    And I verify warning message displayed
+    And I touch "Delete"
+    And I check selected job name is deleted
+        
+         
