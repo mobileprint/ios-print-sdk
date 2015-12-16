@@ -13,7 +13,7 @@
 #import "MPLayoutPrepStep.h"
 #import "MPLayoutAlgorithm.h"
 
-@interface MPLayoutComposite : MPLayout
+@interface MPLayoutComposite : MPLayout <NSCoding>
 
 - (id)initWithAlgorithm:(MPLayoutAlgorithm *)algorithm andPrepSteps:(NSArray<MPLayoutPrepStep *> *)prepSteps;
 

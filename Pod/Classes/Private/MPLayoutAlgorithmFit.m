@@ -79,4 +79,26 @@ MPLayoutVerticalPosition const kMPDefaultVerticalPosition = MPLayoutVerticalPosi
     return CGRectMake(x, y, width, height);
 }
 
+#pragma mark - NSCoding interface
+
+static NSString * const kMPHorizontalPosition = @"kMPHorizontalPosition";
+static NSString * const kMPVerticalPosition = @"kMPVerticalPosition";
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:[NSNumber numberWithInteger:self.horizontalPosition] forKey:kMPHorizontalPosition];
+    [encoder encodeObject:[NSNumber numberWithBool:self.verticalPosition] forKey:kMPVerticalPosition];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    if (self = [super init]) {
+        NSNumber *horizontalPosition = [decoder decodeObjectForKey:kMPHorizontalPosition];
+        NSNumber *verticalPosition = [decoder decodeObjectForKey:kMPVerticalPosition];
+        self = [self initWithHorizontalPosition:(MPLayoutHorizontalPosition)[horizontalPosition integerValue] andVerticalPosition:(MPLayoutVerticalPosition)[verticalPosition integerValue]];
+    }
+    
+    return self;
+}
+
 @end

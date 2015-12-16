@@ -35,6 +35,18 @@
     return self;
 }
 
+- (id)initWithOrientation:(MPLayoutOrientation)orientation andAlgorithm:(MPLayoutAlgorithm *)algorithm andPrepSteps:(NSArray<MPLayoutPrepStep *> *)prepSteps
+{
+    self = [super initWithOrientation:orientation assetPosition:CGRectMake(0,0, 100,100)];
+    
+    if (self) {
+        self.algorithm = algorithm;
+        self.prepSteps = prepSteps;
+    }
+    
+    return self;
+}
+
 #pragma mark - Layout
 
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
@@ -65,6 +77,30 @@
     }
     
     [self.algorithm resizeContentView:contentView containerView:containerView contentRect:layoutContent containerRect:layoutContainer];
+}
+
+#pragma mark - NSCoding interface
+
+static NSString * const kMPAlgorithm = @"kMPAlgorithm";
+static NSString * const kMPPrepSteps = @"kMPPrepSteps";
+static NSString * const kMPOrientation = @"kMPOrientation";
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:self.algorithm forKey:kMPAlgorithm];
+    [encoder encodeObject:self.prepSteps forKey:kMPPrepSteps];
+    [encoder encodeObject:[NSNumber numberWithInteger:self.orientation] forKey:kMPOrientation];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    MPLayoutAlgorithm *algorithm = [decoder decodeObjectForKey:kMPAlgorithm];
+    NSArray *prepSteps = [decoder decodeObjectForKey:kMPPrepSteps];
+    NSNumber *orientation = [decoder decodeObjectForKey:kMPOrientation];
+
+    self = [self initWithOrientation:(MPLayoutOrientation)[orientation integerValue] andAlgorithm:algorithm andPrepSteps:prepSteps];
+    
+    return self;
 }
 
 @end

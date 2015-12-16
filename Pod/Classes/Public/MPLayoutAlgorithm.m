@@ -77,4 +77,15 @@
     [containerView layoutIfNeeded];
 }
 
+#pragma mark - NSCoding interface
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    return [super init];
+}
+
 @end

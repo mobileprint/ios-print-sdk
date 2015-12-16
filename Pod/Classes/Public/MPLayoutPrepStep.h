@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 #import "MPLayout.h"
 
-@interface MPLayoutPrepStep : NSObject
+@interface MPLayoutPrepStep : NSObject <NSCoding>
 
 - (UIImage *)imageForImage:(UIImage *)image inContainer:(CGRect)containerRect;
 - (CGRect)contentRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect;

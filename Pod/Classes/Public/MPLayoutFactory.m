@@ -18,10 +18,12 @@
 
 @implementation MPLayoutFactory
 
-NSString * const kMPLayoutTypeKey = @"kMPLayoutTypeKey";
-NSString * const kMPLayoutOrientationKey = @"kMPLayoutOrientationKey";
-NSString * const kMPLayoutPositionKey = @"kMPLayoutPositionKey";
-NSString * const kMPLayoutAllowRotationKey = @"kMPLayoutAllowRotationKey";
+static NSString * const kMPLayout = @"kMPLayout";
+static NSString * const kMPLayoutTypeKey = @"kMPLayoutTypeKey";
+static NSString * const kMPLayoutOrientationKey = @"kMPLayoutOrientationKey";
+static NSString * const kMPLayoutPositionKey = @"kMPLayoutPositionKey";
+static NSString * const kMPLayoutAllowRotationKey = @"kMPLayoutAllowRotationKey";
+
 NSString * const kMPLayoutBorderInchesKey = @"kMPLayoutBorderInchesKey";
 NSString * const kMPLayoutAssetPositionKey = @"kMPLayoutAssetPositionKey";
 NSString * const kMPLayoutHorizontalPositionKey = @"kMPLayoutHorizontalPositionKey";
@@ -163,17 +165,21 @@ static NSMutableArray *factoryDelegates = nil;
 
 + (void)encodeLayout:(MPLayout *)layout WithCoder:(NSCoder *)encoder
 {
-    NSString *type = NSStringFromClass([layout class]);
-
-    [encoder encodeObject:type forKey:kMPLayoutTypeKey];
-    [encoder encodeObject:[NSNumber numberWithInt:layout.orientation] forKey:kMPLayoutOrientationKey];
-    [encoder encodeCGRect:layout.assetPosition forKey:kMPLayoutPositionKey];
-    [encoder encodeFloat:layout.borderInches forKey:kMPLayoutBorderInchesKey];
-
-    if( [MPLayoutFit layoutType] == type ) {
-        MPLayoutFit *layoutFit = (MPLayoutFit*)layout;
-        [encoder encodeObject:[NSNumber numberWithInt:layoutFit.horizontalPosition] forKey:kMPLayoutHorizontalPositionKey];
-        [encoder encodeObject:[NSNumber numberWithInt:layoutFit.verticalPosition] forKey:kMPLayoutVerticalPositionKey];
+    if ([layout isKindOfClass:[MPLayoutComposite class]]) {
+        [encoder encodeObject:layout forKey:kMPLayout];
+    } else {
+        NSString *type = NSStringFromClass([layout class]);
+        
+        [encoder encodeObject:type forKey:kMPLayoutTypeKey];
+        [encoder encodeObject:[NSNumber numberWithInt:layout.orientation] forKey:kMPLayoutOrientationKey];
+        [encoder encodeCGRect:layout.assetPosition forKey:kMPLayoutPositionKey];
+        [encoder encodeFloat:layout.borderInches forKey:kMPLayoutBorderInchesKey];
+        
+        if( [MPLayoutFit layoutType] == type ) {
+            MPLayoutFit *layoutFit = (MPLayoutFit*)layout;
+            [encoder encodeObject:[NSNumber numberWithInt:layoutFit.horizontalPosition] forKey:kMPLayoutHorizontalPositionKey];
+            [encoder encodeObject:[NSNumber numberWithInt:layoutFit.verticalPosition] forKey:kMPLayoutVerticalPositionKey];
+        }
     }
 
 }
@@ -184,7 +190,10 @@ static NSMutableArray *factoryDelegates = nil;
     NSString *layoutType;
     id rawType = [decoder containsValueForKey:kMPLayoutTypeKey] ? [decoder decodeObjectForKey:kMPLayoutTypeKey] : nil;
     
-    if( nil != rawType ) {
+    if (nil == rawType) {
+        layout = [decoder decodeObjectForKey:kMPLayout];
+        
+    } else {
         // backward compatibility
         if( [rawType isKindOfClass:[NSNumber class]] ) {
             int type = [rawType intValue];

@@ -87,5 +87,24 @@ MPLayoutOrientation const kMPDefaultOrientation = MPLayoutOrientationBestFit;
     return rotationNeeded;
 }
 
+#pragma mark - NSCoding interface
+
+static NSString * const kMPLayoutOrientation = @"kMPLayoutOrientation";
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:[NSNumber numberWithInteger:self.orientation] forKey:kMPLayoutOrientation];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    if (self = [super init]) {
+        NSNumber *orientation = [decoder decodeObjectForKey:kMPLayoutOrientation];
+        self = [self initWithOrientation:(MPLayoutOrientation)[orientation integerValue]];
+    }
+    
+    return self;
+}
+
 @end
 

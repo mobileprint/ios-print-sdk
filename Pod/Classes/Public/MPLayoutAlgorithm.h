@@ -14,7 +14,7 @@
 #import <Foundation/Foundation.h>
 #import "MPLayout.h"
 
-@interface MPLayoutAlgorithm : NSObject
+@interface MPLayoutAlgorithm : NSObject <NSCoding>
 
 - (void)drawImage:(UIImage *)image inContainer:(CGRect)containerRect;
 - (void)resizeContentView:(UIView *)contentView containerView:(UIView *)containerView contentRect:(CGRect)contentRect containerRect:(CGRect)containerRect;
