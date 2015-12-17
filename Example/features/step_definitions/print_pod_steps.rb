@@ -30,21 +30,3 @@ Then(/^I select "(.*?)" as border type$/) do |border_type|
 end
 
 
-Then(/^I add "(.*?)" more jobs$/) do |arg1|
-
-    macro %Q|I touch "Share Item"|
-    macro %Q|I touch "4x6 portrait"|
-    macro %Q|I touch Print Queue|
-    macro %Q|I wait for some seconds|
-    macro %Q|I should see the "Add Print" screen|
-    macro %Q|I modify the name|
-   macro %Q|I touch "Add to Print Queue"|
-    macro %Q|I wait for some seconds|
-    if arg1 == "2"
-        puts "2 jobs"
-        macro %Q|I touch "Done"|
-        macro %Q|I add "1" more jobs|
-    end
-end
-
-
