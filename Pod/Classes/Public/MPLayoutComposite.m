@@ -35,18 +35,6 @@
     return self;
 }
 
-- (id)initWithOrientation:(MPLayoutOrientation)orientation andAlgorithm:(MPLayoutAlgorithm *)algorithm andPrepSteps:(NSArray<MPLayoutPrepStep *> *)prepSteps
-{
-    self = [super initWithOrientation:orientation assetPosition:CGRectMake(0,0, 100,100)];
-    
-    if (self) {
-        self.algorithm = algorithm;
-        self.prepSteps = prepSteps;
-    }
-    
-    return self;
-}
-
 #pragma mark - Layout
 
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
@@ -81,24 +69,24 @@
 
 #pragma mark - NSCoding interface
 
-static NSString * const kMPAlgorithm = @"kMPAlgorithm";
-static NSString * const kMPPrepSteps = @"kMPPrepSteps";
-static NSString * const kMPOrientation = @"kMPOrientation";
+static NSString * const kMPLayoutCompositeAlgorithmKey = @"MPLayoutCompositeAlgorithmKey";
+static NSString * const kMPLayoutCompositePrepStepsKey = @"MPLayoutCompositePrepStepsKey";
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
-    [encoder encodeObject:self.algorithm forKey:kMPAlgorithm];
-    [encoder encodeObject:self.prepSteps forKey:kMPPrepSteps];
-    [encoder encodeObject:[NSNumber numberWithInteger:self.orientation] forKey:kMPOrientation];
+    [super encodeWithCoder:encoder];
+    [encoder encodeObject:self.algorithm forKey:kMPLayoutCompositeAlgorithmKey];
+    [encoder encodeObject:self.prepSteps forKey:kMPLayoutCompositePrepStepsKey];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
-    MPLayoutAlgorithm *algorithm = [decoder decodeObjectForKey:kMPAlgorithm];
-    NSArray *prepSteps = [decoder decodeObjectForKey:kMPPrepSteps];
-    NSNumber *orientation = [decoder decodeObjectForKey:kMPOrientation];
-
-    self = [self initWithOrientation:(MPLayoutOrientation)[orientation integerValue] andAlgorithm:algorithm andPrepSteps:prepSteps];
+    if (self = [super initWithCoder:decoder]) {
+        MPLayoutAlgorithm *algorithm = [decoder decodeObjectForKey:kMPLayoutCompositeAlgorithmKey];
+        NSArray *prepSteps = [decoder decodeObjectForKey:kMPLayoutCompositePrepStepsKey];
+        self.algorithm = algorithm;
+        self.prepSteps = prepSteps;
+    }
     
     return self;
 }

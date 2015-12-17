@@ -87,4 +87,27 @@
     return orientation;
 }
 
+#pragma mark - NSCoding interface
+
+static NSString * const kMPLayoutOrientationKey = @"kMPLayoutOrientationKey";
+static NSString * const kMPLayoutAssetPositionKey = @"kMPLayoutAssetPositionKey";
+static NSString * const kMPLayoutBorderInchesKey = @"kMPLayoutBorderInchesKey";
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeInteger:self.orientation forKey:kMPLayoutOrientationKey];
+    [encoder encodeCGRect:self.assetPosition forKey:kMPLayoutAssetPositionKey];
+    [encoder encodeFloat:self.borderInches forKey:kMPLayoutBorderInchesKey];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    MPLayoutOrientation orientation = (MPLayoutOrientation)[decoder decodeIntegerForKey:kMPLayoutOrientationKey];
+    CGRect assetPosition = [decoder decodeCGRectForKey:kMPLayoutAssetPositionKey];
+    CGFloat borderInches = [decoder decodeFloatForKey:kMPLayoutBorderInchesKey];
+    self = [self initWithOrientation:orientation assetPosition:assetPosition];
+    self.borderInches = borderInches;
+    return self;
+}
+
 @end

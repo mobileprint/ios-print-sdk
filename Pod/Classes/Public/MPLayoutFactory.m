@@ -18,7 +18,7 @@
 
 @implementation MPLayoutFactory
 
-static NSString * const kMPLayout = @"kMPLayout";
+static NSString * const kMPLayoutKey = @"kMPLayoutKey";
 static NSString * const kMPLayoutTypeKey = @"kMPLayoutTypeKey";
 static NSString * const kMPLayoutOrientationKey = @"kMPLayoutOrientationKey";
 static NSString * const kMPLayoutPositionKey = @"kMPLayoutPositionKey";
@@ -166,7 +166,7 @@ static NSMutableArray *factoryDelegates = nil;
 + (void)encodeLayout:(MPLayout *)layout WithCoder:(NSCoder *)encoder
 {
     if ([layout isKindOfClass:[MPLayoutComposite class]]) {
-        [encoder encodeObject:layout forKey:kMPLayout];
+        [encoder encodeObject:layout forKey:kMPLayoutKey];
     } else {
         NSString *type = NSStringFromClass([layout class]);
         
@@ -191,8 +191,7 @@ static NSMutableArray *factoryDelegates = nil;
     id rawType = [decoder containsValueForKey:kMPLayoutTypeKey] ? [decoder decodeObjectForKey:kMPLayoutTypeKey] : nil;
     
     if (nil == rawType) {
-        layout = [decoder decodeObjectForKey:kMPLayout];
-        
+        layout = [decoder decodeObjectForKey:kMPLayoutKey];
     } else {
         // backward compatibility
         if( [rawType isKindOfClass:[NSNumber class]] ) {

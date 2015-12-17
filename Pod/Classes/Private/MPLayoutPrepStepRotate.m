@@ -89,20 +89,17 @@ MPLayoutOrientation const kMPDefaultOrientation = MPLayoutOrientationBestFit;
 
 #pragma mark - NSCoding interface
 
-static NSString * const kMPLayoutOrientation = @"kMPLayoutOrientation";
+static NSString * const kMPLayoutPrepStepRotateOrientationKey = @"kMPLayoutPrepStepRotateOrientationKey";
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
-    [encoder encodeObject:[NSNumber numberWithInteger:self.orientation] forKey:kMPLayoutOrientation];
+    [encoder encodeInteger:self.orientation forKey:kMPLayoutPrepStepRotateOrientationKey];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
-    if (self = [super init]) {
-        NSNumber *orientation = [decoder decodeObjectForKey:kMPLayoutOrientation];
-        self = [self initWithOrientation:(MPLayoutOrientation)[orientation integerValue]];
-    }
-    
+    MPLayoutOrientation orientation = (MPLayoutOrientation)[decoder decodeIntegerForKey:kMPLayoutPrepStepRotateOrientationKey];
+    self = [self initWithOrientation:orientation];
     return self;
 }
 

@@ -19,7 +19,7 @@
 /*!
  * @abstract Layout strategy base class
  */
-@interface MPLayout : NSObject
+@interface MPLayout : NSObject<NSCoding>
 
 /*!
  * @abstract List of supported orientation strategies

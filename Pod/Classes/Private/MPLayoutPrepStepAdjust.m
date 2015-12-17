@@ -50,20 +50,17 @@ CGFloat const kMPLayoutPrepStepAdjustDefaultHeight = 100.0;
 
 #pragma mark - NSCoding interface
 
-static NSString * const kMPAdjustment = @"kMPAdjustment";
+static NSString * const kMPLayoutPrepStepAdjustAdjustmentKey = @"kMPLayoutPrepStepAdjustAdjustmentKey";
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
-    [encoder encodeCGRect:self.adjustment forKey:kMPAdjustment];
+    [encoder encodeCGRect:self.adjustment forKey:kMPLayoutPrepStepAdjustAdjustmentKey];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
-    if (self = [super init]) {
-        CGRect adjustment = [decoder decodeCGRectForKey:kMPAdjustment];
-        self = [self initWithAdjustment:adjustment];
-    }
-    
+    CGRect adjustment = [decoder decodeCGRectForKey:kMPLayoutPrepStepAdjustAdjustmentKey];
+    self = [self initWithAdjustment:adjustment];
     return self;
 }
 
