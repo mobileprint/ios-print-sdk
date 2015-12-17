@@ -1,9 +1,12 @@
 #### 3.0.1
-###### Not yet released
+###### Thursday December 17, 2015
 
 - Change handling of multi-page PDF documents optimize loading and memory use 
 - Localization into various languages
 - Print Queue screen now displays accurate job list after deleting a job(s)
+- Fix device rotation bugs on multi-page view(s)
+- Fix zoom bug on multi-page view(s)
+- Fix metrics bug related to sublcassing share activity
 
 #### 3.0.0
 ###### Tuesday, November 10, 2015
