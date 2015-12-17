@@ -19,7 +19,7 @@
 /*!
  * @abstract Layout strategy base class
  */
-@interface MPLayout : NSObject
+@interface MPLayout : NSObject<NSCoding>
 
 /*!
  * @abstract List of supported orientation strategies
@@ -27,13 +27,40 @@
  * @const MPLayoutOrientationLandscape Specifies that the content should be laid out on a landscape page regardless of the content aspect ratio
  * @const MPLayoutOrientationBestFit Specifies that the content should be laid out on a portrait page if the content is portrait and a landscape page if the content is landscape
  * @const MPLayoutOrientationFixed Specifies that the orientation is fixed to the existing orientation of the container
+ * @const MPLayoutOrientationIgnored Specifies that the orientation is not used in the layout logic
  */
 typedef enum {
     MPLayoutOrientationPortrait,
     MPLayoutOrientationLandscape,
     MPLayoutOrientationBestFit,
-    MPLayoutOrientationFixed
+    MPLayoutOrientationFixed,
+    MPLayoutOrientationIgnored
 } MPLayoutOrientation;
+
+
+/*!
+ * @abstract List of supported vertical layout strategies
+ * @const MPLayoutVerticalPositionTop Specifies that the content should be laid out at the top of the containing rectangle
+ * @const MPLayoutVerticalPositionMiddle Specifies that the content should be laid out vertically centered in the containing rectangle
+ * @const MPLayoutVerticalPositionBottom Specifies that the content should be laid out at the bottom of the containing rectangle
+ */
+typedef enum {
+    MPLayoutVerticalPositionTop,
+    MPLayoutVerticalPositionMiddle,
+    MPLayoutVerticalPositionBottom
+} MPLayoutVerticalPosition;
+
+/*!
+ * @abstract List of supported vertical layout strategies
+ * @const MPLayoutHorizontalPositionLeft Specifies that the content should be laid out on the left edge of the containing rectangle
+ * @const MPLayoutHorizontalPositionMiddle Specifies that the content should be laid out horizontally centered in the containing rectangle
+ * @const MPLayoutHorizontalPositionRight Specifies that the content should be laid out on the right edge of the containing rectangle
+ */
+typedef enum {
+    MPLayoutHorizontalPositionLeft,
+    MPLayoutHorizontalPositionMiddle,
+    MPLayoutHorizontalPositionRight
+} MPLayoutHorizontalPosition;
 
 /*!
  * @abstract A unique identifier for the layout class.
@@ -52,6 +79,17 @@ typedef enum {
 - (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position;
 
 /*!
+ * @abstract Creates a layout with a specific asset position
+ * @param position A CGRect of percentage-based values that locates the layout content rectangle on the page
+ * @param orientation An MPLayoutOrientation value specifiying the orientation strategy to use
+ * @param shouldRotate Indicates whether to include rotation in the layout logic
+ * @discussion Note that the iOS method CGRectStandardize will be used to ensure positive size values of the asset position rectangle.
+ * @seealso assetPosition
+ * @seealso orientation
+ */
+- (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position shouldRotate:(BOOL)shouldRotate;
+
+/*!
  * @abstract Draws the image onto a content rectangle
  * @param image The image asset to draw
  * @param rect The reference rectangle onto which the image is drawn.
@@ -67,21 +105,6 @@ typedef enum {
  * @discussion The actual reference rectangle used for layout will be computed using the frame of the view passed in with the assetPosition percentages applied.
  */
 - (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView;
-
-/*!
- * @abstract Computes an adjusted content rect
- * @discussion Applies the assetPosition percentages to the given rect to compute a rect with adjusted orign and size.
- */
-- (CGRect)assetPositionForRect:(CGRect)rect;
-
-/*!
- * @abstract Determines of content rotation is required
- * @param contentRect The content rectangle being laid out
- * @param containerRect The container rectangle in which the content is being laid out
- * @discussion Uses the orientation stragey specified in the layout to determine whether or not the content should be rotated.
- * @seealso MPLayoutOrientation
- */
-- (BOOL)rotationNeededForContent:(CGRect)contentRect withContainer:(CGRect)containerRect;
 
 /*!
  * @abstract The asset position that fills the container completely
@@ -117,14 +140,6 @@ typedef enum {
  * @return The best paper orientation for the given image and layout
  */
 + (MPLayoutOrientation)paperOrientationForImage:(UIImage *)image andLayout:(MPLayout *)layout;
-
-/*!
- * @abstract Applies the content position using layout constraints
- * @param frame The desired content position within the container
- * @param contentView The UIView representing the content
- * @param containerView The UIView representing the container
- */
-- (void)applyConstraintsWithFrame:(CGRect)frame toContentView:(UIView *)contentView inContainerView:(UIView *)containerView;
 
 /*!
  * @abstract The adjusted position of the content

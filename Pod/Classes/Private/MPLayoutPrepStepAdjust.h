@@ -10,12 +10,12 @@
 // the license agreement.
 //
 
-#import "MPLayout.h"
-#import "MPLayoutComposite.h"
+#import "MPLayoutPrepStep.h"
 
-/*!
- * @abstract Layout intended to best fill the paper, with no stretching, but crop if necessary.
- */
-@interface MPLayoutFill : MPLayoutComposite
+@interface MPLayoutPrepStepAdjust : MPLayoutPrepStep
+
+@property (assign, nonatomic, readonly) CGRect adjustment;
+
+- (id)initWithAdjustment:(CGRect)adjustment;
 
 @end

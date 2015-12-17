@@ -10,12 +10,12 @@
 // the license agreement.
 //
 
-#import "MPLayout.h"
-#import "MPLayoutComposite.h"
+#import "MPLayoutPrepStep.h"
 
-/*!
- * @abstract Layout intended to best fill the paper, with no stretching, but crop if necessary.
- */
-@interface MPLayoutFill : MPLayoutComposite
+@interface MPLayoutPrepStepRotate : MPLayoutPrepStep
+
+@property (assign, nonatomic, readonly) MPLayoutOrientation orientation;
+
+- (id)initWithOrientation:(MPLayoutOrientation)orientation;
 
 @end

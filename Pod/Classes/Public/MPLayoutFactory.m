@@ -18,12 +18,17 @@
 
 @implementation MPLayoutFactory
 
-NSString * const kMPLayoutTypeKey = @"kMPLayoutTypeKey";
-NSString * const kMPLayoutOrientationKey = @"kMPLayoutOrientationKey";
-NSString * const kMPLayoutPositionKey = @"kMPLayoutPositionKey";
-NSString * const kMPLayoutAllowRotationKey = @"kMPLayoutAllowRotationKey";
+static NSString * const kMPLayoutKey = @"kMPLayoutKey";
+static NSString * const kMPLayoutTypeKey = @"kMPLayoutTypeKey";
+static NSString * const kMPLayoutOrientationKey = @"kMPLayoutOrientationKey";
+static NSString * const kMPLayoutPositionKey = @"kMPLayoutPositionKey";
+static NSString * const kMPLayoutAllowRotationKey = @"kMPLayoutAllowRotationKey";
+
 NSString * const kMPLayoutBorderInchesKey = @"kMPLayoutBorderInchesKey";
 NSString * const kMPLayoutAssetPositionKey = @"kMPLayoutAssetPositionKey";
+NSString * const kMPLayoutHorizontalPositionKey = @"kMPLayoutHorizontalPositionKey";
+NSString * const kMPLayoutVerticalPositionKey = @"kMPLayoutVerticalPositionKey";
+NSString * const kMPLayoutShouldRotateKey = @"kMPLayoutShouldRotateKey";
 
 static NSMutableArray *factoryDelegates = nil;
 
@@ -49,17 +54,25 @@ static NSMutableArray *factoryDelegates = nil;
                    orientation:(MPLayoutOrientation)orientation
                  assetPosition:(CGRect)assetPosition
 {
+    return [self layoutWithType:layoutType orientation:orientation assetPosition:assetPosition shouldRotate:YES];
+}
+
++ (MPLayout *)layoutWithType:(NSString *)layoutType
+                 orientation:(MPLayoutOrientation)orientation
+               assetPosition:(CGRect)assetPosition
+                shouldRotate:(BOOL)shouldRotate
+{
     MPLayout *layout = nil;
     
     if ([[MPLayoutFill layoutType] isEqualToString:layoutType] || nil == layoutType) {
-        layout = [[MPLayoutFill alloc] initWithOrientation:orientation assetPosition:assetPosition];
+        layout = [[MPLayoutFill alloc] initWithOrientation:orientation assetPosition:assetPosition shouldRotate:shouldRotate];
     } else if ([[MPLayoutFit layoutType] isEqualToString:layoutType]) {
-        MPLayoutFit *layoutFit = [[MPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition];
+        MPLayoutFit *layoutFit = [[MPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition shouldRotate:shouldRotate];
         layoutFit.horizontalPosition = MPLayoutHorizontalPositionMiddle;
         layoutFit.verticalPosition = MPLayoutVerticalPositionMiddle;
         layout = layoutFit;
     } else if ([[MPLayoutStretch layoutType] isEqualToString:layoutType]) {
-        layout = [[MPLayoutStretch alloc] initWithOrientation:orientation assetPosition:assetPosition];
+        layout = [[MPLayoutStretch alloc] initWithOrientation:orientation assetPosition:assetPosition shouldRotate:shouldRotate];
     } else {
         if( nil != factoryDelegates) {
             for (id<MPLayoutFactoryDelegate> delegate in factoryDelegates) {
@@ -67,7 +80,7 @@ static NSMutableArray *factoryDelegates = nil;
                     layout = [delegate layoutWithType:layoutType
                                           orientation:orientation
                                         assetPosition:assetPosition
-                                 ];
+                              ];
                     if (layout) {
                         break;
                     }
@@ -92,14 +105,20 @@ static NSMutableArray *factoryDelegates = nil;
     if ([[MPLayoutFit layoutType] isEqualToString:layoutType]) {
     
         CGRect assetPosition = [MPLayout completeFillRectangle];
+        BOOL shouldRotate = YES;
         if (layoutOptions) {
             NSDictionary *assetPositionDictionary = [layoutOptions objectForKey:kMPLayoutAssetPositionKey];
             if (assetPositionDictionary) {
                 CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)assetPositionDictionary, &assetPosition);
             }
+            
+            NSNumber *shouldRotateValue = [layoutOptions objectForKey:kMPLayoutShouldRotateKey];
+            if (shouldRotateValue) {
+                shouldRotate = [shouldRotateValue boolValue];
+            }
         }
         
-        MPLayoutFit *layoutFit = [[MPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition];
+        MPLayoutFit *layoutFit = [[MPLayoutFit alloc] initWithOrientation:orientation assetPosition:assetPosition shouldRotate:shouldRotate];
         
         if( nil != layoutOptions ) {
             if( [layoutOptions objectForKey:kMPLayoutHorizontalPositionKey] ) {
@@ -146,17 +165,21 @@ static NSMutableArray *factoryDelegates = nil;
 
 + (void)encodeLayout:(MPLayout *)layout WithCoder:(NSCoder *)encoder
 {
-    NSString *type = NSStringFromClass([layout class]);
-
-    [encoder encodeObject:type forKey:kMPLayoutTypeKey];
-    [encoder encodeObject:[NSNumber numberWithInt:layout.orientation] forKey:kMPLayoutOrientationKey];
-    [encoder encodeCGRect:layout.assetPosition forKey:kMPLayoutPositionKey];
-    [encoder encodeFloat:layout.borderInches forKey:kMPLayoutBorderInchesKey];
-
-    if( [MPLayoutFit layoutType] == type ) {
-        MPLayoutFit *layoutFit = (MPLayoutFit*)layout;
-        [encoder encodeObject:[NSNumber numberWithInt:layoutFit.horizontalPosition] forKey:kMPLayoutHorizontalPositionKey];
-        [encoder encodeObject:[NSNumber numberWithInt:layoutFit.verticalPosition] forKey:kMPLayoutVerticalPositionKey];
+    if ([layout isKindOfClass:[MPLayoutComposite class]]) {
+        [encoder encodeObject:layout forKey:kMPLayoutKey];
+    } else {
+        NSString *type = NSStringFromClass([layout class]);
+        
+        [encoder encodeObject:type forKey:kMPLayoutTypeKey];
+        [encoder encodeObject:[NSNumber numberWithInt:layout.orientation] forKey:kMPLayoutOrientationKey];
+        [encoder encodeCGRect:layout.assetPosition forKey:kMPLayoutPositionKey];
+        [encoder encodeFloat:layout.borderInches forKey:kMPLayoutBorderInchesKey];
+        
+        if( [MPLayoutFit layoutType] == type ) {
+            MPLayoutFit *layoutFit = (MPLayoutFit*)layout;
+            [encoder encodeObject:[NSNumber numberWithInt:layoutFit.horizontalPosition] forKey:kMPLayoutHorizontalPositionKey];
+            [encoder encodeObject:[NSNumber numberWithInt:layoutFit.verticalPosition] forKey:kMPLayoutVerticalPositionKey];
+        }
     }
 
 }
@@ -167,7 +190,9 @@ static NSMutableArray *factoryDelegates = nil;
     NSString *layoutType;
     id rawType = [decoder containsValueForKey:kMPLayoutTypeKey] ? [decoder decodeObjectForKey:kMPLayoutTypeKey] : nil;
     
-    if( nil != rawType ) {
+    if (nil == rawType) {
+        layout = [decoder decodeObjectForKey:kMPLayoutKey];
+    } else {
         // backward compatibility
         if( [rawType isKindOfClass:[NSNumber class]] ) {
             int type = [rawType intValue];
