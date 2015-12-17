@@ -14,8 +14,15 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import <MPLayoutFactory.h>
+#import "MPLayoutAlgorithmFit.h"
 #import <MPLogger.h>
 #import <OCMock/OCMock.h>
+
+@interface MPLayoutFit (private)
+
+@property (strong, nonatomic) MPLayoutAlgorithm *algorithm;
+
+@end
 
 @interface MPLayoutFitTest : XCTestCase
 
@@ -150,6 +157,26 @@
              imageSize:imageSize
          containerSize:containerSize
           expectedRect:CGRectMake(reduction / 2.0, 0, imageSize.height, imageSize.width)];
+}
+
+- (void)testHorizontalPositionProperty
+{
+    MPLayoutFit *fitLayout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType]];
+    fitLayout.horizontalPosition = MPLayoutHorizontalPositionLeft;
+    MPLayoutAlgorithmFit *fitAlgorithm = (MPLayoutAlgorithmFit *)fitLayout.algorithm;
+    XCTAssert(
+              MPLayoutHorizontalPositionLeft == fitAlgorithm.horizontalPosition,
+              @"Expected algorithm horizontal position to change when property changes");
+}
+
+- (void)testVerticalPositionProperty
+{
+    MPLayoutFit *fitLayout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType]];
+    fitLayout.verticalPosition = MPLayoutVerticalPositionTop;
+    MPLayoutAlgorithmFit *fitAlgorithm = (MPLayoutAlgorithmFit *)fitLayout.algorithm;
+    XCTAssert(
+              MPLayoutVerticalPositionTop == fitAlgorithm.verticalPosition,
+              @"Expected algorithm vertical position to change when property changes");
 }
 
 @end

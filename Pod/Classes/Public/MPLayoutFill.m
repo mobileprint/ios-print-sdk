@@ -15,12 +15,6 @@
 #import "MPLayoutPrepStepRotate.h"
 #import "MPLayoutAlgorithmFill.h"
 
-@interface MPLayoutComposite (protected)
-
-@property (strong, nonatomic) MPLayoutAlgorithm *algorithm;
-
-@end
-
 @interface MPLayoutFill()
 
 @property (strong, nonatomic, readonly) MPLayoutPrepStepRotate *rotateStep;

@@ -15,12 +15,6 @@
 #import "MPLayoutPrepStepRotate.h"
 #import "MPLayoutAlgorithmStretch.h"
 
-@interface MPLayoutComposite (protected)
-
-@property (strong, nonatomic) MPLayoutAlgorithm *algorithm;
-
-@end
-
 @interface MPLayoutStretch()
 
 @property (strong, nonatomic, readonly) MPLayoutPrepStepAdjust *adjustStep;

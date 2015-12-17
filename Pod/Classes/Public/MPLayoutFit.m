@@ -65,7 +65,7 @@
     self.algorithm = algorithm;
 }
 
-- (void)setVeritcalPosition:(MPLayoutVerticalPosition)verticalPosition
+- (void)setVerticalPosition:(MPLayoutVerticalPosition)verticalPosition
 {
     _verticalPosition = verticalPosition;
     MPLayoutAlgorithmFit *algorithm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:_horizontalPosition andVerticalPosition:_verticalPosition];
