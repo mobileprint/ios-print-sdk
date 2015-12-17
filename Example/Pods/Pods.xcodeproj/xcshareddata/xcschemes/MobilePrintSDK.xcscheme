@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '80310A56F2756CB2642B1167'
+               BlueprintIdentifier = '45DFF90C1E6DAA23A4DEBACD'
                BlueprintName = 'MobilePrintSDK'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libMobilePrintSDK.a'>
