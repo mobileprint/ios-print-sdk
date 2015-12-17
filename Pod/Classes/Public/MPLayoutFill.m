@@ -37,7 +37,7 @@
     MPLayoutAlgorithmFill *algorithm = [[MPLayoutAlgorithmFill alloc] init];
     
     _rotateStep = [[MPLayoutPrepStepRotate alloc] initWithOrientation:orientation];
-    NSArray<MPLayoutPrepStep *> *prepSteps = shouldRotate ? @[ _rotateStep ] : @[];
+    NSArray *prepSteps = shouldRotate ? @[ _rotateStep ] : @[];
 
     return self = [super initWithAlgorithm:algorithm andPrepSteps:prepSteps];
 }
