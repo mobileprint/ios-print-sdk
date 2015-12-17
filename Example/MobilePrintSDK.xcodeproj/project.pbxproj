@@ -148,6 +148,7 @@
 		651039B51B73FAA10013E738 /* 15 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "15 Pages.pdf"; sourceTree = "<group>"; };
 		651039B61B73FAA10013E738 /* 115 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "115 Pages.pdf"; sourceTree = "<group>"; };
 		651039B71B73FAA10013E738 /* 236 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "236 Pages.pdf"; sourceTree = "<group>"; };
+		65104BCB1C2360C60013C89D /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		651357871B4C7BEE003B6935 /* MPSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSettingsTableViewController.h; sourceTree = "<group>"; };
 		651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSettingsTableViewController.m; sourceTree = "<group>"; };
 		6531EB3C1B30C85700412BBF /* MPMultiPageConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMultiPageConfigurationViewController.h; sourceTree = "<group>"; };
@@ -380,6 +381,7 @@
 				B6412EFA41C9FD7C470C1D44 /* MobilePrintSDK.podspec */,
 				0FABBD395BD676FF962B7E9B /* README.md */,
 				F081076366F4C76425844536 /* LICENSE */,
+				65104BCB1C2360C60013C89D /* CHANGELOG.md */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
