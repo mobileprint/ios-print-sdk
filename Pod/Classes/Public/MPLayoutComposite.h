@@ -15,6 +15,6 @@
 
 @interface MPLayoutComposite : MPLayout <NSCoding>
 
-- (id)initWithAlgorithm:(MPLayoutAlgorithm *)algorithm andPrepSteps:(NSArray<MPLayoutPrepStep *> *)prepSteps;
+- (id)initWithAlgorithm:(MPLayoutAlgorithm *)algorithm andPrepSteps:(NSArray *)prepSteps;
 
 @end

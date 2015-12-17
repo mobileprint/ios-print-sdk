@@ -35,7 +35,7 @@
     
     _adjustStep = [[MPLayoutPrepStepAdjust alloc] initWithAdjustment:position];
     _rotateStep = [[MPLayoutPrepStepRotate alloc] initWithOrientation:orientation];
-    NSArray<MPLayoutPrepStep *> *prepSteps = shouldRotate ? @[ _adjustStep, _rotateStep ] : @[ _adjustStep ];
+    NSArray *prepSteps = shouldRotate ? @[ _adjustStep, _rotateStep ] : @[ _adjustStep ];
 
     return self = [super initWithAlgorithm:algorithm andPrepSteps:prepSteps];
 }

@@ -15,7 +15,7 @@
 @interface MPLayoutComposite()
 
 @property (strong, nonatomic) MPLayoutAlgorithm *algorithm;
-@property (strong, nonatomic) NSArray<MPLayoutPrepStep *> *prepSteps;
+@property (strong, nonatomic) NSArray *prepSteps;
 
 @end
 
@@ -23,7 +23,7 @@
 
 #pragma mark - Initialization
 
-- (id)initWithAlgorithm:(MPLayoutAlgorithm *)algorithm andPrepSteps:(NSArray<MPLayoutPrepStep *> *)prepSteps
+- (id)initWithAlgorithm:(MPLayoutAlgorithm *)algorithm andPrepSteps:(NSArray *)prepSteps
 {
     self = [super init];
     
