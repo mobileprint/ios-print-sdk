@@ -21,7 +21,7 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import "MPLayoutFactory.h"
 
-NSString * const kMPLibraryVersion = @"3.0.0";
+NSString * const kMPLibraryVersion = @"3.0.1";
 
 NSString * const kLaterActionIdentifier = @"LATER_ACTION_IDENTIFIER";
 NSString * const kPrintActionIdentifier = @"PRINT_ACTION_IDENTIFIER";
@@ -148,7 +148,32 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 
 #pragma mark - Getter methods
 
-- (UIViewController *)printViewControllerWithDelegate:(id<MPPrintDelegate>)delegate dataSource:(id<MPPrintDataSource>)dataSource printItem:(MPPrintItem *)printItem fromQueue:(BOOL)fromQueue settingsOnly:(BOOL)settingsOnly;
+- (UIViewController *)printViewControllerWithDelegate:(id<MPPrintDelegate>)delegate
+                                           dataSource:(id<MPPrintDataSource>)dataSource
+                                       printLaterJobs: (NSArray *)printLaterJobs
+                                            fromQueue:(BOOL)fromQueue
+                                         settingsOnly:(BOOL)settingsOnly;
+{
+    MPPrintLaterJob *firstJob = printLaterJobs[0];
+    
+    MPPrintItem *printItem = [firstJob.printItems objectForKey:[MPPaper titleFromSize:[MP sharedInstance].defaultPaper.paperSize]];
+    printItem.extra = firstJob.extra;
+    
+    UIViewController *vc = [self printViewControllerWithDelegate:delegate dataSource:dataSource printItem:printItem fromQueue:fromQueue settingsOnly:settingsOnly];
+    
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+        ((MPPageSettingsTableViewController *)((UINavigationController *)vc).viewControllers[0]).printLaterJobs = printLaterJobs;
+    }
+    // split controller case
+    
+    return vc;
+}
+
+- (UIViewController *)printViewControllerWithDelegate:(id<MPPrintDelegate>)delegate
+                                           dataSource:(id<MPPrintDataSource>)dataSource
+                                            printItem:(MPPrintItem *)printItem
+                                            fromQueue:(BOOL)fromQueue
+                                         settingsOnly:(BOOL)settingsOnly;
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle mainBundle]];
     
@@ -247,12 +272,12 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
         UINavigationController *previewNavigationController = (UINavigationController *)((UISplitViewController *)vc).viewControllers[1];
         previewViewController = (MPPageSettingsTableViewController *)previewNavigationController.topViewController;
         previewViewController.mode = MPPageSettingsModeAddToQueue;
-        previewViewController.printLaterJob = printLaterJob;
+        previewViewController.printLaterJobs =  [[NSArray alloc] initWithObjects:printLaterJob, nil];
     } else {
         pageSettingsTableViewController = (MPPageSettingsTableViewController *)vc;
     }
     
-    pageSettingsTableViewController.printLaterJob = printLaterJob;
+    pageSettingsTableViewController.printLaterJobs =  [[NSArray alloc] initWithObjects:printLaterJob, nil];
     pageSettingsTableViewController.printLaterDelegate = delegate;
     pageSettingsTableViewController.mode = MPPageSettingsModeAddToQueue;
     

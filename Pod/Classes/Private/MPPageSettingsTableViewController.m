@@ -136,6 +136,8 @@
 @property (assign, nonatomic) BOOL editing;
 @property (weak, nonatomic) IBOutlet UIView *headerInactivityView;
 
+@property (assign, nonatomic) NSInteger currentPrintJob;
+
 @end
 
 @implementation MPPageSettingsTableViewController
@@ -155,6 +157,8 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.currentPrintJob = 0;
     
     if( nil == self.delegateManager ) {
         self.delegateManager = [[MPPrintSettingsDelegateManager alloc] init];
@@ -355,13 +359,14 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
         }
     }
     
-    if( self.printLaterJob ) {
+    MPPrintLaterJob *printLaterJob = self.printLaterJobs[self.currentPrintJob];
+    if( printLaterJob ) {
         if( MPPageSettingsModeAddToQueue != self.mode ) {
-            self.delegateManager.pageRange = self.printLaterJob.pageRange;
-            self.delegateManager.blackAndWhite = self.printLaterJob.blackAndWhite;
-            self.delegateManager.numCopies = self.printLaterJob.numCopies;
+            self.delegateManager.pageRange = printLaterJob.pageRange;
+            self.delegateManager.blackAndWhite = printLaterJob.blackAndWhite;
+            self.delegateManager.numCopies = printLaterJob.numCopies;
         }
-        self.delegateManager.jobName = self.printLaterJob.name;
+        self.delegateManager.jobName = printLaterJob.name;
     }
     
     if( MPPageSettingsDisplayTypePreviewPane == self.displayType ) {
@@ -506,8 +511,9 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
                 }
             }];
         } else {
-            if( nil != self.printLaterJob ) {
-                self.printItem = [self.printLaterJob printItemForPaperSize:self.delegateManager.paper.sizeTitle];
+            MPPrintLaterJob *printLaterJob = self.printLaterJobs[self.currentPrintJob];
+            if( nil != printLaterJob ) {
+                self.printItem = [printLaterJob printItemForPaperSize:self.delegateManager.paper.sizeTitle];
             }
 
             [self configureMultiPageViewWithPrintItem:self.printItem];
@@ -1343,18 +1349,19 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 
 - (void) addJobToPrintQueue
 {
-    self.printLaterJob.pageRange = self.delegateManager.pageRange;
-    self.printLaterJob.name = self.delegateManager.jobName;
-    self.printLaterJob.numCopies = self.delegateManager.numCopies;
-    self.printLaterJob.blackAndWhite = self.delegateManager.blackAndWhite;
+    MPPrintLaterJob *printLaterJob = self.printLaterJobs[self.currentPrintJob];
+    printLaterJob.pageRange = self.delegateManager.pageRange;
+    printLaterJob.name = self.delegateManager.jobName;
+    printLaterJob.numCopies = self.delegateManager.numCopies;
+    printLaterJob.blackAndWhite = self.delegateManager.blackAndWhite;
     
     NSString *titleForInitialPaperSize = [MPPaper titleFromSize:[MP sharedInstance].defaultPaper.paperSize];
-    MPPrintItem *printItem = [self.printLaterJob.printItems objectForKey:titleForInitialPaperSize];
+    MPPrintItem *printItem = [printLaterJob.printItems objectForKey:titleForInitialPaperSize];
     
     if (printItem == nil) {
         MPLogError(@"At least the printing item for the initial paper size (%@) must be provided", titleForInitialPaperSize);
     } else {
-        BOOL result = [[MPPrintLaterQueue sharedInstance] addPrintLaterJob:self.printLaterJob fromController:self];
+        BOOL result = [[MPPrintLaterQueue sharedInstance] addPrintLaterJob:printLaterJob fromController:self];
         
         if (result) {
             if ([self.printLaterDelegate respondsToSelector:@selector(didFinishAddPrintLaterFlow:)]) {
@@ -1638,7 +1645,16 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 {
     UIImage *image = nil;
     
-    if( pageNumber <= self.printItem.numberOfPages ) {
+    NSInteger numPrintLaterJobs = [self.printLaterJobs count];
+    if (numPrintLaterJobs > 1) {
+        if (pageNumber > 0  &&  pageNumber <= numPrintLaterJobs) {
+            self.currentPrintJob = pageNumber - 1;
+            MPPrintLaterJob *printLaterJob = self.printLaterJobs[self.currentPrintJob];
+            MPPrintItem *printItem = [printLaterJob.printItems objectForKey:self.delegateManager.printSettings.paper.sizeTitle];
+            
+            image = [printItem previewImageForPage:pageNumber paper:self.delegateManager.printSettings.paper];
+        }
+    } else if( pageNumber <= self.printItem.numberOfPages ) {
         image = [self.printItem previewImageForPage:pageNumber paper:self.delegateManager.printSettings.paper];
     }
     return image;
