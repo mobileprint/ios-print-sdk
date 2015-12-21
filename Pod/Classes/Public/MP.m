@@ -306,4 +306,12 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return [[MPWiFiReachability sharedInstance] isWifiConnected];
 }
 
+#pragma mark - Print library version 
+
+// This private method exists so it can be swizzled for testing. See MP+PrintLibraryVersion.h/m
+- (NSString *)printLibraryVersion
+{
+    return kMPLibraryVersion;
+}
+
 @end
