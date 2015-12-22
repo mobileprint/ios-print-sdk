@@ -138,8 +138,40 @@ Feature: Select item and add to print queue
     And I wait for some seconds
     Then I touch "Print"
     
-		
+	        
+  @reset
+  @done
+  @TA12558
+   Scenario: Verify name edited on Print Queue screen
+    Given I am on the "PrintPod" screen
+    Then I add "1" job to print queue
+    Then I verify names displayed in Print Queue screen
+    And I touch "Delete" button
+    And I verify warning message displayed
+    And I touch "Delete"
+	
+  @reset
+  @done
+  @TA12558
+   Scenario: Verify multiple item deletion from print queue
+    Given I am on the "PrintPod" screen
+     Then I add "2" job to print queue
+    Then I verify names displayed in Print Queue screen
+    And I touch "Select All" button
+    And I touch "Delete" button
+    And I verify warning message displayed
+    And I touch "Delete"
     
-    
-
-  
+  @reset
+  @done
+  @TA12558
+  Scenario: Verify item names and item deletion from print queue
+    Given I am on the "PrintPod" screen
+    Then I add "3" job to print queue
+    Then I verify names displayed in Print Queue screen
+    And I "Select" a job
+    And I touch "Delete" button
+    And I verify warning message displayed
+    And I touch "Delete"
+    And I check selected job name is deleted
+   

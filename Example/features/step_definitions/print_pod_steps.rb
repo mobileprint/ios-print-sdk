@@ -28,3 +28,5 @@ Then(/^I select "(.*?)" as border type$/) do |border_type|
         macro %Q|I touch "#{border_type}"|
     end
 end
+
+
