@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0710"
+   LastUpgradeVersion = "0720"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B627D636BD0D51F8A9B01C6983D0E2D7"
+               BlueprintIdentifier = "DF04BF48CDA20F86CB065DEE5D685D47"
                BuildableName = "libMobilePrintSDK.a"
                BlueprintName = "MobilePrintSDK"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B627D636BD0D51F8A9B01C6983D0E2D7"
+            BlueprintIdentifier = "DF04BF48CDA20F86CB065DEE5D685D47"
             BuildableName = "libMobilePrintSDK.a"
             BlueprintName = "MobilePrintSDK"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -11,10 +11,11 @@
 //
 
 #import "MPLayout.h"
+#import "MPLayoutComposite.h"
 
 /*!
  * @abstract Layout intended to best fill the paper, with no cropping, but stretch if necessary.
  */
-@interface MPLayoutStretch : MPLayout
+@interface MPLayoutStretch : MPLayoutComposite
 
 @end

@@ -46,6 +46,8 @@
 		658840E21BFE437A001B178D /* 1397 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 658840E01BFE437A001B178D /* 1397 Pages.pdf */; };
 		65B3A9541B82989700ED76DD /* MPExperimentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B3A9531B82989700ED76DD /* MPExperimentManager.m */; };
 		65C0652E1B0BF26200E56D83 /* MPSelectPrintItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C0652D1B0BF26200E56D83 /* MPSelectPrintItemTableViewController.m */; };
+		65CD326F1C287CD200246B6E /* MP+PrintLibraryVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD326E1C287CD200246B6E /* MP+PrintLibraryVersion.m */; };
+		65CD32701C287CD200246B6E /* MP+PrintLibraryVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD326E1C287CD200246B6E /* MP+PrintLibraryVersion.m */; };
 		65DC4A811BD596E90004F903 /* MPLayoutFillTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DC4A801BD596E90004F903 /* MPLayoutFillTest.m */; };
 		65DC4A831BD5A8D90004F903 /* MPPrintItemPDFTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DC4A821BD5A8D90004F903 /* MPPrintItemPDFTest.m */; };
 		65DC4A841BD5A9A00004F903 /* 1 Page.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AE1B03B0A400DCE2B4 /* 1 Page.pdf */; };
@@ -61,6 +63,7 @@
 		78cd8fb9b1bee9474f0c1617 /* 115 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B61B73FAA10013E738 /* 115 Pages.pdf */; };
 		7d9d68fa6acc2cb2dcaeabfb /* MPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */; };
 		8385D3FA9834DD987A3B752B /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 824DD1CAED53617BFC879B9B /* libPods-Tests.a */; };
+		92BAEA5F1C1F51170033A200 /* MPLayoutFitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */; };
 		93acf3685826df4abe0f66ad /* MPLearnMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DE1A38BCE50079144C /* MPLearnMoreView.m */; };
 		9ee14810a090fa40eec00a4c /* MPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* MPMultiPageConfigurationViewController.m */; };
 		AEBDAE10899722AFD450C051 /* libPods-MobilePrintSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 080854DE6C4D61428EC1D8E8 /* libPods-MobilePrintSDK.a */; };
@@ -69,7 +72,7 @@
 		E32115E11A38BCE50079144C /* MPLearnMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32115DF1A38BCE50079144C /* MPLearnMoreView.xib */; };
 		E35DD5981B0666F400E9BC97 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E35DD5971B0666F400E9BC97 /* MapKit.framework */; };
 		F10BCCCC1B7A53CC001A5F3B /* MPDirectPrintTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F10BCCCB1B7A53CC001A5F3B /* MPDirectPrintTest.m */; };
-		F10C7EBB1BE1808400ACB162 /* MPLayoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F10C7EBA1BE1808400ACB162 /* MPLayoutTest.m */; };
+		F10C7EBB1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F10C7EBA1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m */; };
 		F16A57BA1AF2B0EA00F7265E /* MPExampleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F16A57B91AF2B0EA00F7265E /* MPExampleLogger.m */; };
 		F1998AF51B6808BD00E5320F /* MPPageRangeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F1998AF41B6808BD00E5320F /* MPPageRangeTest.m */; };
 		F1B2023F1B7E970D00912E0B /* MPPrintSettingsDelegateManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B2023E1B7E970D00912E0B /* MPPrintSettingsDelegateManagerTest.m */; };
@@ -147,6 +150,7 @@
 		651039B51B73FAA10013E738 /* 15 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "15 Pages.pdf"; sourceTree = "<group>"; };
 		651039B61B73FAA10013E738 /* 115 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "115 Pages.pdf"; sourceTree = "<group>"; };
 		651039B71B73FAA10013E738 /* 236 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "236 Pages.pdf"; sourceTree = "<group>"; };
+		65104BCB1C2360C60013C89D /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		651357871B4C7BEE003B6935 /* MPSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSettingsTableViewController.h; sourceTree = "<group>"; };
 		651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSettingsTableViewController.m; sourceTree = "<group>"; };
 		6531EB3C1B30C85700412BBF /* MPMultiPageConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMultiPageConfigurationViewController.h; sourceTree = "<group>"; };
@@ -161,6 +165,8 @@
 		65B3A9531B82989700ED76DD /* MPExperimentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPExperimentManager.m; sourceTree = "<group>"; };
 		65C0652C1B0BF26200E56D83 /* MPSelectPrintItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSelectPrintItemTableViewController.h; sourceTree = "<group>"; };
 		65C0652D1B0BF26200E56D83 /* MPSelectPrintItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSelectPrintItemTableViewController.m; sourceTree = "<group>"; };
+		65CD326D1C287CD200246B6E /* MP+PrintLibraryVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MP+PrintLibraryVersion.h"; sourceTree = "<group>"; };
+		65CD326E1C287CD200246B6E /* MP+PrintLibraryVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MP+PrintLibraryVersion.m"; sourceTree = "<group>"; };
 		65DC4A801BD596E90004F903 /* MPLayoutFillTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFillTest.m; sourceTree = "<group>"; };
 		65DC4A821BD5A8D90004F903 /* MPPrintItemPDFTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemPDFTest.m; sourceTree = "<group>"; };
 		65F44B5A1BD02D4400EF42AB /* MPAnalyticsManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAnalyticsManagerTest.m; sourceTree = "<group>"; };
@@ -173,6 +179,7 @@
 		7337A2AC7BAEB8252FAAC8BB /* Pods-MobilePrintSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.release.xcconfig"; sourceTree = "<group>"; };
 		7d45322c23338821ae339a35 /* CFNetwork.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		824DD1CAED53617BFC879B9B /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFitTest.m; sourceTree = "<group>"; };
 		B4517B52F9E6A6FBAF719728 /* Pods-MobilePrintSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		B6412EFA41C9FD7C470C1D44 /* MobilePrintSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MobilePrintSDK.podspec; path = ../MobilePrintSDK.podspec; sourceTree = "<group>"; };
 		C6C2E8C63C60FC48B6767AD6 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -186,7 +193,7 @@
 		EE7EBCBC7723D10BF4D13C7F /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F081076366F4C76425844536 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F10BCCCB1B7A53CC001A5F3B /* MPDirectPrintTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPDirectPrintTest.m; sourceTree = "<group>"; };
-		F10C7EBA1BE1808400ACB162 /* MPLayoutTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutTest.m; sourceTree = "<group>"; };
+		F10C7EBA1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStepRotateTest.m; sourceTree = "<group>"; };
 		F16A57B81AF2B0EA00F7265E /* MPExampleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPExampleLogger.h; sourceTree = "<group>"; };
 		F16A57B91AF2B0EA00F7265E /* MPExampleLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPExampleLogger.m; sourceTree = "<group>"; };
 		F1998AF41B6808BD00E5320F /* MPPageRangeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPageRangeTest.m; sourceTree = "<group>"; };
@@ -269,6 +276,8 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
+				65CD326D1C287CD200246B6E /* MP+PrintLibraryVersion.h */,
+				65CD326E1C287CD200246B6E /* MP+PrintLibraryVersion.m */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* MobilePrintSDK */,
 				6003F5B5195388D20070C39A /* Tests */,
@@ -349,7 +358,8 @@
 			children = (
 				65F44B5A1BD02D4400EF42AB /* MPAnalyticsManagerTest.m */,
 				F10BCCCB1B7A53CC001A5F3B /* MPDirectPrintTest.m */,
-				F10C7EBA1BE1808400ACB162 /* MPLayoutTest.m */,
+				F10C7EBA1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m */,
+				92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */,
 				65DC4A801BD596E90004F903 /* MPLayoutFillTest.m */,
 				F1998AF41B6808BD00E5320F /* MPPageRangeTest.m */,
 				6565921E1BB5EB6B00A08B22 /* MPPaperTest.m */,
@@ -377,6 +387,7 @@
 				B6412EFA41C9FD7C470C1D44 /* MobilePrintSDK.podspec */,
 				0FABBD395BD676FF962B7E9B /* README.md */,
 				F081076366F4C76425844536 /* LICENSE */,
+				65104BCB1C2360C60013C89D /* CHANGELOG.md */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
@@ -766,6 +777,7 @@
 				b6cc89fff80f565eadaa0b3f /* MPSelectPrintItemTableViewController.m in Sources */,
 				bf4d8b8032cf9fda14ca9f6d /* MPLearnMoreViewController.m in Sources */,
 				7d9d68fa6acc2cb2dcaeabfb /* MPSettingsTableViewController.m in Sources */,
+				65CD32701C287CD200246B6E /* MP+PrintLibraryVersion.m in Sources */,
 				a4c9f7fbac8299f825617050 /* MPAppDelegate.m in Sources */,
 				9ee14810a090fa40eec00a4c /* MPMultiPageConfigurationViewController.m in Sources */,
 				93acf3685826df4abe0f66ad /* MPLearnMoreView.m in Sources */,
@@ -782,6 +794,7 @@
 				65C0652E1B0BF26200E56D83 /* MPSelectPrintItemTableViewController.m in Sources */,
 				E32115DC1A38B9E60079144C /* MPLearnMoreViewController.m in Sources */,
 				651357891B4C7BEE003B6935 /* MPSettingsTableViewController.m in Sources */,
+				65CD326F1C287CD200246B6E /* MP+PrintLibraryVersion.m in Sources */,
 				6003F59E195388D20070C39A /* MPAppDelegate.m in Sources */,
 				6531EB3E1B30C85700412BBF /* MPMultiPageConfigurationViewController.m in Sources */,
 				E32115E01A38BCE50079144C /* MPLearnMoreView.m in Sources */,
@@ -795,10 +808,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92BAEA5F1C1F51170033A200 /* MPLayoutFitTest.m in Sources */,
 				65DC4A811BD596E90004F903 /* MPLayoutFillTest.m in Sources */,
 				F1B2023F1B7E970D00912E0B /* MPPrintSettingsDelegateManagerTest.m in Sources */,
 				658088EF1BB1DACD00B35489 /* MPPrintManagerTest.m in Sources */,
-				F10C7EBB1BE1808400ACB162 /* MPLayoutTest.m in Sources */,
+				F10C7EBB1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m in Sources */,
 				65F44B5B1BD02D4400EF42AB /* MPAnalyticsManagerTest.m in Sources */,
 				6565921F1BB5EB6B00A08B22 /* MPPaperTest.m in Sources */,
 				F1998AF51B6808BD00E5320F /* MPPageRangeTest.m in Sources */,

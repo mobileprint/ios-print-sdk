@@ -10,12 +10,11 @@
 // the license agreement.
 //
 
-#import "MPLayout.h"
-#import "MPLayoutComposite.h"
+#import <MobilePrintSDK/MP.h>
 
-/*!
- * @abstract Layout intended to best fill the paper, with no stretching, but crop if necessary.
- */
-@interface MPLayoutFill : MPLayoutComposite
+@interface MP (PrintLibraryVersion)
+
+- (NSString *)customPrintLibraryVersion;
+- (void)setCustomPrintLibraryVersion:(NSString *)version;
 
 @end

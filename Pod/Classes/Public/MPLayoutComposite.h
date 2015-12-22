@@ -10,12 +10,11 @@
 // the license agreement.
 //
 
-#import "MPLayout.h"
-#import "MPLayoutComposite.h"
+#import "MPLayoutPrepStep.h"
+#import "MPLayoutAlgorithm.h"
 
-/*!
- * @abstract Layout intended to best fill the paper, with no stretching, but crop if necessary.
- */
-@interface MPLayoutFill : MPLayoutComposite
+@interface MPLayoutComposite : MPLayout <NSCoding>
+
+- (id)initWithAlgorithm:(MPLayoutAlgorithm *)algorithm andPrepSteps:(NSArray *)prepSteps;
 
 @end

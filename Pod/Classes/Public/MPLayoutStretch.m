@@ -11,25 +11,43 @@
 //
 
 #import "MPLayoutStretch.h"
-#import "UIImage+MPResize.h"
+#import "MPLayoutPrepStepAdjust.h"
+#import "MPLayoutPrepStepRotate.h"
+#import "MPLayoutAlgorithmStretch.h"
+
+@interface MPLayoutStretch()
+
+@property (strong, nonatomic, readonly) MPLayoutPrepStepAdjust *adjustStep;
+@property (strong, nonatomic, readonly) MPLayoutPrepStepRotate *rotateStep;
+
+@end
 
 @implementation MPLayoutStretch
 
-- (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
+- (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position;
 {
-    UIImage *contentImage = image;
-    CGRect contentRect = CGRectMake(0, 0, image.size.width, image.size.height);
-    CGRect containerRect = [self assetPositionForRect:rect];
-    if ([self rotationNeededForContent:contentRect withContainer:containerRect]) {
-        contentImage = [image MPRotate];
-    }
-    [contentImage drawInRect:containerRect];
+    return [self initWithOrientation:orientation assetPosition:position shouldRotate:YES];
 }
 
-- (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView
+- (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position shouldRotate:(BOOL)shouldRotate
 {
-    CGRect contentRect = [self assetPositionForRect:containerView.bounds];
-    [self applyConstraintsWithFrame:contentRect toContentView:contentView inContainerView:containerView];
+    MPLayoutAlgorithmStretch *algorithm = [[MPLayoutAlgorithmStretch alloc] init];
+    
+    _adjustStep = [[MPLayoutPrepStepAdjust alloc] initWithAdjustment:position];
+    _rotateStep = [[MPLayoutPrepStepRotate alloc] initWithOrientation:orientation];
+    NSArray *prepSteps = shouldRotate ? @[ _adjustStep, _rotateStep ] : @[ _adjustStep ];
+
+    return self = [super initWithAlgorithm:algorithm andPrepSteps:prepSteps];
+}
+
+- (CGRect)assetPosition
+{
+    return self.adjustStep.adjustment;
+}
+
+- (MPLayoutOrientation)orientation
+{
+    return self.rotateStep.orientation;
 }
 
 @end

@@ -10,12 +10,13 @@
 // the license agreement.
 //
 
+#import <Foundation/Foundation.h>
 #import "MPLayout.h"
-#import "MPLayoutComposite.h"
 
-/*!
- * @abstract Layout intended to best fill the paper, with no stretching, but crop if necessary.
- */
-@interface MPLayoutFill : MPLayoutComposite
+@interface MPLayoutPrepStep : NSObject <NSCoding>
+
+- (UIImage *)imageForImage:(UIImage *)image inContainer:(CGRect)containerRect;
+- (CGRect)contentRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect;
+- (CGRect)containerRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect;
 
 @end

@@ -10,12 +10,13 @@
 // the license agreement.
 //
 
-#import "MPLayout.h"
-#import "MPLayoutComposite.h"
+#import "MPLayoutAlgorithm.h"
 
-/*!
- * @abstract Layout intended to best fill the paper, with no stretching, but crop if necessary.
- */
-@interface MPLayoutFill : MPLayoutComposite
+@interface MPLayoutAlgorithmFit : MPLayoutAlgorithm
+
+@property (assign, nonatomic, readonly) MPLayoutHorizontalPosition horizontalPosition;
+@property (assign, nonatomic, readonly) MPLayoutVerticalPosition verticalPosition;
+
+- (id)initWithHorizontalPosition:(MPLayoutHorizontalPosition)horizontalPosition andVerticalPosition:(MPLayoutVerticalPosition)verticalPosition;
 
 @end

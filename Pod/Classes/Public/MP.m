@@ -21,7 +21,7 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import "MPLayoutFactory.h"
 
-NSString * const kMPLibraryVersion = @"3.0.0";
+NSString * const kMPLibraryVersion = @"3.0.1";
 
 NSString * const kLaterActionIdentifier = @"LATER_ACTION_IDENTIFIER";
 NSString * const kPrintActionIdentifier = @"PRINT_ACTION_IDENTIFIER";
@@ -304,6 +304,14 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 - (BOOL)isWifiConnected
 {
     return [[MPWiFiReachability sharedInstance] isWifiConnected];
+}
+
+#pragma mark - Print library version 
+
+// This private method exists so it can be swizzled for testing. See MP+PrintLibraryVersion.h/m
+- (NSString *)printLibraryVersion
+{
+    return kMPLibraryVersion;
 }
 
 @end
