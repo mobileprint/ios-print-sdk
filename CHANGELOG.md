@@ -1,3 +1,8 @@
+#### NOT YET RELEASED
+###### RELEASE DATE
+
+- DE3603: Print queue screen can delete multiple items without crashing
+
 #### 3.0.1
 ###### Thursday December 17, 2015
 
