@@ -458,7 +458,9 @@ NSString * const kJobListScreenName = @"Job List Screen";
 
 - (void)printJobsActionViewDidTapDeleteButton:(MPPrintJobsActionView *)printJobsActionView
 {
-    NSArray *checkMarkedPrintJobs = self.mutableCheckMarkedPrintJobs.copy;
+    NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+    NSMutableArray *checkMarkedPrintJobs = self.mutableCheckMarkedPrintJobs.mutableCopy;
+    [checkMarkedPrintJobs sortUsingDescriptors:@[highestToLowest]];
     
     NSString *message = (checkMarkedPrintJobs.count > 1) ? [NSString stringWithFormat:MPLocalizedString(@"Are you sure you want to delete %d Prints?", nil), checkMarkedPrintJobs.count] : MPLocalizedString(@"Are you sure you want to delete 1 Print?", nil);
     
