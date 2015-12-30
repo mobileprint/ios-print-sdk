@@ -8,7 +8,7 @@ Feature: Select a Print item and print for different border types
     And I scroll screen to find "LAYOUT"
     And I select "<layout_type>" layout type
     Then I touch "<layout_option>"
-    And I scroll screen "down"
+    #And I scroll screen "down"
     And I select "<border_type>" as border type
     And I scroll screen up to find "Print Item"
     And I touch "Print Item"
