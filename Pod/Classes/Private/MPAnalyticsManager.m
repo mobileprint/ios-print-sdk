@@ -18,6 +18,13 @@
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <CommonCrypto/CommonDigest.h>
 
+@interface MP()
+
+// expose this private method only to the private MPAnalyticsManager class
+- (NSString *)printLibraryVersion;
+
+@end
+
 NSString * const kMPMetricsServer = @"print-metrics-w1.twosmiles.com/api/v1/mobile_app_metrics";
 NSString * const kMPMetricsServerTestBuilds = @"print-metrics-test.twosmiles.com/api/v1/mobile_app_metrics";
 //NSString * const kMPMetricsServerTestBuilds = @"localhost:4567/api/v1/mobile_app_metrics"; // use for local testing
@@ -93,6 +100,7 @@ NSString * const kMPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
     NSString *osVersion = [[UIDevice currentDevice] systemVersion];
     NSString *displayName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
     NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *printLibraryVersion = [MP sharedInstance].printLibraryVersion;
     NSDictionary *metrics = @{
                               kMPMetricsDeviceBrand : [self nonNullString:kMPManufacturer],
                               kMPMetricsDeviceID : [self nonNullString:[self userUniqueIdentifier]],
@@ -103,7 +111,7 @@ NSString * const kMPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
                               kMPMetricsProductID : [self nonNullString:bundleID],
                               kMPMetricsProductName : [self nonNullString:displayName],
                               kMPMetricsVersion : [self nonNullString:completeVersion],
-                              kMPMetricsPrintLibraryVersion :kMPLibraryVersion,
+                              kMPMetricsPrintLibraryVersion :[self nonNullString:printLibraryVersion],
                               kMPMetricsWiFiSSID : [MPAnalyticsManager wifiName],
                               kMPMetricsCountryCode : [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode],
                               kMPMetricsLanguageCode : [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode],

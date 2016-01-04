@@ -13,6 +13,7 @@
 #import "MPSettingsTableViewController.h"
 #import "MPSelectPrintItemTableViewController.h"
 #import "MPExperimentManager.h"
+#import "MP+PrintLibraryVersion.h"
 #import <MP.h>
 #import <MPLayoutFactory.h>
 #import <MPPrintItemFactory.h>
@@ -70,6 +71,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITableViewCell *configurePrintCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printPreviewCell;
 @property (weak, nonatomic) IBOutlet UISwitch *cancelButtonPositionLeft;
+@property (weak, nonatomic) IBOutlet UITextField *customLibraryVersionTextField;
 
 @end
 
@@ -677,6 +679,8 @@ NSInteger const kLengthOfSHA = 7;
 
 - (void)doActivityWithPrintItem:(MPPrintItem *)printItem
 {
+    [self setCustomLibraryVersion];
+    
     self.printItem = printItem;
     if (Share == self.action) {
         [self shareItem];
@@ -1154,6 +1158,14 @@ BOOL const kLabelPaperTypePhoto = NO;
             result[8], result[9], result[10], result[11],
             result[12], result[13], result[14], result[15]
             ];
+}
+
+#pragma mark - Custom library version
+
+- (void)setCustomLibraryVersion
+{
+    NSString *version = [self.customLibraryVersionTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [MP sharedInstance].customPrintLibraryVersion = [version length] > 0 ? version : nil;
 }
 
 @end
