@@ -528,7 +528,19 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 
 - (BOOL)showPageRange
 {
-    return self.printItem.numberOfPages > 1;
+    BOOL showPageRange = NO;
+    
+    if (self.printLaterJobs) {
+        MPPrintLaterJob *job = self.printLaterJobs[self.multiPageView.currentPage-1];
+        MPPrintItem *item = [job.printItems objectForKey:self.delegateManager.printSettings.paper.sizeTitle];
+        if (item.numberOfPages > 1) {
+            showPageRange = YES;
+        }
+    } else {
+        showPageRange = self.printItem.numberOfPages > 1;
+    }
+    
+    return showPageRange;
 }
 
 // Hide or show UI that will always be hidden or shown based on the iOS version
@@ -1153,8 +1165,6 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
                nil == self.printItem) {
         return 0;
 
-    } else if (PAGE_RANGE_SECTION == section && ![self showPageRange]) {
-        return 0;
     } else if (NUMBER_OF_COPIES_SECTION == section && !IS_OS_8_OR_LATER) {
         return 0;
     }
@@ -1261,7 +1271,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
                         height = PRINTER_WARNING_SECTION_FOOTER_HEIGHT;
                     }
                 }
-            } else if (section == PAGE_RANGE_SECTION) {
+            } else if (section == PAGE_RANGE_SECTION  &&  [self showPageRange]) {
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
             }
             else if (IS_OS_8_OR_LATER && (section == NUMBER_OF_COPIES_SECTION)) {
