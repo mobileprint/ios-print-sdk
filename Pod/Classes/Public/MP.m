@@ -138,11 +138,13 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 - (void)handleShareCompletedNotification:(NSNotification *)notification
 {
     NSString *offramp = [notification.userInfo objectForKey:kMPOfframpKey];
-    if ([MPPrintManager printingOfframp:offramp]  && self.handlePrintMetricsAutomatically) {
+    
+    if ([MPPrintManager printingOfframp:offramp] && self.handlePrintMetricsAutomatically) {
         // The client app must disable automatic print metric handling in order to post print metrics via the notification system
         MPLogError(@"Cannot post extended metrics notification while automatic metric handling is active");
         return;
     }
+    
     [[MPAnalyticsManager sharedManager] trackShareEventWithPrintItem:notification.object andOptions:notification.userInfo];
 }
 
@@ -220,7 +222,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
         } else {
             pageSettingsTableViewController.mode = MPPageSettingsModePrint;
         }
-
+        
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;
         navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
