@@ -44,6 +44,7 @@
 @property (weak, nonatomic) UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) UILabel *pageNumberLabel;
 @property (assign, nonatomic) NSInteger blackAndWhiteCallNum;
+@property (assign, nonatomic) BOOL sporadicBlackAndWhite;
 
 @end
 
@@ -182,6 +183,7 @@ static NSNumber *lastPinchScale = nil;
 
 - (void)setBlackAndWhite:(BOOL)blackAndWhite
 {
+    _sporadicBlackAndWhite = NO;
     _blackAndWhite = blackAndWhite;
     _switchedToColor = !_blackAndWhite;
     [self updatePages];
@@ -253,7 +255,7 @@ static NSNumber *lastPinchScale = nil;
 
 - (void)createPageViews
 {
-    NSArray *pageImages = self.blackAndWhite ? self.blackAndWhitePageImages : self.pageImages;
+    NSArray *pageImages = (self.blackAndWhite || self.sporadicBlackAndWhite) ? self.blackAndWhitePageImages : self.pageImages;
     
     self.startingIdx = [self lowBufferIndex];
     self.endingIdx   = [self highBufferIndex];
@@ -331,7 +333,7 @@ static NSNumber *lastPinchScale = nil;
     if (self.blackAndWhite) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             
-            if ([self processBlackAndWhiteImages:++self.blackAndWhiteCallNum]) {
+            if ([self processAllBlackAndWhiteImages:++self.blackAndWhiteCallNum]) {
                 self.switchedToBlackAndWhite = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self createPageViews];
@@ -345,7 +347,50 @@ static NSNumber *lastPinchScale = nil;
     }
 }
 
-- (BOOL)processBlackAndWhiteImages:(NSInteger)callNum
+- (void)setPageNum:(NSInteger)pageNum blackAndWhite:(BOOL)blackAndWhite
+{
+    _sporadicBlackAndWhite = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        
+        @synchronized(self.blackAndWhitePageImages) {
+            if (blackAndWhite) {
+                self.blackAndWhitePageImages[pageNum-1] = [self getBlackAndWhiteImageForIndex:pageNum-1];
+            } else {
+                self.blackAndWhitePageImages[pageNum-1] = [NSNull null];
+            }
+        }
+        
+        self.switchedToBlackAndWhite = YES;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self createPageViews];
+            [self layoutPagesIfNeeded];
+        });
+    });
+}
+
+- (UIImage *)getBlackAndWhiteImageForIndex:(NSInteger)index
+{
+    UIImage *blackAndWhiteImage = nil;
+    
+    @autoreleasepool {
+        UIImage *pageImage = self.pageImages[index];
+        CIImage *image = [[CIImage alloc] initWithCGImage:pageImage.CGImage options:nil];
+        CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
+        [filter setValue:image forKey:kCIInputImageKey];
+        CIImage *result = [filter valueForKey:kCIOutputImageKey];
+        CIContext *context = [CIContext contextWithOptions:nil];
+        CGImageRef cgImage = [context createCGImage:result fromRect:[result extent]];
+        
+        blackAndWhiteImage = [UIImage imageWithCGImage:cgImage scale:pageImage.scale orientation:pageImage.imageOrientation];
+        
+        CGImageRelease(cgImage);
+    }
+    
+    return blackAndWhiteImage;
+}
+
+- (BOOL)processAllBlackAndWhiteImages:(NSInteger)callNum
 {
     BOOL completed = YES;
     
@@ -365,21 +410,11 @@ static NSNumber *lastPinchScale = nil;
                 }
                 
                 if ( image == [NSNull null] ) {
-                    @autoreleasepool {
-                        UIImage *pageImage = self.pageImages[i];
-                        CIImage *image = [[CIImage alloc] initWithCGImage:pageImage.CGImage options:nil];
-                        CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
-                        [filter setValue:image forKey:kCIInputImageKey];
-                        CIImage *result = [filter valueForKey:kCIOutputImageKey];
-                        CIContext *context = [CIContext contextWithOptions:nil];
-                        CGImageRef cgImage = [context createCGImage:result fromRect:[result extent]];
-                        
-                        @synchronized(self.blackAndWhitePageImages) {
-                            self.blackAndWhitePageImages[i] = [UIImage imageWithCGImage:cgImage scale:pageImage.scale orientation:pageImage.imageOrientation];
-                        }
-                        
-                        CGImageRelease(cgImage);
+                    image = [self getBlackAndWhiteImageForIndex:i];
+                    @synchronized(self.blackAndWhitePageImages) {
+                        self.blackAndWhitePageImages[i] = image;
                     }
+
                 }
             } else {
                 @synchronized(self.blackAndWhitePageImages) {

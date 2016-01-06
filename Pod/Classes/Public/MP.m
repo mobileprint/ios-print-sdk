@@ -152,7 +152,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
                                            dataSource:(id<MPPrintDataSource>)dataSource
                                        printLaterJobs: (NSArray *)printLaterJobs
                                             fromQueue:(BOOL)fromQueue
-                                         settingsOnly:(BOOL)settingsOnly;
+                                         settingsOnly:(BOOL)settingsOnly
 {
     MPPrintLaterJob *firstJob = printLaterJobs[0];
     
@@ -164,6 +164,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     if ([vc isKindOfClass:[UINavigationController class]]) {
         ((MPPageSettingsTableViewController *)((UINavigationController *)vc).viewControllers[0]).printLaterJobs = printLaterJobs;
     }
+    
     // split controller case
     
     return vc;

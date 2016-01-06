@@ -35,6 +35,7 @@
 - (void)setInterfaceOptions:(MPInterfaceOptions *)options;
 - (void)showPageNumberLabel:(BOOL)show;
 - (void)cancelZoom;
+- (void)setPageNum:(NSInteger)pageNum blackAndWhite:(BOOL)blackAndWhite;
 
 @end
 

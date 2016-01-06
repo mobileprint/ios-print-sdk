@@ -423,7 +423,7 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  * @param settingsOnly Indicates that the controller will be used for settings only and not for printing
  * @return The view controller that the client should present
  */
-- (UIViewController *)printViewControllerWithDelegate:(id<MPPrintDelegate>)delegate dataSource:(id<MPPrintDataSource>)dataSource printLaterJobs: (NSArray *)printLaterJobs fromQueue:(BOOL)fromQueue ettingsOnly:(BOOL)settingsOnly;
+- (UIViewController *)printViewControllerWithDelegate:(id<MPPrintDelegate>)delegate dataSource:(id<MPPrintDataSource>)dataSource printLaterJobs:(NSArray *)printLaterJobs fromQueue:(BOOL)fromQueue settingsOnly:(BOOL)settingsOnly;
 
 /*!
  * @abstract Prepares a view controller suitable for the device and OS
