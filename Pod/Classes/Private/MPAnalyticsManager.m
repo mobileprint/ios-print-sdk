@@ -64,6 +64,7 @@ NSString * const kMPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
 NSString * const kMPMetricsEventTypeID = @"event_type_id";
 NSString * const kMPMetricsPrintSessionID = @"print_session_id";
 NSString * const kMPMetricsEventCount = @"event_count";
+NSInteger const kMPMetricsEventInitialCount = 1;
 
 NSString * const kMPMetricsEventTypePrintInitiated = @"1";
 NSString * const kMPMetricsEventTypePrintCompleted = @"5";
@@ -102,6 +103,11 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
     NSString *printMetricsURL = [self metricsServerPrintMetricsURL].absoluteString;
     NSString *eventsURL = [printMetricsURL stringByReplacingOccurrencesOfString:@"v1/mobile_app_metrics" withString:@"v2/events"];
     return [NSURL URLWithString:eventsURL];
+}
+
+- (void)setPrintSessionId:(NSString *)printSessionId
+{
+    _printSessionId = printSessionId;
 }
 
 #pragma mark - Gather metrics
@@ -297,7 +303,7 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 - (NSString *)eventCountForId:(NSString *)eventId
 {
     NSString *key = [NSString stringWithFormat:@"%@_%@", kMPMetricsEventTypeID, eventId];
-    NSNumber *newValue = [NSNumber numberWithInteger:1];
+    NSNumber *newValue = [NSNumber numberWithInteger:kMPMetricsEventInitialCount];
     @synchronized(self) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSNumber *currentValue = [defaults objectForKey:key];
