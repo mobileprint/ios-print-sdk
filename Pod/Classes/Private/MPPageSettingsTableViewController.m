@@ -357,6 +357,10 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 {
     [super viewWillAppear:animated];
     
+    if (!self.printLaterJobs || 1 == self.printLaterJobs.count) {
+        [self.multiPageView setBlackAndWhite:self.delegateManager.blackAndWhite];
+    }
+    
     [self preparePrintManager];
 
     if (self.printItem) {
@@ -530,7 +534,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 {
     BOOL showPageRange = NO;
     
-    if (self.printLaterJobs) {
+    if (self.printLaterJobs && self.multiPageView) {
         MPPrintLaterJob *job = self.printLaterJobs[self.multiPageView.currentPage-1];
         MPPrintItem *item = [job.printItems objectForKey:self.delegateManager.printSettings.paper.sizeTitle];
         if (item.numberOfPages > 1) {
@@ -1250,7 +1254,8 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
             if( section == PREVIEW_PRINT_SUMMARY_SECTION ||
                 section == PRINT_FUNCTION_SECTION        ||
                 section == PRINT_JOB_NAME_SECTION        ||
-                section == NUMBER_OF_COPIES_SECTION        ) {
+                section == NUMBER_OF_COPIES_SECTION      ||
+                (section == PAGE_RANGE_SECTION  &&  [self showPageRange])) {
                 
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
             }

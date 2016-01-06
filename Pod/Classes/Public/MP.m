@@ -163,9 +163,12 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     
     if ([vc isKindOfClass:[UINavigationController class]]) {
         ((MPPageSettingsTableViewController *)((UINavigationController *)vc).viewControllers[0]).printLaterJobs = printLaterJobs;
+    } else if ([vc isKindOfClass:[UISplitViewController class]]){
+        for (UINavigationController *navController in ((UISplitViewController *)vc).viewControllers) {
+            MPPageSettingsTableViewController *pageSettings = navController.viewControllers[0];
+            pageSettings.printLaterJobs = printLaterJobs;
+        }
     }
-    
-    // split controller case
     
     return vc;
 }
