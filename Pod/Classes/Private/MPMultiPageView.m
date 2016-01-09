@@ -44,7 +44,7 @@
 @property (weak, nonatomic) UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) UILabel *pageNumberLabel;
 @property (assign, nonatomic) NSInteger blackAndWhiteCallNum;
-@property (assign, nonatomic) BOOL sporadicBlackAndWhite;
+@property (strong, nonatomic) NSMutableArray *sporadicBlackAndWhite;
 
 @end
 
@@ -183,9 +183,13 @@ static NSNumber *lastPinchScale = nil;
 
 - (void)setBlackAndWhite:(BOOL)blackAndWhite
 {
-    _sporadicBlackAndWhite = NO;
     _blackAndWhite = blackAndWhite;
     _switchedToColor = !_blackAndWhite;
+    
+    if (blackAndWhite) {
+        _sporadicBlackAndWhite = nil;
+    }
+    
     [self updatePages];
 }
 
@@ -228,7 +232,7 @@ static NSNumber *lastPinchScale = nil;
             
             for (NSInteger i = [self lowBufferIndex]; i <= [self highBufferIndex]; i++) {
                 if( [NSNull null] == self.pageImages[i] ) {
-                    UIImage *newImage = [self.delegate multiPageView:self getImageForPage:i+1];
+                    UIImage *newImage = [self.delegate multiPageView:self getImageForPage:i+1];                    
                     if( nil != newImage ) {
                         self.pageImages[i] = newImage;
                     } else {
@@ -286,6 +290,14 @@ static NSNumber *lastPinchScale = nil;
                 
                 paperCell.backgroundColor = [self getColor:@"Page Cell"];
                 paperCell.tag = kMPPageBaseTag + idx;
+                
+                // Add the multi-page indicator?
+                if (self.delegate && [self.delegate respondsToSelector:@selector(multiPageView:useMultiPageIndicatorForPage:)]) {
+                    if ([self.delegate multiPageView:self useMultiPageIndicatorForPage:idx+1]) {
+                        paperView.useMultiPageIndicator = YES;
+                        paperView.backgroundColor = self.backgroundColor;
+                    }
+                }
             }
             
             // We synchronize the reading of pageImages in case we are reading from self.blackAndWhiteImages
@@ -330,7 +342,7 @@ static NSNumber *lastPinchScale = nil;
 - (void)updatePages
 {
     // for black and white images, update a second time once the black-and-white conversion finishes
-    if (self.blackAndWhite) {
+    if (self.blackAndWhite  ||  self.sporadicBlackAndWhite) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             
             if ([self processAllBlackAndWhiteImages:++self.blackAndWhiteCallNum]) {
@@ -349,42 +361,47 @@ static NSNumber *lastPinchScale = nil;
 
 - (void)setPageNum:(NSInteger)pageNum blackAndWhite:(BOOL)blackAndWhite
 {
-    _sporadicBlackAndWhite = YES;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        
-        @synchronized(self.blackAndWhitePageImages) {
-            if (blackAndWhite) {
-                self.blackAndWhitePageImages[pageNum-1] = [self getBlackAndWhiteImageForIndex:pageNum-1];
-            } else {
-                self.blackAndWhitePageImages[pageNum-1] = [NSNull null];
-            }
+    // make sure the array of sporadic markers exists
+    if (nil == self.sporadicBlackAndWhite) {
+        self.sporadicBlackAndWhite = [[NSMutableArray alloc] init];
+        NSInteger count = self.pageImages.count;
+        for (NSInteger i=0; i<count; i++) {
+            self.sporadicBlackAndWhite[i] = [NSNull null];
         }
-        
-        self.switchedToBlackAndWhite = YES;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self createPageViews];
-            [self layoutPagesIfNeeded];
-        });
-    });
+    }
+    
+    // store the appropriate sporadic marker
+    NSObject *value = [NSNull null];
+    if (blackAndWhite) {
+        self.blackAndWhite = NO;
+        value = [NSNumber numberWithBool:YES];
+    }
+    
+    self.sporadicBlackAndWhite[pageNum-1] = value;
+    
+    [self updatePages];
 }
 
 - (UIImage *)getBlackAndWhiteImageForIndex:(NSInteger)index
 {
-    UIImage *blackAndWhiteImage = nil;
+    UIImage *pageImage = self.pageImages[index];
+    UIImage *blackAndWhiteImage = pageImage;
     
-    @autoreleasepool {
-        UIImage *pageImage = self.pageImages[index];
-        CIImage *image = [[CIImage alloc] initWithCGImage:pageImage.CGImage options:nil];
-        CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
-        [filter setValue:image forKey:kCIInputImageKey];
-        CIImage *result = [filter valueForKey:kCIOutputImageKey];
-        CIContext *context = [CIContext contextWithOptions:nil];
-        CGImageRef cgImage = [context createCGImage:result fromRect:[result extent]];
+    if ((UIImage *)[NSNull null] != pageImage) {
         
-        blackAndWhiteImage = [UIImage imageWithCGImage:cgImage scale:pageImage.scale orientation:pageImage.imageOrientation];
-        
-        CGImageRelease(cgImage);
+        @autoreleasepool {
+            
+            CIImage *image = [[CIImage alloc] initWithCGImage:pageImage.CGImage options:nil];
+            CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
+            [filter setValue:image forKey:kCIInputImageKey];
+            CIImage *result = [filter valueForKey:kCIOutputImageKey];
+            CIContext *context = [CIContext contextWithOptions:nil];
+            CGImageRef cgImage = [context createCGImage:result fromRect:[result extent]];
+            
+            blackAndWhiteImage = [UIImage imageWithCGImage:cgImage scale:pageImage.scale orientation:pageImage.imageOrientation];
+            
+            CGImageRelease(cgImage);
+        }
     }
     
     return blackAndWhiteImage;
@@ -402,7 +419,7 @@ static NSNumber *lastPinchScale = nil;
     
     for (NSUInteger i = 0; i < self.blackAndWhitePageImages.count; i++) {
         if (callNum == self.blackAndWhiteCallNum) {
-            if (self.pageImages[i] != [NSNull null]) {
+            if (self.pageImages[i] != [NSNull null]  &&  (self.blackAndWhite || [NSNull null] != self.sporadicBlackAndWhite[i])) {
                 
                 NSObject *image = [NSNull null];
                 @synchronized(self.blackAndWhitePageImages) {

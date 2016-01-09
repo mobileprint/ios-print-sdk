@@ -46,5 +46,6 @@
 - (void)multiPageView:(MPMultiPageView *)multiPageView didSingleTapPage:(NSUInteger)pageNumber;
 - (void)multiPageView:(MPMultiPageView *)multiPageView didDoubleTapPage:(NSUInteger)pageNumber;
 - (UIImage *)multiPageView:(MPMultiPageView *)multiPageView getImageForPage:(NSUInteger)pageNumber;
+- (BOOL)multiPageView:(MPMultiPageView *)multiPageView useMultiPageIndicatorForPage:(NSUInteger)pageNumber;
 
 @end

@@ -19,5 +19,6 @@
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) MPLayout *layout;
 @property (assign, nonatomic) CGFloat referenceWidthInches;
+@property (assign, nonatomic) BOOL useMultiPageIndicator;
 
 @end
