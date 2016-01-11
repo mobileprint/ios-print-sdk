@@ -92,7 +92,7 @@ NSString * const kMPOfframpDeleteFromQueue = @"DeleteFromQueue";
             offramp = kMPOfframpAddToQueueShare;
         }
         
-        [printLaterJob prepareMetricswithOfframp:offramp];
+        [printLaterJob prepareMetricsForOfframp:offramp];
         
         if ([MP sharedInstance].handlePrintMetricsAutomatically) {
             [[MPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printLaterJob.defaultPrintItem andOptions:printLaterJob.extra];
@@ -108,7 +108,7 @@ NSString * const kMPOfframpDeleteFromQueue = @"DeleteFromQueue";
     
     if (success) {
     
-        [printLaterJob prepareMetricswithOfframp:kMPOfframpDeleteFromQueue];
+        [printLaterJob prepareMetricsForOfframp:kMPOfframpDeleteFromQueue];
         
         NSDictionary *values = @{
                                  kMPPrintQueueActionKey:kMPOfframpDeleteFromQueue,

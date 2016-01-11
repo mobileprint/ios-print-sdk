@@ -362,7 +362,8 @@ NSString * const kJobListScreenName = @"Job List Screen";
             MPLogError(@"Unable to obtain offramp for print later job");
         }
         
-        [job prepareMetricswithOfframp:offramp];
+        [job prepareMetricsForOfframp:offramp];
+        [job setPrintSessionForPrintItem:printItem];
         
         NSDictionary *values = @{
                                  kMPPrintQueueActionKey:offramp,

@@ -339,6 +339,10 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
                                                                          repeats:YES];
     }
 
+    if (MPPageSettingsModePrint == self.mode || MPPageSettingsModePrintFromQueue == self.mode) {
+        [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintInitiated];
+    }
+    
     [self preparePrintManager];
     [self refreshData];
 }
@@ -1628,6 +1632,8 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
     }
     
     if (completed) {
+        
+        [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintCompleted];
         
         [self setDefaultPrinter];
     
