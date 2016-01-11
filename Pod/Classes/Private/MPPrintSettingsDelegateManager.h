@@ -85,6 +85,11 @@
 @property (strong, nonatomic) NSString *printLaterLabelText;
 
 /*!
+ * @abstract The text to be used on a "Print all jobs" button when printing from the print queue
+ */
+@property (strong, nonatomic) NSString *printFromQueueLabelText;
+
+/*!
  * @abstract The text to be used to convey the number of copies to produced by the print job
  */
 @property (strong, nonatomic) NSString *numCopiesLabelText;

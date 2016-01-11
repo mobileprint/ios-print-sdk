@@ -361,7 +361,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 {
     [super viewWillAppear:animated];
     
-    if (![self showingMultipleJobs]) {
+    if (MPPageSettingsModePrintFromQueue != self.mode) {
         [self.multiPageView setBlackAndWhite:self.delegateManager.blackAndWhite];
     }
     
@@ -538,7 +538,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 {
     BOOL showPageRange = NO;
     
-    if ([self showingMultipleJobs] && self.multiPageView) {
+    if (MPPageSettingsModePrintFromQueue == self.mode && self.multiPageView) {
         MPPrintLaterJob *job = self.printLaterJobs[self.multiPageView.currentPage-1];
         MPPrintItem *item = [job.printItems objectForKey:self.delegateManager.printSettings.paper.sizeTitle];
         if (item.numberOfPages > 1) {
@@ -575,7 +575,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
     self.paperSizeCell.hidden = self.mp.hidePaperSizeOption;
     self.paperTypeCell.hidden = self.mp.hidePaperTypeOption || [[self.delegateManager.printSettings.paper supportedTypes] count] == 1;
     self.pageRangeCell.hidden = ![self showPageRange];
-    self.pageSelectionMark.hidden = ![self showPageRange] || self.printLaterJobs;
+    self.pageSelectionMark.hidden = ![self showPageRange];
     
     if (MPPageSettingsModeAddToQueue == self.mode) {
         self.jobNameCell.hidden = NO;
@@ -589,6 +589,11 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
         self.numberOfCopiesCell.hidden = YES;
         self.pageRangeCell.hidden = YES;
         self.pageSelectionMark.hidden = YES;
+    } else if (MPPageSettingsModePrintFromQueue == self.mode) {
+        self.numberOfCopiesCell.hidden = YES;
+        self.pageRangeCell.hidden = YES;
+        self.pageSelectionMark.hidden = YES;
+        self.filterCell.hidden = YES;
     } else {
         if (IS_OS_8_OR_LATER){
             if (nil != self.delegateManager.printSettings.printerName){
@@ -649,6 +654,8 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
     
     if( MPPageSettingsModeAddToQueue == self.mode ) {
         self.printLabel.text = self.delegateManager.printLaterLabelText;
+    } else if( MPPageSettingsModePrintFromQueue == self.mode ) {
+        self.printLabel.text = self.delegateManager.printFromQueueLabelText;
     } else {
         self.printLabel.text = self.delegateManager.printLabelText;
     }
@@ -715,12 +722,12 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
     if (self.delegateManager.printSettings.paper) {
         NSInteger numPages = printItem.numberOfPages;
         
-        if ([self showingMultipleJobs]) {
+        if (MPPageSettingsModePrintFromQueue == self.mode) {
             numPages = self.printLaterJobs.count;
         }
         [self.multiPageView configurePages:numPages paper:self.delegateManager.printSettings.paper layout:printItem.layout];
         
-        if ([self showingMultipleJobs]) {
+        if (MPPageSettingsModePrintFromQueue == self.mode) {
             NSInteger jobNum = 1;
             for (MPPrintLaterJob* job in self.printLaterJobs) {
                 if (job.blackAndWhite) {
@@ -747,14 +754,9 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
     return _multiPageView;
 }
 
--(BOOL)showingMultipleJobs
-{
-    return (self.printLaterJobs && self.printLaterJobs.count > 1);
-}
-
 -(void)respondToMultiPageViewAction
 {
-    if( self.printItem.numberOfPages > 1  &&  ![self showingMultipleJobs]) {
+    if( self.printItem.numberOfPages > 1  &&  MPPageSettingsModePrintFromQueue != self.mode) {
         BOOL includePage = self.pageSelectionMark.imageView.image == self.unselectedPageImage;
         
         [self.delegateManager includePageInPageRange:includePage pageNumber:self.multiPageView.currentPage];
@@ -1140,7 +1142,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 - (IBAction)blackAndWhiteSwitchToggled:(id)sender
 {
     self.delegateManager.blackAndWhite = self.blackAndWhiteModeSwitch.on;
-    if ([self showingMultipleJobs]) {
+    if (MPPageSettingsModePrintFromQueue == self.mode) {
         MPPrintLaterJob *job = self.printLaterJobs[self.multiPageView.currentPage-1];
         job.blackAndWhite = self.delegateManager.blackAndWhite;
         [self.multiPageView setPageNum:self.multiPageView.currentPage blackAndWhite:job.blackAndWhite];
@@ -1686,7 +1688,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 {
     UIImage *image = nil;
     
-    if ([self showingMultipleJobs]) {
+    if (MPPageSettingsModePrintFromQueue == self.mode) {
         if (pageNumber > 0  &&  pageNumber <= [self.printLaterJobs count]) {
             MPPrintLaterJob *printLaterJob = self.printLaterJobs[pageNumber-1];
             MPPrintItem *printItem = [printLaterJob.printItems objectForKey:self.delegateManager.printSettings.paper.sizeTitle];
@@ -1703,7 +1705,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 {
     BOOL useIndicator = NO;
     
-    if ([self showingMultipleJobs]) {
+    if (MPPageSettingsModePrintFromQueue == self.mode) {
         if (pageNumber > 0  &&  pageNumber <= self.printLaterJobs.count) {
             MPPrintLaterJob *printLaterJob = self.printLaterJobs[pageNumber-1];
             MPPrintItem *printItem = [printLaterJob.printItems objectForKey:self.delegateManager.printSettings.paper.sizeTitle];
@@ -1732,7 +1734,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
         
         [self updateSelectedPageIcon:pageSelected];
         
-        if ([self showingMultipleJobs]  &&  self.printLaterJobs.count >= newPageNumber) {
+        if (MPPageSettingsModePrintFromQueue == self.mode  &&  self.printLaterJobs.count >= newPageNumber) {
             [self configureSettingsForPrintLaterJob:self.printLaterJobs[newPageNumber-1]];
             self.blackAndWhiteModeSwitch.on = self.delegateManager.blackAndWhite;
         }

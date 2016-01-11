@@ -203,6 +203,11 @@ NSString * const kMPPrintSummarySeparatorText = @" / ";
     return _printLabelText;
 }
 
+- (NSString *)printFromQueueLabelText
+{
+    return MPLocalizedString(@"Print All", @"Print button label for printing multiple jobs");
+}
+
 - (NSString *)printLaterLabelText
 {
     NSInteger numPagesToBePrinted = 0;
