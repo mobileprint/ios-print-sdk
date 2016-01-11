@@ -341,6 +341,9 @@ static NSNumber *lastPinchScale = nil;
 
 - (void)updatePages
 {
+    [self createPageViews];
+    [self layoutPagesIfNeeded];
+
     // for black and white images, update a second time once the black-and-white conversion finishes
     if (self.blackAndWhite  ||  self.sporadicBlackAndWhite) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -353,9 +356,6 @@ static NSNumber *lastPinchScale = nil;
                 });
             }
         });
-    } else {
-        [self createPageViews];
-        [self layoutPagesIfNeeded];
     }
 }
 

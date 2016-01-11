@@ -12,6 +12,10 @@
 
 #import "MPLayoutPaperView.h"
 
+#define MPLAYOUTPAPERVIEW_MULTIPAGE_XOFFSET 30
+#define MPLAYOUTPAPERVIEW_MULTIPAGE_YOFFSET 25
+#define MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP 30
+
 @implementation MPLayoutPaperView
 
 - (void)drawRect:(CGRect)rect {
@@ -20,24 +24,20 @@
     
     if( (NSNull *)self.image != [NSNull null] ) {
         if (self.useMultiPageIndicator) {
-            
-            CGFloat multiPageEndGap = 30.0F;
-
             UIImage *multiPageImage = [UIImage imageNamed:@"MPMultipage"];
             UIGraphicsBeginImageContextWithOptions(self.image.size, NO, 0.0);
-            [multiPageImage drawInRect:CGRectMake(0, 0, self.image.size.width-multiPageEndGap, self.image.size.height-multiPageEndGap)];
+            [multiPageImage drawInRect:CGRectMake(0, 0, self.image.size.width-MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP, self.image.size.height-MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP)];
             UIImage *newMultiPageImage = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
             
             [self.layout drawContentImage:newMultiPageImage inRect:insetRect];
 
-            insetRect.origin.x += 30;
-            insetRect.origin.y += 25;
-            insetRect.size.width -= 30;
-            insetRect.size.height -= 25;
+            insetRect.origin.x += MPLAYOUTPAPERVIEW_MULTIPAGE_XOFFSET;
+            insetRect.origin.y += MPLAYOUTPAPERVIEW_MULTIPAGE_YOFFSET;
+            insetRect.size.width -= MPLAYOUTPAPERVIEW_MULTIPAGE_XOFFSET;
+            insetRect.size.height -= MPLAYOUTPAPERVIEW_MULTIPAGE_YOFFSET;
         }
 
-        
         [self.layout drawContentImage:self.image inRect:insetRect];
     }
 }
