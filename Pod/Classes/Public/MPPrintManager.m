@@ -81,6 +81,10 @@ NSString * const kMPOfframpDirect = @"PrintWithNoUI";
     numCopies:(NSInteger)numCopies
         error:(NSError **)errorPtr
 {
+    if (MPPrintManagerOriginDirect & self.options) {
+        [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintInitiated];
+    }
+    
     MPPrintManagerError error = MPPrintManagerErrorNone;
     
     printItem.layout.paper = self.currentPrintSettings.paper;
@@ -136,6 +140,9 @@ NSString * const kMPOfframpDirect = @"PrintWithNoUI";
             if (completed && !error) {
                 [self saveLastOptionsForPrinter:controller.printInfo.printerID];
                 [self processMetricsForPrintItem:printItem andPageRange:pageRange];
+                if (MPPrintManagerOriginDirect & self.options) {
+                    [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintCompleted];
+                }
             }
             
             if( self.delegate && [self.delegate respondsToSelector:@selector(didFinishPrintJob:completed:error:)] ) {
@@ -272,9 +279,11 @@ NSString * const kMPOfframpDirect = @"PrintWithNoUI";
     NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:printItem.extra];
     [metrics addEntriesFromDictionary:@{
                                         kMPOfframpKey:[self offramp],
-                                        kMPNumberPagesPrint:[NSNumber numberWithInteger:printPageCount]
+                                        kMPNumberPagesPrint:[NSNumber numberWithInteger:printPageCount],
+                                        kMPMetricsPrintSessionID:[MPAnalyticsManager sharedManager].printSessionId
                                         }];
     printItem.extra = metrics;
+    
     if ([MP sharedInstance].handlePrintMetricsAutomatically) {
         [[MPAnalyticsManager sharedManager] trackShareEventWithPrintItem:printItem andOptions:metrics];
     }

@@ -15,6 +15,11 @@
 @interface MPAnalyticsManager : NSObject
 
 extern NSString * const kMPOfframpKey;
+extern NSString * const kMPMetricsEventTypePrintInitiated;
+extern NSString * const kMPMetricsEventTypePrintCompleted;
+extern NSString * const kMPMetricsPrintSessionID;
+
+@property (strong, nonatomic, readonly) NSString *printSessionId;
 
 + (MPAnalyticsManager *)sharedManager;
 
@@ -23,5 +28,6 @@ extern NSString * const kMPOfframpKey;
 + (NSString *)obfuscateValue:(NSString *)value;
 
 - (void)trackShareEventWithPrintItem:(MPPrintItem *)printItem andOptions:(NSDictionary *)options;
+- (void)trackUserFlowEventWithId:(NSString *)eventId;
 
 @end

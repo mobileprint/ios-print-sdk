@@ -82,6 +82,12 @@
  * @abstract Populates job with metrics info
  * @param offramp The metrics offramp to use
  */
-- (void)prepareMetricswithOfframp:(NSString *)offramp;
+- (void)prepareMetricsForOfframp:(NSString *)offramp;
+
+/*!
+ * @abstract Populates job with print session info
+ * @param printItem The print item to use to get the print session
+ */
+- (void)setPrintSessionForPrintItem:(MPPrintItem *)printItem;
 
 @end
