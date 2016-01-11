@@ -203,9 +203,14 @@ NSString * const kMPPrintSummarySeparatorText = @" / ";
     return _printLabelText;
 }
 
-- (NSString *)printFromQueueLabelText
+- (NSString *)printMultipleJobsFromQueueLabelText
 {
     return MPLocalizedString(@"Print All", @"Print button label for printing multiple jobs");
+}
+
+- (NSString *)printSingleJobFromQueueLabelText
+{
+    return MPLocalizedString(@"Print", @"Print button label for printing a single job");
 }
 
 - (NSString *)printLaterLabelText

@@ -655,7 +655,11 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
     if( MPPageSettingsModeAddToQueue == self.mode ) {
         self.printLabel.text = self.delegateManager.printLaterLabelText;
     } else if( MPPageSettingsModePrintFromQueue == self.mode ) {
-        self.printLabel.text = self.delegateManager.printFromQueueLabelText;
+        if (self.printLaterJobs.count > 1) {
+            self.printLabel.text = self.delegateManager.printMultipleJobsFromQueueLabelText;
+        } else {
+            self.printLabel.text = self.delegateManager.printSingleJobFromQueueLabelText;
+        }
     } else {
         self.printLabel.text = self.delegateManager.printLabelText;
     }
@@ -1266,6 +1270,14 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
                 section == PRINT_JOB_NAME_SECTION        ||
                 section == NUMBER_OF_COPIES_SECTION      ||
                 (section == PAGE_RANGE_SECTION  &&  [self showPageRange])) {
+                
+                height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+            }
+        } else if( MPPageSettingsModePrintFromQueue == self.mode ) {
+            if( section == PREVIEW_PRINT_SUMMARY_SECTION ||
+                section == PRINT_FUNCTION_SECTION        ||
+                section == PRINT_JOB_NAME_SECTION        ||
+                section == PRINTER_SELECTION_SECTION) {
                 
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
             }

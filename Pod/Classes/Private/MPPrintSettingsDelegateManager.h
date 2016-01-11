@@ -87,7 +87,12 @@
 /*!
  * @abstract The text to be used on a "Print all jobs" button when printing from the print queue
  */
-@property (strong, nonatomic) NSString *printFromQueueLabelText;
+@property (strong, nonatomic) NSString *printMultipleJobsFromQueueLabelText;
+
+/*!
+ * @abstract The text to be used on a print button when printing one item from the print queue
+ */
+@property (strong, nonatomic) NSString *printSingleJobFromQueueLabelText;
 
 /*!
  * @abstract The text to be used to convey the number of copies to produced by the print job
