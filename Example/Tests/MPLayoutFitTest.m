@@ -62,13 +62,14 @@
     CGRect containerRect = CGRectMake(0, 0, containerSize.width, containerSize.height);
     UIImage *image = [self sampleImage:imageSize];
     UIImage *rotatedImage = [image MPRotate];
-    __block id mock = OCMPartialMock(image);
-    OCMStub([mock MPRotate]).andReturn(rotatedImage).andDo(^(NSInvocation *invocation) {
-        mock = OCMPartialMock(rotatedImage);
+    id imageMock = OCMPartialMock(image);
+    id rotatedMock = OCMPartialMock(rotatedImage);
+    __block id checkMock = imageMock;
+    OCMStub([imageMock MPRotate]).andReturn(rotatedImage).andDo(^(NSInvocation *invocation) {
+        checkMock = rotatedMock;
     });
-    
     [layout drawContentImage:image inRect:containerRect];
-    OCMVerify([mock drawInRect:expectedRect]);
+    OCMVerify([checkMock drawInRect:expectedRect]);
 }
 
 - (void)testdrawContentNarrowPortrait
@@ -159,24 +160,31 @@
           expectedRect:CGRectMake(reduction / 2.0, 0, imageSize.height, imageSize.width)];
 }
 
-- (void)testHorizontalPositionProperty
+- (void)testRotateLandscapeTop
 {
-    MPLayoutFit *fitLayout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType]];
-    fitLayout.horizontalPosition = MPLayoutHorizontalPositionLeft;
-    MPLayoutAlgorithmFit *fitAlgorithm = (MPLayoutAlgorithmFit *)fitLayout.algorithm;
-    XCTAssert(
-              MPLayoutHorizontalPositionLeft == fitAlgorithm.horizontalPosition,
-              @"Expected algorithm horizontal position to change when property changes");
+    CGFloat reduction = 10;
+    CGSize containerSize = CGSizeMake(100, 200);
+    CGSize imageSize = CGSizeMake(containerSize.height, containerSize.width - reduction);
+    MPLayoutFit *layout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType]];
+    layout.verticalPosition = MPLayoutVerticalPositionTop;
+    [self verifyLayout:layout
+             imageSize:imageSize
+         containerSize:containerSize
+          expectedRect:CGRectMake(0, 0, imageSize.height, imageSize.width)];
 }
 
-- (void)testVerticalPositionProperty
+
+- (void)testRotateLandscapeLeft
 {
-    MPLayoutFit *fitLayout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType]];
-    fitLayout.verticalPosition = MPLayoutVerticalPositionTop;
-    MPLayoutAlgorithmFit *fitAlgorithm = (MPLayoutAlgorithmFit *)fitLayout.algorithm;
-    XCTAssert(
-              MPLayoutVerticalPositionTop == fitAlgorithm.verticalPosition,
-              @"Expected algorithm vertical position to change when property changes");
+    CGSize containerSize = CGSizeMake(100, 200);
+    CGSize imageSize = CGSizeMake(containerSize.width / 2.0, containerSize.width);
+    MPLayoutFit *layout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType] orientation:MPLayoutOrientationLandscape assetPosition:[MPLayout completeFillRectangle]];
+    layout.horizontalPosition = MPLayoutHorizontalPositionLeft;
+    [self verifyLayout:layout
+             imageSize:imageSize
+         containerSize:containerSize
+          expectedRect:CGRectMake(0, containerSize.height - imageSize.width, imageSize.height, imageSize.width)];
 }
+
 
 @end
