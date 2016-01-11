@@ -210,7 +210,7 @@ static NSNumber *lastPinchScale = nil;
         }
     }
     
-    [self updatePageImages:1];
+    [self updatePageImages:self.currentPage];
     [self positionPageNumberLabel];
     [self positionSpinner];
 }
