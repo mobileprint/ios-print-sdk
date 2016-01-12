@@ -38,6 +38,7 @@
 		651039BA1B73FAA10013E738 /* 236 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B71B73FAA10013E738 /* 236 Pages.pdf */; };
 		651357891B4C7BEE003B6935 /* MPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */; };
 		6531EB3E1B30C85700412BBF /* MPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* MPMultiPageConfigurationViewController.m */; };
+		65334C1B1C46BB05004E849D /* MPPrintLaterQueueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65334C1A1C46BB05004E849D /* MPPrintLaterQueueTest.m */; };
 		6565921F1BB5EB6B00A08B22 /* MPPaperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6565921E1BB5EB6B00A08B22 /* MPPaperTest.m */; };
 		65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */; };
 		65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */; };
@@ -155,6 +156,7 @@
 		651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSettingsTableViewController.m; sourceTree = "<group>"; };
 		6531EB3C1B30C85700412BBF /* MPMultiPageConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMultiPageConfigurationViewController.h; sourceTree = "<group>"; };
 		6531EB3D1B30C85700412BBF /* MPMultiPageConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMultiPageConfigurationViewController.m; sourceTree = "<group>"; };
+		65334C1A1C46BB05004E849D /* MPPrintLaterQueueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterQueueTest.m; sourceTree = "<group>"; };
 		6565921E1BB5EB6B00A08B22 /* MPPaperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPaperTest.m; sourceTree = "<group>"; };
 		65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "44 Pages.pdf"; sourceTree = "<group>"; };
 		65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "51 Pages.pdf"; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				F1998AF41B6808BD00E5320F /* MPPageRangeTest.m */,
 				6565921E1BB5EB6B00A08B22 /* MPPaperTest.m */,
 				65DC4A821BD5A8D90004F903 /* MPPrintItemPDFTest.m */,
+				65334C1A1C46BB05004E849D /* MPPrintLaterQueueTest.m */,
 				658088EE1BB1DACD00B35489 /* MPPrintManagerTest.m */,
 				F1B2023E1B7E970D00912E0B /* MPPrintSettingsDelegateManagerTest.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
@@ -814,6 +817,7 @@
 				658088EF1BB1DACD00B35489 /* MPPrintManagerTest.m in Sources */,
 				F10C7EBB1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m in Sources */,
 				65F44B5B1BD02D4400EF42AB /* MPAnalyticsManagerTest.m in Sources */,
+				65334C1B1C46BB05004E849D /* MPPrintLaterQueueTest.m in Sources */,
 				6565921F1BB5EB6B00A08B22 /* MPPaperTest.m in Sources */,
 				F1998AF51B6808BD00E5320F /* MPPageRangeTest.m in Sources */,
 				F10BCCCC1B7A53CC001A5F3B /* MPDirectPrintTest.m in Sources */,
