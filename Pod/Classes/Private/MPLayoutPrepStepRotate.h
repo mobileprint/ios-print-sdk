@@ -15,6 +15,7 @@
 @interface MPLayoutPrepStepRotate : MPLayoutPrepStep
 
 @property (assign, nonatomic, readonly) MPLayoutOrientation orientation;
+@property (assign, nonatomic, readonly) BOOL rotated;
 
 - (id)initWithOrientation:(MPLayoutOrientation)orientation;
 

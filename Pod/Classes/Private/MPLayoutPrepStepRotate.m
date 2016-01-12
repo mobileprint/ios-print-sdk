@@ -29,6 +29,7 @@ MPLayoutOrientation const kMPDefaultOrientation = MPLayoutOrientationBestFit;
     self = [super init];
     if (self) {
         _orientation = orientation;
+        _rotated = NO;
     }
     return self;
 }
@@ -39,8 +40,10 @@ MPLayoutOrientation const kMPDefaultOrientation = MPLayoutOrientationBestFit;
 {
     CGRect contentRect = CGRectMake(0, 0, image.size.width, image.size.height);
     UIImage *adjustedImage = image;
+    _rotated = NO;
     if ([self rotationNeededForContent:contentRect withContainer:containerRect]) {
         adjustedImage = [image MPRotate];
+        _rotated = YES;
     }
     return adjustedImage;
 }
@@ -48,8 +51,10 @@ MPLayoutOrientation const kMPDefaultOrientation = MPLayoutOrientationBestFit;
 - (CGRect)contentRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect
 {
     CGRect adjustedRect = contentRect;
+    _rotated = NO;
     if ([self rotationNeededForContent:contentRect withContainer:containerRect]) {
         adjustedRect = CGRectMake(contentRect.origin.x, contentRect.origin.y, contentRect.size.height, contentRect.size.width);
+        _rotated = YES;
     }
     return adjustedRect;
 }

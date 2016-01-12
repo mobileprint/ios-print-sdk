@@ -58,18 +58,58 @@
     return self.rotateStep.orientation;
 }
 
-- (void)setHorizontalPosition:(MPLayoutHorizontalPosition)horizontalPosition
+#pragma mark - Rotation handling
+
+- (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
 {
-    _horizontalPosition = horizontalPosition;
-    MPLayoutAlgorithmFit *algorithm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:_horizontalPosition andVerticalPosition:_verticalPosition];
-    self.algorithm = algorithm;
+    MPLayoutHorizontalPosition layoutHorizontalPosition = self.horizontalPosition;
+    MPLayoutVerticalPosition layoutVerticalPosition = self.verticalPosition;
+    [self.rotateStep imageForImage:image inContainer:rect];
+    if (self.rotateStep.rotated) {
+        layoutHorizontalPosition = [self rotatedVerticalPosition:self.verticalPosition];
+        layoutVerticalPosition = [self rotatedHorizontalPosition:self.horizontalPosition];
+    }
+
+    self.algorithm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:layoutHorizontalPosition andVerticalPosition:layoutVerticalPosition];
+    
+    [super drawContentImage:image inRect:rect];
 }
 
-- (void)setVerticalPosition:(MPLayoutVerticalPosition)verticalPosition
+- (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView
 {
-    _verticalPosition = verticalPosition;
-    MPLayoutAlgorithmFit *algorithm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:_horizontalPosition andVerticalPosition:_verticalPosition];
-    self.algorithm = algorithm;
+    MPLayoutHorizontalPosition layoutHorizontalPosition = self.horizontalPosition;
+    MPLayoutVerticalPosition layoutVerticalPosition = self.verticalPosition;
+    [self.rotateStep contentRectForContent:contentView.bounds inContainer:containerView.bounds];
+    if (self.rotateStep.rotated) {
+        layoutHorizontalPosition = [self rotatedVerticalPosition:self.verticalPosition];
+        layoutVerticalPosition = [self rotatedHorizontalPosition:self.horizontalPosition];
+    }
+    
+    self.algorithm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:layoutHorizontalPosition andVerticalPosition:layoutVerticalPosition];
+    
+    [super layoutContentView:contentView inContainerView:containerView];
+}
+
+- (MPLayoutHorizontalPosition)rotatedVerticalPosition:(MPLayoutVerticalPosition)verticalPosition
+{
+    MPLayoutHorizontalPosition rotatedPosition = MPLayoutHorizontalPositionMiddle;
+    if (MPLayoutVerticalPositionTop == verticalPosition) {
+        rotatedPosition = MPLayoutHorizontalPositionLeft;
+    } else if (MPLayoutVerticalPositionBottom == verticalPosition) {
+        rotatedPosition = MPLayoutHorizontalPositionRight;
+    }
+    return rotatedPosition;
+}
+
+- (MPLayoutVerticalPosition)rotatedHorizontalPosition:(MPLayoutHorizontalPosition)horizontalPosition
+{
+    MPLayoutVerticalPosition rotatedPosition = MPLayoutVerticalPositionMiddle;
+    if (MPLayoutHorizontalPositionLeft == horizontalPosition) {
+        rotatedPosition = MPLayoutVerticalPositionBottom;
+    } else if (MPLayoutHorizontalPositionRight == horizontalPosition) {
+        rotatedPosition = MPLayoutVerticalPositionTop;
+    }
+    return rotatedPosition;
 }
 
 @end
