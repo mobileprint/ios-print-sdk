@@ -18,8 +18,13 @@
 
 - (void)drawImage:(UIImage *)image inContainer:(CGRect)containerRect
 {
+    [image drawInRect:[self getContainerForImage:image inContainer:containerRect]];
+}
+
+- (CGRect)getContainerForImage:(UIImage *)image inContainer:(CGRect)containerRect
+{
     CGRect contentRect = CGRectMake(0, 0, image.size.width, image.size.height);
-    [image drawInRect:[self computeLayoutRectWithContentRect:contentRect andContainerRect:containerRect]];
+    return [self computeLayoutRectWithContentRect:contentRect andContainerRect:containerRect];
 }
 
 - (void)resizeContentView:(UIView *)contentView containerView:(UIView *)containerView contentRect:(CGRect)contentRect containerRect:(CGRect)containerRect

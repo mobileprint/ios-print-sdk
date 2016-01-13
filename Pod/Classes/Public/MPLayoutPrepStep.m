@@ -19,22 +19,16 @@
 - (UIImage *)imageForImage:(UIImage *)image inContainer:(CGRect)containerRect
 {
     return image;
-//    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
-//    return nil;
 }
 
 - (CGRect)contentRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect
 {
     return contentRect;
-//    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
-//    return CGRectZero;
 }
 
 - (CGRect)containerRectForContent:(CGRect)contentRect inContainer:(CGRect)containerRect
 {
     return containerRect;
-//    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
-//    return CGRectZero;
 }
 
 #pragma mark - NSCoding interface
