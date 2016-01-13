@@ -83,7 +83,7 @@ MPLayoutVerticalPosition const kMPDefaultVerticalPosition = MPLayoutVerticalPosi
         x = containerRect.origin.x + containerRect.size.width - width;
     }
     
-    return CGRectMake(x, y, width, height);
+    return CGRectMake(roundf(x), roundf(y), roundf(width), roundf(height));
 }
 
 #pragma mark - NSCoding interface
