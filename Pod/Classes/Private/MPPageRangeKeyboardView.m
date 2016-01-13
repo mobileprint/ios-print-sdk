@@ -87,7 +87,6 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
 - (void)addButtonsLandscape
 {
-    NSLog(@"Adding landscape buttons: %@", self);
     NSArray *buttonTitles = @[@"1", @"2", @"3", @"4", @"5", @"6", @",", kBackButtonText, @"7", @"8", @"9", @"0",kAllButtonText, @"-", kCheckButtonText];
     
     [self layoutButtons:buttonTitles buttonsPerRow:8 wideAllButton:TRUE];
@@ -95,7 +94,6 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
 - (void)addButtonsPortrait
 {
-    NSLog(@"Adding portrait buttons: %@", self);
     NSArray *buttonTitles = @[@"1", @"2", @"3", kBackButtonText, @"4", @"5", @"6", @",", @"7", @"8", @"9", @"-", @"0", kAllButtonText, kCheckButtonText];
 
     [self layoutButtons:buttonTitles buttonsPerRow:4 wideAllButton:TRUE];

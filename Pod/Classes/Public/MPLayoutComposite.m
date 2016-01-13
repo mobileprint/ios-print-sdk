@@ -50,10 +50,9 @@
 {
     UIImage *layoutImage = [[UIImage alloc] init];
     CGRect layoutContainer = CGRectMake(0.0, 0.0, 0.0, 0.0);
-    [self getImageAndContainerForImage:image inRect:rect finalImage:&layoutImage finalRect:&layoutContainer];
-    
+    [self getImageAndContainerForImage:image inRect:rect finalImage:&layoutImage finalRect:&layoutContainer];    
     layoutContainer = [self.algorithm getContainerForImage:layoutImage inContainer:layoutContainer];
- 
+
     return layoutContainer;
 }
 
