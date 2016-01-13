@@ -38,8 +38,6 @@
 - (id)initWithOrientation:(MPLayoutOrientation)orientation assetPosition:(CGRect)position shouldRotate:(BOOL)shouldRotate
 {
     MPLayoutAlgorithmFit *algorithm = [[MPLayoutAlgorithmFit alloc] init];
-    _horizontalPosition = algorithm.horizontalPosition;
-    _verticalPosition = algorithm.verticalPosition;
     
     _adjustStep = [[MPLayoutPrepStepAdjust alloc] initWithAdjustment:position];
     _rotateStep = [[MPLayoutPrepStepRotate alloc] initWithOrientation:orientation];
@@ -58,36 +56,68 @@
     return self.rotateStep.orientation;
 }
 
+#pragma mark - Position properties
+
+- (MPLayoutHorizontalPosition)horizontalPosition
+{
+    MPLayoutAlgorithmFit *fitAlgorithm = (MPLayoutAlgorithmFit *)self.algorithm;
+    return fitAlgorithm.horizontalPosition;
+}
+
+- (void)setHorizontalPosition:(MPLayoutHorizontalPosition)horizontalPosition
+{
+    MPLayoutAlgorithmFit *currentAlgorithm = (MPLayoutAlgorithmFit *)self.algorithm;
+    MPLayoutAlgorithmFit *newAlgorithm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:horizontalPosition andVerticalPosition:currentAlgorithm.verticalPosition];
+    self.algorithm = newAlgorithm;
+}
+
+- (MPLayoutVerticalPosition)verticalPosition
+{
+    MPLayoutAlgorithmFit *fitAlgorithm = (MPLayoutAlgorithmFit *)self.algorithm;
+    return fitAlgorithm.verticalPosition;
+}
+
+- (void)setVerticalPosition:(MPLayoutVerticalPosition)verticalPosition
+{
+    MPLayoutAlgorithmFit *currentAlgorithm = (MPLayoutAlgorithmFit *)self.algorithm;
+    MPLayoutAlgorithmFit *newAlgorithm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:currentAlgorithm.horizontalPosition andVerticalPosition:verticalPosition];
+    self.algorithm = newAlgorithm;
+}
+
 #pragma mark - Rotation handling
 
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
 {
-    MPLayoutHorizontalPosition layoutHorizontalPosition = self.horizontalPosition;
-    MPLayoutVerticalPosition layoutVerticalPosition = self.verticalPosition;
+    MPLayoutAlgorithmFit *originalAlgorithm = (MPLayoutAlgorithmFit *)self.algorithm;
+    MPLayoutHorizontalPosition rotatedHorizontalPosition = [self rotatedVerticalPosition:self.verticalPosition];
+    MPLayoutVerticalPosition rotatedVerticalPosition = [self rotatedHorizontalPosition:self.horizontalPosition];
+    MPLayoutAlgorithmFit *rotatedAlgortihm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:rotatedHorizontalPosition andVerticalPosition:rotatedVerticalPosition];
+
     [self.rotateStep imageForImage:image inContainer:rect];
     if (self.rotateStep.rotated) {
-        layoutHorizontalPosition = [self rotatedVerticalPosition:self.verticalPosition];
-        layoutVerticalPosition = [self rotatedHorizontalPosition:self.horizontalPosition];
+        self.algorithm = rotatedAlgortihm;
     }
 
-    self.algorithm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:layoutHorizontalPosition andVerticalPosition:layoutVerticalPosition];
-    
     [super drawContentImage:image inRect:rect];
+    
+    self.algorithm = originalAlgorithm;
 }
 
 - (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView
 {
-    MPLayoutHorizontalPosition layoutHorizontalPosition = self.horizontalPosition;
-    MPLayoutVerticalPosition layoutVerticalPosition = self.verticalPosition;
+    MPLayoutAlgorithmFit *originalAlgorithm = (MPLayoutAlgorithmFit *)self.algorithm;
+    MPLayoutHorizontalPosition rotatedHorizontalPosition = [self rotatedVerticalPosition:self.verticalPosition];
+    MPLayoutVerticalPosition rotatedVerticalPosition = [self rotatedHorizontalPosition:self.horizontalPosition];
+    MPLayoutAlgorithmFit *rotatedAlgortihm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:rotatedHorizontalPosition andVerticalPosition:rotatedVerticalPosition];
+    
     [self.rotateStep contentRectForContent:contentView.bounds inContainer:containerView.bounds];
     if (self.rotateStep.rotated) {
-        layoutHorizontalPosition = [self rotatedVerticalPosition:self.verticalPosition];
-        layoutVerticalPosition = [self rotatedHorizontalPosition:self.horizontalPosition];
+        self.algorithm = rotatedAlgortihm;
     }
     
-    self.algorithm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:layoutHorizontalPosition andVerticalPosition:layoutVerticalPosition];
-    
     [super layoutContentView:contentView inContainerView:containerView];
+    
+    self.algorithm = originalAlgorithm;
 }
 
 - (MPLayoutHorizontalPosition)rotatedVerticalPosition:(MPLayoutVerticalPosition)verticalPosition
