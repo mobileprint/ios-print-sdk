@@ -109,11 +109,11 @@ static NSNumber *lastPinchScale = nil;
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
         label.textColor = [UIColor blackColor];
-        label.backgroundColor = [UIColor whiteColor];
-        label.alpha = 0.6F;
+        label.backgroundColor = [UIColor colorWithRed:0xF4/255.0F green:0xF4/255.0F blue:0xF4/255.0F alpha:1.0F];
         label.textAlignment = NSTextAlignmentCenter;
         label.clipsToBounds = YES;
         label.layer.cornerRadius = 8;
+        label.alpha = 0.0;
 
         [self addSubview:label];
         self.pageNumberLabel = label;
@@ -647,6 +647,10 @@ static NSNumber *lastPinchScale = nil;
         NSUInteger newPageNumber = (int)scrollView.contentOffset.x / (int)scrollView.bounds.size.width + 1;
         [self updatePageImages:newPageNumber];
     }
+    
+    [UIView animateWithDuration:kMPPageFadeTime animations:^{
+        self.pageNumberLabel.alpha = 0.0;
+    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -667,6 +671,11 @@ static NSNumber *lastPinchScale = nil;
         }
         
         [self updatePageNumberLabelText];
+        if (self.pageNumberLabel.alpha < 1.0) {
+            [UIView animateWithDuration:kMPPageFadeTime animations:^{
+                self.pageNumberLabel.alpha = 0.6;
+            }];
+        }
     }
 }
 
