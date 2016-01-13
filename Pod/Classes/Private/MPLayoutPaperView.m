@@ -48,9 +48,9 @@
             layoutContainer = [self.layout contentImageLocation:self.image inRect:insetRect];
  
             CGRect multipageFrame = CGRectMake(layoutContainer.origin.x - offset,
-                                               layoutContainer.origin.y + offset,
-                                               layoutContainer.size.width,
-                                               layoutContainer.size.height);
+                                               layoutContainer.origin.y + MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP,
+                                               layoutContainer.size.width + (offset - MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP),
+                                               layoutContainer.size.height + (offset - MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP));
             
             [multiPageImage drawInRect:multipageFrame];
         }
