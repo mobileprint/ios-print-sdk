@@ -12,9 +12,9 @@
 
 #import "MPLayoutPaperView.h"
 
-#define MPLAYOUTPAPERVIEW_MULTIPAGE_XOFFSET 30
-#define MPLAYOUTPAPERVIEW_MULTIPAGE_YOFFSET 25
-#define MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP 30
+#define MPLAYOUTPAPERVIEW_MULTIPAGE_OFFSET_PORTRAIT 10
+#define MPLAYOUTPAPERVIEW_MULTIPAGE_OFFSET_LANDSCAPE 8
+#define MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP 5
 
 @implementation MPLayoutPaperView
 
@@ -24,18 +24,35 @@
     
     if( (NSNull *)self.image != [NSNull null] ) {
         if (self.useMultiPageIndicator) {
-            UIImage *multiPageImage = [UIImage imageNamed:@"MPMultipage"];
-            UIGraphicsBeginImageContextWithOptions(self.image.size, NO, 0.0);
-            [multiPageImage drawInRect:CGRectMake(0, 0, self.image.size.width-MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP, self.image.size.height-MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP)];
-            UIImage *newMultiPageImage = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
+            NSInteger offset = MPLAYOUTPAPERVIEW_MULTIPAGE_OFFSET_PORTRAIT;
+            CGRect layoutContainer = [self.layout contentImageLocation:self.image inRect:insetRect];
+            BOOL isLandscape = (layoutContainer.size.width > layoutContainer.size.height);
             
-            [self.layout drawContentImage:newMultiPageImage inRect:insetRect];
+            UIImage *multiPageImage = [UIImage imageNamed:@"MPMultipageWire"];
+            
+            // rotate the multiPageWire image and adjust the spacing for landscape scenarios
+            if (isLandscape) {
+                UIImage *rotatedImage = [UIImage imageWithCGImage:multiPageImage.CGImage
+                                                            scale:multiPageImage.scale
+                                                      orientation:UIImageOrientationRightMirrored];
+                multiPageImage = rotatedImage;
+                
+                offset = MPLAYOUTPAPERVIEW_MULTIPAGE_OFFSET_LANDSCAPE;
+            }
 
-            insetRect.origin.x += MPLAYOUTPAPERVIEW_MULTIPAGE_XOFFSET;
-            insetRect.origin.y += MPLAYOUTPAPERVIEW_MULTIPAGE_YOFFSET;
-            insetRect.size.width -= MPLAYOUTPAPERVIEW_MULTIPAGE_XOFFSET;
-            insetRect.size.height -= MPLAYOUTPAPERVIEW_MULTIPAGE_YOFFSET;
+            // now, get the proper sizes and locations for the view
+            insetRect.origin.x += offset;
+            insetRect.size.width -= offset;
+            insetRect.size.height -= offset;
+
+            layoutContainer = [self.layout contentImageLocation:self.image inRect:insetRect];
+ 
+            CGRect multipageFrame = CGRectMake(layoutContainer.origin.x - offset,
+                                               layoutContainer.origin.y + MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP,
+                                               layoutContainer.size.width + (offset - MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP),
+                                               layoutContainer.size.height + (offset - MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP));
+            
+            [multiPageImage drawInRect:multipageFrame];
         }
 
         [self.layout drawContentImage:self.image inRect:insetRect];

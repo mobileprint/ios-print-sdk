@@ -21,6 +21,13 @@
     NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
 }
 
+- (CGRect)getContainerForImage:(UIImage *)image inContainer:(CGRect)containerRect
+{
+    NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
+    
+    return CGRectMake(0.0, 0.0, 0.0, 0.0);
+}
+
 - (void)resizeContentView:(UIView *)contentView containerView:(UIView *)containerView contentRect:(CGRect)contentRect containerRect:(CGRect)containerRect
 {
     NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
