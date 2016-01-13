@@ -186,5 +186,32 @@
           expectedRect:CGRectMake(0, containerSize.height - imageSize.width, imageSize.height, imageSize.width)];
 }
 
+- (void)testArchiving
+{
+    MPLayoutOrientation orientation = MPLayoutOrientationPortrait;
+    CGRect assetPosition = CGRectMake(arc4random_uniform(100), arc4random_uniform(100), arc4random_uniform(100), arc4random_uniform(100));
+    MPLayoutHorizontalPosition horizontalPosition = MPLayoutHorizontalPositionRight;
+    MPLayoutVerticalPosition verticalPosition = MPLayoutVerticalPositionTop;
+    
+    MPLayoutFit *originalLayout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType] orientation:orientation assetPosition:assetPosition];
+    originalLayout.horizontalPosition = horizontalPosition;
+    originalLayout.verticalPosition = verticalPosition;
+    
+    NSString *filename = @"FitLayoutTest";
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths firstObject];
+    NSString *archivePath = [documentsDirectory stringByAppendingPathComponent:filename];
+    BOOL success = [NSKeyedArchiver archiveRootObject:originalLayout toFile:archivePath];
+    
+    XCTAssert(success, @"Expected layout to be archived successfully");
+    
+    MPLayoutFit *restoredLayout = (MPLayoutFit *)[NSKeyedUnarchiver unarchiveObjectWithFile:archivePath];
+    
+    XCTAssert(nil != restoredLayout, @"Expected layout to be unarchived successfully");
+    XCTAssert(restoredLayout.orientation == orientation, @"Expected orientation to be unarchived successfully");
+    XCTAssert(CGRectEqualToRect(restoredLayout.assetPosition, assetPosition), @"Expected asset position to be unarchived successfully");
+    XCTAssert(restoredLayout.horizontalPosition == horizontalPosition, @"Expected horizontal position to be unarchived successfully");
+    XCTAssert(restoredLayout.verticalPosition == verticalPosition, @"Expected vertical position to be unarchived successfully");
+}
 
 @end
