@@ -107,7 +107,7 @@ static NSNumber *lastPinchScale = nil;
         self.spinner = spinner;
         
         UILabel *label = [[UILabel alloc] init];
-        label.font = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundPrimaryFont];
+        label.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
         label.textColor = [UIColor blackColor];
         label.backgroundColor = [UIColor whiteColor];
         label.alpha = 0.6F;
