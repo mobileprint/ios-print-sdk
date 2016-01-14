@@ -107,11 +107,16 @@ static NSNumber *lastPinchScale = nil;
         self.spinner = spinner;
         
         UILabel *label = [[UILabel alloc] init];
-        label.font = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundPrimaryFont];
-        label.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundPrimaryFontColor];
+        label.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+        label.textColor = [UIColor blackColor];
+        label.backgroundColor = [UIColor colorWithRed:0xF4/255.0F green:0xF4/255.0F blue:0xF4/255.0F alpha:1.0F];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.clipsToBounds = YES;
+        label.layer.cornerRadius = 8;
+        label.alpha = 0.0;
+
         [self addSubview:label];
         self.pageNumberLabel = label;
-        self.pageNumberLabel.hidden = YES;
         
         _currentPage = 1;
         
@@ -211,7 +216,6 @@ static NSNumber *lastPinchScale = nil;
     }
     
     [self updatePageImages:self.currentPage];
-    [self positionPageNumberLabel];
     [self positionSpinner];
 }
 
@@ -334,8 +338,17 @@ static NSNumber *lastPinchScale = nil;
 {
     if (pageNumber >= 1 && pageNumber <= self.pageImages.count) {
         CGFloat scrollWidth = self.scrollView.bounds.size.width;
+        
+        // we're forcing a scrolling action on the page-- prevent the pageNumberLabel from responding as though it was a user event
+        BOOL hidePageNumberLabel = self.pageNumberLabel.hidden;
+        CGFloat pageNumberLabelAlpha = self.pageNumberLabel.alpha;
+        self.pageNumberLabel.hidden = YES;
+
         [self.scrollView setContentOffset:CGPointMake(scrollWidth * (pageNumber - 1), 0) animated:animated];
         [self updatePageImages:pageNumber];
+        
+        self.pageNumberLabel.alpha = pageNumberLabelAlpha;
+        self.pageNumberLabel.hidden = hidePageNumberLabel;
     }
 }
 
@@ -527,7 +540,7 @@ static NSNumber *lastPinchScale = nil;
     [self showSpinner:NO];
     
     if (!CGSizeEqualToSize(lastScrollViewSize, self.scrollView.bounds.size)) {
-        [self positionPageNumberLabel];
+        [self updatePageNumberLabelText];
         [self positionSpinner];
         lastScrollViewSize = self.scrollView.bounds.size;
     }
@@ -643,6 +656,10 @@ static NSNumber *lastPinchScale = nil;
         NSUInteger newPageNumber = (int)scrollView.contentOffset.x / (int)scrollView.bounds.size.width + 1;
         [self updatePageImages:newPageNumber];
     }
+    
+    [UIView animateWithDuration:kMPPageFadeTime animations:^{
+        self.pageNumberLabel.alpha = 0.0;
+    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -663,6 +680,11 @@ static NSNumber *lastPinchScale = nil;
         }
         
         [self updatePageNumberLabelText];
+        if (self.pageNumberLabel.alpha < 1.0) {
+            [UIView animateWithDuration:kMPPageFadeTime animations:^{
+                self.pageNumberLabel.alpha = 0.6;
+            }];
+        }
     }
 }
 
@@ -896,22 +918,36 @@ static NSNumber *lastPinchScale = nil;
     self.pageNumberLabel.hidden = !show;
 }
 
-- (void)positionPageNumberLabel
+- (void)setPageNumberLabelPosition:(NSInteger)pageNumber
 {
-    self.pageNumberLabel.textAlignment = NSTextAlignmentCenter;
-    CGRect frame = self.pageNumberLabel.frame;
-    frame.size.width = kMPMultiPageViewPageLabelWidth;
-    frame.size.height = kMPMultiPageViewPageLabelHeight;
-    frame.origin.y = self.frame.size.height - frame.size.height;
-    frame.origin.x = (self.frame.size.width - frame.size.width)/2;
-    self.pageNumberLabel.frame = frame;
+    MPLayoutPaperCellView *cell = self.pageViews[pageNumber-1];
     
-    [self updatePageNumberLabelText];
+    if ([NSNull null] != (NSNull *)cell) {
+
+        // convert the paperView frame from the paperViewCell's coordinate system to the MPMultiPageView system
+        CGRect boundingFrame = [cell convertRect:cell.paperView.frame toView:self];
+        
+        // Now, place the label in the appropriate position
+        CGRect labelFrame = self.pageNumberLabel.frame;
+        labelFrame.size = [self.pageNumberLabel sizeThatFits:boundingFrame.size];
+        labelFrame.size.height *= 1.75;
+        labelFrame.size.width += (labelFrame.size.height * .75);
+        
+        labelFrame.origin.y = self.frame.size.height - labelFrame.size.height;
+        labelFrame.origin.x = (self.frame.size.width - labelFrame.size.width)/2;
+        
+        self.pageNumberLabel.frame = labelFrame;
+    }
 }
 
 - (void)updatePageNumberLabelText
 {
-    self.pageNumberLabel.text = [NSString stringWithFormat:@"%d / %lu", (int)(self.scrollView.contentOffset.x / self.scrollView.bounds.size.width) + 1, (unsigned long)self.pageImages.count];
+    // The pageNumberLabel is updated as we scroll-- don't rely on currentPage, rely on scroll position
+    NSInteger pageNumber = ((NSInteger)(self.scrollView.contentOffset.x / self.scrollView.bounds.size.width)) + 1;
+
+    NSString *of = NSLocalizedString(@"of", @"Used to denote a page range.  IE: x 'of' y pages");
+    self.pageNumberLabel.text = [NSString stringWithFormat:@"%ld %@ %lu", (long)pageNumber, of, (unsigned long)self.pageImages.count];
+    [self setPageNumberLabelPosition:pageNumber];
 }
 
 #pragma mark - Spinner

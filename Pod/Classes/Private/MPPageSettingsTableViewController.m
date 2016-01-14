@@ -375,6 +375,11 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
                 [[MPWiFiReachability sharedInstance] noPrintingAlert];
             }
         }
+        
+        if ((MPPageSettingsModePrintFromQueue == self.mode && 1 == self.printLaterJobs.count) ||
+            (MPPageSettingsModePrintFromQueue != self.mode && 1 == self.printItem.numberOfPages)) {
+            [self.multiPageView showPageNumberLabel:NO];
+        }
     }
     
     MPPrintLaterJob *printLaterJob = self.printLaterJobs[self.currentPrintJob];
