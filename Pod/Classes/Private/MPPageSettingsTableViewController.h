@@ -81,9 +81,9 @@ extern NSString * const kMPDefaultPrinterRemovedNotification;
 @property (nonatomic, weak) id<MPPrintDataSource> dataSource;
 
 /*!
- * @abstract The printLaterJob, if any, associated with the page settings
+ * @abstract The printLaterJobs, if any, associated with the page settings
  */
-@property (assign, nonatomic) MPPrintLaterJob *printLaterJob;
+@property (strong, nonatomic) NSArray *printLaterJobs;
 
 /*!
  * @abstract The type of page settings screen to display

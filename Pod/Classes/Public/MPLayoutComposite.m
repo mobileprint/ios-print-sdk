@@ -39,18 +39,21 @@
 
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
 {
-    UIImage *layoutImage = image;
-    CGRect layoutContent = CGRectMake(0, 0, layoutImage.size.width, layoutImage.size.height);
-    CGRect layoutContainer = rect;
-    for (MPLayoutPrepStep *step in self.prepSteps) {
-        UIImage *newImage = [step imageForImage:layoutImage inContainer:layoutContainer];
-        CGRect newContainer = [step containerRectForContent:layoutContent inContainer:layoutContainer];
-        layoutImage = newImage;
-        layoutContent = CGRectMake(0, 0, newImage.size.width, newImage.size.height);
-        layoutContainer = newContainer;
-    }
+    UIImage *layoutImage = [[UIImage alloc] init];
+    CGRect layoutContainer = CGRectMake(0.0, 0.0, 0.0, 0.0);
+    [self getImageAndContainerForImage:image inRect:rect finalImage:&layoutImage finalRect:&layoutContainer];
     
     [self.algorithm drawImage:layoutImage inContainer:layoutContainer];
+}
+
+- (CGRect)contentImageLocation:(UIImage *)image inRect:(CGRect)rect
+{
+    UIImage *layoutImage = [[UIImage alloc] init];
+    CGRect layoutContainer = CGRectMake(0.0, 0.0, 0.0, 0.0);
+    [self getImageAndContainerForImage:image inRect:rect finalImage:&layoutImage finalRect:&layoutContainer];    
+    layoutContainer = [self.algorithm getContainerForImage:layoutImage inContainer:layoutContainer];
+
+    return layoutContainer;
 }
 
 - (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView
@@ -65,6 +68,23 @@
     }
     
     [self.algorithm resizeContentView:contentView containerView:containerView contentRect:layoutContent containerRect:layoutContainer];
+}
+
+- (void)getImageAndContainerForImage:(UIImage *)image inRect:(CGRect)rect finalImage:(UIImage **)finalImage finalRect:(CGRect *)finalRect
+{
+    UIImage *layoutImage = image;
+    CGRect layoutContent = CGRectMake(0, 0, layoutImage.size.width, layoutImage.size.height);
+    CGRect layoutContainer = rect;
+    for (MPLayoutPrepStep *step in self.prepSteps) {
+        UIImage *newImage = [step imageForImage:layoutImage inContainer:layoutContainer];
+        CGRect newContainer = [step containerRectForContent:layoutContent inContainer:layoutContainer];
+        layoutImage = newImage;
+        layoutContent = CGRectMake(0, 0, newImage.size.width, newImage.size.height);
+        layoutContainer = newContainer;
+    }
+    
+    *finalImage = layoutImage;
+    *finalRect = layoutContainer;
 }
 
 #pragma mark - NSCoding interface

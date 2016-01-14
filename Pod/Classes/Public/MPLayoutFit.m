@@ -86,21 +86,35 @@
 
 #pragma mark - Rotation handling
 
-- (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
+- (MPLayoutAlgorithm *)prepareAlgorithm:(UIImage *)image inRect:(CGRect)rect
 {
     MPLayoutAlgorithmFit *originalAlgorithm = (MPLayoutAlgorithmFit *)self.algorithm;
     MPLayoutHorizontalPosition rotatedHorizontalPosition = [self rotatedVerticalPosition:self.verticalPosition];
     MPLayoutVerticalPosition rotatedVerticalPosition = [self rotatedHorizontalPosition:self.horizontalPosition];
     MPLayoutAlgorithmFit *rotatedAlgortihm = [[MPLayoutAlgorithmFit alloc] initWithHorizontalPosition:rotatedHorizontalPosition andVerticalPosition:rotatedVerticalPosition];
-
+    
     [self.rotateStep imageForImage:image inContainer:rect];
     if (self.rotateStep.rotated) {
         self.algorithm = rotatedAlgortihm;
     }
-
-    [super drawContentImage:image inRect:rect];
     
+    return originalAlgorithm;
+}
+
+- (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect
+{
+    MPLayoutAlgorithm *originalAlgorithm = [self prepareAlgorithm:image inRect:rect];
+    [super drawContentImage:image inRect:rect];
     self.algorithm = originalAlgorithm;
+}
+
+- (CGRect)contentImageLocation:(UIImage *)image inRect:(CGRect)rect
+{
+    MPLayoutAlgorithm *originalAlgorithm = [self prepareAlgorithm:image inRect:rect];
+    CGRect layoutContainer = [super contentImageLocation:image inRect:rect];
+    self.algorithm = originalAlgorithm;
+    
+    return layoutContainer;
 }
 
 - (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView

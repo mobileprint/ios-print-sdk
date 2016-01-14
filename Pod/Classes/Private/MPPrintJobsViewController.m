@@ -221,24 +221,14 @@ NSString * const kJobListScreenName = @"Job List Screen";
         navController = ((UISplitViewController *)vc).viewControllers[0];
         vc = (MPPageSettingsTableViewController *)navController.topViewController;
     }
-    
-    if( [vc isKindOfClass:[MPPageSettingsTableViewController class]] ) {
-        MPPageSettingsTableViewController *pageSettingsController = (MPPageSettingsTableViewController *)vc;
-        pageSettingsController.printLaterJob = self.selectedPrintJob;
-    }
-    
-    if( nil != previewController  &&  [previewController isKindOfClass:[MPPageSettingsTableViewController class]] ) {
-        previewController.printLaterJob = self.selectedPrintJob;
-    }
 }
 
 - (void)printJobs:(NSArray *)printJobs
 {
     self.selectedPrintJob = printJobs[0];
     self.selectedPrintJobs = printJobs;
-    MPPrintItem *printItem = [self.selectedPrintJob.printItems objectForKey:[MPPaper titleFromSize:[MP sharedInstance].defaultPaper.paperSize]];
-    printItem.extra = self.selectedPrintJob.extra;
-    UIViewController *vc = [[MP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:YES settingsOnly:NO];
+
+    UIViewController *vc = [[MP sharedInstance] printViewControllerWithDelegate:self dataSource:self printLaterJobs:printJobs fromQueue:YES settingsOnly:NO];
     if( [vc class] == [UINavigationController class] ) {
         [self setViewControllerPageRange:[(UINavigationController *)vc topViewController]];
         [self.navigationController pushViewController:[(UINavigationController *)vc topViewController] animated:YES];

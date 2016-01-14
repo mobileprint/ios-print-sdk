@@ -57,7 +57,16 @@
     return image;
 }
 
-- (void)verifyLayout:(MPLayout *)layout imageSize:(CGSize)imageSize containerSize:(CGSize)containerSize expectedRect:(CGRect)expectedRect
+- (void)verifyImagePosition:(MPLayout *)layout imageSize:(CGSize)imageSize containerSize:(CGSize)containerSize expectedRect:(CGRect)expectedRect
+{
+    CGRect containerRect = CGRectMake(0, 0, containerSize.width, containerSize.height);
+    UIImage *image = [self sampleImage:imageSize];
+    CGRect imageLocation = [layout contentImageLocation:image inRect:containerRect];
+    XCTAssertTrue(CGRectEqualToRect(imageLocation, expectedRect),
+                  @"contentImageLocation returned an unexpected CGRect");
+}
+
+- (void)verifyDrawContentImage:(MPLayout *)layout imageSize:(CGSize)imageSize containerSize:(CGSize)containerSize expectedRect:(CGRect)expectedRect
 {
     CGRect containerRect = CGRectMake(0, 0, containerSize.width, containerSize.height);
     UIImage *image = [self sampleImage:imageSize];
@@ -70,6 +79,12 @@
     });
     [layout drawContentImage:image inRect:containerRect];
     OCMVerify([checkMock drawInRect:expectedRect]);
+}
+
+- (void)verifyLayout:(MPLayout *)layout imageSize:(CGSize)imageSize containerSize:(CGSize)containerSize expectedRect:(CGRect)expectedRect
+{
+    [self verifyImagePosition:layout imageSize:imageSize containerSize:containerSize expectedRect:expectedRect];
+    [self verifyDrawContentImage:layout imageSize:imageSize containerSize:containerSize expectedRect:expectedRect];
 }
 
 - (void)testdrawContentNarrowPortrait
