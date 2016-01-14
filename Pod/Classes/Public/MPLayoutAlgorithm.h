@@ -23,7 +23,7 @@
  * @abstract Draws an image in the specified rectangle
  * @param image The image to be drawn
  * @param containerRect The rectangle the image should be drawn in
- * @discussion The image may be resized to fit the rectangle
+ * @discussion The algorithm may display the image in a cropped or resized fashion to fit the rectangle
  */
 - (void)drawImage:(UIImage *)image inContainer:(CGRect)containerRect;
 

@@ -54,7 +54,7 @@
 {
     NSAssert(NO, @"%@ is intended to be an abstract class", NSStringFromClass(self.class));
     
-    return CGRectMake(0.0, 0.0, 0.0, 0.0);
+    return CGRectZero;
 }
 
 - (void)layoutContentView:(UIView *)contentView inContainerView:(UIView *)containerView

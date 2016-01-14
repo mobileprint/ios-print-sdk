@@ -158,7 +158,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 {
     MPPrintLaterJob *firstJob = printLaterJobs[0];
     
-    MPPrintItem *printItem = [firstJob.printItems objectForKey:[MPPaper titleFromSize:[MP sharedInstance].defaultPaper.paperSize]];
+    MPPrintItem *printItem = [firstJob.printItems objectForKey:self.defaultPaper.sizeTitle];
     printItem.extra = firstJob.extra;
     
     UIViewController *vc = [self printViewControllerWithDelegate:delegate dataSource:dataSource printItem:printItem fromQueue:fromQueue settingsOnly:settingsOnly];
