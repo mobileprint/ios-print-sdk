@@ -13,7 +13,7 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     And I scroll screen up to find "Print Item"
     And I touch "Print Item"
     And I touch "4x6 portrait"
-    Then I am on the "Page Settings" screen
+    Then I should see the "Page Settings" screen
     Then I run print simulator
     And I scroll screen "down"
     When I touch "Increment" and check number of copies is 2
@@ -71,7 +71,7 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     And I scroll screen up to find "Print Item"
     And I touch "Print Item"
     And I touch "4x6 portrait"
-    Then I am on the "Page Settings" screen
+    Then I should see the "Page Settings" screen
     Then I run print simulator
     And I scroll screen "down"
     When I touch "Increment" and check number of copies is 2
@@ -129,7 +129,7 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     And I scroll screen up to find "Print Item"
     And I touch "Print Item"
     And I touch "4x6 portrait"
-    Then I am on the "Page Settings" screen
+    Then I should see the "Page Settings" screen
     Then I run print simulator
     And I scroll screen "down"
     When I touch "Increment" and check number of copies is 2
@@ -230,8 +230,9 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     And I scroll screen up to find "Share Item"
     And I touch "Share Item"
     And I touch "5x7 portrait"
+    Then I wait for some seconds
     When I touch "Print"
-    Then I am on the "Page Settings" screen
+    Then I should see the "Page Settings" screen
     Then I run print simulator
     And I scroll screen "down"
     When I touch "Increment" and check number of copies is 2
@@ -384,6 +385,7 @@ Examples:
     Then I wait for some seconds
     Then I add "<no_of_jobs>" job to print queue
     Then I touch "Next"
+    Then I wait for some seconds
     Then I am on the "Page Settings" screen
     Then I run print simulator
     And I scroll screen "down"
