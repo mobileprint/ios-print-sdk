@@ -349,12 +349,13 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 
 - (void)configureSettingsForPrintLaterJob:(MPPrintLaterJob *)printLaterJob
 {
+    self.delegateManager.jobName = printLaterJob.name;
+
     if( MPPageSettingsModeAddToQueue != self.mode ) {
         self.delegateManager.pageRange = printLaterJob.pageRange;
         self.delegateManager.blackAndWhite = printLaterJob.blackAndWhite;
         self.delegateManager.numCopies = printLaterJob.numCopies;
     }
-    self.delegateManager.jobName = printLaterJob.name;
 }
 
 - (void)viewWillAppear:(BOOL)animated
