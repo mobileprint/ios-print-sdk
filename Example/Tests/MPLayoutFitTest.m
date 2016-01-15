@@ -57,18 +57,34 @@
     return image;
 }
 
-- (void)verifyLayout:(MPLayout *)layout imageSize:(CGSize)imageSize containerSize:(CGSize)containerSize expectedRect:(CGRect)expectedRect
+- (void)verifyImagePosition:(MPLayout *)layout imageSize:(CGSize)imageSize containerSize:(CGSize)containerSize expectedRect:(CGRect)expectedRect
+{
+    CGRect containerRect = CGRectMake(0, 0, containerSize.width, containerSize.height);
+    UIImage *image = [self sampleImage:imageSize];
+    CGRect imageLocation = [layout contentImageLocation:image inRect:containerRect];
+    XCTAssertTrue(CGRectEqualToRect(imageLocation, expectedRect),
+                  @"contentImageLocation returned an unexpected CGRect");
+}
+
+- (void)verifyDrawContentImage:(MPLayout *)layout imageSize:(CGSize)imageSize containerSize:(CGSize)containerSize expectedRect:(CGRect)expectedRect
 {
     CGRect containerRect = CGRectMake(0, 0, containerSize.width, containerSize.height);
     UIImage *image = [self sampleImage:imageSize];
     UIImage *rotatedImage = [image MPRotate];
-    __block id mock = OCMPartialMock(image);
-    OCMStub([mock MPRotate]).andReturn(rotatedImage).andDo(^(NSInvocation *invocation) {
-        mock = OCMPartialMock(rotatedImage);
+    id imageMock = OCMPartialMock(image);
+    id rotatedMock = OCMPartialMock(rotatedImage);
+    __block id checkMock = imageMock;
+    OCMStub([imageMock MPRotate]).andReturn(rotatedImage).andDo(^(NSInvocation *invocation) {
+        checkMock = rotatedMock;
     });
-    
     [layout drawContentImage:image inRect:containerRect];
-    OCMVerify([mock drawInRect:expectedRect]);
+    OCMVerify([checkMock drawInRect:expectedRect]);
+}
+
+- (void)verifyLayout:(MPLayout *)layout imageSize:(CGSize)imageSize containerSize:(CGSize)containerSize expectedRect:(CGRect)expectedRect
+{
+    [self verifyImagePosition:layout imageSize:imageSize containerSize:containerSize expectedRect:expectedRect];
+    [self verifyDrawContentImage:layout imageSize:imageSize containerSize:containerSize expectedRect:expectedRect];
 }
 
 - (void)testdrawContentNarrowPortrait
@@ -159,24 +175,58 @@
           expectedRect:CGRectMake(reduction / 2.0, 0, imageSize.height, imageSize.width)];
 }
 
-- (void)testHorizontalPositionProperty
+- (void)testRotateLandscapeTop
 {
-    MPLayoutFit *fitLayout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType]];
-    fitLayout.horizontalPosition = MPLayoutHorizontalPositionLeft;
-    MPLayoutAlgorithmFit *fitAlgorithm = (MPLayoutAlgorithmFit *)fitLayout.algorithm;
-    XCTAssert(
-              MPLayoutHorizontalPositionLeft == fitAlgorithm.horizontalPosition,
-              @"Expected algorithm horizontal position to change when property changes");
+    CGFloat reduction = 10;
+    CGSize containerSize = CGSizeMake(100, 200);
+    CGSize imageSize = CGSizeMake(containerSize.height, containerSize.width - reduction);
+    MPLayoutFit *layout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType]];
+    layout.verticalPosition = MPLayoutVerticalPositionTop;
+    [self verifyLayout:layout
+             imageSize:imageSize
+         containerSize:containerSize
+          expectedRect:CGRectMake(0, 0, imageSize.height, imageSize.width)];
 }
 
-- (void)testVerticalPositionProperty
+
+- (void)testRotateLandscapeLeft
 {
-    MPLayoutFit *fitLayout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType]];
-    fitLayout.verticalPosition = MPLayoutVerticalPositionTop;
-    MPLayoutAlgorithmFit *fitAlgorithm = (MPLayoutAlgorithmFit *)fitLayout.algorithm;
-    XCTAssert(
-              MPLayoutVerticalPositionTop == fitAlgorithm.verticalPosition,
-              @"Expected algorithm vertical position to change when property changes");
+    CGSize containerSize = CGSizeMake(100, 200);
+    CGSize imageSize = CGSizeMake(containerSize.width / 2.0, containerSize.width);
+    MPLayoutFit *layout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType] orientation:MPLayoutOrientationLandscape assetPosition:[MPLayout completeFillRectangle]];
+    layout.horizontalPosition = MPLayoutHorizontalPositionLeft;
+    [self verifyLayout:layout
+             imageSize:imageSize
+         containerSize:containerSize
+          expectedRect:CGRectMake(0, containerSize.height - imageSize.width, imageSize.height, imageSize.width)];
+}
+
+- (void)testArchiving
+{
+    MPLayoutOrientation orientation = MPLayoutOrientationPortrait;
+    CGRect assetPosition = CGRectMake(arc4random_uniform(100), arc4random_uniform(100), arc4random_uniform(100), arc4random_uniform(100));
+    MPLayoutHorizontalPosition horizontalPosition = MPLayoutHorizontalPositionRight;
+    MPLayoutVerticalPosition verticalPosition = MPLayoutVerticalPositionTop;
+    
+    MPLayoutFit *originalLayout = (MPLayoutFit *)[MPLayoutFactory layoutWithType:[MPLayoutFit layoutType] orientation:orientation assetPosition:assetPosition];
+    originalLayout.horizontalPosition = horizontalPosition;
+    originalLayout.verticalPosition = verticalPosition;
+    
+    NSString *filename = @"FitLayoutTest";
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths firstObject];
+    NSString *archivePath = [documentsDirectory stringByAppendingPathComponent:filename];
+    BOOL success = [NSKeyedArchiver archiveRootObject:originalLayout toFile:archivePath];
+    
+    XCTAssert(success, @"Expected layout to be archived successfully");
+    
+    MPLayoutFit *restoredLayout = (MPLayoutFit *)[NSKeyedUnarchiver unarchiveObjectWithFile:archivePath];
+    
+    XCTAssert(nil != restoredLayout, @"Expected layout to be unarchived successfully");
+    XCTAssert(restoredLayout.orientation == orientation, @"Expected orientation to be unarchived successfully");
+    XCTAssert(CGRectEqualToRect(restoredLayout.assetPosition, assetPosition), @"Expected asset position to be unarchived successfully");
+    XCTAssert(restoredLayout.horizontalPosition == horizontalPosition, @"Expected horizontal position to be unarchived successfully");
+    XCTAssert(restoredLayout.verticalPosition == verticalPosition, @"Expected vertical position to be unarchived successfully");
 }
 
 @end

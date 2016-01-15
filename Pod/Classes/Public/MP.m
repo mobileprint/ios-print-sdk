@@ -138,17 +138,48 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 - (void)handleShareCompletedNotification:(NSNotification *)notification
 {
     NSString *offramp = [notification.userInfo objectForKey:kMPOfframpKey];
-    if ([MPPrintManager printingOfframp:offramp]  && self.handlePrintMetricsAutomatically) {
+    
+    if ([MPPrintManager printingOfframp:offramp] && self.handlePrintMetricsAutomatically) {
         // The client app must disable automatic print metric handling in order to post print metrics via the notification system
         MPLogError(@"Cannot post extended metrics notification while automatic metric handling is active");
         return;
     }
+    
     [[MPAnalyticsManager sharedManager] trackShareEventWithPrintItem:notification.object andOptions:notification.userInfo];
 }
 
 #pragma mark - Getter methods
 
-- (UIViewController *)printViewControllerWithDelegate:(id<MPPrintDelegate>)delegate dataSource:(id<MPPrintDataSource>)dataSource printItem:(MPPrintItem *)printItem fromQueue:(BOOL)fromQueue settingsOnly:(BOOL)settingsOnly;
+- (UIViewController *)printViewControllerWithDelegate:(id<MPPrintDelegate>)delegate
+                                           dataSource:(id<MPPrintDataSource>)dataSource
+                                       printLaterJobs: (NSArray *)printLaterJobs
+                                            fromQueue:(BOOL)fromQueue
+                                         settingsOnly:(BOOL)settingsOnly
+{
+    MPPrintLaterJob *firstJob = printLaterJobs[0];
+    
+    MPPrintItem *printItem = [firstJob.printItems objectForKey:self.defaultPaper.sizeTitle];
+    printItem.extra = firstJob.extra;
+    
+    UIViewController *vc = [self printViewControllerWithDelegate:delegate dataSource:dataSource printItem:printItem fromQueue:fromQueue settingsOnly:settingsOnly];
+    
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+        ((MPPageSettingsTableViewController *)((UINavigationController *)vc).viewControllers[0]).printLaterJobs = printLaterJobs;
+    } else if ([vc isKindOfClass:[UISplitViewController class]]){
+        for (UINavigationController *navController in ((UISplitViewController *)vc).viewControllers) {
+            MPPageSettingsTableViewController *pageSettings = navController.viewControllers[0];
+            pageSettings.printLaterJobs = printLaterJobs;
+        }
+    }
+    
+    return vc;
+}
+
+- (UIViewController *)printViewControllerWithDelegate:(id<MPPrintDelegate>)delegate
+                                           dataSource:(id<MPPrintDataSource>)dataSource
+                                            printItem:(MPPrintItem *)printItem
+                                            fromQueue:(BOOL)fromQueue
+                                         settingsOnly:(BOOL)settingsOnly;
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle mainBundle]];
     
@@ -220,7 +251,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
         } else {
             pageSettingsTableViewController.mode = MPPageSettingsModePrint;
         }
-
+        
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
         navigationController.navigationBar.translucent = NO;
         navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -247,12 +278,12 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
         UINavigationController *previewNavigationController = (UINavigationController *)((UISplitViewController *)vc).viewControllers[1];
         previewViewController = (MPPageSettingsTableViewController *)previewNavigationController.topViewController;
         previewViewController.mode = MPPageSettingsModeAddToQueue;
-        previewViewController.printLaterJob = printLaterJob;
+        previewViewController.printLaterJobs =  [[NSArray alloc] initWithObjects:printLaterJob, nil];
     } else {
         pageSettingsTableViewController = (MPPageSettingsTableViewController *)vc;
     }
     
-    pageSettingsTableViewController.printLaterJob = printLaterJob;
+    pageSettingsTableViewController.printLaterJobs =  [[NSArray alloc] initWithObjects:printLaterJob, nil];
     pageSettingsTableViewController.printLaterDelegate = delegate;
     pageSettingsTableViewController.mode = MPPageSettingsModeAddToQueue;
     

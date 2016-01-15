@@ -99,6 +99,14 @@ typedef enum {
 - (void)drawContentImage:(UIImage *)image inRect:(CGRect)rect;
 
 /*!
+ * @abstract Does not draw the image, but returns the CGRect that the image would be drawn into if drawn
+ * @param image The image asset that would be drawn
+ * @param rect The reference rectangle onto which the image would be drawn.
+ * @discussion The actual content rectangle used for layout will be computed using the rectangle passed in with the assetPosition percentages applied.
+ */
+- (CGRect)contentImageLocation:(UIImage *)image inRect:(CGRect)rect;
+
+/*!
  * @abstract Lays out a view inside another view
  * @param contentView The view being laid out
  * @param containerView The view that contains the view being laid out

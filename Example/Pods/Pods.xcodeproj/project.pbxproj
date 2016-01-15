@@ -241,12 +241,12 @@
 		018E0D64214BEAB0CC9CD1B553F0E43B /* MPPaperTypeTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPaperTypeTableViewController.m; sourceTree = "<group>"; };
 		04CAEE9BF5168A39F0D9FD78D4E9742B /* MPDashedLineView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPDashedLineView.m; sourceTree = "<group>"; };
 		05AFA3D28B0F2425729EB305B26FB189 /* MPPrintActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintActivity.h; sourceTree = "<group>"; };
-		0651D797460353A0CF8BEFDDA182553A /* MPPrintLater@2x~iphone.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPPrintLater@2x~iphone.png"; sourceTree = "<group>"; };
 		07D956F9BE46C82138AB0085518E2434 /* MPLayoutComposite.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutComposite.h; sourceTree = "<group>"; };
 		09DB319A1867142EDA48BEFFACD90B9A /* MPPrintSettingsDelegateManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintSettingsDelegateManager.h; sourceTree = "<group>"; };
 		0C317BBC48BDB08517A1F34CEF76F54D /* OCMPassByRefSetter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMPassByRefSetter.m; path = Source/OCMock/OCMPassByRefSetter.m; sourceTree = "<group>"; };
 		0C535B63FC36C71F65EF6DBD80A3644F /* OCMObserverRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMObserverRecorder.h; path = Source/OCMock/OCMObserverRecorder.h; sourceTree = "<group>"; };
 		0EADD5FDDF0F6872D52A66D19463C48F /* OCMObserverRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMObserverRecorder.m; path = Source/OCMock/OCMObserverRecorder.m; sourceTree = "<group>"; };
+		10B62C49A46A1D077FAAE2FB56A3FEC5 /* MPMagnify@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMagnify@2x.png"; sourceTree = "<group>"; };
 		110B533CB58D88F17BAD7A3A54CD7A2D /* MPPrintJobsTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintJobsTableViewCell.h; sourceTree = "<group>"; };
 		1143C3DF22503F0A5D8A855E1737919E /* MPLayoutFill.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutFill.h; sourceTree = "<group>"; };
 		1357BC4A54BC9BDFCB4FC6AEAB6048A9 /* OCMock-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OCMock-dummy.m"; sourceTree = "<group>"; };
@@ -264,19 +264,15 @@
 		1D42A5F9AB1E0DC588C6A3874C3EBE0E /* OCMInvocationStub.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMInvocationStub.m; path = Source/OCMock/OCMInvocationStub.m; sourceTree = "<group>"; };
 		1E664F3CA268DF41C183F66BADB20211 /* MPDefaultSettingsManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPDefaultSettingsManager.m; sourceTree = "<group>"; };
 		1E9616BFA0495D8F88149FCDC5137ACD /* MPPrintLaterQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterQueue.h; sourceTree = "<group>"; };
-		1FD6546952E114E63770D25ECE80CC5E /* MPSelected@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPSelected@3x.png"; sourceTree = "<group>"; };
+		20209427DF05E28D4760023DBB565DFB /* MobilePrintSDKLocalizable.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; path = MobilePrintSDKLocalizable.bundle; sourceTree = "<group>"; };
 		206297666E3ED5C76DE6EC15F499BAC2 /* NSValue+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSValue+OCMAdditions.m"; path = "Source/OCMock/NSValue+OCMAdditions.m"; sourceTree = "<group>"; };
 		218515EE47476EA099DD568BA51B4D2B /* MPLayoutFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutFactory.h; sourceTree = "<group>"; };
 		21E30F637E36A6B390AE038697CA16C8 /* MPPrintItemImage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItemImage.h; sourceTree = "<group>"; };
 		2321A656FEEB5113DDD1366A990413C3 /* UIView+MPBackground.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+MPBackground.m"; sourceTree = "<group>"; };
-		242217AFBEF2118CA5880E7D1D280A0F /* MPPrint@2x~ipad.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPPrint@2x~ipad.png"; sourceTree = "<group>"; };
 		25F1886F79DE7DA5955613EBB2146A7D /* OCMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMockObject.h; path = Source/OCMock/OCMockObject.h; sourceTree = "<group>"; };
 		26A590BE02BA3CB8A8944C675E7479BF /* MPLayoutFill.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFill.m; sourceTree = "<group>"; };
-		273A9E260FAA001A93BB191F08395AE3 /* MPDoNoEnter.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = MPDoNoEnter.png; sourceTree = "<group>"; };
-		27A211244710C4DA350A548DF4CCF34A /* MPUnselected@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPUnselected@2x.png"; sourceTree = "<group>"; };
 		281BD43FA715CEF93E5AA2037605321E /* MobilePrintSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MobilePrintSDK-dummy.m"; sourceTree = "<group>"; };
 		288805A843A25033BBBBFB619411A8FB /* MPPrintLaterJob.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterJob.m; sourceTree = "<group>"; };
-		2D058A05CEB7C2281967FA1BFB10E013 /* MP.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = MP.storyboard; sourceTree = "<group>"; };
 		2D486B7E9C953D31140A66E6BCEC4B30 /* MPPrintSettings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintSettings.h; sourceTree = "<group>"; };
 		2EA4E16B0166BA178D0599CDAEAA6854 /* OCMInvocationMatcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMInvocationMatcher.h; path = Source/OCMock/OCMInvocationMatcher.h; sourceTree = "<group>"; };
 		2EF5DE5D5CC5971824FE6883ACFFD169 /* MPPrintLaterHelperViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterHelperViewController.h; sourceTree = "<group>"; };
@@ -284,15 +280,17 @@
 		316556286F506E28036568E5473A9627 /* OCMExceptionReturnValueProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMExceptionReturnValueProvider.m; path = Source/OCMock/OCMExceptionReturnValueProvider.m; sourceTree = "<group>"; };
 		3299734C3C5872CC26488F631311858C /* MPLayoutPaperView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPaperView.h; sourceTree = "<group>"; };
 		32A25BC49361BE4539843C2ACCEBD456 /* MPAnalyticsManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPAnalyticsManager.h; sourceTree = "<group>"; };
+		32D60F2BCE89430404CD302510365D62 /* MPCheck@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPCheck@2x.png"; sourceTree = "<group>"; };
 		3312582F275DB5DDA1C8928EFC09B05C /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSNotificationCenter+OCMAdditions.h"; path = "Source/OCMock/NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
 		3594F9D0AB59F55A90690086627866CD /* OCClassMockObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCClassMockObject.m; path = Source/OCMock/OCClassMockObject.m; sourceTree = "<group>"; };
-		35A4C65AA71DA059CB49FF461C055036 /* MPMagnify@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMagnify@2x.png"; sourceTree = "<group>"; };
 		35CA69165ECA12CD7BAA5539718321E6 /* MPLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayout.m; sourceTree = "<group>"; };
 		36A59B5914E9892A9E4F3C1F2D74E7DD /* OCPartialMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCPartialMockObject.h; path = Source/OCMock/OCPartialMockObject.h; sourceTree = "<group>"; };
 		37EF7F6C91DAB379B22A3311BABC720C /* MobilePrintSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MobilePrintSDK-prefix.pch"; sourceTree = "<group>"; };
 		3A0974FBE25326D0D926C44BE86F8D8C /* OCMStubRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMStubRecorder.m; path = Source/OCMock/OCMStubRecorder.m; sourceTree = "<group>"; };
 		3A22CA10533D94EB6A75D6C00EC2D961 /* MPPageSettingsTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPageSettingsTableViewController.h; sourceTree = "<group>"; };
+		3CC7B354ED2AC1FC815016BBC34DB88E /* MPArrow@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPArrow@2x.png"; sourceTree = "<group>"; };
 		3E5F33A78A4147B0ED474C949FCCED40 /* MPPrintJobsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsViewController.m; sourceTree = "<group>"; };
+		3EC40DC2923D72DA901EBA2044AE6603 /* MPSelected@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPSelected@3x.png"; sourceTree = "<group>"; };
 		3FCAD47B576C20E9B238FE254E98DDB8 /* MPLayoutStretch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutStretch.m; sourceTree = "<group>"; };
 		41395EAB4CC5A75A162CAFB24E8E1708 /* Pods-Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		41B5279D4EB01559410A0601AD78E17B /* MPLayoutPrepStepRotate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStepRotate.m; sourceTree = "<group>"; };
@@ -302,17 +300,15 @@
 		4511E31350E9E0A912A1133E395F5C3A /* MPPrintJobsTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsTableViewCell.m; sourceTree = "<group>"; };
 		454E2D90A2917450FDF09C51CF686732 /* OCObserverMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCObserverMockObject.h; path = Source/OCMock/OCObserverMockObject.h; sourceTree = "<group>"; };
 		4552FD30EC5D78BFCA86C0331D58DC37 /* MPReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPReachability.m; sourceTree = "<group>"; };
-		467364A0F18BB768673884D7151BDB84 /* MPCheck@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPCheck@2x.png"; sourceTree = "<group>"; };
 		46AB74CD816BC0B04E665A4EBBC4EEFC /* OCPartialMockObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCPartialMockObject.m; path = Source/OCMock/OCPartialMockObject.m; sourceTree = "<group>"; };
-		46B1F6E7F17A90D4E2885AD2539378D2 /* MPPrintJobsActionView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPPrintJobsActionView.xib; sourceTree = "<group>"; };
 		483303A117875B599261961B32BA9FCB /* OCMMacroState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMMacroState.m; path = Source/OCMock/OCMMacroState.m; sourceTree = "<group>"; };
-		48EE22DF4147FB4BACC5CA66EA445943 /* MPPrintLater@2x~ipad.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPPrintLater@2x~ipad.png"; sourceTree = "<group>"; };
 		48F52FC132027AE9FD7C15154A626DAC /* MPPrintPageRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintPageRenderer.h; sourceTree = "<group>"; };
-		4A9E2DC20E6D4CD8078740234D65869A /* MPActiveCircle@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPActiveCircle@2x.png"; sourceTree = "<group>"; };
+		4D7FB4D78F0B210C1F193204C6D32E30 /* MPMultiPageView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPMultiPageView.xib; sourceTree = "<group>"; };
 		4DFD97FFCF8917A67B4187B67938E6E4 /* OCProtocolMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCProtocolMockObject.h; path = Source/OCMock/OCProtocolMockObject.h; sourceTree = "<group>"; };
 		51020CB04843950D92EA77E154C50737 /* OCMMacroState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMMacroState.h; path = Source/OCMock/OCMMacroState.h; sourceTree = "<group>"; };
 		52B426F84B829D8227AA7DC7A740EFD2 /* libOCMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOCMock.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		52FA65EDA8217AA85B34B2B0E96E642F /* OCMRealObjectForwarder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMRealObjectForwarder.m; path = Source/OCMock/OCMRealObjectForwarder.m; sourceTree = "<group>"; };
+		53E534B987920DD126082A66D3AB642B /* MPPrintLater@2x~iphone.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPPrintLater@2x~iphone.png"; sourceTree = "<group>"; };
 		53E54A985E57EE4377BB85DAB782CBB7 /* OCMNotificationPoster.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMNotificationPoster.m; path = Source/OCMock/OCMNotificationPoster.m; sourceTree = "<group>"; };
 		54850673E7AE9B6519B1CE4BFEE499A9 /* OCMExpectationRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMExpectationRecorder.m; path = Source/OCMock/OCMExpectationRecorder.m; sourceTree = "<group>"; };
 		54C6BBABA48385123207183F2BB48C88 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -321,12 +317,9 @@
 		5800FEB01259C04D6B588CDD7C4CBF55 /* MPPaper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPaper.m; sourceTree = "<group>"; };
 		584C533A6CFD35512E1BAECFD122ACA3 /* MPPrintItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItem.h; sourceTree = "<group>"; };
 		59365536FD762081E6882601590FFE92 /* MPLayoutPaperCellView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPaperCellView.h; sourceTree = "<group>"; };
-		5A9E1D96BBFDFAE9B197780CE96EB7B5 /* MPMeasurementArrowDown@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowDown@2x.png"; sourceTree = "<group>"; };
 		5D6F72303754C772814AFD42964E77A1 /* OCMBoxedReturnValueProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMBoxedReturnValueProvider.m; path = Source/OCMock/OCMBoxedReturnValueProvider.m; sourceTree = "<group>"; };
 		5DC5E7DC3F04DCF0F85F81496BE3C8E2 /* OCMInvocationMatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMInvocationMatcher.m; path = Source/OCMock/OCMInvocationMatcher.m; sourceTree = "<group>"; };
 		5F75D4C308965C723FF1BADBCB1AD0A1 /* MPPrintLaterJob.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterJob.h; sourceTree = "<group>"; };
-		5FFC42528A1B6AAE43DB443211A266F7 /* MPMeasurementArrowLeft@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowLeft@2x.png"; sourceTree = "<group>"; };
-		62D14922B20A62CB0F5A546C3371B4AA /* MPSelected@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPSelected@2x.png"; sourceTree = "<group>"; };
 		63518F30E568AFC12F7E037C8917912D /* MPPageRange.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageRange.m; sourceTree = "<group>"; };
 		638876C289DC86DA86BC2CEDC5E667BE /* NSInvocation+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSInvocation+OCMAdditions.h"; path = "Source/OCMock/NSInvocation+OCMAdditions.h"; sourceTree = "<group>"; };
 		63B0B0C7C9162D6A2C98F6EE110CDC97 /* MPPaperTypeTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPaperTypeTableViewController.h; sourceTree = "<group>"; };
@@ -334,6 +327,7 @@
 		6606F5B813AD5541497654305D307A47 /* MPLayoutFit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFit.m; sourceTree = "<group>"; };
 		662752C0FDF6135C9CC3DEB9DA750726 /* OCMArgAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMArgAction.m; path = Source/OCMock/OCMArgAction.m; sourceTree = "<group>"; };
 		665438EC954C190591D8B7236E73CA6A /* UIColor+MPStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIColor+MPStyle.h"; sourceTree = "<group>"; };
+		66C21AE9F15699E2F712B622032801B6 /* MPMeasurementArrowRight@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowRight@2x.png"; sourceTree = "<group>"; };
 		671088D76DE9353B17CE0FE139A58D33 /* MPPaperSizeTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPaperSizeTableViewController.h; sourceTree = "<group>"; };
 		689A4D82DDD715C3A4CCF7B8E8BCE849 /* Pods-MobilePrintSDK-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MobilePrintSDK-frameworks.sh"; sourceTree = "<group>"; };
 		69558BD0DB18D1B8BB12A507F15B8B9F /* OCMArg.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMArg.h; path = Source/OCMock/OCMArg.h; sourceTree = "<group>"; };
@@ -343,31 +337,31 @@
 		6E4475FABAA116E70EC0C1EED91CBDDA /* OCMBoxedReturnValueProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMBoxedReturnValueProvider.h; path = Source/OCMock/OCMBoxedReturnValueProvider.h; sourceTree = "<group>"; };
 		6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6FAFB4966B15012AEE36E2C90CD143D9 /* MPPrintLaterHelperViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterHelperViewController.m; sourceTree = "<group>"; };
+		7016F31B610A81F885B2507EA803722A /* MPDoNoEnter.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = MPDoNoEnter.png; sourceTree = "<group>"; };
 		71D54D5D0043463859F53EF738E34F02 /* MPWiFiReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPWiFiReachability.m; sourceTree = "<group>"; };
 		72AA40228E565599810632E0D40D8D17 /* MPLayoutPrepStep.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPrepStep.h; sourceTree = "<group>"; };
 		7588F6DEBBD964C8EB376032F5836DE9 /* Pods-MobilePrintSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MobilePrintSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		7595D836442484519C0AEEDA0CEDB764 /* OCMFunctions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMFunctions.m; path = Source/OCMock/OCMFunctions.m; sourceTree = "<group>"; };
 		7751EFA4AF3B5991DF8E7624BBAF0342 /* MPLayoutPrepStep.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStep.m; sourceTree = "<group>"; };
 		7786DEF3DB6C5AD46913FAB1541D8E5C /* MPPrintJobsActionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsActionView.m; sourceTree = "<group>"; };
-		789A80CE62C8F55377057CB77203A734 /* MPGear@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPGear@2x.png"; sourceTree = "<group>"; };
+		78243B9DE37E08F3A318F9DC6C0E73B2 /* MPRuleView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPRuleView.xib; sourceTree = "<group>"; };
 		78A5ED649FAE828C25DB3722FBDAC68D /* MPSupportAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPSupportAction.m; sourceTree = "<group>"; };
 		791F6E6C76E25E20F12356E74A02E4C2 /* OCMExpectationRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMExpectationRecorder.h; path = Source/OCMock/OCMExpectationRecorder.h; sourceTree = "<group>"; };
+		7A6E306968678CC43A271445BF5FFCE9 /* MPMeasurementArrowUp@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowUp@2x.png"; sourceTree = "<group>"; };
 		7B891793F545A0644AFF77B24FE97824 /* UIView+MPAnimation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+MPAnimation.m"; sourceTree = "<group>"; };
-		7B9E2A5E2B449A77A448274D47C6121C /* MPMultipage.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = MPMultipage.png; sourceTree = "<group>"; };
 		7C459598DE430610C385CF08A9971725 /* NSMethodSignature+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSMethodSignature+OCMAdditions.m"; path = "Source/OCMock/NSMethodSignature+OCMAdditions.m"; sourceTree = "<group>"; };
 		7DA4B0E1E2822D90688A25A3DE27621D /* libMobilePrintSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMobilePrintSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E7AA0923A4732C1B7C8C3102C0B8A55 /* OCMBlockCaller.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMBlockCaller.m; path = Source/OCMock/OCMBlockCaller.m; sourceTree = "<group>"; };
-		7E810931E3035FA8C52F56BB72C87D6C /* MPRuleView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPRuleView.xib; sourceTree = "<group>"; };
 		80C2607D3107818A07E721EC2E5B83A1 /* OCMArg.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMArg.m; path = Source/OCMock/OCMArg.m; sourceTree = "<group>"; };
 		81157FA34EC2F20F7B488766E2E2BA69 /* OCMInvocationStub.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMInvocationStub.h; path = Source/OCMock/OCMInvocationStub.h; sourceTree = "<group>"; };
 		811860EE31BD386AC34AD87AAA4B5AE0 /* OCMIndirectReturnValueProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMIndirectReturnValueProvider.m; path = Source/OCMock/OCMIndirectReturnValueProvider.m; sourceTree = "<group>"; };
 		82031CC166CB38E98D42534250644CC0 /* MPPaperSizeTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPaperSizeTableViewController.m; sourceTree = "<group>"; };
+		8231577033EF06DC999EFABE75B3370B /* MPActiveCircle@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPActiveCircle@2x.png"; sourceTree = "<group>"; };
 		8240A33D9CF4456802D94A9DCDAA8CC4 /* MPAppearance.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPAppearance.h; sourceTree = "<group>"; };
 		827AAA74FB775F9D765BC2E0628E7F40 /* MPPrintJobsPreviewViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsPreviewViewController.m; sourceTree = "<group>"; };
 		845F71A565E9CBE284FF394F680CB8F0 /* MPPrintSettingsTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintSettingsTableViewController.h; sourceTree = "<group>"; };
 		882E8DB06F69D9C93A09C8639FD0F8CA /* MPLayoutAlgorithmFill.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithmFill.h; sourceTree = "<group>"; };
 		884B2F313B437028107034A03DCD843D /* libPods-MobilePrintSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobilePrintSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8976FB4F06BFEB7C7590F3B0FE39EEB4 /* MPUnselected@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPUnselected@3x.png"; sourceTree = "<group>"; };
 		89D1C908FEFBEE732D8E050C3D8FD562 /* OCObserverMockObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCObserverMockObject.m; path = Source/OCMock/OCObserverMockObject.m; sourceTree = "<group>"; };
 		8CD999019D8EA3483980564052D4527F /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		8EBB630B2DAC2353B459788401945D97 /* OCMLocation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMLocation.m; path = Source/OCMock/OCMLocation.m; sourceTree = "<group>"; };
@@ -381,7 +375,12 @@
 		94AC03432089002893AA1A7F767DA012 /* MPMultiPageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPMultiPageView.h; sourceTree = "<group>"; };
 		9527469BA37C84399D12820A6CC526C6 /* NSMethodSignature+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSMethodSignature+OCMAdditions.h"; path = "Source/OCMock/NSMethodSignature+OCMAdditions.h"; sourceTree = "<group>"; };
 		9553229EBA731B7F115D09578FF495FE /* MPPageSettingsTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageSettingsTableViewController.m; sourceTree = "<group>"; };
+		95B4ADA4AA9F05F68E318161BE192D6B /* MPPageView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPPageView.xib; sourceTree = "<group>"; };
+		971094CA8C476A51F359224E3E56FFC4 /* MPDoNoEnter@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPDoNoEnter@2x.png"; sourceTree = "<group>"; };
+		974342DCEF950C4611810255DA81A18C /* MPPageRangeView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPPageRangeView.xib; sourceTree = "<group>"; };
 		9810873C8AAB5AF16E27E8D90D120693 /* MPLayoutPrepStepAdjust.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPrepStepAdjust.h; sourceTree = "<group>"; };
+		9852ED4DACC646DCF93F735958F80698 /* MPUnselected@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPUnselected@2x.png"; sourceTree = "<group>"; };
+		98787230AEA1558515B67BEABAB5827C /* MPMultipageWire.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = MPMultipageWire.png; sourceTree = "<group>"; };
 		990D5FE6286D3535AC52DDD694A33FDB /* MPPrintManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintManager.m; sourceTree = "<group>"; };
 		9D2F103886AFEDF940EB05A89D09F546 /* MPLayoutComposite.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutComposite.m; sourceTree = "<group>"; };
 		9EAA9A69417A46B92560C366894F9F8F /* MPWiFiReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPWiFiReachability.h; sourceTree = "<group>"; };
@@ -394,6 +393,7 @@
 		A57FAB1E7BCA9A71F44D17124B8C314A /* OCMIndirectReturnValueProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMIndirectReturnValueProvider.h; path = Source/OCMock/OCMIndirectReturnValueProvider.h; sourceTree = "<group>"; };
 		A5B67145ABAB295B7DD4A93CE3635B61 /* OCMVerifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMVerifier.h; path = Source/OCMock/OCMVerifier.h; sourceTree = "<group>"; };
 		A62848D638F77901D8D0C116E0066781 /* OCMReturnValueProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMReturnValueProvider.h; path = Source/OCMock/OCMReturnValueProvider.h; sourceTree = "<group>"; };
+		A62EEB14241AC5E23E3E3BB464D176F7 /* MPPrint@2x~iphone.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPPrint@2x~iphone.png"; sourceTree = "<group>"; };
 		A6F71F88C9259F8FC3E48FE205107ECC /* MPRuleView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPRuleView.m; sourceTree = "<group>"; };
 		A78DD41889A44BC9771CD5277883C248 /* MPPrintManager+Options.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MPPrintManager+Options.h"; sourceTree = "<group>"; };
 		A7ED5EA0D180EF8D643E919CC01F4F4B /* MPPrinter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrinter.h; sourceTree = "<group>"; };
@@ -408,11 +408,10 @@
 		B29849ECA1FBB47AD77F7B02156424B7 /* MPPrintItemPDF.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItemPDF.h; sourceTree = "<group>"; };
 		B33E08B0F92925FBEB743E1B7A46921F /* MPLayoutPaperCellView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPaperCellView.m; sourceTree = "<group>"; };
 		B4500623C050E847431F6C59E98F37CB /* MPPageRangeKeyboardView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPageRangeKeyboardView.h; sourceTree = "<group>"; };
-		B677653F50209DDE6E45F28FAEF780C0 /* MPInactiveCircle@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPInactiveCircle@2x.png"; sourceTree = "<group>"; };
 		B6D3FF30DEA32FCDFF40AEC0B11786B2 /* MPPageViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageViewController.m; sourceTree = "<group>"; };
 		B79512DE4F742D90E8C26DEBC1D7FCC8 /* MPLayoutAlgorithmFit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithmFit.m; sourceTree = "<group>"; };
+		B8790852062BB062D1E9CE80CD298DD2 /* MPUnselected@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPUnselected@3x.png"; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		BAA876CE0B9822D8A12F216EA68C1CF3 /* MPDoNoEnter@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPDoNoEnter@2x.png"; sourceTree = "<group>"; };
 		BC2BEA00B4672D62F20AA4470AB46B19 /* Pods-MobilePrintSDK-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MobilePrintSDK-acknowledgements.plist"; sourceTree = "<group>"; };
 		BD2D0734D844DA6E171965870138DC0B /* OCMReturnValueProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMReturnValueProvider.m; path = Source/OCMock/OCMReturnValueProvider.m; sourceTree = "<group>"; };
 		BF5C9C15CE26D7C4AC385CD800A6E941 /* MPPrintJobsActionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintJobsActionView.h; sourceTree = "<group>"; };
@@ -420,21 +419,24 @@
 		C1213D4CF7266C17781AC117D2BF4232 /* UITableView+MPHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UITableView+MPHeader.h"; sourceTree = "<group>"; };
 		C1AB1B5D24E4C6BA544D2A89AFD5B65A /* MPView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPView.m; sourceTree = "<group>"; };
 		C3B7BDF5CE5CB8F095FE12DA55D9A9BB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		C51B6B104358159CFFCAC3EACCE2B792 /* MPMultiPageView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPMultiPageView.xib; sourceTree = "<group>"; };
+		C66575482297E1108047016448A8AA89 /* MPSelected@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPSelected@2x.png"; sourceTree = "<group>"; };
 		C75B178292D26EEAFC37AE15F4484430 /* NSObject+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+OCMAdditions.h"; path = "Source/OCMock/NSObject+OCMAdditions.h"; sourceTree = "<group>"; };
-		C83BBD3A0717811A54AE84E1B5DAE4C7 /* MPArrow@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPArrow@2x.png"; sourceTree = "<group>"; };
 		C8EFAEC578008A9FF2E807A753B745F7 /* MPPrintItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItem.m; sourceTree = "<group>"; };
 		C9AEE8EE723D9B4A2D58196622FC2AA2 /* MPLayoutAlgorithmFit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithmFit.h; sourceTree = "<group>"; };
 		CA02C68D8CD19728820C4FFB6E77F65C /* MPLayoutPrepStepAdjust.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStepAdjust.m; sourceTree = "<group>"; };
 		CA13BDE0653E6CE653756C0F34D75CBD /* OCMConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMConstraint.m; path = Source/OCMock/OCMConstraint.m; sourceTree = "<group>"; };
 		CBD66869B4C36709A246C3BFFD24144C /* MPPrintItemFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemFactory.m; sourceTree = "<group>"; };
 		CE14329A98464DAD0E6C4E3147F46902 /* MPPrinter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrinter.m; sourceTree = "<group>"; };
-		CF755AA6272AA8E1EBC83B1B9BA8CEB9 /* MPMeasurementArrowRight@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowRight@2x.png"; sourceTree = "<group>"; };
 		D029314233FDC5E8E2C8142220A19883 /* MP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MP.h; sourceTree = "<group>"; };
 		D07D05CDAA53D85DE49E05FB11F4EB54 /* MPPrintSettingsTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintSettingsTableViewController.m; sourceTree = "<group>"; };
+		D082F5CE07A0079517E1BE21E8DF1E4D /* MPPrintLater@2x~ipad.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPPrintLater@2x~ipad.png"; sourceTree = "<group>"; };
+		D23C63B92E9C802F11771597D5D2793F /* MPInactiveCircle@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPInactiveCircle@2x.png"; sourceTree = "<group>"; };
 		D483095DA052D0F8DD35A6CD6077C870 /* OCMBlockArgCaller.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMBlockArgCaller.h; path = Source/OCMock/OCMBlockArgCaller.h; sourceTree = "<group>"; };
 		D4D4B5FDC5B66DE7D5F274F4AA587F06 /* NSObject+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+OCMAdditions.m"; path = "Source/OCMock/NSObject+OCMAdditions.m"; sourceTree = "<group>"; };
 		D6255B1C03598DCCCE59958F1C84EC3A /* UIColor+MPHexString.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIColor+MPHexString.h"; sourceTree = "<group>"; };
+		D63997B3B2D85219DD4E0B0DAAC23302 /* MPGear@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPGear@2x.png"; sourceTree = "<group>"; };
+		D7202385F4B73FE73FC5F0B3F2BCDE92 /* MP.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = MP.storyboard; sourceTree = "<group>"; };
+		D81A364FB5D73A6D27DB6639C8E933F7 /* MPMeasurementArrowLeft@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowLeft@2x.png"; sourceTree = "<group>"; };
 		D9EC055312E51234AD0D82138046F109 /* UIView+MPBackground.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+MPBackground.h"; sourceTree = "<group>"; };
 		DA82512D2F9B7E22F21479275742B13E /* Pods-Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-resources.sh"; sourceTree = "<group>"; };
 		DA96CFA2E91A03125B165D32B3F1FBAE /* MPPrintPageRenderer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintPageRenderer.m; sourceTree = "<group>"; };
@@ -446,8 +448,7 @@
 		DEC70C5D1C6679F6623483C8C20F434F /* UIImage+MPResize.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIImage+MPResize.h"; sourceTree = "<group>"; };
 		DEE513EE77D32667C5DD82BD0B3FB861 /* MPInterfaceOptions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPInterfaceOptions.m; sourceTree = "<group>"; };
 		DF037A07886648E53CBE30883EF27C2F /* MPPrintLaterQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterQueue.m; sourceTree = "<group>"; };
-		DF337EF9DA84B71ADCC3E90D6D3AA8C9 /* MPPrint@2x~iphone.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPPrint@2x~iphone.png"; sourceTree = "<group>"; };
-		E1C040A7BDEB956BF31F5311F2BC2EAD /* MPPageRangeView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPPageRangeView.xib; sourceTree = "<group>"; };
+		E0004332783EF92BE89E1BB196B5237A /* MPPrintJobsActionView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPPrintJobsActionView.xib; sourceTree = "<group>"; };
 		E246A98D031B4EFBBFD0CB9ACA69F053 /* MP.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MP.m; sourceTree = "<group>"; };
 		E3A58C64CF3C47D10EE510ABF35375F3 /* MPSupportAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPSupportAction.h; sourceTree = "<group>"; };
 		E3E0170E8E066E8816E413792E91A599 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -462,30 +463,28 @@
 		EA36C9D8653A2387A580DD3083233D56 /* Pods-Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-frameworks.sh"; sourceTree = "<group>"; };
 		EB604222E039E44A99CFB0F41EEB54F2 /* MPLayoutFit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutFit.h; sourceTree = "<group>"; };
 		ECA6D555718CE92051E339AACB543BA9 /* MPDashedLineView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPDashedLineView.h; sourceTree = "<group>"; };
+		ED648195029885DC651D5078CD170B84 /* MPMeasurementArrowDown@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowDown@2x.png"; sourceTree = "<group>"; };
 		EF9C85E4136892F1B6A68CDE39CF5793 /* Pods-MobilePrintSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MobilePrintSDK-dummy.m"; sourceTree = "<group>"; };
 		F02AB8238D3FF095CBFA6D7D68F4A844 /* MPMultiPageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPMultiPageView.m; sourceTree = "<group>"; };
-		F031C7274B6AD4662A895F3A9851240F /* MPMultipageLandscape.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = MPMultipageLandscape.png; sourceTree = "<group>"; };
 		F0F4A6A6FD63C0D5EE543EE88C2E5F25 /* OCMInvocationExpectation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMInvocationExpectation.h; path = Source/OCMock/OCMInvocationExpectation.h; sourceTree = "<group>"; };
 		F137173F9CF2296CAB75961E7D32EAA8 /* OCMock.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMock.h; path = Source/OCMock/OCMock.h; sourceTree = "<group>"; };
 		F1F6C20A9884A05107AAB3E4E133B690 /* MPPrintLaterActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterActivity.h; sourceTree = "<group>"; };
 		F24DB96343355AA699F7F7C09F729C7E /* OCMRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMRecorder.h; path = Source/OCMock/OCMRecorder.h; sourceTree = "<group>"; };
-		F27EC4BE3877882EBF9FE73C61D1EE38 /* MobilePrintSDKLocalizable.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; path = MobilePrintSDKLocalizable.bundle; sourceTree = "<group>"; };
 		F2E14F26554BD55BB72FEEBAFA66D557 /* OCMFunctions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMFunctions.h; path = Source/OCMock/OCMFunctions.h; sourceTree = "<group>"; };
 		F32EA8ED140E1B174EB78CF1FB4B73FB /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3306B83792EB0BC440508773FE594CA /* MPPageViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPageViewController.h; sourceTree = "<group>"; };
 		F462A2AA8FD540FD187C31D76D666D84 /* MPPrintItemFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItemFactory.h; sourceTree = "<group>"; };
-		F4F5D7C28423EA12A233332E2B4ED9DA /* MPMeasurementArrowUp@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowUp@2x.png"; sourceTree = "<group>"; };
 		F603C6C681E472E9FBDCF1F98FBB7B7D /* OCMExceptionReturnValueProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMExceptionReturnValueProvider.h; path = Source/OCMock/OCMExceptionReturnValueProvider.h; sourceTree = "<group>"; };
 		F65B4A464E0C5907650DD29B2C994B90 /* MPAppearance.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPAppearance.m; sourceTree = "<group>"; };
 		F79921E0488399D4384BEEE3A0CBD7F0 /* MPLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLogger.h; sourceTree = "<group>"; };
 		F876FFCE54BC9C1542E356D4486DBAD4 /* Pods-MobilePrintSDK-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MobilePrintSDK-acknowledgements.markdown"; sourceTree = "<group>"; };
 		F8A4E6533DB80BCFE7E472E3FBD01415 /* Pods-MobilePrintSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MobilePrintSDK.release.xcconfig"; sourceTree = "<group>"; };
-		F8DAFA7FEC5D58320394EC10C97F9F64 /* MPPageView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPPageView.xib; sourceTree = "<group>"; };
 		F97548406FAADD0F436F1219336164FD /* MPPrintItemImage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemImage.m; sourceTree = "<group>"; };
 		F9998A7B164B466CC783232CDA5975C4 /* MPLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLogger.m; sourceTree = "<group>"; };
 		FA77AF7086B37C50CF9E16041EFCBB66 /* NSInvocation+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSInvocation+OCMAdditions.m"; path = "Source/OCMock/NSInvocation+OCMAdditions.m"; sourceTree = "<group>"; };
 		FB5FE5372B4926EB05761B690FA25F49 /* MPLayoutAlgorithm.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithm.m; sourceTree = "<group>"; };
 		FBF2D665F4B661BE01174424D5F4E43E /* OCMock-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OCMock-prefix.pch"; sourceTree = "<group>"; };
+		FDA3EE714EBFA8E5F56FE9BB8450F3B9 /* MPPrint@2x~ipad.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPPrint@2x~ipad.png"; sourceTree = "<group>"; };
 		FF83D4F2C0839CACBA0254DF31249D8E /* OCMPassByRefSetter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMPassByRefSetter.h; path = Source/OCMock/OCMPassByRefSetter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -546,6 +545,15 @@
 			path = "../Target Support Files/OCMock";
 			sourceTree = "<group>";
 		};
+		1815E065BBCA21080C6D0B1A6537EB42 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D7202385F4B73FE73FC5F0B3F2BCDE92 /* MP.storyboard */,
+				A133BE43A412E2FE8FDCA6C99B1CB68C /* Private */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		18340F12838DEE43507667CC74401EB1 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -573,38 +581,9 @@
 		3691DB46283B2A98B9E5DAE53B8CCA80 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D722BF80EE9505EC5B9762FEED1FAF98 /* Pod */,
+				5EDE9874D18599A43517D329416B3941 /* Pod */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		392BF8A5EBA1EAF55F49585B8530DF13 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				4A9E2DC20E6D4CD8078740234D65869A /* MPActiveCircle@2x.png */,
-				C83BBD3A0717811A54AE84E1B5DAE4C7 /* MPArrow@2x.png */,
-				467364A0F18BB768673884D7151BDB84 /* MPCheck@2x.png */,
-				273A9E260FAA001A93BB191F08395AE3 /* MPDoNoEnter.png */,
-				BAA876CE0B9822D8A12F216EA68C1CF3 /* MPDoNoEnter@2x.png */,
-				789A80CE62C8F55377057CB77203A734 /* MPGear@2x.png */,
-				B677653F50209DDE6E45F28FAEF780C0 /* MPInactiveCircle@2x.png */,
-				35A4C65AA71DA059CB49FF461C055036 /* MPMagnify@2x.png */,
-				5A9E1D96BBFDFAE9B197780CE96EB7B5 /* MPMeasurementArrowDown@2x.png */,
-				5FFC42528A1B6AAE43DB443211A266F7 /* MPMeasurementArrowLeft@2x.png */,
-				CF755AA6272AA8E1EBC83B1B9BA8CEB9 /* MPMeasurementArrowRight@2x.png */,
-				F4F5D7C28423EA12A233332E2B4ED9DA /* MPMeasurementArrowUp@2x.png */,
-				7B9E2A5E2B449A77A448274D47C6121C /* MPMultipage.png */,
-				F031C7274B6AD4662A895F3A9851240F /* MPMultipageLandscape.png */,
-				242217AFBEF2118CA5880E7D1D280A0F /* MPPrint@2x~ipad.png */,
-				DF337EF9DA84B71ADCC3E90D6D3AA8C9 /* MPPrint@2x~iphone.png */,
-				48EE22DF4147FB4BACC5CA66EA445943 /* MPPrintLater@2x~ipad.png */,
-				0651D797460353A0CF8BEFDDA182553A /* MPPrintLater@2x~iphone.png */,
-				62D14922B20A62CB0F5A546C3371B4AA /* MPSelected@2x.png */,
-				1FD6546952E114E63770D25ECE80CC5E /* MPSelected@3x.png */,
-				27A211244710C4DA350A548DF4CCF34A /* MPUnselected@2x.png */,
-				8976FB4F06BFEB7C7590F3B0FE39EEB4 /* MPUnselected@3x.png */,
-			);
-			path = Assets;
 			sourceTree = "<group>";
 		};
 		3EFA8CE3504A37B62867E3FD9943612C /* Public */ = {
@@ -679,16 +658,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5C7F92983E39D9CE63B831CD747B05EB /* Private */ = {
+		5EDE9874D18599A43517D329416B3941 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				C51B6B104358159CFFCAC3EACCE2B792 /* MPMultiPageView.xib */,
-				E1C040A7BDEB956BF31F5311F2BC2EAD /* MPPageRangeView.xib */,
-				F8DAFA7FEC5D58320394EC10C97F9F64 /* MPPageView.xib */,
-				46B1F6E7F17A90D4E2885AD2539378D2 /* MPPrintJobsActionView.xib */,
-				7E810931E3035FA8C52F56BB72C87D6C /* MPRuleView.xib */,
+				20209427DF05E28D4760023DBB565DFB /* MobilePrintSDKLocalizable.bundle */,
+				6474F62137291AFEEF9FAAF8A6242964 /* Assets */,
+				1815E065BBCA21080C6D0B1A6537EB42 /* Classes */,
 			);
-			path = Private;
+			path = Pod;
 			sourceTree = "<group>";
 		};
 		626101F65F21EF2338C2B2013672753B /* OCMock */ = {
@@ -775,6 +752,34 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		6474F62137291AFEEF9FAAF8A6242964 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				8231577033EF06DC999EFABE75B3370B /* MPActiveCircle@2x.png */,
+				3CC7B354ED2AC1FC815016BBC34DB88E /* MPArrow@2x.png */,
+				32D60F2BCE89430404CD302510365D62 /* MPCheck@2x.png */,
+				7016F31B610A81F885B2507EA803722A /* MPDoNoEnter.png */,
+				971094CA8C476A51F359224E3E56FFC4 /* MPDoNoEnter@2x.png */,
+				D63997B3B2D85219DD4E0B0DAAC23302 /* MPGear@2x.png */,
+				D23C63B92E9C802F11771597D5D2793F /* MPInactiveCircle@2x.png */,
+				10B62C49A46A1D077FAAE2FB56A3FEC5 /* MPMagnify@2x.png */,
+				ED648195029885DC651D5078CD170B84 /* MPMeasurementArrowDown@2x.png */,
+				D81A364FB5D73A6D27DB6639C8E933F7 /* MPMeasurementArrowLeft@2x.png */,
+				66C21AE9F15699E2F712B622032801B6 /* MPMeasurementArrowRight@2x.png */,
+				7A6E306968678CC43A271445BF5FFCE9 /* MPMeasurementArrowUp@2x.png */,
+				98787230AEA1558515B67BEABAB5827C /* MPMultipageWire.png */,
+				FDA3EE714EBFA8E5F56FE9BB8450F3B9 /* MPPrint@2x~ipad.png */,
+				A62EEB14241AC5E23E3E3BB464D176F7 /* MPPrint@2x~iphone.png */,
+				D082F5CE07A0079517E1BE21E8DF1E4D /* MPPrintLater@2x~ipad.png */,
+				53E534B987920DD126082A66D3AB642B /* MPPrintLater@2x~iphone.png */,
+				C66575482297E1108047016448A8AA89 /* MPSelected@2x.png */,
+				3EC40DC2923D72DA901EBA2044AE6603 /* MPSelected@3x.png */,
+				9852ED4DACC646DCF93F735958F80698 /* MPUnselected@2x.png */,
+				B8790852062BB062D1E9CE80CD298DD2 /* MPUnselected@3x.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
@@ -785,15 +790,6 @@
 				5C2BE63C1F883CD4AEBF4CE572CFA01C /* Products */,
 				8885F7434DCC156089D28B72A6DDD31D /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		8636F069B92293FD567B943F7F44987D /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				2D058A05CEB7C2281967FA1BFB10E013 /* MP.storyboard */,
-				5C7F92983E39D9CE63B831CD747B05EB /* Private */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		8885F7434DCC156089D28B72A6DDD31D /* Targets Support Files */ = {
@@ -822,6 +818,18 @@
 			path = Libraries;
 			sourceTree = "<group>";
 		};
+		A133BE43A412E2FE8FDCA6C99B1CB68C /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				4D7FB4D78F0B210C1F193204C6D32E30 /* MPMultiPageView.xib */,
+				974342DCEF950C4611810255DA81A18C /* MPPageRangeView.xib */,
+				95B4ADA4AA9F05F68E318161BE192D6B /* MPPageView.xib */,
+				E0004332783EF92BE89E1BB196B5237A /* MPPrintJobsActionView.xib */,
+				78243B9DE37E08F3A318F9DC6C0E73B2 /* MPRuleView.xib */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
 		C36F603F34EAC0EFFA4EE131125F7452 /* Pods-Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -846,16 +854,6 @@
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/MobilePrintSDK";
-			sourceTree = "<group>";
-		};
-		D722BF80EE9505EC5B9762FEED1FAF98 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				F27EC4BE3877882EBF9FE73C61D1EE38 /* MobilePrintSDKLocalizable.bundle */,
-				392BF8A5EBA1EAF55F49585B8530DF13 /* Assets */,
-				8636F069B92293FD567B943F7F44987D /* Classes */,
-			);
-			path = Pod;
 			sourceTree = "<group>";
 		};
 		DE6A76A007D02D3F6C3C967E26E2A936 /* Reachability */ = {
@@ -1165,7 +1163,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1392,7 +1390,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;

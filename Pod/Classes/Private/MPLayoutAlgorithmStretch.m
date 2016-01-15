@@ -18,7 +18,12 @@
 
 - (void)drawImage:(UIImage *)image inContainer:(CGRect)containerRect
 {
-    [image drawInRect:containerRect];
+    [image drawInRect:[self getContainerForImage:image inContainer:containerRect]];
+}
+
+- (CGRect)getContainerForImage:(UIImage *)image inContainer:(CGRect)containerRect
+{
+    return containerRect;
 }
 
 - (void)resizeContentView:(UIView *)contentView containerView:(UIView *)containerView contentRect:(CGRect)contentRect containerRect:(CGRect)containerRect

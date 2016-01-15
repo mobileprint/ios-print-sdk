@@ -415,6 +415,18 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
 
 /*!
  * @abstract Prepares a view controller suitable for the device and OS
+ * @description This method prepares a view controller for displaying the print flow. It takes into consideration the device type and OS and prepares either a split view controller (iPad with iOS 8 or above) or a standard view controller. Both types are wrapped in a navigation controller. The controller returned is suitable for using with the UIActivity method 'activityViewController'.
+ * @param delegate An optional delegate object that implements the MPPrintDelegate protocol
+ * @param dataSource An optional data source object that implements the MPPrintDataSource protocol
+ * @param printLaterJobs The MPPrintLaterJobs to print
+ * @param fromQueue Indicates if controller being requested from the print queue
+ * @param settingsOnly Indicates that the controller will be used for settings only and not for printing
+ * @return The view controller that the client should present
+ */
+- (UIViewController *)printViewControllerWithDelegate:(id<MPPrintDelegate>)delegate dataSource:(id<MPPrintDataSource>)dataSource printLaterJobs:(NSArray *)printLaterJobs fromQueue:(BOOL)fromQueue settingsOnly:(BOOL)settingsOnly;
+
+/*!
+ * @abstract Prepares a view controller suitable for the device and OS
  * @description This method prepares a view controller for displaying the "add to print queue" flow. It takes into consideration the device type and OS and prepares either a split view controller (iPad with iOS 8 or above) or a standard view controller. Both types are wrapped in a navigation controller. The controller returned is suitable for using with the UIActivity method 'activityViewController'.
  * @param delegate An optional delegate object that implements the MPAddPrintLaterDelegate protocol
  * @param printLaterJob The printLaterJob populated with appropriate printItem(s)
