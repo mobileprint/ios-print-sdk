@@ -94,7 +94,7 @@
     
     NSString *metricsSizeTitle = [sizeInfo objectForKey:kMPPaperSizeConstantNameKey];
     if (nil == metricsSizeTitle) {
-        metricsSizeTitle = [NSString stringWithFormat:@"loc:%@", title];
+        metricsSizeTitle = title;
     }
     
     return metricsSizeTitle;
@@ -127,7 +127,7 @@
     
     NSString *metricsTypeTitle = [typeInfo objectForKey:kMPPaperTypeConstantNameKey];
     if (nil == metricsTypeTitle) {
-        metricsTypeTitle = [NSString stringWithFormat:@"loc:%@", title];
+        metricsTypeTitle = title;
     }
     
     return metricsTypeTitle;
