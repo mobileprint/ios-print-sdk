@@ -55,7 +55,8 @@ NSUInteger const kMPMultiPageDefaultMaximumGutter = 40; // pixels
 NSUInteger const kMPMultiPageDefaultBleed = 20; // pixels
 CGFloat const kMPMultiPageDefaultBackgroundPageScale = 1.0;
 
-CGFloat const kMPPageFadeTime = MP_ANIMATION_DURATION; // seconds
+CGFloat const kMPPageFadeInTime = MP_ANIMATION_DURATION; // seconds
+CGFloat const kMPPageFadeOutTime = MP_ANIMATION_DURATION*2; // seconds
 CGFloat const kMPPageBaseTag = 1000;
 
 CGFloat const kMPZoomFadeTime = MP_ANIMATION_DURATION; // seconds
@@ -635,7 +636,7 @@ static NSNumber *lastPinchScale = nil;
     }
     
     if (self.scrollView.alpha < 1.0) {
-        [UIView animateWithDuration:kMPPageFadeTime animations:^{
+        [UIView animateWithDuration:kMPPageFadeInTime animations:^{
             self.scrollView.alpha = 1.0;
         }];
     }
@@ -657,7 +658,7 @@ static NSNumber *lastPinchScale = nil;
         [self updatePageImages:newPageNumber];
     }
     
-    [UIView animateWithDuration:kMPPageFadeTime animations:^{
+    [UIView animateWithDuration:kMPPageFadeOutTime animations:^{
         self.pageNumberLabel.alpha = 0.0;
     }];
 }
@@ -681,7 +682,7 @@ static NSNumber *lastPinchScale = nil;
         
         [self updatePageNumberLabelText];
         if (self.pageNumberLabel.alpha < 1.0) {
-            [UIView animateWithDuration:kMPPageFadeTime animations:^{
+            [UIView animateWithDuration:kMPPageFadeInTime animations:^{
                 self.pageNumberLabel.alpha = 0.6;
             }];
         }
