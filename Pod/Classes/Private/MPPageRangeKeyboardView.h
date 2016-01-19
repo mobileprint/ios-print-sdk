@@ -53,12 +53,12 @@
 /*!
  * @abstract String used to inform users that all pages are selected
  */
-extern NSString * const kPageRangeAllPages;
+extern NSString *kPageRangeAllPages;
 
 /*!
  * @abstract String used to inform users when no pages are selected
  */
-extern NSString * const kPageRangeNoPages;
+extern NSString *kPageRangeNoPages;
 
 @end
 

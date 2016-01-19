@@ -27,7 +27,6 @@ NSString * const kMPLastPrinterLocationSetting = @"kMPLastPrinterLocationSetting
 NSString * const kMPLastPaperSizeSetting = @"kMPLastPaperSizeSetting";
 NSString * const kMPLastPaperTypeSetting = @"kMPLastPaperTypeSetting";
 NSString * const kMPLastBlackAndWhiteFilterSetting = @"kMPLastBlackAndWhiteFilterSetting";
-NSString * const kMPBlackAndWhiteIndicatorText = @"B&W";
 NSString * const kMPPrintSummarySeparatorText = @" / ";
 
 #pragma mark - MPPageRangeViewDelegate
@@ -167,7 +166,7 @@ NSString * const kMPPrintSummarySeparatorText = @" / ";
         if( summaryText.length > 0 ) {
             summaryText = [summaryText stringByAppendingString:kMPPrintSummarySeparatorText];
         }
-        summaryText = [summaryText stringByAppendingString:kMPBlackAndWhiteIndicatorText];
+        summaryText = [summaryText stringByAppendingString:MPLocalizedString(@"B&W", @"Let's the user know their job will be printed in black-and-white")];
     }
     
     if( summaryText.length > 0 ) {
