@@ -384,21 +384,25 @@ Examples:
     And I scroll screen up to find "Share Item"
     Then I wait for some seconds
     Then I add "<no_of_jobs>" job to print queue
-    Then I touch "Next"
+    Then I load "<no_of_jobs>" job to page settings 
     Then I wait for some seconds
-    Then I am on the "Page Settings" screen
+    Then I should see the "Page Settings" screen
     Then I run print simulator
     And I scroll screen "down"
-    When I touch "Increment" and check number of copies is 2
+    And I touch "Paper Size" option
+    And I should see the paper size options
     And I scroll screen "up"
+    Then I selected the paper size "<size_option>"
+    And I should see the paper type options
+    Then I selected the paper type "<type_option>"
     Then I wait for some seconds
     And I scroll down until "Simulated Laser" is visible in the list
     Then I wait for some seconds
     And I get the printer_name
-    Then I touch Print button labeled "Print 2 Pages"
+    Then I touch "<print_option>"
     Then I wait for some seconds
     Then Fetch metrics details
-    And I check the number of copies is "2"
+    And I check the number of copies is "1"
     And I check the manufacturer is "Apple"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "0"
@@ -421,9 +425,9 @@ Examples:
     And I check the os version
 
 Examples:
-      | no_of_jobs|off_ramp              |
-      |     1     |PrintSingleFromQueue  |
-      |     2     |PrintMultipleFromQueue|
+      | no_of_jobs|off_ramp              |print_option  | size_option | type_option |
+      |     1     |PrintSingleFromQueue  |Print         | 4 x 5       | Photo Paper |
+      |     2     |PrintMultipleFromQueue|Print All     | 8.5 x 11    | Plain Paper |
      
 
     
@@ -464,6 +468,72 @@ Examples:
     And I check the os version
     And I check the off ramp is "AddToQueueFromClientUI"
     
+       
+ @TA12603
+  @reset
+  @ios8_metrics
+  
+   Scenario Outline: Verify print metrics for printing from print queue with incremented no of copies
+    Given I am on the "PrintPod" screen
+    Then I wait for some seconds
+    And I scroll screen to find "Use unique ID per app"
+    Then I enter custom library version
+    And I scroll screen up to find "Share Item"
+    Then I touch "Share Item"
+	And I touch "4x6 portrait"
+	Then I touch Print Queue
+	And I wait for some seconds
+    Then I should see the "Add Print" screen
+	And I modify the name
+    When I touch "Increment" and check number of copies is 2
+	Then I touch "Add 2 Pages"
+	And I wait for some seconds
+    Then I touch "Next"
+    Then I should see the "Page Settings" screen
+    Then I run print simulator
+    And I scroll screen "down"
+    And I touch "Paper Size" option
+    And I should see the paper size options
+    And I scroll screen "up"
+    Then I selected the paper size "<size_option>"
+    And I should see the paper type options
+    Then I selected the paper type "<type_option>"
+    Then I wait for some seconds
+    And I scroll down until "Simulated Laser" is visible in the list
+    Then I wait for some seconds
+    And I get the printer_name
+    #Then I touch Print button labeled "Print 2 Pages"
+    Then I touch "Print"
+    Then I wait for some seconds
+    Then Fetch metrics details
+    And I check the number of copies is "1"
+    And I check the manufacturer is "Apple"
+    And I check the os_type is "iOS"
+    And I check black_and_white_filter value is "0"
+    And I check the printer_location
+    And I check the printer_model is "Simulated Laser"
+    And I check the printer_name
+    And I check the image_url
+    And I check the photo_source is "facebook"
+    And I check the library version
+    And I check the user_id is "1234567890"
+    And I check the paper size is "<size_option>"
+    And I check the paper type is "<type_option>"
+    And I check the product name is "MobilePrintSDK-cal"
+    And I check the product id is "org.cocoapods.demo.MobilePrintSDK-cal"
+    And I check the application type is "HP"
+    And I check the route taken is "print-metrics-test.twosmiles.com"
+    And I check the device brand is "Apple"
+    And I check the off ramp is "PrintSingleFromQueue"
+    And I check the device type is "x86_64"
+    And I check the os version
+
+Examples:
+         | size_option | type_option |
+         | 4 x 5       | Photo Paper |
+         | 8.5 x 11    | Plain Paper |
+     
+
 
   @TA12437
   @reset
