@@ -272,6 +272,7 @@ extern NSString * const kMPPaperSizePrinterHeightKey;
  * @seealso kMPPaperSizeHeightKey
  * @seealso kMPPaperSizePrinterWidthKey
  * @seealso kMPPaperSizePrinterHeightKey
+ * @seealso kMPPaperSizeConstantNameKey
  * @seealso registerType:
  * @seealso associatePaperSize:withType:
  */
@@ -283,6 +284,7 @@ extern NSString * const kMPPaperSizePrinterHeightKey;
  * @returns YES or NO whether the paper type was added successfully
  * @seealso kMPPaperTypeIdKey
  * @seealso kMPPaperTypeTitleKey
+ * @seealso kMPPaperTypeConstantNameKey
  * @seealso kMPPaperTypePhotoKey
  * @seealso registerSize:
  * @seealso associatePaperSize:withType:
