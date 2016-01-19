@@ -25,6 +25,7 @@
 
 NSUInteger const kTestPaperSizeId = 1000;
 NSString * const kTestPaperSizeTitle = @"Test Size";
+NSString * const kTestPaperSizeConstantName = @"Test constant name";
 float const kTestPaperSizeWidth = 1.0;
 float const kTestPaperSizeHeight = 2.0;
 float const kTestPaperSizePrinterWidth = 3.0;
@@ -75,6 +76,15 @@ NSUInteger const kTestPaperTypeId = MPPaperTypePlain;
     [self verifyPrinterPaper:paper withSettings:info];
 }
 
+- (void)testprinterPaperConstantSizeName
+{
+    NSDictionary *info = [self defaultSizeInfo];
+    [self registerPaperSize:info];
+    
+    BOOL stringsMatch = [kTestPaperSizeConstantName isEqualToString:[MPPaper constantPaperSizeFromTitle:kTestPaperSizeTitle]];
+    XCTAssert(stringsMatch, @"The constant paper size name is incorrect");
+}
+
 #pragma mark - Paper helpers
 
 - (void)registerPaperSize:(NSDictionary *)info
@@ -88,6 +98,7 @@ NSUInteger const kTestPaperTypeId = MPPaperTypePlain;
     return @{
              kMPPaperSizeIdKey:[NSNumber numberWithUnsignedInteger:kTestPaperSizeId],
              kMPPaperSizeTitleKey:kTestPaperSizeTitle,
+             kMPPaperSizeConstantNameKey:kTestPaperSizeConstantName,
              kMPPaperSizeWidthKey:[NSNumber numberWithFloat:kTestPaperSizeWidth],
              kMPPaperSizeHeightKey:[NSNumber numberWithFloat:kTestPaperSizeHeight]
              };
