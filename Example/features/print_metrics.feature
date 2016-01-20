@@ -249,8 +249,8 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     And I check the manufacturer is "Apple"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "0"
-    # And I check the printer_location  -  Log defect
-    # And I check the printer_model is "Simulated Laser"  - Log Defect
+    And I check the printer_location  
+    And I check the printer_model is "Simulated Laser" 
     And I check the printer_name
     And I check the image_url
     And I check the photo_source is "facebook"
