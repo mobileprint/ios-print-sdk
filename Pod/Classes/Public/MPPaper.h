@@ -66,10 +66,16 @@ typedef enum {
 extern NSString * const kMPPaperSizeIdKey;
 
 /*!
- * @abstract Dictionary key used to specify the paper size ID when registering a paper size
+ * @abstract Dictionary key used to specify the paper size title when registering a paper size
  * @discussion An NSString value used in the UI to represent the paper size
  */
 extern NSString * const kMPPaperSizeTitleKey;
+
+/*!
+ * @abstract Dictionary key used to specify a non-localized name when registering a paper size
+ * @discussion An NSString value used internally to represent the paper size
+ */
+extern NSString * const kMPPaperSizeConstantNameKey;
 
 /*!
  * @abstract Dictionary key used to specify the paper type ID when registering a paper type
@@ -78,10 +84,16 @@ extern NSString * const kMPPaperSizeTitleKey;
 extern NSString * const kMPPaperTypeIdKey;
 
 /*!
- * @abstract Dictionary key used to specify the paper type ID when registering a paper type
+ * @abstract Dictionary key used to specify the paper type title when registering a paper type
  * @discussion An NSString value used in the UI to represent the paper size
  */
 extern NSString * const kMPPaperTypeTitleKey;
+
+/*!
+ * @abstract Dictionary key used to specify a non-localized name when registering a paper type
+ * @discussion An NSString value used internally to represent the paper size
+ */
+extern NSString * const kMPPaperTypeConstantNameKey;
 
 /*!
  * @abstract Dictionary key used to specify whether the paper type being registered is photo paper or not
@@ -219,6 +231,14 @@ extern NSString * const kMPPaperSizePrinterHeightKey;
 + (NSUInteger)sizeFromTitle:(NSString *)paperSizeTitle;
 
 /*!
+ * @abstract Retrieves a constant, non-localized paper size title.  This is good for tracking/logging paper usage across multiple locales.
+ * @description This method asserts that the string given is a valid paper size. An exception is raised if an invalid string is passed.
+ * @returns A constant, non-localized paper size
+ * @seealso analyticsPaperTypeFromTitle:
+ */
++ (NSString *)constantPaperSizeFromTitle:(NSString *)paperSizeTitle;
+
+/*!
  * @abstract Retrieves the title for a given paper type
  * @description This method asserts that the type given is a valid paper type. An exception is raised if an invalid type is passed.
  * @returns Display title for the paper type
@@ -235,6 +255,14 @@ extern NSString * const kMPPaperSizePrinterHeightKey;
 + (NSUInteger)typeFromTitle:(NSString *)paperTypeTitle;
 
 /*!
+ * @abstract Retrieves a constant, non-localized paper type title.  This is good for tracking/logging paper usage across multiple locales.
+ * @description This method asserts that the string given is a valid paper type. An exception is raised if an invalid string is passed.
+ * @returns A constant, non-localized paper type
+ * @seealso analyticsPaperSizeFromTitle:
+ */
++ (NSString *)constantPaperTypeFromTitle:(NSString *)paperTypeTitle;
+
+/*!
  * @abstract Registers a paper size
  * @param info An NSDictionary containing an ID, title, width, and height. Optionally includes special printer width and height.
  * @returns YES or NO whether the paper size was added successfully
@@ -244,6 +272,7 @@ extern NSString * const kMPPaperSizePrinterHeightKey;
  * @seealso kMPPaperSizeHeightKey
  * @seealso kMPPaperSizePrinterWidthKey
  * @seealso kMPPaperSizePrinterHeightKey
+ * @seealso kMPPaperSizeConstantNameKey
  * @seealso registerType:
  * @seealso associatePaperSize:withType:
  */
@@ -255,6 +284,7 @@ extern NSString * const kMPPaperSizePrinterHeightKey;
  * @returns YES or NO whether the paper type was added successfully
  * @seealso kMPPaperTypeIdKey
  * @seealso kMPPaperTypeTitleKey
+ * @seealso kMPPaperTypeConstantNameKey
  * @seealso kMPPaperTypePhotoKey
  * @seealso registerSize:
  * @seealso associatePaperSize:withType:

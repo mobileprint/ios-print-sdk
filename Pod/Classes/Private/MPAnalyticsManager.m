@@ -14,6 +14,7 @@
 #import "MPAnalyticsManager.h"
 #import "MPPageRange.h"
 #import "MPPrintManager.h"
+#import "MPPaper.h"
 #import <sys/sysctl.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <CommonCrypto/CommonDigest.h>
@@ -133,9 +134,9 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
                               kMPMetricsVersion : [self nonNullString:completeVersion],
                               kMPMetricsPrintLibraryVersion :[self nonNullString:printLibraryVersion],
                               kMPMetricsWiFiSSID : [MPAnalyticsManager wifiName],
-                              kMPMetricsCountryCode : [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode],
-                              kMPMetricsLanguageCode : [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode],
-                              kMPMetricsTimezoneDescription : [NSTimeZone systemTimeZone].description,
+                              kMPMetricsCountryCode : [self nonNullString:[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]],
+                              kMPMetricsLanguageCode : [self nonNullString:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]],
+                              kMPMetricsTimezoneDescription : [self nonNullString:[NSTimeZone systemTimeZone].description],
                               kMPMetricsTimezoneOffsetSeconds : [NSString stringWithFormat:@"%ld", (long)[NSTimeZone systemTimeZone].secondsFromGMT]
                               };
     
@@ -145,7 +146,25 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 - (NSDictionary *)printMetricsForOfframp:(NSString *)offramp
 {
     if ([MPPrintManager printNowOfframp:offramp]) {
-        return [MP sharedInstance].lastOptionsUsed;
+        NSMutableDictionary *lastOptions = [[MP sharedInstance].lastOptionsUsed mutableCopy];
+        
+        NSString *paperType = [lastOptions objectForKey:kMPPaperTypeId];
+        if (paperType) {
+            NSString *analyticsPaperType = [MPPaper constantPaperTypeFromTitle:paperType];
+            if (analyticsPaperType) {
+                [lastOptions setObject:analyticsPaperType forKey:kMPPaperTypeId];
+            }
+        }
+
+        NSString *paperSize = [lastOptions objectForKey:kMPPaperSizeId];
+        if (paperSize) {
+            NSString *analyticsPaperSize = [MPPaper constantPaperSizeFromTitle:paperSize];
+            if (analyticsPaperSize) {
+                [lastOptions setObject:analyticsPaperSize forKey:kMPPaperSizeId];
+            }
+        }
+
+        return lastOptions;
     } else {
         return [NSDictionary dictionaryWithObjectsAndKeys:
                 kMPNoPrint, kMPBlackAndWhiteFilterId,

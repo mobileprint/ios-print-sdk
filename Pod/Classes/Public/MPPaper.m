@@ -85,6 +85,21 @@
     return [[sizeInfo objectForKey:kMPPaperSizeIdKey] unsignedIntegerValue];
 }
 
++ (NSString *)constantPaperSizeFromTitle:(NSString *)title
+{
+    NSDictionary *sizeInfo = [self sizeForTitle:title];
+    if (nil == sizeInfo) {
+        NSAssert(NO, @"Unknown paper size title: %@", title);
+    }
+    
+    NSString *metricsSizeTitle = [sizeInfo objectForKey:kMPPaperSizeConstantNameKey];
+    if (nil == metricsSizeTitle) {
+        metricsSizeTitle = title;
+    }
+    
+    return metricsSizeTitle;
+}
+
 + (NSString *)titleFromType:(NSUInteger)typeId
 {
     NSDictionary *typeInfo = [self typeForId:typeId];
@@ -101,6 +116,21 @@
         NSAssert(NO, @"Unknown paper type title: %@", title);
     }
     return [[typeInfo objectForKey:kMPPaperTypeIdKey] unsignedIntegerValue];
+}
+
++ (NSString *)constantPaperTypeFromTitle:(NSString *)title
+{
+    NSDictionary *typeInfo = [self typeForTitle:title];
+    if (nil == typeInfo) {
+        NSAssert(NO, @"Unknown paper type title: %@", title);
+    }
+    
+    NSString *metricsTypeTitle = [typeInfo objectForKey:kMPPaperTypeConstantNameKey];
+    if (nil == metricsTypeTitle) {
+        metricsTypeTitle = title;
+    }
+    
+    return metricsTypeTitle;
 }
 
 - (NSString *)paperWidthTitle
@@ -129,6 +159,8 @@ NSString * const kMPPaperSizeIdKey = @"kMPPaperSizeIdKey";
 NSString * const kMPPaperSizeTitleKey = @"kMPPaperSizeTitleKey";
 NSString * const kMPPaperTypeIdKey = @"kMPPaperTypeIdKey";
 NSString * const kMPPaperTypeTitleKey = @"kMPPaperTypeTitleKey";
+NSString * const kMPPaperTypeConstantNameKey = @"kMPPaperTypeConstantNameKey";
+NSString * const kMPPaperSizeConstantNameKey = @"kMPPaperSizeConstantNameKey";
 NSString * const kMPPaperTypePhotoKey = @"kMPPaperTypePhotoKey";
 NSString * const kMPPaperSizeWidthKey = @"kMPPaperWidthKey";
 NSString * const kMPPaperSizeHeightKey = @"kMPPaperHeightKey";
@@ -154,6 +186,7 @@ static NSArray *_supportedPaper = nil;
     [self registerSize:@{
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSize4x5],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"4 x 5", @"Option for paper size"),
+                         kMPPaperSizeConstantNameKey:@"4 x 5",
                          kMPPaperSizeWidthKey:[NSNumber numberWithFloat:4.0],
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:5.0],
                          kMPPaperSizePrinterHeightKey:[NSNumber numberWithFloat:6.0]
@@ -161,18 +194,21 @@ static NSArray *_supportedPaper = nil;
     [self registerSize:@{
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSize4x6],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"4 x 6", @"Option for paper size"),
+                         kMPPaperSizeConstantNameKey:@"4 x 6",
                          kMPPaperSizeWidthKey:[NSNumber numberWithFloat:4.0],
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:6.0]
                          }];
     [self registerSize:@{
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSize5x7],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"5 x 7", @"Option for paper size"),
+                         kMPPaperSizeConstantNameKey:@"5 x 7",
                          kMPPaperSizeWidthKey:[NSNumber numberWithFloat:5.0],
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:7.0]
                          }];
     [self registerSize:@{
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSizeLetter],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"8.5 x 11", @"Option for paper size"),
+                         kMPPaperSizeConstantNameKey:@"8.5 x 11",
                          kMPPaperSizeWidthKey:[NSNumber numberWithFloat:8.5],
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:11.0]
                          }];
@@ -185,6 +221,7 @@ static NSArray *_supportedPaper = nil;
     [self registerSize:@{
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSizeA4],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"A4", @"Option for paper size"),
+                         kMPPaperSizeConstantNameKey:@"A4",
                          kMPPaperSizeWidthKey:[NSNumber numberWithFloat:210.0 / kMillimetersPerInch],
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:297.0 / kMillimetersPerInch]
                          }];
@@ -192,6 +229,7 @@ static NSArray *_supportedPaper = nil;
     [self registerSize:@{
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSizeA5],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"A5", @"Option for paper size"),
+                         kMPPaperSizeConstantNameKey:@"A5",
                          kMPPaperSizeWidthKey:[NSNumber numberWithFloat:148.0 / kMillimetersPerInch],
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:210.0 / kMillimetersPerInch]
                          }];
@@ -199,6 +237,7 @@ static NSArray *_supportedPaper = nil;
     [self registerSize:@{
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSizeA6],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"A6", @"Option for paper size"),
+                         kMPPaperSizeConstantNameKey:@"A6",
                          kMPPaperSizeWidthKey:[NSNumber numberWithFloat:105.0 / kMillimetersPerInch],
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:148.0 / kMillimetersPerInch]
                          }];
@@ -206,6 +245,7 @@ static NSArray *_supportedPaper = nil;
     [self registerSize:@{
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSize10x13],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"10x13cm", @"Option for paper size"),
+                         kMPPaperSizeConstantNameKey:@"10x13cm",
                          kMPPaperSizeWidthKey:[NSNumber numberWithFloat:4.0],
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:5.0],
                          kMPPaperSizePrinterHeightKey:[NSNumber numberWithFloat:6.0]
@@ -214,6 +254,7 @@ static NSArray *_supportedPaper = nil;
     [self registerSize:@{
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSize10x15],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"10x15cm", @"Option for paper size"),
+                         kMPPaperSizeConstantNameKey:@"10x15cm",
                          kMPPaperSizeWidthKey:[NSNumber numberWithFloat:4.0],
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:6.0]
                          }];
@@ -221,6 +262,7 @@ static NSArray *_supportedPaper = nil;
     [self registerSize:@{
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSize13x18],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"13x18cm", @"Option for paper size"),
+                         kMPPaperSizeConstantNameKey:@"13x18cm",
                          kMPPaperSizeWidthKey:[NSNumber numberWithFloat:5.0],
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:7.0]
                          }];
@@ -228,11 +270,13 @@ static NSArray *_supportedPaper = nil;
     [self registerType:@{
                          kMPPaperTypeIdKey:[NSNumber numberWithUnsignedLong:MPPaperTypePlain],
                          kMPPaperTypeTitleKey:MPLocalizedString(@"Plain Paper", @"Option for paper type"),
+                         kMPPaperTypeConstantNameKey:@"Plain Paper",
                          kMPPaperTypePhotoKey:[NSNumber numberWithBool:NO]
                          }];
     [self registerType:@{
                          kMPPaperTypeIdKey:[NSNumber numberWithUnsignedLong:MPPaperTypePhoto],
                          kMPPaperTypeTitleKey:MPLocalizedString(@"Photo Paper", @"Option for paper type"),
+                         kMPPaperTypeConstantNameKey:@"Photo Paper",
                          kMPPaperTypePhotoKey:[NSNumber numberWithBool:YES]
                          }];
     
