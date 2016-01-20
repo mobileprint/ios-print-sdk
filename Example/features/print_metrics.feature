@@ -55,8 +55,7 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     Examples:
       | size_option | type_option | metrics_option |
       | 4 x 5       | Photo Paper | HP             |
-      | 5 x 7       | Photo Paper | HP             |
-      | 8.5 x 11    | Photo Paper | HP             |
+      | 8.5 x 11    | Plain Paper | HP             |
 
   @TA12437
   @reset
@@ -89,7 +88,7 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     Then I wait for some seconds
     Then Fetch metrics details
     And I check the number of copies is "2"
-    #And I check the manufacturer is "Apple"
+    And I check the manufacturer is "Not Collected"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "0"
     #And I check the printer_location
@@ -105,7 +104,7 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     And I check the product id is "org.cocoapods.demo.MobilePrintSDK-cal"
     And I check the application type is "Partner"
     And I check the route taken is "print-metrics-test.twosmiles.com"
-    #And I check the device brand is "Apple"
+    And I check the device brand is "Not Collected"
     And I check the off ramp is "PrintFromClientUI"
     And I check the device type is "x86_64"
     And I check the os version
@@ -132,7 +131,7 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     Then I should see the "Page Settings" screen
     Then I run print simulator
     And I scroll screen "down"
-    When I touch "Increment" and check number of copies is 2
+    #When I touch "Increment" and check number of copies is 2
     And I touch "Paper Size" option
     And I should see the paper size options
     And I scroll screen "up"
@@ -143,14 +142,12 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     And I scroll down until "Simulated Laser" is visible in the list
     Then I wait for some seconds
     Then Fetch metrics details
-    Then I touch Print button labeled "Print 2 Pages"
+    Then I touch Print button labeled "Print"
     Then I wait for some seconds
     And I verify metrics not generated for current print
 
     Examples:
       | size_option | type_option | metrics_option |
-      | 4 x 5       | Photo Paper | None           |
-      | 4 x 6       | Photo Paper | None           |
       | 5 x 7       | Photo Paper | None           |
       | 8.5 x 11    | Plain Paper | None           |
       | 8.5 x 11    | Photo Paper | None           |
@@ -159,16 +156,17 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
   @TA12437
   @reset
   @ios8_metrics
-  Scenario Outline: Verify print metrics for Direct Print Item
+  Scenario Outline: Verify Direct Print Metrics for Patner
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
     Then I enter custom library version
+    And I scroll screen to find "METRICS"
+    Then I touch "<metrics_option>"
     And I scroll screen to find "Configure"
     Then I touch Configure to set up direct print
-    And I touch "4x6 portrait"
     Then I wait for some seconds
-    Then I run print simulator
+    And I touch "4x6 portrait"
     And I scroll screen "down"
     And I touch "Paper Size" option
     And I should see the paper size options
@@ -176,6 +174,7 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     Then I selected the paper size "<size_option>"
     And I should see the paper type options
     Then I selected the paper type "<type_option>"
+    Then I run print simulator
     Then I wait for some seconds
     And I scroll down until "Simulated Laser" is visible in the list
     Then I wait for some seconds
@@ -187,11 +186,71 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     Then I wait for some seconds
     Then Fetch metrics details    
     And I check the number of copies is "1"
+    And I check the manufacturer is "Not Collected"
+    And I check the os_type is "iOS"
+    And I check black_and_white_filter value is "0"
+    #And I check the printer_location
+    #And I check the printer_model is "Simulated Laser" -- Log Defect
+    #And I check the printer_name
+    And I check the image_url
+    #And I check the photo_source is "facebook"
+    And I check the library version
+    #And I check the user_id is "1234567890"
+    And I check the paper size is "<size_option>"
+    And I check the paper type is "<type_option>"
+    And I check the product name is "MobilePrintSDK-cal"
+    And I check the product id is "org.cocoapods.demo.MobilePrintSDK-cal"
+    And I check the application type is "<metrics_option>"
+    And I check the route taken is "print-metrics-test.twosmiles.com"
+    And I check the device brand is "Not Collected"
+    And I check the off ramp is "PrintWithNoUI"
+    And I check the device type is "x86_64"
+    And I check the os version
+
+    Examples:
+      | size_option | type_option | metrics_option |
+      | 8.5 x 11    | Plain Paper | Partner        |
+      | 8.5 x 11    | Photo Paper | Partner        |
+      | 5 x 7       | Photo Paper | Partner        |
+
+
+  @done
+  @TA12437
+  @reset
+  @ios8_metrics
+  Scenario Outline: Verify Direct Print Metrics for HP
+    Given I am on the "PrintPod" screen
+    Then I wait for some seconds
+    And I scroll screen to find "Use unique ID per app"
+    Then I enter custom library version
+    And I scroll screen to find "Configure"
+    Then I touch Configure to set up direct print
+    Then I wait for some seconds
+    And I touch "4x6 portrait"
+    And I scroll screen "down"
+    And I touch "Paper Size" option
+    And I should see the paper size options
+    And I scroll screen "up"
+    Then I selected the paper size "<size_option>"
+    And I should see the paper type options
+    Then I selected the paper type "<type_option>"
+    Then I run print simulator
+    Then I wait for some seconds
+    And I scroll down until "Simulated Laser" is visible in the list
+    Then I wait for some seconds
+    Then I touch "Done"
+    And I scroll screen up to find "Direct Print Item"
+    And I touch "Direct Print Item"
+    And I scroll screen to find "3up"
+    And I touch "3up"
+    Then I wait for some seconds
+    Then Fetch metrics details
+    And I check the number of copies is "1"
     And I check the manufacturer is "Apple"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "0"
-    And I check the printer_location
-    And I check the printer_model is "Simulated Laser"
+    # And I check the printer_location  -  Log defect
+    # And I check the printer_model is "Simulated Laser"  - Log Defect
     And I check the printer_name
     And I check the image_url
     And I check the photo_source is "facebook"
@@ -211,11 +270,8 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     Examples:
       | size_option | type_option |
       | 4 x 5       | Photo Paper |
-      | 4 x 6       | Photo Paper |
-      | 5 x 7       | Photo Paper |
       | 8.5 x 11    | Plain Paper |
-      | 8.5 x 11    | Photo Paper |
-      
+
       
  @TA12603
   @reset
@@ -301,12 +357,14 @@ Examples:
     And I check the photo_source is "facebook"
     And I check the library version
     And I check the user_id is "1234567890"
+    And I check the printer_model is "No Print"
+    And I check the paper size is "No Print"
+    And I check the paper type is "No Print"
     And I check the product name is "MobilePrintSDK-cal"
     And I check the product id is "org.cocoapods.demo.MobilePrintSDK-cal"
     And I check the application type is "HP"
     And I check the route taken is "print-metrics-test.twosmiles.com"
     And I check the device brand is "Apple"
-    #And I check the off ramp is "PrintFromShare"
     And I check the off ramp is "com.apple.UIKit.activity.SaveToCameraRoll"
     And I check the device type is "x86_64"
     And I check the os version
@@ -502,7 +560,6 @@ Examples:
     And I scroll down until "Simulated Laser" is visible in the list
     Then I wait for some seconds
     And I get the printer_name
-    #Then I touch Print button labeled "Print 2 Pages"
     Then I touch "Print"
     Then I wait for some seconds
     Then Fetch metrics details
@@ -617,7 +674,7 @@ Examples:
     Then I wait for some seconds
     Then Fetch metrics details
     And I check the number of copies is "1"
-    #And I check the manufacturer is "Apple"
+    And I check the manufacturer is "Not Collected"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "1"
    # And I check the printer_location
@@ -628,7 +685,7 @@ Examples:
     And I check the paper size is "<size_option>"
     And I check the paper type is "<type_option>"
     And I check the product name is "MobilePrintSDK-cal"
-    #And I check the device brand is "Apple"
+    And I check the device brand is "Not Collected"
     And I check the off ramp is "PrintFromClientUI"
     And I check the device type is "x86_64"
     And I check the os version
