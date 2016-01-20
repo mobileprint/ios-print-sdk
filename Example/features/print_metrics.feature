@@ -1,6 +1,5 @@
 Feature: As a user I want to verify the print metrics for HP, Partners and none
 
-  @TA12437
   @reset
   @ios8_metrics
   Scenario Outline: Verify print metrics for HP
@@ -57,7 +56,7 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
       | 4 x 5       | Photo Paper | HP             |
       | 8.5 x 11    | Plain Paper | HP             |
 
-  @TA12437
+
   @reset
   @ios8_metrics
   Scenario Outline: Verify print metrics for Partner
@@ -153,7 +152,6 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
       | 8.5 x 11    | Photo Paper | None           |
 
   @done
-  @TA12437
   @reset
   @ios8_metrics
   Scenario Outline: Verify Direct Print Metrics for Patner
@@ -189,8 +187,8 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     And I check the manufacturer is "Not Collected"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "0"
-    #And I check the printer_location
-    #And I check the printer_model is "Simulated Laser" -- Log Defect
+    #And I check the printer_location -- DE3635
+    #And I check the printer_model is "Simulated Laser"
     #And I check the printer_name
     And I check the image_url
     #And I check the photo_source is "facebook"
@@ -215,7 +213,6 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
 
 
   @done
-  @TA12437
   @reset
   @ios8_metrics
   Scenario Outline: Verify Direct Print Metrics for HP
@@ -249,9 +246,9 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
     And I check the manufacturer is "Apple"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "0"
-    And I check the printer_location  
-    And I check the printer_model is "Simulated Laser" 
-    And I check the printer_name
+    #And I check the printer_location   -- DE3635
+    #And I check the printer_model is "Simulated Laser"
+    #And I check the printer_name  -- dependent on Printer_model
     And I check the image_url
     And I check the photo_source is "facebook"
     And I check the library version
@@ -273,7 +270,7 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
       | 8.5 x 11    | Plain Paper |
 
       
- @TA12603
+
   @reset
   @ios8_metrics
   Scenario Outline: Verify print metrics for print from share item
@@ -333,7 +330,7 @@ Examples:
       | 5 x 7       | Photo Paper | HP             |
       | 8.5 x 11    | Photo Paper | HP             |
 
-@TA12603
+
   @reset
   @ios8_metrics
     Scenario: Verify print metrics for share item save image
@@ -371,7 +368,7 @@ Examples:
  
 
 
-@TA12603
+
   @reset
   @ios8_metrics
    Scenario: Verify print metrics for add to queue from share
@@ -399,7 +396,7 @@ Examples:
     And I check the os version
     And I check the off ramp is "AddToQueueFromShare"
     
-@TA12603
+
   @reset
   @ios8_metrics
    Scenario: Verify print metrics for delete from queue
@@ -431,7 +428,7 @@ Examples:
     And I check the off ramp is "DeleteFromQueue"
     
     
- @TA12603
+
   @reset
   @ios8_metrics
    Scenario Outline: Verify print metrics for printing from print queue
@@ -489,7 +486,7 @@ Examples:
      
 
     
- @TA12603
+
   @reset
   @ios8_metrics
    Scenario: Verify print metrics for jobs added from client UI
@@ -527,7 +524,7 @@ Examples:
     And I check the off ramp is "AddToQueueFromClientUI"
     
        
- @TA12603
+
   @reset
   @ios8_metrics
   
@@ -592,7 +589,7 @@ Examples:
      
 
 
-  @TA12437
+
   @reset
   @ios7_metrics
   Scenario Outline: Verify print metrics for HP
@@ -644,7 +641,7 @@ Examples:
       | 5 x 7       | Photo Paper | HP             |
       | 8.5 x 11    | Photo Paper | HP             |
 
-  @TA12437
+
   @reset
   @ios7_metrics
   Scenario Outline: Verify print metrics for Partner
@@ -696,7 +693,7 @@ Examples:
       | 8.5 x 11    | Plain Paper | Partner        |
 
 
-  @TA12437
+
   @reset
   @ios7_metrics
   Scenario Outline: Verify print metrics for None
