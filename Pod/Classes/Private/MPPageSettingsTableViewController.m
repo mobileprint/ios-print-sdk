@@ -279,6 +279,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 
     self.pageRangeLabel.font = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     self.pageRangeLabel.textColor = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
+    self.pageRangeLabel.text = MPLocalizedString(@"Page Range", @"Used to specify that a range of pages can be displayed");
     self.pageRangeDetailTextField.font = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsSecondaryFont];
     self.pageRangeDetailTextField.textColor = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsSecondaryFontColor];
     self.pageRangeDetailTextField.delegate = self;

@@ -13,6 +13,8 @@
 #import "MP.h"
 #import "MPPageRangeKeyboardView.h"
 #import "UIColor+MPStyle.h"
+#import "NSBundle+MPLocalizable.h"
+
 
 @interface MPPageRangeKeyboardView ()
 
@@ -29,14 +31,14 @@
 
 @implementation MPPageRangeKeyboardView
 
-NSString * const kPageRangeAllPages = @"All";
-NSString * const kPageRangeNoPages = @"No pages selected";
+NSString *kPageRangeAllPages;
+NSString *kPageRangeNoPages;
 
-static NSString *kBackButtonText = @"⌫";
-static NSString *kCheckButtonText = @"Done";
-static NSString *kAllButtonText = @"ALL";
-static NSString *kAllPagesIndicator = @"";
-static NSString *kPlaceholderText = @"e.g. 1,3-5";
+static NSString *kBackButtonText;
+static NSString *kCheckButtonText;
+static NSString *kAllButtonText;
+static NSString *kAllPagesIndicator;
+static NSString *kPlaceholderText;
 
 - (id)initWithFrame:(CGRect)frame textField:(UITextField *)textField maxPageNum:(NSInteger)maxPageNum
 {
@@ -45,6 +47,15 @@ static NSString *kPlaceholderText = @"e.g. 1,3-5";
 
 - (id) loadView:(UITextField *)textField maxPageNum:(NSInteger)maxPageNum
 {
+    kPageRangeAllPages = MPLocalizedString(@"All", @"Specifies that all pages will be selected");
+    kPageRangeNoPages = MPLocalizedString(@"No pages selected", @"Specifies that no pages are selected for printing");
+
+    kBackButtonText = @"⌫";
+    kCheckButtonText = MPLocalizedString(@"Done", @"Used on a button for closing the dialog");
+    kAllButtonText = MPLocalizedString(@"ALL", @"Text used on a button that selects all pages for printing");
+    kAllPagesIndicator = @"";
+    kPlaceholderText = MPLocalizedString(@"e.g. 1,3-5", @"Text used to give an example of how to enter a page range");
+
     self.textField = textField;
     self.textField.placeholder = kPlaceholderText;
     self.buttons = [[NSMutableArray alloc] init];
