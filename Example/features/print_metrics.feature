@@ -1,4 +1,4 @@
-Feature: As a user I want to verify the print metrics for HP, Partners and none
+Feature: As a user I want to verify the print metrics for HP, Partner and none
 
   @reset
   @ios8_metrics
@@ -154,7 +154,7 @@ Feature: As a user I want to verify the print metrics for HP, Partners and none
   @done
   @reset
   @ios8_metrics
-  Scenario Outline: Verify Direct Print Metrics for Patner
+  Scenario Outline: Verify Direct Print Metrics for Partner
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
