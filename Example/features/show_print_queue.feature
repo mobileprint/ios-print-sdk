@@ -2,6 +2,7 @@ Feature: Select item and add to print queue
 
   @reset
   @TA12753
+  @ios8
   Scenario: Verify item added to print queue
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -20,6 +21,7 @@ Feature: Select item and add to print queue
     
     @reset
     @TA12753
+	@ios8
   Scenario: verify print for the item from print queue
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -44,6 +46,7 @@ Feature: Select item and add to print queue
     
     @reset
     @TA12753
+	@ios8
   Scenario: Verify Print queue buttons
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -67,6 +70,7 @@ Feature: Select item and add to print queue
     
     @reset
     @TA12753
+	@ios8
   Scenario: Verify print queue job selection and deselection
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -89,6 +93,7 @@ Feature: Select item and add to print queue
         
     @reset
     @TA12753
+	@ios8
         Scenario: Verify print queue job deletion
         Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -114,6 +119,7 @@ Feature: Select item and add to print queue
         @reset
         @TA12753
         @smoke
+		@ios8
         Scenario: Verify print queue job print for multiple jobs
         Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -142,6 +148,7 @@ Feature: Select item and add to print queue
   @reset
   @TA12753
   @TA12558
+  @ios8
    Scenario: Verify name edited on Print Queue screen
     Given I am on the "PrintPod" screen
     Then I add "1" job to print queue
@@ -153,6 +160,7 @@ Feature: Select item and add to print queue
   @reset
   @TA12753
   @TA12558
+  @ios8
    Scenario: Verify multiple item deletion from print queue
     Given I am on the "PrintPod" screen
      Then I add "2" job to print queue
@@ -165,6 +173,7 @@ Feature: Select item and add to print queue
   @reset
   @TA12753
   @TA12558
+  @ios8
   Scenario: Verify item names and item deletion from print queue
     Given I am on the "PrintPod" screen
     Then I add "3" job to print queue

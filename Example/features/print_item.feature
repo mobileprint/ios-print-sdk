@@ -1,6 +1,7 @@
 Feature: Select a Print item and print
 
   @TA12753
+  @ios8
   Scenario: Select 4x6 image and print
     Given I am on the "PrintPod" screen
     Then I should see "Print Item"
@@ -75,6 +76,7 @@ Feature: Select a Print item and print
         | 4up   |
         
   @TA12753
+  @ios8
   @reset
      Scenario Outline: Verify share item to add print queue 3up and 4up
     Given I am on the "Share Item" screen

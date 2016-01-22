@@ -24,6 +24,7 @@ Feature: Verify Print Pod home page
     Then I should see the "Direct Print Item" screen
 
   @TA12753
+  @ios8
   Scenario: Select Show Print Queue
     Given I am on the "PrintPod" screen
     Then I should see "Show Print Queue"

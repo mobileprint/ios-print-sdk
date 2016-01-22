@@ -9,6 +9,7 @@ Feature: Verify Share functionalities
         
     @reset
     @TA12753
+	@ios8
     Scenario:Verify print from share after incrementing copies
 	Given I am on the "Share" screen
 		When I touch "Print"
@@ -39,6 +40,7 @@ Feature: Verify Share functionalities
         
         @reset
         @TA12753
+		@ios8
         @smoke
     Scenario:Verify add to print queue from share
 	   Given I am on the "Share" screen

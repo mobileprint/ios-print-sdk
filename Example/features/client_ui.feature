@@ -18,6 +18,7 @@ Feature: Select a Print item and print from client UI
     
     @TA12753
 	@reset
+	@ios8
      Scenario: Verify Print Queue through Client UI button
     Given I am on the "PrintPod" screen
     And I scroll screen to find "BAR BUTTON ITEMS"
