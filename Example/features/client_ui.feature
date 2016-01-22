@@ -16,8 +16,8 @@ Feature: Select a Print item and print from client UI
     Then I choose print button
     And I delete printer simulater generated files
     
-     @done
-    @reset
+    @TA12753
+	@reset
      Scenario: Verify Print Queue through Client UI button
     Given I am on the "PrintPod" screen
     And I scroll screen to find "BAR BUTTON ITEMS"

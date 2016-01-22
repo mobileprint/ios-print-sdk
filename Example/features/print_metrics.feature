@@ -151,7 +151,7 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
       | 8.5 x 11    | Plain Paper | None           |
       | 8.5 x 11    | Photo Paper | None           |
 
-  @done
+  @TA12753
   @reset
   @ios8_metrics
   Scenario Outline: Verify Direct Print Metrics for Partner
@@ -212,7 +212,7 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
       | 5 x 7       | Photo Paper | Partner        |
 
 
-  @done
+  @TA12753
   @reset
   @ios8_metrics
   Scenario Outline: Verify Direct Print Metrics for HP

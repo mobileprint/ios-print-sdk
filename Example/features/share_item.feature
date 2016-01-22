@@ -1,6 +1,6 @@
 Feature: Select item and add to print queue
 
-  @done
+  @TA12753
   @smoke
   Scenario: Select 4x6 image and add to print queue
     Given I am on the "PrintPod" screen
@@ -13,7 +13,7 @@ Feature: Select item and add to print queue
     Then I should see the "Print Queue" screen
     When I touch "Done"
 
-  @done
+  @TA12753
     Scenario: Select 5x7 landscape image and add to print queue
     Given I am on the "Share Item" screen
     And I touch "5x7 landscape"
@@ -24,7 +24,7 @@ Feature: Select item and add to print queue
     Then I should see the "Print Queue" screen
     When I touch "Done"
 
-  @done
+  @TA12753
     Scenario: Select 1 page PDF and add to print queue
     Given I am on the "Share Item" screen
     And I scroll screen to find "1 Page"
@@ -36,7 +36,7 @@ Feature: Select item and add to print queue
     Then I should see the "Print Queue" screen
     When I touch "Done"
 
-  @done
+  @TA12753
    Scenario: Select 6 Page landscape PDF and add to print queue
     Given I am on the "Share Item" screen
     And I scroll screen to find "6 Pages (landscape)"

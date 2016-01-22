@@ -23,7 +23,7 @@ Feature: Verify Print Pod home page
     And I touch "Direct Print Item"
     Then I should see the "Direct Print Item" screen
 
-  @done
+  @TA12753
   Scenario: Select Show Print Queue
     Given I am on the "PrintPod" screen
     Then I should see "Show Print Queue"

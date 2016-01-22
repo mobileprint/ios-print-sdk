@@ -8,7 +8,7 @@ Feature: Verify Share functionalities
 		Then I should see the "Share" screen
         
     @reset
-    @done
+    @TA12753
     Scenario:Verify print from share after incrementing copies
 	Given I am on the "Share" screen
 		When I touch "Print"
@@ -38,7 +38,7 @@ Feature: Verify Share functionalities
 		
         
         @reset
-        @done
+        @TA12753
         @smoke
     Scenario:Verify add to print queue from share
 	   Given I am on the "Share" screen

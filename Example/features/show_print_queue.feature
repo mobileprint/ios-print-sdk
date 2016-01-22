@@ -1,7 +1,7 @@
 Feature: Select item and add to print queue
 
   @reset
-  @done
+  @TA12753
   Scenario: Verify item added to print queue
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -19,7 +19,7 @@ Feature: Select item and add to print queue
     And I should see the added item 
     
     @reset
-    @done
+    @TA12753
   Scenario: verify print for the item from print queue
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -43,7 +43,7 @@ Feature: Select item and add to print queue
     Then I wait for some seconds
     
     @reset
-    @done
+    @TA12753
   Scenario: Verify Print queue buttons
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -66,7 +66,7 @@ Feature: Select item and add to print queue
     And I check "Next" button "Disabled"
     
     @reset
-    @done
+    @TA12753
   Scenario: Verify print queue job selection and deselection
     Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -88,7 +88,7 @@ Feature: Select item and add to print queue
     And I verify "2" jobs "Unselected"
         
     @reset
-    @done
+    @TA12753
         Scenario: Verify print queue job deletion
         Given I am on the "PrintPod" screen
     And I touch "Share Item"
@@ -112,7 +112,7 @@ Feature: Select item and add to print queue
         And I check selected job is deleted
         
         @reset
-        @done
+        @TA12753
         @smoke
         Scenario: Verify print queue job print for multiple jobs
         Given I am on the "PrintPod" screen
@@ -140,7 +140,7 @@ Feature: Select item and add to print queue
     
 	        
   @reset
-  @done
+  @TA12753
   @TA12558
    Scenario: Verify name edited on Print Queue screen
     Given I am on the "PrintPod" screen
@@ -151,7 +151,7 @@ Feature: Select item and add to print queue
     And I touch "Delete"
 	
   @reset
-  @done
+  @TA12753
   @TA12558
    Scenario: Verify multiple item deletion from print queue
     Given I am on the "PrintPod" screen
@@ -163,7 +163,7 @@ Feature: Select item and add to print queue
     And I touch "Delete"
     
   @reset
-  @done
+  @TA12753
   @TA12558
   Scenario: Verify item names and item deletion from print queue
     Given I am on the "PrintPod" screen
