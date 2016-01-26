@@ -487,6 +487,32 @@ static NSNumber *lastPinchScale = nil;
     return idx;
 }
 
+- (CGRect)frameForPage:(NSInteger)pageNum
+{
+    CGRect frame = CGRectZero;
+    
+    if (self.pageImages.count > 0) {
+        MPLayoutPaperCellView *cell = self.pageViews[pageNum-1];
+        
+        if ([NSNull null] != (NSNull *)cell) {
+            MPLayoutPaperCellView *cell = self.pageViews[pageNum-1];
+            
+            if ([NSNull null] != (NSNull *)cell) {
+                
+                // convert the paperView frame from the paperViewCell's coordinate system to the MPMultiPageView system
+                frame = [cell convertRect:cell.paperView.frame toView:self];
+            }
+        }
+    }
+    
+    return frame;
+}
+
+- (CGRect)currentPageFrame
+{
+    return [self frameForPage:self.currentPage];
+}
+
 #pragma mark - Layout
 
 - (void)refreshLayout
@@ -520,8 +546,13 @@ static NSNumber *lastPinchScale = nil;
                 self.switchedToColor                              ||
                 !CGSizeEqualToSize(lastScrollViewSize, self.scrollView.bounds.size)) {
                 
+                CGFloat currentPageHeight = pageHeight;
+                if ([self.delegate respondsToSelector:@selector(multiPageView:shrinkPageVertically:)]) {
+                    currentPageHeight -= [self.delegate multiPageView:self shrinkPageVertically:idx+1];
+                }
+
                 MPLayoutPaperCellView *paperCellView = (MPLayoutPaperCellView *)subview;
-                CGRect cellFrame = CGRectMake(0.5 * self.actualGutter + idx * scrollWidth, 0, pageWidth , pageHeight);
+                CGRect cellFrame = CGRectMake(0.5 * self.actualGutter + idx * scrollWidth, 0, pageWidth , currentPageHeight);
                 paperCellView.frame = cellFrame;
                 paperCellView.paper = self.paper;
             }
@@ -926,7 +957,7 @@ static NSNumber *lastPinchScale = nil;
     if ([NSNull null] != (NSNull *)cell) {
 
         // convert the paperView frame from the paperViewCell's coordinate system to the MPMultiPageView system
-        CGRect boundingFrame = [cell convertRect:cell.paperView.frame toView:self];
+        CGRect boundingFrame = [self frameForPage:pageNumber];
         
         // Now, place the label in the appropriate position
         CGRect labelFrame = self.pageNumberLabel.frame;
