@@ -96,6 +96,7 @@ Feature: Select a Print item and print
         
     @done
     @reset
+    @ios8
      Scenario: Verify Direct Print Item
     Given I am on the "PrintPod" screen
     And I scroll screen to find "Configure"
