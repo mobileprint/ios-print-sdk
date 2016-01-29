@@ -73,7 +73,7 @@ NSString * const kMPPrintAssetKey = @"kMPPrintAssetKey";
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
-    id printAsset = [self initAssetWithCoder:decoder];
+    id printAsset = [self decodeAssetWithCoder:decoder];
     MPPrintItem *printItem = [MPPrintItemFactory printItemWithAsset:printAsset];
     if (printItem) {
         printItem.layout = [MPLayoutFactory initLayoutWithCoder:decoder];
@@ -87,7 +87,7 @@ NSString * const kMPPrintAssetKey = @"kMPPrintAssetKey";
     [encoder encodeObject:self.printAsset forKey:kMPPrintAssetKey];
 }
 
-- (id)initAssetWithCoder:(NSCoder *)decoder
+- (id)decodeAssetWithCoder:(NSCoder *)decoder
 {
     return [decoder decodeObjectForKey:kMPPrintAssetKey];
 }

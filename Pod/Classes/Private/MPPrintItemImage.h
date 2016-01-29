@@ -16,5 +16,6 @@
 
 - (id)initWithData:(NSData *)data;
 - (id)initWithImage:(UIImage *)image;
+- (id)initWithImages:(NSArray *)images;
 
 @end
