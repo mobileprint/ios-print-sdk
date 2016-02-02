@@ -115,6 +115,7 @@
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 
 @property (strong, nonatomic) UIButton *pageSelectionMark;
+@property (strong, nonatomic) UIButton *pageSelectionExtendedArea;
 @property (strong, nonatomic) UIImage *selectedPageImage;
 @property (strong, nonatomic) UIImage *unselectedPageImage;
 
@@ -284,6 +285,12 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
     self.pageRangeDetailTextField.textColor = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsSecondaryFontColor];
     self.pageRangeDetailTextField.delegate = self;
     
+    self.pageSelectionExtendedArea = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.pageSelectionExtendedArea.backgroundColor = [UIColor clearColor];
+    self.pageSelectionExtendedArea.adjustsImageWhenHighlighted = NO;
+    [self.pageSelectionExtendedArea addTarget:self action:@selector(pageSelectionMarkClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.pageSelectionExtendedArea];
+
     self.selectedPageImage = [self.mp.appearance.settings objectForKey:kMPJobSettingsSelectedPageIcon];
     self.unselectedPageImage = [self.mp.appearance.settings objectForKey:kMPJobSettingsUnselectedPageIcon];
     self.pageSelectionMark = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -504,6 +511,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 - (void)viewDidLayoutSubviews
 {
     [self.view layoutIfNeeded];
+    [self.tableView bringSubviewToFront:self.pageSelectionExtendedArea];
     [self.tableView bringSubviewToFront:self.pageSelectionMark];
 }
 
@@ -525,6 +533,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
                 if (printItem) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         self.printItem = printItem;
+                        [self refreshData];
                     });
                 } else {
                     MPLogError(@"Missing printing item or preview image");
@@ -583,6 +592,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
     self.paperTypeCell.hidden = self.mp.hidePaperTypeOption || [[self.delegateManager.printSettings.paper supportedTypes] count] == 1;
     self.pageRangeCell.hidden = ![self showPageRange];
     self.pageSelectionMark.hidden = ![self showPageRange];
+    self.pageSelectionExtendedArea.hidden = self.pageSelectionMark.hidden;
     
     if (MPPageSettingsModeAddToQueue == self.mode) {
         self.jobNameCell.hidden = NO;
@@ -1032,6 +1042,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
         self.numberOfCopiesStepper.userInteractionEnabled = NO;
         self.blackAndWhiteModeSwitch.userInteractionEnabled = NO;
         self.pageSelectionMark.userInteractionEnabled = NO;
+        self.pageSelectionExtendedArea.userInteractionEnabled = NO;
     } else {
         [self.tableView removeGestureRecognizer:tableViewTaps];
         [self.headerInactivityView removeGestureRecognizer:headerInactivityViewTaps];
@@ -1041,6 +1052,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
         self.numberOfCopiesStepper.userInteractionEnabled = YES;
         self.blackAndWhiteModeSwitch.userInteractionEnabled = YES;
         self.pageSelectionMark.userInteractionEnabled = YES;
+        self.pageSelectionExtendedArea.userInteractionEnabled = YES;
         
         self.jobNameTextField.userInteractionEnabled = YES;
         self.pageRangeDetailTextField.userInteractionEnabled = YES;
@@ -1229,13 +1241,34 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if( !self.previewViewController  &&  cell == self.jobSummaryCell ) {
+        
+        NSInteger imageSize = 30;
+        NSInteger extendedSize = 75;
+        NSInteger yOffset = 12.5;
+        
+        CGRect pageFrame = [self.multiPageView currentPageFrame];
+        CGFloat xOrigin = self.view.frame.size.width - 55;
+        if( !CGRectEqualToRect(pageFrame, CGRectZero) ) {
+            xOrigin = pageFrame.origin.x + pageFrame.size.width - imageSize/2;
+        }
+
+        // the page selection image
         CGRect frame = self.jobSummaryCell.frame;
-        frame.origin.x = self.view.frame.size.width - 55;
-        frame.origin.y = self.jobSummaryCell.frame.origin.y - 12.5;
-        frame.size.width = 32;
-        frame.size.height = 32;
+        frame.origin.x = xOrigin;
+        frame.origin.y = self.jobSummaryCell.frame.origin.y - yOffset;
+        frame.size.width = imageSize;
+        frame.size.height = imageSize;
         
         self.pageSelectionMark.frame = [self.jobSummaryCell.superview convertRect:frame toView:self.view];
+        
+        // the active area
+        CGFloat extendedOffset = (extendedSize - imageSize)/2;
+        frame.origin.x -= extendedOffset;
+        frame.origin.y -= extendedOffset;
+        frame.size.width = extendedSize;
+        frame.size.height = extendedSize;
+        
+        self.pageSelectionExtendedArea.frame = frame;
     }
 }
 
@@ -1765,6 +1798,18 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
     if (MPPageSettingsModeSettingsOnly != self.mode) {
         [self respondToMultiPageViewAction];
     }
+}
+
+- (CGFloat)multiPageView:(MPMultiPageView *)multiPageView shrinkPageVertically:(NSInteger)pageNum
+{
+    CGFloat verticalShrink = 0.0;
+    
+    // we shrink the space vertically if the page selection mark will be present
+    if (self.printItem.numberOfPages > 1) {
+        verticalShrink = 10;
+    }
+    
+    return verticalShrink;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
