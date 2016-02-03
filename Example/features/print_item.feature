@@ -1,7 +1,7 @@
 Feature: Select a Print item and print
 
   @done
-  Scenario: Select 4x6 image and print
+    Scenario: Select 4x6 image and print
     Given I am on the "PrintPod" screen
     Then I should see "Print Item"
     And I touch "Print Item"
@@ -53,8 +53,9 @@ Feature: Select a Print item and print
     Then I choose print button
     And I delete printer simulater generated files
     
-    @TA12437
+
     @reset
+    @done
      Scenario Outline: Select 3-up and 4-up and do print
     Given I am on the "PrintPod" screen
     Then I should see "Print Item"
@@ -74,8 +75,10 @@ Feature: Select a Print item and print
         | 3up   |
         | 4up   |
         
-  @done
+
+  @ios8
   @reset
+  @done
      Scenario Outline: Verify share item to add print queue 3up and 4up
     Given I am on the "Share Item" screen
     And I scroll screen to find "<option>"
@@ -94,6 +97,7 @@ Feature: Select a Print item and print
         
     @done
     @reset
+    @ios8
      Scenario: Verify Direct Print Item
     Given I am on the "PrintPod" screen
     And I scroll screen to find "Configure"

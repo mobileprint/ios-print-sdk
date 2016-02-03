@@ -2,10 +2,13 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
   Scenario Outline: Verify print metrics for HP
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen to find "METRICS"
     Then I touch "<metrics_option>"
@@ -50,6 +53,8 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the off ramp is "PrintFromClientUI"
     And I check the device type is "x86_64"
     And I check the os version
+    And I check the device id
+    And I check the wifi ssid
 
     Examples:
       | size_option | type_option | metrics_option |
@@ -59,11 +64,14 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
   Scenario Outline: Verify print metrics for Partner
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
     Then I enter custom library version
+    Then I get the device id
     And I scroll screen to find "METRICS"
     Then I touch "<metrics_option>"
     And I scroll screen up to find "Print Item"
@@ -107,6 +115,8 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the off ramp is "PrintFromClientUI"
     And I check the device type is "x86_64"
     And I check the os version
+    And I check the device id
+    And I check the wifi ssid
       
     Examples:
       | size_option | type_option | metrics_option |
@@ -114,9 +124,11 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
       | 8.5 x 11    | Plain Paper | Partner        |
 
 
-  @TA12437
   @reset
   @ios8_metrics
+  @ios8
+  @done
+    @smoke
   Scenario Outline: Verify print metrics for None
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -151,13 +163,16 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
       | 8.5 x 11    | Plain Paper | None           |
       | 8.5 x 11    | Photo Paper | None           |
 
-  @done
+
   @reset
   @ios8_metrics
+  @ios8
+  @done
   Scenario Outline: Verify Direct Print Metrics for Partner
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen to find "METRICS"
     Then I touch "<metrics_option>"
@@ -204,6 +219,8 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the off ramp is "PrintWithNoUI"
     And I check the device type is "x86_64"
     And I check the os version
+    And I check the device id
+    And I check the wifi ssid
 
     Examples:
       | size_option | type_option | metrics_option |
@@ -212,13 +229,16 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
       | 5 x 7       | Photo Paper | Partner        |
 
 
-  @done
+
   @reset
   @ios8_metrics
+  @ios8
+  @done
   Scenario Outline: Verify Direct Print Metrics for HP
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen to find "Configure"
     Then I touch Configure to set up direct print
@@ -263,6 +283,8 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the off ramp is "PrintWithNoUI"
     And I check the device type is "x86_64"
     And I check the os version
+    And I check the device id
+    And I check the wifi ssid
 
     Examples:
       | size_option | type_option |
@@ -273,10 +295,13 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
   Scenario Outline: Verify print metrics for print from share item
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen to find "METRICS"
     Then I touch "<metrics_option>"     
@@ -323,6 +348,8 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the off ramp is "PrintFromShare"
     And I check the device type is "x86_64"
     And I check the os version
+    And I check the device id
+    And I check the wifi ssid
     
 Examples:
       | size_option | type_option | metrics_option |
@@ -333,10 +360,14 @@ Examples:
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
+  @smoke
     Scenario: Verify print metrics for share item save image
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen to find "METRICS"
     Then I touch "HP"     
@@ -365,16 +396,20 @@ Examples:
     And I check the off ramp is "com.apple.UIKit.activity.SaveToCameraRoll"
     And I check the device type is "x86_64"
     And I check the os version
- 
+    And I check the device id
+    And I check the wifi ssid
 
 
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
    Scenario: Verify print metrics for add to queue from share
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen up to find "Share Item"
     Then I wait for some seconds
@@ -395,14 +430,19 @@ Examples:
     And I check the device type is "x86_64"
     And I check the os version
     And I check the off ramp is "AddToQueueFromShare"
+    And I check the device id
+    And I check the wifi ssid
     
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
    Scenario: Verify print metrics for delete from queue
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen up to find "Share Item"
     Then I wait for some seconds
@@ -426,15 +466,20 @@ Examples:
     And I check the device type is "x86_64"
     And I check the os version
     And I check the off ramp is "DeleteFromQueue"
+    And I check the device id
+    And I check the wifi ssid
     
     
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
    Scenario Outline: Verify print metrics for printing from print queue
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen up to find "Share Item"
     Then I wait for some seconds
@@ -478,6 +523,8 @@ Examples:
     And I check the off ramp is "<off_ramp>"
     And I check the device type is "x86_64"
     And I check the os version
+    And I check the device id
+    And I check the wifi ssid
 
 Examples:
       | no_of_jobs|off_ramp              |print_option  | size_option | type_option |
@@ -489,10 +536,13 @@ Examples:
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
    Scenario: Verify print metrics for jobs added from client UI
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen to find "BAR BUTTON ITEMS"
     And I scroll screen to find "On"
@@ -522,16 +572,20 @@ Examples:
     And I check the device type is "x86_64"
     And I check the os version
     And I check the off ramp is "AddToQueueFromClientUI"
+    And I check the device id
+    And I check the wifi ssid
     
        
 
   @reset
   @ios8_metrics
-  
+  @ios8
+  @done
    Scenario Outline: Verify print metrics for printing from print queue with incremented no of copies
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen up to find "Share Item"
     Then I touch "Share Item"
@@ -581,6 +635,8 @@ Examples:
     And I check the off ramp is "PrintSingleFromQueue"
     And I check the device type is "x86_64"
     And I check the os version
+    And I check the device id
+    And I check the wifi ssid
 
 Examples:
          | size_option | type_option |
@@ -592,17 +648,20 @@ Examples:
 
   @reset
   @ios7_metrics
+  @ios7
+  @done
   Scenario Outline: Verify print metrics for HP
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen to find "METRICS"
     Then I touch "<metrics_option>"
     And I scroll screen up to find "Print Item"
     And I touch "Print Item"
     And I touch "4x6 portrait"
-    Then I am on the "Page Settings" screen
+    Then I should see the "Page Settings" screen
     Then I run print simulator
     And I scroll screen "down"
     And I touch "Paper Size" option
@@ -634,6 +693,8 @@ Examples:
     And I check the off ramp is "PrintFromClientUI"
     And I check the device type is "x86_64"
     And I check the os version
+    And I check the device id
+    And I check the wifi ssid
 
     Examples:
       | size_option | type_option | metrics_option |
@@ -644,17 +705,20 @@ Examples:
 
   @reset
   @ios7_metrics
+  @ios7
+  @done
   Scenario Outline: Verify print metrics for Partner
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
     And I scroll screen to find "Use unique ID per app"
+    Then I get the device id
     Then I enter custom library version
     And I scroll screen to find "METRICS"
     Then I touch "<metrics_option>"
     And I scroll screen up to find "Print Item"
     And I touch "Print Item"
     And I touch "4x6 portrait"
-    Then I am on the "Page Settings" screen
+    Then I should see the "Page Settings" screen
     Then I run print simulator
     And I scroll screen "down"
     And I touch "Paper Size" option
@@ -686,6 +750,8 @@ Examples:
     And I check the off ramp is "PrintFromClientUI"
     And I check the device type is "x86_64"
     And I check the os version
+    And I check the device id
+    And I check the wifi ssid
 
     Examples:
       | size_option | type_option | metrics_option |
@@ -696,6 +762,8 @@ Examples:
 
   @reset
   @ios7_metrics
+  @ios7
+  @done
   Scenario Outline: Verify print metrics for None
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -706,7 +774,7 @@ Examples:
     And I scroll screen up to find "Print Item"
     And I touch "Print Item"
     And I touch "4x6 portrait"
-    Then I am on the "Page Settings" screen
+    Then I should see the "Page Settings" screen
     Then I run print simulator
     And I scroll screen "down"
     And I touch "Paper Size" option

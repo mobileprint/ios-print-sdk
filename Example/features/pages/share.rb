@@ -5,8 +5,8 @@ class ShareScreen < Calabash::IBase
   def trait
     mail
     print
-    save_to_camera
-    print_queue
+    #save_to_camera
+    #print_queue
   end
 
   def mail

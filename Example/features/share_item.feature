@@ -1,5 +1,6 @@
 Feature: Select item and add to print queue
 
+  @ios8
   @done
   @smoke
   Scenario: Select 4x6 image and add to print queue
@@ -13,6 +14,7 @@ Feature: Select item and add to print queue
     Then I should see the "Print Queue" screen
     When I touch "Done"
 
+  @ios8
   @done
     Scenario: Select 5x7 landscape image and add to print queue
     Given I am on the "Share Item" screen
@@ -24,6 +26,7 @@ Feature: Select item and add to print queue
     Then I should see the "Print Queue" screen
     When I touch "Done"
 
+  @ios8
   @done
     Scenario: Select 1 page PDF and add to print queue
     Given I am on the "Share Item" screen
@@ -36,6 +39,7 @@ Feature: Select item and add to print queue
     Then I should see the "Print Queue" screen
     When I touch "Done"
 
+  @ios8
   @done
    Scenario: Select 6 Page landscape PDF and add to print queue
     Given I am on the "Share Item" screen

@@ -3,6 +3,7 @@ Feature: Select a Print item and print from client UI
  
     @done
     @reset
+    @ios8
      Scenario: Verify Print through Client UI button
     Given I am on the "PrintPod" screen
     And I scroll screen to find "BAR BUTTON ITEMS"
@@ -15,9 +16,10 @@ Feature: Select a Print item and print from client UI
     Then I wait for some seconds
     Then I choose print button
     And I delete printer simulater generated files
-    
-     @done
-    @reset
+
+    @done
+	@reset
+	@ios8
      Scenario: Verify Print Queue through Client UI button
     Given I am on the "PrintPod" screen
     And I scroll screen to find "BAR BUTTON ITEMS"
