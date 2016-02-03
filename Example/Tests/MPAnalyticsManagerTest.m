@@ -24,6 +24,7 @@
 @interface  MPAnalyticsManager (private)
 
 - (void)setPrintSessionId:(NSString *)printSessionId;
+- (void)sanitizeMetrics:(NSMutableDictionary *)metrics;
 
 @end
 
@@ -40,6 +41,9 @@ static NSURLRequest *_request = nil;
 extern NSString * const kMPMetricsEventTypeID;
 extern NSString * const kMPMetricsEventCount;
 extern NSInteger const kMPMetricsEventInitialCount;
+extern NSString * const kMPMetricsAppType;
+extern NSString * const kMPMetricsAppTypeHP;
+extern NSString * const kMPMetricsAppTypePartner;
 
 NSTimeInterval const kMPAnalyticsManagerTestCallDelay = 1.0; // seconds
 
@@ -204,6 +208,33 @@ NSString * const kTestAnalyticsDeviceIdKey = @"device_id";
     [self verifyInitialCountForEvent:kMPMetricsEventTypePrintCompleted];
 }
 
+- (void)testAppTypePartner
+{
+    [self verifyInitialAppType:kMPMetricsAppTypePartner FinalAppType:kMPMetricsAppTypePartner];
+}
+
+- (void)testAppTypeHP
+{
+    [self verifyInitialAppType:kMPMetricsAppTypeHP FinalAppType:kMPMetricsAppTypeHP];
+}
+
+- (void)testAppTypeOther
+{
+    [self verifyInitialAppType:@"bogus" FinalAppType:kMPMetricsAppTypePartner];
+}
+
+- (void)testAppTypeMissingPartner
+{
+    [MP sharedInstance].handlePrintMetricsAutomatically = YES;
+    [self verifyInitialAppType:nil FinalAppType:kMPMetricsAppTypePartner];
+}
+
+- (void)testAppTypeMissingHP
+{
+    [MP sharedInstance].handlePrintMetricsAutomatically = NO;
+    [self verifyInitialAppType:nil FinalAppType:kMPMetricsAppTypeHP];
+}
+
 #pragma mark - Helpers
 
 - (void)verifyCall:(void(^)(void))callBlock usingBlock:(BOOL(^)(id value))verifyBlock
@@ -303,6 +334,20 @@ NSString * const kTestAnalyticsDeviceIdKey = @"device_id";
 - (NSString *)vendorUniqueDeviceId
 {
     return [[UIDevice currentDevice].identifierForVendor UUIDString];
+}
+
+- (void)verifyInitialAppType:(NSString *)initialAppType FinalAppType:(NSString *)finalAppType
+{
+    NSDictionary *appTypeInfo = initialAppType ? @{ kMPMetricsAppType:initialAppType }: @{ };
+    NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:appTypeInfo];
+    [[MPAnalyticsManager sharedManager] sanitizeMetrics:metrics];
+    NSString *sanitizedAppType = [metrics objectForKey:kMPMetricsAppType];
+    
+    XCTAssert(
+              [sanitizedAppType isEqualToString:finalAppType],
+              @"Expected app type '%@', got '%@'",
+              finalAppType,
+              sanitizedAppType);
 }
 
 @end
