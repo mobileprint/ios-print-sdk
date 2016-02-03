@@ -16,8 +16,8 @@ Feature: Select a Print item and print from client UI
     Then I wait for some seconds
     Then I choose print button
     And I delete printer simulater generated files
-    
-    @TA12753
+
+    @done
 	@reset
 	@ios8
      Scenario: Verify Print Queue through Client UI button

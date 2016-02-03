@@ -2,6 +2,8 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
   Scenario Outline: Verify print metrics for HP
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -62,6 +64,8 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
   Scenario Outline: Verify print metrics for Partner
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -120,9 +124,11 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
       | 8.5 x 11    | Plain Paper | Partner        |
 
 
-  @TA12437
   @reset
   @ios8_metrics
+  @ios8
+  @done
+    @smoke
   Scenario Outline: Verify print metrics for None
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -157,9 +163,11 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
       | 8.5 x 11    | Plain Paper | None           |
       | 8.5 x 11    | Photo Paper | None           |
 
-  @TA12753
+
   @reset
   @ios8_metrics
+  @ios8
+  @done
   Scenario Outline: Verify Direct Print Metrics for Partner
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -221,9 +229,11 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
       | 5 x 7       | Photo Paper | Partner        |
 
 
-  @TA12753
+
   @reset
   @ios8_metrics
+  @ios8
+  @done
   Scenario Outline: Verify Direct Print Metrics for HP
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -285,6 +295,8 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
   Scenario Outline: Verify print metrics for print from share item
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -348,6 +360,9 @@ Examples:
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
+  @smoke
     Scenario: Verify print metrics for share item save image
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -388,6 +403,8 @@ Examples:
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
    Scenario: Verify print metrics for add to queue from share
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -419,6 +436,8 @@ Examples:
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
    Scenario: Verify print metrics for delete from queue
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -454,6 +473,8 @@ Examples:
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
    Scenario Outline: Verify print metrics for printing from print queue
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -515,6 +536,8 @@ Examples:
 
   @reset
   @ios8_metrics
+  @ios8
+  @done
    Scenario: Verify print metrics for jobs added from client UI
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -556,7 +579,8 @@ Examples:
 
   @reset
   @ios8_metrics
-  
+  @ios8
+  @done
    Scenario Outline: Verify print metrics for printing from print queue with incremented no of copies
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -624,6 +648,8 @@ Examples:
 
   @reset
   @ios7_metrics
+  @ios7
+  @done
   Scenario Outline: Verify print metrics for HP
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -679,6 +705,8 @@ Examples:
 
   @reset
   @ios7_metrics
+  @ios7
+  @done
   Scenario Outline: Verify print metrics for Partner
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -734,6 +762,8 @@ Examples:
 
   @reset
   @ios7_metrics
+  @ios7
+  @done
   Scenario Outline: Verify print metrics for None
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
