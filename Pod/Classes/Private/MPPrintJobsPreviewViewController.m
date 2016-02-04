@@ -17,7 +17,6 @@
 #import "MPLayoutPaperView.h"
 #import "MPLayoutFactory.h"
 #import "NSBundle+MPLocalizable.h"
-#import "UIView+MPBackground.h"
 #import "MPPrintSettingsDelegateManager.h"
 
 @interface MPPrintJobsPreviewViewController ()
