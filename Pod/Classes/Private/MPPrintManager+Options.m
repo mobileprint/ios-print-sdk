@@ -46,6 +46,15 @@ NSString * const kMPPrinterDetailsNotAvailable = @"Not Available";
     return [copiesAsNumber integerValue];
 }
 
+- (NSString *)nonEmptyString:(NSString *)string
+{
+    if (nil == string  ||  [string isEqualToString:@""]) {
+        string = kMPPrinterDetailsNotAvailable;
+    }
+
+    return string;
+}
+
 - (void)saveLastOptionsForPrinter:(NSString *)printerID;
 {
     NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionaryWithDictionary:[MP sharedInstance].lastOptionsUsed];
@@ -63,9 +72,9 @@ NSString * const kMPPrinterDetailsNotAvailable = @"Not Available";
     if (printerID) {
         [lastOptionsUsed setValue:printerID forKey:kMPPrinterId];
         if ([printerID isEqualToString:self.currentPrintSettings.printerUrl.absoluteString]) {
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerName forKey:kMPPrinterDisplayName];
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerLocation forKey:kMPPrinterDisplayLocation];
-            [lastOptionsUsed setValue:self.currentPrintSettings.printerModel forKey:kMPPrinterMakeAndModel];
+            [lastOptionsUsed setValue:[self nonEmptyString:self.currentPrintSettings.printerName] forKey:kMPPrinterDisplayName];
+            [lastOptionsUsed setValue:[self nonEmptyString:self.currentPrintSettings.printerLocation] forKey:kMPPrinterDisplayLocation];
+            [lastOptionsUsed setValue:[self nonEmptyString:self.currentPrintSettings.printerModel] forKey:kMPPrinterMakeAndModel];
         }
     }
     
