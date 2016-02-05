@@ -21,6 +21,7 @@
 @implementation MPPrintManager (Options)
 
 NSString * const kMPPrinterDetailsNotAvailable = @"Not Available";
+NSString * const kMPPrinterDetailsNotProvided = @"Not Provided";
 
 - (void)setOptions:(MPPrintManagerOptions)options
 {
@@ -49,7 +50,7 @@ NSString * const kMPPrinterDetailsNotAvailable = @"Not Available";
 - (NSString *)nonEmptyString:(NSString *)string
 {
     if (nil == string  ||  [string isEqualToString:@""]) {
-        string = kMPPrinterDetailsNotAvailable;
+        string = kMPPrinterDetailsNotProvided;
     }
 
     return string;
