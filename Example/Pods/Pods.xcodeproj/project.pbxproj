@@ -40,7 +40,6 @@
 		1FAB18E6F78FBED06B1C6FA5987DD67A /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E837640F38CCEEB2717504118108B9A8 /* Pods-Tests-dummy.m */; };
 		20BA566DE3002162891B1833F92F8BF2 /* MPLayoutPaperCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = B33E08B0F92925FBEB743E1B7A46921F /* MPLayoutPaperCellView.m */; };
 		20C39DB909C33B491D60F23FA1D415C2 /* OCMRealObjectForwarder.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FA65EDA8217AA85B34B2B0E96E642F /* OCMRealObjectForwarder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		21181A4A56C86095D42EA6620E57D0E1 /* UIView+MPBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 2321A656FEEB5113DDD1366A990413C3 /* UIView+MPBackground.m */; };
 		273B82CDD1F34C4CB255986AA4A69943 /* MPSupportAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A5ED649FAE828C25DB3722FBDAC68D /* MPSupportAction.m */; };
 		2864DE2C799F183C382CC101C338BC92 /* MPLayoutPaperCellView.h in Headers */ = {isa = PBXBuildFile; fileRef = 59365536FD762081E6882601590FFE92 /* MPLayoutPaperCellView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		294720BE273AC445725DDD4EE3A7E226 /* MPPrintItemImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 21E30F637E36A6B390AE038697CA16C8 /* MPPrintItemImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -108,7 +107,6 @@
 		830B3A29668D59C62571A4CE4D3BAFCA /* OCMIndirectReturnValueProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 811860EE31BD386AC34AD87AAA4B5AE0 /* OCMIndirectReturnValueProvider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		84C814B3F42F04E0AA7559BCBCA5DC18 /* MPPrintJobsPreviewViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E0BF7F11B2B1126CF8118192F538456 /* MPPrintJobsPreviewViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		84CEE69B4EAC1AC19B859270FDDB9C6C /* MPPrintItemFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F462A2AA8FD540FD187C31D76D666D84 /* MPPrintItemFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		86CD59A351AA4B40A09AEA6ACB45A49E /* UIView+MPBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = D9EC055312E51234AD0D82138046F109 /* UIView+MPBackground.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		87AA263FA688A8E92C2B8ADEE72C98C6 /* OCMObserverRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C535B63FC36C71F65EF6DBD80A3644F /* OCMObserverRecorder.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		881A9D7B7EEE0A5647433322B7ABB127 /* MPLayoutComposite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D2F103886AFEDF940EB05A89D09F546 /* MPLayoutComposite.m */; };
 		89E7080293E479988D55A4F37AB8D85B /* MPPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = A7ED5EA0D180EF8D643E919CC01F4F4B /* MPPrinter.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -268,7 +266,6 @@
 		206297666E3ED5C76DE6EC15F499BAC2 /* NSValue+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSValue+OCMAdditions.m"; path = "Source/OCMock/NSValue+OCMAdditions.m"; sourceTree = "<group>"; };
 		218515EE47476EA099DD568BA51B4D2B /* MPLayoutFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutFactory.h; sourceTree = "<group>"; };
 		21E30F637E36A6B390AE038697CA16C8 /* MPPrintItemImage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItemImage.h; sourceTree = "<group>"; };
-		2321A656FEEB5113DDD1366A990413C3 /* UIView+MPBackground.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+MPBackground.m"; sourceTree = "<group>"; };
 		25F1886F79DE7DA5955613EBB2146A7D /* OCMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMockObject.h; path = Source/OCMock/OCMockObject.h; sourceTree = "<group>"; };
 		26A590BE02BA3CB8A8944C675E7479BF /* MPLayoutFill.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFill.m; sourceTree = "<group>"; };
 		281BD43FA715CEF93E5AA2037605321E /* MobilePrintSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MobilePrintSDK-dummy.m"; sourceTree = "<group>"; };
@@ -437,7 +434,6 @@
 		D63997B3B2D85219DD4E0B0DAAC23302 /* MPGear@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPGear@2x.png"; sourceTree = "<group>"; };
 		D7202385F4B73FE73FC5F0B3F2BCDE92 /* MP.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = MP.storyboard; sourceTree = "<group>"; };
 		D81A364FB5D73A6D27DB6639C8E933F7 /* MPMeasurementArrowLeft@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowLeft@2x.png"; sourceTree = "<group>"; };
-		D9EC055312E51234AD0D82138046F109 /* UIView+MPBackground.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+MPBackground.h"; sourceTree = "<group>"; };
 		DA82512D2F9B7E22F21479275742B13E /* Pods-Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-resources.sh"; sourceTree = "<group>"; };
 		DA96CFA2E91A03125B165D32B3F1FBAE /* MPPrintPageRenderer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintPageRenderer.m; sourceTree = "<group>"; };
 		DAFEF33AD44F30E455E134CEB8E633CF /* MPPrintItemPDF.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemPDF.m; sourceTree = "<group>"; };
@@ -952,8 +948,6 @@
 				DDF6A915E876F2C5AB6753A803AD5163 /* UITableView+MPHeader.m */,
 				6D822639774096C6A226FC9773E846FE /* UIView+MPAnimation.h */,
 				7B891793F545A0644AFF77B24FE97824 /* UIView+MPAnimation.m */,
-				D9EC055312E51234AD0D82138046F109 /* UIView+MPBackground.h */,
-				2321A656FEEB5113DDD1366A990413C3 /* UIView+MPBackground.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -1080,7 +1074,6 @@
 				120CBB1C8C2E86B7FFB9EE23BAF3F2F8 /* UIImage+MPResize.h in Headers */,
 				5122FFBA651B90A62BC4E1B608C20368 /* UITableView+MPHeader.h in Headers */,
 				E5F94CC70A784BDDC7104F99967271A4 /* UIView+MPAnimation.h in Headers */,
-				86CD59A351AA4B40A09AEA6ACB45A49E /* UIView+MPBackground.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1294,7 +1287,6 @@
 				FC4C9B4F8EA5AE06337DED9A0ED019BF /* UIImage+MPResize.m in Sources */,
 				2E76DA3F4245526FDFB1E50015DE397B /* UITableView+MPHeader.m in Sources */,
 				E9237275D184174A87AAB28D1C89D354 /* UIView+MPAnimation.m in Sources */,
-				21181A4A56C86095D42EA6620E57D0E1 /* UIView+MPBackground.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
