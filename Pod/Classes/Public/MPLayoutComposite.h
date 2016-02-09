@@ -13,8 +13,17 @@
 #import "MPLayoutPrepStep.h"
 #import "MPLayoutAlgorithm.h"
 
+/*!
+ * @abstract A reusable layout class that applies or more preparation steps prior to applying a single layout algorithm
+ */
 @interface MPLayoutComposite : MPLayout <NSCoding>
 
+/*!
+ * @abstract Initializes the composite layout with preparation steps and an algorithm
+ * @param algorithm The layout algorithm to use
+ * @param prepSteps Zero or more preparation steps to be applied prior to laying out the content
+ * @returns A composite layout instance
+ */
 - (id)initWithAlgorithm:(MPLayoutAlgorithm *)algorithm andPrepSteps:(NSArray *)prepSteps;
 
 @end

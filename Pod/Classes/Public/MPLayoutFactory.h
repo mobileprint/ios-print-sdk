@@ -134,6 +134,7 @@ extern NSString * const kMPLayoutShouldRotateKey;
 @protocol MPLayoutFactoryDelegate <NSObject>
 
 @optional
+
 /*!
  * @abstract Creates a layout of the given type
  * @param layoutType The type of layout to create
@@ -148,7 +149,7 @@ extern NSString * const kMPLayoutShouldRotateKey;
  * @param assetPosition A CGRect of percentage-based values that locates the layout content rectangle on the page
  * @return The layout created or nil if not layout could be created
  */
-+ (MPLayout *)layoutWithType:(NSString *)layoutType
+- (MPLayout *)layoutWithType:(NSString *)layoutType
                    orientation:(MPLayoutOrientation)orientation
                  assetPosition:(CGRect)assetPosition;
 

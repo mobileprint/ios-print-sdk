@@ -234,7 +234,7 @@ extern NSString * const kMPPaperSizePrinterHeightKey;
  * @abstract Retrieves a constant, non-localized paper size title.  This is good for tracking/logging paper usage across multiple locales.
  * @description This method asserts that the string given is a valid paper size. An exception is raised if an invalid string is passed.
  * @returns A constant, non-localized paper size
- * @seealso analyticsPaperTypeFromTitle:
+ * @seealso constantPaperTypeFromTitle:
  */
 + (NSString *)constantPaperSizeFromTitle:(NSString *)paperSizeTitle;
 
@@ -258,7 +258,7 @@ extern NSString * const kMPPaperSizePrinterHeightKey;
  * @abstract Retrieves a constant, non-localized paper type title.  This is good for tracking/logging paper usage across multiple locales.
  * @description This method asserts that the string given is a valid paper type. An exception is raised if an invalid string is passed.
  * @returns A constant, non-localized paper type
- * @seealso analyticsPaperSizeFromTitle:
+ * @seealso constantPaperSizeFromTitle:
  */
 + (NSString *)constantPaperTypeFromTitle:(NSString *)paperTypeTitle;
 
