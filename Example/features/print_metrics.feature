@@ -98,13 +98,11 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the manufacturer is "Not Collected"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "0"
-    #And I check the printer_location
+    And I check the printer_location
     And I check the printer_model is "Simulated Laser"
-    #And I check the printer_name
+    And I check the printer_name
     And I check the image_url
-    #And I check the photo_source is "facebook"
     And I check the library version
-    #And I check the user_id is "1234567890"
     And I check the paper size is "<size_option>"
     And I check the paper type is "<type_option>"
     And I check the product name is "MobilePrintSDK-cal"
@@ -142,7 +140,6 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     Then I should see the "Page Settings" screen
     Then I run print simulator
     And I scroll screen "down"
-    #When I touch "Increment" and check number of copies is 2
     And I touch "Paper Size" option
     And I should see the paper size options
     And I scroll screen "up"
@@ -202,13 +199,11 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the manufacturer is "Not Collected"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "0"
-    #And I check the printer_location -- DE3635
-    #And I check the printer_model is "Simulated Laser"
-    #And I check the printer_name
+    And I check the printer_location
+    And I check the printer_model is "Simulated Laser"
+    And I check the printer_name
     And I check the image_url
-    #And I check the photo_source is "facebook"
     And I check the library version
-    #And I check the user_id is "1234567890"
     And I check the paper size is "<size_option>"
     And I check the paper type is "<type_option>"
     And I check the product name is "MobilePrintSDK-cal"
@@ -266,9 +261,9 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the manufacturer is "Apple"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "0"
-    #And I check the printer_location   -- DE3635
-    #And I check the printer_model is "Simulated Laser"
-    #And I check the printer_name  -- dependent on Printer_model
+    And I check the printer_location
+    And I check the printer_model is "Simulated Laser"
+    And I check the printer_name
     And I check the image_url
     And I check the photo_source is "facebook"
     And I check the library version
@@ -738,11 +733,9 @@ Examples:
     And I check the manufacturer is "Not Collected"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "1"
-   # And I check the printer_location
+    And I check the printer_location
     And I check the printer_model is "Simulated Laser"
-    #And I check the printer_name
-    #And I check the image_url
-   # And I check the user_id is "1234567890"
+    And I check the printer_name
     And I check the paper size is "<size_option>"
     And I check the paper type is "<type_option>"
     And I check the product name is "MobilePrintSDK-cal"
@@ -795,9 +788,7 @@ Examples:
     Examples:
       | size_option | type_option | metrics_option |
       | 4 x 5       | Photo Paper | None           |
-      | 4 x 6       | Photo Paper | None           |
-      | 5 x 7       | Photo Paper | None           |
       | 8.5 x 11    | Plain Paper | None           |
-      | 8.5 x 11    | Photo Paper | None           |
+
   
    
