@@ -1,9 +1,12 @@
-#### NOT YET RELEASED
-###### RELEASE DATE
+#### 3.0.2
+###### Tuesday February 9, 2016
 
-- DE3603: Print queue screen can delete multiple items without crashing
-- US4160/US4161: Scroll through all selected print jobs in the "Page Settings" screen
-- US4214: Add a page number indicator when scrolling through multiple pages or multiple jobs in the "Page Settings" screen
+- Fixes to layout logic consistency between preview and print
+- Fix crashes related to print queue
+- Add multi-job print preview (scroll through jobs)
+- Page number indicator for multi-page and multi-job previews
+- Localization improvements
+- Print metrics updates
 
 #### 3.0.1
 ###### Thursday December 17, 2015
