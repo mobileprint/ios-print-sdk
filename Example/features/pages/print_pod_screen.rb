@@ -26,7 +26,9 @@ class PrintPodScreen < Calabash::IBase
     def print_queue_client_ui
         "* id:'printLaterIcon'"
         end
-       
+    def build_version
+        first_from query "UITableViewLabel marked:'SHA' sibling label",:text
+    end
   def navigate
         await
       end
