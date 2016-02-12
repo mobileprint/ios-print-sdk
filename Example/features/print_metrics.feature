@@ -676,7 +676,7 @@ Examples:
 
 
 @reset
-  @TA12756
+  @TA12756-1
   @ios8
   Scenario Outline: Verify event metrics for print from share item
     Given I am on the "PrintPod" screen
@@ -708,7 +708,7 @@ Examples:
     Then I touch "Cancel"
     Then I navigate to page settings screen
     Then I Fetch event metrics details
-    #And I check the print session id is "1"
+    And I check the print session id is "2"
     And I check the event count is "2"
     And I check the event type id is "1"    
     Then I should see the "Page Settings" screen
@@ -735,7 +735,7 @@ Examples:
     And I check the product id is "org.cocoapods.demo.MobilePrintSDK-cal"
     And I check the library version        
     And I check the application type is "<metrics_option>"
-    #And I check the print session id is "1"
+    And I check the print session id is "2"
     And I check the event count is "1"
     And I check the event type id is "5"
     And I check the os version
