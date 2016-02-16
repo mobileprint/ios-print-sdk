@@ -1,7 +1,7 @@
 Feature: As a user I want to verify the print metrics for HP, Partner and none
 
   @reset
-  @TA12756
+  @done
   Scenario Outline: Verify event metrics for HP and Partner
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
@@ -37,7 +37,7 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
 
 
 @reset
-  @TA12756
+@done
   Scenario Outline: Verify event metrics for print from share item
     Given I am on the "PrintPod" screen
     Then I wait for some seconds
