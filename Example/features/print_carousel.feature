@@ -1,4 +1,4 @@
-Feature: Select a Print item and print
+Feature: Verify print carousel in page settings screen
 
 @reset
 @TA12757
