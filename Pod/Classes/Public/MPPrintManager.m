@@ -194,7 +194,7 @@ NSString * const kMPOfframpDirect = @"PrintWithNoUI";
         if (![printItem.printAsset isKindOfClass:[UIImage class]]) {
             MPLogWarn(@"Using custom print renderer with non-image class:  %@", printItem.printAsset);
         }
-        MPPrintPageRenderer *renderer = [[MPPrintPageRenderer alloc] initWithImages:@[[printItem printAssetForPageRange:pageRange]] layout:printItem.layout paper:self.currentPrintSettings.paper copies:self.numberOfCopies];
+        MPPrintPageRenderer *renderer = [[MPPrintPageRenderer alloc] initWithImages:[printItem printAssetForPageRange:pageRange] layout:printItem.layout paper:self.currentPrintSettings.paper copies:self.numberOfCopies];
         controller.printPageRenderer = renderer;
     } else {
         if (1 == self.numberOfCopies) {

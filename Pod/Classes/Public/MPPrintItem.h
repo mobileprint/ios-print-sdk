@@ -128,7 +128,7 @@ typedef enum {
  * @param decoder The decoder used by the NSCoder protocol
  * @discussion Override this method if the print asset needs special processing to be decoded
  */
-- (id)initAssetWithCoder:(NSCoder *)decoder;
+- (id)decodeAssetWithCoder:(NSCoder *)decoder;
 
 /*!
  * @abstract Used to retrieve a print asset for the specified page range

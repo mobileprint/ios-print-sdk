@@ -15,7 +15,7 @@
 
 @interface MPPrintItemImage()
 
-@property (strong, nonatomic) UIImage *printImage;
+@property (strong, nonatomic) NSArray *printImages;
 
 @end
 
@@ -31,7 +31,7 @@
     if (image) {
         self = [super init];
         if (self) {
-            self.printImage = image;
+            self.printImages = @[ image ];
         }
         item = self;
     } else {
@@ -45,9 +45,20 @@
 {
     self = [super init];
     if (self && image) {
-        self.printImage = image;
+        self.printImages = @[ image ];
     } else {
         MPLogWarn(@"MPImagePrintItem was initialized with nil for the image.");
+    }
+    return self;
+}
+
+- (id)initWithImages:(NSArray *)images
+{
+    self = [super init];
+    if (self && images && images.count > 0) {
+        self.printImages = images;
+    } else {
+        MPLogWarn(@"MPImagePrintItem was initialized with no images.");
     }
     return self;
 }
@@ -56,7 +67,7 @@
 
 - (id)printAsset
 {
-    return self.printImage;
+    return self.printImages;
 }
 
 - (NSString *)assetType
@@ -71,12 +82,13 @@
 
 - (NSInteger)numberOfPages
 {
-    return 1;
+    return self.printImages.count;
 }
 
 - (CGSize)sizeInUnits:(MPUnits)units
 {
-    CGSize size = CGSizeApplyAffineTransform(self.printImage.size, CGAffineTransformMakeScale(self.printImage.scale, self.printImage.scale));
+    UIImage *firstImage = [self.printImages firstObject];
+    CGSize size = CGSizeApplyAffineTransform(firstImage.size, CGAffineTransformMakeScale(firstImage.scale, firstImage.scale));
     if (Inches == units) {
         size = CGSizeApplyAffineTransform(size, CGAffineTransformMakeScale(1.0 / kMPPointsPerInch, 1.0 / kMPPointsPerInch));
     }
@@ -85,14 +97,22 @@
 
 - (id)printAssetForPageRange:(MPPageRange *)pageRange
 {
-    return [self printAsset];
+    NSMutableArray *printImages = [NSMutableArray arrayWithArray:self.printImages];
+    if( nil != pageRange && ![pageRange.range isEqualToString:pageRange.allPagesIndicator] ) {
+        printImages = [NSMutableArray array];
+        for (NSNumber *page in [pageRange getPages]) {
+            [printImages addObject:self.printImages[[page intValue] - 1]];
+        }
+    }
+    
+    return printImages;
 }
 
 #pragma mark - Preview image
 
 - (UIImage *)defaultPreviewImage
 {
-    return self.printImage;
+    return [self.printImages firstObject];
 }
 
 - (UIImage *)previewImageForPaper:(MPPaper *)paper
@@ -102,20 +122,46 @@
 
 - (NSArray *)previewImagesForPaper:(MPPaper *)paper
 {
-    return @[ [self defaultPreviewImage] ];
+    return self.printImages;
 }
 
 - (UIImage *)previewImageForPage:(NSUInteger)page paper:(MPPaper *)paper
 {
-    return [self defaultPreviewImage];
+    return self.printImages[page - 1];
 }
 
 #pragma mark - NSCoding
 
 - (void)encodeAssetWithCoder:(NSCoder *)encoder
 {
-    NSData *imageData = UIImageJPEGRepresentation(self.printImage, [[UIScreen mainScreen] scale]);
-    [encoder encodeObject:imageData forKey:kMPPrintAssetKey];
+    NSMutableArray *images = [NSMutableArray array];
+    for (UIImage *image in self.printImages) {
+        NSData *data = UIImageJPEGRepresentation(image, [[UIScreen mainScreen] scale]);
+        [images addObject:data];
+    }
+    [encoder encodeObject:images forKey:kMPPrintAssetKey];
+}
+
+- (id)decodeAssetWithCoder:(NSCoder *)decoder
+{
+    id printAsset = [decoder decodeObjectForKey:kMPPrintAssetKey];
+    
+    // Need this for backward compatibility.
+    // Old way was to store jobs as NSData representing single image.
+    if ([printAsset isKindOfClass:[NSData class]]) {
+        return printAsset;
+    }
+    
+    // New way is to story array of NSData for one or more images.
+    NSArray *imagesAsData = (NSArray<NSData *> *)printAsset;
+    NSMutableArray *imagesAsImage = [NSMutableArray array];
+    for (NSData *data in imagesAsData) {
+        UIImage *image = [UIImage imageWithData:data];
+        [imagesAsImage addObject:image];
+    }
+    NSArray *images = imagesAsImage;
+    
+    return images;
 }
 
 @end
