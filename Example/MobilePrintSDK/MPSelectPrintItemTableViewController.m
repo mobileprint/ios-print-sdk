@@ -24,6 +24,10 @@
 @property (strong, nonatomic) NSArray *pdfList;
 @property (strong, nonatomic) NSArray *aspectRatioList;
 @property (assign, nonatomic) BOOL dropboxBusy;
+@property (assign, nonatomic) BOOL selectModeEnabled;
+@property (strong, nonatomic) NSMutableArray *selectedImages;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *selectBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *actionBarButtonItem;
 
 @end
 
@@ -39,6 +43,9 @@ NSInteger const kMPSelectImagePDFSection = 5;
     self.aspectRatioList = @[ @"1.500", @"1.400", @"1.294" ];
     self.dpiList = @[ @"72dpi", @"300dpi" ];
     self.orientationList = @[ @"portrait", @"landscape" ];
+    self.selectModeEnabled = NO;
+    self.actionBarButtonItem.accessibilityIdentifier = @"Action Bar Button Item";
+    self.selectBarButtonItem.accessibilityIdentifier = @"Select Bar Button Item";
     self.sampleImages = @[
                           @"The Kiss",
                           @"Bird",
@@ -140,6 +147,9 @@ NSInteger const kMPSelectImagePDFSection = 5;
     } else if (kMPSelectImagePDFSection == indexPath.section) {
         [self didSelectPrintAsset:[self pdfFromIndexPath:indexPath]];
     }
+    else if (self.selectModeEnabled) {
+        [self addImageAtIndexPath:indexPath];
+    }
     else {
         [self didSelectPrintAsset:[self imageFromIndexPath:indexPath]];
     }
@@ -159,10 +169,43 @@ NSInteger const kMPSelectImagePDFSection = 5;
     return title;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.selectModeEnabled && (kMPSelectImageDropboxSection == indexPath.section || kMPSelectImagePDFSection == indexPath.section)) {
+        cell.alpha = 0.5;
+        cell.userInteractionEnabled = NO;
+    } else {
+        cell.alpha = 1.0;
+        cell.userInteractionEnabled = YES;
+    }
+}
+
 #pragma mark - Button actions
 
-- (IBAction)cancelButtonTapped:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (IBAction)actionButtonTapped:(id)sender {
+    if (self.selectModeEnabled) {
+        [self didSelectPrintAsset:[NSArray arrayWithArray:self.selectedImages]];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+- (IBAction)selectButtonTapped:(id)sender {
+    self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItem = nil;
+    self.selectedImages = [NSMutableArray array];
+    self.selectModeEnabled = !self.selectModeEnabled;
+    self.actionBarButtonItem.enabled = !self.selectModeEnabled;
+    if (self.selectModeEnabled) {
+        self.selectBarButtonItem.title = @"Cancel";
+        self.actionBarButtonItem.title = @"No Selection";
+    } else {
+        self.selectBarButtonItem.title = @"Select Images";
+        self.actionBarButtonItem.title = @"Cancel";
+    }
+    self.navigationItem.leftBarButtonItem = self.selectBarButtonItem;
+    self.navigationItem.rightBarButtonItem = self.actionBarButtonItem;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Helpers
@@ -218,6 +261,18 @@ NSInteger const kMPSelectImagePDFSection = 5;
 - (BOOL)imageSection:(NSInteger)section
 {
     return section > kMPSelectImageDropboxSection && section < kMPSelectImageSampleSection;
+}
+
+- (void)addImageAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIImage *image = [self imageFromIndexPath:indexPath];
+    if (image) {
+        self.navigationItem.rightBarButtonItem = nil;
+        [self.selectedImages addObject:image];
+        self.actionBarButtonItem.title = [NSString stringWithFormat:@"Select %d", self.selectedImages.count];
+        self.actionBarButtonItem.enabled = YES;
+        self.navigationItem.rightBarButtonItem = self.actionBarButtonItem;
+    }
 }
 
 #pragma mark - Dropbox
