@@ -638,9 +638,7 @@ Examples:
          | 4 x 5       | Photo Paper |
          | 8.5 x 11    | Plain Paper |
      
-
-
-
+  
   @reset
   @ios7_metrics
   @ios7
