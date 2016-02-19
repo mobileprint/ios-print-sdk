@@ -47,7 +47,7 @@ Feature: Select a Print item and print for different border types
         Given I am on the "PrintPod" screen
         And I scroll screen to find "LAYOUT"
         And I select "<layout_type>" layout type
-        And I scroll screen "down"
+        #And I scroll screen "down"
         Then I touch "<layout_option>"
         And I select "<border_type>" as border type
         And I scroll screen up to find "Print Item"

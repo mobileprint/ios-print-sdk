@@ -22,7 +22,7 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the os_type is "iOS"
     And I check the version
     And I check the product name is "MobilePrintSDK-cal"
-    And I check the product id is "org.cocoapods.demo.MobilePrintSDK-cal"
+    And I check the product id is "com.hp.dev.MobilePrintSDK-cal"
     And I check the library version        
     And I check the application type is "<metrics_option>"
     And I check the print session id is "1"
@@ -58,7 +58,7 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the os_type is "iOS"
     And I check the version
     And I check the product name is "MobilePrintSDK-cal"
-    And I check the product id is "org.cocoapods.demo.MobilePrintSDK-cal"
+    And I check the product id is "com.hp.dev.MobilePrintSDK-cal"
     And I check the library version        
     And I check the application type is "<metrics_option>"
     And I check the print session id is "1"
@@ -92,7 +92,7 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the os_type is "iOS"
     And I check the version
     And I check the product name is "MobilePrintSDK-cal"
-    And I check the product id is "org.cocoapods.demo.MobilePrintSDK-cal"
+    And I check the product id is "com.hp.dev.MobilePrintSDK-cal"
     And I check the library version        
     And I check the application type is "<metrics_option>"
     And I check the print session id is "2"
