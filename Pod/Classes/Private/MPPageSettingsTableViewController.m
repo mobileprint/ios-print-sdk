@@ -139,6 +139,8 @@
 
 @property (assign, nonatomic) NSInteger currentPrintJob;
 
+@property (assign, nonatomic) BOOL actionInProgress;
+
 @end
 
 @implementation MPPageSettingsTableViewController
@@ -152,6 +154,7 @@ NSString * const kPrintFromQueueScreenName = @"Add Job Screen";
 NSString * const kSettingsOnlyScreenName = @"Print Settings Screen";
 
 CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
+CGFloat const kMPDisabledAlpha = 0.5;
 
 #pragma mark - UIView
 
@@ -1233,6 +1236,8 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
         cell.textLabel.text = action.title;
     }
 
+    cell.userInteractionEnabled = !self.actionInProgress;
+    
     return cell;
 }
 
@@ -1240,6 +1245,8 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    cell.alpha = cell.userInteractionEnabled ? 1.0 : kMPDisabledAlpha;
+
     if( !self.previewViewController  &&  cell == self.jobSummaryCell ) {
         
         NSInteger imageSize = 30;
@@ -1442,30 +1449,36 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 
 - (void) addJobToPrintQueue
 {
-    MPPrintLaterJob *printLaterJob = self.printLaterJobs[self.currentPrintJob];
-    printLaterJob.pageRange = self.delegateManager.pageRange;
-    printLaterJob.name = self.delegateManager.jobName;
-    printLaterJob.numCopies = self.delegateManager.numCopies;
-    printLaterJob.blackAndWhite = self.delegateManager.blackAndWhite;
+    self.actionInProgress = YES;
     
-    NSString *titleForInitialPaperSize = [MPPaper titleFromSize:[MP sharedInstance].defaultPaper.paperSize];
-    MPPrintItem *printItem = [printLaterJob.printItems objectForKey:titleForInitialPaperSize];
-    
-    if (printItem == nil) {
-        MPLogError(@"At least the printing item for the initial paper size (%@) must be provided", titleForInitialPaperSize);
-    } else {
-        BOOL result = [[MPPrintLaterQueue sharedInstance] addPrintLaterJob:printLaterJob fromController:self];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        MPPrintLaterJob *printLaterJob = self.printLaterJobs[self.currentPrintJob];
+        printLaterJob.pageRange = self.delegateManager.pageRange;
+        printLaterJob.name = self.delegateManager.jobName;
+        printLaterJob.numCopies = self.delegateManager.numCopies;
+        printLaterJob.blackAndWhite = self.delegateManager.blackAndWhite;
         
-        if (result) {
-            if ([self.printLaterDelegate respondsToSelector:@selector(didFinishAddPrintLaterFlow:)]) {
-                [self.printLaterDelegate didFinishAddPrintLaterFlow:self];
-            }
+        NSString *titleForInitialPaperSize = [MPPaper titleFromSize:[MP sharedInstance].defaultPaper.paperSize];
+        MPPrintItem *printItem = [printLaterJob.printItems objectForKey:titleForInitialPaperSize];
+        
+        if (printItem == nil) {
+            MPLogError(@"At least the printing item for the initial paper size (%@) must be provided", titleForInitialPaperSize);
         } else {
-            if ([self.printLaterDelegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
-                [self.printLaterDelegate didCancelAddPrintLaterFlow:self];
+            BOOL result = [[MPPrintLaterQueue sharedInstance] addPrintLaterJob:printLaterJob fromController:self];
+            
+            self.actionInProgress = NO;
+            
+            if (result) {
+                if ([self.printLaterDelegate respondsToSelector:@selector(didFinishAddPrintLaterFlow:)]) {
+                    [self.printLaterDelegate didFinishAddPrintLaterFlow:self];
+                }
+            } else {
+                if ([self.printLaterDelegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
+                    [self.printLaterDelegate didCancelAddPrintLaterFlow:self];
+                }
             }
         }
-    }
+    });
 }
 
 #pragma mark - Printing
@@ -1795,7 +1808,7 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
 
 - (void)multiPageView:(MPMultiPageView *)multiPageView didSingleTapPage:(NSUInteger)pageNumber
 {
-    if (MPPageSettingsModeSettingsOnly != self.mode) {
+    if (MPPageSettingsModeSettingsOnly != self.mode && !self.actionInProgress) {
         [self respondToMultiPageViewAction];
     }
 }
@@ -1908,6 +1921,19 @@ CGFloat const kMPPreviewHeightRatio = 0.61803399; // golden ratio
         self.printCell.userInteractionEnabled = NO;
         self.printLabel.textColor = [self.mp.appearance.settings objectForKey:kMPMainActionInactiveLinkFontColor];
     }
+}
+
+#pragma mark - Action in Progress
+
+- (void)setActionInProgress:(BOOL)actionInProgress
+{
+    _actionInProgress = actionInProgress;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.pageSelectionMark.userInteractionEnabled = !actionInProgress;
+        self.pageSelectionExtendedArea.userInteractionEnabled = !actionInProgress;
+        self.pageSelectionMark.alpha = actionInProgress ? kMPDisabledAlpha : 1.0;
+        [self.tableView reloadData];
+    });
 }
 
 @end
