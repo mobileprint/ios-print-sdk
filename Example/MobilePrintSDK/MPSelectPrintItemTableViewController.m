@@ -191,8 +191,6 @@ NSInteger const kMPSelectImagePDFSection = 5;
 }
 
 - (IBAction)selectButtonTapped:(id)sender {
-    self.navigationItem.leftBarButtonItem = nil;
-    self.navigationItem.rightBarButtonItem = nil;
     self.selectedImages = [NSMutableArray array];
     self.selectModeEnabled = !self.selectModeEnabled;
     self.actionBarButtonItem.enabled = !self.selectModeEnabled;
@@ -203,8 +201,6 @@ NSInteger const kMPSelectImagePDFSection = 5;
         self.selectBarButtonItem.title = @"Select Images";
         self.actionBarButtonItem.title = @"Cancel";
     }
-    self.navigationItem.leftBarButtonItem = self.selectBarButtonItem;
-    self.navigationItem.rightBarButtonItem = self.actionBarButtonItem;
     [self.tableView reloadData];
 }
 
@@ -267,11 +263,9 @@ NSInteger const kMPSelectImagePDFSection = 5;
 {
     UIImage *image = [self imageFromIndexPath:indexPath];
     if (image) {
-        self.navigationItem.rightBarButtonItem = nil;
         [self.selectedImages addObject:image];
-        self.actionBarButtonItem.title = [NSString stringWithFormat:@"Select %d", self.selectedImages.count];
+        self.actionBarButtonItem.title = [NSString stringWithFormat:@"Select %lu", (unsigned long)self.selectedImages.count];
         self.actionBarButtonItem.enabled = YES;
-        self.navigationItem.rightBarButtonItem = self.actionBarButtonItem;
     }
 }
 
