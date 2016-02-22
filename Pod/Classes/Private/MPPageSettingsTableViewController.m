@@ -1534,11 +1534,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
     NSMutableArray *printLaterJobs = nil;
     
     if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
-        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
-        if (numberOfJobs > 1) {
-            if ([self.dataSource respondsToSelector:@selector(printLaterJobs)]) {
-                printLaterJobs = [self.dataSource printLaterJobs].mutableCopy;
-            }
+        if ([self.dataSource respondsToSelector:@selector(printLaterJobs)]) {
+            printLaterJobs = [self.dataSource printLaterJobs].mutableCopy;
         }
     }
     
@@ -1589,11 +1586,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
     NSMutableArray *items = nil;
     
     if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
-        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
-        if (numberOfJobs > 1) {
-            if ([self.dataSource respondsToSelector:@selector(printingItemsForPaper:)]) {
-                items = [self.dataSource printingItemsForPaper:self.delegateManager.printSettings.paper].mutableCopy;
-            }
+        if ([self.dataSource respondsToSelector:@selector(printingItemsForPaper:)]) {
+            items = [self.dataSource printingItemsForPaper:self.delegateManager.printSettings.paper].mutableCopy;
         }
     }
     
@@ -1609,11 +1603,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
     NSMutableArray *pageRanges = nil;
     
     if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
-        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
-        if (numberOfJobs > 1) {
-            if ([self.dataSource respondsToSelector:@selector(pageRangeSelections)]) {
-                pageRanges = [self.dataSource pageRangeSelections].mutableCopy;
-            }
+        if ([self.dataSource respondsToSelector:@selector(pageRangeSelections)]) {
+            pageRanges = [self.dataSource pageRangeSelections].mutableCopy;
         }
     }
     
@@ -1629,11 +1620,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
     NSMutableArray *bws = nil;
     
     if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
-        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
-        if (numberOfJobs > 1) {
-            if ([self.dataSource respondsToSelector:@selector(blackAndWhiteSelections)]) {
-                bws = [self.dataSource blackAndWhiteSelections].mutableCopy;
-            }
+        if ([self.dataSource respondsToSelector:@selector(blackAndWhiteSelections)]) {
+            bws = [self.dataSource blackAndWhiteSelections].mutableCopy;
         }
     }
     
@@ -1649,11 +1637,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
     NSMutableArray *numCopies = nil;
     
     if ([self.dataSource respondsToSelector:@selector(numberOfPrintingItems)]) {
-        NSInteger numberOfJobs = [self.dataSource numberOfPrintingItems];
-        if (numberOfJobs > 1) {
-            if ([self.dataSource respondsToSelector:@selector(numberOfCopiesSelections)]) {
-                numCopies = [self.dataSource numberOfCopiesSelections].mutableCopy;
-            }
+        if ([self.dataSource respondsToSelector:@selector(numberOfCopiesSelections)]) {
+            numCopies = [self.dataSource numberOfCopiesSelections].mutableCopy;
         }
     }
     
