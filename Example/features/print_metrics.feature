@@ -444,7 +444,7 @@ Examples:
     Then I add "1" job to print queue
     And I touch "Delete" button
     And I verify warning message displayed
-    And I touch "Delete"
+    And I touch "Delete" from the popup
     Then I wait for some seconds
     Then Fetch metrics details
     And I check the manufacturer is "Apple"
