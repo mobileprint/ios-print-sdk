@@ -153,7 +153,7 @@
     }
     
     // New way is to story array of NSData for one or more images.
-    NSArray *imagesAsData = (NSArray<NSData *> *)printAsset;
+    NSArray *imagesAsData = printAsset;
     NSMutableArray *imagesAsImage = [NSMutableArray array];
     for (NSData *data in imagesAsData) {
         UIImage *image = [UIImage imageWithData:data];
