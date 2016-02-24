@@ -22,6 +22,7 @@
 @interface MPPrintLaterQueue()
 
 @property (nonatomic, strong) NSString *printLaterJobsDirectoryPath;
+- (MPPrintLaterJob *)attemptDecodeJobWithId:(NSString *)jobId;
 
 @end
 
@@ -93,18 +94,37 @@
     MPPrintLaterQueue *originalQueue = [MPPrintLaterQueue sharedInstance];
     
     MPPrintLaterJob *originalJob = [self printLaterJob];
-    NSString *filename = [originalQueue.printLaterJobsDirectoryPath stringByAppendingPathComponent:originalJob.id];
     [originalQueue addPrintLaterJob:originalJob fromController:nil];
     
     MPPrintLaterQueue *newQueue = [[MPPrintLaterQueue alloc] init];
+    id queueMock = OCMPartialMock(newQueue);
     MPPrintLaterJob *retrievedJob = [newQueue retrievePrintLaterJobWithID:originalJob.id];
+    OCMVerify([queueMock attemptDecodeJobWithId:originalJob.id]);
 
-    OCMVerify([_unarchiverMock unarchiveObjectWithFile:filename]);
     XCTAssert(
               [retrievedJob.id isEqualToString:originalJob.id],
               @"Expected retrieved job ID ('%@') to equal original job ID ('%@')",
               retrievedJob.id,
               originalJob.id);
+}
+
+- (void)testRetrieveLegacyJob
+{
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *jobId = @"ID00000001";
+    NSString *jobPath = [[MPPrintLaterQueue sharedInstance].printLaterJobsDirectoryPath stringByAppendingPathComponent:jobId];
+    
+    NSArray *legacyJobs = @[ @"card.v1.4", @"sms.v1.6" ];
+    for (NSString *job in legacyJobs) {
+        [[MPPrintLaterQueue sharedInstance] deleteAllPrintLaterJobs];
+        NSString *bundlePath = [bundle pathForResource:job ofType:@"dat"];
+        [[NSFileManager defaultManager] copyItemAtPath:bundlePath toPath:jobPath error:nil];
+        NSInteger jobCount = [[MPPrintLaterQueue sharedInstance] retrieveNumberOfPrintLaterJobs];
+        XCTAssert(
+                  1 == jobCount,
+                  @"Expected 1 job in queue, got %ld",
+                  (long)jobCount);
+    }
 }
 
 - (void)testDeleteJob
