@@ -5,6 +5,6 @@ target 'MobilePrintSDK', :exclusive => true do
 end
 
 target 'Tests', :exclusive => true do
-  pod "MobilePrintSDK", :path => "../"
   pod "OCMock"
 end
+

@@ -38,13 +38,13 @@
 		1B63EC6EE23EE0D8C4930281CC3F1F4B /* MPPrintLaterJob.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E15D061AB49B295AC9B6A77C4F460 /* MPPrintLaterJob.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B7E21160BEF08CC76BA8C17E94E455A /* OCMLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB630B2DAC2353B459788401945D97 /* OCMLocation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1B837E74BE7C29FFF6D74B173CC75CA4 /* UITableView+MPHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4148B49EFE65B709DDC1D0D5E0BFFD9D /* UITableView+MPHeader.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		1FAB18E6F78FBED06B1C6FA5987DD67A /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E837640F38CCEEB2717504118108B9A8 /* Pods-Tests-dummy.m */; };
 		1FF639209A5C6A9C6FF4A70A30D57BDE /* NSBundle+MPLocalizable.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC4ED215F711025B71FAAF57D0F7F4C /* NSBundle+MPLocalizable.m */; };
 		208D22DC792CFEA0759BF5E693E49793 /* MPView.m in Sources */ = {isa = PBXBuildFile; fileRef = B71A8D345A41B7CCC09238C47A4EC4AB /* MPView.m */; };
 		20C39DB909C33B491D60F23FA1D415C2 /* OCMRealObjectForwarder.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FA65EDA8217AA85B34B2B0E96E642F /* OCMRealObjectForwarder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2487F7615BCE7D4FBA089F9CAC3A70F0 /* MPPageRangeKeyboardView.h in Headers */ = {isa = PBXBuildFile; fileRef = B02A644F927A653169F6428F098DD444 /* MPPageRangeKeyboardView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		24D4BBA5CE66F9A768D4BEA7C9CE129B /* MPPageRangeKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = C83018128EE32E18440AC024E72FEA31 /* MPPageRangeKeyboardView.m */; };
 		27F3124C5E8252377AFED08D6DCDA3D8 /* MPDashedLineView.h in Headers */ = {isa = PBXBuildFile; fileRef = AB4408EA8C04A3CAC08172F3BD2431B5 /* MPDashedLineView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2AB0F63253152316E126C47E4BD6FB59 /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E837640F38CCEEB2717504118108B9A8 /* Pods-Tests-dummy.m */; };
 		2D42F5FB1E60AA23567DE30BCDAD541A /* MPPrintItemPDF.h in Headers */ = {isa = PBXBuildFile; fileRef = 8847806558CDD67EB15BEDEF98B2FCB7 /* MPPrintItemPDF.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2EC699567E375CE0985463C2D3F69918 /* MPPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D856E9E4A31537BE8F58D4AD570362B /* MPPrinter.m */; };
 		3152811CD17686AA726713BFE3612206 /* OCMConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 914DDCAE22282C3410EF5AF0E63F7AB1 /* OCMConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -53,7 +53,6 @@
 		34B06065CCE348658A9A10A19D7BC25D /* MPPrintJobsActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6090BFD08DE9502B77D5822F3F9DD91A /* MPPrintJobsActionView.m */; };
 		36B9B7AFE3E8E94ACB6B54478710090E /* MPPrintManager+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = 748944E0726FBD8836DA0C5E0829D709 /* MPPrintManager+Options.m */; };
 		38109952E9571BE32B8AF52089051873 /* MPLayoutPrepStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BAACF3D655CE69FB586323671986986 /* MPLayoutPrepStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3A61901DA8EE9CF16414720088DE1785 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */; };
 		3A769EE15211B7EBBAF4B1C8AD542502 /* OCMFunctionsPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F6AD38FA4978BC5D7E8F32453E06BAB /* OCMFunctionsPrivate.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3CAE78D72DFC894AA4CD2863B1B7B9F6 /* MPSupportAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 443ECF8F3513F0942BB0D912A507C8E6 /* MPSupportAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3E18F9AE7FCC2B9CB7701AFD5A74C384 /* MPLayoutComposite.m in Sources */ = {isa = PBXBuildFile; fileRef = E398316BD97441ECD04B34A7AD6E3958 /* MPLayoutComposite.m */; };
@@ -173,6 +172,7 @@
 		CF4157D287E2BE522C5C20C45077F8B6 /* MPPrintPageRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D15822963E0AD62CE5FF0DE6A7E093BF /* MPPrintPageRenderer.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		CFDC2DBE698231AB8ACDF51B86B5A1DC /* UIColor+MPHexString.h in Headers */ = {isa = PBXBuildFile; fileRef = 426A5D463249A97E723DBD47718DE664 /* UIColor+MPHexString.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D11DB73E40C0FFEACE983733AA4074C2 /* MPLayoutPrepStepRotate.h in Headers */ = {isa = PBXBuildFile; fileRef = BEDD32E4BAF8BA9AA84942E259FBE428 /* MPLayoutPrepStepRotate.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D1961D450B47A9ED42C5416131860485 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */; };
 		D358A7ECD5BBEA0941C0414508C1D93B /* MP.h in Headers */ = {isa = PBXBuildFile; fileRef = 02E05D053339EFB0C4AB412903038522 /* MP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D37BBF68392279E57059B5D1F293550F /* MobilePrintSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 281BD43FA715CEF93E5AA2037605321E /* MobilePrintSDK-dummy.m */; };
 		D470FD7FF206B100A7B79714E7FA0F4A /* OCMNotificationPoster.h in Headers */ = {isa = PBXBuildFile; fileRef = C09ED70F3F23B5607267073061DE266E /* OCMNotificationPoster.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -219,19 +219,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2479B720D8F14291DD10B203B879CA96 /* PBXContainerItemProxy */ = {
+		2068B084487FF327CEE55674838B6AD6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4A2CAA839F2722C796C6F1DFDC806B92;
 			remoteInfo = OCMock;
-		};
-		E2C951D4017E4172C07BE5F452144875 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B87EED68BA36663A46D42D8D86B2F499;
-			remoteInfo = MobilePrintSDK;
 		};
 		FA748AFFFEFE9C9069FA58C9514995C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -501,6 +494,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2F4F5E1B5398854F39CF984C935F872F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1961D450B47A9ED42C5416131860485 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C2602132A1D207DB135342BF83AB581 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -523,14 +524,6 @@
 			files = (
 				BD7E834976F6405E99459B8996D93B96 /* Foundation.framework in Frameworks */,
 				C2CE9B64068D4F049A69234753C59A43 /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FBD1C8C29927A8F171FB26C5C97284D1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3A61901DA8EE9CF16414720088DE1785 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1108,6 +1101,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		2B4FE3D8536668562AD23F0102828EBF /* Pods-Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E448E16147F22A231A3D8DF67DCAEBA2 /* Build configuration list for PBXNativeTarget "Pods-Tests" */;
+			buildPhases = (
+				D35B6B3C2A0A991E53AD655806C33C2B /* Sources */,
+				2F4F5E1B5398854F39CF984C935F872F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ED416818F5B6FD21BDB5215DEAD75653 /* PBXTargetDependency */,
+			);
+			name = "Pods-Tests";
+			productName = "Pods-Tests";
+			productReference = F32EA8ED140E1B174EB78CF1FB4B73FB /* libPods-Tests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		46F7C9C500D923FC9093156664E4F17A /* Pods-MobilePrintSDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9FF7F2DDF2E59FD85E36AAC4D50951B4 /* Build configuration list for PBXNativeTarget "Pods-MobilePrintSDK" */;
@@ -1159,24 +1169,6 @@
 			productReference = 7DA4B0E1E2822D90688A25A3DE27621D /* libMobilePrintSDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		CD08320A94572BD65183F9CB2856F375 /* Pods-Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 064C071DA90646D324258F56D5E5D616 /* Build configuration list for PBXNativeTarget "Pods-Tests" */;
-			buildPhases = (
-				DC262B216E5082A70C126C917A59DD2F /* Sources */,
-				FBD1C8C29927A8F171FB26C5C97284D1 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				63121976437D89D9DC5A14189D4AD4BD /* PBXTargetDependency */,
-				380A5405F5FE209CEDF36908CFF34D1A /* PBXTargetDependency */,
-			);
-			name = "Pods-Tests";
-			productName = "Pods-Tests";
-			productReference = F32EA8ED140E1B174EB78CF1FB4B73FB /* libPods-Tests.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1201,7 +1193,7 @@
 				B87EED68BA36663A46D42D8D86B2F499 /* MobilePrintSDK */,
 				4A2CAA839F2722C796C6F1DFDC806B92 /* OCMock */,
 				46F7C9C500D923FC9093156664E4F17A /* Pods-MobilePrintSDK */,
-				CD08320A94572BD65183F9CB2856F375 /* Pods-Tests */,
+				2B4FE3D8536668562AD23F0102828EBF /* Pods-Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1256,11 +1248,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC262B216E5082A70C126C917A59DD2F /* Sources */ = {
+		D35B6B3C2A0A991E53AD655806C33C2B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FAB18E6F78FBED06B1C6FA5987DD67A /* Pods-Tests-dummy.m in Sources */,
+				2AB0F63253152316E126C47E4BD6FB59 /* Pods-Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1341,23 +1333,17 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		380A5405F5FE209CEDF36908CFF34D1A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = OCMock;
-			target = 4A2CAA839F2722C796C6F1DFDC806B92 /* OCMock */;
-			targetProxy = 2479B720D8F14291DD10B203B879CA96 /* PBXContainerItemProxy */;
-		};
-		63121976437D89D9DC5A14189D4AD4BD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = MobilePrintSDK;
-			target = B87EED68BA36663A46D42D8D86B2F499 /* MobilePrintSDK */;
-			targetProxy = E2C951D4017E4172C07BE5F452144875 /* PBXContainerItemProxy */;
-		};
 		A11545DA3601DCAC4E3AFDCA19F28E9D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MobilePrintSDK;
 			target = B87EED68BA36663A46D42D8D86B2F499 /* MobilePrintSDK */;
 			targetProxy = FA748AFFFEFE9C9069FA58C9514995C5 /* PBXContainerItemProxy */;
+		};
+		ED416818F5B6FD21BDB5215DEAD75653 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OCMock;
+			target = 4A2CAA839F2722C796C6F1DFDC806B92 /* OCMock */;
+			targetProxy = 2068B084487FF327CEE55674838B6AD6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1435,23 +1421,6 @@
 			};
 			name = Debug;
 		};
-		4ABBB1997AAB180F397202FC768414AA /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 54C6BBABA48385123207183F2BB48C88 /* Pods-Tests.release.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		58920C4566D0EEA334E8FD02E4ABC56D /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1843F554F2FC67D6210094513CC3DAC0 /* MobilePrintSDK.xcconfig */;
@@ -1473,6 +1442,23 @@
 		8AC19DD3D7194BA9995CDD0F538B0C81 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7588F6DEBBD964C8EB376032F5836DE9 /* Pods-MobilePrintSDK.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8E2C57E2A029964667928B9C7851F394 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CD999019D8EA3483980564052D4527F /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -1523,14 +1509,14 @@
 			};
 			name = Debug;
 		};
-		B449F5D5A56C69B434CC6C50699E3AB1 /* Debug */ = {
+		B157605029E9A69DC206F296A8C01A32 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8CD999019D8EA3483980564052D4527F /* Pods-Tests.debug.xcconfig */;
+			baseConfigurationReference = 54C6BBABA48385123207183F2BB48C88 /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1538,7 +1524,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
 		DAC687EE1E2DD6BC85941FE33A872FB9 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1578,15 +1564,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		064C071DA90646D324258F56D5E5D616 /* Build configuration list for PBXNativeTarget "Pods-Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B449F5D5A56C69B434CC6C50699E3AB1 /* Debug */,
-				4ABBB1997AAB180F397202FC768414AA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		07AF9645FA2F4FB2219BACBD4645EE14 /* Build configuration list for PBXNativeTarget "MobilePrintSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1619,6 +1596,15 @@
 			buildConfigurations = (
 				8AC19DD3D7194BA9995CDD0F538B0C81 /* Debug */,
 				DAC687EE1E2DD6BC85941FE33A872FB9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E448E16147F22A231A3D8DF67DCAEBA2 /* Build configuration list for PBXNativeTarget "Pods-Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E2C57E2A029964667928B9C7851F394 /* Debug */,
+				B157605029E9A69DC206F296A8C01A32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
