@@ -39,11 +39,24 @@
 		651357891B4C7BEE003B6935 /* MPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */; };
 		6531EB3E1B30C85700412BBF /* MPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* MPMultiPageConfigurationViewController.m */; };
 		65334C1B1C46BB05004E849D /* MPPrintLaterQueueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65334C1A1C46BB05004E849D /* MPPrintLaterQueueTest.m */; };
+		655DC3DD1C7FB6F400CB5262 /* 3.0.0.fill.dat in Resources */ = {isa = PBXBuildFile; fileRef = 655DC3DA1C7FB6F400CB5262 /* 3.0.0.fill.dat */; };
+		655DC3DE1C7FB6F400CB5262 /* 3.0.0.fit.dat in Resources */ = {isa = PBXBuildFile; fileRef = 655DC3DB1C7FB6F400CB5262 /* 3.0.0.fit.dat */; };
+		655DC3DF1C7FB6F400CB5262 /* 3.0.0.pdf.dat in Resources */ = {isa = PBXBuildFile; fileRef = 655DC3DC1C7FB6F400CB5262 /* 3.0.0.pdf.dat */; };
+		655DC3E81C7FD5C900CB5262 /* 2.5.10.pdf.dat in Resources */ = {isa = PBXBuildFile; fileRef = 655DC3E01C7FD5C900CB5262 /* 2.5.10.pdf.dat */; };
+		655DC3E91C7FD5C900CB5262 /* 2.6.11.pdf.dat in Resources */ = {isa = PBXBuildFile; fileRef = 655DC3E11C7FD5C900CB5262 /* 2.6.11.pdf.dat */; };
+		655DC3EA1C7FD5C900CB5262 /* 3.0.1.fill.dat in Resources */ = {isa = PBXBuildFile; fileRef = 655DC3E21C7FD5C900CB5262 /* 3.0.1.fill.dat */; };
+		655DC3EB1C7FD5C900CB5262 /* 3.0.1.fit.dat in Resources */ = {isa = PBXBuildFile; fileRef = 655DC3E31C7FD5C900CB5262 /* 3.0.1.fit.dat */; };
+		655DC3EC1C7FD5C900CB5262 /* 3.0.1.pdf.dat in Resources */ = {isa = PBXBuildFile; fileRef = 655DC3E41C7FD5C900CB5262 /* 3.0.1.pdf.dat */; };
+		655DC3ED1C7FD5C900CB5262 /* 3.0.2.fill.dat in Resources */ = {isa = PBXBuildFile; fileRef = 655DC3E51C7FD5C900CB5262 /* 3.0.2.fill.dat */; };
+		655DC3EE1C7FD5C900CB5262 /* 3.0.2.fit.dat in Resources */ = {isa = PBXBuildFile; fileRef = 655DC3E61C7FD5C900CB5262 /* 3.0.2.fit.dat */; };
+		655DC3EF1C7FD5C900CB5262 /* 3.0.2.pdf.dat in Resources */ = {isa = PBXBuildFile; fileRef = 655DC3E71C7FD5C900CB5262 /* 3.0.2.pdf.dat */; };
+		65628AD21C7F876F007AB6BA /* 2.5.10.fill.dat in Resources */ = {isa = PBXBuildFile; fileRef = 65628ACE1C7F876F007AB6BA /* 2.5.10.fill.dat */; };
+		65628AD31C7F876F007AB6BA /* 2.5.10.fit.dat in Resources */ = {isa = PBXBuildFile; fileRef = 65628ACF1C7F876F007AB6BA /* 2.5.10.fit.dat */; };
+		65628AD41C7F876F007AB6BA /* 2.6.11.fill.dat in Resources */ = {isa = PBXBuildFile; fileRef = 65628AD01C7F876F007AB6BA /* 2.6.11.fill.dat */; };
+		65628AD51C7F876F007AB6BA /* 2.6.11.fit.dat in Resources */ = {isa = PBXBuildFile; fileRef = 65628AD11C7F876F007AB6BA /* 2.6.11.fit.dat */; };
 		6565921F1BB5EB6B00A08B22 /* MPPaperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6565921E1BB5EB6B00A08B22 /* MPPaperTest.m */; };
 		65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */; };
 		65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */; };
-		657FD6BF1C7E6EBB00916443 /* card.v1.4.dat in Resources */ = {isa = PBXBuildFile; fileRef = 657FD6BD1C7E6EBB00916443 /* card.v1.4.dat */; };
-		657FD6C01C7E6EBB00916443 /* sms.v1.6.dat in Resources */ = {isa = PBXBuildFile; fileRef = 657FD6BE1C7E6EBB00916443 /* sms.v1.6.dat */; };
 		658088EF1BB1DACD00B35489 /* MPPrintManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 658088EE1BB1DACD00B35489 /* MPPrintManagerTest.m */; };
 		658840E11BFE437A001B178D /* 1397 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 658840E01BFE437A001B178D /* 1397 Pages.pdf */; };
 		658840E21BFE437A001B178D /* 1397 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 658840E01BFE437A001B178D /* 1397 Pages.pdf */; };
@@ -62,10 +75,10 @@
 		65FFC9B61B03B0A400DCE2B4 /* 4 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9B01B03B0A400DCE2B4 /* 4 Pages.pdf */; };
 		65FFC9B71B03B0A400DCE2B4 /* 6 Pages (landscape).pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9B11B03B0A400DCE2B4 /* 6 Pages (landscape).pdf */; };
 		65FFC9B81B03B0A400DCE2B4 /* 10 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9B21B03B0A400DCE2B4 /* 10 Pages.pdf */; };
+		6C303E39D3219F5E12F89399 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 824DD1CAED53617BFC879B9B /* libPods-Tests.a */; };
 		730c2e911e8d518fe37de7a1 /* MPLearnMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32115DF1A38BCE50079144C /* MPLearnMoreView.xib */; };
 		78cd8fb9b1bee9474f0c1617 /* 115 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B61B73FAA10013E738 /* 115 Pages.pdf */; };
 		7d9d68fa6acc2cb2dcaeabfb /* MPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */; };
-		8385D3FA9834DD987A3B752B /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 824DD1CAED53617BFC879B9B /* libPods-Tests.a */; };
 		92BAEA5F1C1F51170033A200 /* MPLayoutFitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */; };
 		93acf3685826df4abe0f66ad /* MPLearnMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DE1A38BCE50079144C /* MPLearnMoreView.m */; };
 		9ee14810a090fa40eec00a4c /* MPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* MPMultiPageConfigurationViewController.m */; };
@@ -159,11 +172,24 @@
 		6531EB3C1B30C85700412BBF /* MPMultiPageConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMultiPageConfigurationViewController.h; sourceTree = "<group>"; };
 		6531EB3D1B30C85700412BBF /* MPMultiPageConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMultiPageConfigurationViewController.m; sourceTree = "<group>"; };
 		65334C1A1C46BB05004E849D /* MPPrintLaterQueueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterQueueTest.m; sourceTree = "<group>"; };
+		655DC3DA1C7FB6F400CB5262 /* 3.0.0.fill.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 3.0.0.fill.dat; sourceTree = "<group>"; };
+		655DC3DB1C7FB6F400CB5262 /* 3.0.0.fit.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 3.0.0.fit.dat; sourceTree = "<group>"; };
+		655DC3DC1C7FB6F400CB5262 /* 3.0.0.pdf.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 3.0.0.pdf.dat; sourceTree = "<group>"; };
+		655DC3E01C7FD5C900CB5262 /* 2.5.10.pdf.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 2.5.10.pdf.dat; sourceTree = "<group>"; };
+		655DC3E11C7FD5C900CB5262 /* 2.6.11.pdf.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 2.6.11.pdf.dat; sourceTree = "<group>"; };
+		655DC3E21C7FD5C900CB5262 /* 3.0.1.fill.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 3.0.1.fill.dat; sourceTree = "<group>"; };
+		655DC3E31C7FD5C900CB5262 /* 3.0.1.fit.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 3.0.1.fit.dat; sourceTree = "<group>"; };
+		655DC3E41C7FD5C900CB5262 /* 3.0.1.pdf.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 3.0.1.pdf.dat; sourceTree = "<group>"; };
+		655DC3E51C7FD5C900CB5262 /* 3.0.2.fill.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 3.0.2.fill.dat; sourceTree = "<group>"; };
+		655DC3E61C7FD5C900CB5262 /* 3.0.2.fit.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 3.0.2.fit.dat; sourceTree = "<group>"; };
+		655DC3E71C7FD5C900CB5262 /* 3.0.2.pdf.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 3.0.2.pdf.dat; sourceTree = "<group>"; };
+		65628ACE1C7F876F007AB6BA /* 2.5.10.fill.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 2.5.10.fill.dat; sourceTree = "<group>"; };
+		65628ACF1C7F876F007AB6BA /* 2.5.10.fit.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 2.5.10.fit.dat; sourceTree = "<group>"; };
+		65628AD01C7F876F007AB6BA /* 2.6.11.fill.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 2.6.11.fill.dat; sourceTree = "<group>"; };
+		65628AD11C7F876F007AB6BA /* 2.6.11.fit.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = 2.6.11.fit.dat; sourceTree = "<group>"; };
 		6565921E1BB5EB6B00A08B22 /* MPPaperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPaperTest.m; sourceTree = "<group>"; };
 		65748EE61B2BFD5F00CC6907 /* 44 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "44 Pages.pdf"; sourceTree = "<group>"; };
 		65748EE71B2BFD5F00CC6907 /* 51 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "51 Pages.pdf"; sourceTree = "<group>"; };
-		657FD6BD1C7E6EBB00916443 /* card.v1.4.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = card.v1.4.dat; sourceTree = "<group>"; };
-		657FD6BE1C7E6EBB00916443 /* sms.v1.6.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = sms.v1.6.dat; sourceTree = "<group>"; };
 		658088ED1BB1C63600B35489 /* MobilePrintSDK-cal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MobilePrintSDK-cal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		658088EE1BB1DACD00B35489 /* MPPrintManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPrintManagerTest.m; sourceTree = "<group>"; };
 		658840E01BFE437A001B178D /* 1397 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "1397 Pages.pdf"; sourceTree = "<group>"; };
@@ -272,7 +298,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				8385D3FA9834DD987A3B752B /* libPods-Tests.a in Frameworks */,
+				6C303E39D3219F5E12F89399 /* libPods-Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,8 +429,21 @@
 		657FD6BC1C7E6A6000916443 /* PrintJobs */ = {
 			isa = PBXGroup;
 			children = (
-				657FD6BD1C7E6EBB00916443 /* card.v1.4.dat */,
-				657FD6BE1C7E6EBB00916443 /* sms.v1.6.dat */,
+				65628ACE1C7F876F007AB6BA /* 2.5.10.fill.dat */,
+				65628ACF1C7F876F007AB6BA /* 2.5.10.fit.dat */,
+				655DC3E01C7FD5C900CB5262 /* 2.5.10.pdf.dat */,
+				65628AD01C7F876F007AB6BA /* 2.6.11.fill.dat */,
+				65628AD11C7F876F007AB6BA /* 2.6.11.fit.dat */,
+				655DC3E11C7FD5C900CB5262 /* 2.6.11.pdf.dat */,
+				655DC3DA1C7FB6F400CB5262 /* 3.0.0.fill.dat */,
+				655DC3DB1C7FB6F400CB5262 /* 3.0.0.fit.dat */,
+				655DC3DC1C7FB6F400CB5262 /* 3.0.0.pdf.dat */,
+				655DC3E21C7FD5C900CB5262 /* 3.0.1.fill.dat */,
+				655DC3E31C7FD5C900CB5262 /* 3.0.1.fit.dat */,
+				655DC3E41C7FD5C900CB5262 /* 3.0.1.pdf.dat */,
+				655DC3E51C7FD5C900CB5262 /* 3.0.2.fill.dat */,
+				655DC3E61C7FD5C900CB5262 /* 3.0.2.fit.dat */,
+				655DC3E71C7FD5C900CB5262 /* 3.0.2.pdf.dat */,
 			);
 			name = PrintJobs;
 			sourceTree = "<group>";
@@ -592,10 +631,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				65DC4A841BD5A9A00004F903 /* 1 Page.pdf in Resources */,
-				657FD6C01C7E6EBB00916443 /* sms.v1.6.dat in Resources */,
-				657FD6BF1C7E6EBB00916443 /* card.v1.4.dat in Resources */,
+				655DC3DD1C7FB6F400CB5262 /* 3.0.0.fill.dat in Resources */,
+				655DC3EC1C7FD5C900CB5262 /* 3.0.1.pdf.dat in Resources */,
+				655DC3EF1C7FD5C900CB5262 /* 3.0.2.pdf.dat in Resources */,
+				655DC3EE1C7FD5C900CB5262 /* 3.0.2.fit.dat in Resources */,
+				65628AD41C7F876F007AB6BA /* 2.6.11.fill.dat in Resources */,
+				655DC3E91C7FD5C900CB5262 /* 2.6.11.pdf.dat in Resources */,
+				655DC3DF1C7FB6F400CB5262 /* 3.0.0.pdf.dat in Resources */,
 				65F44B5C1BD081FB00EF42AB /* Images.xcassets in Resources */,
+				655DC3E81C7FD5C900CB5262 /* 2.5.10.pdf.dat in Resources */,
+				655DC3EB1C7FD5C900CB5262 /* 3.0.1.fit.dat in Resources */,
+				65628AD31C7F876F007AB6BA /* 2.5.10.fit.dat in Resources */,
+				65628AD51C7F876F007AB6BA /* 2.6.11.fit.dat in Resources */,
+				655DC3ED1C7FD5C900CB5262 /* 3.0.2.fill.dat in Resources */,
 				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
+				655DC3EA1C7FD5C900CB5262 /* 3.0.1.fill.dat in Resources */,
+				655DC3DE1C7FB6F400CB5262 /* 3.0.0.fit.dat in Resources */,
+				65628AD21C7F876F007AB6BA /* 2.5.10.fill.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

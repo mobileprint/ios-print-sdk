@@ -67,6 +67,10 @@ NSString * const kMPTestNumberOfCopiesKey = @"kMPTestNumberOfCopiesKey";
 - (void)setUp
 {
     [super setUp];
+    
+    [MPPaper resetPaperList];
+    [MP sharedInstance].printPaperDelegate = nil;
+
     [self setLastOptions];
     [self setDefaultValues];
 }
