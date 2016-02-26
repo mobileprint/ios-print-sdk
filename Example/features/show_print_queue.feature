@@ -154,7 +154,7 @@ Feature: Select item and add to print queue
     Then I verify names displayed in Print Queue screen
     And I touch "Delete" button
     And I verify warning message displayed
-    And I touch "Delete"
+    And I touch "Delete" from the popup
 
   @reset
   @ios8
@@ -166,7 +166,7 @@ Feature: Select item and add to print queue
     And I touch "Select All" button
     And I touch "Delete" button
     And I verify warning message displayed
-    And I touch "Delete"
+    And I touch "Delete" from the popup
 
   @reset
   @ios8
@@ -178,6 +178,7 @@ Feature: Select item and add to print queue
     And I "Select" a job
     And I touch "Delete" button
     And I verify warning message displayed
-    And I touch "Delete"
+    And I touch "Delete" from the popup
+    And I wait for some seconds
     And I check selected job name is deleted
    
