@@ -609,7 +609,7 @@ Examples:
     Then I touch "Print"
     Then I wait for some seconds
     Then Fetch metrics details
-    And I check the number of copies is "1"
+    And I check the number of copies is "2"
     And I check the manufacturer is "Apple"
     And I check the os_type is "iOS"
     And I check black_and_white_filter value is "0"
