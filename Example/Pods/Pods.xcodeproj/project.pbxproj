@@ -7,207 +7,215 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		002A92899ECB54FF5F318032A4FA5E49 /* MPLayoutFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 1143C3DF22503F0A5D8A855E1737919E /* MPLayoutFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		002F8B5495630802897419A6EC58CCE5 /* MPPrintLaterHelperViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EF5DE5D5CC5971824FE6883ACFFD169 /* MPPrintLaterHelperViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		007D2129889E4285B851EBE477126B41 /* MPLayoutFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A590BE02BA3CB8A8944C675E7479BF /* MPLayoutFill.m */; };
-		00B0BAB1C3C825EB16A52CA8B4477E18 /* MPPrintSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D07D05CDAA53D85DE49E05FB11F4EB54 /* MPPrintSettingsTableViewController.m */; };
-		00FD5A5B8A1AA9496A1704C02BFB905F /* MPPrintLaterManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E7A35735961AA2C8A08BE9BBFA35A8 /* MPPrintLaterManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		01A8DB870210B261FD7CEBA868F88B34 /* MPPrintJobsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4511E31350E9E0A912A1133E395F5C3A /* MPPrintJobsTableViewCell.m */; };
+		00345B40EBE9F548537028501ABB08FF /* MPPrintLaterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55349BBCAD41EFDB1A08BA649B6970 /* MPPrintLaterManager.m */; };
+		007680EFA823A6211260A91068569AEC /* MPPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DF7463CF90C61FAEE26352B9D76538 /* MPPageViewController.m */; };
+		00A5B12E5D803208D9B4A7A4B1ABDBC3 /* MPAppearance.h in Headers */ = {isa = PBXBuildFile; fileRef = AF4E5F2EF2F9567078ACC7F5678151DC /* MPAppearance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03EF931564978791D4ABC400F3FDDBED /* OCMVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9CA2F306C7DB95BE7D2E6141CCE8 /* OCMVerifier.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		041C224D19FB9BA0BA432B09069A5DBB /* MPPageRangeKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1F794ACD3DE6FFC1DD36110D4C43F /* MPPageRangeKeyboardView.m */; };
 		046937EA1C4859D4D96EFA7B7687E441 /* OCMBlockCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7AA0923A4732C1B7C8C3102C0B8A55 /* OCMBlockCaller.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		054D8D7871729D5588ED6BA2E00AC058 /* MPLayoutAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5FE5372B4926EB05761B690FA25F49 /* MPLayoutAlgorithm.m */; };
-		0710A23BA30DF1B4DA6CF3A99AB10E74 /* MPPrintJobsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F33A78A4147B0ED474C949FCCED40 /* MPPrintJobsViewController.m */; };
-		07271B6B3DAA775ACAD6CE4EF01BA6D7 /* MPPaperTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018E0D64214BEAB0CC9CD1B553F0E43B /* MPPaperTypeTableViewController.m */; };
-		086E0B6EE6C6D4B77029526CEE5B7B71 /* MPLayoutPrepStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 72AA40228E565599810632E0D40D8D17 /* MPLayoutPrepStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04CF5F448EF5DC5F40FEFC38BDEF3458 /* MPDefaultSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20DA52B56EDADCE4B16C85039660DC68 /* MPDefaultSettingsManager.m */; };
+		051E41894FC47C08A74C445E3FD8AF32 /* UIView+MPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ADCD16B1DBD22198ADD0A3FB155509C /* UIView+MPAnimation.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		056560E469348ED27CD582CBAB2601DD /* MPLegacyPrintLaterJob.h in Headers */ = {isa = PBXBuildFile; fileRef = B406C74AD633A5177BF92232C6926625 /* MPLegacyPrintLaterJob.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0578BF549FE936FCD209C9B62DC8F5A9 /* MPLegacyPageRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D4A4B75FAD64BDA785E383CE13ADA7 /* MPLegacyPageRange.m */; };
+		0808E15F3343D402B025080891695202 /* MPLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 418F3D1E406EAA6400A692B4EAA4C947 /* MPLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0934D3DAC27331C1569A357A677B2206 /* NSMethodSignature+OCMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9527469BA37C84399D12820A6CC526C6 /* NSMethodSignature+OCMAdditions.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		096CFA78FB5B033FFEEF637596919B34 /* MPPrintJobsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF2BB6FC2BD6CD1D4E6794A5331E9A9 /* MPPrintJobsTableViewCell.m */; };
+		0A083460AB351404BF6BDF306B7BDC03 /* MPPrintSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7BA9CFDEDED7F86D2705D43B80B805 /* MPPrintSettingsTableViewController.m */; };
+		0A4C18063F423EC43E4AFC644DAAE653 /* MPPrintPageRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = E87DE6565A321157C78A5389D2EC3DAD /* MPPrintPageRenderer.m */; };
 		0A7C4089DBD8BD40374AFA8EEAB7CA3C /* OCMPassByRefSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C317BBC48BDB08517A1F34CEF76F54D /* OCMPassByRefSetter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		0AE21B3A10C723CCA55B04B7CD6AE0CB /* MPPageRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 17AE1E1A6F88BC1EC3B681AD274DEBCD /* MPPageRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0C2860E410CD389688A681A397A2378E /* MPPrintSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D486B7E9C953D31140A66E6BCEC4B30 /* MPPrintSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0D2B7F19D7FA0523BAD438E50C3976B3 /* UIColor+MPStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 77B62A68510C35A71813C50467B82058 /* UIColor+MPStyle.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0E1942A381CDEC250C5244DB977D9A8B /* MPPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 398EDD1D32357E639E1A9D67C36C6ED0 /* MPPageViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0EE98780873CB1A29EE8B4A36BA7E14A /* OCMFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = F2E14F26554BD55BB72FEEBAFA66D557 /* OCMFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1004D058D30C04D807A44F6C79D5C3D5 /* MPRuleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D94AE90E4651432B212DAB03088EE29 /* MPRuleView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1028B3B50AD63E3D253E0D3E62DF8A3D /* MPPrintJobsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B41E24DC6C51BA9939A8271428DC0038 /* MPPrintJobsViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		106BD4025B5489A7EE83C1775E324B60 /* MPLayoutPaperView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8CDF7F07DAFB7E6576681B2F9BD264 /* MPLayoutPaperView.m */; };
+		1091B02BA5DBA1A2818E91C6E65C500D /* MPPrintItemFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = EC64F76B8D5F6DC74AEA894FD69F07D6 /* MPPrintItemFactory.m */; };
 		10AEAD2136880EEE7E771F533331F250 /* OCMock.h in Headers */ = {isa = PBXBuildFile; fileRef = F137173F9CF2296CAB75961E7D32EAA8 /* OCMock.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		111588EBE7A50FD6981D91C69B5AB845 /* MP.m in Sources */ = {isa = PBXBuildFile; fileRef = E246A98D031B4EFBBFD0CB9ACA69F053 /* MP.m */; };
-		120CBB1C8C2E86B7FFB9EE23BAF3F2F8 /* UIImage+MPResize.h in Headers */ = {isa = PBXBuildFile; fileRef = DEC70C5D1C6679F6623483C8C20F434F /* UIImage+MPResize.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		13DA1CA285AD250DA8AE12B1E02A2CF7 /* MPView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AB1B5D24E4C6BA544D2A89AFD5B65A /* MPView.m */; };
 		149DE9C6DB74B12EFF07D185484D946F /* NSInvocation+OCMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 638876C289DC86DA86BC2CEDC5E667BE /* NSInvocation+OCMAdditions.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		15748F7A616485224057AEA79D337170 /* MPPrintJobsActionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 93124C0781B3FDCF2D71E237F3C83FC7 /* MPPrintJobsActionView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		1586CD3BDB1E92D87A0E423AAC313FD4 /* OCMObserverRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EADD5FDDF0F6872D52A66D19463C48F /* OCMObserverRecorder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1799BCD11D09382A8EDDD50E29AA231B /* MPMultiPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 94AC03432089002893AA1A7F767DA012 /* MPMultiPageView.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		198502FAD4DDC01B46BD0BD1455BD274 /* MPLayoutPaperView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3299734C3C5872CC26488F631311858C /* MPLayoutPaperView.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		1A05599BAD99AEC7DCEC7B13C4EC501A /* MPPageRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 63518F30E568AFC12F7E037C8917912D /* MPPageRange.m */; };
-		1A4C362D8B5F7A7E4D3E44B4220FFA86 /* MPPrintActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 05AFA3D28B0F2425729EB305B26FB189 /* MPPrintActivity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1826C5416C53664A28B80325B0B680A9 /* MPMultiPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6671A5549D52C78FF2F5A8354A88BF94 /* MPMultiPageView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		19269725E5853A6CC35B08664000686C /* MPPrintJobsPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33413487C50D810C4A5B6B83A422A67 /* MPPrintJobsPreviewViewController.m */; };
+		1B63EC6EE23EE0D8C4930281CC3F1F4B /* MPPrintLaterJob.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E15D061AB49B295AC9B6A77C4F460 /* MPPrintLaterJob.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B7E21160BEF08CC76BA8C17E94E455A /* OCMLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB630B2DAC2353B459788401945D97 /* OCMLocation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1E8E361E796A435BCAA69E07C12EFE35 /* MPPrintSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A2ABA5ADC8C59919E6359778290B70 /* MPPrintSettings.m */; };
+		1B837E74BE7C29FFF6D74B173CC75CA4 /* UITableView+MPHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 4148B49EFE65B709DDC1D0D5E0BFFD9D /* UITableView+MPHeader.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		1FAB18E6F78FBED06B1C6FA5987DD67A /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E837640F38CCEEB2717504118108B9A8 /* Pods-Tests-dummy.m */; };
-		20BA566DE3002162891B1833F92F8BF2 /* MPLayoutPaperCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = B33E08B0F92925FBEB743E1B7A46921F /* MPLayoutPaperCellView.m */; };
+		1FF639209A5C6A9C6FF4A70A30D57BDE /* NSBundle+MPLocalizable.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC4ED215F711025B71FAAF57D0F7F4C /* NSBundle+MPLocalizable.m */; };
+		208D22DC792CFEA0759BF5E693E49793 /* MPView.m in Sources */ = {isa = PBXBuildFile; fileRef = B71A8D345A41B7CCC09238C47A4EC4AB /* MPView.m */; };
 		20C39DB909C33B491D60F23FA1D415C2 /* OCMRealObjectForwarder.m in Sources */ = {isa = PBXBuildFile; fileRef = 52FA65EDA8217AA85B34B2B0E96E642F /* OCMRealObjectForwarder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		273B82CDD1F34C4CB255986AA4A69943 /* MPSupportAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A5ED649FAE828C25DB3722FBDAC68D /* MPSupportAction.m */; };
-		2864DE2C799F183C382CC101C338BC92 /* MPLayoutPaperCellView.h in Headers */ = {isa = PBXBuildFile; fileRef = 59365536FD762081E6882601590FFE92 /* MPLayoutPaperCellView.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		294720BE273AC445725DDD4EE3A7E226 /* MPPrintItemImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 21E30F637E36A6B390AE038697CA16C8 /* MPPrintItemImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		2A889155A569DC1117CA64628E90C991 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B7BDF5CE5CB8F095FE12DA55D9A9BB /* UIKit.framework */; };
-		2B18E1107734C7541E1BE2201E765581 /* MPPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5800FEB01259C04D6B588CDD7C4CBF55 /* MPPaper.m */; };
-		2B2382DDCE21C9AC3F17A4B9EBABA666 /* MPPrintActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C16221C6A1CD90B1A7979BE8FD1A1D /* MPPrintActivity.m */; };
-		2E76DA3F4245526FDFB1E50015DE397B /* UITableView+MPHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF6A915E876F2C5AB6753A803AD5163 /* UITableView+MPHeader.m */; };
-		2E82620D19EB1CF4AF870B3BE0A83841 /* MPLayoutPrepStepRotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B5279D4EB01559410A0601AD78E17B /* MPLayoutPrepStepRotate.m */; };
-		301176350CE04DFF97B618CE6462DD29 /* MPLayoutFit.h in Headers */ = {isa = PBXBuildFile; fileRef = EB604222E039E44A99CFB0F41EEB54F2 /* MPLayoutFit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		314340AF2B2ECBCF6A5B2686CD56CB15 /* MPLayoutFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 218515EE47476EA099DD568BA51B4D2B /* MPLayoutFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2487F7615BCE7D4FBA089F9CAC3A70F0 /* MPPageRangeKeyboardView.h in Headers */ = {isa = PBXBuildFile; fileRef = B02A644F927A653169F6428F098DD444 /* MPPageRangeKeyboardView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		24D4BBA5CE66F9A768D4BEA7C9CE129B /* MPPageRangeKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = C83018128EE32E18440AC024E72FEA31 /* MPPageRangeKeyboardView.m */; };
+		27F3124C5E8252377AFED08D6DCDA3D8 /* MPDashedLineView.h in Headers */ = {isa = PBXBuildFile; fileRef = AB4408EA8C04A3CAC08172F3BD2431B5 /* MPDashedLineView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2D42F5FB1E60AA23567DE30BCDAD541A /* MPPrintItemPDF.h in Headers */ = {isa = PBXBuildFile; fileRef = 8847806558CDD67EB15BEDEF98B2FCB7 /* MPPrintItemPDF.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2EC699567E375CE0985463C2D3F69918 /* MPPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D856E9E4A31537BE8F58D4AD570362B /* MPPrinter.m */; };
 		3152811CD17686AA726713BFE3612206 /* OCMConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 914DDCAE22282C3410EF5AF0E63F7AB1 /* OCMConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3356DD422FDD8068668336D174E18DE8 /* MPPrintJobsTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 110B533CB58D88F17BAD7A3A54CD7A2D /* MPPrintJobsTableViewCell.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		322671973380E2B7B027926BDACDB607 /* MPInterfaceOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E571D40554FD0FFB5F12A0AAE6B9C06 /* MPInterfaceOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		33C4E9CA4B43CD4C468B338E2ED06860 /* OCMVerifier.h in Headers */ = {isa = PBXBuildFile; fileRef = A5B67145ABAB295B7DD4A93CE3635B61 /* OCMVerifier.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		3512B549EA1B5BCAAEA54AC64E530DC8 /* MPInterfaceOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE513EE77D32667C5DD82BD0B3FB861 /* MPInterfaceOptions.m */; };
-		362F273422F72B3FCF195B30049589AE /* MPDashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CAEE9BF5168A39F0D9FD78D4E9742B /* MPDashedLineView.m */; };
-		37B6718E7C5C2A786A0BF929B8476363 /* MPPrintSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 845F71A565E9CBE284FF394F680CB8F0 /* MPPrintSettingsTableViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		34B06065CCE348658A9A10A19D7BC25D /* MPPrintJobsActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6090BFD08DE9502B77D5822F3F9DD91A /* MPPrintJobsActionView.m */; };
+		36B9B7AFE3E8E94ACB6B54478710090E /* MPPrintManager+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = 748944E0726FBD8836DA0C5E0829D709 /* MPPrintManager+Options.m */; };
+		38109952E9571BE32B8AF52089051873 /* MPLayoutPrepStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BAACF3D655CE69FB586323671986986 /* MPLayoutPrepStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A61901DA8EE9CF16414720088DE1785 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */; };
 		3A769EE15211B7EBBAF4B1C8AD542502 /* OCMFunctionsPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F6AD38FA4978BC5D7E8F32453E06BAB /* OCMFunctionsPrivate.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		3AA5288AD5B563FAD872222CC4A38281 /* MPPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE14329A98464DAD0E6C4E3147F46902 /* MPPrinter.m */; };
+		3CAE78D72DFC894AA4CD2863B1B7B9F6 /* MPSupportAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 443ECF8F3513F0942BB0D912A507C8E6 /* MPSupportAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3E18F9AE7FCC2B9CB7701AFD5A74C384 /* MPLayoutComposite.m in Sources */ = {isa = PBXBuildFile; fileRef = E398316BD97441ECD04B34A7AD6E3958 /* MPLayoutComposite.m */; };
+		3E660D3E1415E4AB820A0EBC35334C1E /* MPLayoutAlgorithmStretch.m in Sources */ = {isa = PBXBuildFile; fileRef = 856976F275E7920981AD4E3AF282F542 /* MPLayoutAlgorithmStretch.m */; };
 		3EEE56426C5838CA2F13E8F95B594401 /* OCMRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = DE3217F14E2190A0F02DF7A5AFB392C1 /* OCMRecorder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		409043DCFA731F1C3E9FFFC210255F95 /* MPPrintItem.h in Headers */ = {isa = PBXBuildFile; fileRef = F44C778EA39A513910B3A483D1879BE0 /* MPPrintItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40B2ABF25812A14D83A05D8937FBDB7B /* OCProtocolMockObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFD97FFCF8917A67B4187B67938E6E4 /* OCProtocolMockObject.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		412A9D90A234C2B9008435168634C7CA /* MPSupportAction.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A58C64CF3C47D10EE510ABF35375F3 /* MPSupportAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4511A15810F30CBDD3C2FE8C000C34C6 /* MPLayoutPrepStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 7751EFA4AF3B5991DF8E7624BBAF0342 /* MPLayoutPrepStep.m */; };
-		467986D522F214E759B8AE046A64A416 /* MPPrintPageRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = DA96CFA2E91A03125B165D32B3F1FBAE /* MPPrintPageRenderer.m */; };
-		499705D57792D49C7964C147B0B1EFF4 /* MPPrintJobsPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 827AAA74FB775F9D765BC2E0628E7F40 /* MPPrintJobsPreviewViewController.m */; };
-		4B161604D0ECA9ED99E8BA9C599EC2C1 /* MPPrintLaterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5D3FA4DA7679D91D1529C0FEE0C570 /* MPPrintLaterManager.m */; };
-		4B561D706679929CE837E9AEAF098376 /* MPPrintManager+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = 922A02337BBE0F64D0A38ECD52CAA8BE /* MPPrintManager+Options.m */; };
-		4CED3EE840555C54294748585296A2EE /* NSBundle+MPLocalizable.h in Headers */ = {isa = PBXBuildFile; fileRef = 54F36B0885ED278D9BF66805A9BDD810 /* NSBundle+MPLocalizable.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4323CE05B73A6D302F61860346C275DA /* MPPrintItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D646A95C8CC5FF0C665B61C0C261BC9 /* MPPrintItem.m */; };
+		43547B8B68D463B3C3CC281B1EE9EF46 /* UIView+MPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0348A52BB4382AE4F38A83B03BC0BEA /* UIView+MPAnimation.m */; };
+		44E4D81A26E4178FC8992CCD638C24EC /* MPLegacyPrintItemImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 43EB1B855BFB38DA9751854EABB6AAA6 /* MPLegacyPrintItemImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		46D2EC4D325942CB5F46FD78835F55B5 /* MPPrintItemImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 1866727C89E7F57FC4722C63E84DA2D4 /* MPPrintItemImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		47FC93FD9DAA21388DA805F177AFA574 /* MPLayoutAlgorithmFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A65AB02897D993376811F549F34893 /* MPLayoutAlgorithmFill.m */; };
+		491A671EE122713165D61E478716E647 /* MPDashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79523887B25CACE491A1A32C531E421B /* MPDashedLineView.m */; };
+		49530DE5076DA4B6EB6C682468B5AEC8 /* MPPaperSizeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D945563957F498D5993A05E5FE629A /* MPPaperSizeTableViewController.m */; };
+		4ABA2779BAA815EE1F2039228C9A1D7A /* MPInterfaceOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = FD3268E418D5F4D44C5DCC8656CDF91E /* MPInterfaceOptions.m */; };
+		4B2CBDFE058AC0BB0AF7393FA644EA3F /* MPPrintLaterActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B35F496D70A88204C7461D9D122CF19 /* MPPrintLaterActivity.m */; };
+		4BDB0983C3DF63332C9DADBD1574A066 /* MPPageRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B28FCD799962EE7A22AB1F9F2BE4BE /* MPPageRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CF0A4AD04F2F3CF7465991A5E76AD47 /* OCMStubRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0974FBE25326D0D926C44BE86F8D8C /* OCMStubRecorder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4E508E98686B95EB56E149725EE7A3A8 /* MPAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C65AD30DB55A555B13F1AA742C8225A /* MPAnalyticsManager.m */; };
-		4F52E5C5CBF94400D214CCCDC81C0C2B /* MPLayoutAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = A94CEAAA7FCE4C6049E12EEF5235F7F5 /* MPLayoutAlgorithm.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5122FFBA651B90A62BC4E1B608C20368 /* UITableView+MPHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = C1213D4CF7266C17781AC117D2BF4232 /* UITableView+MPHeader.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		5385566CE5141B891E5C3C42277601B1 /* UIColor+MPHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F65CEA4CD97C047664E7E75CDF2FEFF /* UIColor+MPHexString.m */; };
-		55D9643BB318AFC29FD4D0B80D8C5FE3 /* MPPaperSizeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 671088D76DE9353B17CE0FE139A58D33 /* MPPaperSizeTableViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4F327AC351F5440A94284862E1E98521 /* MPLayoutStretch.m in Sources */ = {isa = PBXBuildFile; fileRef = C457DC1FEC210CD9E490346ABF3EF781 /* MPLayoutStretch.m */; };
+		4FA094B6FD31A2BA5EEE5359CFE4296C /* MPPaperSizeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD47D0FEFFDEF821870A2EBBEA3B297 /* MPPaperSizeTableViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4FAA9328103A776AC44519BF4A9C5609 /* MPLayoutFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2206D19D25A5ECAF42F9E9C321DB4A03 /* MPLayoutFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		53B53799AEC79C414D9D67BF19F23A12 /* UIColor+MPStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 338FBC0D0F884C1D9E545F1E5273F224 /* UIColor+MPStyle.m */; };
+		53CCDE90DF6211737C8EA5016C9C5C3E /* MPPrintItemPDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 6801EFDCFAE65770B05E6CA5DD415331 /* MPPrintItemPDF.m */; };
+		5570314F865A22554B189D380D024C70 /* UIColor+MPHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = F8515611E3ED2F4885DA9D39CA67631C /* UIColor+MPHexString.m */; };
+		55733F090ECD1FB657201959AFA1D80E /* MPView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F5BCE3403D4DAAB3AA127009D0BD365 /* MPView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		55EA7FCA2F507BCC25959CE95D295A8C /* OCMConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = CA13BDE0653E6CE653756C0F34D75CBD /* OCMConstraint.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		55F2C7C98AB5E300663D064AAA64B80B /* OCMArgAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 662752C0FDF6135C9CC3DEB9DA750726 /* OCMArgAction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		562C4A7A171B6F0000B132E22372C3DA /* OCPartialMockObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 36A59B5914E9892A9E4F3C1F2D74E7DD /* OCPartialMockObject.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		58D0DC010BB30E80AA6DB30EB0C0F9F2 /* UIColor+MPHexString.h in Headers */ = {isa = PBXBuildFile; fileRef = D6255B1C03598DCCCE59958F1C84EC3A /* UIColor+MPHexString.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		569235DDB38CA4B523FCA82977410A68 /* MPPageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD917734BB178C64423060E47DA9D04 /* MPPageSettingsTableViewController.m */; };
+		58218D18BDBB917787A690FA5B49C042 /* MPLayoutPaperCellView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CA8807179E34F010F90867E450FC2F4 /* MPLayoutPaperCellView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		59BC54DA90AD2433D20358F9853622CA /* OCMMacroState.m in Sources */ = {isa = PBXBuildFile; fileRef = 483303A117875B599261961B32BA9FCB /* OCMMacroState.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5A9FD0E87CFA5B79F5706E1B5F6E2694 /* Pods-MobilePrintSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EF9C85E4136892F1B6A68CDE39CF5793 /* Pods-MobilePrintSDK-dummy.m */; };
+		5B8AF20BBAFC0559568F2239EE251D1D /* MPLayoutPrepStep.m in Sources */ = {isa = PBXBuildFile; fileRef = B0763D3EE0417AFD6ADC2D04946DB118 /* MPLayoutPrepStep.m */; };
 		5BB246B2587EBC3E5597DBD6CD33777F /* NSMethodSignature+OCMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C459598DE430610C385CF08A9971725 /* NSMethodSignature+OCMAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		5DF4AB35FCAA80C8FDC106BA73FF5DB3 /* MPInterfaceOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 153A1164F60C3C206418A2DB52F2367F /* MPInterfaceOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E0F0688C7981E1E4FC48C647BDF31A5 /* MPLayoutFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D23C0D681ECF1E7E5205A42E652AC67 /* MPLayoutFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E279FED57021E3C50468564F86AA8A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */; };
 		5F04262019BBB326960E643861626099 /* OCMExceptionReturnValueProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = F603C6C681E472E9FBDCF1F98FBB7B7D /* OCMExceptionReturnValueProvider.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		604C79D9B542F1F14AE06BF0B32D5EFE /* MPLayoutAlgorithmFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 882E8DB06F69D9C93A09C8639FD0F8CA /* MPLayoutAlgorithmFill.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		61AA3BBE300ED98334BA8A38FA734436 /* MPMultiPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F02AB8238D3FF095CBFA6D7D68F4A844 /* MPMultiPageView.m */; };
+		6072DF7D40671CDB3463C09E1D1A0EF6 /* UITableView+MPHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B7BF065680FA8AB55FF04C62FC7FB7 /* UITableView+MPHeader.m */; };
+		6148B3B823463E5D162753822D3D6AFE /* MPWiFiReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BF83B31C1D9C7CF89AF537319CD29A9 /* MPWiFiReachability.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		61A9C36EFDB78413ED1BFFD0E7FE4CB6 /* MPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4552FD30EC5D78BFCA86C0331D58DC37 /* MPReachability.m */; };
+		64C231505B1C99B5BB6AE0020E516CC3 /* MPAnalyticsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4132B6232F28219EA64BC490F12FECA1 /* MPAnalyticsManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		651F3096B56BFF131C5F956001D7BAAB /* OCMArg.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C2607D3107818A07E721EC2E5B83A1 /* OCMArg.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		65A92685E4214EDBAA614FEA36AD2CFB /* MPDefaultSettingsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 949D61A9BA4B1C5D428825028AB1451E /* MPDefaultSettingsManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66E31D4A8458D66743769F9707E76CDB /* MPDashedLineView.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA6D555718CE92051E339AACB543BA9 /* MPDashedLineView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		672FE514B7C1EB583AF6CEB2538025A7 /* OCMBoxedReturnValueProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D6F72303754C772814AFD42964E77A1 /* OCMBoxedReturnValueProvider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6B169D208122AE6A6FE15D1D6BB869BE /* MPPageSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A22CA10533D94EB6A75D6C00EC2D961 /* MPPageSettingsTableViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6CC8766A1DC7473BC09BFCE45238A013 /* MPLayoutPrepStepAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CFB544064ADA96B839CF7EA8712109 /* MPLayoutPrepStepAdjust.m */; };
+		6D1FDC06242F0ABCA197B8D1A5BA1D9B /* MPPrintLaterManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CA9D2C79F24BC7B3D6FF19736952B7B /* MPPrintLaterManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		6D2AD1DFA8F27BA0EBB3365A5AF7AC1B /* OCMExpectationRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 54850673E7AE9B6519B1CE4BFEE499A9 /* OCMExpectationRecorder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6EA473488BDB6BD84119857911FF4374 /* MPPrintLaterJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F75D4C308965C723FF1BADBCB1AD0A1 /* MPPrintLaterJob.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6FA9809678304A4D23C3025ADB98EFCF /* MPAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = F65B4A464E0C5907650DD29B2C994B90 /* MPAppearance.m */; };
+		6D4731EE9C1BFF1D60640E49EE075875 /* MPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B6AE0A2B515CEE5357F8F8E5F3E79380 /* MPLogger.m */; };
+		6F6A1167F4049E7C2C8D294CA6BD536A /* MPLayoutFit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D38D8AC2816F4B6F15477B58D3B7F3D /* MPLayoutFit.m */; };
+		70718B1A9124634C863D8E34E8A8524E /* MPPrintSettingsDelegateManager.h in Headers */ = {isa = PBXBuildFile; fileRef = BE0D46C8E2A6147D2BC10435C3D11520 /* MPPrintSettingsDelegateManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		70AC31D0736F568C0386716176361D09 /* OCMInvocationMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EA4E16B0166BA178D0599CDAEAA6854 /* OCMInvocationMatcher.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		71899DFD8094C412FFC39669279B4533 /* OCMBlockArgCaller.h in Headers */ = {isa = PBXBuildFile; fileRef = D483095DA052D0F8DD35A6CD6077C870 /* OCMBlockArgCaller.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		73DBF44DF6C71F82DCF4FF893428ABDC /* MPPrintLaterActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C8B0C8985B92D008982E1396CC898C /* MPPrintLaterActivity.m */; };
-		78C14EA5D71D09F304BE32C3B34797FD /* MPLayoutFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F0BED6349AD2ED042571B40F6C7E1F /* MPLayoutFactory.m */; };
-		7A5FF8AC38A9D625562E69637A9EF6A9 /* MPLayoutAlgorithmStretch.m in Sources */ = {isa = PBXBuildFile; fileRef = A8E56402A2936F7F400C718057670924 /* MPLayoutAlgorithmStretch.m */; };
-		7BA6FFA4C36001802DEC3EFA6DB7D8C4 /* MPWiFiReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EAA9A69417A46B92560C366894F9F8F /* MPWiFiReachability.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		720004A2206F1906FBAF43DDD42062B0 /* MP.m in Sources */ = {isa = PBXBuildFile; fileRef = 9984AE0A2C9ED88C37704BB773B13743 /* MP.m */; };
+		734F1660FCCC4C33CDC6449063B73062 /* MPMultiPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5D4E305914AE58B0D02F2A1DFBA2F /* MPMultiPageView.m */; };
+		7A5A55AFB260C0AB7DD067E9581FEA79 /* MPPrintItemImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D25DEE9C7269B5038CC132719F6BA9 /* MPPrintItemImage.m */; };
 		7C5CB63139F3D1A128680C12FE612815 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */; };
 		7EE0FD33AB30006545874DEF02F9243E /* OCMNotificationPoster.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E54A985E57EE4377BB85DAB782CBB7 /* OCMNotificationPoster.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7EED4CC8065BADFB86CEC73D7561E56E /* MPPrintManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F928F86EE6199D9DC9AB2A82EC0F4F41 /* MPPrintManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FFCEEC0036EC9E7A5D3BAD719B28D4A /* NSNotificationCenter+OCMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 3312582F275DB5DDA1C8928EFC09B05C /* NSNotificationCenter+OCMAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8223B9CA1FE6B9F1F70D5D1088C7111E /* MPPrintLaterActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = F1F6C20A9884A05107AAB3E4E133B690 /* MPPrintLaterActivity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		828A0B095589FA78CD9B266546496555 /* MPPrintJobsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C052F158202281D3118E847C58D7BA /* MPPrintJobsViewController.m */; };
 		830B3A29668D59C62571A4CE4D3BAFCA /* OCMIndirectReturnValueProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 811860EE31BD386AC34AD87AAA4B5AE0 /* OCMIndirectReturnValueProvider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		84C814B3F42F04E0AA7559BCBCA5DC18 /* MPPrintJobsPreviewViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E0BF7F11B2B1126CF8118192F538456 /* MPPrintJobsPreviewViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		84CEE69B4EAC1AC19B859270FDDB9C6C /* MPPrintItemFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F462A2AA8FD540FD187C31D76D666D84 /* MPPrintItemFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8455319968E64D2C123CFD38028C198E /* MPLayoutPrepStepAdjust.h in Headers */ = {isa = PBXBuildFile; fileRef = A86758A6FD2E612D904A451394FC38BD /* MPLayoutPrepStepAdjust.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		851A8AF24AC4D706B362977AC206A58A /* MPPaper.h in Headers */ = {isa = PBXBuildFile; fileRef = A00879F36DFD55E23F095881011F144A /* MPPaper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		878AE4D5EB2DC9F6F37CDB916CFFF528 /* MPLayoutPaperView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FC91A758E7BCA380A60F2E3E435BB1D /* MPLayoutPaperView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		87AA263FA688A8E92C2B8ADEE72C98C6 /* OCMObserverRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C535B63FC36C71F65EF6DBD80A3644F /* OCMObserverRecorder.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		881A9D7B7EEE0A5647433322B7ABB127 /* MPLayoutComposite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D2F103886AFEDF940EB05A89D09F546 /* MPLayoutComposite.m */; };
-		89E7080293E479988D55A4F37AB8D85B /* MPPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = A7ED5EA0D180EF8D643E919CC01F4F4B /* MPPrinter.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		892D86F8578756A2EA06DE5ECE1B1D48 /* MPLayoutAlgorithmFit.m in Sources */ = {isa = PBXBuildFile; fileRef = 28DD7317345C4A7869DA0FF100BC6D50 /* MPLayoutAlgorithmFit.m */; };
 		8A1370FF0DD475F945954535A988ED4B /* OCMockObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 25F1886F79DE7DA5955613EBB2146A7D /* OCMockObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8BD16F1091B3A365210FAA8998B69909 /* MPLayoutFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9A0489EE478DE6A57BAEFCDB42E8F /* MPLayoutFactory.m */; };
 		8D40AF80800C0D4A691F4A0656E53D98 /* OCMRealObjectForwarder.h in Headers */ = {isa = PBXBuildFile; fileRef = A4FADCBA913FD62F7CD901CCA4EC50A6 /* OCMRealObjectForwarder.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8E952EE84BE058B7FD3BA4C7B07973AF /* MPPrintLaterJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 288805A843A25033BBBBFB619411A8FB /* MPPrintLaterJob.m */; };
-		8F00C6EED0359F7D3ED87FA2187A7AEC /* MPPrintItemPDF.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFEF33AD44F30E455E134CEB8E633CF /* MPPrintItemPDF.m */; };
-		8FA00669EDBA02BC25846387B6C04510 /* MPPrintItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C8EFAEC578008A9FF2E807A753B745F7 /* MPPrintItem.m */; };
-		91E0611E673889F7914ED0B50EF2E5EB /* MPAppearance.h in Headers */ = {isa = PBXBuildFile; fileRef = 8240A33D9CF4456802D94A9DCDAA8CC4 /* MPAppearance.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9342A401187798BF828DE5DC415BB0E2 /* UIColor+MPStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 93108505279BF5A84C84EA2100A72685 /* UIColor+MPStyle.m */; };
+		90F92B8C92B3F54902559F2B0B47BDFB /* MPLayoutPaperCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E7E4B27404A745B32BAE4C9BC79463 /* MPLayoutPaperCellView.m */; };
 		94216C983E91F2BA503920465DE1972A /* OCClassMockObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E8F80CD02A75227A72AF4D9B6BC8F4A5 /* OCClassMockObject.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		950C209E1D004EBDCD43D6C2136B5AA2 /* OCMStubRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = E6E6DC5765291E97A74367B6CD553397 /* OCMStubRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		962905AD96C6BD120DCF46FC007EAD36 /* MPLayoutAlgorithmFill.m in Sources */ = {isa = PBXBuildFile; fileRef = DE98C62E27F77F7624B2CB716235A210 /* MPLayoutAlgorithmFill.m */; };
+		9A6BEEF0CCA2F08696FE71734C44F9F5 /* MPLayoutStretch.h in Headers */ = {isa = PBXBuildFile; fileRef = ADBA59C444C04D9B7BC11AE4FEFEDE88 /* MPLayoutStretch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B16361A506FA0F55F0B586343A8F765 /* MPLegacyPrintItemPDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 6688290285DFBAD0F8A4E6B401C81188 /* MPLegacyPrintItemPDF.m */; };
+		9BF6406755F0092CD8F96AD44A6EAA80 /* MPLayoutAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC6E39D3F123D1A8D6B400DBDE0C57C /* MPLayoutAlgorithm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C195CB2280DCD3183057794B4504B22 /* OCMRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = F24DB96343355AA699F7F7C09F729C7E /* OCMRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9C632B45DD0784EC621478735C4A2A68 /* MPPrintLaterActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CF2F395818B01983F049C964AE0D5C7 /* MPPrintLaterActivity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9CCADDD65D838137F06D0BE21B94F5E9 /* MPPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = C28F48E29C9AB9AB0761BADE7FEC46A9 /* MPPaper.m */; };
+		9D97D3847C78C88B09D363819F1602F7 /* MPPrintLaterHelperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BEA242E4108A73E42F6C3F0B8165EF /* MPPrintLaterHelperViewController.m */; };
 		9ED6B48F0C000C83C89249483D3398A6 /* OCMFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7595D836442484519C0AEEDA0CEDB764 /* OCMFunctions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		A2FD4C2F05196E5D9116A58B2D54C638 /* MPLayoutAlgorithmFit.h in Headers */ = {isa = PBXBuildFile; fileRef = C9AEE8EE723D9B4A2D58196622FC2AA2 /* MPLayoutAlgorithmFit.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A0C927DEF009F787E7A5D854864A4E76 /* MPRuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B12C817D93F59F7D092A53334364B05 /* MPRuleView.m */; };
+		A0F74D3F330E771CC92D8DB0AF9004ED /* MPSupportAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E31C7407FC149877BE7AFDF56686F82D /* MPSupportAction.m */; };
 		A425B4C6EAA79B2C9BB4F374180DC194 /* NSValue+OCMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 16C1F2D4DE5FC51A8B6B736FC3F765F4 /* NSValue+OCMAdditions.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A4486ABBFD6826F8FBEEAFD15B3BD843 /* MPLayoutPrepStepAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = CA02C68D8CD19728820C4FFB6E77F65C /* MPLayoutPrepStepAdjust.m */; };
+		A503B7524FF1D16ABC47C80033718455 /* MPPrintActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = B9AD343BC40FBBA8CBFA82504182128F /* MPPrintActivity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A516CB608A827C4FEA550CB372854AF7 /* OCMReturnValueProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2D0734D844DA6E171965870138DC0B /* OCMReturnValueProvider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		A5813BBF3490BB35F011787B297FEBD3 /* MPReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = DC5CE0E0B34C52C943F03E27CEF9AE4B /* MPReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A5820CE633E690DC8700A6C38F0B4895 /* MPPaper.h in Headers */ = {isa = PBXBuildFile; fileRef = A83F763E007A5DD8C9F56BD1E707CC77 /* MPPaper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A634AE9EB1B936AF1C44661FE33FFD00 /* MPPageRangeKeyboardView.h in Headers */ = {isa = PBXBuildFile; fileRef = B4500623C050E847431F6C59E98F37CB /* MPPageRangeKeyboardView.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A78F1367AC17D111B04FF0CA497E853D /* MPDefaultSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E664F3CA268DF41C183F66BADB20211 /* MPDefaultSettingsManager.m */; };
-		A7AF28F3E79AE863263A87D72E6F2293 /* MPLayoutAlgorithmFit.m in Sources */ = {isa = PBXBuildFile; fileRef = B79512DE4F742D90E8C26DEBC1D7FCC8 /* MPLayoutAlgorithmFit.m */; };
-		A95EAB63533316C46B0AF191272FC8A8 /* MPPaperSizeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82031CC166CB38E98D42534250644CC0 /* MPPaperSizeTableViewController.m */; };
-		A9CB42A749DE599D144EFBC4E3ADCB6F /* MPLayoutFit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6606F5B813AD5541497654305D307A47 /* MPLayoutFit.m */; };
-		AB4A5A4717C241811F4201196985D760 /* MPRuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A6F71F88C9259F8FC3E48FE205107ECC /* MPRuleView.m */; };
+		A70CAD65A78555AF458E965FC8CB880E /* MPPrintLaterQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 36B9148A51968ABF857247EC39805EBD /* MPPrintLaterQueue.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		ABB28CFB0D3FFE9881479904081AF6C0 /* MPDefaultSettingsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5710775DC605D34EE5F75F65B3FFF438 /* MPDefaultSettingsManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD672A92EF1A71CB35F77D51924A63D7 /* OCMInvocationStub.h in Headers */ = {isa = PBXBuildFile; fileRef = 81157FA34EC2F20F7B488766E2E2BA69 /* OCMInvocationStub.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		ADB8E7249FDE22262EB48414052532D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */; };
-		ADBCAA92D869DEF250F8B2D110DD5924 /* MPPrintItemImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F97548406FAADD0F436F1219336164FD /* MPPrintItemImage.m */; };
-		AF1EE21F5E6FE5964674136D0D14590D /* MP.h in Headers */ = {isa = PBXBuildFile; fileRef = D029314233FDC5E8E2C8142220A19883 /* MP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AF6B6C9FB3D19714237897AE4216E315 /* MPLayoutAlgorithmStretch.h in Headers */ = {isa = PBXBuildFile; fileRef = AEC3E5CA0F747F77D4AA2D83EBFE2C18 /* MPLayoutAlgorithmStretch.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		AE03380BCDFE8361E3BF4DC4C68674C4 /* MPPrintJobsPreviewViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EEAF07C99EF7775698C80D0B72A24F47 /* MPPrintJobsPreviewViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		AE1B4926C3A0AE09E017FC30FC9A9D9B /* MPLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D51B50A12141B8CB82975F18F469C453 /* MPLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE9297AFC35174DC48EFACA616F62B19 /* MPLegacyPrintItemPDF.h in Headers */ = {isa = PBXBuildFile; fileRef = 43CAF694C19A0A983FBCDA263B365894 /* MPLegacyPrintItemPDF.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		AEFE029A8E5B2E9FFA7AFBBFB24A1801 /* MPWiFiReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA62EF8F2FCD17753485D5F008CED25 /* MPWiFiReachability.m */; };
+		B1A8924A4DEA27E0107125D2E852934E /* MPPrintActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 746899CC0236A3B0805C826AB686A879 /* MPPrintActivity.m */; };
 		B28B82281F2A75B1A27E9B1B289B179D /* OCClassMockObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3594F9D0AB59F55A90690086627866CD /* OCClassMockObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B36995CF7E36CC57C8C118EC5EC049A6 /* OCMock-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1357BC4A54BC9BDFCB4FC6AEAB6048A9 /* OCMock-dummy.m */; };
 		B4D6973B3F74EB04E719BFCFCBF04C0B /* OCMInvocationStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D42A5F9AB1E0DC588C6A3874C3EBE0E /* OCMInvocationStub.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		B9326503B6F040AA94DED48FF1EFB7AA /* MPRuleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEE6164D6F634E419BE5CCBAE351DA5 /* MPRuleView.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BBE3447AEE98215135DFE2B2AD73DB49 /* MPLayoutPaperView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C0920E212235A06CBECE1D8770BC83 /* MPLayoutPaperView.m */; };
+		B8B39B6D0635BECBC1411EAE1955B800 /* MPReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = DC5CE0E0B34C52C943F03E27CEF9AE4B /* MPReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B901038F94334477D220D720D2F4BC2E /* MPPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = F9E3938F41ADAB14DE06603B80999710 /* MPPrinter.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BA76EAA33A777A1C7744BBA39128D046 /* MPLayoutAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = C18125A50C07942D7245121CC5BDC8BD /* MPLayoutAlgorithm.m */; };
 		BC7143B82E45DDE808B1D8E8F6970E41 /* OCMInvocationExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = F0F4A6A6FD63C0D5EE543EE88C2E5F25 /* OCMInvocationExpectation.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		BCCC054D2060AECCDE416641758FB82E /* MPPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = F3306B83792EB0BC440508773FE594CA /* MPPageViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BF832B53E2C781FBD1E7888E9F860C91 /* MPPrintJobsActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7786DEF3DB6C5AD46913FAB1541D8E5C /* MPPrintJobsActionView.m */; };
+		BCA5A2EC4EB42523B1AEC1BC153E9D4E /* MPLayoutFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 99DDE6FB2ED49071D1068D601A196ED4 /* MPLayoutFill.m */; };
+		BD7E834976F6405E99459B8996D93B96 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */; };
 		C01520F21314A4A11E0BD5C9BE190A1A /* OCMExpectationRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 791F6E6C76E25E20F12356E74A02E4C2 /* OCMExpectationRecorder.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		C16C445CAEFD67A764CDA27455A90AF2 /* MobilePrintSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 281BD43FA715CEF93E5AA2037605321E /* MobilePrintSDK-dummy.m */; };
-		C2A0F93D60F16CFA3CFC050EAAB7B11D /* MPLayoutStretch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FCAD47B576C20E9B238FE254E98DDB8 /* MPLayoutStretch.m */; };
+		C2CE9B64068D4F049A69234753C59A43 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B7BDF5CE5CB8F095FE12DA55D9A9BB /* UIKit.framework */; };
 		C4235F3704F471BAF74CB4482A99D340 /* OCMReturnValueProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = A62848D638F77901D8D0C116E0066781 /* OCMReturnValueProvider.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C508640C7607A5BE183916AC4202A026 /* OCMInvocationMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC5E7DC3F04DCF0F85F81496BE3C8E2 /* OCMInvocationMatcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C55C0B0594D26DE09DEC7F161910A211 /* OCObserverMockObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D1C908FEFBEE732D8E050C3D8FD562 /* OCObserverMockObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C63E3A3BDD4195F64E3DCF50C99EC038 /* MPPrintLaterQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DF037A07886648E53CBE30883EF27C2F /* MPPrintLaterQueue.m */; };
-		C68816AA64061DD1109B58ADEABEB5C8 /* MPPrintSettingsDelegateManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 09DB319A1867142EDA48BEFFACD90B9A /* MPPrintSettingsDelegateManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C6DEDAD5B01946A2644F428020F881B6 /* OCObserverMockObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 454E2D90A2917450FDF09C51CF686732 /* OCObserverMockObject.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C71BDD90000ED57D9563C0ECB848175D /* MPPrintLaterQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 107B5B42E115CAD1F9D4D9D72D42D901 /* MPPrintLaterQueue.m */; };
+		C7964A222836D40C03B3CF859C42049B /* MPPrintSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2355EC7085A1CC3532645008274DEFA5 /* MPPrintSettingsTableViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C796F27878B148315E4EB60535EEA4BE /* OCMLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 93A2DA12B7FFDD7AA8BB9757A6167462 /* OCMLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C833D647C61F7A5C89DC94CDA316EE2D /* MPLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = F79921E0488399D4384BEEE3A0CBD7F0 /* MPLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C9265320E1DEAAFDF0D15CD4672E4903 /* MPPrintLaterHelperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAFB4966B15012AEE36E2C90CD143D9 /* MPPrintLaterHelperViewController.m */; };
-		C9E2D1B893890B82A15006EBDECCD570 /* MPPrintLaterQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E9616BFA0495D8F88149FCDC5137ACD /* MPPrintLaterQueue.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		CC40C17D2E01DDDF48A7A8D50B8E92F8 /* OCMMacroState.h in Headers */ = {isa = PBXBuildFile; fileRef = 51020CB04843950D92EA77E154C50737 /* OCMMacroState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CC4F14C27B167A64F09A356652410909 /* OCMInvocationExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F1746941B3FFD6D567EBC527517F1 /* OCMInvocationExpectation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CC5C84B30927F4CE48D7EC04BF652005 /* OCMockObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DC03CC218CD72500811A7E2B5B74E1 /* OCMockObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CD0577F45B2CC67B249C2AE88B95E3BA /* MPPrintSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 6701933BD11C82E0F6D48D3AED27D415 /* MPPrintSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE1D11A21BB0D710B640F31B18935BF3 /* NSObject+OCMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = C75B178292D26EEAFC37AE15F4484430 /* NSObject+OCMAdditions.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		CE3D1E55F638FF0D3482CD1958C9500C /* MPLayoutStretch.h in Headers */ = {isa = PBXBuildFile; fileRef = 16A9D4EF6BC1106043C06AE2E65F376F /* MPLayoutStretch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CEDA2CCA5E2E0185F0E64FB188E0268F /* MPAnalyticsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A25BC49361BE4539843C2ACCEBD456 /* MPAnalyticsManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		D03C138F39FA8649438FE68F0409DD42 /* MPPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D3FF30DEA32FCDFF40AEC0B11786B2 /* MPPageViewController.m */; };
-		D12A8AC7FA4CEEB9F7475389AB2C4E6F /* MPPrintManager+Options.h in Headers */ = {isa = PBXBuildFile; fileRef = A78DD41889A44BC9771CD5277883C248 /* MPPrintManager+Options.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		D1A2532C43BF12D9E64F044A43DB56E4 /* UIColor+MPStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 665438EC954C190591D8B7236E73CA6A /* UIColor+MPStyle.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		D263D5E3EE91F7F31A12F99E9F9F27CB /* MPPageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9553229EBA731B7F115D09578FF495FE /* MPPageSettingsTableViewController.m */; };
+		CE5D1D61B1C61293F032778E80CE3E14 /* MPLayoutFit.h in Headers */ = {isa = PBXBuildFile; fileRef = A1CF9DD251B91BFB1B0A3E735811C288 /* MPLayoutFit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CF4157D287E2BE522C5C20C45077F8B6 /* MPPrintPageRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D15822963E0AD62CE5FF0DE6A7E093BF /* MPPrintPageRenderer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CFDC2DBE698231AB8ACDF51B86B5A1DC /* UIColor+MPHexString.h in Headers */ = {isa = PBXBuildFile; fileRef = 426A5D463249A97E723DBD47718DE664 /* UIColor+MPHexString.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D11DB73E40C0FFEACE983733AA4074C2 /* MPLayoutPrepStepRotate.h in Headers */ = {isa = PBXBuildFile; fileRef = BEDD32E4BAF8BA9AA84942E259FBE428 /* MPLayoutPrepStepRotate.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D358A7ECD5BBEA0941C0414508C1D93B /* MP.h in Headers */ = {isa = PBXBuildFile; fileRef = 02E05D053339EFB0C4AB412903038522 /* MP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D37BBF68392279E57059B5D1F293550F /* MobilePrintSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 281BD43FA715CEF93E5AA2037605321E /* MobilePrintSDK-dummy.m */; };
 		D470FD7FF206B100A7B79714E7FA0F4A /* OCMNotificationPoster.h in Headers */ = {isa = PBXBuildFile; fileRef = C09ED70F3F23B5607267073061DE266E /* OCMNotificationPoster.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		D515953253275117C09DE930C59B4AF1 /* MPPrintPageRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 48F52FC132027AE9FD7C15154A626DAC /* MPPrintPageRenderer.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		D6BD9C56E12EB9C5A85290A59A4DAE0F /* MPLayoutPrepStepRotate.h in Headers */ = {isa = PBXBuildFile; fileRef = A94FBCCFC6934BAB828602FAB06F3789 /* MPLayoutPrepStepRotate.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D69EACA20C3D4AD73B58E0B641D51F8B /* MPPrintLaterHelperViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0669335AAF875AC1B3DFD896727FE0FB /* MPPrintLaterHelperViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D6CDEBFC8F69DAA0D7958B8CB8FDCA8D /* MPLegacyPrintItemImage.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5D2044534B66B58E81C2FD089E4DD4 /* MPLegacyPrintItemImage.m */; };
+		D6F56A1734E302D8411D0710F280FC8D /* MPPaperTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED3ED7A899F6B8599F249DCB01994BE /* MPPaperTypeTableViewController.m */; };
+		D728789857B3B2984E72402DE2AACC09 /* MPLayoutAlgorithmFill.h in Headers */ = {isa = PBXBuildFile; fileRef = A76781B35F3D6C15472D131187CC7228 /* MPLayoutAlgorithmFill.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D78D41AA2CEB6ED571503108CEC3DA15 /* OCMArg.h in Headers */ = {isa = PBXBuildFile; fileRef = 69558BD0DB18D1B8BB12A507F15B8B9F /* OCMArg.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D9922A44725A88323001840D269025DB /* MPPrintItemPDF.h in Headers */ = {isa = PBXBuildFile; fileRef = B29849ECA1FBB47AD77F7B02156424B7 /* MPPrintItemPDF.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D9EA9C8052853B8962318FFD5A5551B6 /* OCMExceptionReturnValueProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 316556286F506E28036568E5473A9627 /* OCMExceptionReturnValueProvider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DA238EBD5C6C0E827E214CDDC56A3D35 /* MPLayoutAlgorithmFit.h in Headers */ = {isa = PBXBuildFile; fileRef = D15BE7AD7A5719B605D077AA50814E6F /* MPLayoutAlgorithmFit.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		DA4BA6415BA163F517644ACF5039FE93 /* MPPrintLaterJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 413AEC89253BE4D0C93881C66069AC55 /* MPPrintLaterJob.m */; };
+		DA5EEEC21319D5B7EB8E37DF30CEDD85 /* MPPrintItemFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = F959A408032BA43D30439371DDD7CF16 /* MPPrintItemFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DADACF239B30C047FA9304E5FDDA8B2E /* NSObject+OCMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D4D4B5FDC5B66DE7D5F274F4AA587F06 /* NSObject+OCMAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		DAE667AB882A7C757528457DC35E37E9 /* MPPrintJobsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 01818172B9E82379A0743D111ED133BA /* MPPrintJobsViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		DB9DED3E81F9108085F69D7877B01CED /* MPPrintJobsActionView.h in Headers */ = {isa = PBXBuildFile; fileRef = BF5C9C15CE26D7C4AC385CD800A6E941 /* MPPrintJobsActionView.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		DC123E57135AF21A35448D0DA8A31E7F /* MPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4552FD30EC5D78BFCA86C0331D58DC37 /* MPReachability.m */; };
+		DCC9A81BC182204C05EEF33FB05266A5 /* MPPrintManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 67AE3DFE8F7D3F1D5C424885552EB79D /* MPPrintManager.m */; };
+		DD34181F843FC03AC1782CFB6D080B4C /* MPPageSettingsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB76CB55174A6A2B0E12BEDF2A966A47 /* MPPageSettingsTableViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DE57384C891A85506CB91EA186D2D2B4 /* OCMArgAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 64E524FBDD2ADF7B9CAD06BDC3324EE5 /* OCMArgAction.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		DE9EDD9B4BBC571BE970C33011E54FAE /* MPAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EE03496C5C1C36C74BDFC5220209A8 /* MPAnalyticsManager.m */; };
 		DF0A3CB81B12C054F9C8258F680F7C9D /* OCPartialMockObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AB74CD816BC0B04E665A4EBBC4EEFC /* OCPartialMockObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E00ABE7FC44CB9D1B511D96D47C16AD5 /* NSInvocation+OCMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA77AF7086B37C50CF9E16041EFCBB66 /* NSInvocation+OCMAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		E10C968EFDC73636D8CE8404ADF3F344 /* MPPrintManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A442379F1AAB985AE30F5ECAA8E54803 /* MPPrintManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E168A6E0EBE097A9091672B3AA662837 /* MPPrintManager+Options.h in Headers */ = {isa = PBXBuildFile; fileRef = 47D2480A09511B7A4A952BF4ADB82CAC /* MPPrintManager+Options.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E2D2C2DEBBB651077ABC3710A423594F /* NSValue+OCMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 206297666E3ED5C76DE6EC15F499BAC2 /* NSValue+OCMAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E45D617A6259C90DC54D6F22571998E8 /* OCMPassByRefSetter.h in Headers */ = {isa = PBXBuildFile; fileRef = FF83D4F2C0839CACBA0254DF31249D8E /* OCMPassByRefSetter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		E4C416CC5F5FF83125B418A6B9DB6398 /* MPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F9998A7B164B466CC783232CDA5975C4 /* MPLogger.m */; };
-		E4C58C46CF75362BC2586368C192D262 /* MPLayoutPrepStepAdjust.h in Headers */ = {isa = PBXBuildFile; fileRef = 9810873C8AAB5AF16E27E8D90D120693 /* MPLayoutPrepStepAdjust.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E582CCBC5FCED16655CC4E7FA061BCE2 /* MPPrintSettingsDelegateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44DBB67500C4FAF32C50E5379DE78518 /* MPPrintSettingsDelegateManager.m */; };
-		E5F94CC70A784BDDC7104F99967271A4 /* UIView+MPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D822639774096C6A226FC9773E846FE /* UIView+MPAnimation.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E89249EF611FD61B7C6D549997F15C60 /* MPPrintManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 990D5FE6286D3535AC52DDD694A33FDB /* MPPrintManager.m */; };
+		E46AF5C9504A7E1337D78482751B5304 /* MPPrintSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EF619DC988FD500AFACE48624C7E17BA /* MPPrintSettings.m */; };
+		E48D3D0642D17225D59480C9CD8681EF /* MPLayoutComposite.h in Headers */ = {isa = PBXBuildFile; fileRef = BB7A9D54BDFDBF673CC93F967566430D /* MPLayoutComposite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E7FF6CAD32EBCBE66DA5BBC907895CC5 /* NSBundle+MPLocalizable.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E24D48B5FED1B9C4EFAA8F9DE1FE1DF /* NSBundle+MPLocalizable.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E8CDCEDCDC0ADE51EBAFCC09F44EFF12 /* OCMBlockArgCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 930BD2CC7AB24E4BCA2E9065A937E931 /* OCMBlockArgCaller.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		E9237275D184174A87AAB28D1C89D354 /* UIView+MPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B891793F545A0644AFF77B24FE97824 /* UIView+MPAnimation.m */; };
 		EA2A970253EA9B298F0BB63864AA18D1 /* OCProtocolMockObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AE24FA599B71AD8918EB67E7871BA527 /* OCProtocolMockObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		EAB97E881E36E830E9DFFD73D635103C /* MPView.h in Headers */ = {isa = PBXBuildFile; fileRef = 160FA68757D5AC55D63602D5DFF45803 /* MPView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EE6ADF44698A772C362C941E6BBEF4DA /* UIImage+MPResize.h in Headers */ = {isa = PBXBuildFile; fileRef = 185A927EFAB67B26998A6B8E25BD242C /* UIImage+MPResize.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		EEBEC3C68DD8C679511876B4610D582A /* OCMBoxedReturnValueProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E4475FABAA116E70EC0C1EED91CBDDA /* OCMBoxedReturnValueProvider.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		EFDDB0A4C98A5868432A10258C6D38F2 /* MPPrintItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 584C533A6CFD35512E1BAECFD122ACA3 /* MPPrintItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0E9BE1709D8B3501A9E791E8D36FBED /* NSNotificationCenter+OCMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B18F6CEAB5D1FA1DF186FFD0B7F6FFF3 /* NSNotificationCenter+OCMAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F2936E418A9396B8E5BBF66D1C5E6765 /* MPPrintItemFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD66869B4C36709A246C3BFFD24144C /* MPPrintItemFactory.m */; };
-		F365B5B331D1D901549B23C20BFCD0AF /* MPWiFiReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D54D5D0043463859F53EF738E34F02 /* MPWiFiReachability.m */; };
-		F39CF815C744325C1BD9F833D9E40285 /* MPLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = A35A9BB572E84CF90A6985CAD9D1E0D0 /* MPLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F409617397DEAE077E44A26E573E74C2 /* MPLegacyPageRange.h in Headers */ = {isa = PBXBuildFile; fileRef = A6CBFBDB82CE1ACC7D4E409DC99EC79E /* MPLegacyPageRange.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F53DE0A218297486C9D48614FDE2E53B /* MPLegacyPrintLaterJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96599C8B3FF0B5857ABE5833B3D3DB /* MPLegacyPrintLaterJob.m */; };
+		F5DE3A00918EDD778C47506C57EB0EB9 /* UIImage+MPResize.m in Sources */ = {isa = PBXBuildFile; fileRef = B961E0E54B655DEFF5F8F722DEAEAD2A /* UIImage+MPResize.m */; };
+		F611E22B58B4C31405AB2E154A7667B8 /* MPPaperTypeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A2837EAD3E2665C8332F4684FC14892 /* MPPaperTypeTableViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F692545855739B68995FEE94ED1064F1 /* MPPrintJobsTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 98C6B1997CE4CE75E8380738AFF1690D /* MPPrintJobsTableViewCell.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F9277FDC5093C454C635D8C1BE613A85 /* MPPageRange.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C6062181B04D4BAAA2B214D321B856 /* MPPageRange.m */; };
+		F9386195739996D071D1DED26B0E847E /* MPLayoutAlgorithmStretch.h in Headers */ = {isa = PBXBuildFile; fileRef = B104453538347979D3D64CDF973FE705 /* MPLayoutAlgorithmStretch.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F96519FF8A434C96BD0F03BD462AD5C6 /* MPPrintSettingsDelegateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A80DDC493A319B14B75645DCDDD033 /* MPPrintSettingsDelegateManager.m */; };
 		FB294C8C8DCC4EACB074C58C027C9723 /* OCMIndirectReturnValueProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = A57FAB1E7BCA9A71F44D17124B8C314A /* OCMIndirectReturnValueProvider.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		FB34F7E108F18C397178B9DF0688606A /* MPLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CA69165ECA12CD7BAA5539718321E6 /* MPLayout.m */; };
-		FC4411089B46612418F2369DC6DE7A7B /* MPPaperTypeTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 63B0B0C7C9162D6A2C98F6EE110CDC97 /* MPPaperTypeTableViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		FC4C9B4F8EA5AE06337DED9A0ED019BF /* UIImage+MPResize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB7196C4249BC57C1612C748F39E504 /* UIImage+MPResize.m */; };
+		FD6F576F3D01731A34A6C9B98F2A8F83 /* MPAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE8DDA7C4673D5287FACAF3D0FE000F /* MPAppearance.m */; };
+		FD96A34D274D5DEB41CBA0946A5AA6E8 /* MPLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 99424063429E875781D4F58B54808170 /* MPLayout.m */; };
 		FDFD77CF38AE5FDD235A02217B763809 /* OCMBlockCaller.h in Headers */ = {isa = PBXBuildFile; fileRef = 1724C18E655D26341007BF1FC653703D /* OCMBlockCaller.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		FDFECE5D1942E977EB2C4C2D8FEA030C /* NSBundle+MPLocalizable.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A79D66A11EEB36B237806B587D980A /* NSBundle+MPLocalizable.m */; };
-		FF8E8EF7F427F981EFB6B90CA5BAA21E /* MPLayoutComposite.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D956F9BE46C82138AB0085518E2434 /* MPLayoutComposite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FFF740BCA7B7B738E7DD9A7C3DF7F2E5 /* MPLayoutPrepStepRotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8D2F6BE7D7891E48F361E4D0E3C5BC /* MPLayoutPrepStepRotate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,86 +230,92 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF04BF48CDA20F86CB065DEE5D685D47;
+			remoteGlobalIDString = B87EED68BA36663A46D42D8D86B2F499;
 			remoteInfo = MobilePrintSDK;
 		};
 		FA748AFFFEFE9C9069FA58C9514995C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DF04BF48CDA20F86CB065DEE5D685D47;
+			remoteGlobalIDString = B87EED68BA36663A46D42D8D86B2F499;
 			remoteInfo = MobilePrintSDK;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01818172B9E82379A0743D111ED133BA /* MPPrintJobsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintJobsViewController.h; sourceTree = "<group>"; };
-		018E0D64214BEAB0CC9CD1B553F0E43B /* MPPaperTypeTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPaperTypeTableViewController.m; sourceTree = "<group>"; };
-		04CAEE9BF5168A39F0D9FD78D4E9742B /* MPDashedLineView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPDashedLineView.m; sourceTree = "<group>"; };
-		05AFA3D28B0F2425729EB305B26FB189 /* MPPrintActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintActivity.h; sourceTree = "<group>"; };
-		07D956F9BE46C82138AB0085518E2434 /* MPLayoutComposite.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutComposite.h; sourceTree = "<group>"; };
-		09DB319A1867142EDA48BEFFACD90B9A /* MPPrintSettingsDelegateManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintSettingsDelegateManager.h; sourceTree = "<group>"; };
+		02E05D053339EFB0C4AB412903038522 /* MP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MP.h; sourceTree = "<group>"; };
+		02EE03496C5C1C36C74BDFC5220209A8 /* MPAnalyticsManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPAnalyticsManager.m; sourceTree = "<group>"; };
+		0669335AAF875AC1B3DFD896727FE0FB /* MPPrintLaterHelperViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterHelperViewController.h; sourceTree = "<group>"; };
 		0C317BBC48BDB08517A1F34CEF76F54D /* OCMPassByRefSetter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMPassByRefSetter.m; path = Source/OCMock/OCMPassByRefSetter.m; sourceTree = "<group>"; };
 		0C535B63FC36C71F65EF6DBD80A3644F /* OCMObserverRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMObserverRecorder.h; path = Source/OCMock/OCMObserverRecorder.h; sourceTree = "<group>"; };
 		0EADD5FDDF0F6872D52A66D19463C48F /* OCMObserverRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMObserverRecorder.m; path = Source/OCMock/OCMObserverRecorder.m; sourceTree = "<group>"; };
+		0ED5D4E305914AE58B0D02F2A1DFBA2F /* MPMultiPageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPMultiPageView.m; sourceTree = "<group>"; };
+		107B5B42E115CAD1F9D4D9D72D42D901 /* MPPrintLaterQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterQueue.m; sourceTree = "<group>"; };
 		10B62C49A46A1D077FAAE2FB56A3FEC5 /* MPMagnify@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMagnify@2x.png"; sourceTree = "<group>"; };
-		110B533CB58D88F17BAD7A3A54CD7A2D /* MPPrintJobsTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintJobsTableViewCell.h; sourceTree = "<group>"; };
-		1143C3DF22503F0A5D8A855E1737919E /* MPLayoutFill.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutFill.h; sourceTree = "<group>"; };
+		11E7E4B27404A745B32BAE4C9BC79463 /* MPLayoutPaperCellView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPaperCellView.m; sourceTree = "<group>"; };
 		1357BC4A54BC9BDFCB4FC6AEAB6048A9 /* OCMock-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OCMock-dummy.m"; sourceTree = "<group>"; };
-		13A79D66A11EEB36B237806B587D980A /* NSBundle+MPLocalizable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+MPLocalizable.m"; sourceTree = "<group>"; };
 		14DC03CC218CD72500811A7E2B5B74E1 /* OCMockObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMockObject.m; path = Source/OCMock/OCMockObject.m; sourceTree = "<group>"; };
-		153A1164F60C3C206418A2DB52F2367F /* MPInterfaceOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPInterfaceOptions.h; sourceTree = "<group>"; };
-		160FA68757D5AC55D63602D5DFF45803 /* MPView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPView.h; sourceTree = "<group>"; };
-		16A9D4EF6BC1106043C06AE2E65F376F /* MPLayoutStretch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutStretch.h; sourceTree = "<group>"; };
 		16C1F2D4DE5FC51A8B6B736FC3F765F4 /* NSValue+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSValue+OCMAdditions.h"; path = "Source/OCMock/NSValue+OCMAdditions.h"; sourceTree = "<group>"; };
 		1724C18E655D26341007BF1FC653703D /* OCMBlockCaller.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMBlockCaller.h; path = Source/OCMock/OCMBlockCaller.h; sourceTree = "<group>"; };
-		17AE1E1A6F88BC1EC3B681AD274DEBCD /* MPPageRange.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPageRange.h; sourceTree = "<group>"; };
 		1843F554F2FC67D6210094513CC3DAC0 /* MobilePrintSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MobilePrintSDK.xcconfig; sourceTree = "<group>"; };
-		19C8B0C8985B92D008982E1396CC898C /* MPPrintLaterActivity.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterActivity.m; sourceTree = "<group>"; };
-		1C65AD30DB55A555B13F1AA742C8225A /* MPAnalyticsManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPAnalyticsManager.m; sourceTree = "<group>"; };
+		185A927EFAB67B26998A6B8E25BD242C /* UIImage+MPResize.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIImage+MPResize.h"; sourceTree = "<group>"; };
+		1866727C89E7F57FC4722C63E84DA2D4 /* MPPrintItemImage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItemImage.h; sourceTree = "<group>"; };
+		1A2837EAD3E2665C8332F4684FC14892 /* MPPaperTypeTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPaperTypeTableViewController.h; sourceTree = "<group>"; };
+		1A8D2F6BE7D7891E48F361E4D0E3C5BC /* MPLayoutPrepStepRotate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStepRotate.m; sourceTree = "<group>"; };
+		1ADCD16B1DBD22198ADD0A3FB155509C /* UIView+MPAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+MPAnimation.h"; sourceTree = "<group>"; };
 		1D42A5F9AB1E0DC588C6A3874C3EBE0E /* OCMInvocationStub.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMInvocationStub.m; path = Source/OCMock/OCMInvocationStub.m; sourceTree = "<group>"; };
-		1E664F3CA268DF41C183F66BADB20211 /* MPDefaultSettingsManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPDefaultSettingsManager.m; sourceTree = "<group>"; };
-		1E9616BFA0495D8F88149FCDC5137ACD /* MPPrintLaterQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterQueue.h; sourceTree = "<group>"; };
 		20209427DF05E28D4760023DBB565DFB /* MobilePrintSDKLocalizable.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; path = MobilePrintSDKLocalizable.bundle; sourceTree = "<group>"; };
 		206297666E3ED5C76DE6EC15F499BAC2 /* NSValue+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSValue+OCMAdditions.m"; path = "Source/OCMock/NSValue+OCMAdditions.m"; sourceTree = "<group>"; };
-		218515EE47476EA099DD568BA51B4D2B /* MPLayoutFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutFactory.h; sourceTree = "<group>"; };
-		21E30F637E36A6B390AE038697CA16C8 /* MPPrintItemImage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItemImage.h; sourceTree = "<group>"; };
+		20DA52B56EDADCE4B16C85039660DC68 /* MPDefaultSettingsManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPDefaultSettingsManager.m; sourceTree = "<group>"; };
+		2206D19D25A5ECAF42F9E9C321DB4A03 /* MPLayoutFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutFactory.h; sourceTree = "<group>"; };
+		2355EC7085A1CC3532645008274DEFA5 /* MPPrintSettingsTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintSettingsTableViewController.h; sourceTree = "<group>"; };
 		25F1886F79DE7DA5955613EBB2146A7D /* OCMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMockObject.h; path = Source/OCMock/OCMockObject.h; sourceTree = "<group>"; };
-		26A590BE02BA3CB8A8944C675E7479BF /* MPLayoutFill.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFill.m; sourceTree = "<group>"; };
 		281BD43FA715CEF93E5AA2037605321E /* MobilePrintSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MobilePrintSDK-dummy.m"; sourceTree = "<group>"; };
-		288805A843A25033BBBBFB619411A8FB /* MPPrintLaterJob.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterJob.m; sourceTree = "<group>"; };
-		2D486B7E9C953D31140A66E6BCEC4B30 /* MPPrintSettings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintSettings.h; sourceTree = "<group>"; };
+		28DD7317345C4A7869DA0FF100BC6D50 /* MPLayoutAlgorithmFit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithmFit.m; sourceTree = "<group>"; };
+		2BF83B31C1D9C7CF89AF537319CD29A9 /* MPWiFiReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPWiFiReachability.h; sourceTree = "<group>"; };
+		2C55349BBCAD41EFDB1A08BA649B6970 /* MPPrintLaterManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterManager.m; sourceTree = "<group>"; };
+		2D23C0D681ECF1E7E5205A42E652AC67 /* MPLayoutFill.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutFill.h; sourceTree = "<group>"; };
 		2EA4E16B0166BA178D0599CDAEAA6854 /* OCMInvocationMatcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMInvocationMatcher.h; path = Source/OCMock/OCMInvocationMatcher.h; sourceTree = "<group>"; };
-		2EF5DE5D5CC5971824FE6883ACFFD169 /* MPPrintLaterHelperViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterHelperViewController.h; sourceTree = "<group>"; };
-		2FB7196C4249BC57C1612C748F39E504 /* UIImage+MPResize.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MPResize.m"; sourceTree = "<group>"; };
+		2F5BCE3403D4DAAB3AA127009D0BD365 /* MPView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPView.h; sourceTree = "<group>"; };
 		316556286F506E28036568E5473A9627 /* OCMExceptionReturnValueProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMExceptionReturnValueProvider.m; path = Source/OCMock/OCMExceptionReturnValueProvider.m; sourceTree = "<group>"; };
-		3299734C3C5872CC26488F631311858C /* MPLayoutPaperView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPaperView.h; sourceTree = "<group>"; };
-		32A25BC49361BE4539843C2ACCEBD456 /* MPAnalyticsManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPAnalyticsManager.h; sourceTree = "<group>"; };
+		32CFB544064ADA96B839CF7EA8712109 /* MPLayoutPrepStepAdjust.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStepAdjust.m; sourceTree = "<group>"; };
 		32D60F2BCE89430404CD302510365D62 /* MPCheck@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPCheck@2x.png"; sourceTree = "<group>"; };
 		3312582F275DB5DDA1C8928EFC09B05C /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSNotificationCenter+OCMAdditions.h"; path = "Source/OCMock/NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		338FBC0D0F884C1D9E545F1E5273F224 /* UIColor+MPStyle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MPStyle.m"; sourceTree = "<group>"; };
 		3594F9D0AB59F55A90690086627866CD /* OCClassMockObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCClassMockObject.m; path = Source/OCMock/OCClassMockObject.m; sourceTree = "<group>"; };
-		35CA69165ECA12CD7BAA5539718321E6 /* MPLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayout.m; sourceTree = "<group>"; };
 		36A59B5914E9892A9E4F3C1F2D74E7DD /* OCPartialMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCPartialMockObject.h; path = Source/OCMock/OCPartialMockObject.h; sourceTree = "<group>"; };
+		36B9148A51968ABF857247EC39805EBD /* MPPrintLaterQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterQueue.h; sourceTree = "<group>"; };
 		37EF7F6C91DAB379B22A3311BABC720C /* MobilePrintSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MobilePrintSDK-prefix.pch"; sourceTree = "<group>"; };
+		398EDD1D32357E639E1A9D67C36C6ED0 /* MPPageViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPageViewController.h; sourceTree = "<group>"; };
 		3A0974FBE25326D0D926C44BE86F8D8C /* OCMStubRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMStubRecorder.m; path = Source/OCMock/OCMStubRecorder.m; sourceTree = "<group>"; };
-		3A22CA10533D94EB6A75D6C00EC2D961 /* MPPageSettingsTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPageSettingsTableViewController.h; sourceTree = "<group>"; };
+		3CA8807179E34F010F90867E450FC2F4 /* MPLayoutPaperCellView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPaperCellView.h; sourceTree = "<group>"; };
 		3CC7B354ED2AC1FC815016BBC34DB88E /* MPArrow@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPArrow@2x.png"; sourceTree = "<group>"; };
-		3E5F33A78A4147B0ED474C949FCCED40 /* MPPrintJobsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsViewController.m; sourceTree = "<group>"; };
+		3D646A95C8CC5FF0C665B61C0C261BC9 /* MPPrintItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItem.m; sourceTree = "<group>"; };
 		3EC40DC2923D72DA901EBA2044AE6603 /* MPSelected@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPSelected@3x.png"; sourceTree = "<group>"; };
-		3FCAD47B576C20E9B238FE254E98DDB8 /* MPLayoutStretch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutStretch.m; sourceTree = "<group>"; };
+		3FC91A758E7BCA380A60F2E3E435BB1D /* MPLayoutPaperView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPaperView.h; sourceTree = "<group>"; };
+		40DF7463CF90C61FAEE26352B9D76538 /* MPPageViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageViewController.m; sourceTree = "<group>"; };
+		4132B6232F28219EA64BC490F12FECA1 /* MPAnalyticsManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPAnalyticsManager.h; sourceTree = "<group>"; };
 		41395EAB4CC5A75A162CAFB24E8E1708 /* Pods-Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		41B5279D4EB01559410A0601AD78E17B /* MPLayoutPrepStepRotate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStepRotate.m; sourceTree = "<group>"; };
-		41C16221C6A1CD90B1A7979BE8FD1A1D /* MPPrintActivity.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintActivity.m; sourceTree = "<group>"; };
-		44A2ABA5ADC8C59919E6359778290B70 /* MPPrintSettings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintSettings.m; sourceTree = "<group>"; };
-		44DBB67500C4FAF32C50E5379DE78518 /* MPPrintSettingsDelegateManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintSettingsDelegateManager.m; sourceTree = "<group>"; };
-		4511E31350E9E0A912A1133E395F5C3A /* MPPrintJobsTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsTableViewCell.m; sourceTree = "<group>"; };
+		413AEC89253BE4D0C93881C66069AC55 /* MPPrintLaterJob.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterJob.m; sourceTree = "<group>"; };
+		4148B49EFE65B709DDC1D0D5E0BFFD9D /* UITableView+MPHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UITableView+MPHeader.h"; sourceTree = "<group>"; };
+		418F3D1E406EAA6400A692B4EAA4C947 /* MPLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayout.h; sourceTree = "<group>"; };
+		426A5D463249A97E723DBD47718DE664 /* UIColor+MPHexString.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIColor+MPHexString.h"; sourceTree = "<group>"; };
+		43CAF694C19A0A983FBCDA263B365894 /* MPLegacyPrintItemPDF.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLegacyPrintItemPDF.h; sourceTree = "<group>"; };
+		43EB1B855BFB38DA9751854EABB6AAA6 /* MPLegacyPrintItemImage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLegacyPrintItemImage.h; sourceTree = "<group>"; };
+		443ECF8F3513F0942BB0D912A507C8E6 /* MPSupportAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPSupportAction.h; sourceTree = "<group>"; };
+		44A65AB02897D993376811F549F34893 /* MPLayoutAlgorithmFill.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithmFill.m; sourceTree = "<group>"; };
 		454E2D90A2917450FDF09C51CF686732 /* OCObserverMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCObserverMockObject.h; path = Source/OCMock/OCObserverMockObject.h; sourceTree = "<group>"; };
 		4552FD30EC5D78BFCA86C0331D58DC37 /* MPReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPReachability.m; sourceTree = "<group>"; };
+		45B28FCD799962EE7A22AB1F9F2BE4BE /* MPPageRange.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPageRange.h; sourceTree = "<group>"; };
 		46AB74CD816BC0B04E665A4EBBC4EEFC /* OCPartialMockObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCPartialMockObject.m; path = Source/OCMock/OCPartialMockObject.m; sourceTree = "<group>"; };
+		47D2480A09511B7A4A952BF4ADB82CAC /* MPPrintManager+Options.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MPPrintManager+Options.h"; sourceTree = "<group>"; };
 		483303A117875B599261961B32BA9FCB /* OCMMacroState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMMacroState.m; path = Source/OCMock/OCMMacroState.m; sourceTree = "<group>"; };
-		48F52FC132027AE9FD7C15154A626DAC /* MPPrintPageRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintPageRenderer.h; sourceTree = "<group>"; };
+		4A96599C8B3FF0B5857ABE5833B3D3DB /* MPLegacyPrintLaterJob.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLegacyPrintLaterJob.m; sourceTree = "<group>"; };
+		4B12C817D93F59F7D092A53334364B05 /* MPRuleView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPRuleView.m; sourceTree = "<group>"; };
 		4D7FB4D78F0B210C1F193204C6D32E30 /* MPMultiPageView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPMultiPageView.xib; sourceTree = "<group>"; };
+		4D94AE90E4651432B212DAB03088EE29 /* MPRuleView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPRuleView.h; sourceTree = "<group>"; };
 		4DFD97FFCF8917A67B4187B67938E6E4 /* OCProtocolMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCProtocolMockObject.h; path = Source/OCMock/OCProtocolMockObject.h; sourceTree = "<group>"; };
+		4FD47D0FEFFDEF821870A2EBBEA3B297 /* MPPaperSizeTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPaperSizeTableViewController.h; sourceTree = "<group>"; };
 		51020CB04843950D92EA77E154C50737 /* OCMMacroState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMMacroState.h; path = Source/OCMock/OCMMacroState.h; sourceTree = "<group>"; };
 		52B426F84B829D8227AA7DC7A740EFD2 /* libOCMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOCMock.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		52FA65EDA8217AA85B34B2B0E96E642F /* OCMRealObjectForwarder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMRealObjectForwarder.m; path = Source/OCMock/OCMRealObjectForwarder.m; sourceTree = "<group>"; };
@@ -309,191 +323,184 @@
 		53E54A985E57EE4377BB85DAB782CBB7 /* OCMNotificationPoster.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMNotificationPoster.m; path = Source/OCMock/OCMNotificationPoster.m; sourceTree = "<group>"; };
 		54850673E7AE9B6519B1CE4BFEE499A9 /* OCMExpectationRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMExpectationRecorder.m; path = Source/OCMock/OCMExpectationRecorder.m; sourceTree = "<group>"; };
 		54C6BBABA48385123207183F2BB48C88 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
-		54F36B0885ED278D9BF66805A9BDD810 /* NSBundle+MPLocalizable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSBundle+MPLocalizable.h"; sourceTree = "<group>"; };
-		55E7A35735961AA2C8A08BE9BBFA35A8 /* MPPrintLaterManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterManager.h; sourceTree = "<group>"; };
-		5800FEB01259C04D6B588CDD7C4CBF55 /* MPPaper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPaper.m; sourceTree = "<group>"; };
-		584C533A6CFD35512E1BAECFD122ACA3 /* MPPrintItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItem.h; sourceTree = "<group>"; };
-		59365536FD762081E6882601590FFE92 /* MPLayoutPaperCellView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPaperCellView.h; sourceTree = "<group>"; };
+		5710775DC605D34EE5F75F65B3FFF438 /* MPDefaultSettingsManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPDefaultSettingsManager.h; sourceTree = "<group>"; };
+		5CA9D2C79F24BC7B3D6FF19736952B7B /* MPPrintLaterManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterManager.h; sourceTree = "<group>"; };
+		5CD9A0489EE478DE6A57BAEFCDB42E8F /* MPLayoutFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFactory.m; sourceTree = "<group>"; };
+		5D38D8AC2816F4B6F15477B58D3B7F3D /* MPLayoutFit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFit.m; sourceTree = "<group>"; };
 		5D6F72303754C772814AFD42964E77A1 /* OCMBoxedReturnValueProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMBoxedReturnValueProvider.m; path = Source/OCMock/OCMBoxedReturnValueProvider.m; sourceTree = "<group>"; };
 		5DC5E7DC3F04DCF0F85F81496BE3C8E2 /* OCMInvocationMatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMInvocationMatcher.m; path = Source/OCMock/OCMInvocationMatcher.m; sourceTree = "<group>"; };
-		5F75D4C308965C723FF1BADBCB1AD0A1 /* MPPrintLaterJob.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterJob.h; sourceTree = "<group>"; };
-		63518F30E568AFC12F7E037C8917912D /* MPPageRange.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageRange.m; sourceTree = "<group>"; };
+		6090BFD08DE9502B77D5822F3F9DD91A /* MPPrintJobsActionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsActionView.m; sourceTree = "<group>"; };
 		638876C289DC86DA86BC2CEDC5E667BE /* NSInvocation+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSInvocation+OCMAdditions.h"; path = "Source/OCMock/NSInvocation+OCMAdditions.h"; sourceTree = "<group>"; };
-		63B0B0C7C9162D6A2C98F6EE110CDC97 /* MPPaperTypeTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPaperTypeTableViewController.h; sourceTree = "<group>"; };
 		64E524FBDD2ADF7B9CAD06BDC3324EE5 /* OCMArgAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMArgAction.h; path = Source/OCMock/OCMArgAction.h; sourceTree = "<group>"; };
-		6606F5B813AD5541497654305D307A47 /* MPLayoutFit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFit.m; sourceTree = "<group>"; };
+		65B7BF065680FA8AB55FF04C62FC7FB7 /* UITableView+MPHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UITableView+MPHeader.m"; sourceTree = "<group>"; };
 		662752C0FDF6135C9CC3DEB9DA750726 /* OCMArgAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMArgAction.m; path = Source/OCMock/OCMArgAction.m; sourceTree = "<group>"; };
-		665438EC954C190591D8B7236E73CA6A /* UIColor+MPStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIColor+MPStyle.h"; sourceTree = "<group>"; };
+		6671A5549D52C78FF2F5A8354A88BF94 /* MPMultiPageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPMultiPageView.h; sourceTree = "<group>"; };
+		6688290285DFBAD0F8A4E6B401C81188 /* MPLegacyPrintItemPDF.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLegacyPrintItemPDF.m; sourceTree = "<group>"; };
 		66C21AE9F15699E2F712B622032801B6 /* MPMeasurementArrowRight@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowRight@2x.png"; sourceTree = "<group>"; };
-		671088D76DE9353B17CE0FE139A58D33 /* MPPaperSizeTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPaperSizeTableViewController.h; sourceTree = "<group>"; };
+		6701933BD11C82E0F6D48D3AED27D415 /* MPPrintSettings.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintSettings.h; sourceTree = "<group>"; };
+		67AE3DFE8F7D3F1D5C424885552EB79D /* MPPrintManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintManager.m; sourceTree = "<group>"; };
+		6801EFDCFAE65770B05E6CA5DD415331 /* MPPrintItemPDF.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemPDF.m; sourceTree = "<group>"; };
 		689A4D82DDD715C3A4CCF7B8E8BCE849 /* Pods-MobilePrintSDK-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MobilePrintSDK-frameworks.sh"; sourceTree = "<group>"; };
+		68C052F158202281D3118E847C58D7BA /* MPPrintJobsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsViewController.m; sourceTree = "<group>"; };
 		69558BD0DB18D1B8BB12A507F15B8B9F /* OCMArg.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMArg.h; path = Source/OCMock/OCMArg.h; sourceTree = "<group>"; };
-		6AEE6164D6F634E419BE5CCBAE351DA5 /* MPRuleView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPRuleView.h; sourceTree = "<group>"; };
-		6D822639774096C6A226FC9773E846FE /* UIView+MPAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+MPAnimation.h"; sourceTree = "<group>"; };
-		6E0BF7F11B2B1126CF8118192F538456 /* MPPrintJobsPreviewViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintJobsPreviewViewController.h; sourceTree = "<group>"; };
 		6E4475FABAA116E70EC0C1EED91CBDDA /* OCMBoxedReturnValueProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMBoxedReturnValueProvider.h; path = Source/OCMock/OCMBoxedReturnValueProvider.h; sourceTree = "<group>"; };
 		6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		6FAFB4966B15012AEE36E2C90CD143D9 /* MPPrintLaterHelperViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterHelperViewController.m; sourceTree = "<group>"; };
 		7016F31B610A81F885B2507EA803722A /* MPDoNoEnter.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = MPDoNoEnter.png; sourceTree = "<group>"; };
-		71D54D5D0043463859F53EF738E34F02 /* MPWiFiReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPWiFiReachability.m; sourceTree = "<group>"; };
-		72AA40228E565599810632E0D40D8D17 /* MPLayoutPrepStep.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPrepStep.h; sourceTree = "<group>"; };
+		70D25DEE9C7269B5038CC132719F6BA9 /* MPPrintItemImage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemImage.m; sourceTree = "<group>"; };
+		746899CC0236A3B0805C826AB686A879 /* MPPrintActivity.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintActivity.m; sourceTree = "<group>"; };
+		748944E0726FBD8836DA0C5E0829D709 /* MPPrintManager+Options.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MPPrintManager+Options.m"; sourceTree = "<group>"; };
 		7588F6DEBBD964C8EB376032F5836DE9 /* Pods-MobilePrintSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MobilePrintSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		7595D836442484519C0AEEDA0CEDB764 /* OCMFunctions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMFunctions.m; path = Source/OCMock/OCMFunctions.m; sourceTree = "<group>"; };
-		7751EFA4AF3B5991DF8E7624BBAF0342 /* MPLayoutPrepStep.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStep.m; sourceTree = "<group>"; };
-		7786DEF3DB6C5AD46913FAB1541D8E5C /* MPPrintJobsActionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsActionView.m; sourceTree = "<group>"; };
+		77B62A68510C35A71813C50467B82058 /* UIColor+MPStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIColor+MPStyle.h"; sourceTree = "<group>"; };
+		77BEA242E4108A73E42F6C3F0B8165EF /* MPPrintLaterHelperViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterHelperViewController.m; sourceTree = "<group>"; };
 		78243B9DE37E08F3A318F9DC6C0E73B2 /* MPRuleView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPRuleView.xib; sourceTree = "<group>"; };
-		78A5ED649FAE828C25DB3722FBDAC68D /* MPSupportAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPSupportAction.m; sourceTree = "<group>"; };
+		78A80DDC493A319B14B75645DCDDD033 /* MPPrintSettingsDelegateManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintSettingsDelegateManager.m; sourceTree = "<group>"; };
 		791F6E6C76E25E20F12356E74A02E4C2 /* OCMExpectationRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMExpectationRecorder.h; path = Source/OCMock/OCMExpectationRecorder.h; sourceTree = "<group>"; };
+		79523887B25CACE491A1A32C531E421B /* MPDashedLineView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPDashedLineView.m; sourceTree = "<group>"; };
 		7A6E306968678CC43A271445BF5FFCE9 /* MPMeasurementArrowUp@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowUp@2x.png"; sourceTree = "<group>"; };
-		7B891793F545A0644AFF77B24FE97824 /* UIView+MPAnimation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+MPAnimation.m"; sourceTree = "<group>"; };
 		7C459598DE430610C385CF08A9971725 /* NSMethodSignature+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSMethodSignature+OCMAdditions.m"; path = "Source/OCMock/NSMethodSignature+OCMAdditions.m"; sourceTree = "<group>"; };
+		7CF2F395818B01983F049C964AE0D5C7 /* MPPrintLaterActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterActivity.h; sourceTree = "<group>"; };
+		7D856E9E4A31537BE8F58D4AD570362B /* MPPrinter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrinter.m; sourceTree = "<group>"; };
 		7DA4B0E1E2822D90688A25A3DE27621D /* libMobilePrintSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMobilePrintSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E7AA0923A4732C1B7C8C3102C0B8A55 /* OCMBlockCaller.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMBlockCaller.m; path = Source/OCMock/OCMBlockCaller.m; sourceTree = "<group>"; };
 		80C2607D3107818A07E721EC2E5B83A1 /* OCMArg.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMArg.m; path = Source/OCMock/OCMArg.m; sourceTree = "<group>"; };
 		81157FA34EC2F20F7B488766E2E2BA69 /* OCMInvocationStub.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMInvocationStub.h; path = Source/OCMock/OCMInvocationStub.h; sourceTree = "<group>"; };
 		811860EE31BD386AC34AD87AAA4B5AE0 /* OCMIndirectReturnValueProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMIndirectReturnValueProvider.m; path = Source/OCMock/OCMIndirectReturnValueProvider.m; sourceTree = "<group>"; };
-		82031CC166CB38E98D42534250644CC0 /* MPPaperSizeTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPaperSizeTableViewController.m; sourceTree = "<group>"; };
 		8231577033EF06DC999EFABE75B3370B /* MPActiveCircle@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPActiveCircle@2x.png"; sourceTree = "<group>"; };
-		8240A33D9CF4456802D94A9DCDAA8CC4 /* MPAppearance.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPAppearance.h; sourceTree = "<group>"; };
-		827AAA74FB775F9D765BC2E0628E7F40 /* MPPrintJobsPreviewViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsPreviewViewController.m; sourceTree = "<group>"; };
-		845F71A565E9CBE284FF394F680CB8F0 /* MPPrintSettingsTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintSettingsTableViewController.h; sourceTree = "<group>"; };
-		882E8DB06F69D9C93A09C8639FD0F8CA /* MPLayoutAlgorithmFill.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithmFill.h; sourceTree = "<group>"; };
+		856976F275E7920981AD4E3AF282F542 /* MPLayoutAlgorithmStretch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithmStretch.m; sourceTree = "<group>"; };
+		8847806558CDD67EB15BEDEF98B2FCB7 /* MPPrintItemPDF.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItemPDF.h; sourceTree = "<group>"; };
 		884B2F313B437028107034A03DCD843D /* libPods-MobilePrintSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobilePrintSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89D1C908FEFBEE732D8E050C3D8FD562 /* OCObserverMockObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCObserverMockObject.m; path = Source/OCMock/OCObserverMockObject.m; sourceTree = "<group>"; };
+		8B35F496D70A88204C7461D9D122CF19 /* MPPrintLaterActivity.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterActivity.m; sourceTree = "<group>"; };
+		8BAACF3D655CE69FB586323671986986 /* MPLayoutPrepStep.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPrepStep.h; sourceTree = "<group>"; };
 		8CD999019D8EA3483980564052D4527F /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		8E24D48B5FED1B9C4EFAA8F9DE1FE1DF /* NSBundle+MPLocalizable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSBundle+MPLocalizable.h"; sourceTree = "<group>"; };
 		8EBB630B2DAC2353B459788401945D97 /* OCMLocation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMLocation.m; path = Source/OCMock/OCMLocation.m; sourceTree = "<group>"; };
 		8F6AD38FA4978BC5D7E8F32453E06BAB /* OCMFunctionsPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMFunctionsPrivate.h; path = Source/OCMock/OCMFunctionsPrivate.h; sourceTree = "<group>"; };
 		914DDCAE22282C3410EF5AF0E63F7AB1 /* OCMConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMConstraint.h; path = Source/OCMock/OCMConstraint.h; sourceTree = "<group>"; };
-		922A02337BBE0F64D0A38ECD52CAA8BE /* MPPrintManager+Options.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MPPrintManager+Options.m"; sourceTree = "<group>"; };
 		930BD2CC7AB24E4BCA2E9065A937E931 /* OCMBlockArgCaller.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMBlockArgCaller.m; path = Source/OCMock/OCMBlockArgCaller.m; sourceTree = "<group>"; };
-		93108505279BF5A84C84EA2100A72685 /* UIColor+MPStyle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MPStyle.m"; sourceTree = "<group>"; };
+		93124C0781B3FDCF2D71E237F3C83FC7 /* MPPrintJobsActionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintJobsActionView.h; sourceTree = "<group>"; };
 		93A2DA12B7FFDD7AA8BB9757A6167462 /* OCMLocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMLocation.h; path = Source/OCMock/OCMLocation.h; sourceTree = "<group>"; };
-		949D61A9BA4B1C5D428825028AB1451E /* MPDefaultSettingsManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPDefaultSettingsManager.h; sourceTree = "<group>"; };
-		94AC03432089002893AA1A7F767DA012 /* MPMultiPageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPMultiPageView.h; sourceTree = "<group>"; };
 		9527469BA37C84399D12820A6CC526C6 /* NSMethodSignature+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSMethodSignature+OCMAdditions.h"; path = "Source/OCMock/NSMethodSignature+OCMAdditions.h"; sourceTree = "<group>"; };
-		9553229EBA731B7F115D09578FF495FE /* MPPageSettingsTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageSettingsTableViewController.m; sourceTree = "<group>"; };
 		95B4ADA4AA9F05F68E318161BE192D6B /* MPPageView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPPageView.xib; sourceTree = "<group>"; };
 		971094CA8C476A51F359224E3E56FFC4 /* MPDoNoEnter@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPDoNoEnter@2x.png"; sourceTree = "<group>"; };
 		974342DCEF950C4611810255DA81A18C /* MPPageRangeView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPPageRangeView.xib; sourceTree = "<group>"; };
-		9810873C8AAB5AF16E27E8D90D120693 /* MPLayoutPrepStepAdjust.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPrepStepAdjust.h; sourceTree = "<group>"; };
 		9852ED4DACC646DCF93F735958F80698 /* MPUnselected@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPUnselected@2x.png"; sourceTree = "<group>"; };
 		98787230AEA1558515B67BEABAB5827C /* MPMultipageWire.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = MPMultipageWire.png; sourceTree = "<group>"; };
-		990D5FE6286D3535AC52DDD694A33FDB /* MPPrintManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintManager.m; sourceTree = "<group>"; };
-		9D2F103886AFEDF940EB05A89D09F546 /* MPLayoutComposite.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutComposite.m; sourceTree = "<group>"; };
-		9EAA9A69417A46B92560C366894F9F8F /* MPWiFiReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPWiFiReachability.h; sourceTree = "<group>"; };
-		9F5D3FA4DA7679D91D1529C0FEE0C570 /* MPPrintLaterManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterManager.m; sourceTree = "<group>"; };
-		9F65CEA4CD97C047664E7E75CDF2FEFF /* UIColor+MPHexString.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MPHexString.m"; sourceTree = "<group>"; };
+		98C6B1997CE4CE75E8380738AFF1690D /* MPPrintJobsTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintJobsTableViewCell.h; sourceTree = "<group>"; };
+		99424063429E875781D4F58B54808170 /* MPLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayout.m; sourceTree = "<group>"; };
+		9984AE0A2C9ED88C37704BB773B13743 /* MP.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MP.m; sourceTree = "<group>"; };
+		99D4A4B75FAD64BDA785E383CE13ADA7 /* MPLegacyPageRange.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLegacyPageRange.m; sourceTree = "<group>"; };
+		99DDE6FB2ED49071D1068D601A196ED4 /* MPLayoutFill.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFill.m; sourceTree = "<group>"; };
+		9BF2BB6FC2BD6CD1D4E6794A5331E9A9 /* MPPrintJobsTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsTableViewCell.m; sourceTree = "<group>"; };
+		9E571D40554FD0FFB5F12A0AAE6B9C06 /* MPInterfaceOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPInterfaceOptions.h; sourceTree = "<group>"; };
+		A00879F36DFD55E23F095881011F144A /* MPPaper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPaper.h; sourceTree = "<group>"; };
 		A0B73FF9AA8F4AEAAF1432E83703FC61 /* Pods-MobilePrintSDK-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MobilePrintSDK-resources.sh"; sourceTree = "<group>"; };
-		A35A9BB572E84CF90A6985CAD9D1E0D0 /* MPLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayout.h; sourceTree = "<group>"; };
-		A442379F1AAB985AE30F5ECAA8E54803 /* MPPrintManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintManager.h; sourceTree = "<group>"; };
+		A1CF9DD251B91BFB1B0A3E735811C288 /* MPLayoutFit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutFit.h; sourceTree = "<group>"; };
+		A33413487C50D810C4A5B6B83A422A67 /* MPPrintJobsPreviewViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintJobsPreviewViewController.m; sourceTree = "<group>"; };
 		A4FADCBA913FD62F7CD901CCA4EC50A6 /* OCMRealObjectForwarder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMRealObjectForwarder.h; path = Source/OCMock/OCMRealObjectForwarder.h; sourceTree = "<group>"; };
 		A57FAB1E7BCA9A71F44D17124B8C314A /* OCMIndirectReturnValueProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMIndirectReturnValueProvider.h; path = Source/OCMock/OCMIndirectReturnValueProvider.h; sourceTree = "<group>"; };
 		A5B67145ABAB295B7DD4A93CE3635B61 /* OCMVerifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMVerifier.h; path = Source/OCMock/OCMVerifier.h; sourceTree = "<group>"; };
 		A62848D638F77901D8D0C116E0066781 /* OCMReturnValueProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMReturnValueProvider.h; path = Source/OCMock/OCMReturnValueProvider.h; sourceTree = "<group>"; };
 		A62EEB14241AC5E23E3E3BB464D176F7 /* MPPrint@2x~iphone.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPPrint@2x~iphone.png"; sourceTree = "<group>"; };
-		A6F71F88C9259F8FC3E48FE205107ECC /* MPRuleView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPRuleView.m; sourceTree = "<group>"; };
-		A78DD41889A44BC9771CD5277883C248 /* MPPrintManager+Options.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MPPrintManager+Options.h"; sourceTree = "<group>"; };
-		A7ED5EA0D180EF8D643E919CC01F4F4B /* MPPrinter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrinter.h; sourceTree = "<group>"; };
-		A83F763E007A5DD8C9F56BD1E707CC77 /* MPPaper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPaper.h; sourceTree = "<group>"; };
-		A8E56402A2936F7F400C718057670924 /* MPLayoutAlgorithmStretch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithmStretch.m; sourceTree = "<group>"; };
-		A94CEAAA7FCE4C6049E12EEF5235F7F5 /* MPLayoutAlgorithm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithm.h; sourceTree = "<group>"; };
-		A94FBCCFC6934BAB828602FAB06F3789 /* MPLayoutPrepStepRotate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPrepStepRotate.h; sourceTree = "<group>"; };
+		A6CBFBDB82CE1ACC7D4E409DC99EC79E /* MPLegacyPageRange.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLegacyPageRange.h; sourceTree = "<group>"; };
+		A76781B35F3D6C15472D131187CC7228 /* MPLayoutAlgorithmFill.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithmFill.h; sourceTree = "<group>"; };
+		A79E15D061AB49B295AC9B6A77C4F460 /* MPPrintLaterJob.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterJob.h; sourceTree = "<group>"; };
+		A86758A6FD2E612D904A451394FC38BD /* MPLayoutPrepStepAdjust.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPrepStepAdjust.h; sourceTree = "<group>"; };
+		AB4408EA8C04A3CAC08172F3BD2431B5 /* MPDashedLineView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPDashedLineView.h; sourceTree = "<group>"; };
+		AB76CB55174A6A2B0E12BEDF2A966A47 /* MPPageSettingsTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPageSettingsTableViewController.h; sourceTree = "<group>"; };
+		ADBA59C444C04D9B7BC11AE4FEFEDE88 /* MPLayoutStretch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutStretch.h; sourceTree = "<group>"; };
 		AE24FA599B71AD8918EB67E7871BA527 /* OCProtocolMockObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCProtocolMockObject.m; path = Source/OCMock/OCProtocolMockObject.m; sourceTree = "<group>"; };
 		AE2F41E6B4E3D929A3A55A460EC465E8 /* OCMock.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OCMock.xcconfig; sourceTree = "<group>"; };
-		AEC3E5CA0F747F77D4AA2D83EBFE2C18 /* MPLayoutAlgorithmStretch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithmStretch.h; sourceTree = "<group>"; };
+		AF4E5F2EF2F9567078ACC7F5678151DC /* MPAppearance.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPAppearance.h; sourceTree = "<group>"; };
+		AF7BA9CFDEDED7F86D2705D43B80B805 /* MPPrintSettingsTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintSettingsTableViewController.m; sourceTree = "<group>"; };
+		B02A644F927A653169F6428F098DD444 /* MPPageRangeKeyboardView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPageRangeKeyboardView.h; sourceTree = "<group>"; };
+		B0348A52BB4382AE4F38A83B03BC0BEA /* UIView+MPAnimation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+MPAnimation.m"; sourceTree = "<group>"; };
+		B0763D3EE0417AFD6ADC2D04946DB118 /* MPLayoutPrepStep.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStep.m; sourceTree = "<group>"; };
+		B104453538347979D3D64CDF973FE705 /* MPLayoutAlgorithmStretch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithmStretch.h; sourceTree = "<group>"; };
 		B18F6CEAB5D1FA1DF186FFD0B7F6FFF3 /* NSNotificationCenter+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSNotificationCenter+OCMAdditions.m"; path = "Source/OCMock/NSNotificationCenter+OCMAdditions.m"; sourceTree = "<group>"; };
-		B29849ECA1FBB47AD77F7B02156424B7 /* MPPrintItemPDF.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItemPDF.h; sourceTree = "<group>"; };
-		B33E08B0F92925FBEB743E1B7A46921F /* MPLayoutPaperCellView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPaperCellView.m; sourceTree = "<group>"; };
-		B4500623C050E847431F6C59E98F37CB /* MPPageRangeKeyboardView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPageRangeKeyboardView.h; sourceTree = "<group>"; };
-		B6D3FF30DEA32FCDFF40AEC0B11786B2 /* MPPageViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageViewController.m; sourceTree = "<group>"; };
-		B79512DE4F742D90E8C26DEBC1D7FCC8 /* MPLayoutAlgorithmFit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithmFit.m; sourceTree = "<group>"; };
+		B406C74AD633A5177BF92232C6926625 /* MPLegacyPrintLaterJob.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLegacyPrintLaterJob.h; sourceTree = "<group>"; };
+		B41E24DC6C51BA9939A8271428DC0038 /* MPPrintJobsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintJobsViewController.h; sourceTree = "<group>"; };
+		B6AE0A2B515CEE5357F8F8E5F3E79380 /* MPLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLogger.m; sourceTree = "<group>"; };
+		B71A8D345A41B7CCC09238C47A4EC4AB /* MPView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPView.m; sourceTree = "<group>"; };
 		B8790852062BB062D1E9CE80CD298DD2 /* MPUnselected@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPUnselected@3x.png"; sourceTree = "<group>"; };
+		B961E0E54B655DEFF5F8F722DEAEAD2A /* UIImage+MPResize.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MPResize.m"; sourceTree = "<group>"; };
+		B9AD343BC40FBBA8CBFA82504182128F /* MPPrintActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintActivity.h; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BB7A9D54BDFDBF673CC93F967566430D /* MPLayoutComposite.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutComposite.h; sourceTree = "<group>"; };
 		BC2BEA00B4672D62F20AA4470AB46B19 /* Pods-MobilePrintSDK-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MobilePrintSDK-acknowledgements.plist"; sourceTree = "<group>"; };
 		BD2D0734D844DA6E171965870138DC0B /* OCMReturnValueProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMReturnValueProvider.m; path = Source/OCMock/OCMReturnValueProvider.m; sourceTree = "<group>"; };
-		BF5C9C15CE26D7C4AC385CD800A6E941 /* MPPrintJobsActionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintJobsActionView.h; sourceTree = "<group>"; };
+		BE0D46C8E2A6147D2BC10435C3D11520 /* MPPrintSettingsDelegateManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintSettingsDelegateManager.h; sourceTree = "<group>"; };
+		BE8CDF7F07DAFB7E6576681B2F9BD264 /* MPLayoutPaperView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPaperView.m; sourceTree = "<group>"; };
+		BEDD32E4BAF8BA9AA84942E259FBE428 /* MPLayoutPrepStepRotate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutPrepStepRotate.h; sourceTree = "<group>"; };
 		C09ED70F3F23B5607267073061DE266E /* OCMNotificationPoster.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMNotificationPoster.h; path = Source/OCMock/OCMNotificationPoster.h; sourceTree = "<group>"; };
-		C1213D4CF7266C17781AC117D2BF4232 /* UITableView+MPHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UITableView+MPHeader.h"; sourceTree = "<group>"; };
-		C1AB1B5D24E4C6BA544D2A89AFD5B65A /* MPView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPView.m; sourceTree = "<group>"; };
+		C0D945563957F498D5993A05E5FE629A /* MPPaperSizeTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPaperSizeTableViewController.m; sourceTree = "<group>"; };
+		C18125A50C07942D7245121CC5BDC8BD /* MPLayoutAlgorithm.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithm.m; sourceTree = "<group>"; };
+		C28F48E29C9AB9AB0761BADE7FEC46A9 /* MPPaper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPaper.m; sourceTree = "<group>"; };
 		C3B7BDF5CE5CB8F095FE12DA55D9A9BB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		C457DC1FEC210CD9E490346ABF3EF781 /* MPLayoutStretch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutStretch.m; sourceTree = "<group>"; };
 		C66575482297E1108047016448A8AA89 /* MPSelected@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPSelected@2x.png"; sourceTree = "<group>"; };
 		C75B178292D26EEAFC37AE15F4484430 /* NSObject+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+OCMAdditions.h"; path = "Source/OCMock/NSObject+OCMAdditions.h"; sourceTree = "<group>"; };
-		C8EFAEC578008A9FF2E807A753B745F7 /* MPPrintItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItem.m; sourceTree = "<group>"; };
-		C9AEE8EE723D9B4A2D58196622FC2AA2 /* MPLayoutAlgorithmFit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithmFit.h; sourceTree = "<group>"; };
-		CA02C68D8CD19728820C4FFB6E77F65C /* MPLayoutPrepStepAdjust.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStepAdjust.m; sourceTree = "<group>"; };
+		C83018128EE32E18440AC024E72FEA31 /* MPPageRangeKeyboardView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageRangeKeyboardView.m; sourceTree = "<group>"; };
 		CA13BDE0653E6CE653756C0F34D75CBD /* OCMConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMConstraint.m; path = Source/OCMock/OCMConstraint.m; sourceTree = "<group>"; };
-		CBD66869B4C36709A246C3BFFD24144C /* MPPrintItemFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemFactory.m; sourceTree = "<group>"; };
-		CE14329A98464DAD0E6C4E3147F46902 /* MPPrinter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrinter.m; sourceTree = "<group>"; };
-		D029314233FDC5E8E2C8142220A19883 /* MP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MP.h; sourceTree = "<group>"; };
-		D07D05CDAA53D85DE49E05FB11F4EB54 /* MPPrintSettingsTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintSettingsTableViewController.m; sourceTree = "<group>"; };
+		CED3ED7A899F6B8599F249DCB01994BE /* MPPaperTypeTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPaperTypeTableViewController.m; sourceTree = "<group>"; };
 		D082F5CE07A0079517E1BE21E8DF1E4D /* MPPrintLater@2x~ipad.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPPrintLater@2x~ipad.png"; sourceTree = "<group>"; };
+		D15822963E0AD62CE5FF0DE6A7E093BF /* MPPrintPageRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintPageRenderer.h; sourceTree = "<group>"; };
+		D15BE7AD7A5719B605D077AA50814E6F /* MPLayoutAlgorithmFit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithmFit.h; sourceTree = "<group>"; };
 		D23C63B92E9C802F11771597D5D2793F /* MPInactiveCircle@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPInactiveCircle@2x.png"; sourceTree = "<group>"; };
 		D483095DA052D0F8DD35A6CD6077C870 /* OCMBlockArgCaller.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMBlockArgCaller.h; path = Source/OCMock/OCMBlockArgCaller.h; sourceTree = "<group>"; };
 		D4D4B5FDC5B66DE7D5F274F4AA587F06 /* NSObject+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+OCMAdditions.m"; path = "Source/OCMock/NSObject+OCMAdditions.m"; sourceTree = "<group>"; };
-		D6255B1C03598DCCCE59958F1C84EC3A /* UIColor+MPHexString.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIColor+MPHexString.h"; sourceTree = "<group>"; };
+		D51B50A12141B8CB82975F18F469C453 /* MPLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLogger.h; sourceTree = "<group>"; };
 		D63997B3B2D85219DD4E0B0DAAC23302 /* MPGear@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPGear@2x.png"; sourceTree = "<group>"; };
 		D7202385F4B73FE73FC5F0B3F2BCDE92 /* MP.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = MP.storyboard; sourceTree = "<group>"; };
 		D81A364FB5D73A6D27DB6639C8E933F7 /* MPMeasurementArrowLeft@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowLeft@2x.png"; sourceTree = "<group>"; };
 		DA82512D2F9B7E22F21479275742B13E /* Pods-Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-resources.sh"; sourceTree = "<group>"; };
-		DA96CFA2E91A03125B165D32B3F1FBAE /* MPPrintPageRenderer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintPageRenderer.m; sourceTree = "<group>"; };
-		DAFEF33AD44F30E455E134CEB8E633CF /* MPPrintItemPDF.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemPDF.m; sourceTree = "<group>"; };
 		DC5CE0E0B34C52C943F03E27CEF9AE4B /* MPReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPReachability.h; sourceTree = "<group>"; };
-		DDF6A915E876F2C5AB6753A803AD5163 /* UITableView+MPHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UITableView+MPHeader.m"; sourceTree = "<group>"; };
+		DDC4ED215F711025B71FAAF57D0F7F4C /* NSBundle+MPLocalizable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+MPLocalizable.m"; sourceTree = "<group>"; };
 		DE3217F14E2190A0F02DF7A5AFB392C1 /* OCMRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMRecorder.m; path = Source/OCMock/OCMRecorder.m; sourceTree = "<group>"; };
-		DE98C62E27F77F7624B2CB716235A210 /* MPLayoutAlgorithmFill.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithmFill.m; sourceTree = "<group>"; };
-		DEC70C5D1C6679F6623483C8C20F434F /* UIImage+MPResize.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIImage+MPResize.h"; sourceTree = "<group>"; };
-		DEE513EE77D32667C5DD82BD0B3FB861 /* MPInterfaceOptions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPInterfaceOptions.m; sourceTree = "<group>"; };
-		DF037A07886648E53CBE30883EF27C2F /* MPPrintLaterQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterQueue.m; sourceTree = "<group>"; };
+		DFD917734BB178C64423060E47DA9D04 /* MPPageSettingsTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageSettingsTableViewController.m; sourceTree = "<group>"; };
 		E0004332783EF92BE89E1BB196B5237A /* MPPrintJobsActionView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MPPrintJobsActionView.xib; sourceTree = "<group>"; };
-		E246A98D031B4EFBBFD0CB9ACA69F053 /* MP.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MP.m; sourceTree = "<group>"; };
-		E3A58C64CF3C47D10EE510ABF35375F3 /* MPSupportAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPSupportAction.h; sourceTree = "<group>"; };
+		E1C6062181B04D4BAAA2B214D321B856 /* MPPageRange.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageRange.m; sourceTree = "<group>"; };
+		E31C7407FC149877BE7AFDF56686F82D /* MPSupportAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPSupportAction.m; sourceTree = "<group>"; };
+		E398316BD97441ECD04B34A7AD6E3958 /* MPLayoutComposite.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutComposite.m; sourceTree = "<group>"; };
 		E3E0170E8E066E8816E413792E91A599 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		E3F0BED6349AD2ED042571B40F6C7E1F /* MPLayoutFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFactory.m; sourceTree = "<group>"; };
 		E43E9CA2F306C7DB95BE7D2E6141CCE8 /* OCMVerifier.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMVerifier.m; path = Source/OCMock/OCMVerifier.m; sourceTree = "<group>"; };
 		E6E6DC5765291E97A74367B6CD553397 /* OCMStubRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMStubRecorder.h; path = Source/OCMock/OCMStubRecorder.h; sourceTree = "<group>"; };
-		E7C0920E212235A06CBECE1D8770BC83 /* MPLayoutPaperView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPaperView.m; sourceTree = "<group>"; };
 		E837640F38CCEEB2717504118108B9A8 /* Pods-Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tests-dummy.m"; sourceTree = "<group>"; };
+		E87DE6565A321157C78A5389D2EC3DAD /* MPPrintPageRenderer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintPageRenderer.m; sourceTree = "<group>"; };
 		E8F80CD02A75227A72AF4D9B6BC8F4A5 /* OCClassMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCClassMockObject.h; path = Source/OCMock/OCClassMockObject.h; sourceTree = "<group>"; };
 		E90F1746941B3FFD6D567EBC527517F1 /* OCMInvocationExpectation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMInvocationExpectation.m; path = Source/OCMock/OCMInvocationExpectation.m; sourceTree = "<group>"; };
-		E9D1F794ACD3DE6FFC1DD36110D4C43F /* MPPageRangeKeyboardView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageRangeKeyboardView.m; sourceTree = "<group>"; };
 		EA36C9D8653A2387A580DD3083233D56 /* Pods-Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-frameworks.sh"; sourceTree = "<group>"; };
-		EB604222E039E44A99CFB0F41EEB54F2 /* MPLayoutFit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutFit.h; sourceTree = "<group>"; };
-		ECA6D555718CE92051E339AACB543BA9 /* MPDashedLineView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPDashedLineView.h; sourceTree = "<group>"; };
+		EA5D2044534B66B58E81C2FD089E4DD4 /* MPLegacyPrintItemImage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLegacyPrintItemImage.m; sourceTree = "<group>"; };
+		EBA62EF8F2FCD17753485D5F008CED25 /* MPWiFiReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPWiFiReachability.m; sourceTree = "<group>"; };
+		EC64F76B8D5F6DC74AEA894FD69F07D6 /* MPPrintItemFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemFactory.m; sourceTree = "<group>"; };
 		ED648195029885DC651D5078CD170B84 /* MPMeasurementArrowDown@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPMeasurementArrowDown@2x.png"; sourceTree = "<group>"; };
+		EDC6E39D3F123D1A8D6B400DBDE0C57C /* MPLayoutAlgorithm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLayoutAlgorithm.h; sourceTree = "<group>"; };
+		EEAF07C99EF7775698C80D0B72A24F47 /* MPPrintJobsPreviewViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintJobsPreviewViewController.h; sourceTree = "<group>"; };
+		EEE8DDA7C4673D5287FACAF3D0FE000F /* MPAppearance.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPAppearance.m; sourceTree = "<group>"; };
+		EF619DC988FD500AFACE48624C7E17BA /* MPPrintSettings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintSettings.m; sourceTree = "<group>"; };
 		EF9C85E4136892F1B6A68CDE39CF5793 /* Pods-MobilePrintSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MobilePrintSDK-dummy.m"; sourceTree = "<group>"; };
-		F02AB8238D3FF095CBFA6D7D68F4A844 /* MPMultiPageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPMultiPageView.m; sourceTree = "<group>"; };
 		F0F4A6A6FD63C0D5EE543EE88C2E5F25 /* OCMInvocationExpectation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMInvocationExpectation.h; path = Source/OCMock/OCMInvocationExpectation.h; sourceTree = "<group>"; };
 		F137173F9CF2296CAB75961E7D32EAA8 /* OCMock.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMock.h; path = Source/OCMock/OCMock.h; sourceTree = "<group>"; };
-		F1F6C20A9884A05107AAB3E4E133B690 /* MPPrintLaterActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterActivity.h; sourceTree = "<group>"; };
 		F24DB96343355AA699F7F7C09F729C7E /* OCMRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMRecorder.h; path = Source/OCMock/OCMRecorder.h; sourceTree = "<group>"; };
 		F2E14F26554BD55BB72FEEBAFA66D557 /* OCMFunctions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMFunctions.h; path = Source/OCMock/OCMFunctions.h; sourceTree = "<group>"; };
 		F32EA8ED140E1B174EB78CF1FB4B73FB /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3306B83792EB0BC440508773FE594CA /* MPPageViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPageViewController.h; sourceTree = "<group>"; };
-		F462A2AA8FD540FD187C31D76D666D84 /* MPPrintItemFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItemFactory.h; sourceTree = "<group>"; };
+		F44C778EA39A513910B3A483D1879BE0 /* MPPrintItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItem.h; sourceTree = "<group>"; };
 		F603C6C681E472E9FBDCF1F98FBB7B7D /* OCMExceptionReturnValueProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMExceptionReturnValueProvider.h; path = Source/OCMock/OCMExceptionReturnValueProvider.h; sourceTree = "<group>"; };
-		F65B4A464E0C5907650DD29B2C994B90 /* MPAppearance.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPAppearance.m; sourceTree = "<group>"; };
-		F79921E0488399D4384BEEE3A0CBD7F0 /* MPLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLogger.h; sourceTree = "<group>"; };
+		F8515611E3ED2F4885DA9D39CA67631C /* UIColor+MPHexString.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MPHexString.m"; sourceTree = "<group>"; };
 		F876FFCE54BC9C1542E356D4486DBAD4 /* Pods-MobilePrintSDK-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MobilePrintSDK-acknowledgements.markdown"; sourceTree = "<group>"; };
 		F8A4E6533DB80BCFE7E472E3FBD01415 /* Pods-MobilePrintSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MobilePrintSDK.release.xcconfig"; sourceTree = "<group>"; };
-		F97548406FAADD0F436F1219336164FD /* MPPrintItemImage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemImage.m; sourceTree = "<group>"; };
-		F9998A7B164B466CC783232CDA5975C4 /* MPLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLogger.m; sourceTree = "<group>"; };
+		F928F86EE6199D9DC9AB2A82EC0F4F41 /* MPPrintManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintManager.h; sourceTree = "<group>"; };
+		F959A408032BA43D30439371DDD7CF16 /* MPPrintItemFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintItemFactory.h; sourceTree = "<group>"; };
+		F9E3938F41ADAB14DE06603B80999710 /* MPPrinter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrinter.h; sourceTree = "<group>"; };
 		FA77AF7086B37C50CF9E16041EFCBB66 /* NSInvocation+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSInvocation+OCMAdditions.m"; path = "Source/OCMock/NSInvocation+OCMAdditions.m"; sourceTree = "<group>"; };
-		FB5FE5372B4926EB05761B690FA25F49 /* MPLayoutAlgorithm.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutAlgorithm.m; sourceTree = "<group>"; };
 		FBF2D665F4B661BE01174424D5F4E43E /* OCMock-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OCMock-prefix.pch"; sourceTree = "<group>"; };
+		FD3268E418D5F4D44C5DCC8656CDF91E /* MPInterfaceOptions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPInterfaceOptions.m; sourceTree = "<group>"; };
 		FDA3EE714EBFA8E5F56FE9BB8450F3B9 /* MPPrint@2x~ipad.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "MPPrint@2x~ipad.png"; sourceTree = "<group>"; };
 		FF83D4F2C0839CACBA0254DF31249D8E /* OCMPassByRefSetter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMPassByRefSetter.h; path = Source/OCMock/OCMPassByRefSetter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		018DDD3F32AEA508BD111A46395FD423 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				ADB8E7249FDE22262EB48414052532D3 /* Foundation.framework in Frameworks */,
-				2A889155A569DC1117CA64628E90C991 /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4C2602132A1D207DB135342BF83AB581 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -510,6 +517,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C1C71793D4C13980B30B48BA25217C6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD7E834976F6405E99459B8996D93B96 /* Foundation.framework in Frameworks */,
+				C2CE9B64068D4F049A69234753C59A43 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FBD1C8C29927A8F171FB26C5C97284D1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -521,15 +537,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0289654C9E464038C2A0E5BEFE15D11E /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				F474854F3BD9408B95BF37CDFFC6B332 /* Private */,
-				3EFA8CE3504A37B62867E3FD9943612C /* Public */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		100031338E0D0416B59FA14460D16F90 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -580,59 +587,6 @@
 				5EDE9874D18599A43517D329416B3941 /* Pod */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		3EFA8CE3504A37B62867E3FD9943612C /* Public */ = {
-			isa = PBXGroup;
-			children = (
-				D029314233FDC5E8E2C8142220A19883 /* MP.h */,
-				E246A98D031B4EFBBFD0CB9ACA69F053 /* MP.m */,
-				8240A33D9CF4456802D94A9DCDAA8CC4 /* MPAppearance.h */,
-				F65B4A464E0C5907650DD29B2C994B90 /* MPAppearance.m */,
-				949D61A9BA4B1C5D428825028AB1451E /* MPDefaultSettingsManager.h */,
-				1E664F3CA268DF41C183F66BADB20211 /* MPDefaultSettingsManager.m */,
-				153A1164F60C3C206418A2DB52F2367F /* MPInterfaceOptions.h */,
-				DEE513EE77D32667C5DD82BD0B3FB861 /* MPInterfaceOptions.m */,
-				A35A9BB572E84CF90A6985CAD9D1E0D0 /* MPLayout.h */,
-				35CA69165ECA12CD7BAA5539718321E6 /* MPLayout.m */,
-				A94CEAAA7FCE4C6049E12EEF5235F7F5 /* MPLayoutAlgorithm.h */,
-				FB5FE5372B4926EB05761B690FA25F49 /* MPLayoutAlgorithm.m */,
-				07D956F9BE46C82138AB0085518E2434 /* MPLayoutComposite.h */,
-				9D2F103886AFEDF940EB05A89D09F546 /* MPLayoutComposite.m */,
-				218515EE47476EA099DD568BA51B4D2B /* MPLayoutFactory.h */,
-				E3F0BED6349AD2ED042571B40F6C7E1F /* MPLayoutFactory.m */,
-				1143C3DF22503F0A5D8A855E1737919E /* MPLayoutFill.h */,
-				26A590BE02BA3CB8A8944C675E7479BF /* MPLayoutFill.m */,
-				EB604222E039E44A99CFB0F41EEB54F2 /* MPLayoutFit.h */,
-				6606F5B813AD5541497654305D307A47 /* MPLayoutFit.m */,
-				72AA40228E565599810632E0D40D8D17 /* MPLayoutPrepStep.h */,
-				7751EFA4AF3B5991DF8E7624BBAF0342 /* MPLayoutPrepStep.m */,
-				16A9D4EF6BC1106043C06AE2E65F376F /* MPLayoutStretch.h */,
-				3FCAD47B576C20E9B238FE254E98DDB8 /* MPLayoutStretch.m */,
-				F79921E0488399D4384BEEE3A0CBD7F0 /* MPLogger.h */,
-				F9998A7B164B466CC783232CDA5975C4 /* MPLogger.m */,
-				17AE1E1A6F88BC1EC3B681AD274DEBCD /* MPPageRange.h */,
-				63518F30E568AFC12F7E037C8917912D /* MPPageRange.m */,
-				A83F763E007A5DD8C9F56BD1E707CC77 /* MPPaper.h */,
-				5800FEB01259C04D6B588CDD7C4CBF55 /* MPPaper.m */,
-				05AFA3D28B0F2425729EB305B26FB189 /* MPPrintActivity.h */,
-				41C16221C6A1CD90B1A7979BE8FD1A1D /* MPPrintActivity.m */,
-				584C533A6CFD35512E1BAECFD122ACA3 /* MPPrintItem.h */,
-				C8EFAEC578008A9FF2E807A753B745F7 /* MPPrintItem.m */,
-				F462A2AA8FD540FD187C31D76D666D84 /* MPPrintItemFactory.h */,
-				CBD66869B4C36709A246C3BFFD24144C /* MPPrintItemFactory.m */,
-				F1F6C20A9884A05107AAB3E4E133B690 /* MPPrintLaterActivity.h */,
-				19C8B0C8985B92D008982E1396CC898C /* MPPrintLaterActivity.m */,
-				5F75D4C308965C723FF1BADBCB1AD0A1 /* MPPrintLaterJob.h */,
-				288805A843A25033BBBBFB619411A8FB /* MPPrintLaterJob.m */,
-				A442379F1AAB985AE30F5ECAA8E54803 /* MPPrintManager.h */,
-				990D5FE6286D3535AC52DDD694A33FDB /* MPPrintManager.m */,
-				2D486B7E9C953D31140A66E6BCEC4B30 /* MPPrintSettings.h */,
-				44A2ABA5ADC8C59919E6359778290B70 /* MPPrintSettings.m */,
-				E3A58C64CF3C47D10EE510ABF35375F3 /* MPSupportAction.h */,
-				78A5ED649FAE828C25DB3722FBDAC68D /* MPSupportAction.m */,
-			);
-			path = Public;
 			sourceTree = "<group>";
 		};
 		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
@@ -797,10 +751,19 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		9095D1C2A2D6398CBACBCB4B40563161 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				FE022C0973D135E18E6E0D7C61B360B7 /* Private */,
+				EBBE9CA6B516045D3B9A1BF0028E8446 /* Public */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		90C780B7C2344E169FDBBB4053587E6D /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				0289654C9E464038C2A0E5BEFE15D11E /* Classes */,
+				9095D1C2A2D6398CBACBCB4B40563161 /* Classes */,
 				A009FC7218268903CCB85BD7B96EBD38 /* Libraries */,
 			);
 			path = Pod;
@@ -869,87 +832,57 @@
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		F474854F3BD9408B95BF37CDFFC6B332 /* Private */ = {
+		EBBE9CA6B516045D3B9A1BF0028E8446 /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				32A25BC49361BE4539843C2ACCEBD456 /* MPAnalyticsManager.h */,
-				1C65AD30DB55A555B13F1AA742C8225A /* MPAnalyticsManager.m */,
-				ECA6D555718CE92051E339AACB543BA9 /* MPDashedLineView.h */,
-				04CAEE9BF5168A39F0D9FD78D4E9742B /* MPDashedLineView.m */,
-				882E8DB06F69D9C93A09C8639FD0F8CA /* MPLayoutAlgorithmFill.h */,
-				DE98C62E27F77F7624B2CB716235A210 /* MPLayoutAlgorithmFill.m */,
-				C9AEE8EE723D9B4A2D58196622FC2AA2 /* MPLayoutAlgorithmFit.h */,
-				B79512DE4F742D90E8C26DEBC1D7FCC8 /* MPLayoutAlgorithmFit.m */,
-				AEC3E5CA0F747F77D4AA2D83EBFE2C18 /* MPLayoutAlgorithmStretch.h */,
-				A8E56402A2936F7F400C718057670924 /* MPLayoutAlgorithmStretch.m */,
-				59365536FD762081E6882601590FFE92 /* MPLayoutPaperCellView.h */,
-				B33E08B0F92925FBEB743E1B7A46921F /* MPLayoutPaperCellView.m */,
-				3299734C3C5872CC26488F631311858C /* MPLayoutPaperView.h */,
-				E7C0920E212235A06CBECE1D8770BC83 /* MPLayoutPaperView.m */,
-				9810873C8AAB5AF16E27E8D90D120693 /* MPLayoutPrepStepAdjust.h */,
-				CA02C68D8CD19728820C4FFB6E77F65C /* MPLayoutPrepStepAdjust.m */,
-				A94FBCCFC6934BAB828602FAB06F3789 /* MPLayoutPrepStepRotate.h */,
-				41B5279D4EB01559410A0601AD78E17B /* MPLayoutPrepStepRotate.m */,
-				94AC03432089002893AA1A7F767DA012 /* MPMultiPageView.h */,
-				F02AB8238D3FF095CBFA6D7D68F4A844 /* MPMultiPageView.m */,
-				B4500623C050E847431F6C59E98F37CB /* MPPageRangeKeyboardView.h */,
-				E9D1F794ACD3DE6FFC1DD36110D4C43F /* MPPageRangeKeyboardView.m */,
-				3A22CA10533D94EB6A75D6C00EC2D961 /* MPPageSettingsTableViewController.h */,
-				9553229EBA731B7F115D09578FF495FE /* MPPageSettingsTableViewController.m */,
-				F3306B83792EB0BC440508773FE594CA /* MPPageViewController.h */,
-				B6D3FF30DEA32FCDFF40AEC0B11786B2 /* MPPageViewController.m */,
-				671088D76DE9353B17CE0FE139A58D33 /* MPPaperSizeTableViewController.h */,
-				82031CC166CB38E98D42534250644CC0 /* MPPaperSizeTableViewController.m */,
-				63B0B0C7C9162D6A2C98F6EE110CDC97 /* MPPaperTypeTableViewController.h */,
-				018E0D64214BEAB0CC9CD1B553F0E43B /* MPPaperTypeTableViewController.m */,
-				A7ED5EA0D180EF8D643E919CC01F4F4B /* MPPrinter.h */,
-				CE14329A98464DAD0E6C4E3147F46902 /* MPPrinter.m */,
-				21E30F637E36A6B390AE038697CA16C8 /* MPPrintItemImage.h */,
-				F97548406FAADD0F436F1219336164FD /* MPPrintItemImage.m */,
-				B29849ECA1FBB47AD77F7B02156424B7 /* MPPrintItemPDF.h */,
-				DAFEF33AD44F30E455E134CEB8E633CF /* MPPrintItemPDF.m */,
-				BF5C9C15CE26D7C4AC385CD800A6E941 /* MPPrintJobsActionView.h */,
-				7786DEF3DB6C5AD46913FAB1541D8E5C /* MPPrintJobsActionView.m */,
-				6E0BF7F11B2B1126CF8118192F538456 /* MPPrintJobsPreviewViewController.h */,
-				827AAA74FB775F9D765BC2E0628E7F40 /* MPPrintJobsPreviewViewController.m */,
-				110B533CB58D88F17BAD7A3A54CD7A2D /* MPPrintJobsTableViewCell.h */,
-				4511E31350E9E0A912A1133E395F5C3A /* MPPrintJobsTableViewCell.m */,
-				01818172B9E82379A0743D111ED133BA /* MPPrintJobsViewController.h */,
-				3E5F33A78A4147B0ED474C949FCCED40 /* MPPrintJobsViewController.m */,
-				2EF5DE5D5CC5971824FE6883ACFFD169 /* MPPrintLaterHelperViewController.h */,
-				6FAFB4966B15012AEE36E2C90CD143D9 /* MPPrintLaterHelperViewController.m */,
-				55E7A35735961AA2C8A08BE9BBFA35A8 /* MPPrintLaterManager.h */,
-				9F5D3FA4DA7679D91D1529C0FEE0C570 /* MPPrintLaterManager.m */,
-				1E9616BFA0495D8F88149FCDC5137ACD /* MPPrintLaterQueue.h */,
-				DF037A07886648E53CBE30883EF27C2F /* MPPrintLaterQueue.m */,
-				A78DD41889A44BC9771CD5277883C248 /* MPPrintManager+Options.h */,
-				922A02337BBE0F64D0A38ECD52CAA8BE /* MPPrintManager+Options.m */,
-				48F52FC132027AE9FD7C15154A626DAC /* MPPrintPageRenderer.h */,
-				DA96CFA2E91A03125B165D32B3F1FBAE /* MPPrintPageRenderer.m */,
-				09DB319A1867142EDA48BEFFACD90B9A /* MPPrintSettingsDelegateManager.h */,
-				44DBB67500C4FAF32C50E5379DE78518 /* MPPrintSettingsDelegateManager.m */,
-				845F71A565E9CBE284FF394F680CB8F0 /* MPPrintSettingsTableViewController.h */,
-				D07D05CDAA53D85DE49E05FB11F4EB54 /* MPPrintSettingsTableViewController.m */,
-				6AEE6164D6F634E419BE5CCBAE351DA5 /* MPRuleView.h */,
-				A6F71F88C9259F8FC3E48FE205107ECC /* MPRuleView.m */,
-				160FA68757D5AC55D63602D5DFF45803 /* MPView.h */,
-				C1AB1B5D24E4C6BA544D2A89AFD5B65A /* MPView.m */,
-				9EAA9A69417A46B92560C366894F9F8F /* MPWiFiReachability.h */,
-				71D54D5D0043463859F53EF738E34F02 /* MPWiFiReachability.m */,
-				54F36B0885ED278D9BF66805A9BDD810 /* NSBundle+MPLocalizable.h */,
-				13A79D66A11EEB36B237806B587D980A /* NSBundle+MPLocalizable.m */,
-				D6255B1C03598DCCCE59958F1C84EC3A /* UIColor+MPHexString.h */,
-				9F65CEA4CD97C047664E7E75CDF2FEFF /* UIColor+MPHexString.m */,
-				665438EC954C190591D8B7236E73CA6A /* UIColor+MPStyle.h */,
-				93108505279BF5A84C84EA2100A72685 /* UIColor+MPStyle.m */,
-				DEC70C5D1C6679F6623483C8C20F434F /* UIImage+MPResize.h */,
-				2FB7196C4249BC57C1612C748F39E504 /* UIImage+MPResize.m */,
-				C1213D4CF7266C17781AC117D2BF4232 /* UITableView+MPHeader.h */,
-				DDF6A915E876F2C5AB6753A803AD5163 /* UITableView+MPHeader.m */,
-				6D822639774096C6A226FC9773E846FE /* UIView+MPAnimation.h */,
-				7B891793F545A0644AFF77B24FE97824 /* UIView+MPAnimation.m */,
+				02E05D053339EFB0C4AB412903038522 /* MP.h */,
+				9984AE0A2C9ED88C37704BB773B13743 /* MP.m */,
+				AF4E5F2EF2F9567078ACC7F5678151DC /* MPAppearance.h */,
+				EEE8DDA7C4673D5287FACAF3D0FE000F /* MPAppearance.m */,
+				5710775DC605D34EE5F75F65B3FFF438 /* MPDefaultSettingsManager.h */,
+				20DA52B56EDADCE4B16C85039660DC68 /* MPDefaultSettingsManager.m */,
+				9E571D40554FD0FFB5F12A0AAE6B9C06 /* MPInterfaceOptions.h */,
+				FD3268E418D5F4D44C5DCC8656CDF91E /* MPInterfaceOptions.m */,
+				418F3D1E406EAA6400A692B4EAA4C947 /* MPLayout.h */,
+				99424063429E875781D4F58B54808170 /* MPLayout.m */,
+				EDC6E39D3F123D1A8D6B400DBDE0C57C /* MPLayoutAlgorithm.h */,
+				C18125A50C07942D7245121CC5BDC8BD /* MPLayoutAlgorithm.m */,
+				BB7A9D54BDFDBF673CC93F967566430D /* MPLayoutComposite.h */,
+				E398316BD97441ECD04B34A7AD6E3958 /* MPLayoutComposite.m */,
+				2206D19D25A5ECAF42F9E9C321DB4A03 /* MPLayoutFactory.h */,
+				5CD9A0489EE478DE6A57BAEFCDB42E8F /* MPLayoutFactory.m */,
+				2D23C0D681ECF1E7E5205A42E652AC67 /* MPLayoutFill.h */,
+				99DDE6FB2ED49071D1068D601A196ED4 /* MPLayoutFill.m */,
+				A1CF9DD251B91BFB1B0A3E735811C288 /* MPLayoutFit.h */,
+				5D38D8AC2816F4B6F15477B58D3B7F3D /* MPLayoutFit.m */,
+				8BAACF3D655CE69FB586323671986986 /* MPLayoutPrepStep.h */,
+				B0763D3EE0417AFD6ADC2D04946DB118 /* MPLayoutPrepStep.m */,
+				ADBA59C444C04D9B7BC11AE4FEFEDE88 /* MPLayoutStretch.h */,
+				C457DC1FEC210CD9E490346ABF3EF781 /* MPLayoutStretch.m */,
+				D51B50A12141B8CB82975F18F469C453 /* MPLogger.h */,
+				B6AE0A2B515CEE5357F8F8E5F3E79380 /* MPLogger.m */,
+				45B28FCD799962EE7A22AB1F9F2BE4BE /* MPPageRange.h */,
+				E1C6062181B04D4BAAA2B214D321B856 /* MPPageRange.m */,
+				A00879F36DFD55E23F095881011F144A /* MPPaper.h */,
+				C28F48E29C9AB9AB0761BADE7FEC46A9 /* MPPaper.m */,
+				B9AD343BC40FBBA8CBFA82504182128F /* MPPrintActivity.h */,
+				746899CC0236A3B0805C826AB686A879 /* MPPrintActivity.m */,
+				F44C778EA39A513910B3A483D1879BE0 /* MPPrintItem.h */,
+				3D646A95C8CC5FF0C665B61C0C261BC9 /* MPPrintItem.m */,
+				F959A408032BA43D30439371DDD7CF16 /* MPPrintItemFactory.h */,
+				EC64F76B8D5F6DC74AEA894FD69F07D6 /* MPPrintItemFactory.m */,
+				7CF2F395818B01983F049C964AE0D5C7 /* MPPrintLaterActivity.h */,
+				8B35F496D70A88204C7461D9D122CF19 /* MPPrintLaterActivity.m */,
+				A79E15D061AB49B295AC9B6A77C4F460 /* MPPrintLaterJob.h */,
+				413AEC89253BE4D0C93881C66069AC55 /* MPPrintLaterJob.m */,
+				F928F86EE6199D9DC9AB2A82EC0F4F41 /* MPPrintManager.h */,
+				67AE3DFE8F7D3F1D5C424885552EB79D /* MPPrintManager.m */,
+				6701933BD11C82E0F6D48D3AED27D415 /* MPPrintSettings.h */,
+				EF619DC988FD500AFACE48624C7E17BA /* MPPrintSettings.m */,
+				443ECF8F3513F0942BB0D912A507C8E6 /* MPSupportAction.h */,
+				E31C7407FC149877BE7AFDF56686F82D /* MPSupportAction.m */,
 			);
-			path = Private;
+			path = Public;
 			sourceTree = "<group>";
 		};
 		F56B14037976C4A0DF8C5F04642C0CBB /* MobilePrintSDK */ = {
@@ -963,9 +896,173 @@
 			path = ../..;
 			sourceTree = "<group>";
 		};
+		FE022C0973D135E18E6E0D7C61B360B7 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				4132B6232F28219EA64BC490F12FECA1 /* MPAnalyticsManager.h */,
+				02EE03496C5C1C36C74BDFC5220209A8 /* MPAnalyticsManager.m */,
+				AB4408EA8C04A3CAC08172F3BD2431B5 /* MPDashedLineView.h */,
+				79523887B25CACE491A1A32C531E421B /* MPDashedLineView.m */,
+				A76781B35F3D6C15472D131187CC7228 /* MPLayoutAlgorithmFill.h */,
+				44A65AB02897D993376811F549F34893 /* MPLayoutAlgorithmFill.m */,
+				D15BE7AD7A5719B605D077AA50814E6F /* MPLayoutAlgorithmFit.h */,
+				28DD7317345C4A7869DA0FF100BC6D50 /* MPLayoutAlgorithmFit.m */,
+				B104453538347979D3D64CDF973FE705 /* MPLayoutAlgorithmStretch.h */,
+				856976F275E7920981AD4E3AF282F542 /* MPLayoutAlgorithmStretch.m */,
+				3CA8807179E34F010F90867E450FC2F4 /* MPLayoutPaperCellView.h */,
+				11E7E4B27404A745B32BAE4C9BC79463 /* MPLayoutPaperCellView.m */,
+				3FC91A758E7BCA380A60F2E3E435BB1D /* MPLayoutPaperView.h */,
+				BE8CDF7F07DAFB7E6576681B2F9BD264 /* MPLayoutPaperView.m */,
+				A86758A6FD2E612D904A451394FC38BD /* MPLayoutPrepStepAdjust.h */,
+				32CFB544064ADA96B839CF7EA8712109 /* MPLayoutPrepStepAdjust.m */,
+				BEDD32E4BAF8BA9AA84942E259FBE428 /* MPLayoutPrepStepRotate.h */,
+				1A8D2F6BE7D7891E48F361E4D0E3C5BC /* MPLayoutPrepStepRotate.m */,
+				A6CBFBDB82CE1ACC7D4E409DC99EC79E /* MPLegacyPageRange.h */,
+				99D4A4B75FAD64BDA785E383CE13ADA7 /* MPLegacyPageRange.m */,
+				43EB1B855BFB38DA9751854EABB6AAA6 /* MPLegacyPrintItemImage.h */,
+				EA5D2044534B66B58E81C2FD089E4DD4 /* MPLegacyPrintItemImage.m */,
+				43CAF694C19A0A983FBCDA263B365894 /* MPLegacyPrintItemPDF.h */,
+				6688290285DFBAD0F8A4E6B401C81188 /* MPLegacyPrintItemPDF.m */,
+				B406C74AD633A5177BF92232C6926625 /* MPLegacyPrintLaterJob.h */,
+				4A96599C8B3FF0B5857ABE5833B3D3DB /* MPLegacyPrintLaterJob.m */,
+				6671A5549D52C78FF2F5A8354A88BF94 /* MPMultiPageView.h */,
+				0ED5D4E305914AE58B0D02F2A1DFBA2F /* MPMultiPageView.m */,
+				B02A644F927A653169F6428F098DD444 /* MPPageRangeKeyboardView.h */,
+				C83018128EE32E18440AC024E72FEA31 /* MPPageRangeKeyboardView.m */,
+				AB76CB55174A6A2B0E12BEDF2A966A47 /* MPPageSettingsTableViewController.h */,
+				DFD917734BB178C64423060E47DA9D04 /* MPPageSettingsTableViewController.m */,
+				398EDD1D32357E639E1A9D67C36C6ED0 /* MPPageViewController.h */,
+				40DF7463CF90C61FAEE26352B9D76538 /* MPPageViewController.m */,
+				4FD47D0FEFFDEF821870A2EBBEA3B297 /* MPPaperSizeTableViewController.h */,
+				C0D945563957F498D5993A05E5FE629A /* MPPaperSizeTableViewController.m */,
+				1A2837EAD3E2665C8332F4684FC14892 /* MPPaperTypeTableViewController.h */,
+				CED3ED7A899F6B8599F249DCB01994BE /* MPPaperTypeTableViewController.m */,
+				F9E3938F41ADAB14DE06603B80999710 /* MPPrinter.h */,
+				7D856E9E4A31537BE8F58D4AD570362B /* MPPrinter.m */,
+				1866727C89E7F57FC4722C63E84DA2D4 /* MPPrintItemImage.h */,
+				70D25DEE9C7269B5038CC132719F6BA9 /* MPPrintItemImage.m */,
+				8847806558CDD67EB15BEDEF98B2FCB7 /* MPPrintItemPDF.h */,
+				6801EFDCFAE65770B05E6CA5DD415331 /* MPPrintItemPDF.m */,
+				93124C0781B3FDCF2D71E237F3C83FC7 /* MPPrintJobsActionView.h */,
+				6090BFD08DE9502B77D5822F3F9DD91A /* MPPrintJobsActionView.m */,
+				EEAF07C99EF7775698C80D0B72A24F47 /* MPPrintJobsPreviewViewController.h */,
+				A33413487C50D810C4A5B6B83A422A67 /* MPPrintJobsPreviewViewController.m */,
+				98C6B1997CE4CE75E8380738AFF1690D /* MPPrintJobsTableViewCell.h */,
+				9BF2BB6FC2BD6CD1D4E6794A5331E9A9 /* MPPrintJobsTableViewCell.m */,
+				B41E24DC6C51BA9939A8271428DC0038 /* MPPrintJobsViewController.h */,
+				68C052F158202281D3118E847C58D7BA /* MPPrintJobsViewController.m */,
+				0669335AAF875AC1B3DFD896727FE0FB /* MPPrintLaterHelperViewController.h */,
+				77BEA242E4108A73E42F6C3F0B8165EF /* MPPrintLaterHelperViewController.m */,
+				5CA9D2C79F24BC7B3D6FF19736952B7B /* MPPrintLaterManager.h */,
+				2C55349BBCAD41EFDB1A08BA649B6970 /* MPPrintLaterManager.m */,
+				36B9148A51968ABF857247EC39805EBD /* MPPrintLaterQueue.h */,
+				107B5B42E115CAD1F9D4D9D72D42D901 /* MPPrintLaterQueue.m */,
+				47D2480A09511B7A4A952BF4ADB82CAC /* MPPrintManager+Options.h */,
+				748944E0726FBD8836DA0C5E0829D709 /* MPPrintManager+Options.m */,
+				D15822963E0AD62CE5FF0DE6A7E093BF /* MPPrintPageRenderer.h */,
+				E87DE6565A321157C78A5389D2EC3DAD /* MPPrintPageRenderer.m */,
+				BE0D46C8E2A6147D2BC10435C3D11520 /* MPPrintSettingsDelegateManager.h */,
+				78A80DDC493A319B14B75645DCDDD033 /* MPPrintSettingsDelegateManager.m */,
+				2355EC7085A1CC3532645008274DEFA5 /* MPPrintSettingsTableViewController.h */,
+				AF7BA9CFDEDED7F86D2705D43B80B805 /* MPPrintSettingsTableViewController.m */,
+				4D94AE90E4651432B212DAB03088EE29 /* MPRuleView.h */,
+				4B12C817D93F59F7D092A53334364B05 /* MPRuleView.m */,
+				2F5BCE3403D4DAAB3AA127009D0BD365 /* MPView.h */,
+				B71A8D345A41B7CCC09238C47A4EC4AB /* MPView.m */,
+				2BF83B31C1D9C7CF89AF537319CD29A9 /* MPWiFiReachability.h */,
+				EBA62EF8F2FCD17753485D5F008CED25 /* MPWiFiReachability.m */,
+				8E24D48B5FED1B9C4EFAA8F9DE1FE1DF /* NSBundle+MPLocalizable.h */,
+				DDC4ED215F711025B71FAAF57D0F7F4C /* NSBundle+MPLocalizable.m */,
+				426A5D463249A97E723DBD47718DE664 /* UIColor+MPHexString.h */,
+				F8515611E3ED2F4885DA9D39CA67631C /* UIColor+MPHexString.m */,
+				77B62A68510C35A71813C50467B82058 /* UIColor+MPStyle.h */,
+				338FBC0D0F884C1D9E545F1E5273F224 /* UIColor+MPStyle.m */,
+				185A927EFAB67B26998A6B8E25BD242C /* UIImage+MPResize.h */,
+				B961E0E54B655DEFF5F8F722DEAEAD2A /* UIImage+MPResize.m */,
+				4148B49EFE65B709DDC1D0D5E0BFFD9D /* UITableView+MPHeader.h */,
+				65B7BF065680FA8AB55FF04C62FC7FB7 /* UITableView+MPHeader.m */,
+				1ADCD16B1DBD22198ADD0A3FB155509C /* UIView+MPAnimation.h */,
+				B0348A52BB4382AE4F38A83B03BC0BEA /* UIView+MPAnimation.m */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		1BA7A9257E1F163DA745F0EFFF9877E6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D358A7ECD5BBEA0941C0414508C1D93B /* MP.h in Headers */,
+				64C231505B1C99B5BB6AE0020E516CC3 /* MPAnalyticsManager.h in Headers */,
+				00A5B12E5D803208D9B4A7A4B1ABDBC3 /* MPAppearance.h in Headers */,
+				27F3124C5E8252377AFED08D6DCDA3D8 /* MPDashedLineView.h in Headers */,
+				ABB28CFB0D3FFE9881479904081AF6C0 /* MPDefaultSettingsManager.h in Headers */,
+				322671973380E2B7B027926BDACDB607 /* MPInterfaceOptions.h in Headers */,
+				0808E15F3343D402B025080891695202 /* MPLayout.h in Headers */,
+				9BF6406755F0092CD8F96AD44A6EAA80 /* MPLayoutAlgorithm.h in Headers */,
+				D728789857B3B2984E72402DE2AACC09 /* MPLayoutAlgorithmFill.h in Headers */,
+				DA238EBD5C6C0E827E214CDDC56A3D35 /* MPLayoutAlgorithmFit.h in Headers */,
+				F9386195739996D071D1DED26B0E847E /* MPLayoutAlgorithmStretch.h in Headers */,
+				E48D3D0642D17225D59480C9CD8681EF /* MPLayoutComposite.h in Headers */,
+				4FAA9328103A776AC44519BF4A9C5609 /* MPLayoutFactory.h in Headers */,
+				5E0F0688C7981E1E4FC48C647BDF31A5 /* MPLayoutFill.h in Headers */,
+				CE5D1D61B1C61293F032778E80CE3E14 /* MPLayoutFit.h in Headers */,
+				58218D18BDBB917787A690FA5B49C042 /* MPLayoutPaperCellView.h in Headers */,
+				878AE4D5EB2DC9F6F37CDB916CFFF528 /* MPLayoutPaperView.h in Headers */,
+				38109952E9571BE32B8AF52089051873 /* MPLayoutPrepStep.h in Headers */,
+				8455319968E64D2C123CFD38028C198E /* MPLayoutPrepStepAdjust.h in Headers */,
+				D11DB73E40C0FFEACE983733AA4074C2 /* MPLayoutPrepStepRotate.h in Headers */,
+				9A6BEEF0CCA2F08696FE71734C44F9F5 /* MPLayoutStretch.h in Headers */,
+				F409617397DEAE077E44A26E573E74C2 /* MPLegacyPageRange.h in Headers */,
+				44E4D81A26E4178FC8992CCD638C24EC /* MPLegacyPrintItemImage.h in Headers */,
+				AE9297AFC35174DC48EFACA616F62B19 /* MPLegacyPrintItemPDF.h in Headers */,
+				056560E469348ED27CD582CBAB2601DD /* MPLegacyPrintLaterJob.h in Headers */,
+				AE1B4926C3A0AE09E017FC30FC9A9D9B /* MPLogger.h in Headers */,
+				1826C5416C53664A28B80325B0B680A9 /* MPMultiPageView.h in Headers */,
+				4BDB0983C3DF63332C9DADBD1574A066 /* MPPageRange.h in Headers */,
+				2487F7615BCE7D4FBA089F9CAC3A70F0 /* MPPageRangeKeyboardView.h in Headers */,
+				DD34181F843FC03AC1782CFB6D080B4C /* MPPageSettingsTableViewController.h in Headers */,
+				0E1942A381CDEC250C5244DB977D9A8B /* MPPageViewController.h in Headers */,
+				851A8AF24AC4D706B362977AC206A58A /* MPPaper.h in Headers */,
+				4FA094B6FD31A2BA5EEE5359CFE4296C /* MPPaperSizeTableViewController.h in Headers */,
+				F611E22B58B4C31405AB2E154A7667B8 /* MPPaperTypeTableViewController.h in Headers */,
+				A503B7524FF1D16ABC47C80033718455 /* MPPrintActivity.h in Headers */,
+				B901038F94334477D220D720D2F4BC2E /* MPPrinter.h in Headers */,
+				409043DCFA731F1C3E9FFFC210255F95 /* MPPrintItem.h in Headers */,
+				DA5EEEC21319D5B7EB8E37DF30CEDD85 /* MPPrintItemFactory.h in Headers */,
+				46D2EC4D325942CB5F46FD78835F55B5 /* MPPrintItemImage.h in Headers */,
+				2D42F5FB1E60AA23567DE30BCDAD541A /* MPPrintItemPDF.h in Headers */,
+				15748F7A616485224057AEA79D337170 /* MPPrintJobsActionView.h in Headers */,
+				AE03380BCDFE8361E3BF4DC4C68674C4 /* MPPrintJobsPreviewViewController.h in Headers */,
+				F692545855739B68995FEE94ED1064F1 /* MPPrintJobsTableViewCell.h in Headers */,
+				1028B3B50AD63E3D253E0D3E62DF8A3D /* MPPrintJobsViewController.h in Headers */,
+				9C632B45DD0784EC621478735C4A2A68 /* MPPrintLaterActivity.h in Headers */,
+				D69EACA20C3D4AD73B58E0B641D51F8B /* MPPrintLaterHelperViewController.h in Headers */,
+				1B63EC6EE23EE0D8C4930281CC3F1F4B /* MPPrintLaterJob.h in Headers */,
+				6D1FDC06242F0ABCA197B8D1A5BA1D9B /* MPPrintLaterManager.h in Headers */,
+				A70CAD65A78555AF458E965FC8CB880E /* MPPrintLaterQueue.h in Headers */,
+				E168A6E0EBE097A9091672B3AA662837 /* MPPrintManager+Options.h in Headers */,
+				7EED4CC8065BADFB86CEC73D7561E56E /* MPPrintManager.h in Headers */,
+				CF4157D287E2BE522C5C20C45077F8B6 /* MPPrintPageRenderer.h in Headers */,
+				CD0577F45B2CC67B249C2AE88B95E3BA /* MPPrintSettings.h in Headers */,
+				70718B1A9124634C863D8E34E8A8524E /* MPPrintSettingsDelegateManager.h in Headers */,
+				C7964A222836D40C03B3CF859C42049B /* MPPrintSettingsTableViewController.h in Headers */,
+				B8B39B6D0635BECBC1411EAE1955B800 /* MPReachability.h in Headers */,
+				1004D058D30C04D807A44F6C79D5C3D5 /* MPRuleView.h in Headers */,
+				3CAE78D72DFC894AA4CD2863B1B7B9F6 /* MPSupportAction.h in Headers */,
+				55733F090ECD1FB657201959AFA1D80E /* MPView.h in Headers */,
+				6148B3B823463E5D162753822D3D6AFE /* MPWiFiReachability.h in Headers */,
+				E7FF6CAD32EBCBE66DA5BBC907895CC5 /* NSBundle+MPLocalizable.h in Headers */,
+				CFDC2DBE698231AB8ACDF51B86B5A1DC /* UIColor+MPHexString.h in Headers */,
+				0D2B7F19D7FA0523BAD438E50C3976B3 /* UIColor+MPStyle.h in Headers */,
+				EE6ADF44698A772C362C941E6BBEF4DA /* UIImage+MPResize.h in Headers */,
+				1B837E74BE7C29FFF6D74B173CC75CA4 /* UITableView+MPHeader.h in Headers */,
+				051E41894FC47C08A74C445E3FD8AF32 /* UIView+MPAnimation.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5AFF86D43561748E7227622A6EDDA92B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1008,75 +1105,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5B41545DA6E3F7D455DDE0ECA40915EF /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AF1EE21F5E6FE5964674136D0D14590D /* MP.h in Headers */,
-				CEDA2CCA5E2E0185F0E64FB188E0268F /* MPAnalyticsManager.h in Headers */,
-				91E0611E673889F7914ED0B50EF2E5EB /* MPAppearance.h in Headers */,
-				66E31D4A8458D66743769F9707E76CDB /* MPDashedLineView.h in Headers */,
-				65A92685E4214EDBAA614FEA36AD2CFB /* MPDefaultSettingsManager.h in Headers */,
-				5DF4AB35FCAA80C8FDC106BA73FF5DB3 /* MPInterfaceOptions.h in Headers */,
-				F39CF815C744325C1BD9F833D9E40285 /* MPLayout.h in Headers */,
-				4F52E5C5CBF94400D214CCCDC81C0C2B /* MPLayoutAlgorithm.h in Headers */,
-				604C79D9B542F1F14AE06BF0B32D5EFE /* MPLayoutAlgorithmFill.h in Headers */,
-				A2FD4C2F05196E5D9116A58B2D54C638 /* MPLayoutAlgorithmFit.h in Headers */,
-				AF6B6C9FB3D19714237897AE4216E315 /* MPLayoutAlgorithmStretch.h in Headers */,
-				FF8E8EF7F427F981EFB6B90CA5BAA21E /* MPLayoutComposite.h in Headers */,
-				314340AF2B2ECBCF6A5B2686CD56CB15 /* MPLayoutFactory.h in Headers */,
-				002A92899ECB54FF5F318032A4FA5E49 /* MPLayoutFill.h in Headers */,
-				301176350CE04DFF97B618CE6462DD29 /* MPLayoutFit.h in Headers */,
-				2864DE2C799F183C382CC101C338BC92 /* MPLayoutPaperCellView.h in Headers */,
-				198502FAD4DDC01B46BD0BD1455BD274 /* MPLayoutPaperView.h in Headers */,
-				086E0B6EE6C6D4B77029526CEE5B7B71 /* MPLayoutPrepStep.h in Headers */,
-				E4C58C46CF75362BC2586368C192D262 /* MPLayoutPrepStepAdjust.h in Headers */,
-				D6BD9C56E12EB9C5A85290A59A4DAE0F /* MPLayoutPrepStepRotate.h in Headers */,
-				CE3D1E55F638FF0D3482CD1958C9500C /* MPLayoutStretch.h in Headers */,
-				C833D647C61F7A5C89DC94CDA316EE2D /* MPLogger.h in Headers */,
-				1799BCD11D09382A8EDDD50E29AA231B /* MPMultiPageView.h in Headers */,
-				0AE21B3A10C723CCA55B04B7CD6AE0CB /* MPPageRange.h in Headers */,
-				A634AE9EB1B936AF1C44661FE33FFD00 /* MPPageRangeKeyboardView.h in Headers */,
-				6B169D208122AE6A6FE15D1D6BB869BE /* MPPageSettingsTableViewController.h in Headers */,
-				BCCC054D2060AECCDE416641758FB82E /* MPPageViewController.h in Headers */,
-				A5820CE633E690DC8700A6C38F0B4895 /* MPPaper.h in Headers */,
-				55D9643BB318AFC29FD4D0B80D8C5FE3 /* MPPaperSizeTableViewController.h in Headers */,
-				FC4411089B46612418F2369DC6DE7A7B /* MPPaperTypeTableViewController.h in Headers */,
-				1A4C362D8B5F7A7E4D3E44B4220FFA86 /* MPPrintActivity.h in Headers */,
-				89E7080293E479988D55A4F37AB8D85B /* MPPrinter.h in Headers */,
-				EFDDB0A4C98A5868432A10258C6D38F2 /* MPPrintItem.h in Headers */,
-				84CEE69B4EAC1AC19B859270FDDB9C6C /* MPPrintItemFactory.h in Headers */,
-				294720BE273AC445725DDD4EE3A7E226 /* MPPrintItemImage.h in Headers */,
-				D9922A44725A88323001840D269025DB /* MPPrintItemPDF.h in Headers */,
-				DB9DED3E81F9108085F69D7877B01CED /* MPPrintJobsActionView.h in Headers */,
-				84C814B3F42F04E0AA7559BCBCA5DC18 /* MPPrintJobsPreviewViewController.h in Headers */,
-				3356DD422FDD8068668336D174E18DE8 /* MPPrintJobsTableViewCell.h in Headers */,
-				DAE667AB882A7C757528457DC35E37E9 /* MPPrintJobsViewController.h in Headers */,
-				8223B9CA1FE6B9F1F70D5D1088C7111E /* MPPrintLaterActivity.h in Headers */,
-				002F8B5495630802897419A6EC58CCE5 /* MPPrintLaterHelperViewController.h in Headers */,
-				6EA473488BDB6BD84119857911FF4374 /* MPPrintLaterJob.h in Headers */,
-				00FD5A5B8A1AA9496A1704C02BFB905F /* MPPrintLaterManager.h in Headers */,
-				C9E2D1B893890B82A15006EBDECCD570 /* MPPrintLaterQueue.h in Headers */,
-				D12A8AC7FA4CEEB9F7475389AB2C4E6F /* MPPrintManager+Options.h in Headers */,
-				E10C968EFDC73636D8CE8404ADF3F344 /* MPPrintManager.h in Headers */,
-				D515953253275117C09DE930C59B4AF1 /* MPPrintPageRenderer.h in Headers */,
-				0C2860E410CD389688A681A397A2378E /* MPPrintSettings.h in Headers */,
-				C68816AA64061DD1109B58ADEABEB5C8 /* MPPrintSettingsDelegateManager.h in Headers */,
-				37B6718E7C5C2A786A0BF929B8476363 /* MPPrintSettingsTableViewController.h in Headers */,
-				A5813BBF3490BB35F011787B297FEBD3 /* MPReachability.h in Headers */,
-				B9326503B6F040AA94DED48FF1EFB7AA /* MPRuleView.h in Headers */,
-				412A9D90A234C2B9008435168634C7CA /* MPSupportAction.h in Headers */,
-				EAB97E881E36E830E9DFFD73D635103C /* MPView.h in Headers */,
-				7BA6FFA4C36001802DEC3EFA6DB7D8C4 /* MPWiFiReachability.h in Headers */,
-				4CED3EE840555C54294748585296A2EE /* NSBundle+MPLocalizable.h in Headers */,
-				58D0DC010BB30E80AA6DB30EB0C0F9F2 /* UIColor+MPHexString.h in Headers */,
-				D1A2532C43BF12D9E64F044A43DB56E4 /* UIColor+MPStyle.h in Headers */,
-				120CBB1C8C2E86B7FFB9EE23BAF3F2F8 /* UIImage+MPResize.h in Headers */,
-				5122FFBA651B90A62BC4E1B608C20368 /* UITableView+MPHeader.h in Headers */,
-				E5F94CC70A784BDDC7104F99967271A4 /* UIView+MPAnimation.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1114,6 +1142,23 @@
 			productReference = 52B426F84B829D8227AA7DC7A740EFD2 /* libOCMock.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		B87EED68BA36663A46D42D8D86B2F499 /* MobilePrintSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07AF9645FA2F4FB2219BACBD4645EE14 /* Build configuration list for PBXNativeTarget "MobilePrintSDK" */;
+			buildPhases = (
+				FE2F3FFE6D97B781FE369988D6CA2F74 /* Sources */,
+				C1C71793D4C13980B30B48BA25217C6A /* Frameworks */,
+				1BA7A9257E1F163DA745F0EFFF9877E6 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MobilePrintSDK;
+			productName = MobilePrintSDK;
+			productReference = 7DA4B0E1E2822D90688A25A3DE27621D /* libMobilePrintSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		CD08320A94572BD65183F9CB2856F375 /* Pods-Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 064C071DA90646D324258F56D5E5D616 /* Build configuration list for PBXNativeTarget "Pods-Tests" */;
@@ -1130,23 +1175,6 @@
 			name = "Pods-Tests";
 			productName = "Pods-Tests";
 			productReference = F32EA8ED140E1B174EB78CF1FB4B73FB /* libPods-Tests.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		DF04BF48CDA20F86CB065DEE5D685D47 /* MobilePrintSDK */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 77FD35296961F23D60E43B29D30A07DF /* Build configuration list for PBXNativeTarget "MobilePrintSDK" */;
-			buildPhases = (
-				413AE33522F2D3E9076051939C5ADE87 /* Sources */,
-				018DDD3F32AEA508BD111A46395FD423 /* Frameworks */,
-				5B41545DA6E3F7D455DDE0ECA40915EF /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MobilePrintSDK;
-			productName = MobilePrintSDK;
-			productReference = 7DA4B0E1E2822D90688A25A3DE27621D /* libMobilePrintSDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -1170,7 +1198,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DF04BF48CDA20F86CB065DEE5D685D47 /* MobilePrintSDK */,
+				B87EED68BA36663A46D42D8D86B2F499 /* MobilePrintSDK */,
 				4A2CAA839F2722C796C6F1DFDC806B92 /* OCMock */,
 				46F7C9C500D923FC9093156664E4F17A /* Pods-MobilePrintSDK */,
 				CD08320A94572BD65183F9CB2856F375 /* Pods-Tests */,
@@ -1220,76 +1248,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		413AE33522F2D3E9076051939C5ADE87 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C16C445CAEFD67A764CDA27455A90AF2 /* MobilePrintSDK-dummy.m in Sources */,
-				111588EBE7A50FD6981D91C69B5AB845 /* MP.m in Sources */,
-				4E508E98686B95EB56E149725EE7A3A8 /* MPAnalyticsManager.m in Sources */,
-				6FA9809678304A4D23C3025ADB98EFCF /* MPAppearance.m in Sources */,
-				362F273422F72B3FCF195B30049589AE /* MPDashedLineView.m in Sources */,
-				A78F1367AC17D111B04FF0CA497E853D /* MPDefaultSettingsManager.m in Sources */,
-				3512B549EA1B5BCAAEA54AC64E530DC8 /* MPInterfaceOptions.m in Sources */,
-				FB34F7E108F18C397178B9DF0688606A /* MPLayout.m in Sources */,
-				054D8D7871729D5588ED6BA2E00AC058 /* MPLayoutAlgorithm.m in Sources */,
-				962905AD96C6BD120DCF46FC007EAD36 /* MPLayoutAlgorithmFill.m in Sources */,
-				A7AF28F3E79AE863263A87D72E6F2293 /* MPLayoutAlgorithmFit.m in Sources */,
-				7A5FF8AC38A9D625562E69637A9EF6A9 /* MPLayoutAlgorithmStretch.m in Sources */,
-				881A9D7B7EEE0A5647433322B7ABB127 /* MPLayoutComposite.m in Sources */,
-				78C14EA5D71D09F304BE32C3B34797FD /* MPLayoutFactory.m in Sources */,
-				007D2129889E4285B851EBE477126B41 /* MPLayoutFill.m in Sources */,
-				A9CB42A749DE599D144EFBC4E3ADCB6F /* MPLayoutFit.m in Sources */,
-				20BA566DE3002162891B1833F92F8BF2 /* MPLayoutPaperCellView.m in Sources */,
-				BBE3447AEE98215135DFE2B2AD73DB49 /* MPLayoutPaperView.m in Sources */,
-				4511A15810F30CBDD3C2FE8C000C34C6 /* MPLayoutPrepStep.m in Sources */,
-				A4486ABBFD6826F8FBEEAFD15B3BD843 /* MPLayoutPrepStepAdjust.m in Sources */,
-				2E82620D19EB1CF4AF870B3BE0A83841 /* MPLayoutPrepStepRotate.m in Sources */,
-				C2A0F93D60F16CFA3CFC050EAAB7B11D /* MPLayoutStretch.m in Sources */,
-				E4C416CC5F5FF83125B418A6B9DB6398 /* MPLogger.m in Sources */,
-				61AA3BBE300ED98334BA8A38FA734436 /* MPMultiPageView.m in Sources */,
-				1A05599BAD99AEC7DCEC7B13C4EC501A /* MPPageRange.m in Sources */,
-				041C224D19FB9BA0BA432B09069A5DBB /* MPPageRangeKeyboardView.m in Sources */,
-				D263D5E3EE91F7F31A12F99E9F9F27CB /* MPPageSettingsTableViewController.m in Sources */,
-				D03C138F39FA8649438FE68F0409DD42 /* MPPageViewController.m in Sources */,
-				2B18E1107734C7541E1BE2201E765581 /* MPPaper.m in Sources */,
-				A95EAB63533316C46B0AF191272FC8A8 /* MPPaperSizeTableViewController.m in Sources */,
-				07271B6B3DAA775ACAD6CE4EF01BA6D7 /* MPPaperTypeTableViewController.m in Sources */,
-				2B2382DDCE21C9AC3F17A4B9EBABA666 /* MPPrintActivity.m in Sources */,
-				3AA5288AD5B563FAD872222CC4A38281 /* MPPrinter.m in Sources */,
-				8FA00669EDBA02BC25846387B6C04510 /* MPPrintItem.m in Sources */,
-				F2936E418A9396B8E5BBF66D1C5E6765 /* MPPrintItemFactory.m in Sources */,
-				ADBCAA92D869DEF250F8B2D110DD5924 /* MPPrintItemImage.m in Sources */,
-				8F00C6EED0359F7D3ED87FA2187A7AEC /* MPPrintItemPDF.m in Sources */,
-				BF832B53E2C781FBD1E7888E9F860C91 /* MPPrintJobsActionView.m in Sources */,
-				499705D57792D49C7964C147B0B1EFF4 /* MPPrintJobsPreviewViewController.m in Sources */,
-				01A8DB870210B261FD7CEBA868F88B34 /* MPPrintJobsTableViewCell.m in Sources */,
-				0710A23BA30DF1B4DA6CF3A99AB10E74 /* MPPrintJobsViewController.m in Sources */,
-				73DBF44DF6C71F82DCF4FF893428ABDC /* MPPrintLaterActivity.m in Sources */,
-				C9265320E1DEAAFDF0D15CD4672E4903 /* MPPrintLaterHelperViewController.m in Sources */,
-				8E952EE84BE058B7FD3BA4C7B07973AF /* MPPrintLaterJob.m in Sources */,
-				4B161604D0ECA9ED99E8BA9C599EC2C1 /* MPPrintLaterManager.m in Sources */,
-				C63E3A3BDD4195F64E3DCF50C99EC038 /* MPPrintLaterQueue.m in Sources */,
-				4B561D706679929CE837E9AEAF098376 /* MPPrintManager+Options.m in Sources */,
-				E89249EF611FD61B7C6D549997F15C60 /* MPPrintManager.m in Sources */,
-				467986D522F214E759B8AE046A64A416 /* MPPrintPageRenderer.m in Sources */,
-				1E8E361E796A435BCAA69E07C12EFE35 /* MPPrintSettings.m in Sources */,
-				E582CCBC5FCED16655CC4E7FA061BCE2 /* MPPrintSettingsDelegateManager.m in Sources */,
-				00B0BAB1C3C825EB16A52CA8B4477E18 /* MPPrintSettingsTableViewController.m in Sources */,
-				DC123E57135AF21A35448D0DA8A31E7F /* MPReachability.m in Sources */,
-				AB4A5A4717C241811F4201196985D760 /* MPRuleView.m in Sources */,
-				273B82CDD1F34C4CB255986AA4A69943 /* MPSupportAction.m in Sources */,
-				13DA1CA285AD250DA8AE12B1E02A2CF7 /* MPView.m in Sources */,
-				F365B5B331D1D901549B23C20BFCD0AF /* MPWiFiReachability.m in Sources */,
-				FDFECE5D1942E977EB2C4C2D8FEA030C /* NSBundle+MPLocalizable.m in Sources */,
-				5385566CE5141B891E5C3C42277601B1 /* UIColor+MPHexString.m in Sources */,
-				9342A401187798BF828DE5DC415BB0E2 /* UIColor+MPStyle.m in Sources */,
-				FC4C9B4F8EA5AE06337DED9A0ED019BF /* UIImage+MPResize.m in Sources */,
-				2E76DA3F4245526FDFB1E50015DE397B /* UITableView+MPHeader.m in Sources */,
-				E9237275D184174A87AAB28D1C89D354 /* UIView+MPAnimation.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		765FFC642592B4596AA57D96E17396D4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1306,6 +1264,80 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FE2F3FFE6D97B781FE369988D6CA2F74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D37BBF68392279E57059B5D1F293550F /* MobilePrintSDK-dummy.m in Sources */,
+				720004A2206F1906FBAF43DDD42062B0 /* MP.m in Sources */,
+				DE9EDD9B4BBC571BE970C33011E54FAE /* MPAnalyticsManager.m in Sources */,
+				FD6F576F3D01731A34A6C9B98F2A8F83 /* MPAppearance.m in Sources */,
+				491A671EE122713165D61E478716E647 /* MPDashedLineView.m in Sources */,
+				04CF5F448EF5DC5F40FEFC38BDEF3458 /* MPDefaultSettingsManager.m in Sources */,
+				4ABA2779BAA815EE1F2039228C9A1D7A /* MPInterfaceOptions.m in Sources */,
+				FD96A34D274D5DEB41CBA0946A5AA6E8 /* MPLayout.m in Sources */,
+				BA76EAA33A777A1C7744BBA39128D046 /* MPLayoutAlgorithm.m in Sources */,
+				47FC93FD9DAA21388DA805F177AFA574 /* MPLayoutAlgorithmFill.m in Sources */,
+				892D86F8578756A2EA06DE5ECE1B1D48 /* MPLayoutAlgorithmFit.m in Sources */,
+				3E660D3E1415E4AB820A0EBC35334C1E /* MPLayoutAlgorithmStretch.m in Sources */,
+				3E18F9AE7FCC2B9CB7701AFD5A74C384 /* MPLayoutComposite.m in Sources */,
+				8BD16F1091B3A365210FAA8998B69909 /* MPLayoutFactory.m in Sources */,
+				BCA5A2EC4EB42523B1AEC1BC153E9D4E /* MPLayoutFill.m in Sources */,
+				6F6A1167F4049E7C2C8D294CA6BD536A /* MPLayoutFit.m in Sources */,
+				90F92B8C92B3F54902559F2B0B47BDFB /* MPLayoutPaperCellView.m in Sources */,
+				106BD4025B5489A7EE83C1775E324B60 /* MPLayoutPaperView.m in Sources */,
+				5B8AF20BBAFC0559568F2239EE251D1D /* MPLayoutPrepStep.m in Sources */,
+				6CC8766A1DC7473BC09BFCE45238A013 /* MPLayoutPrepStepAdjust.m in Sources */,
+				FFF740BCA7B7B738E7DD9A7C3DF7F2E5 /* MPLayoutPrepStepRotate.m in Sources */,
+				4F327AC351F5440A94284862E1E98521 /* MPLayoutStretch.m in Sources */,
+				0578BF549FE936FCD209C9B62DC8F5A9 /* MPLegacyPageRange.m in Sources */,
+				D6CDEBFC8F69DAA0D7958B8CB8FDCA8D /* MPLegacyPrintItemImage.m in Sources */,
+				9B16361A506FA0F55F0B586343A8F765 /* MPLegacyPrintItemPDF.m in Sources */,
+				F53DE0A218297486C9D48614FDE2E53B /* MPLegacyPrintLaterJob.m in Sources */,
+				6D4731EE9C1BFF1D60640E49EE075875 /* MPLogger.m in Sources */,
+				734F1660FCCC4C33CDC6449063B73062 /* MPMultiPageView.m in Sources */,
+				F9277FDC5093C454C635D8C1BE613A85 /* MPPageRange.m in Sources */,
+				24D4BBA5CE66F9A768D4BEA7C9CE129B /* MPPageRangeKeyboardView.m in Sources */,
+				569235DDB38CA4B523FCA82977410A68 /* MPPageSettingsTableViewController.m in Sources */,
+				007680EFA823A6211260A91068569AEC /* MPPageViewController.m in Sources */,
+				9CCADDD65D838137F06D0BE21B94F5E9 /* MPPaper.m in Sources */,
+				49530DE5076DA4B6EB6C682468B5AEC8 /* MPPaperSizeTableViewController.m in Sources */,
+				D6F56A1734E302D8411D0710F280FC8D /* MPPaperTypeTableViewController.m in Sources */,
+				B1A8924A4DEA27E0107125D2E852934E /* MPPrintActivity.m in Sources */,
+				2EC699567E375CE0985463C2D3F69918 /* MPPrinter.m in Sources */,
+				4323CE05B73A6D302F61860346C275DA /* MPPrintItem.m in Sources */,
+				1091B02BA5DBA1A2818E91C6E65C500D /* MPPrintItemFactory.m in Sources */,
+				7A5A55AFB260C0AB7DD067E9581FEA79 /* MPPrintItemImage.m in Sources */,
+				53CCDE90DF6211737C8EA5016C9C5C3E /* MPPrintItemPDF.m in Sources */,
+				34B06065CCE348658A9A10A19D7BC25D /* MPPrintJobsActionView.m in Sources */,
+				19269725E5853A6CC35B08664000686C /* MPPrintJobsPreviewViewController.m in Sources */,
+				096CFA78FB5B033FFEEF637596919B34 /* MPPrintJobsTableViewCell.m in Sources */,
+				828A0B095589FA78CD9B266546496555 /* MPPrintJobsViewController.m in Sources */,
+				4B2CBDFE058AC0BB0AF7393FA644EA3F /* MPPrintLaterActivity.m in Sources */,
+				9D97D3847C78C88B09D363819F1602F7 /* MPPrintLaterHelperViewController.m in Sources */,
+				DA4BA6415BA163F517644ACF5039FE93 /* MPPrintLaterJob.m in Sources */,
+				00345B40EBE9F548537028501ABB08FF /* MPPrintLaterManager.m in Sources */,
+				C71BDD90000ED57D9563C0ECB848175D /* MPPrintLaterQueue.m in Sources */,
+				36B9B7AFE3E8E94ACB6B54478710090E /* MPPrintManager+Options.m in Sources */,
+				DCC9A81BC182204C05EEF33FB05266A5 /* MPPrintManager.m in Sources */,
+				0A4C18063F423EC43E4AFC644DAAE653 /* MPPrintPageRenderer.m in Sources */,
+				E46AF5C9504A7E1337D78482751B5304 /* MPPrintSettings.m in Sources */,
+				F96519FF8A434C96BD0F03BD462AD5C6 /* MPPrintSettingsDelegateManager.m in Sources */,
+				0A083460AB351404BF6BDF306B7BDC03 /* MPPrintSettingsTableViewController.m in Sources */,
+				61A9C36EFDB78413ED1BFFD0E7FE4CB6 /* MPReachability.m in Sources */,
+				A0C927DEF009F787E7A5D854864A4E76 /* MPRuleView.m in Sources */,
+				A0F74D3F330E771CC92D8DB0AF9004ED /* MPSupportAction.m in Sources */,
+				208D22DC792CFEA0759BF5E693E49793 /* MPView.m in Sources */,
+				AEFE029A8E5B2E9FFA7AFBBFB24A1801 /* MPWiFiReachability.m in Sources */,
+				1FF639209A5C6A9C6FF4A70A30D57BDE /* NSBundle+MPLocalizable.m in Sources */,
+				5570314F865A22554B189D380D024C70 /* UIColor+MPHexString.m in Sources */,
+				53B53799AEC79C414D9D67BF19F23A12 /* UIColor+MPStyle.m in Sources */,
+				F5DE3A00918EDD778C47506C57EB0EB9 /* UIImage+MPResize.m in Sources */,
+				6072DF7D40671CDB3463C09E1D1A0EF6 /* UITableView+MPHeader.m in Sources */,
+				43547B8B68D463B3C3CC281B1EE9EF46 /* UIView+MPAnimation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1318,13 +1350,13 @@
 		63121976437D89D9DC5A14189D4AD4BD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MobilePrintSDK;
-			target = DF04BF48CDA20F86CB065DEE5D685D47 /* MobilePrintSDK */;
+			target = B87EED68BA36663A46D42D8D86B2F499 /* MobilePrintSDK */;
 			targetProxy = E2C951D4017E4172C07BE5F452144875 /* PBXContainerItemProxy */;
 		};
 		A11545DA3601DCAC4E3AFDCA19F28E9D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MobilePrintSDK;
-			target = DF04BF48CDA20F86CB065DEE5D685D47 /* MobilePrintSDK */;
+			target = B87EED68BA36663A46D42D8D86B2F499 /* MobilePrintSDK */;
 			targetProxy = FA748AFFFEFE9C9069FA58C9514995C5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1420,6 +1452,24 @@
 			};
 			name = Release;
 		};
+		58920C4566D0EEA334E8FD02E4ABC56D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1843F554F2FC67D6210094513CC3DAC0 /* MobilePrintSDK.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MobilePrintSDK/MobilePrintSDK-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		8AC19DD3D7194BA9995CDD0F538B0C81 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7588F6DEBBD964C8EB376032F5836DE9 /* Pods-MobilePrintSDK.debug.xcconfig */;
@@ -1437,7 +1487,7 @@
 			};
 			name = Debug;
 		};
-		A7503D2FC4F2A041E697298891601111 /* Debug */ = {
+		A6BD063FCEAB9153D8B04215730B752C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1843F554F2FC67D6210094513CC3DAC0 /* MobilePrintSDK.xcconfig */;
 			buildSettings = {
@@ -1472,24 +1522,6 @@
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
-		};
-		B0EC4EEC88382AF5A2F34A71D22179BC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1843F554F2FC67D6210094513CC3DAC0 /* MobilePrintSDK.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MobilePrintSDK/MobilePrintSDK-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
 		};
 		B449F5D5A56C69B434CC6C50699E3AB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1555,6 +1587,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		07AF9645FA2F4FB2219BACBD4645EE14 /* Build configuration list for PBXNativeTarget "MobilePrintSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A6BD063FCEAB9153D8B04215730B752C /* Debug */,
+				58920C4566D0EEA334E8FD02E4ABC56D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		10542776D8ACCA3DA970BD708ACC2AF4 /* Build configuration list for PBXNativeTarget "OCMock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1569,15 +1610,6 @@
 			buildConfigurations = (
 				0B57334D6C23DADAA4F7D802A5760EB2 /* Debug */,
 				03CA91998D6773EC5D02B3DB87B8353E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		77FD35296961F23D60E43B29D30A07DF /* Build configuration list for PBXNativeTarget "MobilePrintSDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A7503D2FC4F2A041E697298891601111 /* Debug */,
-				B0EC4EEC88382AF5A2F34A71D22179BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

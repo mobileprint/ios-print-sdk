@@ -16,8 +16,12 @@
 #import "MPPrintLaterActivity.h"
 #import "MPAnalyticsManager.h"
 #import "MPPrintItem.h"
+#import "MPLegacyPrintLaterJob.h"
+#import "MPLegacyPageRange.h"
+#import "MPLegacyPrintItemImage.h"
+#import "MPLegacyPrintItemPDF.h"
 
-@interface MPPrintLaterQueue()
+@interface MPPrintLaterQueue() <NSKeyedUnarchiverDelegate>
 
 @property (nonatomic, strong) NSString *printLaterJobsDirectoryPath;
 
@@ -161,11 +165,32 @@ NSString * const kMPOfframpDeleteFromQueue = @"DeleteFromQueue";
 {
     MPPrintLaterJob *job = [self retrieveCachedJob:jobId];
     if (!job) {
-        NSString *fileName = [self.printLaterJobsDirectoryPath stringByAppendingPathComponent:jobId];
-        job = [NSKeyedUnarchiver unarchiveObjectWithFile:fileName];
+        job = [self attemptDecodeJobWithId:jobId];
         if (job) {
             [self addCachedJob:job];
         }
+    }
+    
+    return job;
+}
+
+- (MPPrintLaterJob *)attemptDecodeJobWithId:(NSString *)jobId
+{
+    MPPrintLaterJob *job = nil;
+    NSString *filename = [self.printLaterJobsDirectoryPath stringByAppendingPathComponent:jobId];
+    NSData *data = [NSData dataWithContentsOfFile:filename];
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+    unarchiver.delegate = self;
+    @try {
+        job = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+    }
+    @catch (NSException *exception) {
+        MPLogError(@"Unable to decode print later job:\n\tFile: %@\n\tError: %@", filename, exception.reason);
+        MPLogInfo(@"Deleting job with ID '%@'", jobId);
+        [self deleteFile:jobId atPath:self.printLaterJobsDirectoryPath];
+    }
+    @finally {
+        [unarchiver finishDecoding];
     }
     
     return job;
@@ -178,7 +203,9 @@ NSString * const kMPOfframpDeleteFromQueue = @"DeleteFromQueue";
     
     for (NSString *filename in fileArray)  {
         MPPrintLaterJob *job = [self retrievePrintLaterJobWithID:filename];
-        [printLaterJobs addObject:job];
+        if (job) {
+            [printLaterJobs addObject:job];
+        }
     }
     
     return [[printLaterJobs reverseObjectEnumerator] allObjects];
@@ -186,8 +213,8 @@ NSString * const kMPOfframpDeleteFromQueue = @"DeleteFromQueue";
 
 - (NSInteger)retrieveNumberOfPrintLaterJobs
 {
-    NSArray *fileArray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.printLaterJobsDirectoryPath error:nil];
-    return fileArray.count;
+    NSArray *jobs = [self retrieveAllPrintLaterJobs];
+    return jobs.count;
 }
 
 #pragma mark - Filesystem manipulation methods
@@ -276,6 +303,26 @@ NSString * const kMPOfframpDeleteFromQueue = @"DeleteFromQueue";
     @synchronized(self) {
         return [_cachedPrintJobs objectForKey:jobId];
     }
+}
+
+#pragma mark - NSKeyedUnarchiverDelegate
+
+- (Class)unarchiver:(NSKeyedUnarchiver *)unarchiver cannotDecodeObjectOfClassName:(NSString *)name originalClasses:(NSArray<NSString *> *)classNames {
+    
+    Class legacyClass = nil;
+    if ([name isEqualToString:@"HPPPPrintLaterJob"]) {
+        legacyClass = [MPLegacyPrintLaterJob class];
+    } else if ([name isEqualToString:@"HPPPPageRange"]) {
+        legacyClass = [MPLegacyPageRange class];
+    } else if ([name isEqualToString:@"HPPPPrintItemImage"]) {
+        legacyClass = [MPLegacyPrintItemImage class];
+    } else if ([name isEqualToString:@"HPPPPrintItemPDF"]) {
+        legacyClass = [MPLegacyPrintItemPDF class];
+    } else {
+        MPLogError(@"Unknown class in print job archive:  %@", name);
+    }
+    
+    return legacyClass;
 }
 
 @end
