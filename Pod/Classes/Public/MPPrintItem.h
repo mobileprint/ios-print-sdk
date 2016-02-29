@@ -60,6 +60,13 @@ typedef enum {
 @property (strong, nonatomic, readonly) id printAsset;
 
 /*!
+ * @abstract Representations of the print item that can work with a sharing activity
+ * @discussion The standard iOS share menu uses UIActivityViewController to allow the user to take an action with a given object. When sharing a print item, this property provides a list of print item representations suitable for using with the activityItems property of UIActivityViewController.
+ * @returns An array of shareable representations of this print item
+ */
+@property (strong, nonatomic, readonly) NSArray *activityItems;
+
+/*!
  * @abstract Specifies the type of print item (e.g. PDF, image, etc.).
  */
 @property (strong, nonatomic, readonly) NSString *assetType;

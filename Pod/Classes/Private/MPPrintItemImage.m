@@ -108,6 +108,15 @@
     return printImages;
 }
 
+- (NSArray *)activityItems
+{
+    NSMutableArray *items = [NSMutableArray arrayWithArray:[super activityItems]];
+    if (1 == self.printImages.count) {
+        [items addObject:[self.printImages firstObject]];
+    }
+    return items;
+}
+
 #pragma mark - Preview image
 
 - (UIImage *)defaultPreviewImage

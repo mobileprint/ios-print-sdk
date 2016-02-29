@@ -33,6 +33,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		632256cdaa0da811101efa0c /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		650858461B0C352900B0C70F /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650858451B0C352900B0C70F /* DBChooser.framework */; };
+		650E6EDF1C860210007497A1 /* MPPrintItemImageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 650E6EDE1C860210007497A1 /* MPPrintItemImageTest.m */; };
 		651039B81B73FAA10013E738 /* 15 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B51B73FAA10013E738 /* 15 Pages.pdf */; };
 		651039B91B73FAA10013E738 /* 115 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B61B73FAA10013E738 /* 115 Pages.pdf */; };
 		651039BA1B73FAA10013E738 /* 236 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B71B73FAA10013E738 /* 236 Pages.pdf */; };
@@ -163,6 +164,7 @@
 		60555372ec4ffae2b100799b /* calabash.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; path = calabash.framework; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		650858451B0C352900B0C70F /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
+		650E6EDE1C860210007497A1 /* MPPrintItemImageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemImageTest.m; sourceTree = "<group>"; };
 		651039B51B73FAA10013E738 /* 15 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "15 Pages.pdf"; sourceTree = "<group>"; };
 		651039B61B73FAA10013E738 /* 115 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "115 Pages.pdf"; sourceTree = "<group>"; };
 		651039B71B73FAA10013E738 /* 236 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "236 Pages.pdf"; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				F1998AF41B6808BD00E5320F /* MPPageRangeTest.m */,
 				6565921E1BB5EB6B00A08B22 /* MPPaperTest.m */,
 				65DC4A821BD5A8D90004F903 /* MPPrintItemPDFTest.m */,
+				650E6EDE1C860210007497A1 /* MPPrintItemImageTest.m */,
 				65334C1A1C46BB05004E849D /* MPPrintLaterQueueTest.m */,
 				658088EE1BB1DACD00B35489 /* MPPrintManagerTest.m */,
 				F1B2023E1B7E970D00912E0B /* MPPrintSettingsDelegateManagerTest.m */,
@@ -887,6 +890,7 @@
 				65334C1B1C46BB05004E849D /* MPPrintLaterQueueTest.m in Sources */,
 				6565921F1BB5EB6B00A08B22 /* MPPaperTest.m in Sources */,
 				F1998AF51B6808BD00E5320F /* MPPageRangeTest.m in Sources */,
+				650E6EDF1C860210007497A1 /* MPPrintItemImageTest.m in Sources */,
 				F10BCCCC1B7A53CC001A5F3B /* MPDirectPrintTest.m in Sources */,
 				65DC4A831BD5A8D90004F903 /* MPPrintItemPDFTest.m in Sources */,
 			);
