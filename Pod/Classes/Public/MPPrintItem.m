@@ -63,6 +63,11 @@ NSString * const kMPPrintAssetKey = @"kMPPrintAssetKey";
     return nil;
 }
 
+- (NSArray *)activityItems
+{
+    return @[ self, self.printAsset ];
+}
+
 #pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)encoder

@@ -89,6 +89,21 @@
     }]]);
 }
 
+- (void)testActivityItems
+{
+    XCTAssert(
+              2 == _printItem.activityItems.count,
+              @"Expected two activity items, got %lu instead",
+              (unsigned long)_printItem.activityItems.count);
+    
+    XCTAssert(_printItem == _printItem.activityItems[0],
+              @"Expected the print item itself to be the first activity item");
+    
+    XCTAssert(_printItem.printAsset == _printItem.activityItems[1],
+              @"Expected the printable asset to be the second activity item");
+    
+}
+
 - (NSData *)testPDF
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"1 Page" ofType:@"pdf"];

@@ -2,6 +2,7 @@
 ###### Not yet released
 
 - Add backward compatibilty to print queue to support print later jobs saved with SDK version prior to 3.x
+- Add support for multiple images in single print job
 
 #### 3.0.2
 ###### Tuesday February 9, 2016

@@ -382,7 +382,7 @@ NSInteger const kLengthOfSHA = 7;
         applicationActivities = @[printActivity];
     }
     
-    NSArray *activitiesItems = @[self.printItem, self.printItem.printAsset];
+    NSArray *activitiesItems = self.printItem.activityItems;
     
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activitiesItems applicationActivities:applicationActivities];
     
