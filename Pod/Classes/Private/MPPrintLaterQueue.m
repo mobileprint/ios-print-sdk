@@ -307,7 +307,7 @@ NSString * const kMPOfframpDeleteFromQueue = @"DeleteFromQueue";
 
 #pragma mark - NSKeyedUnarchiverDelegate
 
-- (Class)unarchiver:(NSKeyedUnarchiver *)unarchiver cannotDecodeObjectOfClassName:(NSString *)name originalClasses:(NSArray<NSString *> *)classNames {
+- (Class)unarchiver:(NSKeyedUnarchiver *)unarchiver cannotDecodeObjectOfClassName:(NSString *)name originalClasses:(NSArray *)classNames {
     
     Class legacyClass = nil;
     if ([name isEqualToString:@"HPPPPrintLaterJob"]) {
