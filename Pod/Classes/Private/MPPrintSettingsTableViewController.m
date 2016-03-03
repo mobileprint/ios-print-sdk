@@ -345,6 +345,8 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
 
 - (void)handleDidCheckPrinterAvailability:(NSNotification *)notification
 {
+    MPLogInfo(@"handleDidCheckPrinterAvailability: %@", notification);
+
     BOOL available = [[notification.userInfo objectForKey:kMPPrinterAvailableKey] boolValue];
     
     self.printSettings.printerIsAvailable = available;
