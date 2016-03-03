@@ -712,16 +712,9 @@ CGFloat const kMPDisabledAlpha = 0.5;
     }
 }
 
-- (void)reloadPrintSettingsSection
-{
-    NSRange range = NSMakeRange(PRINT_SETTINGS_SECTION, 1);
-    NSIndexSet *sectionToReload = [NSIndexSet indexSetWithIndexesInRange:range];
-    [self.tableView reloadSections:sectionToReload withRowAnimation:UITableViewRowAnimationNone];
-}
-
 - (void)reloadPrinterSelectionSection
 {
-    NSRange range = NSMakeRange(PRINTER_SELECTION_SECTION, 1);
+    NSRange range = NSMakeRange(PRINT_SETTINGS_SECTION, 1);
     NSIndexSet *sectionToReload = [NSIndexSet indexSetWithIndexesInRange:range];
     [self.tableView reloadSections:sectionToReload withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -1077,8 +1070,6 @@ CGFloat const kMPDisabledAlpha = 0.5;
     [self.tableView beginUpdates];
     UIImage *warningSign = [UIImage imageNamed:@"MPDoNoEnter"];
     [self.printSettingsCell.imageView setImage:warningSign];
-    [self.selectPrinterCell.imageView setImage:warningSign];
-
     self.delegateManager.printSettings.printerIsAvailable = NO;
     [self.tableView endUpdates];
 }
@@ -1088,7 +1079,6 @@ CGFloat const kMPDisabledAlpha = 0.5;
     // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
     [self.printSettingsCell.imageView setImage:nil];
-    [self.selectPrinterCell.imageView setImage:nil];
     self.delegateManager.printSettings.printerIsAvailable = YES;
     [self.tableView endUpdates];
 }
@@ -1337,14 +1327,6 @@ CGFloat const kMPDisabledAlpha = 0.5;
                 section == PRINTER_SELECTION_SECTION) {
                 
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-                
-                if (section == PRINTER_SELECTION_SECTION  &&  !self.selectPrinterCell.hidden) {
-                    if (self.delegateManager.printSettings.printerUrl != nil) {
-                        if (!self.delegateManager.printSettings.printerIsAvailable) {
-                            height = PRINTER_WARNING_SECTION_FOOTER_HEIGHT;
-                        }
-                    }
-                }
             }
         } else {
             if (section == PRINT_FUNCTION_SECTION || section == PREVIEW_PRINT_SUMMARY_SECTION) {
@@ -1428,8 +1410,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
     UIView *footer = nil;
     
     if (IS_OS_8_OR_LATER  &&  MPPageSettingsDisplayTypePreviewPane != self.displayType) {
-        if ( (!self.selectPrinterCell.hidden  &&  section == PRINTER_SELECTION_SECTION) ||
-             (!self.printSettingsCell.hidden  &&  section == PRINT_SETTINGS_SECTION) ) {
+        if (section == PRINT_SETTINGS_SECTION) {
             if ((self.delegateManager.printSettings.printerUrl != nil) && !self.delegateManager.printSettings.printerIsAvailable) {
                 footer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableView.frame.size.width, PRINTER_WARNING_SECTION_FOOTER_HEIGHT)];
                 
@@ -1901,7 +1882,6 @@ CGFloat const kMPDisabledAlpha = 0.5;
     }
     
     [self reloadPrinterSelectionSection];
-    [self reloadPrintSettingsSection];
 }
 
 #pragma mark - Wi-Fi handling
