@@ -199,8 +199,8 @@
 		65B3A9531B82989700ED76DD /* MPExperimentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPExperimentManager.m; sourceTree = "<group>"; };
 		65C0652C1B0BF26200E56D83 /* MPSelectPrintItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSelectPrintItemTableViewController.h; sourceTree = "<group>"; };
 		65C0652D1B0BF26200E56D83 /* MPSelectPrintItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSelectPrintItemTableViewController.m; sourceTree = "<group>"; };
-		65CD326D1C287CD200246B6E /* MP+PrintLibraryVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MP+PrintLibraryVersion.h"; sourceTree = "<group>"; };
-		65CD326E1C287CD200246B6E /* MP+PrintLibraryVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MP+PrintLibraryVersion.m"; sourceTree = "<group>"; };
+		65CD326D1C287CD200246B6E /* MP+PrintLibraryVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MP+PrintLibraryVersion.h"; path = "../MP+PrintLibraryVersion.h"; sourceTree = "<group>"; };
+		65CD326E1C287CD200246B6E /* MP+PrintLibraryVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MP+PrintLibraryVersion.m"; path = "../MP+PrintLibraryVersion.m"; sourceTree = "<group>"; };
 		65DC4A801BD596E90004F903 /* MPLayoutFillTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFillTest.m; sourceTree = "<group>"; };
 		65DC4A821BD5A8D90004F903 /* MPPrintItemPDFTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemPDFTest.m; sourceTree = "<group>"; };
 		65F44B5A1BD02D4400EF42AB /* MPAnalyticsManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAnalyticsManagerTest.m; sourceTree = "<group>"; };
@@ -310,8 +310,6 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
-				65CD326D1C287CD200246B6E /* MP+PrintLibraryVersion.h */,
-				65CD326E1C287CD200246B6E /* MP+PrintLibraryVersion.m */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* MobilePrintSDK */,
 				6003F5B5195388D20070C39A /* Tests */,
@@ -370,6 +368,8 @@
 				651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */,
 				6531EB3C1B30C85700412BBF /* MPMultiPageConfigurationViewController.h */,
 				6531EB3D1B30C85700412BBF /* MPMultiPageConfigurationViewController.m */,
+				65CD326D1C287CD200246B6E /* MP+PrintLibraryVersion.h */,
+				65CD326E1C287CD200246B6E /* MP+PrintLibraryVersion.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
