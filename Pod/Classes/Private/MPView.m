@@ -11,6 +11,7 @@
 //
 
 #import "MPView.h"
+#import "MP.h"
 
 @implementation MPView
 
@@ -44,7 +45,7 @@
 
 - (void)initWithXibName:(NSString *)xibName
 {
-    UIView *containerView = [[[NSBundle mainBundle] loadNibNamed:xibName owner:self options:nil] lastObject];
+    UIView *containerView = [[[NSBundle bundleForClass:[MP class]] loadNibNamed:xibName owner:self options:nil] lastObject];
     
     [containerView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
