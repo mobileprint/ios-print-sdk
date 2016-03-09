@@ -11,6 +11,7 @@
 //
 
 #import "NSBundle+MPLocalizable.h"
+#import "MP.h"
 
 @implementation NSBundle (MPLocalizable)
 
@@ -20,9 +21,8 @@
     static NSBundle *bundle = nil;
     
     dispatch_once(&once, ^{
-        NSURL *url = [[NSBundle mainBundle] URLForResource:HP_PHOTO_PRINT_LOCALIZATION_BUNDLE_NAME withExtension:@"bundle"];
+        NSURL *url = [[NSBundle bundleForClass:[MP class]] URLForResource:HP_PHOTO_PRINT_LOCALIZATION_BUNDLE_NAME withExtension:@"bundle"];
         bundle = [[NSBundle alloc] initWithURL:url];
-        
     });
     
     return bundle;

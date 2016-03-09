@@ -40,7 +40,7 @@
 #import "MPPrintManager+Options.h"
 #import "MPPrintJobsViewController.h"
 #import "MPPrintLaterQueue.h"
-
+#import "UIImage+MPBundle.h"
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
 
@@ -1075,7 +1075,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
 {
     // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
     [self.tableView beginUpdates];
-    UIImage *warningSign = [UIImage imageNamed:@"MPDoNoEnter"];
+    UIImage *warningSign = [UIImage imageResource:@"MPDoNoEnter" ofType:@"png"];
     [self.printSettingsCell.imageView setImage:warningSign];
     [self.selectPrinterCell.imageView setImage:warningSign];
 

@@ -181,7 +181,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
                                             fromQueue:(BOOL)fromQueue
                                          settingsOnly:(BOOL)settingsOnly;
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle mainBundle]];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
     
     if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
         UISplitViewController *pageSettingsSplitViewController = (UISplitViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPPageSettingsSplitViewController"];
