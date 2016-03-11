@@ -1,3 +1,9 @@
+#### 3.0.4
+###### Not yet released
+
+- Update pod to support integration into Swift projects via `use_frameworks!` directive in Podfile
+- Fix "Printer not Available" text and icon placement
+
 #### 3.0.3
 ###### Thursday March 3, 2016
 

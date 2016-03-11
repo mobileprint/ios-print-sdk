@@ -11,6 +11,7 @@
 //
 
 #import "MPLayoutPaperView.h"
+#import "UIImage+MPBundle.h"
 
 static const NSInteger MPLAYOUTPAPERVIEW_MULTIPAGE_OFFSET_PORTRAIT = 10;
 static const NSInteger MPLAYOUTPAPERVIEW_MULTIPAGE_OFFSET_LANDSCAPE = 8;
@@ -28,7 +29,7 @@ static const NSInteger MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP = 5;
             CGRect layoutContainer = [self.layout contentImageLocation:self.image inRect:insetRect];
             BOOL isLandscape = (layoutContainer.size.width > layoutContainer.size.height);
             
-            UIImage *multiPageImage = [UIImage imageNamed:@"MPMultipageWire"];
+            UIImage *multiPageImage = [UIImage imageResource:@"MPMultipageWire" ofType:@"png"];
             
             // rotate the multiPageWire image and adjust the spacing for landscape scenarios
             if (isLandscape) {

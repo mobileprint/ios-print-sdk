@@ -19,6 +19,7 @@
 #import "MPWiFiReachability.h"
 #import "UITableView+MPHeader.h"
 #import "NSBundle+MPLocalizable.h"
+#import "UIImage+MPBundle.h"
 
 #define PRINTER_SELECTION_SECTION 0
 #define PAPER_SELECTION_SECTION 1
@@ -121,7 +122,7 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
     if (self.printSettings.printerIsAvailable){
         [self.printerSelectCell.imageView setImage:nil];
     } else {
-        UIImage *warningSign = [UIImage imageNamed:@"MPDoNoEnter"];
+        UIImage *warningSign = [UIImage imageResource:@"MPDoNoEnter" ofType:@"png"];
         [self.printerSelectCell.imageView setImage:warningSign];
     }
     [self.tableView endUpdates];
@@ -345,6 +346,8 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
 
 - (void)handleDidCheckPrinterAvailability:(NSNotification *)notification
 {
+    MPLogInfo(@"handleDidCheckPrinterAvailability: %@", notification);
+
     BOOL available = [[notification.userInfo objectForKey:kMPPrinterAvailableKey] boolValue];
     
     self.printSettings.printerIsAvailable = available;

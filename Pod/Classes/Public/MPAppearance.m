@@ -11,6 +11,7 @@
 //
 
 #import "MPAppearance.h"
+#import "UIImage+MPBundle.h"
 
 @implementation MPAppearance
 
@@ -109,8 +110,8 @@ NSString * const kMPActivityPrintQueueIcon = @"kMPActivityPrintQueueIcon";
                   kMPSelectionOptionsSecondaryFontColor:      [UIColor colorWithRed:0x8E/255.0F green:0x8E/255.0F blue:0x93/255.0F alpha:1.0F],
                   kMPSelectionOptionsLinkFont:                [UIFont fontWithName:regularFont size:16],
                   kMPSelectionOptionsLinkFontColor:           [UIColor colorWithRed:0x00/255.0F green:0x7A/255.0F blue:0xFF/255.0F alpha:1.0F],
-                  kMPSelectionOptionsDisclosureIndicatorImage:[UIImage imageNamed:@"MPArrow"],
-                  kMPSelectionOptionsCheckmarkImage:          [UIImage imageNamed:@"MPCheck"],
+                  kMPSelectionOptionsDisclosureIndicatorImage:[UIImage imageResource:@"MPArrow" ofType:@"png"],
+                  kMPSelectionOptionsCheckmarkImage:          [UIImage imageResource:@"MPCheck" ofType:@"png"],
                   
                   // Job Settings
                   kMPJobSettingsBackgroundColor:    [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
@@ -118,11 +119,11 @@ NSString * const kMPActivityPrintQueueIcon = @"kMPActivityPrintQueueIcon";
                   kMPJobSettingsPrimaryFontColor:   [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
                   kMPJobSettingsSecondaryFont:      [UIFont fontWithName:regularFont size:12],
                   kMPJobSettingsSecondaryFontColor: [UIColor colorWithRed:0x00/255.0F green:0x00/255.0F blue:0x00/255.0F alpha:1.0F],
-                  kMPJobSettingsSelectedPageIcon:   [UIImage imageNamed:@"MPSelected"],
-                  kMPJobSettingsUnselectedPageIcon: [UIImage imageNamed:@"MPUnselected"],
-                  kMPJobSettingsSelectedJobIcon:    [UIImage imageNamed:@"MPActiveCircle"],
-                  kMPJobSettingsUnselectedJobIcon:  [UIImage imageNamed:@"MPInactiveCircle"],
-                  kMPJobSettingsMagnifyingGlassIcon:[UIImage imageNamed:@"MPMagnify"],
+                  kMPJobSettingsSelectedPageIcon:   [UIImage imageResource:@"MPSelected" ofType:@"png"],
+                  kMPJobSettingsUnselectedPageIcon: [UIImage imageResource:@"MPUnselected" ofType:@"png"],
+                  kMPJobSettingsSelectedJobIcon:    [UIImage imageResource:@"MPActiveCircle" ofType:@"png"],
+                  kMPJobSettingsUnselectedJobIcon:  [UIImage imageResource:@"MPInactiveCircle" ofType:@"png"],
+                  kMPJobSettingsMagnifyingGlassIcon:[UIImage imageResource:@"MPMagnify" ofType:@"png"],
                   
                   // Main Action
                   kMPMainActionBackgroundColor:       [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
@@ -150,8 +151,8 @@ NSString * const kMPActivityPrintQueueIcon = @"kMPActivityPrintQueueIcon";
                   kMPOverlayLinkFontColor:      [UIColor colorWithRed:0xFF/255.0F green:0xFF/255.0F blue:0xFF/255.0F alpha:1.0F],
                   
                   // Activity
-                  kMPActivityPrintIcon:      [UIImage imageNamed:@"MPPrint"],
-                  kMPActivityPrintQueueIcon: [UIImage imageNamed:@"MPPrintLater"],
+                  kMPActivityPrintIcon:      [UIImage imageResource:@"MPPrint" ofType:@"png"],
+                  kMPActivityPrintQueueIcon: [UIImage imageResource:@"MPPrintLater" ofType:@"png"],
                   };
     
     return _settings;
