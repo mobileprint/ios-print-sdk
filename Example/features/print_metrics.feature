@@ -788,5 +788,37 @@ Examples:
       | 4 x 5       | Photo Paper | None           |
       | 8.5 x 11    | Plain Paper | None           |
 
-  
+  @reset
+  @ios8
+  @TA13164
+  Scenario Outline: Verify device id in print metrics
+    Given I am on the "PrintPod" screen
+    Then I wait for some seconds
+    And I scroll screen to find "Use unique ID per app"
+    Then I "<unique_id_per_app>" Unique ID per app
+    Then I get the device id
+    Then I enter custom library version
+    And I scroll screen up to find "Print Item"
+    And I touch "Print Item"
+    And I touch "4x6 portrait"
+    Then I should see the "Page Settings" screen
+    Then I run print simulator
+    And I scroll screen "down"
+    And I touch "Paper Size" option
+    And I should see the paper size options
+    And I scroll screen "up"
+    Then I selected the paper size "<size_option>"
+    And I should see the paper type options
+    Then I selected the paper type "<type_option>"
+    Then I wait for some seconds
+    And I scroll down until "Simulated Laser" is visible in the list
+    Then I wait for some seconds
+    Then I choose print button
+    Then I wait for some seconds
+    Then Fetch metrics details
+    And I check the device id
    
+    Examples:
+      | size_option | type_option | metrics_option |unique_id_per_app   |
+      | 4 x 5       | Photo Paper | HP             |Enabled             |
+      | 8.5 x 11    | Plain Paper | HP             |Disabled            |
