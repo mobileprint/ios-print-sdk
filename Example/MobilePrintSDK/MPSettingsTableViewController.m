@@ -608,7 +608,12 @@ NSInteger const kLengthOfSHA = 7;
         MPPrintItem *printItem = [notification.object objectForKey:kMPPrintQueuePrintItemKey];
         NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:@{ kMetricsOfframpKey:action, kMetricsAppTypeKey:kMetricsAppTypeHP }];
         [metrics addEntriesFromDictionary:job.extra];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kMPShareCompletedNotification object:printItem userInfo:metrics];
+        
+        NSMutableDictionary *objects = [[NSMutableDictionary alloc] init];
+        [objects setObject:job forKey:kMPPrintQueueJobKey];
+        [objects setObject:printItem forKey:kMPPrintQueuePrintItemKey];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMPShareCompletedNotification object:objects userInfo:metrics];
     }
 }
 
