@@ -39,7 +39,7 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the printer_location
     And I check the printer_model is "Simulated Laser"
     And I check the printer_name
-    And I check the image_url
+   # And I check the image_url
     And I check the photo_source is "facebook"
     And I check the library version
     And I check the user_id is "1234567890"
@@ -101,7 +101,7 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the printer_location
     And I check the printer_model is "Simulated Laser"
     And I check the printer_name
-    And I check the image_url
+    #And I check the image_url
     And I check the library version
     And I check the paper size is "<size_option>"
     And I check the paper type is "<type_option>"
@@ -202,7 +202,7 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the printer_location
     And I check the printer_model is "Simulated Laser"
     And I check the printer_name
-    And I check the image_url
+    #And I check the image_url
     And I check the library version
     And I check the paper size is "<size_option>"
     And I check the paper type is "<type_option>"
@@ -264,7 +264,7 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the printer_location
     And I check the printer_model is "Simulated Laser"
     And I check the printer_name
-    And I check the image_url
+   # And I check the image_url
     And I check the photo_source is "facebook"
     And I check the library version
     And I check the user_id is "1234567890"
@@ -329,7 +329,7 @@ Feature: As a user I want to verify the print metrics for HP, Partner and none
     And I check the printer_location
     And I check the printer_model is "Simulated Laser"
     And I check the printer_name
-    And I check the image_url
+    #And I check the image_url
     And I check the photo_source is "facebook"
     And I check the library version
     And I check the user_id is "1234567890"
@@ -376,7 +376,7 @@ Examples:
     Then Fetch metrics details
     And I check the manufacturer is "Apple"
     And I check the os_type is "iOS"
-    And I check the image_url
+   # And I check the image_url
     And I check the photo_source is "facebook"
     And I check the library version
     And I check the user_id is "1234567890"
@@ -413,7 +413,7 @@ Examples:
     Then Fetch metrics details
     And I check the manufacturer is "Apple"
     And I check the os_type is "iOS"
-    And I check the image_url
+   # And I check the image_url
     And I check the photo_source is "facebook"
     And I check the library version
     And I check the user_id is "1234567890"
@@ -449,7 +449,7 @@ Examples:
     Then Fetch metrics details
     And I check the manufacturer is "Apple"
     And I check the os_type is "iOS"
-    And I check the image_url
+   # And I check the image_url
     And I check the photo_source is "facebook"
     And I check the library version
     And I check the user_id is "1234567890"
@@ -504,7 +504,7 @@ Examples:
     And I check the printer_location
     And I check the printer_model is "Simulated Laser"
     And I check the printer_name
-    And I check the image_url
+   # And I check the image_url
     And I check the photo_source is "facebook"
     And I check the library version
     And I check the user_id is "1234567890"
@@ -555,7 +555,7 @@ Examples:
     Then Fetch metrics details
     And I check the manufacturer is "Apple"
     And I check the os_type is "iOS"
-    And I check the image_url
+  #  And I check the image_url
     And I check the photo_source is "facebook"
     And I check the library version
     And I check the user_id is "1234567890"
@@ -616,7 +616,7 @@ Examples:
     And I check the printer_location
     And I check the printer_model is "Simulated Laser"
     And I check the printer_name
-    And I check the image_url
+   # And I check the image_url
     And I check the photo_source is "facebook"
     And I check the library version
     And I check the user_id is "1234567890"
@@ -677,7 +677,7 @@ Examples:
     And I check the printer_location
     And I check the printer_model is "Simulated Laser"
     And I check the printer_name
-    And I check the image_url
+ #   And I check the image_url
     And I check the user_id is "1234567890"
     And I check the paper size is "<size_option>"
     And I check the paper type is "<type_option>"
