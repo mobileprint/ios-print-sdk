@@ -277,13 +277,20 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 
 #pragma mark - Send metrics
 
+- (void)trackShareEventWithPrintLaterJob:(NSDictionary *)objects andOptions:(NSDictionary *)options
+{
+    MPPrintLaterJob *printLaterJob = [objects objectForKey:kMPPrintQueueJobKey];
+    MPPrintItem *printItem = [objects objectForKey:kMPPrintQueuePrintItemKey];
+    
+    NSMutableDictionary *metrics = [self getMetricsForPrintItem:printItem andOptions:options];
+    [metrics setObject:[NSNumber numberWithInteger:printLaterJob.numCopies] forKey:kMPNumberOfCopies];
+
+    [self sendMetrics:metrics toURL:[self metricsServerPrintMetricsURL]];
+}
+
 - (void)trackShareEventWithPrintItem:(MPPrintItem *)printItem andOptions:(NSDictionary *)options
 {
-    NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:[self baseMetrics]];
-    [metrics addEntriesFromDictionary:@{ kMPNumberPagesDocument:[NSNumber numberWithInteger:printItem.numberOfPages] }];
-    [metrics addEntriesFromDictionary:[self printMetricsForOfframp:[options objectForKey:kMPOfframpKey]]];
-    [metrics addEntriesFromDictionary:[self contentOptionsForPrintItem:printItem]];
-    [metrics addEntriesFromDictionary:options];
+    NSMutableDictionary *metrics = [self getMetricsForPrintItem:printItem andOptions:options];
     
     [self sendMetrics:metrics toURL:[self metricsServerPrintMetricsURL]];
 }
@@ -385,6 +392,17 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 }
 
 #pragma mark - Helpers
+
+- (NSMutableDictionary *)getMetricsForPrintItem:(MPPrintItem *)printItem andOptions:(NSDictionary *)options
+{
+    NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:[self baseMetrics]];
+    [metrics addEntriesFromDictionary:@{ kMPNumberPagesDocument:[NSNumber numberWithInteger:printItem.numberOfPages] }];
+    [metrics addEntriesFromDictionary:[self printMetricsForOfframp:[options objectForKey:kMPOfframpKey]]];
+    [metrics addEntriesFromDictionary:[self contentOptionsForPrintItem:printItem]];
+    [metrics addEntriesFromDictionary:options];
+    
+    return metrics;
+}
 
 - (NSString *)nonNullString:(NSString *)value
 {

@@ -145,7 +145,11 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
         return;
     }
     
-    [[MPAnalyticsManager sharedManager] trackShareEventWithPrintItem:notification.object andOptions:notification.userInfo];
+    if ([[notification.object class] isSubclassOfClass:[MPPrintItem class]]) {
+        [[MPAnalyticsManager sharedManager] trackShareEventWithPrintItem:notification.object andOptions:notification.userInfo];
+    } else {
+        [[MPAnalyticsManager sharedManager] trackShareEventWithPrintLaterJob:notification.object andOptions:notification.userInfo];
+    }
 }
 
 #pragma mark - Getter methods
