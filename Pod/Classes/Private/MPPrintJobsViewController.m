@@ -272,12 +272,13 @@ NSString * const kJobListScreenName = @"Job List Screen";
     
     if ([self.mutableCheckMarkedPrintJobs containsObject:[NSNumber numberWithInteger:indexPath.row]]) {
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsSelectedJobIcon];
+        jobCell.accessoryView = [[UIImageView alloc] initWithImage:checkMarkImage];
+        jobCell.accessibilityIdentifier = @"MPActiveCircle";
     } else {
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsUnselectedJobIcon];
+        jobCell.accessoryView = [[UIImageView alloc] initWithImage:checkMarkImage];
+        jobCell.accessibilityIdentifier = @"MPActiveCircle";
     }
-    
-    UIImageView *checkMarkImageView = [[UIImageView alloc] initWithImage:checkMarkImage];
-    jobCell.accessoryView = checkMarkImageView;
     
     return cell;
 }
@@ -287,24 +288,22 @@ NSString * const kJobListScreenName = @"Job List Screen";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSNumber *rowIndex = [NSNumber numberWithInteger:indexPath.row];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
     UIImage *checkMarkImage = nil;
     if (![self.mutableCheckMarkedPrintJobs containsObject:rowIndex]) {
         [self.mutableCheckMarkedPrintJobs addObject:rowIndex];
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsSelectedJobIcon];
-        
-        [self setJobsCounterLabel];
+        cell.accessoryView = [[UIImageView alloc] initWithImage:checkMarkImage];
+        cell.accessibilityIdentifier = @"MPActiveCircle";
     } else {
         [self.mutableCheckMarkedPrintJobs removeObject:rowIndex];
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsUnselectedJobIcon];
-        
-        [self setJobsCounterLabel];
+        cell.accessoryView = [[UIImageView alloc] initWithImage:checkMarkImage];
+        cell.accessibilityIdentifier = @"MPInactiveCircle";
     }
     
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    UIImageView *check = [[UIImageView alloc] initWithImage:checkMarkImage];
-    cell.accessoryView = check;
-    
+    [self setJobsCounterLabel];
     [self setDeleteButtonStatus];
     [self setNextButtonStatus];
     [self setSelectAllButtonStatus];
