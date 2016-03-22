@@ -243,6 +243,23 @@ NSString * const kJobListScreenName = @"Job List Screen";
     self.navigationItem.rightBarButtonItem = self.savedBarButton;
 }
 
+- (UIImageView *)jobStatusImageView:(BOOL)isActive
+{
+    UIImageView *imageView = nil;
+    UIImage *checkMarkImage = nil;
+    if(isActive) {
+        checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsSelectedJobIcon];
+        imageView = [[UIImageView alloc] initWithImage:checkMarkImage];
+        imageView.accessibilityIdentifier = @"MPActiveCircle";
+    } else {
+        checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsUnselectedJobIcon];
+        imageView = [[UIImageView alloc] initWithImage:checkMarkImage];
+        imageView.accessibilityIdentifier = @"MPInactiveCircle";
+    }
+    
+    return imageView;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -272,12 +289,10 @@ NSString * const kJobListScreenName = @"Job List Screen";
     
     if ([self.mutableCheckMarkedPrintJobs containsObject:[NSNumber numberWithInteger:indexPath.row]]) {
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsSelectedJobIcon];
-        jobCell.accessoryView = [[UIImageView alloc] initWithImage:checkMarkImage];
-        jobCell.accessoryView.accessibilityIdentifier = @"MPActiveCircle";
+        jobCell.accessoryView = [self jobStatusImageView:YES];
     } else {
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsUnselectedJobIcon];
-        jobCell.accessoryView = [[UIImageView alloc] initWithImage:checkMarkImage];
-        jobCell.accessoryView.accessibilityIdentifier = @"MPActiveCircle";
+        jobCell.accessoryView = [self jobStatusImageView:NO];
     }
     
     return cell;
@@ -294,13 +309,11 @@ NSString * const kJobListScreenName = @"Job List Screen";
     if (![self.mutableCheckMarkedPrintJobs containsObject:rowIndex]) {
         [self.mutableCheckMarkedPrintJobs addObject:rowIndex];
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsSelectedJobIcon];
-        cell.accessoryView = [[UIImageView alloc] initWithImage:checkMarkImage];
-        cell.accessoryView.accessibilityIdentifier = @"MPActiveCircle";
+        cell.accessoryView = [self jobStatusImageView:YES];
     } else {
         [self.mutableCheckMarkedPrintJobs removeObject:rowIndex];
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsUnselectedJobIcon];
-        cell.accessoryView = [[UIImageView alloc] initWithImage:checkMarkImage];
-        cell.accessoryView.accessibilityIdentifier = @"MPInactiveCircle";
+        cell.accessoryView = [self jobStatusImageView:NO];
     }
     
     [self setJobsCounterLabel];
