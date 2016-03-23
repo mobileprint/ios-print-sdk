@@ -4,6 +4,7 @@
 - Update pod to support integration into Swift projects via `use_frameworks!` directive in Podfile
 - Fix "Printer not Available" text and icon placement
 - Ensuring that numCopies metrics are correct when printing from the queue
+- Ensuring that new print queue entries don't overwrite entries from previous pod versions
 
 #### 3.0.3
 ###### Thursday March 3, 2016
