@@ -35,6 +35,7 @@
 #define PRINT_LATER_JOBS_DIRECTORY_NAME @"PrintLaterJobs"
 
 NSString * const kMPPrintLaterJobNextAvailableId = @"kMPPrintLaterJobNextAvailableId";
+NSInteger  const kMPPrintLaterJobFirstId = 100;
 
 NSString * const kMPOfframpAddToQueueShare = @"AddToQueueFromShare";
 NSString * const kMPOfframpAddToQueueCustom = @"AddToQueueFromClientUI";
@@ -67,6 +68,10 @@ NSString * const kMPOfframpDeleteFromQueue = @"DeleteFromQueue";
     
     NSInteger printLaterJobNextAvailableId = [defaults integerForKey:kMPPrintLaterJobNextAvailableId];
     
+    // Preventing id collisions with previous versions of MobilePrintSDK
+    if (0 == printLaterJobNextAvailableId) {
+        printLaterJobNextAvailableId = kMPPrintLaterJobFirstId;
+    }
     printLaterJobNextAvailableId++;
     
     [defaults setInteger:printLaterJobNextAvailableId forKey:kMPPrintLaterJobNextAvailableId];
