@@ -67,6 +67,10 @@ NSString * const kMPOfframpDeleteFromQueue = @"DeleteFromQueue";
     
     NSInteger printLaterJobNextAvailableId = [defaults integerForKey:kMPPrintLaterJobNextAvailableId];
     
+    // Preventing id collisions with previous versions of MobilePrintSDK
+    if (0 == printLaterJobNextAvailableId) {
+        printLaterJobNextAvailableId = 100;
+    }
     printLaterJobNextAvailableId++;
     
     [defaults setInteger:printLaterJobNextAvailableId forKey:kMPPrintLaterJobNextAvailableId];
