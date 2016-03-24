@@ -243,21 +243,30 @@ NSString * const kJobListScreenName = @"Job List Screen";
     self.navigationItem.rightBarButtonItem = self.savedBarButton;
 }
 
-- (UIImageView *)jobStatusImageView:(BOOL)isActive
+- (void)setJobStatusImageView:(BOOL)isActive jobCell:(UITableViewCell *)jobCell
 {
     UIImageView *imageView = nil;
     UIImage *checkMarkImage = nil;
+    NSString *accessibiltyIdentifier = nil;
     if(isActive) {
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsSelectedJobIcon];
         imageView = [[UIImageView alloc] initWithImage:checkMarkImage];
-        imageView.accessibilityIdentifier = @"MPActiveCircle";
+        accessibiltyIdentifier = @"MPActiveCircle";
     } else {
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsUnselectedJobIcon];
         imageView = [[UIImageView alloc] initWithImage:checkMarkImage];
-        imageView.accessibilityIdentifier = @"MPInactiveCircle";
+        accessibiltyIdentifier = @"MPInactiveCircle";
     }
-    
-    return imageView;
+
+    jobCell.accessoryView = imageView;
+    jobCell.selected = isActive;
+
+    jobCell.accessibilityIdentifier = accessibiltyIdentifier;
+    jobCell.accessoryView.accessibilityIdentifier = accessibiltyIdentifier;
+    jobCell.textLabel.accessibilityIdentifier = accessibiltyIdentifier;
+    jobCell.detailTextLabel.accessibilityIdentifier = accessibiltyIdentifier;
+    jobCell.accessibilityIdentifier = accessibiltyIdentifier;
+    jobCell.imageView.accessibilityIdentifier = accessibiltyIdentifier;
 }
 
 #pragma mark - Table view data source
@@ -285,14 +294,10 @@ NSString * const kJobListScreenName = @"Job List Screen";
     
     jobCell.printLaterJob = job;
     
-    UIImage *checkMarkImage = nil;
-    
     if ([self.mutableCheckMarkedPrintJobs containsObject:[NSNumber numberWithInteger:indexPath.row]]) {
-        checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsSelectedJobIcon];
-        jobCell.accessoryView = [self jobStatusImageView:YES];
+        [self setJobStatusImageView:YES jobCell:jobCell];
     } else {
-        checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsUnselectedJobIcon];
-        jobCell.accessoryView = [self jobStatusImageView:NO];
+        [self setJobStatusImageView:NO jobCell:jobCell];
     }
     
     return cell;
@@ -305,15 +310,12 @@ NSString * const kJobListScreenName = @"Job List Screen";
     NSNumber *rowIndex = [NSNumber numberWithInteger:indexPath.row];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
-    UIImage *checkMarkImage = nil;
     if (![self.mutableCheckMarkedPrintJobs containsObject:rowIndex]) {
         [self.mutableCheckMarkedPrintJobs addObject:rowIndex];
-        checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsSelectedJobIcon];
-        cell.accessoryView = [self jobStatusImageView:YES];
+        [self setJobStatusImageView:YES jobCell:cell];
     } else {
         [self.mutableCheckMarkedPrintJobs removeObject:rowIndex];
-        checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsUnselectedJobIcon];
-        cell.accessoryView = [self jobStatusImageView:NO];
+        [self setJobStatusImageView:NO jobCell:cell];
     }
     
     [self setJobsCounterLabel];
