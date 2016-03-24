@@ -259,6 +259,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
     }
 
     jobCell.accessoryView = imageView;
+    jobCell.selected = isActive;
     
     imageView.accessibilityIdentifier = accessibiltyIdentifier;
 }
