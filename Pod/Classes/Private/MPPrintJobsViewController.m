@@ -261,8 +261,6 @@ NSString * const kJobListScreenName = @"Job List Screen";
     jobCell.accessoryView = imageView;
     
     imageView.accessibilityIdentifier = accessibiltyIdentifier;
-    jobCell.textLabel.accessibilityIdentifier = accessibiltyIdentifier;
-    jobCell.accessibilityIdentifier = accessibiltyIdentifier;
 }
 
 #pragma mark - Table view data source
