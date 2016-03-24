@@ -247,18 +247,22 @@ NSString * const kJobListScreenName = @"Job List Screen";
 {
     UIImageView *imageView = nil;
     UIImage *checkMarkImage = nil;
+    NSString *accessibiltyIdentifier = nil;
     if(isActive) {
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsSelectedJobIcon];
         imageView = [[UIImageView alloc] initWithImage:checkMarkImage];
-        imageView.accessibilityIdentifier = @"MPActiveCircle";
+        accessibiltyIdentifier = @"MPActiveCircle";
     } else {
         checkMarkImage = [[MP sharedInstance].appearance.settings objectForKey:kMPJobSettingsUnselectedJobIcon];
         imageView = [[UIImageView alloc] initWithImage:checkMarkImage];
-        imageView.accessibilityIdentifier = @"MPInactiveCircle";
+        accessibiltyIdentifier = @"MPInactiveCircle";
     }
 
     jobCell.accessoryView = imageView;
-    jobCell.accessibilityIdentifier = imageView.accessibilityIdentifier;
+    
+    imageView.accessibilityIdentifier = accessibiltyIdentifier;
+    jobCell.textLabel.accessibilityIdentifier = accessibiltyIdentifier;
+    jobCell.accessibilityIdentifier = accessibiltyIdentifier;
 }
 
 #pragma mark - Table view data source
