@@ -911,7 +911,12 @@ CGFloat const kMPDisabledAlpha = 0.5;
 
 - (void)refreshPrinterStatus:(NSTimer *)timer
 {
-    MPLogInfo(@"Printer status timer fired");
+    if( nil != timer ) {
+        MPLogInfo(@"Printer status timer fired");
+    } else {
+        MPLogInfo(@"Checking printer status... non-timer event");
+    }
+    
     [[MPPrinter sharedInstance] checkLastPrinterUsedAvailability];
 }
 
@@ -1909,12 +1914,14 @@ CGFloat const kMPDisabledAlpha = 0.5;
 - (void)connectionEstablished:(NSNotification *)notification
 {
     [self configurePrintButton];
+    [self refreshPrinterStatus:nil];
 }
 
 - (void)connectionLost:(NSNotification *)notification
 {
     [self configurePrintButton];
     [[MPWiFiReachability sharedInstance] noPrintingAlert];
+    [self refreshPrinterStatus:nil];
 }
 
 - (void)configurePrintButton
