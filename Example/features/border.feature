@@ -45,7 +45,7 @@ Feature: Select a Print item and print for different border types
     @reset
     Scenario Outline: Verify border layout
         Given I am on the "PrintPod" screen
-        And I scroll screen to find "LAYOUT"
+        And I scroll screen to find "Top"
         And I select "<layout_type>" layout type
         #And I scroll screen "down"
         Then I touch "<layout_option>"
