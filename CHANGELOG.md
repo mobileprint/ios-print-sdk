@@ -6,6 +6,7 @@
 - Ensuring that numCopies metrics are correct when printing from the queue
 - Ensuring that new print queue entries don't overwrite entries from previous pod versions
 - Forcing a printer status check whenever wifi status changes (while on Page Settings screen)
+- Updated German translation of "Copy" and "Copies"
 
 #### 3.0.3
 ###### Thursday March 3, 2016
