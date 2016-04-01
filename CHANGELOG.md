@@ -1,3 +1,8 @@
+#### 3.0.5
+###### Not Yet Released
+
+- 
+
 #### 3.0.4
 ###### Friday April 1, 2016
 
