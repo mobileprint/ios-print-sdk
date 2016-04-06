@@ -473,15 +473,20 @@ CGFloat const kMPDisabledAlpha = 0.5;
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self refreshPreviewLayout];
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self refreshPreviewLayout];
-        [self.tableView reloadData];
         self.multiPageView.rotationInProgress = NO;
     }];
 }
 
 - (void)orientationChanged:(NSNotification *)notification{
-    [self.multiPageView cancelZoom];
-    [self refreshPreviewLayout];
+    if( IS_OS_8_OR_LATER ) {
+        // do nothing-- we rely on the call to viewWillTransitionToSize
+    } else {
+        // iOS 7 never calls viewWillTransitionToSize... must handle rotations here
+        [self.multiPageView cancelZoom];
+        self.multiPageView.rotationInProgress = YES;
+        [self refreshPreviewLayout];
+        self.multiPageView.rotationInProgress = NO;
+    }
 }
 
 - (void)refreshPreviewLayout
@@ -489,6 +494,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
     [self setPreviewPaneFrame];
     [self setPageRangeKeyboardView];
     [self.multiPageView refreshLayout];
+    [self.tableView reloadData];
 }
 
 - (void)setPreviewPaneFrame
@@ -957,6 +963,19 @@ CGFloat const kMPDisabledAlpha = 0.5;
     return (BASIC_PRINT_SUMMARY_SECTION == section || PREVIEW_PRINT_SUMMARY_SECTION == section);
 }
 
+-(BOOL)isSectionVisible:(NSInteger)section {
+    BOOL isCellVisible = NO;
+    
+    NSArray *indexes = [self.tableView indexPathsForVisibleRows];
+    for (NSIndexPath *index in indexes) {
+        if (section == index.section) {
+            isCellVisible = YES;
+        }
+    }
+    
+    return isCellVisible;
+}
+
 #pragma mark - UITextField delegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -1291,6 +1310,11 @@ CGFloat const kMPDisabledAlpha = 0.5;
         frame.size.height = extendedSize;
         
         self.pageSelectionExtendedArea.frame = frame;
+        self.pageSelectionMark.hidden = NO;
+    } else {
+        if (![self isSectionVisible:PREVIEW_PRINT_SUMMARY_SECTION]) {
+            self.pageSelectionMark.hidden = YES;
+        }
     }
 }
 
