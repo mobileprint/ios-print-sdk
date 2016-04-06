@@ -1,7 +1,9 @@
 #### 3.0.5
 ###### Not Yet Released
 
-- 
+- Fixing landscape page range keyboard on iOS 7
+- Renaming MPReachability to MPMobilePrintSDKReachability to avoid naming conflicts
+- Fixing page selection icon placement in iOS 7 device rotation
 
 #### 3.0.4
 ###### Friday April 1, 2016
