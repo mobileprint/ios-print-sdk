@@ -18,7 +18,7 @@
 
 @property (weak, nonatomic) UILabel *label;
 @property (weak, nonatomic) UITableViewCell *cell;
-@property (strong, nonatomic) MPReachability *reachability;
+@property (strong, nonatomic) MPMobilePrintSDKReachability *reachability;
 @property (assign, nonatomic) BOOL connected;
 
 @end
@@ -40,7 +40,7 @@
 - (void)startMonitoring
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kMPReachabilityChangedNotification object:nil];
-    self.reachability = [MPReachability reachabilityForLocalWiFi];
+    self.reachability = [MPMobilePrintSDKReachability reachabilityForLocalWiFi];
     [self.reachability startNotifier];
     self.connected = (NotReachable != [self.reachability currentReachabilityStatus]);
 }
@@ -72,8 +72,8 @@
 
 - (void)reachabilityChanged:(NSNotification *)notification
 {
-    MPReachability *currentReachability = [notification object];
-    NSParameterAssert([currentReachability isKindOfClass:[MPReachability class]]);
+    MPMobilePrintSDKReachability *currentReachability = [notification object];
+    NSParameterAssert([currentReachability isKindOfClass:[MPMobilePrintSDKReachability class]]);
     BOOL connected = (NotReachable != [currentReachability currentReachabilityStatus]);
     if (connected != self.connected) {
         self.connected = connected;

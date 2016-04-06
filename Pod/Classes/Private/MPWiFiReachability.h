@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "MPReachability.h"
+#import "MPMobilePrintSDKReachability.h"
 
 /*!
  * @abstract Class that provides Wi-Fi utility methods
