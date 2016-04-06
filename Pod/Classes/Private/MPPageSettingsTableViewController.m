@@ -1312,7 +1312,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
         self.pageSelectionExtendedArea.frame = frame;
         self.pageSelectionMark.hidden = NO;
     } else {
-        if (![self isSectionVisible:PREVIEW_PRINT_SUMMARY_SECTION]) {
+        if (![self isSectionVisible:PREVIEW_PRINT_SUMMARY_SECTION]  &&  ![self isSectionVisible:BASIC_PRINT_SUMMARY_SECTION]) {
             self.pageSelectionMark.hidden = YES;
         }
     }
