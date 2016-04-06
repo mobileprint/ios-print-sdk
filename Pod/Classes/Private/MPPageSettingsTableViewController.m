@@ -473,7 +473,6 @@ CGFloat const kMPDisabledAlpha = 0.5;
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self refreshPreviewLayout];
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self refreshPreviewLayout];
         self.multiPageView.rotationInProgress = NO;
     }];
 }
@@ -964,6 +963,19 @@ CGFloat const kMPDisabledAlpha = 0.5;
     return (BASIC_PRINT_SUMMARY_SECTION == section || PREVIEW_PRINT_SUMMARY_SECTION == section);
 }
 
+-(BOOL)isSectionVisible:(NSInteger)section {
+    BOOL isCellVisible = NO;
+    
+    NSArray *indexes = [self.tableView indexPathsForVisibleRows];
+    for (NSIndexPath *index in indexes) {
+        if (section == index.section) {
+            isCellVisible = YES;
+        }
+    }
+    
+    return isCellVisible;
+}
+
 #pragma mark - UITextField delegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -1298,6 +1310,11 @@ CGFloat const kMPDisabledAlpha = 0.5;
         frame.size.height = extendedSize;
         
         self.pageSelectionExtendedArea.frame = frame;
+        self.pageSelectionMark.hidden = NO;
+    } else {
+        if (![self isSectionVisible:PREVIEW_PRINT_SUMMARY_SECTION]) {
+            self.pageSelectionMark.hidden = YES;
+        }
     }
 }
 
