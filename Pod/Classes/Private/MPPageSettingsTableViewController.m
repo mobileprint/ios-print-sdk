@@ -976,6 +976,37 @@ CGFloat const kMPDisabledAlpha = 0.5;
     return isCellVisible;
 }
 
+- (void)positionPageSelectionMark
+{
+    NSInteger imageSize = 30;
+    NSInteger extendedSize = 75;
+    NSInteger yOffset = 12.5;
+    
+    CGRect pageFrame = [self.multiPageView currentPageFrame];
+    CGFloat xOrigin = self.view.frame.size.width - 55;
+    if( !CGRectEqualToRect(pageFrame, CGRectZero) ) {
+        xOrigin = pageFrame.origin.x + pageFrame.size.width - imageSize/2;
+    }
+    
+    // the page selection image
+    CGRect frame = self.jobSummaryCell.frame;
+    frame.origin.x = xOrigin;
+    frame.origin.y = self.jobSummaryCell.frame.origin.y - yOffset;
+    frame.size.width = imageSize;
+    frame.size.height = imageSize;
+    
+    self.pageSelectionMark.frame = [self.jobSummaryCell.superview convertRect:frame toView:self.view];
+    
+    // the active area
+    CGFloat extendedOffset = (extendedSize - imageSize)/2;
+    frame.origin.x -= extendedOffset;
+    frame.origin.y -= extendedOffset;
+    frame.size.width = extendedSize;
+    frame.size.height = extendedSize;
+
+    self.pageSelectionExtendedArea.frame = frame;
+}
+
 #pragma mark - UITextField delegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -1283,33 +1314,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
 
     if( !self.previewViewController  &&  cell == self.jobSummaryCell ) {
         
-        NSInteger imageSize = 30;
-        NSInteger extendedSize = 75;
-        NSInteger yOffset = 12.5;
-        
-        CGRect pageFrame = [self.multiPageView currentPageFrame];
-        CGFloat xOrigin = self.view.frame.size.width - 55;
-        if( !CGRectEqualToRect(pageFrame, CGRectZero) ) {
-            xOrigin = pageFrame.origin.x + pageFrame.size.width - imageSize/2;
-        }
-
-        // the page selection image
-        CGRect frame = self.jobSummaryCell.frame;
-        frame.origin.x = xOrigin;
-        frame.origin.y = self.jobSummaryCell.frame.origin.y - yOffset;
-        frame.size.width = imageSize;
-        frame.size.height = imageSize;
-        
-        self.pageSelectionMark.frame = [self.jobSummaryCell.superview convertRect:frame toView:self.view];
-        
-        // the active area
-        CGFloat extendedOffset = (extendedSize - imageSize)/2;
-        frame.origin.x -= extendedOffset;
-        frame.origin.y -= extendedOffset;
-        frame.size.width = extendedSize;
-        frame.size.height = extendedSize;
-        
-        self.pageSelectionExtendedArea.frame = frame;
+        [self positionPageSelectionMark];
         self.pageSelectionMark.hidden = NO;
     } else {
         if (![self isSectionVisible:PREVIEW_PRINT_SUMMARY_SECTION]  &&  ![self isSectionVisible:BASIC_PRINT_SUMMARY_SECTION]) {
@@ -1836,6 +1841,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
             [self configureSettingsForPrintLaterJob:self.printLaterJobs[newPageNumber-1]];
             self.blackAndWhiteModeSwitch.on = self.delegateManager.blackAndWhite;
         }
+
+        [self positionPageSelectionMark];
     }
 }
 
