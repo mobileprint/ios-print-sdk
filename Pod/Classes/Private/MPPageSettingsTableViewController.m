@@ -1842,7 +1842,11 @@ CGFloat const kMPDisabledAlpha = 0.5;
             self.blackAndWhiteModeSwitch.on = self.delegateManager.blackAndWhite;
         }
 
-        [self positionPageSelectionMark];
+        if (self.previewViewController) {
+            [self.previewViewController positionPageSelectionMark];
+        } else {
+            [self positionPageSelectionMark];
+        }
     }
 }
 
