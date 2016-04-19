@@ -232,7 +232,7 @@ NSString * const kTestAnalyticsDeviceIdKey = @"device_id";
 - (void)testAppTypeMissingHP
 {
     [MP sharedInstance].handlePrintMetricsAutomatically = NO;
-    [self verifyInitialAppType:nil FinalAppType:kMPMetricsAppTypeHP];
+    [self verifyInitialAppType:nil FinalAppType:nil];
 }
 
 #pragma mark - Helpers
@@ -344,7 +344,7 @@ NSString * const kTestAnalyticsDeviceIdKey = @"device_id";
     NSString *sanitizedAppType = [metrics objectForKey:kMPMetricsAppType];
     
     XCTAssert(
-              [sanitizedAppType isEqualToString:finalAppType],
+              (sanitizedAppType == finalAppType)  ||  [sanitizedAppType isEqualToString:finalAppType],
               @"Expected app type '%@', got '%@'",
               finalAppType,
               sanitizedAppType);

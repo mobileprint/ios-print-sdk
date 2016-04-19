@@ -253,13 +253,8 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 - (void)sanitizeMetrics:(NSMutableDictionary *)metrics
 {
     NSString *appType = [metrics objectForKey:kMPMetricsAppType];
-    
-    if (nil == appType && ![MP sharedInstance].handlePrintMetricsAutomatically) {
-        appType = kMPMetricsAppTypeHP;
-        [metrics setObject:appType forKey:kMPMetricsAppType];
-    }
-    
-    if (![appType isEqualToString:kMPMetricsAppTypeHP]) {
+        
+    if ([MP sharedInstance].handlePrintMetricsAutomatically  &&  ![appType isEqualToString:kMPMetricsAppTypeHP]) {
         [metrics setObject:kMPMetricsAppTypePartner forKey:kMPMetricsAppType];
         for (NSString *key in [self partnerExcludedMetrics]) {
             [metrics setObject:kMPMetricsNotCollected forKey:key];
