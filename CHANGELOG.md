@@ -4,6 +4,7 @@
 - Fixing landscape page range keyboard on iOS 7
 - Renaming MPReachability to MPMobilePrintSDKReachability to avoid naming conflicts
 - Fixing page selection icon placement in iOS 7 device rotation
+- When handlePrintMetricsAutomatically is false, 'HP' is no longer the default appType.  Also, metrics with no appType are not logged.
 
 #### 3.0.4
 ###### Friday April 1, 2016
