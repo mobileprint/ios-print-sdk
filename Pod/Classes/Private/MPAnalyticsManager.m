@@ -315,17 +315,19 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 {
     [self sanitizeMetrics:metrics];
 
-    NSData *bodyData = [self postBodyWithValues:metrics];
-    NSString *bodyLength = [NSString stringWithFormat:@"%ld", (long)[bodyData length]];
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
-    [urlRequest setHTTPMethod:@"POST"];
-    [urlRequest setHTTPBody:bodyData];
-    [urlRequest addValue:bodyLength forHTTPHeaderField: @"Content-Length"];
-    [urlRequest setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [self sendMetricsData:urlRequest];
-    });
+    if (nil != [metrics objectForKey:kMPMetricsAppType]) {
+        NSData *bodyData = [self postBodyWithValues:metrics];
+        NSString *bodyLength = [NSString stringWithFormat:@"%ld", (long)[bodyData length]];
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+        [urlRequest setHTTPMethod:@"POST"];
+        [urlRequest setHTTPBody:bodyData];
+        [urlRequest addValue:bodyLength forHTTPHeaderField: @"Content-Length"];
+        [urlRequest setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            [self sendMetricsData:urlRequest];
+        });
+    }
 }
 
 - (NSString *)eventCountForId:(NSString *)eventId
