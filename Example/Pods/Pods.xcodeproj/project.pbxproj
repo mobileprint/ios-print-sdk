@@ -119,7 +119,7 @@
 		8A0346DED6BCDD57D063720D1D8239A1 /* MPSupportAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 9409B04BFE47CF6874BB87C11273472D /* MPSupportAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A1370FF0DD475F945954535A988ED4B /* OCMockObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 25F1886F79DE7DA5955613EBB2146A7D /* OCMockObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8B2EFE700E9CDF99C66AABED8868AA00 /* MPPrintActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F21572F3B7D63A3069FF15BBA35A86 /* MPPrintActivity.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8D3A2143CFD96315C08AEF3968CD2677 /* MPReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = DC5CE0E0B34C52C943F03E27CEF9AE4B /* MPReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8D3A2143CFD96315C08AEF3968CD2677 /* MPMobilePrintSDKReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = DC5CE0E0B34C52C943F03E27CEF9AE4B /* MPMobilePrintSDKReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8D40AF80800C0D4A691F4A0656E53D98 /* OCMRealObjectForwarder.h in Headers */ = {isa = PBXBuildFile; fileRef = A4FADCBA913FD62F7CD901CCA4EC50A6 /* OCMRealObjectForwarder.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		902F6376618DFEED7DCDD65907C4CFCE /* MPPrintItemPDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A31FF2682839EFE490C8713F3403651 /* MPPrintItemPDF.m */; };
 		9058A12D77D7F821A7263CE7F9F8F225 /* MPPrintActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 80322051FA8F0EB183E040C5AEC05778 /* MPPrintActivity.m */; };
@@ -150,7 +150,7 @@
 		B36995CF7E36CC57C8C118EC5EC049A6 /* OCMock-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1357BC4A54BC9BDFCB4FC6AEAB6048A9 /* OCMock-dummy.m */; };
 		B4643898C41D561F069D2D04996B5FDF /* MPPrintLaterJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F15EEAC404A10D7FFA8BA239665602B /* MPPrintLaterJob.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B4D6973B3F74EB04E719BFCFCBF04C0B /* OCMInvocationStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D42A5F9AB1E0DC588C6A3874C3EBE0E /* OCMInvocationStub.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		B7761D6A099A545724FEDBD0304341F8 /* MPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4552FD30EC5D78BFCA86C0331D58DC37 /* MPReachability.m */; };
+		B7761D6A099A545724FEDBD0304341F8 /* MPMobilePrintSDKReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4552FD30EC5D78BFCA86C0331D58DC37 /* MPMobilePrintSDKReachability.m */; };
 		B8CA7798DAD27AB9886E3B0ABFCA3B64 /* MPLegacyPrintLaterJob.h in Headers */ = {isa = PBXBuildFile; fileRef = F3E677A5D438E753928539ECBFCF1715 /* MPLegacyPrintLaterJob.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC7143B82E45DDE808B1D8E8F6970E41 /* OCMInvocationExpectation.h in Headers */ = {isa = PBXBuildFile; fileRef = F0F4A6A6FD63C0D5EE543EE88C2E5F25 /* OCMInvocationExpectation.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BCC985E63C1D309D5657734178124231 /* MPPrintSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A95E780E93933932F45158CE2050D2DA /* MPPrintSettings.m */; };
@@ -298,7 +298,7 @@
 		4344F106CEC5E838D15D6CECDAE0277E /* MPLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayout.m; sourceTree = "<group>"; };
 		45184F446C8331819D8C8659D3661004 /* MPPrintPageRenderer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintPageRenderer.m; sourceTree = "<group>"; };
 		454E2D90A2917450FDF09C51CF686732 /* OCObserverMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCObserverMockObject.h; path = Source/OCMock/OCObserverMockObject.h; sourceTree = "<group>"; };
-		4552FD30EC5D78BFCA86C0331D58DC37 /* MPReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPReachability.m; sourceTree = "<group>"; };
+		4552FD30EC5D78BFCA86C0331D58DC37 /* MPMobilePrintSDKReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPMobilePrintSDKReachability.m; sourceTree = "<group>"; };
 		466D55D185AFAC762B26D8B88C9C2893 /* MPRuleView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPRuleView.m; sourceTree = "<group>"; };
 		46AB74CD816BC0B04E665A4EBBC4EEFC /* OCPartialMockObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCPartialMockObject.m; path = Source/OCMock/OCPartialMockObject.m; sourceTree = "<group>"; };
 		483303A117875B599261961B32BA9FCB /* OCMMacroState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMMacroState.m; path = Source/OCMock/OCMMacroState.m; sourceTree = "<group>"; };
@@ -454,7 +454,7 @@
 		DA82512D2F9B7E22F21479275742B13E /* Pods-Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-resources.sh"; sourceTree = "<group>"; };
 		DAA37E52E1CF9E328955E3045DA8D6C2 /* MPPrintLaterHelperViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrintLaterHelperViewController.m; sourceTree = "<group>"; };
 		DC314D2FD4A48BCBAD2F4500B4DE26B2 /* MPPrinter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPrinter.m; sourceTree = "<group>"; };
-		DC5CE0E0B34C52C943F03E27CEF9AE4B /* MPReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPReachability.h; sourceTree = "<group>"; };
+		DC5CE0E0B34C52C943F03E27CEF9AE4B /* MPMobilePrintSDKReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPMobilePrintSDKReachability.h; sourceTree = "<group>"; };
 		DE3217F14E2190A0F02DF7A5AFB392C1 /* OCMRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMRecorder.m; path = Source/OCMock/OCMRecorder.m; sourceTree = "<group>"; };
 		DF3F171C2947488B5B6A6CE5152B48DD /* MPPageViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageViewController.m; sourceTree = "<group>"; };
 		DF420433730C686A163F33B254097F55 /* MPDefaultSettingsManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPDefaultSettingsManager.h; sourceTree = "<group>"; };
@@ -961,8 +961,8 @@
 		DE6A76A007D02D3F6C3C967E26E2A936 /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
-				DC5CE0E0B34C52C943F03E27CEF9AE4B /* MPReachability.h */,
-				4552FD30EC5D78BFCA86C0331D58DC37 /* MPReachability.m */,
+				DC5CE0E0B34C52C943F03E27CEF9AE4B /* MPMobilePrintSDKReachability.h */,
+				4552FD30EC5D78BFCA86C0331D58DC37 /* MPMobilePrintSDKReachability.m */,
 			);
 			path = Reachability;
 			sourceTree = "<group>";
@@ -1090,7 +1090,7 @@
 				98DD9C140F0C2FFA113E47245517511C /* MPPrintSettings.h in Headers */,
 				F3D0D2EE9D87AD9BC1E9DDE29BC2C1F0 /* MPPrintSettingsDelegateManager.h in Headers */,
 				BDB2C302EF015972FA28B0035F5BB34D /* MPPrintSettingsTableViewController.h in Headers */,
-				8D3A2143CFD96315C08AEF3968CD2677 /* MPReachability.h in Headers */,
+				8D3A2143CFD96315C08AEF3968CD2677 /* MPMobilePrintSDKReachability.h in Headers */,
 				4AB8F84FA77AEAAFDCEA084642EB4B94 /* MPRuleView.h in Headers */,
 				8A0346DED6BCDD57D063720D1D8239A1 /* MPSupportAction.h in Headers */,
 				FB6372948CD3B0117ADAD2697429D3FC /* MPView.h in Headers */,
@@ -1307,7 +1307,7 @@
 				BCC985E63C1D309D5657734178124231 /* MPPrintSettings.m in Sources */,
 				7B834B2BB27EB745028254BCC2E14680 /* MPPrintSettingsDelegateManager.m in Sources */,
 				54F97D93134CF7ECAA6A7674DFADC8FC /* MPPrintSettingsTableViewController.m in Sources */,
-				B7761D6A099A545724FEDBD0304341F8 /* MPReachability.m in Sources */,
+				B7761D6A099A545724FEDBD0304341F8 /* MPMobilePrintSDKReachability.m in Sources */,
 				F7100B9F47D442F1DF782E53B33C6C5E /* MPRuleView.m in Sources */,
 				96F12BFF60F8B267D0BD147D2C9F6735 /* MPSupportAction.m in Sources */,
 				790DACC3AF4D916EA741B1BB4111DEF1 /* MPView.m in Sources */,

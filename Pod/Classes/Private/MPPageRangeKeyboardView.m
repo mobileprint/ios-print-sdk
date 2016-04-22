@@ -113,7 +113,7 @@ static NSString *kPlaceholderText;
 - (void)layoutButtons:(NSArray *)buttonTitles buttonsPerRow:(NSInteger)buttonsPerRow wideAllButton:(BOOL)doubleWideAllButton
 {
     // The keyboard will take the width of the entire screen, not just our frame
-    CGRect screenFrame = [[UIScreen mainScreen] bounds];
+    CGRect screenFrame = [self screenFrame];
                     
     UIFont *baseFont = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     
@@ -296,6 +296,21 @@ static NSString *kPlaceholderText;
         UITextPosition *newPosition = [self.textField positionFromPosition:selectedTextRange.start offset:string.length];
         self.textField.selectedTextRange = [self.textField textRangeFromPosition:newPosition toPosition:newPosition];
     }
+}
+
+#pragma mark - Utils
+- (CGRect)screenFrame
+{
+    CGRect screenFrame = [UIScreen mainScreen].bounds;
+    
+    // iOS8 and later adjust the mainScreen bounds based on orientation
+    //  In order to support iOS 7, we add this special case
+    if (!IS_OS_8_OR_LATER  &&  IS_LANDSCAPE) {
+        CGSize screenSize = [UIScreen mainScreen].bounds.size;
+        screenFrame.size = CGSizeMake(screenSize.height, screenSize.width);
+    }
+    
+    return screenFrame;
 }
 
 @end

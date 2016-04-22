@@ -1,11 +1,20 @@
+#### 3.0.5
+###### Not Yet Released
+
+- Fixing landscape page range keyboard on iOS 7
+- Renaming MPReachability to MPMobilePrintSDKReachability to avoid naming conflicts
+- Fixing page selection icon placement in iOS 7 device rotation
+- When handlePrintMetricsAutomatically is false, 'HP' is no longer the default appType.  Also, metrics with no appType are not logged.
+
 #### 3.0.4
-###### Not yet released
+###### Friday April 1, 2016
 
 - Update pod to support integration into Swift projects via `use_frameworks!` directive in Podfile
 - Fix "Printer not Available" text and icon placement
 - Ensuring that numCopies metrics are correct when printing from the queue
 - Ensuring that new print queue entries don't overwrite entries from previous pod versions
 - Forcing a printer status check whenever wifi status changes (while on Page Settings screen)
+- Updated German translation of "Copy" and "Copies"
 
 #### 3.0.3
 ###### Thursday March 3, 2016
