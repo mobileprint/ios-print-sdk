@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSMutableArray *selectedImages;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *selectBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *actionBarButtonItem;
+@property (strong, nonatomic) NSMutableDictionary *printItemExtras;
 
 @end
 
@@ -36,6 +37,7 @@
 NSInteger const kMPSelectImageDropboxSection = 0;
 NSInteger const kMPSelectImageSampleSection = 4;
 NSInteger const kMPSelectImagePDFSection = 5;
+NSString * const kMPPrintItemExtras = @"kMPPrintItemExtras";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -145,12 +147,15 @@ NSInteger const kMPSelectImagePDFSection = 5;
     if (kMPSelectImageDropboxSection == indexPath.section) {
         [self selectItemFromDropBox];
     } else if (kMPSelectImagePDFSection == indexPath.section) {
+        [self addFilenameToExtras:[self filenameFromIndexPath:indexPath]];
         [self didSelectPrintAsset:[self pdfFromIndexPath:indexPath]];
     }
     else if (self.selectModeEnabled) {
+        [self addFilenameToExtras:[self filenameFromIndexPath:indexPath]];
         [self addImageAtIndexPath:indexPath];
     }
     else {
+        [self addFilenameToExtras:[self filenameFromIndexPath:indexPath]];
         [self didSelectPrintAsset:[self imageFromIndexPath:indexPath]];
     }
 }
@@ -227,7 +232,7 @@ NSInteger const kMPSelectImagePDFSection = 5;
     return [NSData dataWithContentsOfFile:path];
 }
 
-- (UIImage *)imageFromIndexPath:(NSIndexPath *)indexPath
+- (NSString *)filenameFromIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *imageInfo = [self imageInfoFromIndexPath:indexPath];
     NSString *filename;
@@ -236,6 +241,13 @@ NSInteger const kMPSelectImagePDFSection = 5;
     } else {
         filename = [NSString stringWithFormat:@"%@.%@.%@.jpg", [imageInfo objectForKey:@"size"], [imageInfo objectForKey:@"dpi"], [imageInfo objectForKey:@"orientation"]];
     }
+
+    return filename;
+}
+
+- (UIImage *)imageFromIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *filename = [self filenameFromIndexPath:indexPath];
     return [UIImage imageNamed:filename];
 }
 
@@ -243,6 +255,7 @@ NSInteger const kMPSelectImagePDFSection = 5;
 {
     MPPrintItem *printItem = [MPPrintItemFactory printItemWithAsset:printAsset];
     if (printItem) {
+        printItem.extra = self.printItemExtras;
         [self dismissViewControllerAnimated:YES completion:^{
             if ([self.delegate respondsToSelector:@selector(didSelectPrintItem:)]) {
                 [self.delegate didSelectPrintItem:printItem];
@@ -257,6 +270,21 @@ NSInteger const kMPSelectImagePDFSection = 5;
 - (BOOL)imageSection:(NSInteger)section
 {
     return section > kMPSelectImageDropboxSection && section < kMPSelectImageSampleSection;
+}
+
+- (void)addFilenameToExtras:(NSString *)filename
+{
+    if (!self.printItemExtras) {
+        self.printItemExtras = [[NSMutableDictionary alloc] init];
+    }
+    
+    NSMutableArray *filenames = [self.printItemExtras objectForKey:kMPPrintItemExtras];
+    if (!filenames) {
+        filenames = [[NSMutableArray alloc] init];
+    }
+    [filenames addObject:filename];
+    
+    [self.printItemExtras setObject:filenames forKey:kMPPrintItemExtras];
 }
 
 - (void)addImageAtIndexPath:(NSIndexPath *)indexPath
