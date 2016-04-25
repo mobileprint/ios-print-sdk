@@ -5,6 +5,8 @@
 - Renaming MPReachability to MPMobilePrintSDKReachability to avoid naming conflicts
 - Fixing page selection icon placement in iOS 7 device rotation
 - When handlePrintMetricsAutomatically is false, 'HP' is no longer the default appType.  Also, metrics with no appType are not logged.
+- No longer relying on default value for the lastOptions black-and-white value
+- Logging data in the extra fields on MPPrintLaterJob and MPPrintItem to the custom_data field in the Analytics database
 
 #### 3.0.4
 ###### Friday April 1, 2016
