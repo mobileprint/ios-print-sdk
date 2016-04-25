@@ -5,6 +5,7 @@
 - Renaming MPReachability to MPMobilePrintSDKReachability to avoid naming conflicts
 - Fixing page selection icon placement in iOS 7 device rotation
 - When handlePrintMetricsAutomatically is false, 'HP' is no longer the default appType.  Also, metrics with no appType are not logged.
+- International paper sizes are properly selected by the printer at print-time
 
 #### 3.0.4
 ###### Friday April 1, 2016
