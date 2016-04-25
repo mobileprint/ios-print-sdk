@@ -368,8 +368,8 @@ Examples:
     Then I touch "HP"     
     And I scroll screen up to find "Share Item"
     And I touch "Share Item"
-    And I scroll screen to find "Flowers"
-    And I touch "Flowers"
+    And I scroll screen to find "Galaxy"
+    And I touch "Galaxy"
     Then I wait for some seconds
     When I touch "Save Image"
     Then I wait for some seconds
