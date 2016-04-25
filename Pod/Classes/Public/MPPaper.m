@@ -246,8 +246,8 @@ static NSArray *_supportedPaper = nil;
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSize10x13],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"10x13cm", @"Option for paper size"),
                          kMPPaperSizeConstantNameKey:@"10x13cm",
-                         kMPPaperSizeWidthKey:[NSNumber numberWithFloat:4.0],
-                         kMPPaperSizeHeightKey:[NSNumber numberWithFloat:5.0],
+                         kMPPaperSizeWidthKey:[NSNumber numberWithFloat:3.94],
+                         kMPPaperSizeHeightKey:[NSNumber numberWithFloat:5.12],
                          kMPPaperSizePrinterHeightKey:[NSNumber numberWithFloat:6.0]
                          }];
     
@@ -255,16 +255,16 @@ static NSArray *_supportedPaper = nil;
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSize10x15],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"10x15cm", @"Option for paper size"),
                          kMPPaperSizeConstantNameKey:@"10x15cm",
-                         kMPPaperSizeWidthKey:[NSNumber numberWithFloat:4.0],
-                         kMPPaperSizeHeightKey:[NSNumber numberWithFloat:6.0]
+                         kMPPaperSizeWidthKey:[NSNumber numberWithFloat:3.94],
+                         kMPPaperSizeHeightKey:[NSNumber numberWithFloat:5.91]
                          }];
     
     [self registerSize:@{
                          kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSize13x18],
                          kMPPaperSizeTitleKey:MPLocalizedString(@"13x18cm", @"Option for paper size"),
                          kMPPaperSizeConstantNameKey:@"13x18cm",
-                         kMPPaperSizeWidthKey:[NSNumber numberWithFloat:5.0],
-                         kMPPaperSizeHeightKey:[NSNumber numberWithFloat:7.0]
+                         kMPPaperSizeWidthKey:[NSNumber numberWithFloat:5.12],
+                         kMPPaperSizeHeightKey:[NSNumber numberWithFloat:7.09]
                          }];
     // Paper Type
     [self registerType:@{
