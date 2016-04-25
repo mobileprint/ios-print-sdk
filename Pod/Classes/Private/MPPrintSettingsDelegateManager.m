@@ -328,6 +328,8 @@ NSString * const kMPPrintSummarySeparatorText = @" / ";
         NSNumber *lastBlackAndWhiteUsed = [[NSUserDefaults standardUserDefaults] objectForKey:kMPLastBlackAndWhiteFilterSetting];
         if (lastBlackAndWhiteUsed != nil) {
             self.blackAndWhite = lastBlackAndWhiteUsed.boolValue;
+        } else {
+            self.blackAndWhite = NO;
         }
     }
 }
