@@ -27,6 +27,8 @@ NSString * const kMPPrintLaterJobExtra = @"kMPPrintLaterJobExtra";
 
 @implementation MPPrintLaterJob
 
+@synthesize customAnalytics = _customAnalytics;
+
 - (id) init
 {
     self = [super init];
@@ -115,7 +117,27 @@ NSString * const kMPPrintLaterJobExtra = @"kMPPrintLaterJobExtra";
     [jopOptions addEntriesFromDictionary:@{
                                            kMPOfframpKey:offramp,
                                            kMPNumberPagesPrint:[NSNumber numberWithInteger:printPageCount]}];
+
     self.extra = jopOptions;
+}
+
+- (NSDictionary *)customAnalytics
+{
+    _customAnalytics = [self.extra objectForKey:kMPCustomAnalyticsKey];
+    
+    if (nil == _customAnalytics) {
+        [self setCustomAnalytics:[[NSMutableDictionary alloc] init]];
+        _customAnalytics = [self.extra objectForKey:kMPCustomAnalyticsKey];
+    }
+    
+    return _customAnalytics;
+}
+
+- (void)setCustomAnalytics:(NSDictionary *)customAnalytics
+{
+    NSMutableDictionary *extras = [self.extra mutableCopy];
+    [extras setObject:customAnalytics forKey:kMPCustomAnalyticsKey];
+    self.extra = extras;
 }
 
 - (NSString *)description

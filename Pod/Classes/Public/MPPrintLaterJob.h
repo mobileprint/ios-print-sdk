@@ -63,6 +63,12 @@
 @property (strong, nonatomic) NSDictionary *extra;
 
 /*!
+ * @abstract A dictionary of custom analytics information to store with the print job
+ * @discussion The objects in this dictionary must be encodable with the NSCoding protocol
+ */
+@property (strong, nonatomic) NSDictionary *customAnalytics;
+
+/*!
  * @abstract The default preview image
  * @discussion This image is created to suit the MP default paper size
  */

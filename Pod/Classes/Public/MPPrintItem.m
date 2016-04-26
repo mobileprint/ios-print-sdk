@@ -18,6 +18,9 @@
 
 CGFloat const kMPPointsPerInch = 72.0f;
 NSString * const kMPPrintAssetKey = @"kMPPrintAssetKey";
+NSString * const kMPCustomAnalyticsKey = @"custom_data";
+
+@synthesize customAnalytics = _customAnalytics;
 
 #pragma mark - Abstract methods
 
@@ -116,6 +119,25 @@ NSString * const kMPPrintAssetKey = @"kMPPrintAssetKey";
         _extra = [NSDictionary dictionary];
     }
     return _extra;
+}
+
+- (NSDictionary *)customAnalytics
+{
+    _customAnalytics = [self.extra objectForKey:kMPCustomAnalyticsKey];
+    
+    if (nil == _customAnalytics) {
+        [self setCustomAnalytics:[[NSMutableDictionary alloc] init]];
+        _customAnalytics = [self.extra objectForKey:kMPCustomAnalyticsKey];
+    }
+    
+    return _customAnalytics;
+}
+
+- (void)setCustomAnalytics:(NSDictionary *)customAnalytics
+{
+    NSMutableDictionary *extras = [self.extra mutableCopy];
+    [extras setObject:customAnalytics forKey:kMPCustomAnalyticsKey];
+    self.extra = extras;
 }
 
 @end

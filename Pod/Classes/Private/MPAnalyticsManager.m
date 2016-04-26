@@ -65,9 +65,6 @@ NSString * const kMPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
 NSString * const kMPMetricsEventTypeID = @"event_type_id";
 NSString * const kMPMetricsPrintSessionID = @"print_session_id";
 NSString * const kMPMetricsEventCount = @"event_count";
-NSString * const kMPMetricsPhotoSource = @"photo_source";
-NSString * const kMPMetricsUserId = @"user_id";
-NSString * const kMPMetricsUserName = @"user_name";
 NSInteger const kMPMetricsEventInitialCount = 1;
 
 NSString * const kMPMetricsEventTypePrintInitiated = @"1";
@@ -393,33 +390,24 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 
 #pragma mark - Helpers
 
-- (void)pullHpMetrics:(NSMutableDictionary **)metrics FromExtras:(NSMutableDictionary **)extras
-{
-    NSArray *hpExtras = @[ kMPMetricsAppType, kMPOfframpKey, kMPMetricsPrintSessionID, kMPNumberPagesPrint, kMPMetricsPhotoSource, kMPMetricsUserId, kMPMetricsUserName ];
-    
-    for (NSString *key in hpExtras) {
-        NSObject *object = [*extras objectForKey:key];
-        if (nil != object) {
-            [*metrics setObject:object forKey:key];
-            [*extras removeObjectForKey:key];
-        }
-    }
-}
-
-- (NSString *)convertExtrasToJson:(NSMutableDictionary *)extras
+- (NSString *)convertCustomAnalyticsToJson:(NSMutableDictionary *)customAnalytics
 {
     NSString *json = @"{}";
     
-    if (nil != extras) {
-        NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:extras
-                                                           options:(NSJSONWritingOptions)0
-                                                             error:&error];
-        
-        if (!jsonData) {
-            NSLog(@"Error converting extras to JSON: %@", error.localizedDescription);
+    if (nil != customAnalytics) {
+        if ([customAnalytics isKindOfClass:[NSDictionary class]]) {
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:customAnalytics
+                                                               options:(NSJSONWritingOptions)0
+                                                                 error:&error];
+            
+            if (!jsonData) {
+                MPLogError(@"Error converting extras to JSON: %@", error.localizedDescription);
+            } else {
+                json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            }
         } else {
-            json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            MPLogError(@"Custom Analytics data must be a dictionary, not %@", [customAnalytics class]);
         }
     }
 
@@ -433,12 +421,11 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
     [metrics addEntriesFromDictionary:[self printMetricsForOfframp:[options objectForKey:kMPOfframpKey]]];
     [metrics addEntriesFromDictionary:[self contentOptionsForPrintItem:printItem]];
     
-    // strip out all of the hp metrics that belong in their own DB columns
-    [self pullHpMetrics:&metrics FromExtras:&options];
-    
-    // now add the remaining options to the custom_data column
-    [metrics setObject:[self convertExtrasToJson:options] forKey:@"custom_data"];
-    
+    NSString *customAnalyticsJson = [self convertCustomAnalyticsToJson:[options objectForKey:kMPCustomAnalyticsKey]];
+    NSMutableDictionary *mutableOptions = [options mutableCopy];
+    [mutableOptions setObject:customAnalyticsJson forKey:kMPCustomAnalyticsKey];
+    [metrics addEntriesFromDictionary:mutableOptions];
+
     return metrics;
 }
 

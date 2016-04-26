@@ -255,7 +255,10 @@ NSString * const kMPPrintItemExtras = @"kMPPrintItemExtras";
 {
     MPPrintItem *printItem = [MPPrintItemFactory printItemWithAsset:printAsset];
     if (printItem) {
-        printItem.extra = self.printItemExtras;
+        NSMutableDictionary *extra = [[NSMutableDictionary alloc] init];
+        [extra setObject:self.printItemExtras forKey:kMPCustomAnalyticsKey];
+        printItem.extra = extra;
+
         [self dismissViewControllerAnimated:YES completion:^{
             if ([self.delegate respondsToSelector:@selector(didSelectPrintItem:)]) {
                 [self.delegate didSelectPrintItem:printItem];
