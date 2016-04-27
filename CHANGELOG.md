@@ -1,13 +1,13 @@
 #### 3.0.5
-###### Not Yet Released
+###### Wednesday April 27, 2016
 
 - Fixing landscape page range keyboard on iOS 7
 - Renaming MPReachability to MPMobilePrintSDKReachability to avoid naming conflicts
 - Fixing page selection icon placement in iOS 7 device rotation
-- When handlePrintMetricsAutomatically is false, 'HP' is no longer the default appType.  Also, metrics with no appType are not logged.
+- Fixes to print metrics handling
 - International paper sizes are properly selected by the printer at print-time
 - No longer relying on default value for the lastOptions black-and-white value
-- Logging data in the extra fields on MPPrintLaterJob and MPPrintItem to the custom_data field in the Analytics database
+- Allow custom data in print metrics
 
 #### 3.0.4
 ###### Friday April 1, 2016

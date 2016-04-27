@@ -414,7 +414,7 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
     return json;
 }
 
-- (NSMutableDictionary *)getMetricsForPrintItem:(MPPrintItem *)printItem andOptions:(NSMutableDictionary *)options
+- (NSMutableDictionary *)getMetricsForPrintItem:(MPPrintItem *)printItem andOptions:(NSDictionary *)options
 {
     NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:[self baseMetrics]];
     [metrics addEntriesFromDictionary:@{ kMPNumberPagesDocument:[NSNumber numberWithInteger:printItem.numberOfPages] }];
