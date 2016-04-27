@@ -1312,7 +1312,11 @@ CGFloat const kMPDisabledAlpha = 0.5;
 {
     cell.alpha = cell.userInteractionEnabled ? 1.0 : kMPDisabledAlpha;
 
-    if( !self.previewViewController  &&  cell == self.jobSummaryCell ) {
+    if (self.previewViewController) {
+        self.pageSelectionMark.hidden = YES;
+    } else if (![self isSectionVisible:PREVIEW_PRINT_SUMMARY_SECTION]  &&  ![self isSectionVisible:BASIC_PRINT_SUMMARY_SECTION]) {
+        self.pageSelectionMark.hidden = YES;
+    } else if( cell == self.jobSummaryCell ) {
         
         BOOL showMark = NO;
         
@@ -1331,8 +1335,6 @@ CGFloat const kMPDisabledAlpha = 0.5;
         }
         
         self.pageSelectionMark.hidden = !showMark;
-    } else if (![self isSectionVisible:PREVIEW_PRINT_SUMMARY_SECTION]  &&  ![self isSectionVisible:BASIC_PRINT_SUMMARY_SECTION]) {
-        self.pageSelectionMark.hidden = YES;
     }
 }
 
