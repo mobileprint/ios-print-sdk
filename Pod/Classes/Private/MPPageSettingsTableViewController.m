@@ -1316,7 +1316,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
         self.pageSelectionMark.hidden = YES;
     } else if (![self isSectionVisible:PREVIEW_PRINT_SUMMARY_SECTION]  &&  ![self isSectionVisible:BASIC_PRINT_SUMMARY_SECTION]) {
         self.pageSelectionMark.hidden = YES;
-    } else if( cell == self.jobSummaryCell ) {
+    } else if (cell == self.jobSummaryCell) {
         
         BOOL showMark = NO;
         
