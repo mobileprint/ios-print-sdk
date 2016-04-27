@@ -390,14 +390,42 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 
 #pragma mark - Helpers
 
-- (NSMutableDictionary *)getMetricsForPrintItem:(MPPrintItem *)printItem andOptions:(NSDictionary *)options
+- (NSString *)convertCustomAnalyticsToJson:(NSMutableDictionary *)customAnalytics
+{
+    NSString *json = @"{}";
+    
+    if (nil != customAnalytics) {
+        if ([customAnalytics isKindOfClass:[NSDictionary class]]) {
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:customAnalytics
+                                                               options:(NSJSONWritingOptions)0
+                                                                 error:&error];
+            
+            if (!jsonData) {
+                MPLogError(@"Error converting extras to JSON: %@", error.localizedDescription);
+            } else {
+                json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            }
+        } else {
+            MPLogError(@"Custom Analytics data must be a dictionary, not %@", [customAnalytics class]);
+        }
+    }
+
+    return json;
+}
+
+- (NSMutableDictionary *)getMetricsForPrintItem:(MPPrintItem *)printItem andOptions:(NSMutableDictionary *)options
 {
     NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:[self baseMetrics]];
     [metrics addEntriesFromDictionary:@{ kMPNumberPagesDocument:[NSNumber numberWithInteger:printItem.numberOfPages] }];
     [metrics addEntriesFromDictionary:[self printMetricsForOfframp:[options objectForKey:kMPOfframpKey]]];
     [metrics addEntriesFromDictionary:[self contentOptionsForPrintItem:printItem]];
-    [metrics addEntriesFromDictionary:options];
     
+    NSString *customAnalyticsJson = [self convertCustomAnalyticsToJson:[options objectForKey:kMPCustomAnalyticsKey]];
+    NSMutableDictionary *mutableOptions = [options mutableCopy];
+    [mutableOptions setObject:customAnalyticsJson forKey:kMPCustomAnalyticsKey];
+    [metrics addEntriesFromDictionary:mutableOptions];
+
     return metrics;
 }
 

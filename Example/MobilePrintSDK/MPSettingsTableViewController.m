@@ -354,6 +354,10 @@ NSInteger const kLengthOfSHA = 7;
         [metrics addEntriesFromDictionary:[self photoSourceMetrics]];
         self.printLaterJob.extra = metrics;
     }
+    
+    NSMutableDictionary *customAnalytics = [self.printLaterJob.customAnalytics mutableCopy];
+    [customAnalytics setObject:name forKey:@"PrintLaterJobName"];
+    [self.printLaterJob setCustomAnalytics:customAnalytics];
 }
 
 #pragma mark - Sharing

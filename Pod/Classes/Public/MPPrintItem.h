@@ -33,6 +33,12 @@ extern CGFloat const kMPPointsPerInch;
 extern NSString * const kMPPrintAssetKey;
 
 /*!
+ * @abstract Dictionary key used to specify a dictionary of custom analytics
+ * @discussion An NSDictionary value representing any items to be stored as custom analytics
+ */
+extern NSString * const kMPCustomAnalyticsKey;
+
+/*!
  * @abstract Specifies measurement units
  * @const Inches Report measurements in inches
  * @const Pixels Report measurements in pixels
@@ -149,5 +155,11 @@ typedef enum {
  * @discussion Typically this information is copied from the print job to the print item when the job is printed from the print queue. It is used to record print metrics information. Note, this property is not persisted on the print item when stored in the print queue. Use the 'extra' property of the print job itself for persistent storage in the queue.
  */
 @property (strong, nonatomic) NSDictionary *extra;
+
+/*!
+ * @abstract A dictionary of custom analytics to log with printing analytics
+ * @discussion Note, this property is not persisted on the print item when stored in the print queue. Use the 'customAnalytics' property of the print job itself for persistent storage in the queue.
+ */
+@property (strong, nonatomic) NSDictionary *customAnalytics;
 
 @end
