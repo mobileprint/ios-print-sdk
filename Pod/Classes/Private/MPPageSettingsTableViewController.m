@@ -1311,7 +1311,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.alpha = cell.userInteractionEnabled ? 1.0 : kMPDisabledAlpha;
-    
+
     if( !self.previewViewController  &&  cell == self.jobSummaryCell ) {
         
         BOOL showMark = NO;
