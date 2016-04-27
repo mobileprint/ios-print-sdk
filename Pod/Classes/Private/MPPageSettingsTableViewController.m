@@ -1312,14 +1312,29 @@ CGFloat const kMPDisabledAlpha = 0.5;
 {
     cell.alpha = cell.userInteractionEnabled ? 1.0 : kMPDisabledAlpha;
 
-    if( !self.previewViewController  &&  cell == self.jobSummaryCell ) {
+    if (self.previewViewController) {
+        self.pageSelectionMark.hidden = YES;
+    } else if (![self isSectionVisible:PREVIEW_PRINT_SUMMARY_SECTION]  &&  ![self isSectionVisible:BASIC_PRINT_SUMMARY_SECTION]) {
+        self.pageSelectionMark.hidden = YES;
+    } else if (cell == self.jobSummaryCell) {
+        
+        BOOL showMark = NO;
         
         [self positionPageSelectionMark];
-        self.pageSelectionMark.hidden = NO;
-    } else {
-        if (![self isSectionVisible:PREVIEW_PRINT_SUMMARY_SECTION]  &&  ![self isSectionVisible:BASIC_PRINT_SUMMARY_SECTION]) {
-            self.pageSelectionMark.hidden = YES;
+        
+        if (nil == self.printLaterJobs) {
+            if (self.printItem.numberOfPages > 1) {
+                showMark = YES;
+            }
+        } else {
+            if (MPPageSettingsModeAddToQueue == self.mode) {
+                if (self.printItem.numberOfPages > 1) {
+                    showMark = YES;
+                }
+            }
         }
+        
+        self.pageSelectionMark.hidden = !showMark;
     }
 }
 
