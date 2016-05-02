@@ -80,6 +80,8 @@
 		730c2e911e8d518fe37de7a1 /* MPLearnMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32115DF1A38BCE50079144C /* MPLearnMoreView.xib */; };
 		78cd8fb9b1bee9474f0c1617 /* 115 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B61B73FAA10013E738 /* 115 Pages.pdf */; };
 		7d9d68fa6acc2cb2dcaeabfb /* MPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */; };
+		920746501CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */; };
+		920746511CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */; };
 		92BAEA5F1C1F51170033A200 /* MPLayoutFitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */; };
 		93acf3685826df4abe0f66ad /* MPLearnMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DE1A38BCE50079144C /* MPLearnMoreView.m */; };
 		9ee14810a090fa40eec00a4c /* MPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* MPMultiPageConfigurationViewController.m */; };
@@ -213,6 +215,7 @@
 		7337A2AC7BAEB8252FAAC8BB /* Pods-MobilePrintSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.release.xcconfig"; sourceTree = "<group>"; };
 		7d45322c23338821ae339a35 /* CFNetwork.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		824DD1CAED53617BFC879B9B /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFitTest.m; sourceTree = "<group>"; };
 		B4517B52F9E6A6FBAF719728 /* Pods-MobilePrintSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		B6412EFA41C9FD7C470C1D44 /* MobilePrintSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MobilePrintSDK.podspec; path = ../MobilePrintSDK.podspec; sourceTree = "<group>"; };
@@ -351,6 +354,7 @@
 			children = (
 				65FFC9AC1B03B08700DCE2B4 /* PDF */,
 				6003F59F195388D20070C39A /* Main.storyboard */,
+				9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */,
 				6003F59C195388D20070C39A /* MPAppDelegate.h */,
 				6003F59D195388D20070C39A /* MPAppDelegate.m */,
 				F16A57B81AF2B0EA00F7265E /* MPExampleLogger.h */,
@@ -617,6 +621,7 @@
 				E32115E11A38BCE50079144C /* MPLearnMoreView.xib in Resources */,
 				65FFC9B71B03B0A400DCE2B4 /* 6 Pages (landscape).pdf in Resources */,
 				651039BA1B73FAA10013E738 /* 236 Pages.pdf in Resources */,
+				920746501CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */,
 				65FFC9B41B03B0A400DCE2B4 /* 1 Page.pdf in Resources */,
 				65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
@@ -665,6 +670,7 @@
 				730c2e911e8d518fe37de7a1 /* MPLearnMoreView.xib in Resources */,
 				c4190e03a1effc96f35ed37a /* 6 Pages (landscape).pdf in Resources */,
 				b855ba44f0f109d851911838 /* 236 Pages.pdf in Resources */,
+				920746511CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */,
 				0e5d0520d0eabd24d04360de /* 1 Page.pdf in Resources */,
 				e8243186526a602fd60a7f1e /* 51 Pages.pdf in Resources */,
 				5a7d337f642119fd7623ef30 /* Images.xcassets in Resources */,
