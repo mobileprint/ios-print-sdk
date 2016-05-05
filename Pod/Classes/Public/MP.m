@@ -187,81 +187,55 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
     
-    if (IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION) {
-        UISplitViewController *pageSettingsSplitViewController = (UISplitViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPPageSettingsSplitViewController"];
-        
-        if( 1 == pageSettingsSplitViewController.viewControllers.count ) {
-            MPLogError(@"Only one navController created for the pageSettingsSplitViewController... correcting");
-            UINavigationController *activeNavigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPActiveNavigationController"];
-            UINavigationController *detailsNavigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPPreviewNavigationController"];
-            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithObjects:activeNavigationController, detailsNavigationController, nil];
-            pageSettingsSplitViewController.viewControllers = viewControllers;
-        }
-        
-        UINavigationController *detailsNavigationController = pageSettingsSplitViewController.viewControllers[1];
-        if( nil == (MPPageSettingsTableViewController *)detailsNavigationController.topViewController ) {
-            MPLogError(@"Preview pane view controller failed to be created... correcting");
-            MPPageSettingsTableViewController *previewPane = [storyboard instantiateViewControllerWithIdentifier:@"MPPageSettingsTableViewController"];
-            [detailsNavigationController pushViewController:previewPane animated:NO];
-        }
-        detailsNavigationController.navigationBar.translucent = NO;
-        MPPageSettingsTableViewController *previewPane = (MPPageSettingsTableViewController *)detailsNavigationController.topViewController;
-        previewPane.dataSource = dataSource;
-        previewPane.printItem = printItem;
-        previewPane.displayType = MPPageSettingsDisplayTypePreviewPane;
-        
-        UINavigationController *masterNavigationController = pageSettingsSplitViewController.viewControllers[0];
-        if( nil == (MPPageSettingsTableViewController *)masterNavigationController.topViewController ) {
-            MPLogError(@"Page Settings view controller failed to be created... correcting");
-            MPPageSettingsTableViewController *pageSettingsTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"MPPageSettingsTableViewController"];
-            [masterNavigationController pushViewController:pageSettingsTableViewController animated:NO];
-        }
-        masterNavigationController.navigationBar.translucent = NO;
-        MPPageSettingsTableViewController *pageSettingsTableViewController = (MPPageSettingsTableViewController *)masterNavigationController.topViewController;
-        pageSettingsTableViewController.displayType = MPPageSettingsDisplayTypePageSettingsPane;
-        pageSettingsTableViewController.printDelegate = delegate;
-        pageSettingsTableViewController.dataSource = dataSource;
-        pageSettingsTableViewController.printItem = printItem;
-        pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-        pageSettingsTableViewController.previewViewController = previewPane;
-       
-        if( fromQueue ) {
-            pageSettingsTableViewController.mode = MPPageSettingsModePrintFromQueue;
-            previewPane.mode = MPPageSettingsModePrintFromQueue;
-        } else if( settingsOnly ) {
-            pageSettingsTableViewController.mode = MPPageSettingsModeSettingsOnly;
-            previewPane.mode = MPPageSettingsModeSettingsOnly;
-        } else {
-            pageSettingsTableViewController.mode = MPPageSettingsModePrint;
-            previewPane.mode = MPPageSettingsModePrint;
-        }
-
-        return pageSettingsSplitViewController;
-    } else {
-        // Is not possible to use UISplitViewController in iOS 7 without been the first view controller of the app. You can however do tricky workarounds like embbeding the Split View Controller in a Container View Controller, but that can end up in difficult bugs to find.
-        // From Apple Documentation (iOS 7):
-        // "you must always install the view from a UISplitViewController object as the root view of your application’s window. [...] Split view controllers cannot be presented modally."
-        MPPageSettingsTableViewController *pageSettingsTableViewController = (MPPageSettingsTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPPageSettingsTableViewController"];
-        
-        pageSettingsTableViewController.displayType = MPPageSettingsDisplayTypeSingleView;
-        pageSettingsTableViewController.printItem = printItem;
-        pageSettingsTableViewController.printDelegate = delegate;
-        pageSettingsTableViewController.dataSource = dataSource;
-        
-        if( fromQueue ) {
-            pageSettingsTableViewController.mode = MPPageSettingsModePrintFromQueue;
-        } else if( settingsOnly ) {
-            pageSettingsTableViewController.mode = MPPageSettingsModeSettingsOnly;
-        } else {
-            pageSettingsTableViewController.mode = MPPageSettingsModePrint;
-        }
-        
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pageSettingsTableViewController];
-        navigationController.navigationBar.translucent = NO;
-        navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
-        
-        return navigationController;
+    UISplitViewController *pageSettingsSplitViewController = (UISplitViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPPageSettingsSplitViewController"];
+    
+    if( 1 == pageSettingsSplitViewController.viewControllers.count ) {
+        MPLogError(@"Only one navController created for the pageSettingsSplitViewController... correcting");
+        UINavigationController *activeNavigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPActiveNavigationController"];
+        UINavigationController *detailsNavigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPPreviewNavigationController"];
+        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithObjects:activeNavigationController, detailsNavigationController, nil];
+        pageSettingsSplitViewController.viewControllers = viewControllers;
     }
+    
+    UINavigationController *detailsNavigationController = pageSettingsSplitViewController.viewControllers[1];
+    if( nil == (MPPageSettingsTableViewController *)detailsNavigationController.topViewController ) {
+        MPLogError(@"Preview pane view controller failed to be created... correcting");
+        MPPageSettingsTableViewController *previewPane = [storyboard instantiateViewControllerWithIdentifier:@"MPPageSettingsTableViewController"];
+        [detailsNavigationController pushViewController:previewPane animated:NO];
+    }
+    detailsNavigationController.navigationBar.translucent = NO;
+    MPPageSettingsTableViewController *previewPane = (MPPageSettingsTableViewController *)detailsNavigationController.topViewController;
+    previewPane.dataSource = dataSource;
+    previewPane.printItem = printItem;
+    previewPane.displayType = MPPageSettingsDisplayTypePreviewPane;
+    
+    UINavigationController *masterNavigationController = pageSettingsSplitViewController.viewControllers[0];
+    if( nil == (MPPageSettingsTableViewController *)masterNavigationController.topViewController ) {
+        MPLogError(@"Page Settings view controller failed to be created... correcting");
+        MPPageSettingsTableViewController *pageSettingsTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"MPPageSettingsTableViewController"];
+        [masterNavigationController pushViewController:pageSettingsTableViewController animated:NO];
+    }
+    masterNavigationController.navigationBar.translucent = NO;
+    MPPageSettingsTableViewController *pageSettingsTableViewController = (MPPageSettingsTableViewController *)masterNavigationController.topViewController;
+    pageSettingsTableViewController.displayType = MPPageSettingsDisplayTypePageSettingsPane;
+    pageSettingsTableViewController.printDelegate = delegate;
+    pageSettingsTableViewController.dataSource = dataSource;
+    pageSettingsTableViewController.printItem = printItem;
+    pageSettingsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    pageSettingsTableViewController.previewViewController = previewPane;
+    
+    if( fromQueue ) {
+        pageSettingsTableViewController.mode = MPPageSettingsModePrintFromQueue;
+        previewPane.mode = MPPageSettingsModePrintFromQueue;
+    } else if( settingsOnly ) {
+        pageSettingsTableViewController.mode = MPPageSettingsModeSettingsOnly;
+        previewPane.mode = MPPageSettingsModeSettingsOnly;
+    } else {
+        pageSettingsTableViewController.mode = MPPageSettingsModePrint;
+        previewPane.mode = MPPageSettingsModePrint;
+    }
+    
+    return pageSettingsSplitViewController;
 }
 
 - (UIViewController *)printLaterViewControllerWithDelegate:(id<MPAddPrintLaterDelegate>)delegate printLaterJob:(MPPrintLaterJob *)printLaterJob
