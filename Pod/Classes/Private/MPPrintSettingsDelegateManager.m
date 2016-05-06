@@ -94,6 +94,17 @@ NSString * const kMPPrintSummarySeparatorText = @" / ";
     [self.pageSettingsViewController refreshData];
 }
 
+- (UIViewController *)printerPickerControllerParentViewController:(UIPrinterPickerController *)printerPickerController
+{
+    UIViewController *retVal = nil;
+    
+    if( self.pageSettingsViewController.splitViewController.isCollapsed ) {
+        retVal = self.pageSettingsViewController;
+    }
+    
+    return retVal;
+}
+
 #pragma mark - Number of Copies
 
 - (void)setNumCopies:(NSInteger)numCopies

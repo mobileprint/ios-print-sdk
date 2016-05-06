@@ -740,7 +740,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
         UIPrinterPickerController *printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
         printerPicker.delegate = self.delegateManager;
         
-        if( IS_IPAD ) {
+        if( !self.splitViewController.isCollapsed ) {
             [printerPicker presentFromRect:self.selectPrinterCell.frame
                                     inView:tableView
                                   animated:YES
