@@ -203,6 +203,9 @@ CGFloat const kMPDisabledAlpha = 0.5;
     self.tableView.separatorColor = [self.mp.appearance.settings objectForKey:kMPGeneralTableSeparatorColor];
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
     
+    // we must set the delegate in viewDidLoad to ensure that this object is used to get page images
+    self.multiPageView.delegate = self;
+    
     self.tableView.tableFooterView.backgroundColor = [self.mp.appearance.settings objectForKey:kMPGeneralBackgroundColor];
     self.tableView.tableHeaderView.backgroundColor = [self.mp.appearance.settings objectForKey:kMPGeneralBackgroundColor];
 
@@ -450,7 +453,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
     [self.multiPageView refreshLayout];
 }
 
--  (void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kMPWiFiConnectionEstablished object:nil];
@@ -471,6 +474,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
         
         if (IS_IPAD  &&  MPPageSettingsDisplayTypeSingleView == self.displayType) {
             self.displayType = MPPageSettingsDisplayTypePageSettingsPane;
+            [self configureJobSummaryCell];
             [self.previewViewController.multiPageView changeToPage:_multiPageView.currentPage animated:NO];
             [self refreshPreviewLayout];
             [self refreshData];
@@ -478,6 +482,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
     } else if ( UIUserInterfaceSizeClassCompact == newTraits.horizontalSizeClass ) {
         if (MPPageSettingsDisplayTypePageSettingsPane == self.displayType) {
             self.displayType = MPPageSettingsDisplayTypeSingleView;
+            [self configureJobSummaryCell];
             [_multiPageView changeToPage:self.previewViewController.multiPageView.currentPage animated:NO];
             [self refreshPreviewLayout];
             [self refreshData];
@@ -1006,7 +1011,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
 
 - (void)configureJobSummaryCell
 {
-    if( MPPageSettingsModeAddToQueue == self.mode || MPPageSettingsModePrintFromQueue == self.mode ) {
+    if( (MPPageSettingsModeAddToQueue == self.mode && MPPageSettingsDisplayTypeSingleView != self.displayType) ||
+         MPPageSettingsModePrintFromQueue == self.mode ) {
         self.jobSummaryCell = self.previewJobSummaryCell;
         self.basicJobSummaryCell.hidden = YES;
         self.previewJobSummaryCell.hidden = NO;

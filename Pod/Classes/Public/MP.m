@@ -247,23 +247,20 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     
     UIViewController *vc = [self printViewControllerWithDelegate:nil dataSource:nil printItem:printItem fromQueue:NO settingsOnly:NO];
     
-    if( [vc isKindOfClass:[UINavigationController class]] ) {
-        pageSettingsTableViewController = (MPPageSettingsTableViewController *)((UINavigationController *)vc).topViewController;
-    } else if( [vc isKindOfClass:[UISplitViewController class]] ) {
+    if( [vc isKindOfClass:[UISplitViewController class]] ) {
         UINavigationController *masterNavigationController = (UINavigationController *)((UISplitViewController *)vc).viewControllers[0];
         pageSettingsTableViewController = (MPPageSettingsTableViewController *)masterNavigationController.topViewController;
+        pageSettingsTableViewController.printLaterJobs =  [[NSArray alloc] initWithObjects:printLaterJob, nil];
+        pageSettingsTableViewController.printLaterDelegate = delegate;
+        pageSettingsTableViewController.mode = MPPageSettingsModeAddToQueue;
+        pageSettingsTableViewController.printItem = printItem;
 
         UINavigationController *previewNavigationController = (UINavigationController *)((UISplitViewController *)vc).viewControllers[1];
         previewViewController = (MPPageSettingsTableViewController *)previewNavigationController.topViewController;
         previewViewController.mode = MPPageSettingsModeAddToQueue;
         previewViewController.printLaterJobs =  [[NSArray alloc] initWithObjects:printLaterJob, nil];
-    } else {
-        pageSettingsTableViewController = (MPPageSettingsTableViewController *)vc;
+        previewViewController.printItem = printItem;
     }
-    
-    pageSettingsTableViewController.printLaterJobs =  [[NSArray alloc] initWithObjects:printLaterJob, nil];
-    pageSettingsTableViewController.printLaterDelegate = delegate;
-    pageSettingsTableViewController.mode = MPPageSettingsModeAddToQueue;
     
     return vc;
 }
