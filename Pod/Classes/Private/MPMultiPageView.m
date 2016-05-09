@@ -341,6 +341,7 @@ static NSNumber *lastPinchScale = nil;
         CGFloat scrollWidth = self.scrollView.bounds.size.width;
         
         [self.scrollView setContentOffset:CGPointMake(scrollWidth * (pageNumber - 1), 0) animated:animated];
+        [self scrollViewDidEndDecelerating:self.scrollView];
         [self updatePageImages:pageNumber];
     }
 }
