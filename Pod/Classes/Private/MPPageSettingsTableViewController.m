@@ -141,6 +141,8 @@
 
 @property (assign, nonatomic) BOOL actionInProgress;
 
+@property (weak, nonatomic) UIPrinterPickerController *printerPicker;
+
 @end
 
 @implementation MPPageSettingsTableViewController
@@ -467,6 +469,10 @@ CGFloat const kMPDisabledAlpha = 0.5;
 
 - (void)respondToSplitControllerTraitChange:(UITraitCollection *)newTraits
 {
+    if (self.printerPicker) {
+        [self.printerPicker dismissAnimated:NO];
+    }
+
     if ( UIUserInterfaceSizeClassRegular == newTraits.horizontalSizeClass ) {
         if (MPPageSettingsDisplayTypePageSettingsPane == self.displayType  ||  (MPPageSettingsModeSettingsOnly == self.mode && nil == self.printItem)) {
             self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -737,11 +743,11 @@ CGFloat const kMPDisabledAlpha = 0.5;
 - (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
 {
     if ([[MPWiFiReachability sharedInstance] isWifiConnected]) {
-        UIPrinterPickerController *printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
-        printerPicker.delegate = self.delegateManager;
+        self.printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
+        self.printerPicker.delegate = self.delegateManager;
         
         if( !self.splitViewController.isCollapsed ) {
-            [printerPicker presentFromRect:self.selectPrinterCell.frame
+            [self.printerPicker presentFromRect:self.selectPrinterCell.frame
                                     inView:tableView
                                   animated:YES
                          completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
@@ -750,7 +756,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
                              }
                          }];
         } else {
-            [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+            [self.printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
                 if (completion){
                     completion(userDidSelect);
                 }
