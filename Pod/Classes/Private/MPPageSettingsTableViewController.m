@@ -1447,10 +1447,12 @@ CGFloat const kMPDisabledAlpha = 0.5;
     } else if (cell == self.selectPrinterCell) {
         [self showPrinterSelection:tableView withCompletion:nil];
     } else if (cell == self.printCell){
-        if( MPPageSettingsModeAddToQueue == self.mode ) {
-            [self addJobToPrintQueue];
-        } else {
-            [self oneTouchPrint:tableView];
+        if( [[MP sharedInstance].appearance.settings objectForKey:kMPMainActionInactiveLinkFontColor] != self.printLabel.textColor ) {
+            if( MPPageSettingsModeAddToQueue == self.mode ) {
+                [self addJobToPrintQueue];
+            } else {
+                [self oneTouchPrint:tableView];
+            }
         }
     } else if (cell == self.pageRangeCell){
         [self.pageRangeDetailTextField becomeFirstResponder];
