@@ -14,7 +14,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MP.h"
-#import "MPPageSettingsSplitViewController.h";
+#import "MPPageSettingsSplitViewController.h"
 
 /*!
  * @abstract All of the different possible configurations for the MPPageSettingsTableViewController screen
