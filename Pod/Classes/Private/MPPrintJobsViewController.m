@@ -150,6 +150,11 @@ NSString * const kJobListScreenName = @"Job List Screen";
     }];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [self.tableView reloadData];
+}
+
 #pragma mark - Button actions
 
 - (IBAction)doneButtonTapped:(id)sender

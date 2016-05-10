@@ -71,13 +71,42 @@
     self.selectAllSeparatorView.backgroundColor = separatorColor;
     self.deleteSeparatorView.backgroundColor = separatorColor;
     
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    [self setDefaultSpacing];
+    
+    self.selectAllState = YES;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self setSpacingForCurrentContext];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [self setSpacingForCurrentContext];
+}
+
+- (void)setDefaultSpacing
+{
+    CGFloat screenWidth = self.bounds.size.width;
     self.selectAllButtonWidth.constant = screenWidth / 3.0f;
     self.deleteButtonLeadingSpace.constant = screenWidth / 3.0f;
     self.deleteButtonWidth.constant = screenWidth / 3.0f;
     self.nextButtonWidth.constant = screenWidth / 3.0f;
+}
+
+- (void)setSpacingForCurrentContext
+{
+    [self setDefaultSpacing];
     
-    self.selectAllState = YES;
+    if (self.selectAllButton.hidden) {
+        [self hideSelectAllButton];
+    }
+    
+    if (self.nextButton.hidden) {
+        [self hideNextButton];
+    }
 }
 
 #pragma mark - Button action methods
@@ -122,7 +151,7 @@
     self.selectAllButton.hidden = YES;
     self.selectAllSeparatorView.hidden = YES;
     
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenWidth = self.bounds.size.width;
     self.deleteButtonLeadingSpace.constant = 0.0f;
     
     if (self.nextButton.hidden) {
@@ -138,7 +167,7 @@
     self.nextButton.hidden = YES;
     self.deleteSeparatorView.hidden = YES;
     
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenWidth = self.bounds.size.width;
     
     if (self.selectAllButton.hidden) {
         self.deleteButtonLeadingSpace.constant = 0.0f;
@@ -155,7 +184,7 @@
     self.nextButton.hidden = NO;
     self.deleteSeparatorView.hidden = NO;
     
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenWidth = self.bounds.size.width;
     
     if (self.selectAllButton.hidden) {
         self.deleteButtonLeadingSpace.constant = 0.0f;

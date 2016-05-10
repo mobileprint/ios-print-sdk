@@ -340,16 +340,9 @@ static NSNumber *lastPinchScale = nil;
     if (pageNumber >= 1 && pageNumber <= self.pageImages.count) {
         CGFloat scrollWidth = self.scrollView.bounds.size.width;
         
-        // we're forcing a scrolling action on the page-- prevent the pageNumberLabel from responding as though it was a user event
-        BOOL hidePageNumberLabel = self.pageNumberLabel.hidden;
-        CGFloat pageNumberLabelAlpha = self.pageNumberLabel.alpha;
-        self.pageNumberLabel.hidden = YES;
-
         [self.scrollView setContentOffset:CGPointMake(scrollWidth * (pageNumber - 1), 0) animated:animated];
+        [self scrollViewDidEndDecelerating:self.scrollView];
         [self updatePageImages:pageNumber];
-        
-        self.pageNumberLabel.alpha = pageNumberLabelAlpha;
-        self.pageNumberLabel.hidden = hidePageNumberLabel;
     }
 }
 

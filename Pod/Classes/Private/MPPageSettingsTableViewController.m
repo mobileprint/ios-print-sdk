@@ -141,6 +141,8 @@
 
 @property (assign, nonatomic) BOOL actionInProgress;
 
+@property (weak, nonatomic) UIPrinterPickerController *printerPicker;
+
 @end
 
 @implementation MPPageSettingsTableViewController
@@ -203,10 +205,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
     self.tableView.separatorColor = [self.mp.appearance.settings objectForKey:kMPGeneralTableSeparatorColor];
     self.tableView.rowHeight = DEFAULT_ROW_HEIGHT;
     
-    if (MPPageSettingsDisplayTypePageSettingsPane == self.displayType  ||  (MPPageSettingsModeSettingsOnly == self.mode && nil == self.printItem)) {
-        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
-    }
-    
+    // we must set the delegate in viewDidLoad to ensure that this object is used to get page images
     self.multiPageView.delegate = self;
     
     self.tableView.tableFooterView.backgroundColor = [self.mp.appearance.settings objectForKey:kMPGeneralBackgroundColor];
@@ -446,12 +445,17 @@ CGFloat const kMPDisabledAlpha = 0.5;
 
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)  name:UIDeviceOrientationDidChangeNotification  object:nil];
 
+    
+    for (MPMultiPageView *mpView in [self allMultiPageViews]) {
+        mpView.delegate = self;
+    }
+    
     [self setPreviewPaneFrame];
 
     [self.multiPageView refreshLayout];
 }
 
--  (void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kMPWiFiConnectionEstablished object:nil];
@@ -463,17 +467,53 @@ CGFloat const kMPDisabledAlpha = 0.5;
     self.printManager.delegate = nil;
 }
 
+- (void)respondToSplitControllerTraitChange:(UITraitCollection *)newTraits
+{
+    if (self.printerPicker) {
+        [self.printerPicker dismissAnimated:NO];
+    }
+
+    if ( UIUserInterfaceSizeClassRegular == newTraits.horizontalSizeClass ) {
+        if (MPPageSettingsDisplayTypePageSettingsPane == self.displayType  ||  (MPPageSettingsModeSettingsOnly == self.mode && nil == self.printItem)) {
+            self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
+        }
+        
+        if (IS_IPAD  &&  MPPageSettingsDisplayTypeSingleView == self.displayType) {
+            self.displayType = MPPageSettingsDisplayTypePageSettingsPane;
+            [self configureJobSummaryCell];
+            [self.previewViewController.multiPageView changeToPage:_multiPageView.currentPage animated:NO];
+            [self refreshPreviewLayout];
+            [self refreshData];
+        }
+    } else if ( UIUserInterfaceSizeClassCompact == newTraits.horizontalSizeClass ) {
+        if (MPPageSettingsDisplayTypePageSettingsPane == self.displayType) {
+            self.displayType = MPPageSettingsDisplayTypeSingleView;
+            [self configureJobSummaryCell];
+            [_multiPageView changeToPage:self.previewViewController.multiPageView.currentPage animated:NO];
+            [self refreshPreviewLayout];
+            [self refreshData];
+        }
+    }
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 
-    [self.multiPageView cancelZoom];
+    for (MPMultiPageView *mpView in [self allMultiPageViews]) {
+        [mpView cancelZoom];
+    }
 
-    self.multiPageView.rotationInProgress = YES;
+    for (MPMultiPageView *mpView in [self allMultiPageViews]) {
+        mpView.rotationInProgress = YES;
+    }
+    
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self refreshPreviewLayout];
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        self.multiPageView.rotationInProgress = NO;
+        for (MPMultiPageView *mpView in [self allMultiPageViews]) {
+            mpView.rotationInProgress = NO;
+        }
     }];
 }
 
@@ -482,10 +522,12 @@ CGFloat const kMPDisabledAlpha = 0.5;
         // do nothing-- we rely on the call to viewWillTransitionToSize
     } else {
         // iOS 7 never calls viewWillTransitionToSize... must handle rotations here
-        [self.multiPageView cancelZoom];
-        self.multiPageView.rotationInProgress = YES;
-        [self refreshPreviewLayout];
-        self.multiPageView.rotationInProgress = NO;
+        for (MPMultiPageView *mpView in [self allMultiPageViews]) {
+            [mpView cancelZoom];
+            mpView.rotationInProgress = YES;
+            [self refreshPreviewLayout];
+            mpView.rotationInProgress = NO;
+        }
     }
 }
 
@@ -527,6 +569,10 @@ CGFloat const kMPDisabledAlpha = 0.5;
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    if (self.previewViewController) {
+        self.previewViewController = nil;
+    }
 }
 
 #pragma mark - Configure UI
@@ -650,6 +696,9 @@ CGFloat const kMPDisabledAlpha = 0.5;
     } else if( MPPageSettingsDisplayTypePageSettingsPane == self.displayType ) {
         self.basicJobSummaryCell.hidden = YES;
         self.previewJobSummaryCell.hidden = YES;
+    } else if( MPPageSettingsDisplayTypeSingleView == self.displayType ) {
+        // Since we can toggle between SingleView and PageSettingsPane types, we must "unhide" the summary cell
+        self.basicJobSummaryCell.hidden = NO;
     }
     
     [self prepareUiForIosVersion];
@@ -694,11 +743,11 @@ CGFloat const kMPDisabledAlpha = 0.5;
 - (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
 {
     if ([[MPWiFiReachability sharedInstance] isWifiConnected]) {
-        UIPrinterPickerController *printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
-        printerPicker.delegate = self.delegateManager;
+        self.printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
+        self.printerPicker.delegate = self.delegateManager;
         
-        if( IS_IPAD ) {
-            [printerPicker presentFromRect:self.selectPrinterCell.frame
+        if( !self.splitViewController.isCollapsed ) {
+            [self.printerPicker presentFromRect:self.selectPrinterCell.frame
                                     inView:tableView
                                   animated:YES
                          completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
@@ -707,7 +756,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
                              }
                          }];
         } else {
-            [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+            [self.printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
                 if (completion){
                     completion(userDidSelect);
                 }
@@ -762,33 +811,65 @@ CGFloat const kMPDisabledAlpha = 0.5;
         if (MPPageSettingsModePrintFromQueue == self.mode) {
             numPages = self.printLaterJobs.count;
         }
-        [self.multiPageView configurePages:numPages paper:self.delegateManager.printSettings.paper layout:printItem.layout];
+        
+        for (MPMultiPageView *multiPageView in [self allMultiPageViews]) {
+            [multiPageView configurePages:numPages paper:self.delegateManager.printSettings.paper layout:printItem.layout];
+        }
         
         if (MPPageSettingsModePrintFromQueue == self.mode) {
             NSInteger jobNum = 1;
             for (MPPrintLaterJob* job in self.printLaterJobs) {
                 if (job.blackAndWhite) {
-                    [self.multiPageView setPageNum:jobNum blackAndWhite:YES];
+                    for (MPMultiPageView *mpView in [self allMultiPageViews]) {
+                        [mpView setPageNum:jobNum blackAndWhite:YES];
+                    }
                 }
                 
                 jobNum++;
             }
         } else {
-            self.multiPageView.blackAndWhite = self.delegateManager.blackAndWhite;
+            for (MPMultiPageView *mpView in [self allMultiPageViews]) {
+                mpView.blackAndWhite = self.delegateManager.blackAndWhite;
+            }
         }
     }
 }
 
-- (MPMultiPageView *)multiPageView
+- (NSArray *)allMultiPageViews
 {
-    if (self.previewViewController) {
-        _multiPageView = self.previewViewController.multiPageView;
-        _multiPageView.delegate = self;
-        
-        _headerInactivityView = self.previewViewController.headerInactivityView;
+    NSMutableArray *allPageViews = [[NSMutableArray alloc] init];
+    
+    if (nil != _multiPageView) {
+        [allPageViews addObject:_multiPageView];
     }
     
-    return _multiPageView;
+    if (self.previewViewController  &&  nil != self.previewViewController.multiPageView) {
+        [allPageViews addObject:self.previewViewController.multiPageView];
+    }
+    
+    return allPageViews;
+}
+
+- (UIView *)headerInactivityView
+{
+    UIView *view = _headerInactivityView;
+    
+    if (self.previewViewController  &&  MPPageSettingsDisplayTypeSingleView != self.displayType) {
+        view = self.previewViewController.headerInactivityView;
+    }
+    
+    return view;
+}
+
+- (MPMultiPageView *)multiPageView
+{
+    MPMultiPageView *retVal = _multiPageView;
+    
+    if (self.previewViewController  &&  MPPageSettingsDisplayTypeSingleView != self.displayType) {
+        retVal = self.previewViewController.multiPageView;
+    }
+
+    return retVal;
 }
 
 -(void)respondToMultiPageViewAction
@@ -936,7 +1017,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
 
 - (void)configureJobSummaryCell
 {
-    if( MPPageSettingsModeAddToQueue == self.mode || MPPageSettingsModePrintFromQueue == self.mode ) {
+    if( (MPPageSettingsModeAddToQueue == self.mode && MPPageSettingsDisplayTypeSingleView != self.displayType) ||
+         MPPageSettingsModePrintFromQueue == self.mode ) {
         self.jobSummaryCell = self.previewJobSummaryCell;
         self.basicJobSummaryCell.hidden = YES;
         self.previewJobSummaryCell.hidden = NO;
@@ -1236,9 +1318,13 @@ CGFloat const kMPDisabledAlpha = 0.5;
     if (MPPageSettingsModePrintFromQueue == self.mode) {
         MPPrintLaterJob *job = self.printLaterJobs[self.multiPageView.currentPage-1];
         job.blackAndWhite = self.delegateManager.blackAndWhite;
-        [self.multiPageView setPageNum:self.multiPageView.currentPage blackAndWhite:job.blackAndWhite];
+        for (MPMultiPageView *mpView in [self allMultiPageViews]) {
+            [mpView setPageNum:self.multiPageView.currentPage blackAndWhite:job.blackAndWhite];
+        }
     } else {
-        self.multiPageView.blackAndWhite = self.delegateManager.blackAndWhite;
+        for (MPMultiPageView *mpView in [self allMultiPageViews]) {
+            mpView.blackAndWhite = self.delegateManager.blackAndWhite;
+        }
     }
     
     [self refreshData];
@@ -1312,7 +1398,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
 {
     cell.alpha = cell.userInteractionEnabled ? 1.0 : kMPDisabledAlpha;
 
-    if (self.previewViewController) {
+    if (MPPageSettingsDisplayTypePageSettingsPane == self.displayType) {
         self.pageSelectionMark.hidden = YES;
     } else if (![self isSectionVisible:PREVIEW_PRINT_SUMMARY_SECTION]  &&  ![self isSectionVisible:BASIC_PRINT_SUMMARY_SECTION]) {
         self.pageSelectionMark.hidden = YES;
@@ -1857,10 +1943,9 @@ CGFloat const kMPDisabledAlpha = 0.5;
             self.blackAndWhiteModeSwitch.on = self.delegateManager.blackAndWhite;
         }
 
+        [self positionPageSelectionMark];
         if (self.previewViewController) {
             [self.previewViewController positionPageSelectionMark];
-        } else {
-            [self positionPageSelectionMark];
         }
     }
 }

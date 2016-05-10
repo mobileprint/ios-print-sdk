@@ -169,7 +169,7 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
             UIPrinterPickerController* printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
             printerPicker.delegate = self;
             
-            if( IS_IPAD ) {
+            if( !self.splitViewController.isCollapsed ) {
                 [printerPicker presentFromRect:self.printerSelectCell.frame
                                         inView:tableView
                                       animated:YES
@@ -261,6 +261,17 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
 }
 
 #pragma mark - UIPrinterPickerControllerDelegate
+
+- (UIViewController *)printerPickerControllerParentViewController:(UIPrinterPickerController *)printerPickerController
+{
+    UIViewController *retVal = nil;
+    
+    if( self.splitViewController.isCollapsed ) {
+        retVal = self;
+    }
+    
+    return retVal;
+}
 
 - (void)printerPickerControllerDidDismiss:(UIPrinterPickerController *)printerPickerController
 {

@@ -1,3 +1,8 @@
+#### 3.0.6
+###### Not Yet Released
+
+- Adding support for multi-tasking (split screen) functionality
+
 #### 3.0.5
 ###### Wednesday April 27, 2016
 
