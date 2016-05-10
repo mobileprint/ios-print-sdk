@@ -315,7 +315,7 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 {
     [self sanitizeMetrics:metrics];
 
-    if (nil != [metrics objectForKey:kMPMetricsAppType]) {
+    if (nil != [metrics objectForKey:kMPMetricsAppType]  ||  nil != [metrics objectForKey:kMPMetricsEventTypeID]) {
         NSData *bodyData = [self postBodyWithValues:metrics];
         NSString *bodyLength = [NSString stringWithFormat:@"%ld", (long)[bodyData length]];
         NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
