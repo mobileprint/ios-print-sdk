@@ -40,7 +40,7 @@ static NSURLRequest *_request = nil;
 
 extern NSString * const kMPMetricsEventTypeID;
 extern NSString * const kMPMetricsEventCount;
-extern NSInteger const kMPMetricsEventInitialCount;
+extern NSNumber *       kMPMetricsEventInitialCount;
 extern NSString * const kMPMetricsAppType;
 extern NSString * const kMPMetricsAppTypeHP;
 extern NSString * const kMPMetricsAppTypePartner;
@@ -257,7 +257,7 @@ NSString * const kTestAnalyticsDeviceIdKey = @"device_id";
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [self verifyCount:kMPMetricsEventInitialCount forEvent:eventId];
+    [self verifyCount:[kMPMetricsEventInitialCount integerValue] forEvent:eventId];
 }
 
 - (void)verifyRunningCount:(NSInteger)count forEvent:(NSString *)eventId
