@@ -65,7 +65,8 @@ NSString * const kMPMetricsTimezoneOffsetSeconds = @"timezone_offset_seconds";
 NSString * const kMPMetricsEventTypeID = @"event_type_id";
 NSString * const kMPMetricsPrintSessionID = @"print_session_id";
 NSString * const kMPMetricsEventCount = @"event_count";
-NSInteger const kMPMetricsEventInitialCount = 1;
+NSInteger  const kMPMetricsEventInitialCountValue = 1;
+NSNumber *       kMPMetricsEventInitialCount;
 
 NSString * const kMPMetricsEventTypePrintInitiated = @"1";
 NSString * const kMPMetricsEventTypePrintCompleted = @"5";
@@ -78,6 +79,7 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedManager = [[self alloc] init];
+        kMPMetricsEventInitialCount = [NSNumber numberWithInteger:kMPMetricsEventInitialCountValue];
     });
     
     return sharedManager;
@@ -333,7 +335,7 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 - (NSString *)eventCountForId:(NSString *)eventId
 {
     NSString *key = [NSString stringWithFormat:@"%@_%@", kMPMetricsEventTypeID, eventId];
-    NSNumber *newValue = [NSNumber numberWithInteger:kMPMetricsEventInitialCount];
+    NSNumber *newValue = kMPMetricsEventInitialCount;
     @synchronized(self) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSNumber *currentValue = [defaults objectForKey:key];
