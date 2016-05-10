@@ -2,6 +2,7 @@
 ###### Not Yet Released
 
 - Adding support for multi-tasking (split screen) functionality
+- Minor defect fixes (DE3830 - preventing Print button from working when it should be disabled)
 
 #### 3.0.5
 ###### Wednesday April 27, 2016
