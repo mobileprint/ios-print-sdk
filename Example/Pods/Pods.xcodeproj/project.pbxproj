@@ -125,7 +125,7 @@
 		8F4B7CE9BA8D4E8A04D3F72ABF415550 /* MPPrintItemFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AAF27B869D5F2AFC7E69618DF1844BB /* MPPrintItemFactory.m */; };
 		90556245C467996098C0CB7DA40A4112 /* MPLayoutAlgorithmFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 12A08E66694FDE9551219AF5891702AA /* MPLayoutAlgorithmFill.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		912699D31FBF3A04DB0D45DC8F3AB938 /* MPPrintLaterQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E740374562DFD9C0F78242861977DE /* MPPrintLaterQueue.m */; };
-		920746541CD91FB00051CF1D /* MPPageSettingsSplitViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 920746521CD91FB00051CF1D /* MPPageSettingsSplitViewController.h */; };
+		920746541CD91FB00051CF1D /* MPPageSettingsSplitViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 920746521CD91FB00051CF1D /* MPPageSettingsSplitViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		920746551CD91FB00051CF1D /* MPPageSettingsSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920746531CD91FB00051CF1D /* MPPageSettingsSplitViewController.m */; };
 		92420AA4B0A2F239F1AF2CD17C8A8606 /* UITableView+MPHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E09B3EA690D520D38DC98C0C6B7CB36F /* UITableView+MPHeader.m */; };
 		93C89429F96D85C185B7D876B620FF6C /* MPPrintManager+Options.h in Headers */ = {isa = PBXBuildFile; fileRef = C0DD01557546983B0ADB6BE6DD4A8BBC /* MPPrintManager+Options.h */; settings = {ATTRIBUTES = (Private, ); }; };
