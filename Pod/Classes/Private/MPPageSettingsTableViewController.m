@@ -349,9 +349,13 @@ CGFloat const kMPDisabledAlpha = 0.5;
                                                                          repeats:YES];
     }
 
-    if (MPPageSettingsModePrint == self.mode || MPPageSettingsModePrintFromQueue == self.mode) {
-        [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintInitiated];
+    // Due to running two MPPageSettingsTableViewControllers in a split screen, if we log from the preview pane, we get two events for the same screen launch
+    if (MPPageSettingsDisplayTypePreviewPane != self.displayType) {
+        if (MPPageSettingsModePrint == self.mode || MPPageSettingsModePrintFromQueue == self.mode) {
+            [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintInitiated];
+        }
     }
+
     
     [self preparePrintManager];
     [self refreshData];
