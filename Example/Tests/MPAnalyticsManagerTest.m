@@ -232,7 +232,7 @@ NSString * const kTestAnalyticsDeviceIdKey = @"device_id";
 - (void)testAppTypeMissingHP
 {
     [MP sharedInstance].handlePrintMetricsAutomatically = NO;
-    [self verifyInitialAppType:nil FinalAppType:nil];
+    [self verifyInitialAppType:nil FinalAppType:kMPMetricsAppTypeHP];
 }
 
 #pragma mark - Helpers
