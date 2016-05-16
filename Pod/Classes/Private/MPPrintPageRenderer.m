@@ -54,7 +54,7 @@
     CGSize contentPaperSize = CGSizeMake(self.paper.width * kMPPointsPerInch, self.paper.height * kMPPointsPerInch);
     CGSize printerPaperSize = [self.paper printerPaperSize];
     CGSize renderContentSize = CGSizeMake(contentRect.size.width * contentPaperSize.width / printerPaperSize.width, contentRect.size.height * contentPaperSize.height / printerPaperSize.height);
-    CGRect insetContentRect = CGRectInset(CGRectMake(0, 0, renderContentSize.width, renderContentSize.height), self.layout.borderInches * kMPPointsPerInch, self.layout.borderInches * kMPPointsPerInch);
+    CGRect insetContentRect = CGRectInset(CGRectMake(contentRect.origin.x, contentRect.origin.y, renderContentSize.width, renderContentSize.height), self.layout.borderInches * kMPPointsPerInch, self.layout.borderInches * kMPPointsPerInch);
     
     [self.layout drawContentImage:image inRect:insetContentRect];
 }

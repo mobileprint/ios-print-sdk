@@ -1,3 +1,8 @@
+#### 3.0.7
+###### Not Yet Released
+
+- Fixing prints on printers that create bordered prints
+
 #### 3.0.6
 ###### Friday May 13, 2016
 
