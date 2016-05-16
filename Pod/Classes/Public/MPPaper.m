@@ -248,7 +248,7 @@ static NSArray *_supportedPaper = nil;
                          kMPPaperSizeConstantNameKey:@"10x13cm",
                          kMPPaperSizeWidthKey:[NSNumber numberWithFloat:3.94],
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:5.12],
-                         kMPPaperSizePrinterHeightKey:[NSNumber numberWithFloat:6.0]
+                         kMPPaperSizePrinterHeightKey:[NSNumber numberWithFloat:5.91]
                          }];
     
     [self registerSize:@{
