@@ -626,6 +626,7 @@ fi
 				<string>F14A1C5F1B28F594000C5855</string>
 				<string>65930B411BC474A3003307D0</string>
 				<string>65D1A2911BE9844C0091A571</string>
+				<string>859B32C14CCBE7D9F5EDDD6B</string>
 			</array>
 			<key>buildRules</key>
 			<array/>
@@ -1059,6 +1060,7 @@ fi
 				<string>6003F5AB195388D20070C39A</string>
 				<string>6003F5AC195388D20070C39A</string>
 				<string>1C5F881ACDDE30D48333F2B5</string>
+				<string>8313CFAA93237F45FDCA7C27</string>
 			</array>
 			<key>buildRules</key>
 			<array/>
@@ -2716,6 +2718,54 @@ fi</string>
 			<string>libPods-Tests.a</string>
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>8313CFAA93237F45FDCA7C27</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Embed Pods Frameworks</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>859B32C14CCBE7D9F5EDDD6B</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Embed Pods Frameworks</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK-frameworks.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
 		</dict>
 		<key>9207464F1CD3DBBD0051CF1D</key>
 		<dict>
