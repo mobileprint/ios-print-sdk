@@ -292,6 +292,8 @@ extern NSString * const kMPPrinterPaperAreaXPoints;
  */
 extern NSString * const kMPPrinterPaperAreaYPoints;
 
+@property (assign, nonatomic) BOOL useBluetooth;
+
 /*!
  * @abstract Job name of the print
  */

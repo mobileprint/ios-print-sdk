@@ -40,6 +40,7 @@
 #import "MPPrintManager+Options.h"
 #import "MPPrintJobsViewController.h"
 #import "MPPrintLaterQueue.h"
+#import "MPBTPairedAccessoriesViewController.h"
 #import "UIImage+MPBundle.h"
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
@@ -74,7 +75,9 @@
     MPMultiPageViewDelegate,
     UIAlertViewDelegate,
     MPPrintManagerDelegate,
-    UITextFieldDelegate>
+    UITextFieldDelegate,
+    MPBTPairedAccessoriesViewControllerDelegate,
+    MPBTSprocketDelegate>
 
 @property (strong, nonatomic) MPPrintManager *printManager;
 @property (strong, nonatomic) MPWiFiReachability *wifiReachability;
@@ -744,30 +747,85 @@ CGFloat const kMPDisabledAlpha = 0.5;
     }
 }
 
+#pragma mark - SprocketDelegate
+
+- (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
+{
+    NSLog(@"%s", __FUNCTION__);
+}
+
+- (void)didStartSendingPrint:(MPBTSprocket *)sprocket error:(MantaError)error
+{
+    NSLog(@"%s", __FUNCTION__);
+    
+}
+
+- (void)didFinishSendingPrint:(MPBTSprocket *)sprocket
+{
+    NSLog(@"%s", __FUNCTION__);
+    
+}
+
+- (void)didStartPrinting:(MPBTSprocket *)sprocket
+{
+    NSLog(@"%s", __FUNCTION__);
+    
+}
+
+- (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
+{
+    NSLog(@"%s", __FUNCTION__);
+    
+}
+
+- (void)didSetAccessoryInfo:(MPBTSprocket *)sprocket error:(MantaError)error
+{
+    NSLog(@"%s", __FUNCTION__);
+    
+}
+
+- (void)didSelectSprocket:(MPBTSprocket *)sprocket
+{
+    sprocket.delegate = self;
+    self.delegateManager.printSettings.sprocketPrinter = sprocket;
+    self.delegateManager.printSettings.printerName = sprocket.accessory.name;
+    self.delegateManager.printSettings.printerUrl = [NSURL URLWithString:sprocket.protocolString];
+    self.delegateManager.printSettings.printerModel = nil;
+    self.delegateManager.printSettings.printerLocation = nil;
+    self.delegateManager.printSettings.printerIsAvailable = YES;
+}
+
 - (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
 {
-    if ([[MPWiFiReachability sharedInstance] isWifiConnected]) {
-        self.printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
-        self.printerPicker.delegate = self.delegateManager;
-        
-        if( !self.splitViewController.isCollapsed ) {
-            [self.printerPicker presentFromRect:self.selectPrinterCell.frame
-                                    inView:tableView
-                                  animated:YES
-                         completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                             if (completion){
-                                 completion(userDidSelect);
-                             }
-                         }];
-        } else {
-            [self.printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                if (completion){
-                    completion(userDidSelect);
-                }
-            }];
-        }
+    if (self.mp.useBluetooth) {
+        MPBTPairedAccessoriesViewController *vc = [[UIStoryboard storyboardWithName:@"MP" bundle:nil] instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesViewController"];
+        vc.delegate = self;
+        vc.completionBlock = completion;
+        [self presentViewController:vc animated:YES completion:nil];
     } else {
-        [[MPWiFiReachability sharedInstance] noPrinterSelectAlert];
+        if ([[MPWiFiReachability sharedInstance] isWifiConnected]) {
+            self.printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
+            self.printerPicker.delegate = self.delegateManager;
+            
+            if( !self.splitViewController.isCollapsed ) {
+                [self.printerPicker presentFromRect:self.selectPrinterCell.frame
+                                             inView:tableView
+                                           animated:YES
+                                  completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                                      if (completion){
+                                          completion(userDidSelect);
+                                      }
+                                  }];
+            } else {
+                [self.printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                    if (completion){
+                        completion(userDidSelect);
+                    }
+                }];
+            }
+        } else {
+            [[MPWiFiReachability sharedInstance] noPrinterSelectAlert];
+        }
     }
 }
 

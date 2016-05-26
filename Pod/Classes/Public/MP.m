@@ -96,6 +96,8 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     self = [super init];
     if (self) {
         
+        self.useBluetooth = YES;
+        
         if ([MPPrintLaterManager sharedInstance].userNotificationsPermissionSet) {
             [[MPPrintLaterManager sharedInstance] initLocationManager];
             [[MPPrintLaterManager sharedInstance] initUserNotifications];

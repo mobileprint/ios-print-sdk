@@ -1420,7 +1420,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v0e-w7-fip" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7923.0000000000009" y="17.999999999999996"/>
+            <point key="canvasLocation" x="6646" y="1479"/>
         </scene>
         <!--Print Jobs Preview View Controller-->
         <scene sceneID="e02-4X-Q1c">
@@ -1612,7 +1612,54 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qOm-I3-yDm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7111" y="17.999999999999996"/>
+            <point key="canvasLocation" x="5834" y="1479"/>
+        </scene>
+        <!--Paired Accessories View Controller-->
+        <scene sceneID="lkk-nD-UGH">
+            <objects>
+                <viewController storyboardIdentifier="MPBTPairedAccessoriesViewController" id="d2E-9w-mDT" customClass="MPBTPairedAccessoriesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fxo-cW-EV0"/>
+                        <viewControllerLayoutGuide type="bottom" id="1p3-3P-Rzt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WmP-iN-RTu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cg2-mz-59I">
+                                <rect key="frame" x="20" y="64" width="560" height="476"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cyw-JM-2He">
+                                <rect key="frame" x="20" y="540" width="560" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="NwN-oE-qzX"/>
+                                </constraints>
+                                <state key="normal" title="Refresh"/>
+                                <connections>
+                                    <action selector="didPressRefreshButton:" destination="d2E-9w-mDT" eventType="touchUpInside" id="XAT-ia-TSl"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Cg2-mz-59I" firstAttribute="top" secondItem="Fxo-cW-EV0" secondAttribute="bottom" id="8uU-Dq-53e"/>
+                            <constraint firstItem="Cg2-mz-59I" firstAttribute="leading" secondItem="WmP-iN-RTu" secondAttribute="leadingMargin" id="9yU-Se-IdJ"/>
+                            <constraint firstItem="1p3-3P-Rzt" firstAttribute="top" secondItem="Cyw-JM-2He" secondAttribute="bottom" id="JPp-Jv-TsF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Cg2-mz-59I" secondAttribute="trailing" id="Ru9-9H-5qF"/>
+                            <constraint firstItem="Cyw-JM-2He" firstAttribute="trailing" secondItem="WmP-iN-RTu" secondAttribute="trailingMargin" id="TUT-b8-Gtn"/>
+                            <constraint firstItem="Cyw-JM-2He" firstAttribute="leading" secondItem="WmP-iN-RTu" secondAttribute="leadingMargin" id="WRe-H0-YDd"/>
+                            <constraint firstItem="Cg2-mz-59I" firstAttribute="bottom" secondItem="Cyw-JM-2He" secondAttribute="top" id="xfF-lj-7r2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="7Yo-7E-7HK"/>
+                    <connections>
+                        <outlet property="tableView" destination="Cg2-mz-59I" id="ocT-Vk-JMM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3fr-cX-DGZ" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7162" y="-148"/>
         </scene>
     </scenes>
     <resources>

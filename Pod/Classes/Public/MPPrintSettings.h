@@ -18,6 +18,7 @@
  */
 @interface MPPrintSettings : NSObject
 
+@property (strong, nonatomic) NSObject *sprocketPrinter;
 /*!
  * @abstract The URL of the printer
  * @discussion Typically this is used only in iOS 8 when printing directly to the printer with no iOS AirPrint dialog

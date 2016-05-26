@@ -44,6 +44,7 @@ typedef enum {
     MPPaperSize10x13,
     MPPaperSize10x15,
     MPPaperSize13x18,
+    MPPaperSize2x3,
     MPPaperSizeCustom
 } MPPaperSize;
 

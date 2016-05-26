@@ -16,7 +16,7 @@
 
 - (NSString *)description
 {
-    NSString *string = [NSString stringWithFormat:@"printerUrl: %@\nprinterId: %@\nprinterName: %@\nprinterLocation: %@\nprinterModel: %@\nprinterIsAvailable: %d\npaper: %@", self.printerUrl, self.printerId, self.printerName, self.printerLocation, self.printerModel, self.printerIsAvailable, self.paper];
+    NSString *string = [NSString stringWithFormat:@"printerUrl: %@\nprinterId: %@\nprinterName: %@\nprinterLocation: %@\nprinterModel: %@\nprinterIsAvailable: %d\npaper: %@\nsprocket: %@", self.printerUrl, self.printerId, self.printerName, self.printerLocation, self.printerModel, self.printerIsAvailable, self.paper, self.sprocketPrinter];
     
     return string;
 }

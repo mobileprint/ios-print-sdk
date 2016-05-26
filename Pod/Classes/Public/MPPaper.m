@@ -213,7 +213,14 @@ static NSArray *_supportedPaper = nil;
                          kMPPaperSizeHeightKey:[NSNumber numberWithFloat:11.0]
                          }];
     
-    
+    [self registerSize:@{
+                         kMPPaperSizeIdKey:[NSNumber numberWithUnsignedLong:MPPaperSize2x3],
+                         kMPPaperSizeTitleKey:MPLocalizedString(@"2 x 3", @"Option for paper size"),
+                         kMPPaperSizeConstantNameKey:@"2 x 3",
+                         kMPPaperSizeWidthKey:[NSNumber numberWithFloat:2],
+                         kMPPaperSizeHeightKey:[NSNumber numberWithFloat:3]
+                         }];
+
     // International paper sizes
     
     float const kMillimetersPerInch = 25.4;
@@ -293,6 +300,7 @@ static NSArray *_supportedPaper = nil;
     [self associatePaperSize:MPPaperSize10x13 withType:MPPaperTypePhoto];
     [self associatePaperSize:MPPaperSize10x15 withType:MPPaperTypePhoto];
     [self associatePaperSize:MPPaperSize13x18 withType:MPPaperTypePhoto];
+    [self associatePaperSize:MPPaperSize2x3 withType:MPPaperTypePhoto];
 }
 
 + (NSArray *)supportedSize
@@ -428,12 +436,13 @@ static NSArray *_supportedPaper = nil;
 
 + (MPPaper *)standardUSADefaultPaper
 {
-    return [[MPPaper alloc] initWithPaperSize:MPPaperSize4x6 paperType:MPPaperTypePhoto];
+    return [[MPPaper alloc] initWithPaperSize:MPPaperSize2x3 paperType:MPPaperTypePhoto];
 }
 
 + (NSArray *)standardUSAPapers
 {
     return @[
+             [[MPPaper alloc] initWithPaperSize:MPPaperSize2x3 paperType:MPPaperTypePhoto],
              [[MPPaper alloc] initWithPaperSize:MPPaperSize4x5 paperType:MPPaperTypePhoto],
              [[MPPaper alloc] initWithPaperSize:MPPaperSize4x6 paperType:MPPaperTypePhoto],
              [[MPPaper alloc] initWithPaperSize:MPPaperSize5x7 paperType:MPPaperTypePhoto],
