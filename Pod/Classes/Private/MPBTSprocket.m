@@ -109,13 +109,13 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     [self.session writeData:[self accessoryInfoRequest]];
 }
 
-- (void)print:(MPPrintItem *)printItem
+- (void)print:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies
 {
     UIImage *asset = ((NSArray*)printItem.printAsset)[0];
     UIImage *image = [self imageByScalingAndCroppingForSize:asset targetSize:CGSizeMake(640,960)];
     self.imageData = UIImageJPEGRepresentation(image, 0.9);
     
-    [self.session writeData:[self printReadyRequest]];
+    [self.session writeData:[self printReadyRequest:numCopies]];
 }
 
 #pragma mark - Getters/Setters
@@ -217,7 +217,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     return data;
 }
 
-- (NSData *)printReadyRequest
+- (NSData *)printReadyRequest:(NSInteger)numCopies
 {
     NSMutableData *data;
     char byteArray[MANTA_PACKET_LENGTH];
@@ -233,7 +233,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     byteArray[10] = 0x0000FF & imageSize;
     
     // printCount
-    byteArray[11] = 0x01;
+    byteArray[11] = numCopies <= 4 ? numCopies : 4;
     
     // printMode
     byteArray[15] = 0x00;

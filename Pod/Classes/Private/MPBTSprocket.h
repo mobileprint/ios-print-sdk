@@ -36,7 +36,7 @@
 @property (assign, nonatomic, readonly) NSUInteger hardwareVersion;
 
 - (void)refreshInfo;
-- (void)print:(MPPrintItem *)printItem;
+- (void)print:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies;
 
 + (NSString *)errorString:(MantaError)error;
 

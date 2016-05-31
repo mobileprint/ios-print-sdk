@@ -279,6 +279,9 @@ CGFloat const kMPDisabledAlpha = 0.5;
     self.numberOfCopiesLabel.font = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     self.numberOfCopiesLabel.textColor = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
     self.numberOfCopiesLabel.text = MPLocalizedString(@"1 Copy", nil);
+    if( [self.mp useBluetooth] ) {
+        self.numberOfCopiesStepper.maximumValue = 4;
+    }
     
     self.pageRangeCell.backgroundColor = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
     [self setPageRangeLabelText:kPageRangeAllPages];
@@ -1276,14 +1279,16 @@ CGFloat const kMPDisabledAlpha = 0.5;
 
 - (void)printerNotAvailable
 {
-    // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
-    [self.tableView beginUpdates];
-    UIImage *warningSign = [UIImage imageResource:@"MPDoNoEnter" ofType:@"png"];
-    [self.printSettingsCell.imageView setImage:warningSign];
-    [self.selectPrinterCell.imageView setImage:warningSign];
-
-    self.delegateManager.printSettings.printerIsAvailable = NO;
-    [self.tableView endUpdates];
+    if( !self.mp.useBluetooth ) {
+        // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
+        [self.tableView beginUpdates];
+        UIImage *warningSign = [UIImage imageResource:@"MPDoNoEnter" ofType:@"png"];
+        [self.printSettingsCell.imageView setImage:warningSign];
+        [self.selectPrinterCell.imageView setImage:warningSign];
+        
+        self.delegateManager.printSettings.printerIsAvailable = NO;
+        [self.tableView endUpdates];
+    }
 }
 
 - (void)printerIsAvailable
@@ -1630,7 +1635,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
 {
     UIView *footer = nil;
     
-    if (IS_OS_8_OR_LATER  &&  MPPageSettingsDisplayTypePreviewPane != self.displayType) {
+    if (IS_OS_8_OR_LATER  &&  MPPageSettingsDisplayTypePreviewPane != self.displayType  &&  !self.mp.useBluetooth) {
         if ( (!self.selectPrinterCell.hidden  &&  section == PRINTER_SELECTION_SECTION) ||
              (!self.printSettingsCell.hidden  &&  section == PRINT_SETTINGS_SECTION) ) {
             if ((self.delegateManager.printSettings.printerUrl != nil) && !self.delegateManager.printSettings.printerIsAvailable) {
