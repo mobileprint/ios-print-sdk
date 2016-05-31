@@ -80,9 +80,6 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    DeviceInfoViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"AccessoryInfoViewController"];
-//    vc.device = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
-//    [self.navigationController pushViewController:vc animated:YES];
     if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectSprocket:)]) {
         EAAccessory *device = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
         
@@ -107,6 +104,10 @@
     NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
     self.pairedDevices = [[NSMutableArray alloc] initWithArray:accs];
     [self.tableView reloadData];
+}
+
+- (IBAction)didPressCancel:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

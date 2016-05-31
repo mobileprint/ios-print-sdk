@@ -784,6 +784,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
     
 }
 
+#pragma mark - MPBTPairedAccessoriesViewControllerDelegate
+
 - (void)didSelectSprocket:(MPBTSprocket *)sprocket
 {
     sprocket.delegate = self;
@@ -794,6 +796,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
     self.delegateManager.printSettings.printerLocation = nil;
     self.delegateManager.printSettings.printerIsAvailable = YES;
 }
+
+#pragma mark - Util
 
 - (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
 {
@@ -1882,6 +1886,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
     
     if( MPPrintManagerErrorNone != error.code ) {
         MPLogError(@"Failed to print with error %@", error);
+    } else if( self.mp.useBluetooth ) {
+        [self bluetoothPrintCompleted];
     }
 }
 
@@ -1913,6 +1919,26 @@ CGFloat const kMPDisabledAlpha = 0.5;
         else {
             MPLogWarn(@"No MPPrintDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
         }
+    }
+    
+    if (IS_IPAD) {
+        self.cancelBarButtonItem.enabled = YES;
+    }
+}
+
+- (void)bluetoothPrintCompleted
+{
+    [self.delegateManager savePrinterId:@"bluetooth"];
+    
+    [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintCompleted];
+    
+    [self setDefaultPrinter];
+    
+    if ([self.printDelegate respondsToSelector:@selector(didFinishPrintFlow:)]) {
+        [self.printDelegate didFinishPrintFlow:self];
+    }
+    else {
+        MPLogWarn(@"No MPPrintDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
     }
     
     if (IS_IPAD) {
