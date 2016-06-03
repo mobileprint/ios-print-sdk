@@ -492,6 +492,8 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  */
 - (BOOL)isWifiConnected;
 
+- (void)reflashSprocket:(NSData *)reflashData;
+
 /*!
  * @abstract Used to access the singleton instance of this class
  */

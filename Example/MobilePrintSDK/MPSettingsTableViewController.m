@@ -72,6 +72,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITableViewCell *printPreviewCell;
 @property (weak, nonatomic) IBOutlet UISwitch *cancelButtonPositionLeft;
 @property (weak, nonatomic) IBOutlet UITextField *customLibraryVersionTextField;
+@property (weak, nonatomic) IBOutlet UITableViewCell *bluetoothCell;
 
 @end
 
@@ -523,6 +524,8 @@ NSInteger const kLengthOfSHA = 7;
         [self toggleMetricsSwitch:self.automaticMetricsSwitch];
     } else if (selectedCell == self.extendedMetricsCell) {
         [self toggleMetricsSwitch:self.extendedMetricsSwitch];
+    } else if (selectedCell == self.bluetoothCell) {
+        [self respondToBluetoothCell];
     }
 }
 
@@ -622,6 +625,11 @@ NSInteger const kLengthOfSHA = 7;
 }
 
 #pragma mark - Print Queue
+
+- (void)respondToBluetoothCell
+{
+    [[MP sharedInstance] reflashSprocket:nil];
+}
 
 - (void)showPrintQueue
 {

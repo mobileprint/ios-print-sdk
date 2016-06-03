@@ -20,6 +20,8 @@
 #import "MPPrintManager.h"
 #import <CoreFoundation/CoreFoundation.h>
 #import "MPLayoutFactory.h"
+#import "MPBTSprocket.h"
+#import "MPBTPairedAccessoriesViewController.h"
 
 NSString * const kMPLibraryVersion = @"3.0.7";
 
@@ -263,6 +265,12 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     }
     
     return vc;
+}
+
+- (void)reflashSprocket:(NSData *)reflashData
+{
+    [[MPBTSprocket sharedInstance] reflash:reflashData];
+//    [[MPBTSprocket sharedInstance] refreshInfo];
 }
 
 #pragma mark - Setter methods

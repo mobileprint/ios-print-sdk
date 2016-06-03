@@ -37,6 +37,7 @@
 
 - (void)refreshInfo;
 - (void)print:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies;
+- (void)reflash:(NSData *)reflashData;
 
 + (NSString *)errorString:(MantaError)error;
 

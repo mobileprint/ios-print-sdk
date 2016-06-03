@@ -63,6 +63,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 @property (strong, nonatomic) NSString *fileToPrint;
 @property (strong, nonatomic) NSString *fileType;
 @property (strong, nonatomic) NSData* imageData;
+@property (strong, nonatomic) NSData* upgradeData;
 
 @end
 
@@ -106,6 +107,12 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 - (void)refreshInfo
 {
+if (nil == self.accessory) {
+    NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
+    NSArray *pairedDevices = [[NSMutableArray alloc] initWithArray:accs];
+    self.accessory = pairedDevices[0];
+}
+
     [self.session writeData:[self accessoryInfoRequest]];
 }
 
@@ -116,6 +123,22 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     self.imageData = UIImageJPEGRepresentation(image, 0.9);
     
     [self.session writeData:[self printReadyRequest:numCopies]];
+}
+
+- (void)reflash:(NSData *)reflashData
+{
+if (nil == self.accessory) {
+    NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
+    NSArray *pairedDevices = [[NSMutableArray alloc] initWithArray:accs];
+    self.accessory = pairedDevices[0];
+}
+
+    NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v200" ofType:@"rbn"]; // v 0x0
+//    NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v300" ofType:@"rbn"]; // v 0x0
+    
+    self.upgradeData = [NSData dataWithContentsOfFile:myFile];
+
+    [self.session writeData:[self upgradeReadyRequest]];
 }
 
 #pragma mark - Getters/Setters
@@ -153,14 +176,6 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     
     if( supportedDevice ) {
         _accessory = accessory;
-        
-        //[session writeData:[self setInfoRequest:MantaAutoExposureOn autoPowerOff:MantaAutoOffAlwaysOn printMode:MantaPrintModePaperFull]];
-        
-        //[self.session writeData:[self accessoryInfoRequest]];
-
-        //[session writeData:[self printReadyRequest]];
-        
-        //[session closeSession];
     } else {
         NSLog(@"Unsupported device");
     }
@@ -213,7 +228,9 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     [self setupPacket:byteArray command:CMD_GET_INFO_CMD subcommand:CMD_GET_INFO_SUB_CMD];
 
     data = [NSMutableData dataWithBytes:byteArray length:MANTA_PACKET_LENGTH];
-    
+
+    NSLog(@"accessoryInfoRequest: %@", data);
+
     return data;
 }
 
@@ -225,8 +242,6 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     [self setupPacket:byteArray command:CMD_PRINT_READY_CMD subcommand:CMD_PRINT_READY_SUB_CMD];
     
     // imageSize
-//    NSString *myFile = [[NSBundle mainBundle] pathForResource:self.fileToPrint ofType:self.fileType];
-//    NSData *imageData = [NSData dataWithContentsOfFile:myFile];
     NSUInteger imageSize = self.imageData.length;
     byteArray[8] = (0xFF0000 & imageSize) >> 16;
     byteArray[9] = (0x00FF00 & imageSize) >>  8;
@@ -240,6 +255,31 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     
     data = [NSMutableData dataWithBytes:byteArray length:MANTA_PACKET_LENGTH];
     
+    NSLog(@"printReadyRequest: %@", data);
+    
+    return data;
+}
+
+- (NSData *)upgradeReadyRequest
+{
+    NSMutableData *data;
+    char byteArray[MANTA_PACKET_LENGTH];
+    
+    [self setupPacket:byteArray command:CMD_UPGRADE_READY_CMD subcommand:CMD_UPGRADE_READY_SUB_CMD];
+    
+    // imageSize
+    NSUInteger imageSize = self.upgradeData.length;
+    byteArray[8] = (0xFF0000 & imageSize) >> 16;
+    byteArray[9] = (0x00FF00 & imageSize) >>  8;
+    byteArray[10] = 0x0000FF & imageSize;
+    
+    // dataClassification
+    byteArray[11] = MantaDataClassFirmware;
+    
+    data = [NSMutableData dataWithBytes:byteArray length:MANTA_PACKET_LENGTH];
+    
+    NSLog(@"upgradeReadyRequest: %@", data);
+
     return data;
 }
 
@@ -256,28 +296,8 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
     data = [NSMutableData dataWithBytes:byteArray length:MANTA_PACKET_LENGTH];
     
-    return data;
-}
+    NSLog(@"setInfoRequest: %@", data);
 
-- (NSData *)upgradeReadyRequest
-{
-    NSMutableData *data;
-    char byteArray[MANTA_PACKET_LENGTH];
-    
-    [self setupPacket:byteArray command:CMD_UPGRADE_READY_CMD subcommand:CMD_UPGRADE_READY_SUB_CMD];
-    
-    // data size
-    NSUInteger dataSize = 0x00;
-    byteArray[8] = (0xFF0000 & dataSize) >> 16;
-    byteArray[9] = (0x00FF00 & dataSize) >>  8;
-    byteArray[10] = 0x0000FF & dataSize;
-    
-    // data classification
-    //  Must be DataClassTMD or DataClassFirmware
-    byteArray[11] = 0x00;
-    
-    data = [NSMutableData dataWithBytes:byteArray length:MANTA_PACKET_LENGTH];
-    
     return data;
 }
 
@@ -360,7 +380,6 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         NSLog(@"\n\nStartOfSendAck: %@", data);
         NSLog(@"\tPayload Classification: %@", [MPBTSprocket dataClassificationString:payload[0]]);
         NSLog(@"\tError: %@\n\n", [MPBTSprocket errorString:payload[1]]);
-        NSAssert(MantaDataClassImage == payload[0], @"Device not expecting image data");
         
         if (MantaErrorNoError == payload[1]) {
             // send image
@@ -368,14 +387,23 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
             
             //NSData *imageData = [NSData dataWithContentsOfFile:myFile];
             
-            NSAssert( nil != self.imageData, @"No image data");
-            
-            MPBTSessionController *session = [MPBTSessionController sharedController];
-            [session writeData:self.imageData];
+            if (MantaDataClassImage == payload[0]) {
+                
+                NSAssert( nil != self.imageData, @"No image data");
+                MPBTSessionController *session = [MPBTSessionController sharedController];
+                [session writeData:self.imageData];
+                
+            } else if (MantaDataClassFirmware == payload[0]) {
+                
+                NSAssert( nil != self.upgradeData, @"No upgrade data");
+                MPBTSessionController *session = [MPBTSessionController sharedController];
+                [session writeData:self.upgradeData];
+            }
         } else {
             NSLog(@"Error returned in StartOfSendAck: %@", [MPBTSprocket errorString:payload[1]]);
         }
         
+        // let any callers know the process is finished
         if (MantaDataClassImage == payload[0]) {
             if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didStartSendingPrint:error:)]) {
                 [self.delegate didStartSendingPrint:self error:payload[1]];
@@ -386,6 +414,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         NSLog(@"\n\nEndOfReceiveAck: %@", data);
         NSLog(@"\tPayload Classification: %@\n\n", [MPBTSprocket dataClassificationString:payload[0]]);
         
+        // let any callers know the process is finished
         if (MantaDataClassImage == payload[0]) {
             if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didFinishSendingPrint:)]) {
                 [self.delegate didFinishSendingPrint:self];
@@ -420,6 +449,8 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
                RESP_UPGRADE_ACK_SUB_CMD == subCmdId[0]) {
         NSLog(@"\n\nUpgradeAck %@", data);
         NSLog(@"\tUpgrade status: %d\n\n", payload[0]);
+        
+        [self refreshInfo];
         
     } else {
         NSLog(@"\n\nUnrecognized response: %@\n\n", data);

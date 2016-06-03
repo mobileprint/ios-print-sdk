@@ -123,7 +123,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yqM-rp-aIU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7160.625" y="-1813.732394366197"/>
+            <point key="canvasLocation" x="7190" y="-1814"/>
         </scene>
         <!--Page Settings Split View Controller-->
         <scene sceneID="Ddf-QV-PAo">
@@ -1714,16 +1714,34 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3fr-cX-DGZ" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7162" y="-148"/>
+            <point key="canvasLocation" x="8786" y="-148"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="KzZ-30-S25">
+            <objects>
+                <navigationController storyboardIdentifier="MPBTPairedAccessoriesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="AUc-29-YMD" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cbY-IF-j6G">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="d2E-9w-mDT" kind="relationship" relationship="rootViewController" id="eib-iH-qrc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wVD-xN-3w6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7974" y="-148"/>
         </scene>
     </scenes>
     <resources>
         <image name="MPMagnify.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="E8A-CH-mPX"/>
-        <segue reference="koY-qX-HW0"/>
         <segue reference="C3t-Tz-4rn"/>
+        <segue reference="koY-qX-HW0"/>
         <segue reference="4eJ-bv-9qP"/>
+        <segue reference="E8A-CH-mPX"/>
     </inferredMetricsTieBreakers>
 </document>

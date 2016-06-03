@@ -81,6 +81,8 @@
 		78cd8fb9b1bee9474f0c1617 /* 115 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B61B73FAA10013E738 /* 115 Pages.pdf */; };
 		7d9d68fa6acc2cb2dcaeabfb /* MPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */; };
 		9203D6E01CF7B45D00BA45FA /* BoxMan640x960.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9203D6DF1CF7B45D00BA45FA /* BoxMan640x960.jpg */; };
+		9203D6F01D02217800BA45FA /* Polaroid_v200.rbn in Resources */ = {isa = PBXBuildFile; fileRef = 9203D6EE1D02217800BA45FA /* Polaroid_v200.rbn */; };
+		9203D6F11D02217800BA45FA /* Polaroid_v300.rbn in Resources */ = {isa = PBXBuildFile; fileRef = 9203D6EF1D02217800BA45FA /* Polaroid_v300.rbn */; };
 		920746501CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */; };
 		920746511CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */; };
 		92BAEA5F1C1F51170033A200 /* MPLayoutFitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */; };
@@ -217,6 +219,8 @@
 		7d45322c23338821ae339a35 /* CFNetwork.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		824DD1CAED53617BFC879B9B /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9203D6DF1CF7B45D00BA45FA /* BoxMan640x960.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = BoxMan640x960.jpg; sourceTree = "<group>"; };
+		9203D6EE1D02217800BA45FA /* Polaroid_v200.rbn */ = {isa = PBXFileReference; lastKnownFileType = file; name = Polaroid_v200.rbn; path = Firmware/Polaroid_v200.rbn; sourceTree = "<group>"; };
+		9203D6EF1D02217800BA45FA /* Polaroid_v300.rbn */ = {isa = PBXFileReference; lastKnownFileType = file; name = Polaroid_v300.rbn; path = Firmware/Polaroid_v300.rbn; sourceTree = "<group>"; };
 		9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFitTest.m; sourceTree = "<group>"; };
 		B4517B52F9E6A6FBAF719728 /* Pods-MobilePrintSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.debug.xcconfig"; sourceTree = "<group>"; };
@@ -354,6 +358,7 @@
 		6003F593195388D20070C39A /* MobilePrintSDK */ = {
 			isa = PBXGroup;
 			children = (
+				9203D6ED1D02211200BA45FA /* FirmwareUpgradeFiles */,
 				65FFC9AC1B03B08700DCE2B4 /* PDF */,
 				6003F59F195388D20070C39A /* Main.storyboard */,
 				9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */,
@@ -475,6 +480,15 @@
 				658840E01BFE437A001B178D /* 1397 Pages.pdf */,
 			);
 			name = PDF;
+			sourceTree = "<group>";
+		};
+		9203D6ED1D02211200BA45FA /* FirmwareUpgradeFiles */ = {
+			isa = PBXGroup;
+			children = (
+				9203D6EE1D02217800BA45FA /* Polaroid_v200.rbn */,
+				9203D6EF1D02217800BA45FA /* Polaroid_v300.rbn */,
+			);
+			name = FirmwareUpgradeFiles;
 			sourceTree = "<group>";
 		};
 		BB1A7AE6C5D400E972020508 /* Pods */ = {
@@ -622,6 +636,7 @@
 				9203D6E01CF7B45D00BA45FA /* BoxMan640x960.jpg in Resources */,
 				65FFC9B31B03B0A400DCE2B4 /* 1 Page (landscape).pdf in Resources */,
 				65FFC9B81B03B0A400DCE2B4 /* 10 Pages.pdf in Resources */,
+				9203D6F01D02217800BA45FA /* Polaroid_v200.rbn in Resources */,
 				E32115E11A38BCE50079144C /* MPLearnMoreView.xib in Resources */,
 				65FFC9B71B03B0A400DCE2B4 /* 6 Pages (landscape).pdf in Resources */,
 				651039BA1B73FAA10013E738 /* 236 Pages.pdf in Resources */,
@@ -631,6 +646,7 @@
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				658840E11BFE437A001B178D /* 1397 Pages.pdf in Resources */,
 				6003F5A1195388D20070C39A /* Main.storyboard in Resources */,
+				9203D6F11D02217800BA45FA /* Polaroid_v300.rbn in Resources */,
 				65FFC9B61B03B0A400DCE2B4 /* 4 Pages.pdf in Resources */,
 				651039B81B73FAA10013E738 /* 15 Pages.pdf in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,

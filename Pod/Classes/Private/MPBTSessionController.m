@@ -163,7 +163,7 @@ static long long totalBytesWritten = 0;
         _writeData = [[NSMutableData alloc] init];
     }
 
-    NSLog(@"Writing: %@", data);
+//    NSLog(@"Writing: %@", data);
     
     [_writeData appendData:data];
     [self _writeData];
