@@ -123,8 +123,11 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 - (void)reflash:(NSData *)reflashData
 {
     if ([self.protocolString containsString:@"polaroid"]) {
-        NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v200" ofType:@"rbn"]; // v 0x0
-        //    NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v300" ofType:@"rbn"]; // v 0x0
+        
+        NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v200" ofType:@"rbn"];
+        if (0x020000 == self.firmwareVersion) {
+            myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v300" ofType:@"rbn"];
+        }
         
         self.upgradeData = [NSData dataWithContentsOfFile:myFile];
         
@@ -318,7 +321,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     char batteryStatus[]   = {0};
     char autoExposure[]    = {0};
     char autoPowerOff[]    = {0};
-    char macAddress[]      = {0,0,0,0,0,0,0};
+    char macAddress[]      = {0,0,0,0,0,0};
     char fwVersion[]       = {0,0,0};
     char hwVersion[]       = {0,0,0};
     // Note: maxPayloadSize is only available on Android... not forgotten here
@@ -329,27 +332,28 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     [payload getBytes:batteryStatus   range:NSMakeRange( 4,1)];
     [payload getBytes:autoExposure    range:NSMakeRange( 5,1)];
     [payload getBytes:autoPowerOff    range:NSMakeRange( 6,1)];
-    [payload getBytes:macAddress      range:NSMakeRange( 7,7)];
-    [payload getBytes:fwVersion       range:NSMakeRange(14,3)];
-    [payload getBytes:hwVersion       range:NSMakeRange(17,3)];
+    [payload getBytes:macAddress      range:NSMakeRange( 7,6)];
+    [payload getBytes:fwVersion       range:NSMakeRange(13,3)];
+    [payload getBytes:hwVersion       range:NSMakeRange(16,3)];
     
-    NSData *macAddressData = [[NSData alloc] initWithBytes:macAddress length:7];
-    NSUInteger firmwareVersion = fwVersion[0] << 16 | fwVersion[1] << 8 | fwVersion[0];
-    NSUInteger hardwareVersion = hwVersion[0] << 16 | hwVersion[1] << 8 | hwVersion[0];
+    NSData *macAddressData = [[NSData alloc] initWithBytes:macAddress length:6];
+    NSUInteger printCount = totalPrintCount[0] << 8 | totalPrintCount[1];
+    NSUInteger firmwareVersion = fwVersion[0] << 16 | fwVersion[1] << 8 | fwVersion[2];
+    NSUInteger hardwareVersion = hwVersion[0] << 16 | hwVersion[1] << 8 | hwVersion[2];
     
-    NSLog(@"\n\nAccessoryInfo:\n\terrorCode: %@  \n\ttotalPrintCount: 0x%x%x  \n\tprintMode: %@  \n\tbatteryStatus: 0x%x => %d percent  \n\tautoExposure: %@  \n\tautoPowerOff: %@  \n\tmacAddress: %@  \n\tfwVersion: %lu  \n\thwVersion: %lu",
+    NSLog(@"\n\nAccessoryInfo:\n\terrorCode: %@  \n\ttotalPrintCount: 0x%04x  \n\tprintMode: %@  \n\tbatteryStatus: 0x%x => %d percent  \n\tautoExposure: %@  \n\tautoPowerOff: %@  \n\tmacAddress: %@  \n\tfwVersion: 0x%06x  \n\thwVersion: 0x%06x",
           [MPBTSprocket errorString:errorCode[0]],
-          totalPrintCount[0], totalPrintCount[1],
+          printCount,
           [MPBTSprocket printModeString:printMode[0]],
           batteryStatus[0], batteryStatus[0],
           [MPBTSprocket autoExposureString:autoExposure[0]],
           [MPBTSprocket autoPowerOffIntervalString:autoPowerOff[0]],
-          macAddressData,
-          (unsigned long)firmwareVersion,
-          (unsigned long)hardwareVersion);
+          [MPBTSprocket macAddress:macAddressData],
+          firmwareVersion,
+          hardwareVersion);
     
     if (MantaErrorNoError == errorCode[0]) {
-        _totalPrintCount = totalPrintCount[0] << 8 | totalPrintCount[1];
+        _totalPrintCount = printCount;
         _batteryStatus = batteryStatus[0];
         _macAddress = macAddressData;
         _firmwareVersion = firmwareVersion;
@@ -455,10 +459,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     } else if (RESP_UPGRADE_ACK_CMD == cmdId[0]  &&
                RESP_UPGRADE_ACK_SUB_CMD == subCmdId[0]) {
         NSLog(@"\n\nUpgradeAck %@", data);
-        NSLog(@"\tUpgrade status: %d\n\n", payload[0]);
-        
-        //[self refreshInfo];
-        
+        NSLog(@"\tUpgrade status: %@\n\n", [MPBTSprocket upgradeStatusString:payload[0]]);
     } else {
         NSLog(@"\n\nUnrecognized response: %@\n\n", data);
     }
@@ -492,6 +493,21 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 }
 
 #pragma mark - Constant Helpers
+
++ (NSString *)macAddress:(NSData *)data
+{
+    NSUInteger dataLength = [data length];
+    NSMutableString *string = [NSMutableString stringWithCapacity:dataLength*3 - 1];
+    const unsigned char *dataBytes = [data bytes];
+    for (NSInteger idx = 0; idx < dataLength; ++idx) {
+        [string appendFormat:@"%02x", dataBytes[idx]];
+        if (idx+1 != dataLength) {
+            [string appendString:@":"];
+        }
+    }
+    
+    return string;
+}
 
 + (BOOL)supportedAccessory:(EAAccessory *)accessory
 {

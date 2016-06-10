@@ -101,9 +101,9 @@
     self.errorValueLabel.text = [MPBTSprocket errorString:error];
     self.printCountValueLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)sprocket.totalPrintCount];
     self.batteryStatusValueLabel.text = [NSString stringWithFormat:@"%lu%@", (unsigned long)sprocket.batteryStatus, @"%"];
-    self.macAddressValueLabel.text = [NSString stringWithFormat:@"%@", sprocket.macAddress];
-    self.firmwareVersionValueLabel.text = [NSString stringWithFormat:@"0x%lx", (unsigned long)sprocket.firmwareVersion];
-    self.hardwareVersionValueLabel.text = [NSString stringWithFormat:@"0x%lx", (unsigned long)sprocket.hardwareVersion];
+    self.macAddressValueLabel.text = [MPBTSprocket macAddress:sprocket.macAddress];
+    self.firmwareVersionValueLabel.text = [NSString stringWithFormat:@"0x%06x", sprocket.firmwareVersion];
+    self.hardwareVersionValueLabel.text = [NSString stringWithFormat:@"0x%06x", sprocket.hardwareVersion];
     
     self.printModeSegmentedControl.selectedSegmentIndex = sprocket.printMode - 1;
     self.autoExposureSegmentedControl.selectedSegmentIndex = sprocket.autoExposure;
@@ -129,6 +129,8 @@
             NSAssert(FALSE, @"Unrecognized MantaAutoPowerOffInteval: %d", sprocket.powerOffInterval);
             break;
     };
+    
+    [self setTitle:[NSString stringWithFormat:@"%@", sprocket.accessory.name]];
 }
 
 - (void)didStartSendingPrint:(MPBTSprocket *)sprocket error:(MantaError)error

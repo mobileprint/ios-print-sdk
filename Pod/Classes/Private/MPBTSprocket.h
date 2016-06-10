@@ -40,6 +40,7 @@
 - (void)reflash:(NSData *)reflashData;
 
 + (BOOL)supportedAccessory:(EAAccessory *)accessory;
++ (NSString *)macAddress:(NSData *)data;
 + (NSString *)errorString:(MantaError)error;
 
 @end
