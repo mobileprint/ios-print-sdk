@@ -22,6 +22,7 @@
 #import "MPLayoutFactory.h"
 #import "MPBTSprocket.h"
 #import "MPBTPairedAccessoriesViewController.h"
+#import "MPBTDeviceInfoViewController.h"
 
 NSString * const kMPLibraryVersion = @"3.0.7";
 
@@ -72,6 +73,9 @@ NSString * const kMPPrinterPaperAreaXPoints = @"printer_paper_area_x_points";
 NSString * const kMPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
 
 BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
+
+@interface MP() <MPBTPairedAccessoriesViewControllerDelegate>
+@end
 
 @implementation MP
 
@@ -267,10 +271,28 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return vc;
 }
 
-- (void)reflashSprocket:(NSData *)reflashData
+- (UIViewController *)bluetoothPrintersViewController
 {
-    [[MPBTSprocket sharedInstance] reflash:reflashData];
-//    [[MPBTSprocket sharedInstance] refreshInfo];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
+    MPBTPairedAccessoriesViewController *printersViewController = (MPBTPairedAccessoriesViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesViewController"];
+    printersViewController.delegate = self;
+    
+    return printersViewController;
+}
+
+- (void)didSelectSprocket:(MPBTSprocket *)sprocket;
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
+    MPBTDeviceInfoViewController *settingsViewController = (MPBTDeviceInfoViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoViewController"];
+    settingsViewController.device = sprocket.accessory;
+    
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    
+    [((UINavigationController *)topController) pushViewController:settingsViewController animated:YES];
 }
 
 #pragma mark - Setter methods

@@ -67,12 +67,13 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UILabel *unmodifiedDeviceIdLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reportedDeviceIdLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *useUniqueIdPerAppSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *useBluetoothSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *reportedIdTitleLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *configurePrintCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *printPreviewCell;
 @property (weak, nonatomic) IBOutlet UISwitch *cancelButtonPositionLeft;
 @property (weak, nonatomic) IBOutlet UITextField *customLibraryVersionTextField;
-@property (weak, nonatomic) IBOutlet UITableViewCell *bluetoothCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *bluetoothSettingsCell;
 
 @end
 
@@ -524,7 +525,7 @@ NSInteger const kLengthOfSHA = 7;
         [self toggleMetricsSwitch:self.automaticMetricsSwitch];
     } else if (selectedCell == self.extendedMetricsCell) {
         [self toggleMetricsSwitch:self.extendedMetricsSwitch];
-    } else if (selectedCell == self.bluetoothCell) {
+    } else if (selectedCell == self.bluetoothSettingsCell) {
         [self respondToBluetoothCell];
     }
 }
@@ -628,7 +629,8 @@ NSInteger const kLengthOfSHA = 7;
 
 - (void)respondToBluetoothCell
 {
-    [[MP sharedInstance] reflashSprocket:nil];
+    UIViewController *vc = [[MP sharedInstance] bluetoothPrintersViewController];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)showPrintQueue
@@ -1124,6 +1126,7 @@ BOOL const kLabelPaperTypePhoto = NO;
     self.unmodifiedDeviceIdLabel.text = [[UIDevice currentDevice].identifierForVendor UUIDString];
     self.reportedDeviceIdLabel.text = [self userUniqueIdentifier];
     self.useUniqueIdPerAppSwitch.on = [MP sharedInstance].uniqueDeviceIdPerApp;
+    self.useBluetoothSwitch.on = [MP sharedInstance].useBluetooth;
     NSString *scope = [MP sharedInstance].uniqueDeviceIdPerApp ? @"app" : @"vendor";
     self.reportedIdTitleLabel.text = [NSString stringWithFormat:@"Reported ID (per %@)", scope];
 }
@@ -1148,6 +1151,21 @@ BOOL const kLabelPaperTypePhoto = NO;
     [MP sharedInstance].uniqueDeviceIdPerApp = self.useUniqueIdPerAppSwitch.on;
     [self setDeviceInfo];
     [self setBarButtonItems];
+}
+
+- (IBAction)useBluetoothChanged:(id)sender {
+    if (self.useBluetoothSwitch.on) {
+    [MP sharedInstance].defaultPaper = [[MPPaper alloc] initWithPaperSize:MPPaperSize2x3 paperType:MPPaperTypePhoto];
+    [MP sharedInstance].useBluetooth = YES;
+    [MP sharedInstance].hideBlackAndWhiteOption = YES;
+    [MP sharedInstance].hidePaperSizeOption = NO;
+    [MP sharedInstance].hidePaperTypeOption = NO;
+    
+    [MP sharedInstance].supportedPapers = [self papersWithSizes:@[[NSNumber numberWithUnsignedInteger:MPPaperSize2x3]]];
+    } else {
+        [MP sharedInstance].useBluetooth = NO;
+        [self configureMP];
+    }
 }
 
 #pragma mark - Private MPAnalyticsManager

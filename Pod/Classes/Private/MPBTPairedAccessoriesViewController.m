@@ -85,8 +85,6 @@
         
         MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
         sprocket.accessory = device;
-        //sprocket.delegate = self;
-        [sprocket refreshInfo];
 
         [self.delegate didSelectSprocket:sprocket];
         

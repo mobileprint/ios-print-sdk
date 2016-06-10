@@ -107,11 +107,11 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 - (void)refreshInfo
 {
-if (nil == self.accessory) {
-    NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
-    NSArray *pairedDevices = [[NSMutableArray alloc] initWithArray:accs];
-    self.accessory = pairedDevices[0];
-}
+//if (nil == self.accessory) {
+//    NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
+//    NSArray *pairedDevices = [[NSMutableArray alloc] initWithArray:accs];
+//    self.accessory = pairedDevices[0];
+//}
 
     [self.session writeData:[self accessoryInfoRequest]];
 }
@@ -127,12 +127,6 @@ if (nil == self.accessory) {
 
 - (void)reflash:(NSData *)reflashData
 {
-if (nil == self.accessory) {
-    NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
-    NSArray *pairedDevices = [[NSMutableArray alloc] initWithArray:accs];
-    self.accessory = pairedDevices[0];
-}
-
     NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v200" ofType:@"rbn"]; // v 0x0
 //    NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v300" ofType:@"rbn"]; // v 0x0
     
@@ -450,7 +444,7 @@ if (nil == self.accessory) {
         NSLog(@"\n\nUpgradeAck %@", data);
         NSLog(@"\tUpgrade status: %d\n\n", payload[0]);
         
-        [self refreshInfo];
+        //[self refreshInfo];
         
     } else {
         NSLog(@"\n\nUnrecognized response: %@\n\n", data);
