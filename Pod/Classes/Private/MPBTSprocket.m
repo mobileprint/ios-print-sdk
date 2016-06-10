@@ -64,6 +64,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 @property (strong, nonatomic) NSString *fileType;
 @property (strong, nonatomic) NSData* imageData;
 @property (strong, nonatomic) NSData* upgradeData;
+@property (strong, nonatomic) NSArray *supportedProtocols;
 
 @end
 
@@ -71,7 +72,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 #pragma mark - Public methods
 
-+ (id)sharedInstance
++ (MPBTSprocket *)sharedInstance
 {
     static MPBTSprocket *sharedInstance = nil;
     static dispatch_once_t onceToken;
@@ -89,7 +90,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     self = [super init];
     if (self) {
 
-        self.protocolString = @"com.polaroid.mobileprinter";
+        self.supportedProtocols = @[@"com.polaroid.mobileprinter"/*, @"com.lge.pocketphoto"*/];
         
         // watch for received data from the accessory
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_sessionDataReceived:) name:MPBTSessionDataReceivedNotification object:nil];
@@ -107,12 +108,6 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 - (void)refreshInfo
 {
-//if (nil == self.accessory) {
-//    NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
-//    NSArray *pairedDevices = [[NSMutableArray alloc] initWithArray:accs];
-//    self.accessory = pairedDevices[0];
-//}
-
     [self.session writeData:[self accessoryInfoRequest]];
 }
 
@@ -127,12 +122,16 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 - (void)reflash:(NSData *)reflashData
 {
-    NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v200" ofType:@"rbn"]; // v 0x0
-//    NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v300" ofType:@"rbn"]; // v 0x0
-    
-    self.upgradeData = [NSData dataWithContentsOfFile:myFile];
-
-    [self.session writeData:[self upgradeReadyRequest]];
+    if ([self.protocolString containsString:@"polaroid"]) {
+        NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v200" ofType:@"rbn"]; // v 0x0
+        //    NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v300" ofType:@"rbn"]; // v 0x0
+        
+        self.upgradeData = [NSData dataWithContentsOfFile:myFile];
+        
+        [self.session writeData:[self upgradeReadyRequest]];
+    } else {
+        NSLog(@"No reflash files for non-Polaroid devices");
+    }
 }
 
 #pragma mark - Getters/Setters
@@ -141,6 +140,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 {
     _session = nil;
     
+    NSString *protocolString = nil;
     if (self.accessory) {
         _session = [MPBTSessionController sharedController];
         [_session setupControllerForAccessory:self.accessory
@@ -157,18 +157,11 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 - (void)setAccessory:(EAAccessory *)accessory
 {
-    BOOL supportedDevice = NO;
-    
     _accessory = nil;
     
-    for (NSString *string in [accessory protocolStrings]) {
-        if ([string isEqualToString:self.protocolString]) {
-            supportedDevice = YES;
-            break;
-        }
-    }
+    self.protocolString = [self supportedProtocolString:accessory];
     
-    if( supportedDevice ) {
+    if( self.protocolString ) {
         _accessory = accessory;
     } else {
         NSLog(@"Unsupported device");
@@ -197,6 +190,26 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         _autoExposure = autoExposure;
         [self.session writeData:[self setInfoRequest]];
     }
+}
+
+#pragma mark - Util
+
+- (NSString *)supportedProtocolString:(EAAccessory *)accessory
+{
+    NSString *protocolString = nil;
+    if (accessory) {
+        
+        for (NSString *protocol in [accessory protocolStrings]) {
+            
+            for (NSString *supportedProtocol in self.supportedProtocols) {
+                if( [supportedProtocol isEqualToString:protocol] ) {
+                    protocolString = supportedProtocol;
+                }
+            }
+        }
+    }
+    
+    return protocolString;
 }
 
 #pragma mark - Packet Creation
@@ -479,6 +492,13 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 }
 
 #pragma mark - Constant Helpers
+
++ (BOOL)supportedAccessory:(EAAccessory *)accessory
+{
+    NSString *protocolString = [[MPBTSprocket sharedInstance] supportedProtocolString:accessory];
+
+    return (nil != protocolString);
+}
 
 + (NSString *)autoExposureString:(MantaAutoExposure)exp
 {

@@ -107,6 +107,7 @@
 	<string>UIStatusBarStyleDefault</string>
 	<key>UISupportedExternalAccessoryProtocols</key>
 	<array>
+		<string>com.lge.pocketphoto</string>
 		<string>com.polaroid.mobileprinter</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>

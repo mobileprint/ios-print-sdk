@@ -21,7 +21,7 @@
 
 @property (strong, nonatomic) EAAccessory *accessory;
 
-+ (id)sharedInstance;
++ (MPBTSprocket *)sharedInstance;
 
 @property (weak, nonatomic) id<MPBTSprocketDelegate> delegate;
 
@@ -39,6 +39,7 @@
 - (void)print:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies;
 - (void)reflash:(NSData *)reflashData;
 
++ (BOOL)supportedAccessory:(EAAccessory *)accessory;
 + (NSString *)errorString:(MantaError)error;
 
 @end

@@ -100,7 +100,14 @@
 
 - (IBAction)didPressRefreshButton:(id)sender {
     NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
-    self.pairedDevices = [[NSMutableArray alloc] initWithArray:accs];
+    self.pairedDevices = [[NSMutableArray alloc] init];
+    
+    for (EAAccessory *accessory in accs) {
+        if ([MPBTSprocket supportedAccessory:accessory]) {
+            [self.pairedDevices addObject:accessory];
+        }
+    }
+
     [self.tableView reloadData];
 }
 
