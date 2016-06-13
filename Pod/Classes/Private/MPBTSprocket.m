@@ -94,6 +94,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         
         // watch for received data from the accessory
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_sessionDataReceived:) name:MPBTSessionDataReceivedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_sessionDataSent:) name:MPBTSessionDataSentNotification object:nil];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidConnect:) name:EAAccessoryDidConnectNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidDisconnect:) name:EAAccessoryDidDisconnectNotification object:nil];
@@ -419,6 +420,10 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
             if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didStartSendingPrint:error:)]) {
                 [self.delegate didStartSendingPrint:self error:payload[1]];
             }
+        } else if (MantaDataClassFirmware == payload[0]) {
+            if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didStartSendingDeviceUpgrade:error:)]) {
+                [self.delegate didStartSendingDeviceUpgrade:self error:payload[1]];
+            }
         }
     } else if (RESP_END_OF_RECEIVE_ACK_CMD == cmdId[0]  &&
                RESP_END_OF_RECEIVE_ACK_SUB_CMD == subCmdId[0]) {
@@ -429,6 +434,10 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         if (MantaDataClassImage == payload[0]) {
             if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didFinishSendingPrint:)]) {
                 [self.delegate didFinishSendingPrint:self];
+            }
+        } else if (MantaDataClassFirmware == payload[0]) {
+            if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didFinishSendingDeviceUpgrade:)]) {
+                [self.delegate didFinishSendingDeviceUpgrade:self];
             }
         }
         
@@ -460,6 +469,10 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
                RESP_UPGRADE_ACK_SUB_CMD == subCmdId[0]) {
         NSLog(@"\n\nUpgradeAck %@", data);
         NSLog(@"\tUpgrade status: %@\n\n", [MPBTSprocket upgradeStatusString:payload[0]]);
+        
+        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
+            [self.delegate didChangeDeviceUpgradeStatus:self status:payload[0]];
+        }
     } else {
         NSLog(@"\n\nUnrecognized response: %@\n\n", data);
     }
@@ -474,6 +487,16 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     
     for (NSData *packet in packets) {
         [self parseMantaResponse:packet];
+    }
+}
+
+- (void)_sessionDataSent:(NSNotification *)notification
+{
+    if (self.upgradeData) {
+        NSInteger bytesWritten = [[notification.userInfo objectForKey:MPBTSessionDataBytesWritten] integerValue];
+        long long totalyBytesWritten = [[notification.userInfo objectForKey:MPBTSessionDataTotalBytesWritten] longLongValue];
+        long long totalBytes = self.upgradeData.length;
+        NSLog(@"Sent %d of %d bytes... %.0f%@ complete", bytesWritten, totalyBytesWritten, ((float)totalyBytesWritten/(float)totalBytes) * 100, @"%");
     }
 }
 

@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *printModeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *autoExposureSegmentedControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *autoPowerOffSegmentedControl;
+@property (strong, nonatomic) UIAlertController* alert;
 
 @end
 
@@ -35,6 +36,11 @@
     [super viewDidLoad];
     
     [self setTitle:@"Device Info"];
+    
+    self.alert = [UIAlertController alertControllerWithTitle:@"Upgrade Status"
+                                                     message:@"This is an alert."
+                                              preferredStyle:UIAlertControllerStyleAlert];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -158,5 +164,35 @@
     
 }
 
+- (void)didStartSendingDeviceUpgrade:(MPBTSprocket *)manta error:(MantaError)error
+{
+    self.alert.message = @"Sending upgrade data to device...";
+    [self presentViewController:self.alert animated:YES completion:nil];
+}
+
+- (void)didFinishSendingDeviceUpgrade:(MPBTSprocket *)manta
+{
+    self.alert.message = @"Finished sending upgrade data...";
+}
+
+- (void)didChangeDeviceUpgradeStatus:(MPBTSprocket *)manta status:(MantaUpgradeStatus)status
+{
+    
+    if (MantaUpgradeStatusStart == status) {
+        self.alert.message = @"Upgrade started";
+    } else {
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {[self.alert dismissViewControllerAnimated:YES completion:nil];}];
+        [self.alert addAction:defaultAction];
+
+        if (MantaUpgradeStatusFinish == status) {
+            self.alert.message = @"Upgrade complete";
+        } else if (MantaUpgradeStatusFail == status){
+            self.alert.message = @"Upgrade failed";
+        } else {
+            self.alert.message = [NSString stringWithFormat:@"Unknown status: %d", status];
+        }
+    }
+}
 
 @end

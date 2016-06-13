@@ -54,5 +54,8 @@
 - (void)didStartPrinting:(MPBTSprocket *)manta;
 - (void)didReceiveError:(MPBTSprocket *)manta error:(MantaError)error;
 - (void)didSetAccessoryInfo:(MPBTSprocket *)manta error:(MantaError)error;
+- (void)didStartSendingDeviceUpgrade:(MPBTSprocket *)manta error:(MantaError)error;
+- (void)didFinishSendingDeviceUpgrade:(MPBTSprocket *)manta;
+- (void)didChangeDeviceUpgradeStatus:(MPBTSprocket *)manta status:(MantaUpgradeStatus)status;
 
 @end
