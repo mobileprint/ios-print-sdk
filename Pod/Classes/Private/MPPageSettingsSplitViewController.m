@@ -84,7 +84,7 @@
     UIViewController *retVal = nil;
     
     if ([primaryViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navController = primaryViewController;
+        UINavigationController *navController = (UINavigationController *)primaryViewController;
         if (navController.viewControllers            &&
             navController.viewControllers.count > 0  &&
             [navController.viewControllers[0] isKindOfClass:[MPPageSettingsTableViewController class]]) {
