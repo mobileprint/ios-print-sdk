@@ -343,6 +343,6 @@ extern NSString * const kMPActivityPrintQueueIcon;
  */
 @property (strong, nonatomic) NSDictionary *settings;
 
-@property (strong, nonatomic) NSString *dateFormat;
+@property (strong, nonatomic, readonly) NSString *dateFormat;
 
 @end
