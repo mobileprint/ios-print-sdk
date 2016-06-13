@@ -1,3 +1,8 @@
+#### 3.0.8
+###### Not yet released
+
+- Fix compiler warnings
+
 #### 3.0.7
 ###### Tuesday May 17, 2016
 
