@@ -80,7 +80,6 @@
 		730c2e911e8d518fe37de7a1 /* MPLearnMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32115DF1A38BCE50079144C /* MPLearnMoreView.xib */; };
 		78cd8fb9b1bee9474f0c1617 /* 115 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B61B73FAA10013E738 /* 115 Pages.pdf */; };
 		7d9d68fa6acc2cb2dcaeabfb /* MPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */; };
-		9203D6E01CF7B45D00BA45FA /* BoxMan640x960.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9203D6DF1CF7B45D00BA45FA /* BoxMan640x960.jpg */; };
 		9203D6F01D02217800BA45FA /* Polaroid_v200.rbn in Resources */ = {isa = PBXBuildFile; fileRef = 9203D6EE1D02217800BA45FA /* Polaroid_v200.rbn */; };
 		9203D6F11D02217800BA45FA /* Polaroid_v300.rbn in Resources */ = {isa = PBXBuildFile; fileRef = 9203D6EF1D02217800BA45FA /* Polaroid_v300.rbn */; };
 		920746501CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */; };
@@ -218,7 +217,6 @@
 		7337A2AC7BAEB8252FAAC8BB /* Pods-MobilePrintSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.release.xcconfig"; sourceTree = "<group>"; };
 		7d45322c23338821ae339a35 /* CFNetwork.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		824DD1CAED53617BFC879B9B /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9203D6DF1CF7B45D00BA45FA /* BoxMan640x960.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = BoxMan640x960.jpg; sourceTree = "<group>"; };
 		9203D6EE1D02217800BA45FA /* Polaroid_v200.rbn */ = {isa = PBXFileReference; lastKnownFileType = file; name = Polaroid_v200.rbn; path = Firmware/Polaroid_v200.rbn; sourceTree = "<group>"; };
 		9203D6EF1D02217800BA45FA /* Polaroid_v300.rbn */ = {isa = PBXFileReference; lastKnownFileType = file; name = Polaroid_v300.rbn; path = Firmware/Polaroid_v300.rbn; sourceTree = "<group>"; };
 		9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -465,7 +463,6 @@
 		65FFC9AC1B03B08700DCE2B4 /* PDF */ = {
 			isa = PBXGroup;
 			children = (
-				9203D6DF1CF7B45D00BA45FA /* BoxMan640x960.jpg */,
 				65FFC9AD1B03B0A400DCE2B4 /* 1 Page (landscape).pdf */,
 				65FFC9AE1B03B0A400DCE2B4 /* 1 Page.pdf */,
 				65FFC9AF1B03B0A400DCE2B4 /* 2 Pages.pdf */,
@@ -633,7 +630,6 @@
 			files = (
 				651039B91B73FAA10013E738 /* 115 Pages.pdf in Resources */,
 				65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */,
-				9203D6E01CF7B45D00BA45FA /* BoxMan640x960.jpg in Resources */,
 				65FFC9B31B03B0A400DCE2B4 /* 1 Page (landscape).pdf in Resources */,
 				65FFC9B81B03B0A400DCE2B4 /* 10 Pages.pdf in Resources */,
 				9203D6F01D02217800BA45FA /* Polaroid_v200.rbn in Resources */,

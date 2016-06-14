@@ -62,7 +62,8 @@ NSString * const kMPPrintItemExtras = @"kMPPrintItemExtras";
                           @"Galaxy",
                           @"Garden Path",
                           @"Quality Seal",
-                          @"Soccer Ball"
+                          @"Soccer Ball",
+                          @"BoxMan"
                           ];
     self.pdfList = @[
                      @"1 Page",
