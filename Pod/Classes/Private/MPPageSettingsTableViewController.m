@@ -757,7 +757,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
     NSLog(@"%s", __FUNCTION__);
 }
 
-- (void)didStartSendingPrint:(MPBTSprocket *)sprocket error:(MantaError)error
+- (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
 {
     NSLog(@"%s", __FUNCTION__);
     

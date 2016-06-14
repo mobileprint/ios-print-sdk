@@ -139,7 +139,7 @@
     [self setTitle:[NSString stringWithFormat:@"%@", sprocket.accessory.name]];
 }
 
-- (void)didStartSendingPrint:(MPBTSprocket *)sprocket error:(MantaError)error
+- (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
 {
     
 }
@@ -164,10 +164,12 @@
     
 }
 
-- (void)didStartSendingDeviceUpgrade:(MPBTSprocket *)manta error:(MantaError)error
+- (void)didSendDeviceUpgradeData:(MPBTSprocket *)manta percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
 {
-    self.alert.message = @"Sending upgrade data to device...";
-    [self presentViewController:self.alert animated:YES completion:nil];
+    self.alert.message = [NSString stringWithFormat:@"Sending upgrade data to device... \n%d%@ complete", percentageComplete, @"%"];
+    if (!(self.alert.isViewLoaded  &&  self.alert.view.window)) {
+        [self presentViewController:self.alert animated:YES completion:nil];
+    }
 }
 
 - (void)didFinishSendingDeviceUpgrade:(MPBTSprocket *)manta

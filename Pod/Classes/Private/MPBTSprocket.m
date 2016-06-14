@@ -417,12 +417,12 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         
         // let any callers know the process is finished
         if (MantaDataClassImage == payload[0]) {
-            if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didStartSendingPrint:error:)]) {
-                [self.delegate didStartSendingPrint:self error:payload[1]];
+            if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSendPrintData:percentageComplete:error:)]) {
+                [self.delegate didSendPrintData:self percentageComplete:0 error:payload[1]];
             }
         } else if (MantaDataClassFirmware == payload[0]) {
-            if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didStartSendingDeviceUpgrade:error:)]) {
-                [self.delegate didStartSendingDeviceUpgrade:self error:payload[1]];
+            if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSendDeviceUpgradeData:percentageComplete:error:)]) {
+                [self.delegate didSendDeviceUpgradeData:self percentageComplete:0 error:payload[1]];
             }
         }
     } else if (RESP_END_OF_RECEIVE_ACK_CMD == cmdId[0]  &&
@@ -492,11 +492,24 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 - (void)_sessionDataSent:(NSNotification *)notification
 {
-    if (self.upgradeData) {
-        NSInteger bytesWritten = [[notification.userInfo objectForKey:MPBTSessionDataBytesWritten] integerValue];
-        long long totalyBytesWritten = [[notification.userInfo objectForKey:MPBTSessionDataTotalBytesWritten] longLongValue];
-        long long totalBytes = self.upgradeData.length;
-        NSLog(@"Sent %d of %d bytes... %.0f%@ complete", bytesWritten, totalyBytesWritten, ((float)totalyBytesWritten/(float)totalBytes) * 100, @"%");
+    NSInteger bytesWritten = [[notification.userInfo objectForKey:MPBTSessionDataBytesWritten] integerValue];
+    long long totalBytesWritten = [[notification.userInfo objectForKey:MPBTSessionDataTotalBytesWritten] longLongValue];
+    long long totalBytes = self.imageData ? self.imageData.length : self.upgradeData.length;
+    NSInteger percentageComplete = ((float)totalBytesWritten/(float)totalBytes) * 100;
+    
+    if (self.imageData) {
+        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSendPrintData:percentageComplete:error:)]) {
+            [self.delegate didSendPrintData:self percentageComplete:percentageComplete error:nil];
+        }
+    } else if (self.upgradeData) {
+        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSendDeviceUpgradeData:percentageComplete:error:)]) {
+            [self.delegate didSendDeviceUpgradeData:self percentageComplete:percentageComplete error:nil];
+        }
+    }
+    
+    if (totalBytes - totalBytesWritten <= 0) {
+        self.upgradeData = nil;
+        self.imageData = nil;
     }
 }
 
@@ -513,6 +526,18 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     //    EAAccessory *disconnectedAccessory = [[notification userInfo] objectForKey:EAAccessoryKey];
     //[self didPressRefreshButton:nil];
     NSLog(@"Accessory disconnected");
+    if (self.imageData) {
+        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSendPrintData:percentageComplete:error:)]) {
+            [self.delegate didSendPrintData:self percentageComplete:0 error:MantaErrorDataError];
+        }
+    } else if (self.upgradeData) {
+        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
+            [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusFail];
+        }
+    }
+    
+    self.imageData = nil;
+    self.upgradeData = nil;
 }
 
 #pragma mark - Constant Helpers
