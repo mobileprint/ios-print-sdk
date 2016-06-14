@@ -37,7 +37,7 @@ extern const CLLocationDistance kDefaultPrinterRadiusInMeters;
 /*!
  * @abstract Boolean indicating whether or not the location permission has already been set
  */
-@property (assign, nonatomic) BOOL currentLocationPermissionSet;
+@property (assign, nonatomic, readonly) BOOL currentLocationPermissionSet;
 
 /*!
  * @abstract Used to access the singleton instance of this class
