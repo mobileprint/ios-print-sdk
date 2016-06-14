@@ -999,13 +999,13 @@ NSInteger const kLengthOfSHA = 7;
 }
 
 - (BOOL)hidePaperSizeForPrintSettings:(MPPrintSettings *)printSettings
-{
-    return [self labelPrinter:printSettings];
+{    
+    return ([MP sharedInstance].useBluetooth || [self labelPrinter:printSettings]);
 }
 
 - (BOOL)hidePaperTypeForPrintSettings:(MPPrintSettings *)printSettings
 {
-    return [self labelPrinter:printSettings];
+    return ([MP sharedInstance].useBluetooth || [self labelPrinter:printSettings]);
 }
 
 - (MPPaper *)defaultPaperForPrintSettings:(MPPrintSettings *)printSettings
@@ -1155,13 +1155,7 @@ BOOL const kLabelPaperTypePhoto = NO;
 
 - (IBAction)useBluetoothChanged:(id)sender {
     if (self.useBluetoothSwitch.on) {
-    [MP sharedInstance].defaultPaper = [[MPPaper alloc] initWithPaperSize:MPPaperSize2x3 paperType:MPPaperTypePhoto];
-    [MP sharedInstance].useBluetooth = YES;
-    [MP sharedInstance].hideBlackAndWhiteOption = YES;
-    [MP sharedInstance].hidePaperSizeOption = NO;
-    [MP sharedInstance].hidePaperTypeOption = NO;
-    
-    [MP sharedInstance].supportedPapers = [self papersWithSizes:@[[NSNumber numberWithUnsignedInteger:MPPaperSize2x3]]];
+        [MP sharedInstance].useBluetooth = YES;
     } else {
         [MP sharedInstance].useBluetooth = NO;
         [self configureMP];

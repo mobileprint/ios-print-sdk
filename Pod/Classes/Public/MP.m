@@ -23,6 +23,7 @@
 #import "MPBTSprocket.h"
 #import "MPBTPairedAccessoriesViewController.h"
 #import "MPBTDeviceInfoViewController.h"
+#import "MPPrintSettingsDelegateManager.h"
 
 NSString * const kMPLibraryVersion = @"3.0.7";
 
@@ -139,7 +140,21 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return _pageSettingsCancelButtonLeft;
 }
 
-#pragma mark - Metrics 
+- (void)setUseBluetooth:(BOOL)useBluetooth
+{
+    _useBluetooth = useBluetooth;
+    
+    if (useBluetooth) {
+        [MP sharedInstance].hideBlackAndWhiteOption = YES;
+        [MP sharedInstance].hidePaperSizeOption = YES;
+        [MP sharedInstance].hidePaperTypeOption = YES;
+        
+        [MP sharedInstance].defaultPaper = [[MPPaper alloc] initWithPaperSize:MPPaperSize2x3 paperType:MPPaperTypePhoto];
+        [MP sharedInstance].supportedPapers = @[[MP sharedInstance].defaultPaper];
+        [MPPrintSettingsDelegateManager setLastPaperUsed:[MP sharedInstance].defaultPaper];
+    }
+}
+#pragma mark - Metrics
 
 - (void)handleShareCompletedNotification:(NSNotification *)notification
 {

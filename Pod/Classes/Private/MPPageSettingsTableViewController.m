@@ -711,6 +711,11 @@ CGFloat const kMPDisabledAlpha = 0.5;
         self.basicJobSummaryCell.hidden = NO;
     }
     
+    if ([self.mp useBluetooth]) {
+        self.selectPrinterCell.hidden = NO;
+        self.printSettingsCell.hidden = YES;
+    }
+    
     [self prepareUiForIosVersion];
 
     [self.tableView endUpdates];
@@ -1555,13 +1560,17 @@ CGFloat const kMPDisabledAlpha = 0.5;
         } else {
             if (section == PRINT_FUNCTION_SECTION || section == PREVIEW_PRINT_SUMMARY_SECTION) {
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-            } else if (IS_OS_8_OR_LATER && ((section == PRINTER_SELECTION_SECTION) || (section == PAPER_SELECTION_SECTION))) {
-                if ( !self.mp.hidePaperTypeOption && (self.delegateManager.printSettings.printerUrl == nil) ) {
+            } else if (IS_OS_8_OR_LATER && section == PRINTER_SELECTION_SECTION) {
+                if ( self.delegateManager.printSettings.printerUrl == nil  ||  self.mp.useBluetooth) {
+                    height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+                }
+            } else if (IS_OS_8_OR_LATER && section == PAPER_SELECTION_SECTION) {
+                if ( !self.mp.hidePaperSizeOption ) {
                     height = SEPARATOR_SECTION_FOOTER_HEIGHT;
                 }
             } else if (!IS_OS_8_OR_LATER && (section == PAPER_SELECTION_SECTION)) {
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-            } else if (IS_OS_8_OR_LATER && (section == PRINT_SETTINGS_SECTION)) {
+            } else if (IS_OS_8_OR_LATER && (section == PRINT_SETTINGS_SECTION)  &&  !self.mp.useBluetooth) {
                 if (self.delegateManager.printSettings.printerUrl != nil) {
                     if (self.delegateManager.printSettings.printerIsAvailable) {
                         height = SEPARATOR_SECTION_FOOTER_HEIGHT;
