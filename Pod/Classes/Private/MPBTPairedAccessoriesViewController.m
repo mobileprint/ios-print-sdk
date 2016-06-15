@@ -85,14 +85,20 @@
         
         MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
         sprocket.accessory = device;
+        
+        void (^completionBlock)(void) = ^{
+            [self.delegate didSelectSprocket:sprocket];
+            
+            if (self.completionBlock) {
+                self.completionBlock(YES);
+            }
+        };
 
-        [self.delegate didSelectSprocket:sprocket];
-        
-        if (self.completionBlock) {
-            self.completionBlock(YES);
+        if (nil == self.parentViewController) {
+            [self dismissViewControllerAnimated:YES completion:completionBlock];
+        } else {
+            completionBlock();
         }
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

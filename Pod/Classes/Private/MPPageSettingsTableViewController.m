@@ -769,9 +769,10 @@ CGFloat const kMPDisabledAlpha = 0.5;
 
 - (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
 {
+    NSLog(@"%s", __FUNCTION__);
     self.bluetoothPrintStatus.title = @"Sending Print";
     self.bluetoothPrintStatus.message = [NSString stringWithFormat:@"%d%@ complete", percentageComplete, @"%"];
-    if (!(self.bluetoothPrintStatus.isViewLoaded  &&  self.bluetoothPrintStatus.view.window)) {
+    if (self.view.window  &&  !(self.bluetoothPrintStatus.isViewLoaded  &&  self.bluetoothPrintStatus.view.window)) {
         [self presentViewController:self.bluetoothPrintStatus animated:YES completion:nil];
     }
 }
@@ -792,7 +793,12 @@ CGFloat const kMPDisabledAlpha = 0.5;
 - (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
 {
     NSLog(@"%s", __FUNCTION__);
-    
+    self.bluetoothPrintStatus.title = @"Error";
+    self.bluetoothPrintStatus.message = [NSString stringWithFormat:@"Error sending print: %@", [MPBTSprocket errorString:error]];
+    [self addActionToBluetoothStatus];
+    if (self.view.window  &&  !(self.bluetoothPrintStatus.isViewLoaded  &&  self.bluetoothPrintStatus.view.window)) {
+        [self presentViewController:self.bluetoothPrintStatus animated:YES completion:nil];
+    }
 }
 
 - (void)didSetAccessoryInfo:(MPBTSprocket *)sprocket error:(MantaError)error
@@ -1741,7 +1747,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
 {
     if (IS_OS_8_OR_LATER) {
         if (self.delegateManager.printSettings.printerUrl == nil ||
-            !self.delegateManager.printSettings.printerIsAvailable ) {
+            !self.delegateManager.printSettings.printerIsAvailable ||
+            (self.mp.useBluetooth  &&  nil == self.delegateManager.printSettings.sprocketPrinter)) {
             [self showPrinterSelection:tableView withCompletion:^(BOOL userDidSelect){
                 if (userDidSelect) {
                     [self startPrinting];

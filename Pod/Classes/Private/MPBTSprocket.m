@@ -463,7 +463,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         NSLog(@"\tError: %@\n\n", [MPBTSprocket errorString:payload[0]]);
         
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didReceiveError:error:)]) {
-            [self.delegate didReceiveError:self error:payload[1]];
+            [self.delegate didReceiveError:self error:payload[0]];
         }
     } else if (RESP_UPGRADE_ACK_CMD == cmdId[0]  &&
                RESP_UPGRADE_ACK_SUB_CMD == subCmdId[0]) {
