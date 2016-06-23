@@ -196,6 +196,11 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     }
 }
 
+- (NSString *)displayName
+{
+    return [NSString stringWithFormat:@"%@ (%@)", self.accessory.name, self.accessory.serialNumber];
+}
+
 #pragma mark - Util
 
 - (NSString *)supportedProtocolString:(EAAccessory *)accessory

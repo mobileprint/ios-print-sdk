@@ -34,6 +34,7 @@
 @property (strong, nonatomic, readonly) NSData *macAddress;
 @property (assign, nonatomic, readonly) NSUInteger firmwareVersion;
 @property (assign, nonatomic, readonly) NSUInteger hardwareVersion;
+@property (strong, nonatomic, readonly) NSString *displayName;
 
 - (void)refreshInfo;
 - (void)print:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies;

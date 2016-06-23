@@ -813,11 +813,13 @@ CGFloat const kMPDisabledAlpha = 0.5;
 {
     sprocket.delegate = self;
     self.delegateManager.printSettings.sprocketPrinter = sprocket;
-    self.delegateManager.printSettings.printerName = sprocket.accessory.name;
+    self.delegateManager.printSettings.printerName = [sprocket displayName];
     self.delegateManager.printSettings.printerUrl = [NSURL URLWithString:sprocket.protocolString];
     self.delegateManager.printSettings.printerModel = nil;
     self.delegateManager.printSettings.printerLocation = nil;
     self.delegateManager.printSettings.printerIsAvailable = YES;
+    
+    [self refreshData];
 }
 
 #pragma mark - Util
