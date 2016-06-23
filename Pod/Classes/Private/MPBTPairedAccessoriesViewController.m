@@ -59,7 +59,7 @@
     
     EAAccessory *accessory = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
     
-    [[cell textLabel] setText:accessory.name];
+    [[cell textLabel] setText:[NSString stringWithFormat:@"%@ (%@)", accessory.name, accessory.serialNumber]];
     
     return cell;
 }
