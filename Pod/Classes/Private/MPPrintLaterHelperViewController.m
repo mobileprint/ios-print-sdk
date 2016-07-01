@@ -106,7 +106,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma marks - Utils
+#pragma mark - Utils
 
 - (NSString *)defaultPrinterName
 {
