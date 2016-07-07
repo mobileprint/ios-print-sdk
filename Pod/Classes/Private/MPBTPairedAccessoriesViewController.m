@@ -13,12 +13,20 @@
 #import "MPBTPairedAccessoriesViewController.h"
 #import "MPBTSessionController.h"
 #import "MPBTSprocket.h"
+#import "MP.h"
 #import <ExternalAccessory/ExternalAccessory.h>
 
 @interface MPBTPairedAccessoriesViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *pairedDevices;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIView *noDevicesView;
+@property (weak, nonatomic) IBOutlet UILabel *noDevicesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @end
 
@@ -30,7 +38,21 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    [self setTitle:@"Paired Devices"];
+    [self setTitle:@"Devices"];
+    self.bottomView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
+    self.tableView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.separatorColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralTableSeparatorColor];
+    self.topView.backgroundColor = [UINavigationBar appearance].barTintColor;
+    self.containerView.backgroundColor = [UINavigationBar appearance].barTintColor;
+
+    self.titleLabel.font = [[UINavigationBar appearance].titleTextAttributes objectForKey:NSFontAttributeName];
+    self.titleLabel.textColor = [[UINavigationBar appearance].titleTextAttributes objectForKey:NSForegroundColorAttributeName];
+    
+    self.noDevicesLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
+    self.noDevicesLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
+    self.descriptionLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFont];
+    self.descriptionLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFontColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -60,6 +82,9 @@
     EAAccessory *accessory = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
     
     [[cell textLabel] setText:[NSString stringWithFormat:@"%@ (%@)", accessory.name, accessory.serialNumber]];
+    cell.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
+    cell.textLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
+    cell.textLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
     
     return cell;
 }
@@ -73,7 +98,11 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.pairedDevices.count;
+    NSInteger numRows = self.pairedDevices.count;
+    
+    self.noDevicesView.hidden = (0 == numRows) ? NO : YES;
+
+    return numRows;
 }
 
 #pragma mark - UITableViewDelegate
