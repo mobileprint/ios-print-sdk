@@ -135,6 +135,8 @@ NSString * const kMPCustomAnalyticsKey = @"custom_data";
 
 - (void)setCustomAnalytics:(NSDictionary *)customAnalytics
 {
+    _customAnalytics = customAnalytics;
+
     NSMutableDictionary *extras = [self.extra mutableCopy];
     [extras setObject:customAnalytics forKey:kMPCustomAnalyticsKey];
     self.extra = extras;

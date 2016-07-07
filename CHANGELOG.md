@@ -1,3 +1,8 @@
+#### 3.0.8
+###### Not yet released
+
+- Fix compiler warnings
+
 #### 3.0.7
 ###### Tuesday May 17, 2016
 
@@ -7,6 +12,7 @@
 ###### Friday May 13, 2016
 
 - Adding support for multi-tasking (split screen) functionality
+- iOS7 is no longer supported
 
 #### 3.0.5
 ###### Wednesday April 27, 2016
