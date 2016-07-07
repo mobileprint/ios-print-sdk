@@ -59,7 +59,7 @@
     
     EAAccessory *accessory = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
     
-    [[cell textLabel] setText:accessory.name];
+    [[cell textLabel] setText:[NSString stringWithFormat:@"%@ (%@)", accessory.name, accessory.serialNumber]];
     
     return cell;
 }
@@ -85,16 +85,20 @@
         
         MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
         sprocket.accessory = device;
-        //sprocket.delegate = self;
-        [sprocket refreshInfo];
+        
+        void (^completionBlock)(void) = ^{
+            [self.delegate didSelectSprocket:sprocket];
+            
+            if (self.completionBlock) {
+                self.completionBlock(YES);
+            }
+        };
 
-        [self.delegate didSelectSprocket:sprocket];
-        
-        if (self.completionBlock) {
-            self.completionBlock(YES);
+        if (nil == self.parentViewController) {
+            [self dismissViewControllerAnimated:YES completion:completionBlock];
+        } else {
+            completionBlock();
         }
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -102,7 +106,14 @@
 
 - (IBAction)didPressRefreshButton:(id)sender {
     NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
-    self.pairedDevices = [[NSMutableArray alloc] initWithArray:accs];
+    self.pairedDevices = [[NSMutableArray alloc] init];
+    
+    for (EAAccessory *accessory in accs) {
+        if ([MPBTSprocket supportedAccessory:accessory]) {
+            [self.pairedDevices addObject:accessory];
+        }
+    }
+
     [self.tableView reloadData];
 }
 

@@ -145,6 +145,7 @@
 @property (assign, nonatomic) BOOL actionInProgress;
 
 @property (weak, nonatomic) UIPrinterPickerController *printerPicker;
+@property (strong, nonatomic) UIAlertController *bluetoothPrintStatus;
 
 @end
 
@@ -169,6 +170,10 @@ CGFloat const kMPDisabledAlpha = 0.5;
     
     self.currentPrintJob = 0;
     
+    self.bluetoothPrintStatus = [UIAlertController alertControllerWithTitle:@"Bluetooth Print Status"
+                                                     message:@"This is an alert."
+                                              preferredStyle:UIAlertControllerStyleAlert];
+
     if( nil == self.delegateManager ) {
         self.delegateManager = [[MPPrintSettingsDelegateManager alloc] init];
     }
@@ -711,6 +716,11 @@ CGFloat const kMPDisabledAlpha = 0.5;
         self.basicJobSummaryCell.hidden = NO;
     }
     
+    if ([self.mp useBluetooth]) {
+        self.selectPrinterCell.hidden = NO;
+        self.printSettingsCell.hidden = YES;
+    }
+    
     [self prepareUiForIosVersion];
 
     [self.tableView endUpdates];
@@ -757,28 +767,38 @@ CGFloat const kMPDisabledAlpha = 0.5;
     NSLog(@"%s", __FUNCTION__);
 }
 
-- (void)didStartSendingPrint:(MPBTSprocket *)sprocket error:(MantaError)error
+- (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
 {
     NSLog(@"%s", __FUNCTION__);
-    
+    self.bluetoothPrintStatus.title = @"Sending Print";
+    self.bluetoothPrintStatus.message = [NSString stringWithFormat:@"%d%@ complete", percentageComplete, @"%"];
+    if (self.view.window  &&  !(self.bluetoothPrintStatus.isViewLoaded  &&  self.bluetoothPrintStatus.view.window)) {
+        [self presentViewController:self.bluetoothPrintStatus animated:YES completion:nil];
+    }
 }
 
 - (void)didFinishSendingPrint:(MPBTSprocket *)sprocket
 {
     NSLog(@"%s", __FUNCTION__);
-    
+    self.bluetoothPrintStatus.message = @"Finished Sending Print";
+    [self addActionToBluetoothStatus];
+    [self bluetoothPrintCompleted];
 }
 
 - (void)didStartPrinting:(MPBTSprocket *)sprocket
 {
     NSLog(@"%s", __FUNCTION__);
-    
 }
 
 - (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
 {
     NSLog(@"%s", __FUNCTION__);
-    
+    self.bluetoothPrintStatus.title = @"Error";
+    self.bluetoothPrintStatus.message = [NSString stringWithFormat:@"Error sending print: %@", [MPBTSprocket errorString:error]];
+    [self addActionToBluetoothStatus];
+    if (self.view.window  &&  !(self.bluetoothPrintStatus.isViewLoaded  &&  self.bluetoothPrintStatus.view.window)) {
+        [self presentViewController:self.bluetoothPrintStatus animated:YES completion:nil];
+    }
 }
 
 - (void)didSetAccessoryInfo:(MPBTSprocket *)sprocket error:(MantaError)error
@@ -793,14 +813,25 @@ CGFloat const kMPDisabledAlpha = 0.5;
 {
     sprocket.delegate = self;
     self.delegateManager.printSettings.sprocketPrinter = sprocket;
-    self.delegateManager.printSettings.printerName = sprocket.accessory.name;
+    self.delegateManager.printSettings.printerName = [sprocket displayName];
     self.delegateManager.printSettings.printerUrl = [NSURL URLWithString:sprocket.protocolString];
     self.delegateManager.printSettings.printerModel = nil;
     self.delegateManager.printSettings.printerLocation = nil;
     self.delegateManager.printSettings.printerIsAvailable = YES;
+    
+    [self refreshData];
 }
 
 #pragma mark - Util
+
+- (void)addActionToBluetoothStatus
+{
+    if (0 == self.bluetoothPrintStatus.actions.count) {
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {[self.bluetoothPrintStatus dismissViewControllerAnimated:YES completion:nil];}];
+        [self.bluetoothPrintStatus addAction:defaultAction];
+    }
+}
 
 - (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
 {
@@ -1555,13 +1586,17 @@ CGFloat const kMPDisabledAlpha = 0.5;
         } else {
             if (section == PRINT_FUNCTION_SECTION || section == PREVIEW_PRINT_SUMMARY_SECTION) {
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-            } else if (IS_OS_8_OR_LATER && ((section == PRINTER_SELECTION_SECTION) || (section == PAPER_SELECTION_SECTION))) {
-                if ( !self.mp.hidePaperTypeOption && (self.delegateManager.printSettings.printerUrl == nil) ) {
+            } else if (IS_OS_8_OR_LATER && section == PRINTER_SELECTION_SECTION) {
+                if ( self.delegateManager.printSettings.printerUrl == nil  ||  self.mp.useBluetooth) {
+                    height = SEPARATOR_SECTION_FOOTER_HEIGHT;
+                }
+            } else if (IS_OS_8_OR_LATER && section == PAPER_SELECTION_SECTION) {
+                if ( !self.mp.hidePaperSizeOption  &&  self.delegateManager.printSettings.printerUrl == nil ) {
                     height = SEPARATOR_SECTION_FOOTER_HEIGHT;
                 }
             } else if (!IS_OS_8_OR_LATER && (section == PAPER_SELECTION_SECTION)) {
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-            } else if (IS_OS_8_OR_LATER && (section == PRINT_SETTINGS_SECTION)) {
+            } else if (IS_OS_8_OR_LATER && (section == PRINT_SETTINGS_SECTION)  &&  !self.mp.useBluetooth) {
                 if (self.delegateManager.printSettings.printerUrl != nil) {
                     if (self.delegateManager.printSettings.printerIsAvailable) {
                         height = SEPARATOR_SECTION_FOOTER_HEIGHT;
@@ -1714,7 +1749,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
 {
     if (IS_OS_8_OR_LATER) {
         if (self.delegateManager.printSettings.printerUrl == nil ||
-            !self.delegateManager.printSettings.printerIsAvailable ) {
+            !self.delegateManager.printSettings.printerIsAvailable ||
+            (self.mp.useBluetooth  &&  nil == self.delegateManager.printSettings.sprocketPrinter)) {
             [self showPrinterSelection:tableView withCompletion:^(BOOL userDidSelect){
                 if (userDidSelect) {
                     [self startPrinting];
@@ -1891,8 +1927,6 @@ CGFloat const kMPDisabledAlpha = 0.5;
     
     if( MPPrintManagerErrorNone != error.code ) {
         MPLogError(@"Failed to print with error %@", error);
-    } else if( self.mp.useBluetooth ) {
-        [self bluetoothPrintCompleted];
     }
 }
 
@@ -1940,6 +1974,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
     [self setDefaultPrinter];
     
     if ([self.printDelegate respondsToSelector:@selector(didFinishPrintFlow:)]) {
+        [self.bluetoothPrintStatus dismissViewControllerAnimated:YES completion:nil];
         [self.printDelegate didFinishPrintFlow:self];
     }
     else {

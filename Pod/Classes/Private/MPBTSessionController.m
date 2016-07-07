@@ -16,6 +16,9 @@
 const char SPROCKET_SESSION_PACKET_LENGTH = 34;
 
 NSString *MPBTSessionDataReceivedNotification = @"MPBTSessionDataReceivedNotification";
+NSString *MPBTSessionDataSentNotification = @"MPBTSessionDataSentNotification";
+NSString *MPBTSessionDataBytesWritten = @"MPBTSessionDataBytesWritten";
+NSString *MPBTSessionDataTotalBytesWritten = @"MPBTSessionDataTotalBytesWritten";
 
 @interface MPBTSessionController()
 
@@ -47,7 +50,12 @@ static long long totalBytesWritten = 0;
             totalBytesWritten += bytesWritten;
 
             [_writeData replaceBytesInRange:NSMakeRange(0, bytesWritten) withBytes:NULL length:0];
-            NSLog(@"Bytes written: %ld, total: %lld", (long)bytesWritten, totalBytesWritten);
+            //NSLog(@"Bytes written: %ld, total: %lld", (long)bytesWritten, totalBytesWritten);
+            NSArray *info = @{
+                               MPBTSessionDataBytesWritten : [NSNumber numberWithInteger:bytesWritten],
+                               MPBTSessionDataTotalBytesWritten : [NSNumber numberWithLongLong:totalBytesWritten]
+                             };
+            [[NSNotificationCenter defaultCenter] postNotificationName:MPBTSessionDataSentNotification object:self userInfo:info];
         }
     }
 }

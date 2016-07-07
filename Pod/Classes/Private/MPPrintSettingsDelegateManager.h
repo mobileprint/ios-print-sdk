@@ -153,5 +153,6 @@
 - (void)savePrinterId:(NSString *)printerId;
 
 + (MPPaper *)lastPaperUsed;
++ (void)setLastPaperUsed:(MPPaper *)paper;
 
 @end

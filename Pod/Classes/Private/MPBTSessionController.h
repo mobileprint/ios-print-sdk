@@ -14,6 +14,9 @@
 #import <ExternalAccessory/ExternalAccessory.h>
 
 extern NSString *MPBTSessionDataReceivedNotification;
+extern NSString *MPBTSessionDataSentNotification;
+extern NSString *MPBTSessionDataBytesWritten;
+extern NSString *MPBTSessionDataTotalBytesWritten;
 
 // NOTE: EADSessionController is not threadsafe, calling methods from different threads will lead to unpredictable results
 @interface MPBTSessionController : NSObject <EAAccessoryDelegate, NSStreamDelegate> {
@@ -33,9 +36,6 @@ extern NSString *MPBTSessionDataReceivedNotification;
 - (void)closeSession;
 
 - (void)writeData:(NSData *)data;
-
-//- (NSUInteger)readBytesAvailable;
-//- (NSData *)readData:(NSUInteger)bytesToRead;
 - (NSArray *)getPackets;
 
 @property (nonatomic, readonly) EAAccessory *accessory;
