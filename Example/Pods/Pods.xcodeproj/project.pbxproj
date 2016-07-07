@@ -498,6 +498,17 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>0E5FEB18706A6B80811459B7B3CA622F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPUnselected@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>0E73D7415EF59B72E8F47FC5935D4E50</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -623,17 +634,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>10B62C49A46A1D077FAAE2FB56A3FEC5</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPMagnify@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>116C8093A10F657AB2BA98050C15E547</key>
 		<dict>
@@ -823,6 +823,28 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>14ED751C310D22E04B49EE8EC07255D6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPGear@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1528EC38691820EE6B88697B88C03B6F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPCheck@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>15510993FF1A4CA8BF29578B8C7F59EF</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -911,19 +933,14 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>1815E065BBCA21080C6D0B1A6537EB42</key>
+		<key>17EC6A1574AD5B81A9FB08F02F27B5F9</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>D7202385F4B73FE73FC5F0B3F2BCDE92</string>
-				<string>A133BE43A412E2FE8FDCA6C99B1CB68C</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Classes</string>
+			<string>PBXFileReference</string>
 			<key>path</key>
-			<string>Classes</string>
+			<string>MPArrow@2x.png</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1066,19 +1083,6 @@
 			<string>OCMInvocationStub.m</string>
 			<key>path</key>
 			<string>Source/OCMock/OCMInvocationStub.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>20209427DF05E28D4760023DBB565DFB</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.plug-in</string>
-			<key>path</key>
-			<string>MobilePrintSDKLocalizable.bundle</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1256,6 +1260,17 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>24C7905CDAA0FADC90B594B4ADE2A594</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPActiveCircle@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>24F1D10C026A5419A1848BD4FB4B6EE9</key>
 		<dict>
 			<key>fileRef</key>
@@ -1334,6 +1349,17 @@
 			<string>sourcecode.c.h</string>
 			<key>path</key>
 			<string>MPPrintItemFactory.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28F7C7B0044BDA11F548F92CEC1222E5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPUnselected@3x.png</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1417,6 +1443,17 @@
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
+		<key>2C24180E39573338CA0A5811E84148E8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPMeasurementArrowUp@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>2C678F47051749FEAC3FAB7C2A9CD98A</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1427,6 +1464,28 @@
 			<string>sourcecode.c.h</string>
 			<key>path</key>
 			<string>MPPrintLaterHelperViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2CECFA1BCF199684BDBA69E830BA485F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPInactiveCircle@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2D058A05CEB7C2281967FA1BFB10E013</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MP.storyboard</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1535,17 +1594,6 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>32D60F2BCE89430404CD302510365D62</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPCheck@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>3312582F275DB5DDA1C8928EFC09B05C</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1578,6 +1626,17 @@
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
 			<string>MPDefaultSettingsManager.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>33A0738A40DF3986AC32111228D33BB7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPMeasurementArrowRight@2x.png</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1699,7 +1758,7 @@
 		<dict>
 			<key>children</key>
 			<array>
-				<string>5EDE9874D18599A43517D329416B3941</string>
+				<string>D722BF80EE9505EC5B9762FEED1FAF98</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -1733,6 +1792,17 @@
 			<string>sourcecode.c.h</string>
 			<key>path</key>
 			<string>MobilePrintSDK-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3834F90D61D11959715CD3C435864642</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPX@2x.png</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1783,6 +1853,17 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>3A0727E41E4175DEA8EC38B0AC9EF4E8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPSelected@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>3A0974FBE25326D0D926C44BE86F8D8C</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1812,34 +1893,12 @@
 				</array>
 			</dict>
 		</dict>
-		<key>3CC7B354ED2AC1FC815016BBC34DB88E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPArrow@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>3D4C1FBB115758470BB75A7D42B201CF</key>
 		<dict>
 			<key>fileRef</key>
 			<string>D17D54446105F1CD029D283B70FC755A</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>3EC40DC2923D72DA901EBA2044AE6603</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPSelected@3x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>3EEE56426C5838CA2F13E8F95B594401</key>
 		<dict>
@@ -1987,6 +2046,19 @@
 			<string>OCPartialMockObject.m</string>
 			<key>path</key>
 			<string>Source/OCMock/OCPartialMockObject.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>46B1F6E7F17A90D4E2885AD2539378D2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.xib</string>
+			<key>path</key>
+			<string>MPPrintJobsActionView.xib</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -2171,19 +2243,6 @@
 				<string>-fno-objc-arc</string>
 			</dict>
 		</dict>
-		<key>4D7FB4D78F0B210C1F193204C6D32E30</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.xib</string>
-			<key>path</key>
-			<string>MPMultiPageView.xib</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>4DFD97FFCF8917A67B4187B67938E6E4</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -2205,6 +2264,17 @@
 			<string>247C6A3275E2E5D3E865B26DC991CCC1</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E623B7A62934C3FF6DFD762C68E5943</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPMeasurementArrowLeft@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>4F238CF9C5CD31A77103A72BD230ADA5</key>
 		<dict>
@@ -2342,17 +2412,6 @@
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
 			<string>MPPaperSizeTableViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>53E534B987920DD126082A66D3AB642B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPPrintLater@2x~iphone.png</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -2732,6 +2791,25 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>5C7F92983E39D9CE63B831CD747B05EB</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>C51B6B104358159CFFCAC3EACCE2B792</string>
+				<string>E1C040A7BDEB956BF31F5311F2BC2EAD</string>
+				<string>F8DAFA7FEC5D58320394EC10C97F9F64</string>
+				<string>46B1F6E7F17A90D4E2885AD2539378D2</string>
+				<string>7E810931E3035FA8C52F56BB72C87D6C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Private</string>
+			<key>path</key>
+			<string>Private</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>5CD7040A5D4DDBFD0815DE03F2EE2BB5</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -2795,23 +2873,6 @@
 			<string>6E7E5AF37923BFA48D6994B9BFC6535F</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>5EDE9874D18599A43517D329416B3941</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>20209427DF05E28D4760023DBB565DFB</string>
-				<string>6474F62137291AFEEF9FAAF8A6242964</string>
-				<string>1815E065BBCA21080C6D0B1A6537EB42</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pod</string>
-			<key>path</key>
-			<string>Pod</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>5F04262019BBB326960E643861626099</key>
 		<dict>
@@ -3038,38 +3099,14 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>6474F62137291AFEEF9FAAF8A6242964</key>
+		<key>64B71BE12E2AE400E13BBD869C169790</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>8231577033EF06DC999EFABE75B3370B</string>
-				<string>3CC7B354ED2AC1FC815016BBC34DB88E</string>
-				<string>32D60F2BCE89430404CD302510365D62</string>
-				<string>7016F31B610A81F885B2507EA803722A</string>
-				<string>971094CA8C476A51F359224E3E56FFC4</string>
-				<string>D63997B3B2D85219DD4E0B0DAAC23302</string>
-				<string>D23C63B92E9C802F11771597D5D2793F</string>
-				<string>10B62C49A46A1D077FAAE2FB56A3FEC5</string>
-				<string>ED648195029885DC651D5078CD170B84</string>
-				<string>D81A364FB5D73A6D27DB6639C8E933F7</string>
-				<string>66C21AE9F15699E2F712B622032801B6</string>
-				<string>7A6E306968678CC43A271445BF5FFCE9</string>
-				<string>98787230AEA1558515B67BEABAB5827C</string>
-				<string>FDA3EE714EBFA8E5F56FE9BB8450F3B9</string>
-				<string>A62EEB14241AC5E23E3E3BB464D176F7</string>
-				<string>D082F5CE07A0079517E1BE21E8DF1E4D</string>
-				<string>53E534B987920DD126082A66D3AB642B</string>
-				<string>C66575482297E1108047016448A8AA89</string>
-				<string>3EC40DC2923D72DA901EBA2044AE6603</string>
-				<string>9852ED4DACC646DCF93F735958F80698</string>
-				<string>B8790852062BB062D1E9CE80CD298DD2</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Assets</string>
+			<string>PBXFileReference</string>
 			<key>path</key>
-			<string>Assets</string>
+			<string>MPPrintLater@2x~ipad.png</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -3135,17 +3172,6 @@
 					<string>Private</string>
 				</array>
 			</dict>
-		</dict>
-		<key>66C21AE9F15699E2F712B622032801B6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPMeasurementArrowRight@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>672FE514B7C1EB583AF6CEB2538025A7</key>
 		<dict>
@@ -3428,17 +3454,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>7016F31B610A81F885B2507EA803722A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPDoNoEnter.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>701783D77005D9726F69F2CA39B9E582</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -3669,6 +3684,17 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>759F527DF86BCD16D51073B025EF18B9</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPPrintLater@2x~iphone.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>765FFC642592B4596AA57D96E17396D4</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -3688,19 +3714,6 @@
 			<string>015A8949BE06C6BDA47F9BAE6919488A</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>78243B9DE37E08F3A318F9DC6C0E73B2</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.xib</string>
-			<key>path</key>
-			<string>MPRuleView.xib</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>7861E663E446C9A7D539D75F7EC0E4B1</key>
 		<dict>
@@ -3783,17 +3796,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>7A6E306968678CC43A271445BF5FFCE9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPMeasurementArrowUp@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>7AD9A826C1052FAD48830D315DB7FBD1</key>
 		<dict>
 			<key>fileRef</key>
@@ -3821,6 +3823,17 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>7BAE426A79D3BE056EC99819C10DC349</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPPrint@2x~iphone.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>7C459598DE430610C385CF08A9971725</key>
 		<dict>
@@ -3894,6 +3907,19 @@
 			<string>OCMBlockCaller.m</string>
 			<key>path</key>
 			<string>Source/OCMock/OCMBlockCaller.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E810931E3035FA8C52F56BB72C87D6C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.xib</string>
+			<key>path</key>
+			<string>MPRuleView.xib</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -4036,6 +4062,17 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>82044172DCA2CEE1E005BB1FE498B200</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPMagnify@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>82280758E01223AB9D615C7376367CFA</key>
 		<dict>
 			<key>children</key>
@@ -4147,17 +4184,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>8231577033EF06DC999EFABE75B3370B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPActiveCircle@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>8246BEAFBE685464AEA0CA6DFFFF7924</key>
 		<dict>
 			<key>fileRef</key>
@@ -4226,6 +4252,33 @@
 				</array>
 			</dict>
 		</dict>
+		<key>8636F069B92293FD567B943F7F44987D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2D058A05CEB7C2281967FA1BFB10E013</string>
+				<string>5C7F92983E39D9CE63B831CD747B05EB</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Classes</string>
+			<key>path</key>
+			<string>Classes</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>869D70CABA57CCA4186D962110811F28</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPDoNoEnter@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>87AA263FA688A8E92C2B8ADEE72C98C6</key>
 		<dict>
 			<key>fileRef</key>
@@ -4275,6 +4328,17 @@
 			<string>E0FE264C7CE2266ABCEEC4C44F20880B</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>89761AD3BB1AE89C4FA1A9DA94E6E9B6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPPrint@2x~ipad.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>899279CF1E8D79A6B993D8BB983E0378</key>
 		<dict>
@@ -4803,19 +4867,6 @@
 				</array>
 			</dict>
 		</dict>
-		<key>95B4ADA4AA9F05F68E318161BE192D6B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.xib</string>
-			<key>path</key>
-			<string>MPPageView.xib</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>961AC5AB6A5EEAD297BD0407A27507BD</key>
 		<dict>
 			<key>fileRef</key>
@@ -4837,30 +4888,6 @@
 				</array>
 			</dict>
 		</dict>
-		<key>971094CA8C476A51F359224E3E56FFC4</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPDoNoEnter@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>974342DCEF950C4611810255DA81A18C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.xib</string>
-			<key>path</key>
-			<string>MPPageRangeView.xib</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>9767D7EF429271C01A26D0E36C01058F</key>
 		<dict>
 			<key>fileRef</key>
@@ -4868,18 +4895,7 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>9852ED4DACC646DCF93F735958F80698</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPUnselected@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>98787230AEA1558515B67BEABAB5827C</key>
+		<key>98005A86F9A5EE5D086CE05241F1C9CB</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -5126,25 +5142,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>A133BE43A412E2FE8FDCA6C99B1CB68C</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>4D7FB4D78F0B210C1F193204C6D32E30</string>
-				<string>974342DCEF950C4611810255DA81A18C</string>
-				<string>95B4ADA4AA9F05F68E318161BE192D6B</string>
-				<string>E0004332783EF92BE89E1BB196B5237A</string>
-				<string>78243B9DE37E08F3A318F9DC6C0E73B2</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Private</string>
-			<key>path</key>
-			<string>Private</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>A1D3B5381B8D1B9F291821DB0B9DB3F4</key>
 		<dict>
 			<key>fileRef</key>
@@ -5275,17 +5272,6 @@
 			<string>OCMReturnValueProvider.h</string>
 			<key>path</key>
 			<string>Source/OCMock/OCMReturnValueProvider.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A62EEB14241AC5E23E3E3BB464D176F7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPPrint@2x~iphone.png</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -5618,17 +5604,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>B8790852062BB062D1E9CE80CD298DD2</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPUnselected@3x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>B92068B3514D8B10B822329AB97F51E4</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -5811,6 +5786,42 @@
 				</array>
 			</dict>
 		</dict>
+		<key>BC936699E4F3F3AC5265F831478210DA</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>24C7905CDAA0FADC90B594B4ADE2A594</string>
+				<string>17EC6A1574AD5B81A9FB08F02F27B5F9</string>
+				<string>1528EC38691820EE6B88697B88C03B6F</string>
+				<string>E13D3D329A89DB96CDD9E3A030EA9507</string>
+				<string>869D70CABA57CCA4186D962110811F28</string>
+				<string>14ED751C310D22E04B49EE8EC07255D6</string>
+				<string>2CECFA1BCF199684BDBA69E830BA485F</string>
+				<string>82044172DCA2CEE1E005BB1FE498B200</string>
+				<string>E65A04F6CA39CAF9176BF41ACD89C96B</string>
+				<string>4E623B7A62934C3FF6DFD762C68E5943</string>
+				<string>33A0738A40DF3986AC32111228D33BB7</string>
+				<string>2C24180E39573338CA0A5811E84148E8</string>
+				<string>98005A86F9A5EE5D086CE05241F1C9CB</string>
+				<string>89761AD3BB1AE89C4FA1A9DA94E6E9B6</string>
+				<string>7BAE426A79D3BE056EC99819C10DC349</string>
+				<string>64B71BE12E2AE400E13BBD869C169790</string>
+				<string>759F527DF86BCD16D51073B025EF18B9</string>
+				<string>3A0727E41E4175DEA8EC38B0AC9EF4E8</string>
+				<string>E12B1B6320AF80DE3E3163AC18C6144C</string>
+				<string>0E5FEB18706A6B80811459B7B3CA622F</string>
+				<string>28F7C7B0044BDA11F548F92CEC1222E5</string>
+				<string>3834F90D61D11959715CD3C435864642</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Assets</string>
+			<key>path</key>
+			<string>Assets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>BD2D0734D844DA6E171965870138DC0B</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -5977,6 +5988,19 @@
 				<string>-fno-objc-arc</string>
 			</dict>
 		</dict>
+		<key>C51B6B104358159CFFCAC3EACCE2B792</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.xib</string>
+			<key>path</key>
+			<string>MPMultiPageView.xib</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>C55C0B0594D26DE09DEC7F161910A211</key>
 		<dict>
 			<key>fileRef</key>
@@ -5988,17 +6012,6 @@
 				<key>COMPILER_FLAGS</key>
 				<string>-fno-objc-arc</string>
 			</dict>
-		</dict>
-		<key>C66575482297E1108047016448A8AA89</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPSelected@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>C6708202FA2D01BAFACE750B13248C6E</key>
 		<dict>
@@ -6280,17 +6293,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>D082F5CE07A0079517E1BE21E8DF1E4D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPPrintLater@2x~ipad.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>D17D54446105F1CD029D283B70FC755A</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -6324,17 +6326,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>D23C63B92E9C802F11771597D5D2793F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPInactiveCircle@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>D274D8A92338CD119C580030004CF175</key>
 		<dict>
@@ -6500,17 +6491,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>D63997B3B2D85219DD4E0B0DAAC23302</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPGear@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>D69E5CE6C4D7292F25C6F0E81EC09593</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -6524,14 +6504,20 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>D7202385F4B73FE73FC5F0B3F2BCDE92</key>
+		<key>D722BF80EE9505EC5B9762FEED1FAF98</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>children</key>
+			<array>
+				<string>F27EC4BE3877882EBF9FE73C61D1EE38</string>
+				<string>BC936699E4F3F3AC5265F831478210DA</string>
+				<string>8636F069B92293FD567B943F7F44987D</string>
+			</array>
 			<key>isa</key>
-			<string>PBXFileReference</string>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pod</string>
 			<key>path</key>
-			<string>MP.storyboard</string>
+			<string>Pod</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -6575,17 +6561,6 @@
 			<string>6FC504BD2D5E6E99414DCC9651582A0D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>D81A364FB5D73A6D27DB6639C8E933F7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPMeasurementArrowLeft@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>D81BC95ACE8FF6C67DF83E2AC28745C8</key>
 		<dict>
@@ -6769,19 +6744,6 @@
 				<string>-fno-objc-arc</string>
 			</dict>
 		</dict>
-		<key>E0004332783EF92BE89E1BB196B5237A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.xib</string>
-			<key>path</key>
-			<string>MPPrintJobsActionView.xib</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>E00ABE7FC44CB9D1B511D96D47C16AD5</key>
 		<dict>
 			<key>fileRef</key>
@@ -6859,6 +6821,41 @@
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
 			<string>MP.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E12B1B6320AF80DE3E3163AC18C6144C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPSelected@3x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E13D3D329A89DB96CDD9E3A030EA9507</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPDoNoEnter.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E1C040A7BDEB956BF31F5311F2BC2EAD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.xib</string>
+			<key>path</key>
+			<string>MPPageRangeView.xib</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -7014,6 +7011,17 @@
 			<string>sourcecode.c.h</string>
 			<key>path</key>
 			<string>MPSupportAction.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E65A04F6CA39CAF9176BF41ACD89C96B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MPMeasurementArrowDown@2x.png</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -7199,17 +7207,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>ED648195029885DC651D5078CD170B84</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPMeasurementArrowDown@2x.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>EE049CBBB1430CD0DE3123165C098025</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -7311,6 +7308,19 @@
 			<string>OCMRecorder.h</string>
 			<key>path</key>
 			<string>Source/OCMock/OCMRecorder.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F27EC4BE3877882EBF9FE73C61D1EE38</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.plug-in</string>
+			<key>path</key>
+			<string>MobilePrintSDKLocalizable.bundle</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -7495,6 +7505,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>F8DAFA7FEC5D58320394EC10C97F9F64</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.xib</string>
+			<key>path</key>
+			<string>MPPageView.xib</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>F9340225D83AA1E89130900D5DBE0337</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -7623,17 +7646,6 @@
 			<string>D783BF18297727DDBCB246803AB6CB6F</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>FDA3EE714EBFA8E5F56FE9BB8450F3B9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>MPPrint@2x~ipad.png</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>FDFD77CF38AE5FDD235A02217B763809</key>
 		<dict>
