@@ -16,11 +16,16 @@
 
 const char MANTA_PACKET_LENGTH = 34;
 
+static const NSString *polaroidProtocol = @"com.polaroid.mobileprinter";
+static const NSString *hpProtocol = @"com.hp.protocol";
+
 // Common to all packets
 static const char START_CODE_BYTE_1    = 0x1B;
 static const char START_CODE_BYTE_2    = 0x2A;
-static const char CUSTOMER_CODE_BYTE_1 = 0x43;
-static const char CUSTOMER_CODE_BYTE_2 = 0x41;
+static const char POLAROID_CUSTOMER_CODE_BYTE_1 = 0x43;
+static const char POLAROID_CUSTOMER_CODE_BYTE_2 = 0x41;
+static const char HP_CUSTOMER_CODE_BYTE_1 = 0x48;
+static const char HP_CUSTOMER_CODE_BYTE_2 = 0x50;
 
 // Commands
 static const char CMD_PRINT_READY_CMD       = 0x00;
@@ -90,7 +95,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     self = [super init];
     if (self) {
 
-        self.supportedProtocols = @[@"com.polaroid.mobileprinter"/*, @"com.lge.pocketphoto"*/];
+        self.supportedProtocols = @[polaroidProtocol, hpProtocol/*, @"com.lge.pocketphoto"*/];
         
         // watch for received data from the accessory
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_sessionDataReceived:) name:MPBTSessionDataReceivedNotification object:nil];
@@ -229,8 +234,18 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
     packet[0] = START_CODE_BYTE_1;
     packet[1] = START_CODE_BYTE_2;
-    packet[2] = CUSTOMER_CODE_BYTE_1;
-    packet[3] = CUSTOMER_CODE_BYTE_2;
+    
+    if ([self.protocolString isEqualToString:polaroidProtocol]) {
+        packet[2] = POLAROID_CUSTOMER_CODE_BYTE_1;
+        packet[3] = POLAROID_CUSTOMER_CODE_BYTE_2;
+    } else if ([self.protocolString isEqualToString:polaroidProtocol]){
+        packet[2] = HP_CUSTOMER_CODE_BYTE_1;
+        packet[3] = HP_CUSTOMER_CODE_BYTE_2;
+    } else {
+        NSLog(@"Unexpected protocol string: %@, defaulting to HP customer code", self.protocolString);
+        packet[2] = HP_CUSTOMER_CODE_BYTE_1;
+        packet[3] = HP_CUSTOMER_CODE_BYTE_2;
+    }
     
     packet[6] = command;
     packet[7] = subcommand;
