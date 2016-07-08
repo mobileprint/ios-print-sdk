@@ -775,6 +775,11 @@ CGFloat const kMPDisabledAlpha = 0.5;
     if (self.view.window  &&  !(self.bluetoothPrintStatus.isViewLoaded  &&  self.bluetoothPrintStatus.view.window)) {
         [self presentViewController:self.bluetoothPrintStatus animated:YES completion:nil];
     }
+    
+// TODO: Remove MFI workaround
+if (MantaErrorNoError != error  &&  MantaErrorBusy != error) {
+    [self didReceiveError:sprocket error:error];
+}
 }
 
 - (void)didFinishSendingPrint:(MPBTSprocket *)sprocket

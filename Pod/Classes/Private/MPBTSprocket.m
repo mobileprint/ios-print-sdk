@@ -416,12 +416,8 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         NSLog(@"\tPayload Classification: %@", [MPBTSprocket dataClassificationString:payload[0]]);
         NSLog(@"\tError: %@\n\n", [MPBTSprocket errorString:payload[1]]);
         
-        if (MantaErrorNoError == payload[1]) {
-            // send image
-            //NSString *myFile = [[NSBundle mainBundle] pathForResource:self.fileToPrint ofType:self.fileType];
-            
-            //NSData *imageData = [NSData dataWithContentsOfFile:myFile];
-            
+// TODO: Remove MFI workaround
+if (MantaErrorNoError == payload[1]  ||  MantaErrorBusy == payload[1]) {
             if (MantaDataClassImage == payload[0]) {
                 
                 NSAssert( nil != self.imageData, @"No image data");
