@@ -185,7 +185,7 @@
         [self presentViewController:self.alert animated:YES completion:nil];
     }
     
-    if (MantaErrorNoError != error) {
+    if (MantaErrorNoError != error  &&  MantaErrorBusy != error) {
         [self didReceiveError:manta error:error];
     }
 }
