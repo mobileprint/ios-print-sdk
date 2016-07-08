@@ -96,8 +96,16 @@
     };
 }
 
-- (IBAction)didPressFirmwareUpdate:(id)sender {
-    [[MPBTSprocket sharedInstance] reflash:nil];
+- (IBAction)didPressFirmwareUpdateHP:(id)sender {
+    [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashHP];
+}
+
+- (IBAction)didPressFirmwareUpdateV2:(id)sender {
+    [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashV2];
+}
+
+- (IBAction)didPressFirmwareUpdateV3:(id)sender {
+    [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashV3];
 }
 
 #pragma mark - SprocketDelegate

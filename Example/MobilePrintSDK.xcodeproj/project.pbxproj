@@ -84,6 +84,7 @@
 		9203D6F11D02217800BA45FA /* Polaroid_v300.rbn in Resources */ = {isa = PBXBuildFile; fileRef = 9203D6EF1D02217800BA45FA /* Polaroid_v300.rbn */; };
 		920746501CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */; };
 		920746511CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */; };
+		920E49CD1D30347200B6BF72 /* HP_protocol.rbn in Resources */ = {isa = PBXBuildFile; fileRef = 920E49CC1D30347200B6BF72 /* HP_protocol.rbn */; };
 		92BAEA5F1C1F51170033A200 /* MPLayoutFitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */; };
 		93acf3685826df4abe0f66ad /* MPLearnMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DE1A38BCE50079144C /* MPLearnMoreView.m */; };
 		9ee14810a090fa40eec00a4c /* MPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* MPMultiPageConfigurationViewController.m */; };
@@ -220,6 +221,7 @@
 		9203D6EE1D02217800BA45FA /* Polaroid_v200.rbn */ = {isa = PBXFileReference; lastKnownFileType = file; name = Polaroid_v200.rbn; path = Firmware/Polaroid_v200.rbn; sourceTree = "<group>"; };
 		9203D6EF1D02217800BA45FA /* Polaroid_v300.rbn */ = {isa = PBXFileReference; lastKnownFileType = file; name = Polaroid_v300.rbn; path = Firmware/Polaroid_v300.rbn; sourceTree = "<group>"; };
 		9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		920E49CC1D30347200B6BF72 /* HP_protocol.rbn */ = {isa = PBXFileReference; lastKnownFileType = file; name = HP_protocol.rbn; path = Firmware/HP_protocol.rbn; sourceTree = "<group>"; };
 		92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFitTest.m; sourceTree = "<group>"; };
 		B4517B52F9E6A6FBAF719728 /* Pods-MobilePrintSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		B6412EFA41C9FD7C470C1D44 /* MobilePrintSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MobilePrintSDK.podspec; path = ../MobilePrintSDK.podspec; sourceTree = "<group>"; };
@@ -482,6 +484,7 @@
 		9203D6ED1D02211200BA45FA /* FirmwareUpgradeFiles */ = {
 			isa = PBXGroup;
 			children = (
+				920E49CC1D30347200B6BF72 /* HP_protocol.rbn */,
 				9203D6EE1D02217800BA45FA /* Polaroid_v200.rbn */,
 				9203D6EF1D02217800BA45FA /* Polaroid_v300.rbn */,
 			);
@@ -632,6 +635,7 @@
 				65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */,
 				65FFC9B31B03B0A400DCE2B4 /* 1 Page (landscape).pdf in Resources */,
 				65FFC9B81B03B0A400DCE2B4 /* 10 Pages.pdf in Resources */,
+				920E49CD1D30347200B6BF72 /* HP_protocol.rbn in Resources */,
 				9203D6F01D02217800BA45FA /* Polaroid_v200.rbn in Resources */,
 				E32115E11A38BCE50079144C /* MPLearnMoreView.xib in Resources */,
 				65FFC9B71B03B0A400DCE2B4 /* 6 Pages (landscape).pdf in Resources */,

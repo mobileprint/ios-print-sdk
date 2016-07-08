@@ -17,6 +17,13 @@
 
 @protocol MPBTSprocketDelegate;
 
+typedef enum
+{
+    MPBTSprocketReflashV2,
+    MPBTSprocketReflashV3,
+    MPBTSprocketReflashHP
+} MPBTSprocketReflashOption;
+
 @interface MPBTSprocket : NSObject
 
 @property (strong, nonatomic) EAAccessory *accessory;
@@ -38,7 +45,7 @@
 
 - (void)refreshInfo;
 - (void)print:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies;
-- (void)reflash:(NSData *)reflashData;
+- (void)reflash:(MPBTSprocketReflashOption)reflashOption;
 
 + (BOOL)supportedAccessory:(EAAccessory *)accessory;
 + (NSString *)macAddress:(NSData *)data;

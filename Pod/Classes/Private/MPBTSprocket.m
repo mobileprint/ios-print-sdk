@@ -126,12 +126,15 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     [self.session writeData:[self printReadyRequest:numCopies]];
 }
 
-- (void)reflash:(NSData *)reflashData
+- (void)reflash:(MPBTSprocketReflashOption)reflashOption
 {
-    if ([self.protocolString containsString:@"polaroid"]) {
+    if ([self.protocolString isEqualToString:polaroidProtocol]  ||
+        [self.protocolString isEqualToString:hpProtocol]) {
         
-        NSString *myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v200" ofType:@"rbn"];
-        if (0x020000 == self.firmwareVersion) {
+        NSString *myFile = [[NSBundle mainBundle] pathForResource:@"HP_protocol" ofType:@"rbn"];
+        if (MPBTSprocketReflashV2 == reflashOption) {
+            myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v200" ofType:@"rbn"];
+        } else if (MPBTSprocketReflashV3 == reflashOption) {
             myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v300" ofType:@"rbn"];
         }
         
@@ -139,7 +142,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         
         [self.session writeData:[self upgradeReadyRequest]];
     } else {
-        NSLog(@"No reflash files for non-Polaroid devices");
+        NSLog(@"No reflash files for non-Polaroid and non-HP devices");
     }
 }
 
@@ -238,7 +241,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     if ([self.protocolString isEqualToString:polaroidProtocol]) {
         packet[2] = POLAROID_CUSTOMER_CODE_BYTE_1;
         packet[3] = POLAROID_CUSTOMER_CODE_BYTE_2;
-    } else if ([self.protocolString isEqualToString:polaroidProtocol]){
+    } else if ([self.protocolString isEqualToString:hpProtocol]){
         packet[2] = HP_CUSTOMER_CODE_BYTE_1;
         packet[3] = HP_CUSTOMER_CODE_BYTE_2;
     } else {

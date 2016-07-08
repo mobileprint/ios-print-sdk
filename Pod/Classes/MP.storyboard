@@ -2083,26 +2083,61 @@ Ensure the printer is on and bluetooth connected.</string>
                                     <constraint firstAttribute="height" constant="44" id="nk0-lE-DaD"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9BG-hW-zAR">
-                                <rect key="frame" x="20" y="520" width="146" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2k4-4c-1O3" userLabel="FirmwareUpdateView">
+                                <rect key="frame" x="20" y="520" width="560" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ai5-PC-tgk">
+                                        <rect key="frame" x="61" y="7" width="146" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="146" id="SZ3-eM-9bz"/>
+                                            <constraint firstAttribute="height" constant="30" id="wTZ-nb-GOe"/>
+                                        </constraints>
+                                        <state key="normal" title="FW Update HP"/>
+                                        <connections>
+                                            <action selector="didPressFirmwareUpdateHP:" destination="Mgz-14-PwT" eventType="touchUpInside" id="HTV-hp-WmK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9BG-hW-zAR">
+                                        <rect key="frame" x="207" y="7" width="146" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="146" id="5OF-sb-Ljc"/>
+                                            <constraint firstAttribute="height" constant="30" id="gYz-yG-OCx"/>
+                                        </constraints>
+                                        <state key="normal" title="FW Update v2"/>
+                                        <connections>
+                                            <action selector="didPressFirmwareUpdateV2:" destination="Mgz-14-PwT" eventType="touchUpInside" id="0Qh-tr-ZsH"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2v-KO-UXX">
+                                        <rect key="frame" x="353" y="7" width="146" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="146" id="WP6-qz-0eX"/>
+                                            <constraint firstAttribute="height" constant="30" id="hBZ-TN-BjV"/>
+                                        </constraints>
+                                        <state key="normal" title="FW Update v3"/>
+                                        <connections>
+                                            <action selector="didPressFirmwareUpdateV3:" destination="Mgz-14-PwT" eventType="touchUpInside" id="Rl5-dq-N1V"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="146" id="5OF-sb-Ljc"/>
-                                    <constraint firstAttribute="height" constant="30" id="gYz-yG-OCx"/>
+                                    <constraint firstItem="Ai5-PC-tgk" firstAttribute="centerY" secondItem="2k4-4c-1O3" secondAttribute="centerY" id="126-dr-YFo"/>
+                                    <constraint firstItem="y2v-KO-UXX" firstAttribute="leading" secondItem="9BG-hW-zAR" secondAttribute="trailing" id="4FY-PP-KOd"/>
+                                    <constraint firstItem="9BG-hW-zAR" firstAttribute="centerX" secondItem="2k4-4c-1O3" secondAttribute="centerX" id="I9S-Id-Pi9"/>
+                                    <constraint firstAttribute="height" constant="44" id="IBC-jn-prN"/>
+                                    <constraint firstItem="y2v-KO-UXX" firstAttribute="centerY" secondItem="2k4-4c-1O3" secondAttribute="centerY" id="jd8-9d-FxR"/>
+                                    <constraint firstItem="9BG-hW-zAR" firstAttribute="leading" secondItem="Ai5-PC-tgk" secondAttribute="trailing" id="vda-zf-yNC"/>
+                                    <constraint firstItem="9BG-hW-zAR" firstAttribute="centerY" secondItem="2k4-4c-1O3" secondAttribute="centerY" id="w8n-Ly-Kte"/>
                                 </constraints>
-                                <state key="normal" title="Firmware Update"/>
-                                <connections>
-                                    <action selector="didPressFirmwareUpdate:" destination="Mgz-14-PwT" eventType="touchUpInside" id="VvS-y4-jhV"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Xbx-kq-6kL" firstAttribute="top" secondItem="924-hu-RCg" secondAttribute="bottom" id="0HW-6D-CbI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vQZ-0n-IJd" secondAttribute="trailing" id="0vN-lU-Fla"/>
                             <constraint firstItem="NC2-Jy-KIL" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="29u-J4-DnE"/>
-                            <constraint firstItem="9BG-hW-zAR" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="5k1-7Q-ZyT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NC2-Jy-KIL" secondAttribute="trailing" id="6Rj-kE-m07"/>
-                            <constraint firstItem="9BG-hW-zAR" firstAttribute="top" secondItem="Xbx-kq-6kL" secondAttribute="bottom" id="9it-K6-Qzo"/>
                             <constraint firstItem="Mku-my-uO1" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="9mX-wH-kMz"/>
                             <constraint firstItem="40D-VS-jZF" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="A7j-cK-gnw"/>
                             <constraint firstItem="3RS-mB-Rnj" firstAttribute="top" secondItem="vQZ-0n-IJd" secondAttribute="bottom" id="B3z-q9-Dd2"/>
@@ -2119,12 +2154,15 @@ Ensure the printer is on and bluetooth connected.</string>
                             <constraint firstItem="924-hu-RCg" firstAttribute="top" secondItem="3RS-mB-Rnj" secondAttribute="bottom" id="TVm-5L-n7x"/>
                             <constraint firstItem="hSL-7X-YTU" firstAttribute="top" secondItem="NC2-Jy-KIL" secondAttribute="bottom" id="VkY-PI-vgX"/>
                             <constraint firstItem="40D-VS-jZF" firstAttribute="top" secondItem="Jae-l4-ddc" secondAttribute="bottom" id="Xds-b1-9fl"/>
+                            <constraint firstItem="2k4-4c-1O3" firstAttribute="top" secondItem="Xbx-kq-6kL" secondAttribute="bottom" id="YAD-Jy-c0S"/>
+                            <constraint firstItem="2k4-4c-1O3" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="aE4-SK-WHT"/>
                             <constraint firstItem="vQZ-0n-IJd" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="ao3-81-7KQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hSL-7X-YTU" secondAttribute="trailing" id="bSs-th-geP"/>
                             <constraint firstItem="3RS-mB-Rnj" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="esM-VW-bgF"/>
                             <constraint firstItem="62x-Us-dfx" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="hPW-W9-7mj"/>
                             <constraint firstItem="Jae-l4-ddc" firstAttribute="top" secondItem="90I-4I-1Qb" secondAttribute="topMargin" constant="80" id="hRR-Xr-7UM"/>
                             <constraint firstItem="Mku-my-uO1" firstAttribute="top" secondItem="hSL-7X-YTU" secondAttribute="bottom" id="jP8-aE-wjf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2k4-4c-1O3" secondAttribute="trailing" id="kqI-43-UH1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Jae-l4-ddc" secondAttribute="trailing" id="oEl-7I-692"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Mku-my-uO1" secondAttribute="trailing" id="xPP-Ub-905"/>
                             <constraint firstItem="62x-Us-dfx" firstAttribute="top" secondItem="Mku-my-uO1" secondAttribute="bottom" id="xdR-je-Gv6"/>
