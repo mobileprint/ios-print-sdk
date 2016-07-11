@@ -2131,6 +2131,13 @@ Ensure the printer is on and bluetooth connected.</string>
                                     <constraint firstItem="9BG-hW-zAR" firstAttribute="centerY" secondItem="2k4-4c-1O3" secondAttribute="centerY" id="w8n-Ly-Kte"/>
                                 </constraints>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2PN-cc-e4C">
+                                <rect key="frame" x="81" y="552" width="146" height="30"/>
+                                <state key="normal" title="BadHPFirmware"/>
+                                <connections>
+                                    <action selector="didPressFirmwareUpdateBadHP:" destination="Mgz-14-PwT" eventType="touchUpInside" id="Vmp-m1-vPC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -2146,15 +2153,19 @@ Ensure the printer is on and bluetooth connected.</string>
                             <constraint firstItem="hSL-7X-YTU" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="F4a-eL-84v"/>
                             <constraint firstItem="924-hu-RCg" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="FW5-Rr-ez3"/>
                             <constraint firstItem="Jae-l4-ddc" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="FWF-i3-8up"/>
+                            <constraint firstItem="2PN-cc-e4C" firstAttribute="height" secondItem="Ai5-PC-tgk" secondAttribute="height" id="Kb1-gS-u60"/>
                             <constraint firstItem="Xbx-kq-6kL" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="Ke7-6X-imF"/>
                             <constraint firstItem="NC2-Jy-KIL" firstAttribute="top" secondItem="40D-VS-jZF" secondAttribute="bottom" id="M6e-qe-b3S"/>
+                            <constraint firstItem="2PN-cc-e4C" firstAttribute="centerX" secondItem="Ai5-PC-tgk" secondAttribute="centerX" id="OBU-jc-BZH"/>
                             <constraint firstItem="vQZ-0n-IJd" firstAttribute="top" secondItem="62x-Us-dfx" secondAttribute="bottom" id="OMN-FW-BWd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="40D-VS-jZF" secondAttribute="trailing" id="OkG-d9-X6Z"/>
+                            <constraint firstItem="2PN-cc-e4C" firstAttribute="width" secondItem="Ai5-PC-tgk" secondAttribute="width" id="PMX-hD-mjP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Xbx-kq-6kL" secondAttribute="trailing" id="TAD-O8-gMN"/>
                             <constraint firstItem="924-hu-RCg" firstAttribute="top" secondItem="3RS-mB-Rnj" secondAttribute="bottom" id="TVm-5L-n7x"/>
                             <constraint firstItem="hSL-7X-YTU" firstAttribute="top" secondItem="NC2-Jy-KIL" secondAttribute="bottom" id="VkY-PI-vgX"/>
                             <constraint firstItem="40D-VS-jZF" firstAttribute="top" secondItem="Jae-l4-ddc" secondAttribute="bottom" id="Xds-b1-9fl"/>
                             <constraint firstItem="2k4-4c-1O3" firstAttribute="top" secondItem="Xbx-kq-6kL" secondAttribute="bottom" id="YAD-Jy-c0S"/>
+                            <constraint firstItem="2PN-cc-e4C" firstAttribute="centerY" secondItem="Ai5-PC-tgk" secondAttribute="centerY" constant="25" id="ZIq-PV-ve0"/>
                             <constraint firstItem="2k4-4c-1O3" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="aE4-SK-WHT"/>
                             <constraint firstItem="vQZ-0n-IJd" firstAttribute="leading" secondItem="90I-4I-1Qb" secondAttribute="leadingMargin" id="ao3-81-7KQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hSL-7X-YTU" secondAttribute="trailing" id="bSs-th-geP"/>
