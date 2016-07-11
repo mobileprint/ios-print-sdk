@@ -148,6 +148,20 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     }
 }
 
++ (NSArray *)pairedSprockets
+{
+    NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
+    NSMutableArray *pairedDevices = [[NSMutableArray alloc] init];
+    
+    for (EAAccessory *accessory in accs) {
+        if ([MPBTSprocket supportedAccessory:accessory]) {
+            [pairedDevices addObject:accessory];
+        }
+    }
+
+    return pairedDevices;
+}
+
 #pragma mark - Getters/Setters
 
 - (MPBTSessionController *)session

@@ -295,6 +295,11 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return printersViewController;
 }
 
+- (NSInteger)numberOfPairedSprockets
+{
+    return [MPBTSprocket pairedSprockets].count;
+}
+
 - (void)didSelectSprocket:(MPBTSprocket *)sprocket;
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
@@ -330,6 +335,11 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 - (void)presentPrintQueueFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
 {
     [MPPrintJobsViewController presentAnimated:animated usingController:controller andCompletion:completion];
+}
+
+- (void)presentBluetoothDevicesFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
+{
+    [MPBTPairedAccessoriesViewController presentAnimated:animated usingController:controller andCompletion:completion];
 }
 
 - (NSInteger)numberOfJobsInQueue

@@ -493,6 +493,8 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
 - (BOOL)isWifiConnected;
 
 - (UIViewController *)bluetoothPrintersViewController;
+- (NSInteger)numberOfPairedSprockets;
+- (void)presentBluetoothDevicesFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion;
 
 /*!
  * @abstract Used to access the singleton instance of this class

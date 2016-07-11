@@ -48,6 +48,7 @@ typedef enum
 - (void)print:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies;
 - (void)reflash:(MPBTSprocketReflashOption)reflashOption;
 
++ (NSArray *)pairedSprockets;
 + (BOOL)supportedAccessory:(EAAccessory *)accessory;
 + (NSString *)macAddress:(NSData *)data;
 + (NSString *)errorString:(MantaError)error;

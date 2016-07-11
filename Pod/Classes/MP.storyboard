@@ -1718,7 +1718,13 @@ Ensure the printer is on and bluetooth connected.</string>
                             <constraint firstItem="o0x-rs-1kI" firstAttribute="centerX" secondItem="WmP-iN-RTu" secondAttribute="centerX" id="wmn-ZE-LOH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="7Yo-7E-7HK"/>
+                    <navigationItem key="navigationItem" id="7Yo-7E-7HK">
+                        <barButtonItem key="rightBarButtonItem" image="MPX.png" id="nlq-Dh-EnL" userLabel="CloseButton">
+                            <connections>
+                                <action selector="didPressCancel:" destination="d2E-9w-mDT" id="Z2L-Zt-TgO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="bottomView" destination="o0x-rs-1kI" id="wrW-WB-8FN"/>
                         <outlet property="containerView" destination="WmP-iN-RTu" id="lLg-Pi-hcF"/>
@@ -1728,6 +1734,7 @@ Ensure the printer is on and bluetooth connected.</string>
                         <outlet property="tableView" destination="Cg2-mz-59I" id="ocT-Vk-JMM"/>
                         <outlet property="titleLabel" destination="Xo2-V8-gLh" id="1VQ-MT-CTS"/>
                         <outlet property="topView" destination="O2O-0G-Daw" id="AC4-Kg-auE"/>
+                        <outlet property="topViewHeightConstraint" destination="HIe-3z-6Vt" id="vlk-q6-NSw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3fr-cX-DGZ" sceneMemberID="firstResponder"/>
@@ -2195,23 +2202,6 @@ Ensure the printer is on and bluetooth connected.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mzh-dF-bty" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8799" y="668"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="5M3-LP-JvE">
-            <objects>
-                <viewController id="L2v-1w-IaE" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oh8-7g-UpR"/>
-                        <viewControllerLayoutGuide type="bottom" id="MO9-OT-9FE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="v8M-ZN-Cwv">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kU3-0O-4Q3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>
