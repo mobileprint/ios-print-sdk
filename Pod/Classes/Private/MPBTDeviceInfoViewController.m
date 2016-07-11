@@ -100,6 +100,10 @@
     [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashHP];
 }
 
+- (IBAction)didPressFirmwareUpdateBadHP:(id)sender {
+    [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashBadHP];
+}
+
 - (IBAction)didPressFirmwareUpdateV2:(id)sender {
     [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashV2];
 }
@@ -185,7 +189,9 @@
         [self presentViewController:self.alert animated:YES completion:nil];
     }
     
-    if (MantaErrorNoError != error  &&  MantaErrorBusy != error) {
+    if (MantaErrorBusy == error) {
+        NSLog(@"Covering up busy error due to bug in firmware...");
+    } else if (MantaErrorNoError != error) {
         [self didReceiveError:manta error:error];
     }
 }

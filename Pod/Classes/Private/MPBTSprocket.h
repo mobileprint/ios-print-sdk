@@ -21,7 +21,8 @@ typedef enum
 {
     MPBTSprocketReflashV2,
     MPBTSprocketReflashV3,
-    MPBTSprocketReflashHP
+    MPBTSprocketReflashHP,
+    MPBTSprocketReflashBadHP
 } MPBTSprocketReflashOption;
 
 @interface MPBTSprocket : NSObject

@@ -131,11 +131,13 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     if ([self.protocolString isEqualToString:polaroidProtocol]  ||
         [self.protocolString isEqualToString:hpProtocol]) {
         
-        NSString *myFile = [[NSBundle mainBundle] pathForResource:@"HP_protocol" ofType:@"rbn"];
+        NSString *myFile = [[NSBundle mainBundle] pathForResource:@"HP_protocol_v2" ofType:@"rbn"];
         if (MPBTSprocketReflashV2 == reflashOption) {
             myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v200" ofType:@"rbn"];
         } else if (MPBTSprocketReflashV3 == reflashOption) {
             myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v300" ofType:@"rbn"];
+        } else if (MPBTSprocketReflashBadHP == reflashOption) {
+            myFile = [[NSBundle mainBundle] pathForResource:@"HP_protocol_v1" ofType:@"rbn"];
         }
         
         self.upgradeData = [NSData dataWithContentsOfFile:myFile];
@@ -416,8 +418,8 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         NSLog(@"\tPayload Classification: %@", [MPBTSprocket dataClassificationString:payload[0]]);
         NSLog(@"\tError: %@\n\n", [MPBTSprocket errorString:payload[1]]);
         
-// TODO: Remove MFI workaround
-if (MantaErrorNoError == payload[1]  ||  MantaErrorBusy == payload[1]) {
+        if (MantaErrorNoError == payload[1]  ||
+            (MantaErrorBusy == payload[1]  &&  MantaDataClassFirmware == payload[0])) {
             if (MantaDataClassImage == payload[0]) {
                 
                 NSAssert( nil != self.imageData, @"No image data");
