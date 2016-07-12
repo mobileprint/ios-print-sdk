@@ -52,6 +52,7 @@ typedef enum
 + (BOOL)supportedAccessory:(EAAccessory *)accessory;
 + (NSString *)macAddress:(NSData *)data;
 + (NSString *)errorString:(MantaError)error;
++ (NSString *)autoPowerOffIntervalString:(MantaAutoPowerOffInterval)interval;
 
 @end
 

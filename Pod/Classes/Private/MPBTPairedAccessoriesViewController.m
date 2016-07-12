@@ -14,7 +14,7 @@
 #import "MPBTSessionController.h"
 #import "MPBTSprocket.h"
 #import "MP.h"
-#import "MPBTDeviceInfoViewController.h"
+#import "MPBTDeviceInfoTableViewController.h"
 #import <ExternalAccessory/ExternalAccessory.h>
 
 @interface MPBTPairedAccessoriesViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -164,7 +164,7 @@
     } else {
         // show device info screen
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
-        MPBTDeviceInfoViewController *settingsViewController = (MPBTDeviceInfoViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoViewController"];
+        MPBTDeviceInfoTableViewController *settingsViewController = (MPBTDeviceInfoTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoTableViewController"];
         settingsViewController.device = sprocket.accessory;
         
         UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
