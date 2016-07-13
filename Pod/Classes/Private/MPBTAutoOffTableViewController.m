@@ -7,8 +7,14 @@
 //
 
 #import "MPBTAutoOffTableViewController.h"
+#import "MPBTSprocket.h"
+#import "MP.h"
+#import "NSBundle+MPLocalizable.h"
 
 @interface MPBTAutoOffTableViewController ()
+
+@property (strong, nonatomic) NSArray *autoOffTitles;
+@property (strong, nonatomic) NSArray *autoOffValues;
 
 @end
 
@@ -16,12 +22,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.tableView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
+    self.tableView.tableHeaderView.backgroundColor = self.tableView.backgroundColor;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.separatorColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralTableSeparatorColor];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.autoOffTitles = @[MPLocalizedString(@"Never", @"Indicates that the device will never power off"),
+                           [MPBTSprocket autoPowerOffIntervalString:MantaAutoOffTenMin],
+                           [MPBTSprocket autoPowerOffIntervalString:MantaAutoOffFiveMin],
+                           [MPBTSprocket autoPowerOffIntervalString:MantaAutoOffThreeMin]];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.autoOffValues = @[[NSNumber numberWithInt:MantaAutoOffAlwaysOn],
+                           [NSNumber numberWithInt:MantaAutoOffTenMin],
+                           [NSNumber numberWithInt:MantaAutoOffFiveMin],
+                           [NSNumber numberWithInt:MantaAutoOffThreeMin]];
+
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(didPressBack)];
+    self.navigationItem.leftBarButtonItem = backButton;
+    self.title = MPLocalizedString(@"Auto Off", @"Title with options for turning the device off automatically after a certain amount of time");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,27 +51,67 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)didPressBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - Getters/Setters
+
+- (void)setCurrentAutoOffValue:(MantaAutoPowerOffInterval)currentAutoOffValue
+{
+    _currentAutoOffValue = currentAutoOffValue;
+    
+    [self.tableView reloadData];
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectAutoOffInterval:)]) {
+        NSInteger rowValue = ((NSNumber *)(self.autoOffValues[indexPath.row])).integerValue;
+        [self.delegate didSelectAutoOffInterval:rowValue];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return self.autoOffTitles.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MPBTAutoOffCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MPBTAutoOffCell"];
+    }
+    
+    cell.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
+    cell.textLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
+    cell.textLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
+    
+    cell.textLabel.text = self.autoOffTitles[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    NSInteger rowValue = ((NSNumber *)(self.autoOffValues[indexPath.row])).integerValue;
+    if (rowValue == self.currentAutoOffValue) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     
     return cell;
+
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

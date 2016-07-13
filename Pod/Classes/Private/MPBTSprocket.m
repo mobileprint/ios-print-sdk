@@ -718,7 +718,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     
     switch (error) {
         case MantaErrorNoError:
-            errString = @"MantaErrorNoError";
+            errString = @"None";
             break;
         case MantaErrorBusy:
             errString = @"MantaErrorBusy";

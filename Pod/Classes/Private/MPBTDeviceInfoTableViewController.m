@@ -1,14 +1,41 @@
 //
-//  MPBTDeviceInfoTableViewController.m
-//  Pods
+// HP Inc.
+// All rights reserved.
 //
-//  Created by Susy Snowflake on 7/12/16.
-//
+// This file, its contents, concepts, methods, behavior, and operation
+// (collectively the "Software") are protected by trade secret, patent,
+// and copyright laws. The use of the Software is governed by a license
+// agreement. Disclosure of the Software to third parties, in any form,
+// in whole or in part, is expressly prohibited except as authorized by
+// the license agreement.
 //
 
 #import "MPBTDeviceInfoTableViewController.h"
+#import "MPBTAutoOffTableViewController.h"
+#import "MPBTSprocket.h"
+#import "MP.h"
+#import "NSBundle+MPLocalizable.h"
 
-@interface MPBTDeviceInfoTableViewController ()
+static NSString * const kSettingShowFirmwareUpgrade = @"SettingShowFirmwareUpgrade";
+
+typedef enum
+{
+    MPBTDeviceInfoOrderError           = 0,
+    MPBTDeviceInfoOrderBatteryStatus   = 1,
+    MPBTDeviceInfoOrderAutoOff         = 2,
+    MPBTDeviceInfoOrderMacAddress      = 3,
+    MPBTDeviceInfoOrderFirmwareVersion = 4,
+    MPBTDeviceInfoOrderHardwareVersion = 5
+} MPBTDeviceInfoOrder;
+
+@interface MPBTDeviceInfoTableViewController () <MPBTAutoOffTableViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+
+@property (strong, nonatomic) MPBTSprocket *sprocket;
+@property (strong, nonatomic) UIAlertController* alert;
+@property (strong, nonatomic) NSString *lastError;
+
+@property (weak, nonatomic) IBOutlet UIButton *fwUpgradeButton;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -17,82 +44,257 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self setTitle:@" "];
+    self.alert = [UIAlertController alertControllerWithTitle:@"Upgrade Status"
+                                                     message:@"This is an alert."
+                                              preferredStyle:UIAlertControllerStyleAlert];
+
+    self.tableView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
+    self.tableView.tableHeaderView.backgroundColor = self.tableView.backgroundColor;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.separatorColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralTableSeparatorColor];
+    
+    if (![self showFirmwareUpgrade]) {
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,10,10)];
+    }
+
+    
+    self.fwUpgradeButton.titleLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
+    self.fwUpgradeButton.titleLabel.textColor = [UIColor colorWithRed:47.0/255.0 green:184.0/255.0 blue:255.0/255.0 alpha:1.0];
+    
+    UIBarButtonItem *xButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MPX"]
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(didPressCancel)];
+    self.navigationItem.rightBarButtonItem = xButton;
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back"]
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(didPressBack)];
+    self.navigationItem.leftBarButtonItem = backButton;
+    self.lastError = @"";
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (void)setCellAppearance:(UITableViewCell *)cell
+{
+    cell.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
+    cell.textLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
+    cell.textLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
+    cell.detailTextLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
+    cell.detailTextLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+}
+
+- (void)setDevice:(EAAccessory *)device
+{
+    self.sprocket = [MPBTSprocket sharedInstance];
+    self.sprocket.accessory = device;
+    self.sprocket.delegate = self;
+    [self.sprocket refreshInfo];
+}
+
+-(BOOL)showFirmwareUpgrade
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (nil == [defaults objectForKey:kSettingShowFirmwareUpgrade]) {
+        [defaults setBool:NO forKey:kSettingShowFirmwareUpgrade];
+        [defaults synchronize];
+    }
+    return [defaults boolForKey:kSettingShowFirmwareUpgrade];
+}
+
+#pragma mark - Button handlers
+
+- (void)didPressCancel
+{
+    [self dismissViewControllerAnimated:YES completion:nil];    
+}
+
+- (void)didPressBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)didPressFirmwareUpgrade:(id)sender {
+    [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashHP];
+}
+
+#pragma mark - MPBTAutoOffTableViewControllerDelegate
+
+- (void)didSelectAutoOffInterval:(MantaAutoPowerOffInterval)interval
+{
+    self.sprocket.powerOffInterval = interval;
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (MPBTDeviceInfoOrderAutoOff == indexPath.row) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
+        MPBTAutoOffTableViewController *vc = (UIViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTAutoOffTableViewController"];
+        vc.currentAutoOffValue = self.sprocket.powerOffInterval;
+        vc.delegate = self;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
-}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MPBTSprocketDeviceInfoCell"];
     
-    // Configure the cell...
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MPBTSprocketDeviceInfoCell"];
+    }
+    
+    [self setCellAppearance:cell];
+    
+    switch (indexPath.row) {
+        case MPBTDeviceInfoOrderError:
+            cell.textLabel.text = MPLocalizedString(@"Errors", @"Title of field displaying latest errors");
+            cell.detailTextLabel.text = self.lastError;
+            break;
+            
+        case MPBTDeviceInfoOrderBatteryStatus:
+            cell.textLabel.text = MPLocalizedString(@"Battery Status", @"Title of field displaying battery level");
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu%@", (unsigned long)self.sprocket.batteryStatus, @"%"];
+            break;
+
+        case MPBTDeviceInfoOrderAutoOff:
+            cell.textLabel.text = MPLocalizedString(@"Auto Off", @"Title of field displaying how many minutes the device is on before it automatically powers off");
+            cell.detailTextLabel.text = [MPBTSprocket autoPowerOffIntervalString:self.sprocket.powerOffInterval];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
+
+        case MPBTDeviceInfoOrderMacAddress:
+            cell.textLabel.text = MPLocalizedString(@"Mac Address", @"Title of field displaying the printer's mac address");
+            cell.detailTextLabel.text = [MPBTSprocket macAddress:self.sprocket.macAddress];
+            break;
+
+        case MPBTDeviceInfoOrderFirmwareVersion:
+            cell.textLabel.text = MPLocalizedString(@"Firmware Version", @"Title of field displaying the printer's firmware version");
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"0x%06x", self.sprocket.firmwareVersion];
+            break;
+
+        case MPBTDeviceInfoOrderHardwareVersion:
+            cell.textLabel.text = MPLocalizedString(@"Hardware Version", @"Title of field displaying the printer's hardware version");
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"0x%06x", self.sprocket.hardwareVersion];
+            break;
+
+        default:
+            cell.textLabel.text = @"Unrecognized field";
+            cell.detailTextLabel.text = @"";
+            break;
+    }
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 6;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+#pragma mark - SprocketDelegate
+
+- (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
+{
+    self.lastError = [MPBTSprocket errorString:error];
+
+    [self setTitle:[NSString stringWithFormat:@"%@", sprocket.displayName]];
+
+    [self.tableView reloadData];
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+- (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
+{
+    
 }
-*/
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)didFinishSendingPrint:(MPBTSprocket *)sprocket
+{
+    
 }
-*/
+
+- (void)didStartPrinting:(MPBTSprocket *)sprocket
+{
+    
+}
+
+- (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
+{
+    NSLog(@"%s", __FUNCTION__);
+    self.alert.title = @"Error";
+    self.alert.message = [NSString stringWithFormat:@"Error sending device upgrade: %@", [MPBTSprocket errorString:error]];
+    [self addActionToBluetoothStatus];
+    if (self.view.window  &&  !(self.alert.isViewLoaded  &&  self.alert.view.window)) {
+        [self presentViewController:self.alert animated:YES completion:nil];
+    }
+}
+
+- (void)didSetAccessoryInfo:(MPBTSprocket *)sprocket error:(MantaError)error
+{
+    
+}
+
+- (void)didSendDeviceUpgradeData:(MPBTSprocket *)manta percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
+{
+    self.alert.message = [NSString stringWithFormat:@"Sending upgrade data to device... \n%d%@ complete", percentageComplete, @"%"];
+    if (!(self.alert.isViewLoaded  &&  self.alert.view.window)) {
+        [self presentViewController:self.alert animated:YES completion:nil];
+    }
+    
+    if (MantaErrorBusy == error) {
+        NSLog(@"Covering up busy error due to bug in firmware...");
+    } else if (MantaErrorNoError != error) {
+        [self didReceiveError:manta error:error];
+    }
+}
+
+- (void)didFinishSendingDeviceUpgrade:(MPBTSprocket *)manta
+{
+    self.alert.message = @"Finished sending upgrade data...";
+}
+
+- (void)didChangeDeviceUpgradeStatus:(MPBTSprocket *)manta status:(MantaUpgradeStatus)status
+{
+    
+    if (MantaUpgradeStatusStart == status) {
+        self.alert.message = @"Upgrade started";
+    } else {
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {[self.alert dismissViewControllerAnimated:YES completion:nil];}];
+        [self.alert addAction:defaultAction];
+        
+        if (MantaUpgradeStatusFinish == status) {
+            self.alert.message = @"Upgrade complete";
+        } else if (MantaUpgradeStatusFail == status){
+            self.alert.message = @"Upgrade failed";
+        } else {
+            self.alert.message = [NSString stringWithFormat:@"Unknown status: %d", status];
+        }
+    }
+}
+
+- (void)addActionToBluetoothStatus
+{
+    if (0 == self.alert.actions.count) {
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {[self.alert dismissViewControllerAnimated:YES completion:nil];}];
+        [self.alert addAction:defaultAction];
+    }
+}
 
 @end
