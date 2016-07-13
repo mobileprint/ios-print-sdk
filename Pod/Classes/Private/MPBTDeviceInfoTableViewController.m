@@ -12,6 +12,7 @@
 
 #import "MPBTDeviceInfoTableViewController.h"
 #import "MPBTAutoOffTableViewController.h"
+#import "MPBTFirmwareProgressView.h"
 #import "MPBTSprocket.h"
 #import "MP.h"
 #import "NSBundle+MPLocalizable.h"
@@ -36,6 +37,7 @@ typedef enum
 
 @property (weak, nonatomic) IBOutlet UIButton *fwUpgradeButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) MPBTFirmwareProgressView *progressView;
 
 @end
 
@@ -242,6 +244,9 @@ typedef enum
     if (self.view.window  &&  !(self.alert.isViewLoaded  &&  self.alert.view.window)) {
         [self presentViewController:self.alert animated:YES completion:nil];
     }
+    
+    [self.progressView removeFromSuperview];
+    self.progressView = nil;
 }
 
 - (void)didSetAccessoryInfo:(MPBTSprocket *)sprocket error:(MantaError)error
@@ -252,9 +257,16 @@ typedef enum
 - (void)didSendDeviceUpgradeData:(MPBTSprocket *)manta percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
 {
     self.alert.message = [NSString stringWithFormat:@"Sending upgrade data to device... \n%d%@ complete", percentageComplete, @"%"];
-    if (!(self.alert.isViewLoaded  &&  self.alert.view.window)) {
-        [self presentViewController:self.alert animated:YES completion:nil];
+
+    if (nil == self.progressView) {
+//        [self presentViewController:self.alert animated:YES completion:nil];
+        
+        self.progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:self.navigationController.view.frame];
+        [self.navigationController.view addSubview:self.progressView];
     }
+    
+    [self.progressView setProgress:(((CGFloat)percentageComplete)/100.0F)*0.8F];
+
     
     if (MantaErrorBusy == error) {
         NSLog(@"Covering up busy error due to bug in firmware...");
@@ -266,13 +278,15 @@ typedef enum
 - (void)didFinishSendingDeviceUpgrade:(MPBTSprocket *)manta
 {
     self.alert.message = @"Finished sending upgrade data...";
+    [self.progressView removeFromSuperview];
+    self.progressView = nil;
 }
 
 - (void)didChangeDeviceUpgradeStatus:(MPBTSprocket *)manta status:(MantaUpgradeStatus)status
 {
-    
     if (MantaUpgradeStatusStart == status) {
         self.alert.message = @"Upgrade started";
+        [self.progressView setProgress:0.9F];
     } else {
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) {[self.alert dismissViewControllerAnimated:YES completion:nil];}];
@@ -280,10 +294,17 @@ typedef enum
         
         if (MantaUpgradeStatusFinish == status) {
             self.alert.message = @"Upgrade complete";
+            [self.progressView setProgress:0.9F];
+            [self.progressView removeFromSuperview];
+            self.progressView = nil;
         } else if (MantaUpgradeStatusFail == status){
             self.alert.message = @"Upgrade failed";
+            [self.progressView removeFromSuperview];
+            self.progressView = nil;
         } else {
             self.alert.message = [NSString stringWithFormat:@"Unknown status: %d", status];
+            [self.progressView removeFromSuperview];
+            self.progressView = nil;
         }
     }
 }
