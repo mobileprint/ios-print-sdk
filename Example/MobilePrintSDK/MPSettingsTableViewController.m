@@ -629,8 +629,7 @@ NSInteger const kLengthOfSHA = 7;
 
 - (void)respondToBluetoothCell
 {
-    UIViewController *vc = [[MP sharedInstance] bluetoothPrintersViewController];
-    [self.navigationController pushViewController:vc animated:YES];
+    [[MP sharedInstance] presentBluetoothDevicesFromController:self animated:YES completion:nil];
 }
 
 - (void)showPrintQueue
