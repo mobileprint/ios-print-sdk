@@ -287,14 +287,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return vc;
 }
 
-- (UIViewController *)bluetoothPrintersViewController
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
-    MPBTPairedAccessoriesViewController *printersViewController = (MPBTPairedAccessoriesViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesViewController"];
-    printersViewController.delegate = self;
-    
-    return printersViewController;
-}
+#pragma mark - Bluetooth
 
 - (NSInteger)numberOfPairedSprockets
 {
@@ -316,10 +309,15 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     [((UINavigationController *)topController) pushViewController:settingsViewController animated:YES];
 }
 
+- (BOOL)bluetoothDeviceNeedsReflash
+{
+    return [MPBTFirmwareProgressView needFirmwareUpdate];
+}
+
 -(void)reflashBluetoothDevice:(UINavigationController *)navController
 {
     NSArray *pairedDevices = [MPBTSprocket pairedSprockets];
-    if (1 == pairedDevices.count) {
+    if (1 <= pairedDevices.count) {
         EAAccessory *device = (EAAccessory *)[pairedDevices objectAtIndex:0];
         [MPBTSprocket sharedInstance].accessory = device;
 

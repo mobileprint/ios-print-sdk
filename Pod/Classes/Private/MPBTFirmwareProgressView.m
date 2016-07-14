@@ -44,6 +44,37 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     return self;
 }
 
+#pragma mark - Getters/Setters
+
+- (void)setProgress:(CGFloat)progress
+{
+    self.progressBar.progress = progress;
+}
+
+- (void)setStatus:(MantaUpgradeStatus)status
+{
+    switch (status) {
+        case MantaUpgradeStatusStart:
+            [self.label setText:MPLocalizedString(@"Upgrade Started", "Indicates that a firmware upgrade has started")];
+            [self setProgress:0.9F];
+            break;
+            
+        case MantaUpgradeStatusFinish:
+            [self.label setText:MPLocalizedString(@"Upgrade Complete", @"Indicates that a firmware upgrade has completed")];
+            [self setProgress:1.0F];
+            break;
+            
+        case MantaUpgradeStatusFail:
+            [self.label setText:MPLocalizedString(@"Upgrade Failed", @"Indicates that a firmware update has failed")];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - Util
+
 - (void)setup
 {
     self.label.text = MPLocalizedString(@"Downloading Firmware Upgrade", @"Indicates that the firmware upgrade is being loaded onto the printer");
@@ -73,33 +104,6 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     return [defaults boolForKey:kSettingShowFirmwareUpgrade];
 }
 
-- (void)setProgress:(CGFloat)progress
-{
-    self.progressBar.progress = progress;
-}
-
-- (void)setStatus:(MantaUpgradeStatus)status
-{
-    switch (status) {
-        case MantaUpgradeStatusStart:
-            [self.label setText:MPLocalizedString(@"Upgrade Started", "Indicates that a firmware upgrade has started")];
-            [self setProgress:0.9F];
-            break;
-            
-        case MantaUpgradeStatusFinish:
-            [self.label setText:MPLocalizedString(@"Upgrade Complete", @"Indicates that a firmware upgrade has completed")];
-            [self setProgress:1.0F];
-            break;
-            
-        case MantaUpgradeStatusFail:
-            [self.label setText:MPLocalizedString(@"Upgrade Failed", @"Indicates that a firmware update has failed")];
-            break;
-            
-        default:
-            break;
-    }
-}
-
 - (void)removeProgressView
 {
     [UIView animateWithDuration:[MPBTFirmwareProgressView animationDuration] animations:^{
@@ -113,33 +117,46 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
 {
-    [self.sprocketDelegate didRefreshMantaInfo:sprocket error:error];
+    if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didRefreshMantaInfo:error:)]) {
+        [self.sprocketDelegate didRefreshMantaInfo:sprocket error:error];
+    }
 }
 
 - (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
 {
-    [self.sprocketDelegate didSendPrintData:sprocket percentageComplete:percentageComplete error:error];
+    if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didSendPrintData:percentageComplete:error:)]) {
+        [self.sprocketDelegate didSendPrintData:sprocket percentageComplete:percentageComplete error:error];
+    }
 }
 
 - (void)didFinishSendingPrint:(MPBTSprocket *)sprocket
 {
-    [self.sprocketDelegate didFinishSendingPrint:sprocket];
+    if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didFinishSendingPrint:)]) {
+        [self.sprocketDelegate didFinishSendingPrint:sprocket];
+    }
 }
 
 - (void)didStartPrinting:(MPBTSprocket *)sprocket
 {
-    [self.sprocketDelegate didStartPrinting:sprocket];
+    if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didStartPrinting:)]) {
+        [self.sprocketDelegate didStartPrinting:sprocket];
+    }
 }
 
 - (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
 {
     [self removeProgressView];
-    [self.sprocketDelegate didReceiveError:sprocket error:error];
+
+    if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didReceiveError:error:)]) {
+        [self.sprocketDelegate didReceiveError:sprocket error:error];
+    }
 }
 
 - (void)didSetAccessoryInfo:(MPBTSprocket *)sprocket error:(MantaError)error
 {
-    [self.sprocketDelegate didSetAccessoryInfo:sprocket error:error];
+    if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didSetAccessoryInfo:error:)]) {
+        [self.sprocketDelegate didSetAccessoryInfo:sprocket error:error];
+    }
 }
 
 - (void)didSendDeviceUpgradeData:(MPBTSprocket *)manta percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
@@ -152,12 +169,16 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
         [self didReceiveError:manta error:error];
     }
     
-    [self.sprocketDelegate didSendDeviceUpgradeData:manta percentageComplete:percentageComplete error:error];
+    if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didSendDeviceUpgradeData:percentageComplete:error:)]) {
+        [self.sprocketDelegate didSendDeviceUpgradeData:manta percentageComplete:percentageComplete error:error];
+    }
 }
 
 - (void)didFinishSendingDeviceUpgrade:(MPBTSprocket *)manta
 {
-    [self.sprocketDelegate didFinishSendingDeviceUpgrade:manta];
+    if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didFinishSendingDeviceUpgrade:)]) {
+        [self.sprocketDelegate didFinishSendingDeviceUpgrade:manta];
+    }
 }
 
 - (void)didChangeDeviceUpgradeStatus:(MPBTSprocket *)manta status:(MantaUpgradeStatus)status
@@ -168,7 +189,9 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
         [self removeProgressView];
     }
     
-    [self.sprocketDelegate didChangeDeviceUpgradeStatus:manta status:status];
+    if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
+        [self.sprocketDelegate didChangeDeviceUpgradeStatus:manta status:status];
+    }
 }
 
 @end
