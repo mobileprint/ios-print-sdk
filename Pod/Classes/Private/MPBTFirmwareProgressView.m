@@ -17,7 +17,7 @@
 static CGFloat    const kProgressViewAnimationDuration = 1.0F;
 static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUpgrade";
 
-@interface MPBTFirmwareProgressView()
+@interface MPBTFirmwareProgressView() <MPBTSprocketDelegate>
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (weak, nonatomic) IBOutlet UILabel *label;
@@ -49,6 +49,13 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     self.label.text = MPLocalizedString(@"Downloading Firmware Upgrade", @"Indicates that the firmware upgrade is being loaded onto the printer");
     self.label.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     self.label.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
+}
+
+- (void)reflashDevice
+{
+    [self.navController.view addSubview:self];
+    [MPBTSprocket sharedInstance].delegate = self;
+    [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashHP];
 }
 
 + (CGFloat)animationDuration
@@ -91,6 +98,77 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
         default:
             break;
     }
+}
+
+- (void)removeProgressView
+{
+    [UIView animateWithDuration:[MPBTFirmwareProgressView animationDuration] animations:^{
+        self.alpha = 0.0F;
+    } completion:^(BOOL finished){
+        [self removeFromSuperview];
+    }];
+}
+
+#pragma mark - SprocketDelegate
+
+- (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
+{
+    [self.sprocketDelegate didRefreshMantaInfo:sprocket error:error];
+}
+
+- (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
+{
+    [self.sprocketDelegate didSendPrintData:sprocket percentageComplete:percentageComplete error:error];
+}
+
+- (void)didFinishSendingPrint:(MPBTSprocket *)sprocket
+{
+    [self.sprocketDelegate didFinishSendingPrint:sprocket];
+}
+
+- (void)didStartPrinting:(MPBTSprocket *)sprocket
+{
+    [self.sprocketDelegate didStartPrinting:sprocket];
+}
+
+- (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
+{
+    [self removeProgressView];
+    [self.sprocketDelegate didReceiveError:sprocket error:error];
+}
+
+- (void)didSetAccessoryInfo:(MPBTSprocket *)sprocket error:(MantaError)error
+{
+    [self.sprocketDelegate didSetAccessoryInfo:sprocket error:error];
+}
+
+- (void)didSendDeviceUpgradeData:(MPBTSprocket *)manta percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
+{
+    [self setProgress:(((CGFloat)percentageComplete)/100.0F)*0.8F];
+    
+    if (MantaErrorBusy == error) {
+        NSLog(@"Covering up busy error due to bug in firmware...");
+    } else if (MantaErrorNoError != error) {
+        [self didReceiveError:manta error:error];
+    }
+    
+    [self.sprocketDelegate didSendDeviceUpgradeData:manta percentageComplete:percentageComplete error:error];
+}
+
+- (void)didFinishSendingDeviceUpgrade:(MPBTSprocket *)manta
+{
+    [self.sprocketDelegate didFinishSendingDeviceUpgrade:manta];
+}
+
+- (void)didChangeDeviceUpgradeStatus:(MPBTSprocket *)manta status:(MantaUpgradeStatus)status
+{
+    [self setStatus:status];
+    
+    if (MantaUpgradeStatusStart != status) {
+        [self removeProgressView];
+    }
+    
+    [self.sprocketDelegate didChangeDeviceUpgradeStatus:manta status:status];
 }
 
 @end

@@ -12,14 +12,18 @@
 
 #import <UIKit/UIKit.h>
 #import "MPView.h"
-#import "MPBTSprocketDefinitions.h"
+#import "MPBTSprocket.h"
 
 @interface MPBTFirmwareProgressView : MPView
+
+@property (weak, nonatomic) id<MPBTSprocketDelegate> sprocketDelegate;
+@property (weak, nonatomic) UINavigationController *navController;
 
 + (CGFloat)animationDuration;
 + (BOOL)needFirmwareUpdate;
 
 - (void)setProgress:(CGFloat)progress;
 - (void)setStatus:(MantaUpgradeStatus)status;
+- (void)reflashDevice;
 
 @end
