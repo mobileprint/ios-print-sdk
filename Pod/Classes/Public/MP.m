@@ -22,7 +22,6 @@
 #import "MPLayoutFactory.h"
 #import "MPBTSprocket.h"
 #import "MPBTPairedAccessoriesViewController.h"
-#import "MPBTDeviceInfoViewController.h"
 #import "MPPrintSettingsDelegateManager.h"
 #import "MPBTFirmwareProgressView.h"
 
@@ -76,7 +75,7 @@ NSString * const kMPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
 
 BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 
-@interface MP() <MPBTPairedAccessoriesViewControllerDelegate>
+@interface MP()
 @end
 
 @implementation MP
@@ -292,21 +291,6 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 - (NSInteger)numberOfPairedSprockets
 {
     return [MPBTSprocket pairedSprockets].count;
-}
-
-- (void)didSelectSprocket:(MPBTSprocket *)sprocket;
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
-    MPBTDeviceInfoViewController *settingsViewController = (MPBTDeviceInfoViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoViewController"];
-    settingsViewController.device = sprocket.accessory;
-    
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    
-    while (topController.presentedViewController) {
-        topController = topController.presentedViewController;
-    }
-    
-    [((UINavigationController *)topController) pushViewController:settingsViewController animated:YES];
 }
 
 - (BOOL)bluetoothDeviceNeedsReflash
