@@ -113,7 +113,7 @@
     
     EAAccessory *accessory = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
     
-    [[cell textLabel] setText:[NSString stringWithFormat:@"%@ (%@)", accessory.name, accessory.serialNumber]];
+    [[cell textLabel] setText:[self displayNameForAccessory:accessory]];
     cell.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
     cell.textLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     cell.textLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
@@ -146,37 +146,52 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EAAccessory *device = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
-    MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
-    sprocket.accessory = device;
-
-    if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectSprocket:)]) {
-        void (^completionBlock)(void) = ^{
-            [self.delegate didSelectSprocket:sprocket];
+    // ensure that the device is still connected
+    BOOL stillConnected = NO;
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    NSString *displayName = cell.textLabel.text;
+    NSArray *currentlyPairedDevices = [MPBTSprocket pairedSprockets];
+    for (EAAccessory *acc in currentlyPairedDevices) {
+        if ([displayName isEqualToString:[self displayNameForAccessory:acc]]) {
+            stillConnected = YES;
+        }
+    }
+    
+    if (stillConnected) {
+        EAAccessory *device = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
+        MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
+        sprocket.accessory = device;
+        
+        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectSprocket:)]) {
+            void (^completionBlock)(void) = ^{
+                [self.delegate didSelectSprocket:sprocket];
+                
+                if (self.completionBlock) {
+                    self.completionBlock(YES);
+                }
+            };
             
-            if (self.completionBlock) {
-                self.completionBlock(YES);
+            if (nil == self.parentViewController) {
+                [self dismissViewControllerAnimated:YES completion:completionBlock];
+            } else {
+                completionBlock();
             }
-        };
-
-        if (nil == self.parentViewController) {
-            [self dismissViewControllerAnimated:YES completion:completionBlock];
         } else {
-            completionBlock();
+            // show device info screen
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
+            MPBTDeviceInfoTableViewController *settingsViewController = (MPBTDeviceInfoTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoTableViewController"];
+            settingsViewController.device = sprocket.accessory;
+            
+            UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+            
+            while (topController.presentedViewController) {
+                topController = topController.presentedViewController;
+            }
+            
+            [((UINavigationController *)topController) pushViewController:settingsViewController animated:YES];
         }
     } else {
-        // show device info screen
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
-        MPBTDeviceInfoTableViewController *settingsViewController = (MPBTDeviceInfoTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoTableViewController"];
-        settingsViewController.device = sprocket.accessory;
-        
-        UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        
-        while (topController.presentedViewController) {
-            topController = topController.presentedViewController;
-        }
-        
-        [((UINavigationController *)topController) pushViewController:settingsViewController animated:YES];
+        [self refreshPairedDevices];
     }
 }
 
@@ -212,6 +227,11 @@
 }
 
 #pragma mark - Util
+
+- (NSString *)displayNameForAccessory:(EAAccessory *)accessory
+{
+    return [NSString stringWithFormat:@"%@ (%@)", accessory.name, accessory.serialNumber];
+}
 
 - (void)becomeActive:(NSNotification *)notification {
     [self refreshPairedDevices];
