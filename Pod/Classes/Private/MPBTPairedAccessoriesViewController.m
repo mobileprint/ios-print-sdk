@@ -14,6 +14,7 @@
 #import "MPBTSessionController.h"
 #import "MPBTSprocket.h"
 #import "MP.h"
+#import "NSBundle+MPLocalizable.h"
 #import "MPBTDeviceInfoTableViewController.h"
 #import <ExternalAccessory/ExternalAccessory.h>
 
@@ -65,6 +66,8 @@
     self.noDevicesLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
     self.descriptionLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFont];
     self.descriptionLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFontColor];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -180,13 +183,44 @@
 #pragma mark - Button Listeners
 
 - (IBAction)didPressRefreshButton:(id)sender {
-    self.pairedDevices = [MPBTSprocket pairedSprockets];
+    [self refreshPairedDevices];
     
-    [self.tableView reloadData];
+    if (0 == self.pairedDevices.count) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:MPLocalizedString(@"Printer not connected to device", @"Title of dialog letting the user know that there is no sprocket paired with their phone")
+                                                                       message:MPLocalizedString(@"Make sure the printer is turned on and check the Bluetooth connection.", @"Body of dialog letting the user know that there is no sprocket paired with their phone")
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* settingsAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"Settings", @"Button that takes the user to the phone's Settings screen")
+                                                                 style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  NSURL *url = [NSURL URLWithString:@"prefs:root=Bluetooth"];
+                                                                  [[UIApplication sharedApplication] openURL:url];
+                                                              }];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+        [alert addAction:okAction];
+        [alert addAction:settingsAction];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (IBAction)didPressCancel:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Util
+
+- (void)becomeActive:(NSNotification *)notification {
+    [self refreshPairedDevices];
+}
+
+- (void)refreshPairedDevices
+{
+    self.pairedDevices = [MPBTSprocket pairedSprockets];
+    [self.tableView reloadData];
 }
 
 @end
