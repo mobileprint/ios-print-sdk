@@ -17,8 +17,6 @@
 #import "MP.h"
 #import "NSBundle+MPLocalizable.h"
 
-static NSString * const kSettingShowFirmwareUpgrade = @"SettingShowFirmwareUpgrade";
-
 typedef enum
 {
     MPBTDeviceInfoOrderError           = 0,
@@ -59,7 +57,7 @@ typedef enum
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.separatorColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralTableSeparatorColor];
     
-    if (![self showFirmwareUpgrade]) {
+    if (![MPBTFirmwareProgressView needFirmwareUpdate]) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,10,10)];
     }
 
@@ -103,14 +101,14 @@ typedef enum
     [self.sprocket refreshInfo];
 }
 
--(BOOL)showFirmwareUpgrade
+- (void)removeProgressView
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (nil == [defaults objectForKey:kSettingShowFirmwareUpgrade]) {
-        [defaults setBool:NO forKey:kSettingShowFirmwareUpgrade];
-        [defaults synchronize];
-    }
-    return [defaults boolForKey:kSettingShowFirmwareUpgrade];
+    [UIView animateWithDuration:[MPBTFirmwareProgressView animationDuration] animations:^{
+        self.progressView.alpha = 0.0F;
+    } completion:^(BOOL finished){
+        [self.progressView removeFromSuperview];
+        self.progressView = nil;
+    }];
 }
 
 #pragma mark - Button handlers
@@ -152,6 +150,7 @@ typedef enum
 #pragma mark - Table view data source
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger fw1, fw2, fw3;
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MPBTSprocketDeviceInfoCell"];
     
     if (!cell) {
@@ -183,13 +182,16 @@ typedef enum
             break;
 
         case MPBTDeviceInfoOrderFirmwareVersion:
+            fw1 = (0xFF0000 & self.sprocket.firmwareVersion) >> 16;
+            fw2 = (0x00FF00 & self.sprocket.firmwareVersion) >>  8;
+            fw3 =  0x0000FF & self.sprocket.firmwareVersion;
             cell.textLabel.text = MPLocalizedString(@"Firmware Version", @"Title of field displaying the printer's firmware version");
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"0x%06x", self.sprocket.firmwareVersion];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d.%d.%d", fw1, fw2, fw3];
             break;
 
         case MPBTDeviceInfoOrderHardwareVersion:
             cell.textLabel.text = MPLocalizedString(@"Hardware Version", @"Title of field displaying the printer's hardware version");
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"0x%06x", self.sprocket.hardwareVersion];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%x", self.sprocket.hardwareVersion];
             break;
 
         default:
@@ -237,7 +239,6 @@ typedef enum
 
 - (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
 {
-    NSLog(@"%s", __FUNCTION__);
     self.alert.title = @"Error";
     self.alert.message = [NSString stringWithFormat:@"Error sending device upgrade: %@", [MPBTSprocket errorString:error]];
     [self addActionToBluetoothStatus];
@@ -245,8 +246,7 @@ typedef enum
         [self presentViewController:self.alert animated:YES completion:nil];
     }
     
-    [self.progressView removeFromSuperview];
-    self.progressView = nil;
+    [self removeProgressView];
 }
 
 - (void)didSetAccessoryInfo:(MPBTSprocket *)sprocket error:(MantaError)error
@@ -256,18 +256,13 @@ typedef enum
 
 - (void)didSendDeviceUpgradeData:(MPBTSprocket *)manta percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
 {
-    self.alert.message = [NSString stringWithFormat:@"Sending upgrade data to device... \n%d%@ complete", percentageComplete, @"%"];
-
     if (nil == self.progressView) {
-//        [self presentViewController:self.alert animated:YES completion:nil];
-        
         self.progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:self.navigationController.view.frame];
         [self.navigationController.view addSubview:self.progressView];
     }
     
     [self.progressView setProgress:(((CGFloat)percentageComplete)/100.0F)*0.8F];
 
-    
     if (MantaErrorBusy == error) {
         NSLog(@"Covering up busy error due to bug in firmware...");
     } else if (MantaErrorNoError != error) {
@@ -277,35 +272,31 @@ typedef enum
 
 - (void)didFinishSendingDeviceUpgrade:(MPBTSprocket *)manta
 {
-    self.alert.message = @"Finished sending upgrade data...";
-    [self.progressView removeFromSuperview];
-    self.progressView = nil;
 }
 
 - (void)didChangeDeviceUpgradeStatus:(MPBTSprocket *)manta status:(MantaUpgradeStatus)status
 {
+    [self.progressView setStatus:status];
+    
     if (MantaUpgradeStatusStart == status) {
-        self.alert.message = @"Upgrade started";
-        [self.progressView setProgress:0.9F];
+        // do nothing
+    } else if (MantaUpgradeStatusFinish == status) {
+        [self removeProgressView];
     } else {
+        if (MantaUpgradeStatusFail == status){
+            self.alert.message = @"Upgrade failed";
+        } else {
+            self.alert.message = [NSString stringWithFormat:@"Unknown status: %d", status];
+        }
+        
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) {[self.alert dismissViewControllerAnimated:YES completion:nil];}];
         [self.alert addAction:defaultAction];
-        
-        if (MantaUpgradeStatusFinish == status) {
-            self.alert.message = @"Upgrade complete";
-            [self.progressView setProgress:0.9F];
-            [self.progressView removeFromSuperview];
-            self.progressView = nil;
-        } else if (MantaUpgradeStatusFail == status){
-            self.alert.message = @"Upgrade failed";
-            [self.progressView removeFromSuperview];
-            self.progressView = nil;
-        } else {
-            self.alert.message = [NSString stringWithFormat:@"Unknown status: %d", status];
-            [self.progressView removeFromSuperview];
-            self.progressView = nil;
+        if (self.view.window  &&  !(self.alert.isViewLoaded  &&  self.alert.view.window)) {
+            [self presentViewController:self.alert animated:YES completion:nil];
         }
+        
+        [self removeProgressView];
     }
 }
 

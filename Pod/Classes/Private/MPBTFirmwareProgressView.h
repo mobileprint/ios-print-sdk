@@ -12,9 +12,14 @@
 
 #import <UIKit/UIKit.h>
 #import "MPView.h"
+#import "MPBTSprocketDefinitions.h"
 
 @interface MPBTFirmwareProgressView : MPView
 
++ (CGFloat)animationDuration;
++ (BOOL)needFirmwareUpdate;
+
 - (void)setProgress:(CGFloat)progress;
+- (void)setStatus:(MantaUpgradeStatus)status;
 
 @end

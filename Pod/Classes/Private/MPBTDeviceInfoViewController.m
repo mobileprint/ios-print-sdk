@@ -120,8 +120,12 @@
     self.printCountValueLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)sprocket.totalPrintCount];
     self.batteryStatusValueLabel.text = [NSString stringWithFormat:@"%lu%@", (unsigned long)sprocket.batteryStatus, @"%"];
     self.macAddressValueLabel.text = [MPBTSprocket macAddress:sprocket.macAddress];
-    self.firmwareVersionValueLabel.text = [NSString stringWithFormat:@"0x%06x", sprocket.firmwareVersion];
-    self.hardwareVersionValueLabel.text = [NSString stringWithFormat:@"0x%06x", sprocket.hardwareVersion];
+    
+    NSInteger fw1 = (0xFF0000 & sprocket.firmwareVersion) >> 16;
+    NSInteger fw2 = (0x00FF00 & sprocket.firmwareVersion) >>  8;
+    NSInteger fw3 =  0x0000FF & sprocket.firmwareVersion;
+    self.firmwareVersionValueLabel.text = [NSString stringWithFormat:@"%d.%d.%d", fw1, fw2, fw3];
+    self.hardwareVersionValueLabel.text = [NSString stringWithFormat:@"%x", sprocket.hardwareVersion];
     
     self.printModeSegmentedControl.selectedSegmentIndex = sprocket.printMode - 1;
     self.autoExposureSegmentedControl.selectedSegmentIndex = sprocket.autoExposure;
