@@ -311,7 +311,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 
 - (BOOL)bluetoothDeviceNeedsReflash
 {
-    return [MPBTFirmwareProgressView needFirmwareUpdate];
+    return (1 == [self numberOfPairedSprockets]  &&  [MPBTFirmwareProgressView needFirmwareUpdate]);
 }
 
 -(void)reflashBluetoothDevice:(UINavigationController *)navController
