@@ -117,6 +117,7 @@ typedef enum
     if (nil == self.progressView) {
         self.progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:self.navigationController.view.frame];
         self.progressView.navController = self.navigationController;
+        self.progressView.sprocketDelegate = self;
         [self.progressView reflashDevice];
     }
 }
@@ -261,19 +262,18 @@ typedef enum
 
 - (void)didChangeDeviceUpgradeStatus:(MPBTSprocket *)manta status:(MantaUpgradeStatus)status
 {
-    [self.progressView setStatus:status];
-    
-    if (MantaUpgradeStatusFail == status){
-        self.alert.message = @"Upgrade failed";
-    } else {
-        self.alert.message = [NSString stringWithFormat:@"Unknown status: %d", status];
-    }
-    
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {[self.alert dismissViewControllerAnimated:YES completion:nil];}];
-    [self.alert addAction:defaultAction];
-    if (self.view.window  &&  !(self.alert.isViewLoaded  &&  self.alert.view.window)) {
-        [self presentViewController:self.alert animated:YES completion:nil];
+    if (MantaUpgradeStatusStart != status  && MantaUpgradeStatusFinish != status) {
+        if (MantaUpgradeStatusFail == status){
+            self.alert.message = @"Upgrade failed";
+        } else {
+            self.alert.message = [NSString stringWithFormat:@"Unknown status: %d", status];
+        }
+        
+        [self addActionToBluetoothStatus];
+        
+        if (self.view.window  &&  !(self.alert.isViewLoaded  &&  self.alert.view.window)) {
+            [self presentViewController:self.alert animated:YES completion:nil];
+        }
     }
 }
 

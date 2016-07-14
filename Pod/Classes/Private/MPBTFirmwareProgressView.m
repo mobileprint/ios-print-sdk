@@ -84,9 +84,15 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)reflashDevice
 {
+    self.alpha = 0.0;
+    
     [self.navController.view addSubview:self];
     [MPBTSprocket sharedInstance].delegate = self;
     [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashHP];
+    
+    [UIView animateWithDuration:[MPBTFirmwareProgressView animationDuration]/2 animations:^{
+        self.alpha = 1.0;
+    }];
 }
 
 + (CGFloat)animationDuration
