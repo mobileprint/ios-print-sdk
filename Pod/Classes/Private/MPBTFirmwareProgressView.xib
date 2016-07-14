@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MPBTFirmwareProgressView">
+            <connections>
+                <outlet property="label" destination="VB4-1X-JwR" id="uRQ-fy-NT3"/>
+                <outlet property="progressBar" destination="1q7-j3-nHK" id="BfQ-Sg-pFy"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mcf-Ke-dGd" userLabel="ProgressView">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="1q7-j3-nHK" userLabel="ProgressBar">
+                            <rect key="frame" x="45" y="279" width="510" height="3"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="2" id="GDF-sQ-QTo"/>
+                            </constraints>
+                            <color key="progressTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </progressView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading Firmware Upgrade" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VB4-1X-JwR">
+                            <rect key="frame" x="45" y="228" width="510" height="21"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="VB4-1X-JwR" firstAttribute="width" secondItem="1q7-j3-nHK" secondAttribute="width" id="6Du-60-oa0"/>
+                        <constraint firstItem="1q7-j3-nHK" firstAttribute="centerY" secondItem="Mcf-Ke-dGd" secondAttribute="centerY" constant="-20" id="IxM-8O-LwO"/>
+                        <constraint firstAttribute="trailing" secondItem="1q7-j3-nHK" secondAttribute="trailing" constant="45" id="SRk-iv-bMa"/>
+                        <constraint firstItem="1q7-j3-nHK" firstAttribute="top" secondItem="VB4-1X-JwR" secondAttribute="bottom" constant="30" id="hYi-qD-fWe"/>
+                        <constraint firstItem="1q7-j3-nHK" firstAttribute="leading" secondItem="Mcf-Ke-dGd" secondAttribute="leading" constant="45" id="psy-Om-ePw"/>
+                        <constraint firstItem="VB4-1X-JwR" firstAttribute="centerX" secondItem="1q7-j3-nHK" secondAttribute="centerX" id="v23-qa-YKd"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Mcf-Ke-dGd" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="73B-aM-njL"/>
+                <constraint firstItem="Mcf-Ke-dGd" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="8dc-U6-a14"/>
+                <constraint firstItem="Mcf-Ke-dGd" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Rvu-WU-21V"/>
+                <constraint firstItem="Mcf-Ke-dGd" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dRh-Oh-gWO"/>
+            </constraints>
+            <point key="canvasLocation" x="351" y="-194"/>
+        </view>
+    </objects>
+</document>

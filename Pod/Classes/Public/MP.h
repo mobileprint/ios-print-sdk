@@ -492,7 +492,35 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  */
 - (BOOL)isWifiConnected;
 
-- (UIViewController *)bluetoothPrintersViewController;
+/*!
+ * @abstract Indicates how many sprockets are paired with the iPhone/iPad
+ * @return The number of sprockets paired with the iPhone/iPad
+ */
+- (NSInteger)numberOfPairedSprockets;
+
+
+/*!
+ * @abstract Displays the list of sprockets paired with the iPhone/iPad
+ * @discussion This method prepares an instance of a view controller with the paired sprockets, and displays it modally.
+ * @param controller The controller used as the parent for displaying the modal view controller
+ * @param animated A boolean indicating whether or not to animate the display
+ * @param completion A block to call when the display animation is complete
+ */
+- (void)presentBluetoothDevicesFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion;
+
+
+/*!
+ * @abstract Indicates whether a single sprocket is paired and needs to be reflashed
+ * @return YES if a single sprocket is paired and needs to be reflashed, NO if multiple sprockets are paired and/or if a single sprocket is paired, but doesn't need a reflash
+ */
+- (BOOL)bluetoothDeviceNeedsReflash;
+
+
+/*!
+ * @abstract Causes a reflash of the first paired sprocket.
+ * @param navController The UINavigationController to host the reflash progress view
+ */
+- (void)reflashBluetoothDevice:(UINavigationController *)navController;
 
 /*!
  * @abstract Used to access the singleton instance of this class

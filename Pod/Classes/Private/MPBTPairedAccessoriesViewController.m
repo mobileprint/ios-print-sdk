@@ -14,12 +14,13 @@
 #import "MPBTSessionController.h"
 #import "MPBTSprocket.h"
 #import "MP.h"
+#import "MPBTDeviceInfoTableViewController.h"
 #import <ExternalAccessory/ExternalAccessory.h>
 
 @interface MPBTPairedAccessoriesViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *pairedDevices;
+@property (strong, nonatomic) NSArray *pairedDevices;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -27,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIView *noDevicesView;
 @property (weak, nonatomic) IBOutlet UILabel *noDevicesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewHeightConstraint;
 
 @end
 
@@ -69,12 +71,29 @@
 {
     [super viewWillAppear:animated];
  
+    if ([UINavigationController class] == [self.parentViewController class]) {
+        self.topViewHeightConstraint.constant = 0;
+        self.topView.hidden = YES;
+        self.showDisclosureIndicator = YES;
+    }
+    
     [self didPressRefreshButton:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
++ (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
+    UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesNavigationController"];
+    [hostController presentViewController:navigationController animated:animated completion:^{
+        if (completion) {
+            completion();
+        }
+    }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -95,6 +114,11 @@
     cell.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
     cell.textLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     cell.textLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
+    if (self.showDisclosureIndicator) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     
     return cell;
 }
@@ -119,12 +143,11 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    EAAccessory *device = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
+    MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
+    sprocket.accessory = device;
+
     if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectSprocket:)]) {
-        EAAccessory *device = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
-        
-        MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
-        sprocket.accessory = device;
-        
         void (^completionBlock)(void) = ^{
             [self.delegate didSelectSprocket:sprocket];
             
@@ -138,21 +161,27 @@
         } else {
             completionBlock();
         }
+    } else {
+        // show device info screen
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
+        MPBTDeviceInfoTableViewController *settingsViewController = (MPBTDeviceInfoTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoTableViewController"];
+        settingsViewController.device = sprocket.accessory;
+        
+        UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        
+        while (topController.presentedViewController) {
+            topController = topController.presentedViewController;
+        }
+        
+        [((UINavigationController *)topController) pushViewController:settingsViewController animated:YES];
     }
 }
 
 #pragma mark - Button Listeners
 
 - (IBAction)didPressRefreshButton:(id)sender {
-    NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
-    self.pairedDevices = [[NSMutableArray alloc] init];
+    self.pairedDevices = [MPBTSprocket pairedSprockets];
     
-    for (EAAccessory *accessory in accs) {
-        if ([MPBTSprocket supportedAccessory:accessory]) {
-            [self.pairedDevices addObject:accessory];
-        }
-    }
-
     [self.tableView reloadData];
 }
 

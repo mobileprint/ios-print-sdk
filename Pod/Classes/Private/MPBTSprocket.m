@@ -13,6 +13,7 @@
 #import "MPBTSprocket.h"
 #import "MPBTSessionController.h"
 #import "MPPrintItemImage.h"
+#import "NSBundle+MPLocalizable.h"
 
 const char MANTA_PACKET_LENGTH = 34;
 
@@ -146,6 +147,20 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     } else {
         NSLog(@"No reflash files for non-Polaroid and non-HP devices");
     }
+}
+
++ (NSArray *)pairedSprockets
+{
+    NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
+    NSMutableArray *pairedDevices = [[NSMutableArray alloc] init];
+    
+    for (EAAccessory *accessory in accs) {
+        if ([MPBTSprocket supportedAccessory:accessory]) {
+            [pairedDevices addObject:accessory];
+        }
+    }
+
+    return pairedDevices;
 }
 
 #pragma mark - Getters/Setters
@@ -611,16 +626,16 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     
     switch (interval) {
         case MantaAutoOffThreeMin:
-            intervalString = @"MantaAutoOffThreeMin";
+            intervalString = MPLocalizedString(@"3 minutes", @"The printer will shut off after 3 minutes");
             break;
         case MantaAutoOffFiveMin:
-            intervalString = @"MantaAutoOffFiveMin";
+            intervalString = MPLocalizedString(@"5 minutes", @"The printer will shut off after 5 minutes");
             break;
         case MantaAutoOffTenMin:
-            intervalString = @"MantaAutoOffTenMin";
+            intervalString = MPLocalizedString(@"10 minutes", @"The printer will shut off after 10 minutes");
             break;
         case MantaAutoOffAlwaysOn:
-            intervalString = @"MantaAutoOffAlwaysOn";
+            intervalString = MPLocalizedString(@"Always On", @"The printer will never shut off");
             break;
             
         default:
@@ -703,7 +718,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     
     switch (error) {
         case MantaErrorNoError:
-            errString = @"MantaErrorNoError";
+            errString = @"None";
             break;
         case MantaErrorBusy:
             errString = @"MantaErrorBusy";
