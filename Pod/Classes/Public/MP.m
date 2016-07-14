@@ -24,6 +24,7 @@
 #import "MPBTPairedAccessoriesViewController.h"
 #import "MPBTDeviceInfoViewController.h"
 #import "MPPrintSettingsDelegateManager.h"
+#import "MPBTFirmwareProgressView.h"
 
 NSString * const kMPLibraryVersion = @"3.0.7";
 
@@ -313,6 +314,19 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     }
     
     [((UINavigationController *)topController) pushViewController:settingsViewController animated:YES];
+}
+
+-(void)reflashBluetoothDevice:(UINavigationController *)navController
+{
+    NSArray *pairedDevices = [MPBTSprocket pairedSprockets];
+    if (1 == pairedDevices.count) {
+        EAAccessory *device = (EAAccessory *)[pairedDevices objectAtIndex:0];
+        [MPBTSprocket sharedInstance].accessory = device;
+
+        MPBTFirmwareProgressView *progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:navController.view.frame];
+        progressView.navController = navController;
+        [progressView reflashDevice];
+    }
 }
 
 #pragma mark - Setter methods
