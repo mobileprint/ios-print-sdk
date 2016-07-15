@@ -116,7 +116,7 @@ typedef enum
 - (IBAction)didPressFirmwareUpgrade:(id)sender {
     if (nil == self.progressView) {
         self.progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:self.navigationController.view.frame];
-        self.progressView.navController = self.navigationController;
+        self.progressView.viewController = self.navigationController;
         self.progressView.sprocketDelegate = self;
         [self.progressView reflashDevice];
     }

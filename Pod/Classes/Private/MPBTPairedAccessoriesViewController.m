@@ -88,7 +88,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-+ (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
++ (void)presentAnimatedForDeviceInfo:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
+    UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesNavigationController"];
+    [hostController presentViewController:navigationController animated:animated completion:^{
+        if (completion) {
+            completion();
+        }
+    }];
+}
+
++ (void)presentAnimatedForPrint:(BOOL)animated image:(UIImage *)image usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesNavigationController"];

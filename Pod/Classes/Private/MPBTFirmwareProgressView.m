@@ -77,18 +77,33 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)setup
 {
-    self.label.text = MPLocalizedString(@"Downloading Firmware Upgrade", @"Indicates that the firmware upgrade is being loaded onto the printer");
+    self.alpha = 0.0;
+
     self.label.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     self.label.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
 }
 
 - (void)reflashDevice
 {
-    self.alpha = 0.0;
+    self.label.text = MPLocalizedString(@"Downloading Firmware Upgrade", @"Indicates that the firmware upgrade is being loaded onto the printer");
     
-    [self.navController.view addSubview:self];
+    [self.viewController.view addSubview:self];
     [MPBTSprocket sharedInstance].delegate = self;
     [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashHP];
+    
+    [UIView animateWithDuration:[MPBTFirmwareProgressView animationDuration]/2 animations:^{
+        self.alpha = 1.0;
+    }];
+}
+
+- (void)printToDevice:(UIImage *)image
+{
+    self.label.text = MPLocalizedString(@"Sending to printer", @"Indicates that the phone is sending an image to the printer");
+
+    [self.viewController.view addSubview:self];
+    [MPBTSprocket sharedInstance].delegate = self;
+    
+    [[MPBTSprocket sharedInstance] printImage:image numCopies:1];
     
     [UIView animateWithDuration:[MPBTFirmwareProgressView animationDuration]/2 animations:^{
         self.alpha = 1.0;
@@ -130,6 +145,12 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
 {
+    [self setProgress:(((CGFloat)percentageComplete)/100.0F)*0.8F];
+    
+    if (MantaErrorNoError != error) {
+        [self didReceiveError:sprocket error:error];
+    }
+
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didSendPrintData:percentageComplete:error:)]) {
         [self.sprocketDelegate didSendPrintData:sprocket percentageComplete:percentageComplete error:error];
     }
@@ -137,6 +158,8 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)didFinishSendingPrint:(MPBTSprocket *)sprocket
 {
+    [self setProgress:0.9F];
+ 
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didFinishSendingPrint:)]) {
         [self.sprocketDelegate didFinishSendingPrint:sprocket];
     }
@@ -144,6 +167,10 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)didStartPrinting:(MPBTSprocket *)sprocket
 {
+    [self setProgress:1.0F];
+
+    [self removeProgressView];
+
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didStartPrinting:)]) {
         [self.sprocketDelegate didStartPrinting:sprocket];
     }

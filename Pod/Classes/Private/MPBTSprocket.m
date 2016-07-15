@@ -66,8 +66,6 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 @interface MPBTSprocket ()
 
 @property (strong, nonatomic) MPBTSessionController *session;
-@property (strong, nonatomic) NSString *fileToPrint;
-@property (strong, nonatomic) NSString *fileType;
 @property (strong, nonatomic) NSData* imageData;
 @property (strong, nonatomic) NSData* upgradeData;
 @property (strong, nonatomic) NSArray *supportedProtocols;
@@ -105,9 +103,6 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidConnect:) name:EAAccessoryDidConnectNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidDisconnect:) name:EAAccessoryDidDisconnectNotification object:nil];
         [[EAAccessoryManager sharedAccessoryManager] registerForLocalNotifications];
-        
-        self.fileToPrint = @"BoxMan640x960";
-        self.fileType = @"jpg";
     }
     
     return self;
@@ -118,7 +113,15 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     [self.session writeData:[self accessoryInfoRequest]];
 }
 
-- (void)print:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies
+- (void)printImage:(UIImage *)image numCopies:(NSInteger)numCopies
+{
+    UIImage *scaledImage = [self imageByScalingAndCroppingForSize:image targetSize:CGSizeMake(640,960)];
+    self.imageData = UIImageJPEGRepresentation(scaledImage, 0.9);
+    
+    [self.session writeData:[self printReadyRequest:numCopies]];
+}
+
+- (void)printItem:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies
 {
     UIImage *asset = ((NSArray*)printItem.printAsset)[0];
     UIImage *image = [self imageByScalingAndCroppingForSize:asset targetSize:CGSizeMake(640,960)];

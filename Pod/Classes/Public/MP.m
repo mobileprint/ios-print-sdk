@@ -298,15 +298,15 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return (1 == [self numberOfPairedSprockets]  &&  [MPBTFirmwareProgressView needFirmwareUpdate]);
 }
 
--(void)reflashBluetoothDevice:(UINavigationController *)navController
+-(void)reflashBluetoothDevice:(UIViewController *)viewController
 {
     NSArray *pairedDevices = [MPBTSprocket pairedSprockets];
     if (1 <= pairedDevices.count) {
         EAAccessory *device = (EAAccessory *)[pairedDevices objectAtIndex:0];
         [MPBTSprocket sharedInstance].accessory = device;
 
-        MPBTFirmwareProgressView *progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:navController.view.frame];
-        progressView.navController = navController;
+        MPBTFirmwareProgressView *progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:viewController.view.frame];
+        progressView.viewController = viewController;
         [progressView reflashDevice];
     }
 }
@@ -335,7 +335,24 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 
 - (void)presentBluetoothDevicesFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
 {
-    [MPBTPairedAccessoriesViewController presentAnimated:animated usingController:controller andCompletion:completion];
+    [MPBTPairedAccessoriesViewController presentAnimatedForDeviceInfo:animated usingController:controller andCompletion:completion];
+}
+
+- (void)headlessBluetoothPrintFromController:(UIViewController *)controller image:(UIImage *)image animated:(BOOL)animated completion:(void(^)(void))completion
+{
+    NSArray *pairedSprockets = [MPBTSprocket pairedSprockets];
+    
+    if (1 == pairedSprockets.count) {
+        EAAccessory *device = (EAAccessory *)[pairedSprockets objectAtIndex:0];
+        [MPBTSprocket sharedInstance].accessory = device;
+        
+        MPBTFirmwareProgressView *progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:controller.view.frame];
+        progressView.viewController = controller;
+        [progressView printToDevice:image];
+
+    } else {
+        [MPBTPairedAccessoriesViewController presentAnimatedForPrint:animated image:image usingController:controller andCompletion:completion];
+    }
 }
 
 - (NSInteger)numberOfJobsInQueue

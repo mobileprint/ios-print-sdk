@@ -123,7 +123,7 @@ NSString * const kMPOfframpDirect = @"PrintWithNoUI";
                    numCopies:(NSInteger)numCopies
 {
     if (self.mp.useBluetooth) {
-        [((MPBTSprocket *)self.currentPrintSettings.sprocketPrinter) print:printItem numCopies:numCopies];
+        [((MPBTSprocket *)self.currentPrintSettings.sprocketPrinter) printItem:printItem numCopies:numCopies];
         
         [self processMetricsForPrintItem:printItem andPageRange:pageRange];
         if (MPPrintManagerOriginDirect & self.options) {

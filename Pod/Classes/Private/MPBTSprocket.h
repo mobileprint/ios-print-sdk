@@ -45,7 +45,8 @@ typedef enum
 @property (strong, nonatomic, readonly) NSString *displayName;
 
 - (void)refreshInfo;
-- (void)print:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies;
+- (void)printImage:(UIImage *)image numCopies:(NSInteger)numCopies;
+- (void)printItem:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies;
 - (void)reflash:(MPBTSprocketReflashOption)reflashOption;
 
 + (NSArray *)pairedSprockets;
