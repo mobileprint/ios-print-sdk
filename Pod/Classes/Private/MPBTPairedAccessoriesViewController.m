@@ -16,6 +16,7 @@
 #import "MP.h"
 #import "NSBundle+MPLocalizable.h"
 #import "MPBTDeviceInfoTableViewController.h"
+#import "MPBTFirmwareProgressView.h"
 #import <ExternalAccessory/ExternalAccessory.h>
 
 @interface MPBTPairedAccessoriesViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -30,6 +31,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *noDevicesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewHeightConstraint;
+@property (strong, nonatomic) UIImage *image;
+@property (weak, nonatomic) UIViewController *hostController;
 
 @end
 
@@ -68,6 +71,9 @@
     self.descriptionLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFontColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    self.image = nil;
+    self.hostController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -106,6 +112,12 @@
     [hostController presentViewController:navigationController animated:animated completion:^{
         if (completion) {
             completion();
+        }
+        
+        if ([MPBTPairedAccessoriesViewController class] == [[navigationController topViewController] class]) {
+            MPBTPairedAccessoriesViewController *vc = (MPBTPairedAccessoriesViewController *)[navigationController topViewController];
+            vc.image = image;
+            vc.hostController = hostController;
         }
     }];
 }
@@ -173,7 +185,14 @@
         MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
         sprocket.accessory = device;
         
-        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectSprocket:)]) {
+        if (self.image  &&  self.hostController) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                MPBTFirmwareProgressView *progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:self.hostController.view.frame];
+                progressView.viewController = self.hostController;
+                [progressView printToDevice:self.image];
+            }];
+        }
+        else if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectSprocket:)]) {
             void (^completionBlock)(void) = ^{
                 [self.delegate didSelectSprocket:sprocket];
                 

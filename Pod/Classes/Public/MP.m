@@ -311,6 +311,28 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     }
 }
 
+- (void)presentBluetoothDevicesFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
+{
+    [MPBTPairedAccessoriesViewController presentAnimatedForDeviceInfo:animated usingController:controller andCompletion:completion];
+}
+
+- (void)headlessBluetoothPrintFromController:(UIViewController *)controller image:(UIImage *)image animated:(BOOL)animated completion:(void(^)(void))completion
+{
+    NSArray *pairedSprockets = [MPBTSprocket pairedSprockets];
+    
+    if (1 == pairedSprockets.count) {
+        EAAccessory *device = (EAAccessory *)[pairedSprockets objectAtIndex:0];
+        [MPBTSprocket sharedInstance].accessory = device;
+        
+        MPBTFirmwareProgressView *progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:controller.view.frame];
+        progressView.viewController = controller;
+        [progressView printToDevice:image];
+        
+    } else {
+        [MPBTPairedAccessoriesViewController presentAnimatedForPrint:animated image:image usingController:controller andCompletion:completion];
+    }
+}
+
 #pragma mark - Setter methods
 
 - (UIUserNotificationCategory *)printLaterUserNotificationCategory
@@ -331,28 +353,6 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 - (void)presentPrintQueueFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
 {
     [MPPrintJobsViewController presentAnimated:animated usingController:controller andCompletion:completion];
-}
-
-- (void)presentBluetoothDevicesFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
-{
-    [MPBTPairedAccessoriesViewController presentAnimatedForDeviceInfo:animated usingController:controller andCompletion:completion];
-}
-
-- (void)headlessBluetoothPrintFromController:(UIViewController *)controller image:(UIImage *)image animated:(BOOL)animated completion:(void(^)(void))completion
-{
-    NSArray *pairedSprockets = [MPBTSprocket pairedSprockets];
-    
-    if (1 == pairedSprockets.count) {
-        EAAccessory *device = (EAAccessory *)[pairedSprockets objectAtIndex:0];
-        [MPBTSprocket sharedInstance].accessory = device;
-        
-        MPBTFirmwareProgressView *progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:controller.view.frame];
-        progressView.viewController = controller;
-        [progressView printToDevice:image];
-
-    } else {
-        [MPBTPairedAccessoriesViewController presentAnimatedForPrint:animated image:image usingController:controller andCompletion:completion];
-    }
 }
 
 - (NSInteger)numberOfJobsInQueue
