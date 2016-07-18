@@ -24,6 +24,8 @@
 + (void)presentAnimatedForDeviceInfo:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion;
 + (void)presentAnimatedForPrint:(BOOL)animated image:(UIImage *)image usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion;
 
++ (void)presentNoPrinterConnectedAlert:(UIViewController *)hostController;
+
 @end
 
 @protocol MPBTPairedAccessoriesViewControllerDelegate <NSObject>

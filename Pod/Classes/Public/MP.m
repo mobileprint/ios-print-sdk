@@ -320,7 +320,9 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 {
     NSArray *pairedSprockets = [MPBTSprocket pairedSprockets];
     
-    if (1 == pairedSprockets.count) {
+    if (0 == pairedSprockets.count) {
+        [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:controller];
+    } else if (1 == pairedSprockets.count) {
         EAAccessory *device = (EAAccessory *)[pairedSprockets objectAtIndex:0];
         [MPBTSprocket sharedInstance].accessory = device;
         
