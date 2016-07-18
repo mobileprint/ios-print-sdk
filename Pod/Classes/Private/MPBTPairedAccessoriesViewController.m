@@ -19,6 +19,8 @@
 #import "MPBTFirmwareProgressView.h"
 #import <ExternalAccessory/ExternalAccessory.h>
 
+static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetting";
+
 @interface MPBTPairedAccessoriesViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -83,7 +85,6 @@
     if ([UINavigationController class] == [self.parentViewController class]) {
         self.topViewHeightConstraint.constant = 0;
         self.topView.hidden = YES;
-        self.showDisclosureIndicator = YES;
     }
     
     [self didPressRefreshButton:nil];
@@ -118,6 +119,7 @@
             MPBTPairedAccessoriesViewController *vc = (MPBTPairedAccessoriesViewController *)[navigationController topViewController];
             vc.image = image;
             vc.hostController = hostController;
+            [vc.tableView reloadData];
         }
     }];
 }
@@ -135,37 +137,95 @@
     }
     
     EAAccessory *accessory = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
+    if ([self numberOfSectionsInTableView:tableView] > 1  &&  0 == indexPath.section) {
+        accessory = [self lastPrinterUsed];
+    }
     
-    [[cell textLabel] setText:[self displayNameForAccessory:accessory]];
+    [[cell textLabel] setText:[MPBTSprocket displayNameForAccessory:accessory]];
     cell.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
     cell.textLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     cell.textLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
-    if (self.showDisclosureIndicator) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else {
+    if (self.image) {
         cell.accessoryType = UITableViewCellAccessoryNone;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     return cell;
 }
 
-
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    NSInteger numSections = (self.image && [self lastPrinterUsedIsPaired]) ? 2 : 1;
+    
+    return numSections;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *title = @"";
+    if ([self numberOfSectionsInTableView:tableView] > 1) {
+        if (0 == section) {
+            title = MPLocalizedString(@"Recent Printer", @"Table heading for the printer that has most recently been printed to");
+        } else if (1 == section) {
+            title = MPLocalizedString(@"All Printers", @"Table heading for list of available printers");
+        }
+    }
+    
+    return title;
+}
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger numRows = self.pairedDevices.count;
-    
     self.noDevicesView.hidden = (0 == numRows) ? NO : YES;
-
+    
+    if ([self numberOfSectionsInTableView:tableView] > 1) {
+        self.noDevicesView.hidden = YES;
+        
+        if (0 == section) {
+            numRows = 1;
+        }
+    }
+    
     return numRows;
 }
 
 #pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat height = tableView.sectionHeaderHeight;
+    
+    if ([self numberOfSectionsInTableView:tableView] > 1) {
+        height = 35.0F;
+    }
+    
+    return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    CGFloat height = tableView.sectionHeaderHeight;
+    
+    if ([self numberOfSectionsInTableView:tableView] > 1) {
+        height = 10.0F;
+    }
+    
+    return height;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.contentView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
+    header.textLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPMainActionInactiveLinkFontColor];
+    header.textLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+    footer.contentView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
+}
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -175,7 +235,7 @@
     NSString *displayName = cell.textLabel.text;
     NSArray *currentlyPairedDevices = [MPBTSprocket pairedSprockets];
     for (EAAccessory *acc in currentlyPairedDevices) {
-        if ([displayName isEqualToString:[self displayNameForAccessory:acc]]) {
+        if ([displayName isEqualToString:[MPBTSprocket displayNameForAccessory:acc]]) {
             stillConnected = YES;
         }
     }
@@ -241,6 +301,16 @@
 
 #pragma mark - Util
 
++ (void)setLastPrinterUsed:(NSString *)lastPrinterUsed
+{
+    [[NSUserDefaults standardUserDefaults] setObject:lastPrinterUsed forKey:kMPBTLastPrinterNameSetting];
+}
+
++ (NSString *)lastPrinterUsed
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kMPBTLastPrinterNameSetting];
+}
+
 + (void)presentNoPrinterConnectedAlert:(UIViewController *)hostController
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:MPLocalizedString(@"Printer not connected to device", @"Title of dialog letting the user know that there is no sprocket paired with their phone")
@@ -263,9 +333,24 @@
     [hostController presentViewController:alert animated:YES completion:nil];
 }
 
-- (NSString *)displayNameForAccessory:(EAAccessory *)accessory
+- (BOOL)lastPrinterUsedIsPaired
 {
-    return [NSString stringWithFormat:@"%@ (%@)", accessory.name, accessory.serialNumber];
+    return ([self lastPrinterUsed] != nil);
+}
+
+- (EAAccessory *)lastPrinterUsed
+{
+    EAAccessory *lastPrinterUsedAcc = nil;
+    NSString *lastPrinterUsedName = [MPBTPairedAccessoriesViewController lastPrinterUsed];
+    
+    for (EAAccessory *acc in self.pairedDevices) {
+        if ([[MPBTSprocket displayNameForAccessory:acc] isEqualToString:lastPrinterUsedName]) {
+            lastPrinterUsedAcc = acc;
+            break;
+        }
+    }
+    
+    return lastPrinterUsedAcc;
 }
 
 - (void)becomeActive:(NSNotification *)notification {

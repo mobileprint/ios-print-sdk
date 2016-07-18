@@ -12,6 +12,7 @@
 
 #import "MPBTFirmwareProgressView.h"
 #import "MP.h"
+#import "MPBTPairedAccessoriesViewController.h"
 #import "NSBundle+MPLocalizable.h"
 
 static CGFloat    const kProgressViewAnimationDuration = 1.0F;
@@ -171,6 +172,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
     [self removeProgressView];
 
+    [MPBTPairedAccessoriesViewController setLastPrinterUsed:[MPBTSprocket sharedInstance].displayName];
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didStartPrinting:)]) {
         [self.sprocketDelegate didStartPrinting:sprocket];
     }

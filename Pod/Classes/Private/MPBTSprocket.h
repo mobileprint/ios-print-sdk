@@ -50,6 +50,7 @@ typedef enum
 - (void)reflash:(MPBTSprocketReflashOption)reflashOption;
 
 + (NSArray *)pairedSprockets;
++ (NSString *)displayNameForAccessory:(EAAccessory *)accessory;
 + (BOOL)supportedAccessory:(EAAccessory *)accessory;
 + (NSString *)macAddress:(NSData *)data;
 + (NSString *)errorString:(MantaError)error;
