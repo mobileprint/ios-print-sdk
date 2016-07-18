@@ -137,7 +137,7 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
     
     EAAccessory *accessory = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
     if ([self numberOfSectionsInTableView:tableView] > 1  &&  0 == indexPath.section) {
-        accessory = [self lastPrinterUsed];
+        accessory = [self lastAccessoryUsed];
     }
     
     [[cell textLabel] setText:[MPBTSprocket displayNameForAccessory:accessory]];
@@ -300,6 +300,26 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
 
 #pragma mark - Util
 
+- (BOOL)lastPrinterUsedIsPaired
+{
+    return ([self lastAccessoryUsed] != nil);
+}
+
+- (EAAccessory *)lastAccessoryUsed
+{
+    EAAccessory *lastAccessory = nil;
+    NSString *lastPrinterUsedName = [MPBTPairedAccessoriesViewController lastPrinterUsed];
+    
+    for (EAAccessory *acc in self.pairedDevices) {
+        if ([[MPBTSprocket displayNameForAccessory:acc] isEqualToString:lastPrinterUsedName]) {
+            lastAccessory = acc;
+            break;
+        }
+    }
+    
+    return lastAccessory;
+}
+
 + (void)setLastPrinterUsed:(NSString *)lastPrinterUsed
 {
     [[NSUserDefaults standardUserDefaults] setObject:lastPrinterUsed forKey:kMPBTLastPrinterNameSetting];
@@ -330,26 +350,6 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
     [alert addAction:settingsAction];
     
     [hostController presentViewController:alert animated:YES completion:nil];
-}
-
-- (BOOL)lastPrinterUsedIsPaired
-{
-    return ([self lastPrinterUsed] != nil);
-}
-
-- (EAAccessory *)lastPrinterUsed
-{
-    EAAccessory *lastPrinterUsedAcc = nil;
-    NSString *lastPrinterUsedName = [MPBTPairedAccessoriesViewController lastPrinterUsed];
-    
-    for (EAAccessory *acc in self.pairedDevices) {
-        if ([[MPBTSprocket displayNameForAccessory:acc] isEqualToString:lastPrinterUsedName]) {
-            lastPrinterUsedAcc = acc;
-            break;
-        }
-    }
-    
-    return lastPrinterUsedAcc;
 }
 
 - (void)becomeActive:(NSNotification *)notification {
