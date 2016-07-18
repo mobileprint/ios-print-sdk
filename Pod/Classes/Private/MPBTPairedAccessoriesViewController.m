@@ -92,7 +92,6 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 + (void)presentAnimatedForDeviceInfo:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
@@ -230,20 +229,20 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // ensure that the device is still connected
-    BOOL stillConnected = NO;
+    EAAccessory *accessory = nil;
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     NSString *displayName = cell.textLabel.text;
+    
     NSArray *currentlyPairedDevices = [MPBTSprocket pairedSprockets];
     for (EAAccessory *acc in currentlyPairedDevices) {
         if ([displayName isEqualToString:[MPBTSprocket displayNameForAccessory:acc]]) {
-            stillConnected = YES;
+            accessory = acc;
         }
     }
     
-    if (stillConnected) {
-        EAAccessory *device = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
+    if (nil != accessory) {
         MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
-        sprocket.accessory = device;
+        sprocket.accessory = accessory;
         
         if (self.image  &&  self.hostController) {
             [self dismissViewControllerAnimated:YES completion:^{

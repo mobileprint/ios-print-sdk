@@ -135,6 +135,17 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     }];
 }
 
+- (id) traverseResponderChainForUIViewController:(UIResponder *)responder {
+    id nextResponder = [responder nextResponder];
+    if ([nextResponder isKindOfClass:[UIViewController class]]) {
+        return nextResponder;
+    } else if ([nextResponder isKindOfClass:[UIView class]]) {
+        return [self traverseResponderChainForUIViewController:nextResponder];
+    } else {
+        return nil;
+    }
+}
+
 #pragma mark - SprocketDelegate
 
 - (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
@@ -182,6 +193,20 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 {
     [self removeProgressView];
 
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[MPBTSprocket errorTitle:error]
+                                                                   message:[MPBTSprocket errorDescription:error]
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:nil];
+    [alert addAction:okAction];
+    
+    UIViewController *vc = [self traverseResponderChainForUIViewController:self];
+    if (nil != vc ) {
+        [vc presentViewController:alert animated:YES completion:nil];
+    }
+    
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didReceiveError:error:)]) {
         [self.sprocketDelegate didReceiveError:sprocket error:error];
     }

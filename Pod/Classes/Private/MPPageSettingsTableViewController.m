@@ -797,8 +797,8 @@ CGFloat const kMPDisabledAlpha = 0.5;
 - (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
 {
     NSLog(@"%s", __FUNCTION__);
-    self.bluetoothPrintStatus.title = @"Error";
-    self.bluetoothPrintStatus.message = [NSString stringWithFormat:@"Error sending print: %@", [MPBTSprocket errorString:error]];
+    self.bluetoothPrintStatus.title = [MPBTSprocket errorTitle:error];
+    self.bluetoothPrintStatus.message = [NSString stringWithFormat:@"Error sending print: %@", [MPBTSprocket errorDescription:error]];
     [self addActionToBluetoothStatus];
     if (self.view.window  &&  !(self.bluetoothPrintStatus.isViewLoaded  &&  self.bluetoothPrintStatus.view.window)) {
         [self presentViewController:self.bluetoothPrintStatus animated:YES completion:nil];

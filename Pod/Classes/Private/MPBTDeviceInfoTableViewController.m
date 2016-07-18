@@ -210,7 +210,7 @@ typedef enum
 
 - (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
 {
-    self.lastError = [MPBTSprocket errorString:error];
+    self.lastError = [MPBTSprocket errorTitle:error];
 
     [self setTitle:[NSString stringWithFormat:@"%@", sprocket.displayName]];
 
@@ -234,8 +234,8 @@ typedef enum
 
 - (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
 {
-    self.alert.title = @"Error";
-    self.alert.message = [NSString stringWithFormat:@"Error sending device upgrade: %@", [MPBTSprocket errorString:error]];
+    self.alert.title = [MPBTSprocket errorTitle:error];
+    self.alert.message = [NSString stringWithFormat:@"Error sending device upgrade: %@", [MPBTSprocket errorDescription:error]];
     [self addActionToBluetoothStatus];
     if (self.view.window  &&  !(self.alert.isViewLoaded  &&  self.alert.view.window)) {
         [self presentViewController:self.alert animated:YES completion:nil];
