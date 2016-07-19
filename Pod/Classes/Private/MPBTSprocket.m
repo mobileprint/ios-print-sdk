@@ -130,20 +130,12 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     [self.session writeData:[self printReadyRequest:numCopies]];
 }
 
-- (void)reflash:(MPBTSprocketReflashOption)reflashOption
+- (void)reflash
 {
     if ([self.protocolString isEqualToString:polaroidProtocol]  ||
         [self.protocolString isEqualToString:hpProtocol]) {
         
-        NSString *myFile = [[NSBundle mainBundle] pathForResource:@"HP_protocol_v2" ofType:@"rbn"];
-        if (MPBTSprocketReflashV2 == reflashOption) {
-            myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v200" ofType:@"rbn"];
-        } else if (MPBTSprocketReflashV3 == reflashOption) {
-            myFile = [[NSBundle mainBundle] pathForResource:@"Polaroid_v300" ofType:@"rbn"];
-        } else if (MPBTSprocketReflashBadHP == reflashOption) {
-            myFile = [[NSBundle mainBundle] pathForResource:@"HP_protocol_v1" ofType:@"rbn"];
-        }
-        
+        NSString *myFile = [[NSBundle mainBundle] pathForResource:@"HP_protocol_v2" ofType:@"rbn"];        
         self.upgradeData = [NSData dataWithContentsOfFile:myFile];
         
         [self.session writeData:[self upgradeReadyRequest]];

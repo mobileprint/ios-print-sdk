@@ -17,14 +17,6 @@
 
 @protocol MPBTSprocketDelegate;
 
-typedef enum
-{
-    MPBTSprocketReflashV2,
-    MPBTSprocketReflashV3,
-    MPBTSprocketReflashHP,
-    MPBTSprocketReflashBadHP
-} MPBTSprocketReflashOption;
-
 @interface MPBTSprocket : NSObject
 
 @property (strong, nonatomic) EAAccessory *accessory;
@@ -47,7 +39,7 @@ typedef enum
 - (void)refreshInfo;
 - (void)printImage:(UIImage *)image numCopies:(NSInteger)numCopies;
 - (void)printItem:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies;
-- (void)reflash:(MPBTSprocketReflashOption)reflashOption;
+- (void)reflash;
 
 + (NSArray *)pairedSprockets;
 + (NSString *)displayNameForAccessory:(EAAccessory *)accessory;
