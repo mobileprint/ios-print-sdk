@@ -50,7 +50,6 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    [self setTitle:MPLocalizedString(@"Devices",@"Title for screen listing all available sprocket printers")];
     self.bottomView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
     self.tableView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -88,6 +87,7 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
         self.topView.hidden = YES;
     }
     
+    [self setTitle];
     [self refreshPairedDevices];
     
     if (0 == self.pairedDevices.count) {
@@ -99,13 +99,19 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     [super didReceiveMemoryWarning];
 }
 
-- (void)setImage:(UIImage *)image
+- (void)setTitle
 {
-    if (nil != image) {
+    if (nil == self.image) {
+        [self setTitle:MPLocalizedString(@"Devices",@"Title for screen listing all available sprocket printers")];
+    } else {
         [self setTitle:MPLocalizedString(@"Select Printer",@"Title for screen listing all available sprocket printers")];
     }
+}
 
+- (void)setImage:(UIImage *)image
+{
     _image = image;
+    [self setTitle];
     [self refreshPairedDevices];
 }
 
