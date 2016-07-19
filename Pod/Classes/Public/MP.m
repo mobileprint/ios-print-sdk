@@ -23,7 +23,7 @@
 #import "MPBTSprocket.h"
 #import "MPBTPairedAccessoriesViewController.h"
 #import "MPPrintSettingsDelegateManager.h"
-#import "MPBTFirmwareProgressView.h"
+#import "MPBTProgressView.h"
 
 NSString * const kMPLibraryVersion = @"3.0.7";
 
@@ -140,20 +140,6 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return _pageSettingsCancelButtonLeft;
 }
 
-- (void)setUseBluetooth:(BOOL)useBluetooth
-{
-    _useBluetooth = useBluetooth;
-    
-    if (useBluetooth) {
-        [MP sharedInstance].hideBlackAndWhiteOption = YES;
-        [MP sharedInstance].hidePaperSizeOption = YES;
-        [MP sharedInstance].hidePaperTypeOption = YES;
-        
-        [MP sharedInstance].defaultPaper = [[MPPaper alloc] initWithPaperSize:MPPaperSize2x3 paperType:MPPaperTypePhoto];
-        [MP sharedInstance].supportedPapers = @[[MP sharedInstance].defaultPaper];
-        [MPPrintSettingsDelegateManager setLastPaperUsed:[MP sharedInstance].defaultPaper];
-    }
-}
 #pragma mark - Metrics
 
 - (void)handleShareCompletedNotification:(NSNotification *)notification
@@ -295,19 +281,43 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 
 - (BOOL)bluetoothDeviceNeedsReflash
 {
-    return (1 == [self numberOfPairedSprockets]  &&  [MPBTFirmwareProgressView needFirmwareUpdate]);
+    return (1 == [self numberOfPairedSprockets]  &&  [MPBTProgressView needFirmwareUpdate]);
 }
 
--(void)reflashBluetoothDevice:(UINavigationController *)navController
+-(void)reflashBluetoothDevice:(UIViewController *)viewController
 {
     NSArray *pairedDevices = [MPBTSprocket pairedSprockets];
     if (1 <= pairedDevices.count) {
         EAAccessory *device = (EAAccessory *)[pairedDevices objectAtIndex:0];
         [MPBTSprocket sharedInstance].accessory = device;
 
-        MPBTFirmwareProgressView *progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:navController.view.frame];
-        progressView.navController = navController;
+        MPBTProgressView *progressView = [[MPBTProgressView alloc] initWithFrame:viewController.view.frame];
+        progressView.viewController = viewController;
         [progressView reflashDevice];
+    }
+}
+
+- (void)presentBluetoothDevicesFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
+{
+    [MPBTPairedAccessoriesViewController presentAnimatedForDeviceInfo:animated usingController:controller andCompletion:completion];
+}
+
+- (void)headlessBluetoothPrintFromController:(UIViewController *)controller image:(UIImage *)image animated:(BOOL)animated completion:(void(^)(void))completion
+{
+    NSArray *pairedSprockets = [MPBTSprocket pairedSprockets];
+    
+    if (0 == pairedSprockets.count) {
+        [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:controller];
+    } else if (1 == pairedSprockets.count) {
+        EAAccessory *device = (EAAccessory *)[pairedSprockets objectAtIndex:0];
+        [MPBTSprocket sharedInstance].accessory = device;
+        
+        MPBTProgressView *progressView = [[MPBTProgressView alloc] initWithFrame:controller.view.frame];
+        progressView.viewController = controller;
+        [progressView printToDevice:image];
+        
+    } else {
+        [MPBTPairedAccessoriesViewController presentAnimatedForPrint:animated image:image usingController:controller andCompletion:completion];
     }
 }
 
@@ -331,11 +341,6 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 - (void)presentPrintQueueFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
 {
     [MPPrintJobsViewController presentAnimated:animated usingController:controller andCompletion:completion];
-}
-
-- (void)presentBluetoothDevicesFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
-{
-    [MPBTPairedAccessoriesViewController presentAnimated:animated usingController:controller andCompletion:completion];
 }
 
 - (NSInteger)numberOfJobsInQueue

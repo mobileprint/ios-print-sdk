@@ -19,9 +19,13 @@
 
 @property (weak, nonatomic) id<MPBTPairedAccessoriesViewControllerDelegate> delegate;
 @property (strong, nonatomic) void (^completionBlock)(BOOL userDidSelect);
-@property (assign, nonatomic) BOOL showDisclosureIndicator;
 
-+ (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion;
++ (void)presentAnimatedForDeviceInfo:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion;
++ (void)presentAnimatedForPrint:(BOOL)animated image:(UIImage *)image usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion;
+
++ (void)presentNoPrinterConnectedAlert:(UIViewController *)hostController;
++ (NSString *)lastPrinterUsed;
++ (void)setLastPrinterUsed:(NSString *)lastPrinterUsed;
 
 @end
 

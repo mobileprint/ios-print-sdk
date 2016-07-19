@@ -40,7 +40,6 @@
 #import "MPPrintManager+Options.h"
 #import "MPPrintJobsViewController.h"
 #import "MPPrintLaterQueue.h"
-#import "MPBTPairedAccessoriesViewController.h"
 #import "UIImage+MPBundle.h"
 
 #define REFRESH_PRINTER_STATUS_INTERVAL_IN_SECONDS 60
@@ -75,9 +74,7 @@
     MPMultiPageViewDelegate,
     UIAlertViewDelegate,
     MPPrintManagerDelegate,
-    UITextFieldDelegate,
-    MPBTPairedAccessoriesViewControllerDelegate,
-    MPBTSprocketDelegate>
+    UITextFieldDelegate>
 
 @property (strong, nonatomic) MPPrintManager *printManager;
 @property (strong, nonatomic) MPWiFiReachability *wifiReachability;
@@ -145,7 +142,6 @@
 @property (assign, nonatomic) BOOL actionInProgress;
 
 @property (weak, nonatomic) UIPrinterPickerController *printerPicker;
-@property (strong, nonatomic) UIAlertController *bluetoothPrintStatus;
 
 @end
 
@@ -170,10 +166,6 @@ CGFloat const kMPDisabledAlpha = 0.5;
     
     self.currentPrintJob = 0;
     
-    self.bluetoothPrintStatus = [UIAlertController alertControllerWithTitle:@"Bluetooth Print Status"
-                                                     message:@"This is an alert."
-                                              preferredStyle:UIAlertControllerStyleAlert];
-
     if( nil == self.delegateManager ) {
         self.delegateManager = [[MPPrintSettingsDelegateManager alloc] init];
     }
@@ -284,9 +276,6 @@ CGFloat const kMPDisabledAlpha = 0.5;
     self.numberOfCopiesLabel.font = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     self.numberOfCopiesLabel.textColor = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
     self.numberOfCopiesLabel.text = MPLocalizedString(@"1 Copy", nil);
-    if( [self.mp useBluetooth] ) {
-        self.numberOfCopiesStepper.maximumValue = 4;
-    }
     
     self.pageRangeCell.backgroundColor = [self.mp.appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
     [self setPageRangeLabelText:kPageRangeAllPages];
@@ -716,11 +705,6 @@ CGFloat const kMPDisabledAlpha = 0.5;
         self.basicJobSummaryCell.hidden = NO;
     }
     
-    if ([self.mp useBluetooth]) {
-        self.selectPrinterCell.hidden = NO;
-        self.printSettingsCell.hidden = YES;
-    }
-    
     [self prepareUiForIosVersion];
 
     [self.tableView endUpdates];
@@ -760,114 +744,30 @@ CGFloat const kMPDisabledAlpha = 0.5;
     }
 }
 
-#pragma mark - SprocketDelegate
-
-- (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
-{
-    NSLog(@"%s", __FUNCTION__);
-}
-
-- (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
-{
-    NSLog(@"%s", __FUNCTION__);
-    self.bluetoothPrintStatus.title = @"Sending Print";
-    self.bluetoothPrintStatus.message = [NSString stringWithFormat:@"%d%@ complete", percentageComplete, @"%"];
-    if (self.view.window  &&  !(self.bluetoothPrintStatus.isViewLoaded  &&  self.bluetoothPrintStatus.view.window)) {
-        [self presentViewController:self.bluetoothPrintStatus animated:YES completion:nil];
-    }
-    
-    if (MantaErrorNoError != error) {
-        [self didReceiveError:sprocket error:error];
-    }
-}
-
-- (void)didFinishSendingPrint:(MPBTSprocket *)sprocket
-{
-    NSLog(@"%s", __FUNCTION__);
-    self.bluetoothPrintStatus.message = @"Finished Sending Print";
-    [self addActionToBluetoothStatus];
-    [self bluetoothPrintCompleted];
-}
-
-- (void)didStartPrinting:(MPBTSprocket *)sprocket
-{
-    NSLog(@"%s", __FUNCTION__);
-}
-
-- (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
-{
-    NSLog(@"%s", __FUNCTION__);
-    self.bluetoothPrintStatus.title = @"Error";
-    self.bluetoothPrintStatus.message = [NSString stringWithFormat:@"Error sending print: %@", [MPBTSprocket errorString:error]];
-    [self addActionToBluetoothStatus];
-    if (self.view.window  &&  !(self.bluetoothPrintStatus.isViewLoaded  &&  self.bluetoothPrintStatus.view.window)) {
-        [self presentViewController:self.bluetoothPrintStatus animated:YES completion:nil];
-    }
-}
-
-- (void)didSetAccessoryInfo:(MPBTSprocket *)sprocket error:(MantaError)error
-{
-    NSLog(@"%s", __FUNCTION__);
-    
-}
-
-#pragma mark - MPBTPairedAccessoriesViewControllerDelegate
-
-- (void)didSelectSprocket:(MPBTSprocket *)sprocket
-{
-    sprocket.delegate = self;
-    self.delegateManager.printSettings.sprocketPrinter = sprocket;
-    self.delegateManager.printSettings.printerName = [sprocket displayName];
-    self.delegateManager.printSettings.printerUrl = [NSURL URLWithString:sprocket.protocolString];
-    self.delegateManager.printSettings.printerModel = nil;
-    self.delegateManager.printSettings.printerLocation = nil;
-    self.delegateManager.printSettings.printerIsAvailable = YES;
-    
-    [self refreshData];
-}
-
-#pragma mark - Util
-
-- (void)addActionToBluetoothStatus
-{
-    if (0 == self.bluetoothPrintStatus.actions.count) {
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {[self.bluetoothPrintStatus dismissViewControllerAnimated:YES completion:nil];}];
-        [self.bluetoothPrintStatus addAction:defaultAction];
-    }
-}
-
 - (void)showPrinterSelection:(UITableView *)tableView withCompletion:(void (^)(BOOL userDidSelect))completion
 {
-    if (self.mp.useBluetooth) {
-        MPBTPairedAccessoriesViewController *vc = [[UIStoryboard storyboardWithName:@"MP" bundle:nil] instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesViewController"];
-        vc.delegate = self;
-        vc.completionBlock = completion;
-        [self presentViewController:vc animated:YES completion:nil];
-    } else {
-        if ([[MPWiFiReachability sharedInstance] isWifiConnected]) {
-            self.printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
-            self.printerPicker.delegate = self.delegateManager;
-            
-            if( !self.splitViewController.isCollapsed ) {
-                [self.printerPicker presentFromRect:self.selectPrinterCell.frame
-                                             inView:tableView
-                                           animated:YES
-                                  completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                                      if (completion){
-                                          completion(userDidSelect);
-                                      }
-                                  }];
-            } else {
-                [self.printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                    if (completion){
-                        completion(userDidSelect);
-                    }
-                }];
-            }
+    if ([[MPWiFiReachability sharedInstance] isWifiConnected]) {
+        self.printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
+        self.printerPicker.delegate = self.delegateManager;
+        
+        if( !self.splitViewController.isCollapsed ) {
+            [self.printerPicker presentFromRect:self.selectPrinterCell.frame
+                                    inView:tableView
+                                  animated:YES
+                         completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                             if (completion){
+                                 completion(userDidSelect);
+                             }
+                         }];
         } else {
-            [[MPWiFiReachability sharedInstance] noPrinterSelectAlert];
+            [self.printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                if (completion){
+                    completion(userDidSelect);
+                }
+            }];
         }
+    } else {
+        [[MPWiFiReachability sharedInstance] noPrinterSelectAlert];
     }
 }
 
@@ -1314,16 +1214,14 @@ CGFloat const kMPDisabledAlpha = 0.5;
 
 - (void)printerNotAvailable
 {
-    if( !self.mp.useBluetooth ) {
-        // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
-        [self.tableView beginUpdates];
-        UIImage *warningSign = [UIImage imageResource:@"MPDoNoEnter" ofType:@"png"];
-        [self.printSettingsCell.imageView setImage:warningSign];
-        [self.selectPrinterCell.imageView setImage:warningSign];
-        
-        self.delegateManager.printSettings.printerIsAvailable = NO;
-        [self.tableView endUpdates];
-    }
+    // This block of beginUpdates-endUpdates is required to refresh the tableView while it is currently being displayed on screen
+    [self.tableView beginUpdates];
+    UIImage *warningSign = [UIImage imageResource:@"MPDoNoEnter" ofType:@"png"];
+    [self.printSettingsCell.imageView setImage:warningSign];
+    [self.selectPrinterCell.imageView setImage:warningSign];
+
+    self.delegateManager.printSettings.printerIsAvailable = NO;
+    [self.tableView endUpdates];
 }
 
 - (void)printerIsAvailable
@@ -1590,17 +1488,13 @@ CGFloat const kMPDisabledAlpha = 0.5;
         } else {
             if (section == PRINT_FUNCTION_SECTION || section == PREVIEW_PRINT_SUMMARY_SECTION) {
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-            } else if (IS_OS_8_OR_LATER && section == PRINTER_SELECTION_SECTION) {
-                if ( self.delegateManager.printSettings.printerUrl == nil  ||  self.mp.useBluetooth) {
-                    height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-                }
-            } else if (IS_OS_8_OR_LATER && section == PAPER_SELECTION_SECTION) {
-                if ( !self.mp.hidePaperSizeOption  &&  self.delegateManager.printSettings.printerUrl == nil ) {
+            } else if (IS_OS_8_OR_LATER && ((section == PRINTER_SELECTION_SECTION) || (section == PAPER_SELECTION_SECTION))) {
+                if ( !self.mp.hidePaperTypeOption && (self.delegateManager.printSettings.printerUrl == nil) ) {
                     height = SEPARATOR_SECTION_FOOTER_HEIGHT;
                 }
             } else if (!IS_OS_8_OR_LATER && (section == PAPER_SELECTION_SECTION)) {
                 height = SEPARATOR_SECTION_FOOTER_HEIGHT;
-            } else if (IS_OS_8_OR_LATER && (section == PRINT_SETTINGS_SECTION)  &&  !self.mp.useBluetooth) {
+            } else if (IS_OS_8_OR_LATER && (section == PRINT_SETTINGS_SECTION)) {
                 if (self.delegateManager.printSettings.printerUrl != nil) {
                     if (self.delegateManager.printSettings.printerIsAvailable) {
                         height = SEPARATOR_SECTION_FOOTER_HEIGHT;
@@ -1674,7 +1568,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
 {
     UIView *footer = nil;
     
-    if (IS_OS_8_OR_LATER  &&  MPPageSettingsDisplayTypePreviewPane != self.displayType  &&  !self.mp.useBluetooth) {
+    if (IS_OS_8_OR_LATER  &&  MPPageSettingsDisplayTypePreviewPane != self.displayType) {
         if ( (!self.selectPrinterCell.hidden  &&  section == PRINTER_SELECTION_SECTION) ||
              (!self.printSettingsCell.hidden  &&  section == PRINT_SETTINGS_SECTION) ) {
             if ((self.delegateManager.printSettings.printerUrl != nil) && !self.delegateManager.printSettings.printerIsAvailable) {
@@ -1753,8 +1647,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
 {
     if (IS_OS_8_OR_LATER) {
         if (self.delegateManager.printSettings.printerUrl == nil ||
-            !self.delegateManager.printSettings.printerIsAvailable ||
-            (self.mp.useBluetooth  &&  nil == self.delegateManager.printSettings.sprocketPrinter)) {
+            !self.delegateManager.printSettings.printerIsAvailable ) {
             [self showPrinterSelection:tableView withCompletion:^(BOOL userDidSelect){
                 if (userDidSelect) {
                     [self startPrinting];
@@ -1962,27 +1855,6 @@ CGFloat const kMPDisabledAlpha = 0.5;
         else {
             MPLogWarn(@"No MPPrintDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
         }
-    }
-    
-    if (IS_IPAD) {
-        self.cancelBarButtonItem.enabled = YES;
-    }
-}
-
-- (void)bluetoothPrintCompleted
-{
-    [self.delegateManager savePrinterId:@"bluetooth"];
-    
-    [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintCompleted];
-    
-    [self setDefaultPrinter];
-    
-    if ([self.printDelegate respondsToSelector:@selector(didFinishPrintFlow:)]) {
-        [self.bluetoothPrintStatus dismissViewControllerAnimated:YES completion:nil];
-        [self.printDelegate didFinishPrintFlow:self];
-    }
-    else {
-        MPLogWarn(@"No MPPrintDelegate has been set to respond to the end of the print flow.  Implement this delegate to dismiss the Page Settings view controller.");
     }
     
     if (IS_IPAD) {

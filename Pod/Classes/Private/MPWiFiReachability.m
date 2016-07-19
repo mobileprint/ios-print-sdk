@@ -67,11 +67,7 @@
 
 - (BOOL)isWifiConnected
 {
-    if ([MP sharedInstance].useBluetooth) {
-        return YES;
-    } else {
-        return (NotReachable != [self.reachability currentReachabilityStatus]);
-    }
+    return (NotReachable != [self.reachability currentReachabilityStatus]);
 }
 
 - (void)reachabilityChanged:(NSNotification *)notification

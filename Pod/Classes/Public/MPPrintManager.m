@@ -20,7 +20,6 @@
 #import "MPAnalyticsManager.h"
 #import "MPPrintLaterQueue.h"
 #import "MPPrintSettingsDelegateManager.h"
-#import "MPBTSprocket.h"
 
 #define MP_DEFAULT_PRINT_JOB_NAME MPLocalizedString(@"Photo", @"Default job name of the print send to the printer")
 
@@ -122,46 +121,37 @@ NSString * const kMPOfframpDirect = @"PrintWithNoUI";
                    pageRange:(MPPageRange *)pageRange
                    numCopies:(NSInteger)numCopies
 {
-    if (self.mp.useBluetooth) {
-        [((MPBTSprocket *)self.currentPrintSettings.sprocketPrinter) print:printItem numCopies:numCopies];
+    if (self.currentPrintSettings.printerUrl != nil) {
         
-        [self processMetricsForPrintItem:printItem andPageRange:pageRange];
-        if (MPPrintManagerOriginDirect & self.options) {
-            [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintCompleted];
-        }
+        UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
+        controller.delegate = self;
+
+        [self prepareController:controller printItem:printItem color:color pageRange:pageRange numCopies:numCopies];
+        UIPrinter *printer = [UIPrinter printerWithURL:self.currentPrintSettings.printerUrl];
+        [controller printToPrinter:printer completionHandler:^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
+            if (!completed) {
+                MPLogInfo(@"Print was NOT completed");
+            }
+            
+            if (error) {
+                MPLogWarn(@"Print error:  %@", error);
+            }
+            
+            if (completed && !error) {
+                [self saveLastOptionsForPrinter:controller.printInfo.printerID];
+                [self processMetricsForPrintItem:printItem andPageRange:pageRange];
+                if (MPPrintManagerOriginDirect & self.options) {
+                    [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintCompleted];
+                }
+            }
+            
+            if( self.delegate && [self.delegate respondsToSelector:@selector(didFinishPrintJob:completed:error:)] ) {
+                [self.delegate didFinishPrintJob:controller completed:completed error:error];
+            }
+            
+        }];
     } else {
-        if (self.currentPrintSettings.printerUrl != nil) {
-            
-            UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
-            controller.delegate = self;
-            
-            [self prepareController:controller printItem:printItem color:color pageRange:pageRange numCopies:numCopies];
-            UIPrinter *printer = [UIPrinter printerWithURL:self.currentPrintSettings.printerUrl];
-            [controller printToPrinter:printer completionHandler:^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
-                if (!completed) {
-                    MPLogInfo(@"Print was NOT completed");
-                }
-                
-                if (error) {
-                    MPLogWarn(@"Print error:  %@", error);
-                }
-                
-                if (completed && !error) {
-                    [self saveLastOptionsForPrinter:controller.printInfo.printerID];
-                    [self processMetricsForPrintItem:printItem andPageRange:pageRange];
-                    if (MPPrintManagerOriginDirect & self.options) {
-                        [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintCompleted];
-                    }
-                }
-                
-                if( self.delegate && [self.delegate respondsToSelector:@selector(didFinishPrintJob:completed:error:)] ) {
-                    [self.delegate didFinishPrintJob:controller completed:completed error:error];
-                }
-                
-            }];
-        } else {
-            MPLogError(@"Must have an MPPrintSettings instance in order to print");
-        }
+        MPLogError(@"Must have an MPPrintSettings instance in order to print");
     }
 }
 

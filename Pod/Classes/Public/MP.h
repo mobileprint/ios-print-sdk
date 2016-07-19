@@ -498,7 +498,6 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  */
 - (NSInteger)numberOfPairedSprockets;
 
-
 /*!
  * @abstract Displays the list of sprockets paired with the iPhone/iPad
  * @discussion This method prepares an instance of a view controller with the paired sprockets, and displays it modally.
@@ -508,6 +507,14 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  */
 - (void)presentBluetoothDevicesFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion;
 
+/*!
+ * @abstract Launches a headless print, only displaying device selection if multiple devices are connected
+ * @discussion This method launches a bluetooth print.
+ * @param controller The controller used to display the print job's status
+ * @param animated A boolean indicating whether or not to animate the display
+ * @param completion A block to call when the display animation is complete
+ */
+- (void)headlessBluetoothPrintFromController:(UIViewController *)controller image:(UIImage *)image animated:(BOOL)animated completion:(void(^)(void))completion;
 
 /*!
  * @abstract Indicates whether a single sprocket is paired and needs to be reflashed
@@ -518,9 +525,9 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
 
 /*!
  * @abstract Causes a reflash of the first paired sprocket.
- * @param navController The UINavigationController to host the reflash progress view
+ * @param viewController The UIViewController to host the reflash progress view
  */
-- (void)reflashBluetoothDevice:(UINavigationController *)navController;
+- (void)reflashBluetoothDevice:(UIViewController *)viewController;
 
 /*!
  * @abstract Used to access the singleton instance of this class

@@ -66,8 +66,6 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 @interface MPBTSprocket ()
 
 @property (strong, nonatomic) MPBTSessionController *session;
-@property (strong, nonatomic) NSString *fileToPrint;
-@property (strong, nonatomic) NSString *fileType;
 @property (strong, nonatomic) NSData* imageData;
 @property (strong, nonatomic) NSData* upgradeData;
 @property (strong, nonatomic) NSArray *supportedProtocols;
@@ -105,9 +103,6 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidConnect:) name:EAAccessoryDidConnectNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidDisconnect:) name:EAAccessoryDidDisconnectNotification object:nil];
         [[EAAccessoryManager sharedAccessoryManager] registerForLocalNotifications];
-        
-        self.fileToPrint = @"BoxMan640x960";
-        self.fileType = @"jpg";
     }
     
     return self;
@@ -118,7 +113,15 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     [self.session writeData:[self accessoryInfoRequest]];
 }
 
-- (void)print:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies
+- (void)printImage:(UIImage *)image numCopies:(NSInteger)numCopies
+{
+    UIImage *scaledImage = [self imageByScalingAndCroppingForSize:image targetSize:CGSizeMake(640,960)];
+    self.imageData = UIImageJPEGRepresentation(scaledImage, 0.9);
+    
+    [self.session writeData:[self printReadyRequest:numCopies]];
+}
+
+- (void)printItem:(MPPrintItem *)printItem numCopies:(NSInteger)numCopies
 {
     UIImage *asset = ((NSArray*)printItem.printAsset)[0];
     UIImage *image = [self imageByScalingAndCroppingForSize:asset targetSize:CGSizeMake(640,960)];
@@ -223,7 +226,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 - (NSString *)displayName
 {
-    return [NSString stringWithFormat:@"%@ (%@)", self.accessory.name, self.accessory.serialNumber];
+    return [MPBTSprocket displayNameForAccessory:self.accessory];
 }
 
 #pragma mark - Util
@@ -383,7 +386,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     NSUInteger hardwareVersion = hwVersion[0] << 16 | hwVersion[1] << 8 | hwVersion[2];
     
     NSLog(@"\n\nAccessoryInfo:\n\terrorCode: %@  \n\ttotalPrintCount: 0x%04x  \n\tprintMode: %@  \n\tbatteryStatus: 0x%x => %d percent  \n\tautoExposure: %@  \n\tautoPowerOff: %@  \n\tmacAddress: %@  \n\tfwVersion: 0x%06x  \n\thwVersion: 0x%06x",
-          [MPBTSprocket errorString:errorCode[0]],
+          [MPBTSprocket errorTitle:errorCode[0]],
           printCount,
           [MPBTSprocket printModeString:printMode[0]],
           batteryStatus[0], batteryStatus[0],
@@ -431,7 +434,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         RESP_START_OF_SEND_ACK_SUB_CMD == subCmdId[0]) {
         NSLog(@"\n\nStartOfSendAck: %@", data);
         NSLog(@"\tPayload Classification: %@", [MPBTSprocket dataClassificationString:payload[0]]);
-        NSLog(@"\tError: %@\n\n", [MPBTSprocket errorString:payload[1]]);
+        NSLog(@"\tError: %@\n\n", [MPBTSprocket errorTitle:payload[1]]);
         
         if (MantaErrorNoError == payload[1]  ||
             (MantaErrorBusy == payload[1]  &&  MantaDataClassFirmware == payload[0])) {
@@ -448,7 +451,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
                 [session writeData:self.upgradeData];
             }
         } else {
-            NSLog(@"Error returned in StartOfSendAck: %@", [MPBTSprocket errorString:payload[1]]);
+            NSLog(@"Error returned in StartOfSendAck: %@", [MPBTSprocket errorTitle:payload[1]]);
         }
         
         // let any callers know the process is finished
@@ -496,7 +499,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     } else if (RESP_ERROR_MESSAGE_ACK_CMD == cmdId[0]  &&
                RESP_ERROR_MESSAGE_ACK_SUB_CMD == subCmdId[0]) {
         NSLog(@"\n\nErrorMessageAck %@", data);
-        NSLog(@"\tError: %@\n\n", [MPBTSprocket errorString:payload[0]]);
+        NSLog(@"\tError: %@\n\n", [MPBTSprocket errorTitle:payload[0]]);
         
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didReceiveError:error:)]) {
             [self.delegate didReceiveError:self error:payload[0]];
@@ -598,6 +601,11 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     NSString *protocolString = [[MPBTSprocket sharedInstance] supportedProtocolString:accessory];
 
     return (nil != protocolString);
+}
+
++ (NSString *)displayNameForAccessory:(EAAccessory *)accessory
+{
+    return [NSString stringWithFormat:@"%@ (%@)", accessory.name, accessory.serialNumber];
 }
 
 + (NSString *)autoExposureString:(MantaAutoExposure)exp
@@ -712,56 +720,114 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     return statusString;
 }
 
-+ (NSString *)errorString:(MantaError)error
++ (NSString *)errorTitle:(MantaError)error
 {
     NSString *errString;
     
     switch (error) {
         case MantaErrorNoError:
-            errString = @"None";
+            errString = MPLocalizedString(@"None", @"Message given when sprocket has no known error");
             break;
         case MantaErrorBusy:
-            errString = @"MantaErrorBusy";
+            errString = MPLocalizedString(@"Printer in Use", @"Message given when sprocket cannot print due to being in use.");
             break;
         case MantaErrorPaperJam:
-            errString = @"MantaErrorPaperJam";
+            errString = MPLocalizedString(@"Paper has Jammed", @"Message given when sprocket cannot print due to having a paper jam");
             break;
         case MantaErrorPaperEmpty:
-            errString = @"MantaErrorPaperEmpty";
+            errString = MPLocalizedString(@"Out of Paper", @"Message given when sprocket cannot print due to having no paper");
             break;
         case MantaErrorPaperMismatch:
-            errString = @"MantaErrorPaperMismatch";
+            errString = MPLocalizedString(@"Incorrect Paper Type", @"Message given when sprocket cannot print due to being loaded with the wrong kind of paper");
             break;
         case MantaErrorDataError:
-            errString = @"MantaErrorDataError";
+            errString = MPLocalizedString(@"Photo Unsupported", @"Message given when sprocket cannot print due to an error with the image data.");
             break;
         case MantaErrorCoverOpen:
-            errString = @"MantaErrorCoverOpen";
+            errString = MPLocalizedString(@"Paper Cover Open", @"Message given when sprocket cannot print due to the cover being open");
             break;
         case MantaErrorSystemError:
-            errString = @"MantaErrorSystemError";
+            errString = MPLocalizedString(@"System Error Occured", @"Message given when sprocket cannot print due to a system error");
             break;
         case MantaErrorBatteryLow:
-            errString = @"MantaErrorBatteryLow";
+            errString = MPLocalizedString(@"Battery Low", @"Message given when sprocket cannot print due to having a low battery");;
             break;
         case MantaErrorBatteryFault:
-            errString = @"MantaErrorBatteryFault";
+            errString = MPLocalizedString(@"Battery Error", @"Message given when sprocket cannot print due to having an error related to the battery.");
             break;
         case MantaErrorHighTemperature:
-            errString = @"MantaErrorHighTemperature";
+            errString = MPLocalizedString(@"Sprocket is Warm", @"Message given when sprocket cannot print due to being too hot");
             break;
         case MantaErrorLowTemperature:
-            errString = @"MantaErrorLowTemperature";
+            errString = MPLocalizedString(@"Sprocket is Cold", @"Message given when sprocket cannot print due to being too cold");
             break;
         case MantaErrorCoolingMode:
-            errString = @"MantaErrorCoolingMode";
+            errString = MPLocalizedString(@"Cooling Down...", @"Message given when sprocket cannot print due to bing in a cooling mode");
             break;
         case MantaErrorWrongCustomer:
-            errString = @"MantaErrorWrongCustomer";
+            errString = MPLocalizedString(@"Error", @"Message given when sprocket cannot print due to not recognizing data from our app");
             break;
             
         default:
             errString = [NSString stringWithFormat:@"Unrecognized Error: %d", error];
+            errString = MPLocalizedString(errString, @"Message given when sprocket has an unrecgonized error");
+            break;
+    };
+    
+    return errString;
+}
+
++ (NSString *)errorDescription:(MantaError)error
+{
+    NSString *errString;
+    
+    switch (error) {
+        case MantaErrorNoError:
+            errString = MPLocalizedString(@"Sprocket is ready to print.", @"Message given when sprocket has no known error");
+            break;
+        case MantaErrorBusy:
+            errString = MPLocalizedString(@"Sprocket is already processing a job. Please wait to resend photo.", @"Message given when sprocket cannot print due to being in use.");
+            break;
+        case MantaErrorPaperJam:
+            errString = MPLocalizedString(@"Clear paper jam and restart the printer by pressing and holding the power button.", @"Message given when sprocket cannot print due to having a paper jam");
+            break;
+        case MantaErrorPaperEmpty:
+            errString = MPLocalizedString(@"Load paper with the included smartsheet to continue printing.", @"Message given when sprocket cannot print due to having no paper");
+            break;
+        case MantaErrorPaperMismatch:
+            errString = MPLocalizedString(@"Use only HP branded ZINK paper. If using the correct paper, try printing again. ", @"Message given when sprocket cannot print due to being loaded with the wrong kind of paper");
+            break;
+        case MantaErrorDataError:
+            errString = MPLocalizedString(@"There was an error sending your photo. The photo format may not be supported on this printer. Choose another image. ", @"Message given when sprocket cannot print due to an error with the image data.");
+            break;
+        case MantaErrorCoverOpen:
+            errString = MPLocalizedString(@"Close the cover to proceed.", @"Message given when sprocket cannot print due to the cover being open");
+            break;
+        case MantaErrorSystemError:
+            errString = MPLocalizedString(@"Due to a system error, restart sprocket to continue printing.", @"Message given when sprocket cannot print due to a system error");
+            break;
+        case MantaErrorBatteryLow:
+            errString = MPLocalizedString(@"Connect your sprocket to a power source to continue use.", @"Message given when sprocket cannot print due to having a low battery");
+            break;
+        case MantaErrorBatteryFault:
+            errString = MPLocalizedString(@"A battery error has occured. Restart Sprocket to continue printing.", @"Message given when sprocket cannot print due to having an error related to the battery.");
+            break;
+        case MantaErrorHighTemperature:
+            errString = MPLocalizedString(@"Printing is diabled until a lower temperature is reached. Wait to send another photo.", @"Message given when sprocket cannot print due to being too hot");
+            break;
+        case MantaErrorLowTemperature:
+            errString = MPLocalizedString(@"Printing is diabled until a higher temperature is reached. Wait to send another photo.", @"Message given when sprocket cannot print due to being too cold");
+            break;
+        case MantaErrorCoolingMode:
+            errString = MPLocalizedString(@"Sprocket needs to cool down before printing another job. Wait to send another photo.", @"Message given when sprocket cannot print due to bing in a cooling mode");
+            break;
+        case MantaErrorWrongCustomer:
+            errString = MPLocalizedString(@"The device is not recognized.", @"Message given when sprocket cannot print due to not recognizing data from our app");
+            break;
+            
+        default:
+            errString = [NSString stringWithFormat:@"Unrecognized Error: %d", error];
+            errString = MPLocalizedString(errString, @"Message given when sprocket has an unrecgonized error");
             break;
     };
     

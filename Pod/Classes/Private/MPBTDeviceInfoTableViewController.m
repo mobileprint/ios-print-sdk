@@ -12,7 +12,7 @@
 
 #import "MPBTDeviceInfoTableViewController.h"
 #import "MPBTAutoOffTableViewController.h"
-#import "MPBTFirmwareProgressView.h"
+#import "MPBTProgressView.h"
 #import "MPBTSprocket.h"
 #import "MP.h"
 #import "NSBundle+MPLocalizable.h"
@@ -35,7 +35,7 @@ typedef enum
 
 @property (weak, nonatomic) IBOutlet UIButton *fwUpgradeButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) MPBTFirmwareProgressView *progressView;
+@property (strong, nonatomic) MPBTProgressView *progressView;
 
 @end
 
@@ -57,7 +57,7 @@ typedef enum
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.separatorColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralTableSeparatorColor];
     
-    if (![MPBTFirmwareProgressView needFirmwareUpdate]) {
+    if (![MPBTProgressView needFirmwareUpdate]) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,10,10)];
     }
 
@@ -115,8 +115,8 @@ typedef enum
 
 - (IBAction)didPressFirmwareUpgrade:(id)sender {
     if (nil == self.progressView) {
-        self.progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:self.navigationController.view.frame];
-        self.progressView.navController = self.navigationController;
+        self.progressView = [[MPBTProgressView alloc] initWithFrame:self.navigationController.view.frame];
+        self.progressView.viewController = self.navigationController;
         self.progressView.sprocketDelegate = self;
         [self.progressView reflashDevice];
     }
@@ -210,7 +210,7 @@ typedef enum
 
 - (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
 {
-    self.lastError = [MPBTSprocket errorString:error];
+    self.lastError = [MPBTSprocket errorTitle:error];
 
     [self setTitle:[NSString stringWithFormat:@"%@", sprocket.displayName]];
 
@@ -234,8 +234,8 @@ typedef enum
 
 - (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
 {
-    self.alert.title = @"Error";
-    self.alert.message = [NSString stringWithFormat:@"Error sending device upgrade: %@", [MPBTSprocket errorString:error]];
+    self.alert.title = [MPBTSprocket errorTitle:error];
+    self.alert.message = [NSString stringWithFormat:@"Error sending device upgrade: %@", [MPBTSprocket errorDescription:error]];
     [self addActionToBluetoothStatus];
     if (self.view.window  &&  !(self.alert.isViewLoaded  &&  self.alert.view.window)) {
         [self presentViewController:self.alert animated:YES completion:nil];

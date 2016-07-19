@@ -16,7 +16,10 @@
 #import "MP.h"
 #import "NSBundle+MPLocalizable.h"
 #import "MPBTDeviceInfoTableViewController.h"
+#import "MPBTProgressView.h"
 #import <ExternalAccessory/ExternalAccessory.h>
+
+static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetting";
 
 @interface MPBTPairedAccessoriesViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -30,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *noDevicesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewHeightConstraint;
+@property (strong, nonatomic) UIImage *image;
+@property (weak, nonatomic) UIViewController *hostController;
 
 @end
 
@@ -68,6 +73,9 @@
     self.descriptionLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFontColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    self.image = nil;
+    self.hostController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -77,7 +85,6 @@
     if ([UINavigationController class] == [self.parentViewController class]) {
         self.topViewHeightConstraint.constant = 0;
         self.topView.hidden = YES;
-        self.showDisclosureIndicator = YES;
     }
     
     [self didPressRefreshButton:nil];
@@ -85,16 +92,33 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-+ (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
++ (void)presentAnimatedForDeviceInfo:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesNavigationController"];
     [hostController presentViewController:navigationController animated:animated completion:^{
         if (completion) {
             completion();
+        }
+    }];
+}
+
++ (void)presentAnimatedForPrint:(BOOL)animated image:(UIImage *)image usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
+    UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesNavigationController"];
+    [hostController presentViewController:navigationController animated:animated completion:^{
+        if (completion) {
+            completion();
+        }
+        
+        if ([MPBTPairedAccessoriesViewController class] == [[navigationController topViewController] class]) {
+            MPBTPairedAccessoriesViewController *vc = (MPBTPairedAccessoriesViewController *)[navigationController topViewController];
+            vc.image = image;
+            vc.hostController = hostController;
+            [vc.tableView reloadData];
         }
     }];
 }
@@ -112,57 +136,122 @@
     }
     
     EAAccessory *accessory = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
+    if ([self numberOfSectionsInTableView:tableView] > 1  &&  0 == indexPath.section) {
+        accessory = [self lastAccessoryUsed];
+    }
     
-    [[cell textLabel] setText:[self displayNameForAccessory:accessory]];
+    [[cell textLabel] setText:[MPBTSprocket displayNameForAccessory:accessory]];
     cell.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
     cell.textLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     cell.textLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
-    if (self.showDisclosureIndicator) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else {
+    if (self.image) {
         cell.accessoryType = UITableViewCellAccessoryNone;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     return cell;
 }
 
-
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    NSInteger numSections = (self.image && [self lastPrinterUsedIsPaired]) ? 2 : 1;
+    
+    return numSections;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *title = @"";
+    if ([self numberOfSectionsInTableView:tableView] > 1) {
+        if (0 == section) {
+            title = MPLocalizedString(@"Recent Printer", @"Table heading for the printer that has most recently been printed to");
+        } else if (1 == section) {
+            title = MPLocalizedString(@"All Printers", @"Table heading for list of available printers");
+        }
+    }
+    
+    return title;
+}
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger numRows = self.pairedDevices.count;
-    
     self.noDevicesView.hidden = (0 == numRows) ? NO : YES;
-
+    
+    if ([self numberOfSectionsInTableView:tableView] > 1) {
+        self.noDevicesView.hidden = YES;
+        
+        if (0 == section) {
+            numRows = 1;
+        }
+    }
+    
     return numRows;
 }
 
 #pragma mark - UITableViewDelegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat height = tableView.sectionHeaderHeight;
+    
+    if ([self numberOfSectionsInTableView:tableView] > 1) {
+        height = 35.0F;
+    }
+    
+    return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    CGFloat height = tableView.sectionHeaderHeight;
+    
+    if ([self numberOfSectionsInTableView:tableView] > 1) {
+        height = 10.0F;
+    }
+    
+    return height;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.contentView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
+    header.textLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPMainActionInactiveLinkFontColor];
+    header.textLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+    footer.contentView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
+}
+
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // ensure that the device is still connected
-    BOOL stillConnected = NO;
+    EAAccessory *accessory = nil;
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     NSString *displayName = cell.textLabel.text;
+    
     NSArray *currentlyPairedDevices = [MPBTSprocket pairedSprockets];
     for (EAAccessory *acc in currentlyPairedDevices) {
-        if ([displayName isEqualToString:[self displayNameForAccessory:acc]]) {
-            stillConnected = YES;
+        if ([displayName isEqualToString:[MPBTSprocket displayNameForAccessory:acc]]) {
+            accessory = acc;
         }
     }
     
-    if (stillConnected) {
-        EAAccessory *device = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
+    if (nil != accessory) {
         MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
-        sprocket.accessory = device;
+        sprocket.accessory = accessory;
         
-        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectSprocket:)]) {
+        if (self.image  &&  self.hostController) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                MPBTProgressView *progressView = [[MPBTProgressView alloc] initWithFrame:self.hostController.view.frame];
+                progressView.viewController = self.hostController;
+                [progressView printToDevice:self.image];
+            }];
+        }
+        else if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectSprocket:)]) {
             void (^completionBlock)(void) = ^{
                 [self.delegate didSelectSprocket:sprocket];
                 
@@ -201,24 +290,7 @@
     [self refreshPairedDevices];
     
     if (0 == self.pairedDevices.count) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:MPLocalizedString(@"Printer not connected to device", @"Title of dialog letting the user know that there is no sprocket paired with their phone")
-                                                                       message:MPLocalizedString(@"Make sure the printer is turned on and check the Bluetooth connection.", @"Body of dialog letting the user know that there is no sprocket paired with their phone")
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* settingsAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"Settings", @"Button that takes the user to the phone's Settings screen")
-                                                                 style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
-                                                                  NSURL *url = [NSURL URLWithString:@"prefs:root=Bluetooth"];
-                                                                  [[UIApplication sharedApplication] openURL:url];
-                                                              }];
-        
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-        [alert addAction:okAction];
-        [alert addAction:settingsAction];
-        
-        [self presentViewController:alert animated:YES completion:nil];
+        [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:self];
     }
 }
 
@@ -228,9 +300,56 @@
 
 #pragma mark - Util
 
-- (NSString *)displayNameForAccessory:(EAAccessory *)accessory
+- (BOOL)lastPrinterUsedIsPaired
 {
-    return [NSString stringWithFormat:@"%@ (%@)", accessory.name, accessory.serialNumber];
+    return ([self lastAccessoryUsed] != nil);
+}
+
+- (EAAccessory *)lastAccessoryUsed
+{
+    EAAccessory *lastAccessory = nil;
+    NSString *lastPrinterUsedName = [MPBTPairedAccessoriesViewController lastPrinterUsed];
+    
+    for (EAAccessory *acc in self.pairedDevices) {
+        if ([[MPBTSprocket displayNameForAccessory:acc] isEqualToString:lastPrinterUsedName]) {
+            lastAccessory = acc;
+            break;
+        }
+    }
+    
+    return lastAccessory;
+}
+
++ (void)setLastPrinterUsed:(NSString *)lastPrinterUsed
+{
+    [[NSUserDefaults standardUserDefaults] setObject:lastPrinterUsed forKey:kMPBTLastPrinterNameSetting];
+}
+
++ (NSString *)lastPrinterUsed
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kMPBTLastPrinterNameSetting];
+}
+
++ (void)presentNoPrinterConnectedAlert:(UIViewController *)hostController
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MPLocalizedString(@"Printer not connected to device", @"Title of dialog letting the user know that there is no sprocket paired with their phone")
+                                                                   message:MPLocalizedString(@"Make sure the printer is turned on and check the Bluetooth connection.", @"Body of dialog letting the user know that there is no sprocket paired with their phone")
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* settingsAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"Settings", @"Button that takes the user to the phone's Settings screen")
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) {
+                                                               NSURL *url = [NSURL URLWithString:@"prefs:root=Bluetooth"];
+                                                               [[UIApplication sharedApplication] openURL:url];
+                                                           }];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:nil];
+    [alert addAction:okAction];
+    [alert addAction:settingsAction];
+    
+    [hostController presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)becomeActive:(NSNotification *)notification {

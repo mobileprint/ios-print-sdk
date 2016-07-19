@@ -10,21 +10,22 @@
 // the license agreement.
 //
 
-#import "MPBTFirmwareProgressView.h"
+#import "MPBTProgressView.h"
 #import "MP.h"
+#import "MPBTPairedAccessoriesViewController.h"
 #import "NSBundle+MPLocalizable.h"
 
 static CGFloat    const kProgressViewAnimationDuration = 1.0F;
 static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUpgrade";
 
-@interface MPBTFirmwareProgressView() <MPBTSprocketDelegate>
+@interface MPBTProgressView() <MPBTSprocketDelegate>
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end
 
-@implementation MPBTFirmwareProgressView
+@implementation MPBTProgressView
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -77,20 +78,35 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)setup
 {
-    self.label.text = MPLocalizedString(@"Downloading Firmware Upgrade", @"Indicates that the firmware upgrade is being loaded onto the printer");
-    self.label.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
-    self.label.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
+    self.alpha = 0.0;
+
+    self.label.font = [[MP sharedInstance].appearance.settings objectForKey:kMPOverlayPrimaryFont];
+    self.label.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPOverlayLinkFontColor];
 }
 
 - (void)reflashDevice
 {
-    self.alpha = 0.0;
+    self.label.text = MPLocalizedString(@"Downloading Firmware Upgrade", @"Indicates that the firmware upgrade is being loaded onto the printer");
     
-    [self.navController.view addSubview:self];
+    [self.viewController.view addSubview:self];
     [MPBTSprocket sharedInstance].delegate = self;
     [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashHP];
     
-    [UIView animateWithDuration:[MPBTFirmwareProgressView animationDuration]/2 animations:^{
+    [UIView animateWithDuration:[MPBTProgressView animationDuration]/2 animations:^{
+        self.alpha = 1.0;
+    }];
+}
+
+- (void)printToDevice:(UIImage *)image
+{
+    self.label.text = MPLocalizedString(@"Sending to printer", @"Indicates that the phone is sending an image to the printer");
+
+    [self.viewController.view addSubview:self];
+    [MPBTSprocket sharedInstance].delegate = self;
+    
+    [[MPBTSprocket sharedInstance] printImage:image numCopies:1];
+    
+    [UIView animateWithDuration:[MPBTProgressView animationDuration]/2 animations:^{
         self.alpha = 1.0;
     }];
 }
@@ -112,11 +128,22 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)removeProgressView
 {
-    [UIView animateWithDuration:[MPBTFirmwareProgressView animationDuration] animations:^{
+    [UIView animateWithDuration:[MPBTProgressView animationDuration] animations:^{
         self.alpha = 0.0F;
     } completion:^(BOOL finished){
         [self removeFromSuperview];
     }];
+}
+
+- (id) traverseResponderChainForUIViewController:(UIResponder *)responder {
+    id nextResponder = [responder nextResponder];
+    if ([nextResponder isKindOfClass:[UIViewController class]]) {
+        return nextResponder;
+    } else if ([nextResponder isKindOfClass:[UIView class]]) {
+        return [self traverseResponderChainForUIViewController:nextResponder];
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - SprocketDelegate
@@ -130,6 +157,12 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
 {
+    [self setProgress:(((CGFloat)percentageComplete)/100.0F)*0.8F];
+    
+    if (MantaErrorNoError != error) {
+        [self didReceiveError:sprocket error:error];
+    }
+
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didSendPrintData:percentageComplete:error:)]) {
         [self.sprocketDelegate didSendPrintData:sprocket percentageComplete:percentageComplete error:error];
     }
@@ -137,6 +170,8 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)didFinishSendingPrint:(MPBTSprocket *)sprocket
 {
+    [self setProgress:0.9F];
+ 
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didFinishSendingPrint:)]) {
         [self.sprocketDelegate didFinishSendingPrint:sprocket];
     }
@@ -144,6 +179,11 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)didStartPrinting:(MPBTSprocket *)sprocket
 {
+    [self setProgress:1.0F];
+
+    [self removeProgressView];
+
+    [MPBTPairedAccessoriesViewController setLastPrinterUsed:[MPBTSprocket sharedInstance].displayName];
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didStartPrinting:)]) {
         [self.sprocketDelegate didStartPrinting:sprocket];
     }
@@ -153,6 +193,20 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 {
     [self removeProgressView];
 
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[MPBTSprocket errorTitle:error]
+                                                                   message:[MPBTSprocket errorDescription:error]
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:nil];
+    [alert addAction:okAction];
+    
+    UIViewController *vc = [self traverseResponderChainForUIViewController:self];
+    if (nil != vc ) {
+        [vc presentViewController:alert animated:YES completion:nil];
+    }
+    
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didReceiveError:error:)]) {
         [self.sprocketDelegate didReceiveError:sprocket error:error];
     }

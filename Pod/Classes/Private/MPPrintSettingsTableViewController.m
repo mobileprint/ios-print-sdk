@@ -20,7 +20,6 @@
 #import "UITableView+MPHeader.h"
 #import "NSBundle+MPLocalizable.h"
 #import "UIImage+MPBundle.h"
-#import "MPBTPairedAccessoriesViewController.h"
 
 #define PRINTER_SELECTION_SECTION 0
 #define PAPER_SELECTION_SECTION 1
@@ -166,33 +165,24 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
     cell.selected = NO;
     
     if (cell == self.printerSelectCell) {
-        if (self.mp.useBluetooth) {
-            MPBTPairedAccessoriesViewController *vc = [[UIStoryboard storyboardWithName:@"MP" bundle:nil] instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesViewController"];
-            vc.delegate = self;
-            vc.completionBlock = ^(BOOL userDidSelect){
-                MPLogInfo(@"closed bluetooth printer picker");
-            };
-            [self presentViewController:vc animated:YES completion:nil];
-        } else {
-            if ([[MPWiFiReachability sharedInstance] isWifiConnected]) {
-                UIPrinterPickerController* printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
-                printerPicker.delegate = self;
-                
-                if( !self.splitViewController.isCollapsed ) {
-                    [printerPicker presentFromRect:self.printerSelectCell.frame
-                                            inView:tableView
-                                          animated:YES
-                                 completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                                     MPLogInfo(@"closed printer picker");
-                                 }];
-                } else {
-                    [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
-                        MPLogInfo(@"closed printer picker");
-                    }];
-                }
+        if ([[MPWiFiReachability sharedInstance] isWifiConnected]) {
+            UIPrinterPickerController* printerPicker = [UIPrinterPickerController printerPickerControllerWithInitiallySelectedPrinter:nil];
+            printerPicker.delegate = self;
+            
+            if( !self.splitViewController.isCollapsed ) {
+                [printerPicker presentFromRect:self.printerSelectCell.frame
+                                        inView:tableView
+                                      animated:YES
+                             completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                                 MPLogInfo(@"closed printer picker");
+                             }];
             } else {
-                [[MPWiFiReachability sharedInstance] noPrinterSelectAlert];
+                [printerPicker presentAnimated:YES completionHandler:^(UIPrinterPickerController *printerPickerController, BOOL userDidSelect, NSError *error){
+                    MPLogInfo(@"closed printer picker");
+                }];
             }
+        } else {
+            [[MPWiFiReachability sharedInstance] noPrinterSelectAlert];
         }
     }
 }
@@ -304,27 +294,6 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
         self.selectedPaperSizeLabel.text = self.printSettings.paper.sizeTitle;
         [self.tableView reloadData];
     }
-}
-
-#pragma mark - MPBTPairedAccessoriesViewControllerDelegate
-
-- (void)didSelectSprocket:(MPBTSprocket *)sprocket
-{
-    sprocket.delegate = self;
-    self.selectedPrinterLabel.text = sprocket.accessory.name;
-    self.printSettings.sprocketPrinter = sprocket;
-    self.printSettings.printerName = sprocket.accessory.name;
-    self.printSettings.printerUrl = [NSURL URLWithString:sprocket.protocolString];
-    self.printSettings.printerModel = nil;
-    self.printSettings.printerLocation = nil;
-    self.printSettings.printerIsAvailable = YES;
-    
-    if ([self.delegate respondsToSelector:@selector(printSettingsTableViewController:didChangePrintSettings:)]) {
-        [self.delegate printSettingsTableViewController:self didChangePrintSettings:self.printSettings];
-    }
-    
-    self.selectedPaperSizeLabel.text = self.printSettings.paper.sizeTitle;
-    [self.tableView reloadData];
 }
 
 #pragma mark - MPPaperSizeTableViewControllerDelegate
