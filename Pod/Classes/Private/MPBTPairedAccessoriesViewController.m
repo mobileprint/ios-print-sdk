@@ -25,6 +25,8 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *pairedDevices;
+@property (strong, nonatomic) EAAccessory *recentDevice;
+@property (strong, nonatomic) NSMutableArray *otherDevices;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -87,11 +89,21 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
         self.topView.hidden = YES;
     }
     
-    [self didPressRefreshButton:nil];
+    [self refreshPairedDevices];
+    
+    if (0 == self.pairedDevices.count) {
+        [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:self];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)setImage:(UIImage *)image
+{
+    _image = image;
+    [self refreshPairedDevices];
 }
 
 + (void)presentAnimatedForDeviceInfo:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
@@ -136,8 +148,13 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
     }
     
     EAAccessory *accessory = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
-    if ([self numberOfSectionsInTableView:tableView] > 1  &&  0 == indexPath.section) {
-        accessory = [self lastAccessoryUsed];
+    if ([self numberOfSectionsInTableView:tableView] > 1) {
+        
+        if (0 == indexPath.section) {
+            accessory = self.recentDevice;
+        } else {
+            accessory = (EAAccessory *)[self.otherDevices objectAtIndex:indexPath.row];
+        }
     }
     
     [[cell textLabel] setText:[MPBTSprocket displayNameForAccessory:accessory]];
@@ -155,7 +172,7 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger numSections = (self.image && [self lastPrinterUsedIsPaired]) ? 2 : 1;
+    NSInteger numSections = (self.recentDevice) ? 2 : 1;
     
     return numSections;
 }
@@ -167,7 +184,7 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
         if (0 == section) {
             title = MPLocalizedString(@"Recent Printer", @"Table heading for the printer that has most recently been printed to");
         } else if (1 == section) {
-            title = MPLocalizedString(@"All Printers", @"Table heading for list of available printers");
+            title = MPLocalizedString(@"Other Printers", @"Table heading for list of all available printers, except for the most recently used printer");
         }
     }
     
@@ -184,6 +201,8 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
         
         if (0 == section) {
             numRows = 1;
+        } else {
+            numRows = self.otherDevices.count;
         }
     }
     
@@ -286,24 +305,11 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
 
 #pragma mark - Button Listeners
 
-- (IBAction)didPressRefreshButton:(id)sender {
-    [self refreshPairedDevices];
-    
-    if (0 == self.pairedDevices.count) {
-        [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:self];
-    }
-}
-
 - (IBAction)didPressCancel:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Util
-
-- (BOOL)lastPrinterUsedIsPaired
-{
-    return ([self lastAccessoryUsed] != nil);
-}
 
 - (EAAccessory *)lastAccessoryUsed
 {
@@ -358,7 +364,20 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
 
 - (void)refreshPairedDevices
 {
+    self.otherDevices = [[NSMutableArray alloc] init];
+    self.recentDevice = nil;
     self.pairedDevices = [MPBTSprocket pairedSprockets];
+    
+    self.recentDevice = [self lastAccessoryUsed];
+    if (self.recentDevice) {
+        for (EAAccessory *acc in self.pairedDevices) {
+            if ([[MPBTSprocket displayNameForAccessory:acc] isEqualToString:[MPBTSprocket displayNameForAccessory:self.recentDevice]]) {
+                [self.otherDevices addObject:acc];
+                break;
+            }
+        }
+    }
+    
     [self.tableView reloadData];
 }
 
