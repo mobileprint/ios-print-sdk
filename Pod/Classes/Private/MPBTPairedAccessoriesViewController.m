@@ -371,7 +371,7 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
     self.recentDevice = [self lastAccessoryUsed];
     if (self.recentDevice) {
         for (EAAccessory *acc in self.pairedDevices) {
-            if ([[MPBTSprocket displayNameForAccessory:acc] isEqualToString:[MPBTSprocket displayNameForAccessory:self.recentDevice]]) {
+            if (![[MPBTSprocket displayNameForAccessory:acc] isEqualToString:[MPBTSprocket displayNameForAccessory:self.recentDevice]]) {
                 [self.otherDevices addObject:acc];
                 break;
             }
