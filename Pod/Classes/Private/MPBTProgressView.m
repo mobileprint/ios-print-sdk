@@ -80,8 +80,8 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 {
     self.alpha = 0.0;
 
-    self.label.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
-    self.label.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
+    self.label.font = [[MP sharedInstance].appearance.settings objectForKey:kMPOverlayPrimaryFont];
+    self.label.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPOverlayLinkFontColor];
 }
 
 - (void)reflashDevice

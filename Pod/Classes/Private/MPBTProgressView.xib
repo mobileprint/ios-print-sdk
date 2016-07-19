@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MPBTFirmwareProgressView">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MPBTProgressView">
             <connections>
                 <outlet property="label" destination="VB4-1X-JwR" id="uRQ-fy-NT3"/>
                 <outlet property="progressBar" destination="1q7-j3-nHK" id="BfQ-Sg-pFy"/>
@@ -15,7 +15,15 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mcf-Ke-dGd" userLabel="ProgressView">
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fwU-07-rPG">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Eki-Nu-UOU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="dark"/>
+                </visualEffectView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mcf-Ke-dGd" userLabel="ProgressView">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <subviews>
                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="1q7-j3-nHK" userLabel="ProgressBar">
@@ -35,7 +43,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="VB4-1X-JwR" firstAttribute="width" secondItem="1q7-j3-nHK" secondAttribute="width" id="6Du-60-oa0"/>
                         <constraint firstItem="1q7-j3-nHK" firstAttribute="centerY" secondItem="Mcf-Ke-dGd" secondAttribute="centerY" constant="-20" id="IxM-8O-LwO"/>
@@ -50,8 +58,12 @@
             <constraints>
                 <constraint firstItem="Mcf-Ke-dGd" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="73B-aM-njL"/>
                 <constraint firstItem="Mcf-Ke-dGd" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="8dc-U6-a14"/>
+                <constraint firstItem="fwU-07-rPG" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="P8S-Fe-O23"/>
                 <constraint firstItem="Mcf-Ke-dGd" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Rvu-WU-21V"/>
+                <constraint firstItem="fwU-07-rPG" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="SQA-cY-HhG"/>
+                <constraint firstItem="fwU-07-rPG" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="ZMA-H5-qR0"/>
                 <constraint firstItem="Mcf-Ke-dGd" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dRh-Oh-gWO"/>
+                <constraint firstItem="fwU-07-rPG" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="loL-62-yzX"/>
             </constraints>
             <point key="canvasLocation" x="351" y="-194"/>
         </view>
