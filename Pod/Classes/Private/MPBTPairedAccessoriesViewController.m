@@ -19,7 +19,9 @@
 #import "MPBTProgressView.h"
 #import <ExternalAccessory/ExternalAccessory.h>
 
-static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetting";
+static NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetting";
+static const NSInteger kMPBTPairedAccessoriesRecentSection = 0;
+static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 
 @interface MPBTPairedAccessoriesViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -150,7 +152,7 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
     EAAccessory *accessory = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
     if ([self numberOfSectionsInTableView:tableView] > 1) {
         
-        if (0 == indexPath.section) {
+        if (kMPBTPairedAccessoriesRecentSection == indexPath.section) {
             accessory = self.recentDevice;
         } else {
             accessory = (EAAccessory *)[self.otherDevices objectAtIndex:indexPath.row];
@@ -181,9 +183,9 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
 {
     NSString *title = @"";
     if ([self numberOfSectionsInTableView:tableView] > 1) {
-        if (0 == section) {
+        if (kMPBTPairedAccessoriesRecentSection == section) {
             title = MPLocalizedString(@"Recent Printer", @"Table heading for the printer that has most recently been printed to");
-        } else if (1 == section) {
+        } else if (kMPBTPairedAccessoriesOtherSection == section) {
             title = MPLocalizedString(@"Other Printers", @"Table heading for list of all available printers, except for the most recently used printer");
         }
     }
@@ -199,7 +201,7 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
     if ([self numberOfSectionsInTableView:tableView] > 1) {
         self.noDevicesView.hidden = YES;
         
-        if (0 == section) {
+        if (kMPBTPairedAccessoriesRecentSection == section) {
             numRows = 1;
         } else {
             numRows = self.otherDevices.count;
