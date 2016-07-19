@@ -23,7 +23,7 @@
 #import "MPBTSprocket.h"
 #import "MPBTPairedAccessoriesViewController.h"
 #import "MPPrintSettingsDelegateManager.h"
-#import "MPBTFirmwareProgressView.h"
+#import "MPBTProgressView.h"
 
 NSString * const kMPLibraryVersion = @"3.0.7";
 
@@ -140,20 +140,6 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return _pageSettingsCancelButtonLeft;
 }
 
-- (void)setUseBluetooth:(BOOL)useBluetooth
-{
-    _useBluetooth = useBluetooth;
-    
-    if (useBluetooth) {
-        [MP sharedInstance].hideBlackAndWhiteOption = YES;
-        [MP sharedInstance].hidePaperSizeOption = YES;
-        [MP sharedInstance].hidePaperTypeOption = YES;
-        
-        [MP sharedInstance].defaultPaper = [[MPPaper alloc] initWithPaperSize:MPPaperSize2x3 paperType:MPPaperTypePhoto];
-        [MP sharedInstance].supportedPapers = @[[MP sharedInstance].defaultPaper];
-        [MPPrintSettingsDelegateManager setLastPaperUsed:[MP sharedInstance].defaultPaper];
-    }
-}
 #pragma mark - Metrics
 
 - (void)handleShareCompletedNotification:(NSNotification *)notification
@@ -295,7 +281,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 
 - (BOOL)bluetoothDeviceNeedsReflash
 {
-    return (1 == [self numberOfPairedSprockets]  &&  [MPBTFirmwareProgressView needFirmwareUpdate]);
+    return (1 == [self numberOfPairedSprockets]  &&  [MPBTProgressView needFirmwareUpdate]);
 }
 
 -(void)reflashBluetoothDevice:(UIViewController *)viewController
@@ -305,7 +291,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
         EAAccessory *device = (EAAccessory *)[pairedDevices objectAtIndex:0];
         [MPBTSprocket sharedInstance].accessory = device;
 
-        MPBTFirmwareProgressView *progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:viewController.view.frame];
+        MPBTProgressView *progressView = [[MPBTProgressView alloc] initWithFrame:viewController.view.frame];
         progressView.viewController = viewController;
         [progressView reflashDevice];
     }
@@ -326,7 +312,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
         EAAccessory *device = (EAAccessory *)[pairedSprockets objectAtIndex:0];
         [MPBTSprocket sharedInstance].accessory = device;
         
-        MPBTFirmwareProgressView *progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:controller.view.frame];
+        MPBTProgressView *progressView = [[MPBTProgressView alloc] initWithFrame:controller.view.frame];
         progressView.viewController = controller;
         [progressView printToDevice:image];
         

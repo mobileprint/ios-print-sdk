@@ -12,7 +12,7 @@
 
 #import "MPBTDeviceInfoTableViewController.h"
 #import "MPBTAutoOffTableViewController.h"
-#import "MPBTFirmwareProgressView.h"
+#import "MPBTProgressView.h"
 #import "MPBTSprocket.h"
 #import "MP.h"
 #import "NSBundle+MPLocalizable.h"
@@ -35,7 +35,7 @@ typedef enum
 
 @property (weak, nonatomic) IBOutlet UIButton *fwUpgradeButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) MPBTFirmwareProgressView *progressView;
+@property (strong, nonatomic) MPBTProgressView *progressView;
 
 @end
 
@@ -57,7 +57,7 @@ typedef enum
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.separatorColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralTableSeparatorColor];
     
-    if (![MPBTFirmwareProgressView needFirmwareUpdate]) {
+    if (![MPBTProgressView needFirmwareUpdate]) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,10,10)];
     }
 
@@ -115,7 +115,7 @@ typedef enum
 
 - (IBAction)didPressFirmwareUpgrade:(id)sender {
     if (nil == self.progressView) {
-        self.progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:self.navigationController.view.frame];
+        self.progressView = [[MPBTProgressView alloc] initWithFrame:self.navigationController.view.frame];
         self.progressView.viewController = self.navigationController;
         self.progressView.sprocketDelegate = self;
         [self.progressView reflashDevice];

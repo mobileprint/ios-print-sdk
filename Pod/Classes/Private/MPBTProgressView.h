@@ -14,7 +14,7 @@
 #import "MPView.h"
 #import "MPBTSprocket.h"
 
-@interface MPBTFirmwareProgressView : MPView
+@interface MPBTProgressView : MPView
 
 @property (weak, nonatomic) id<MPBTSprocketDelegate> sprocketDelegate;
 @property (weak, nonatomic) UIViewController *viewController;

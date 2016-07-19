@@ -10,7 +10,7 @@
 // the license agreement.
 //
 
-#import "MPBTFirmwareProgressView.h"
+#import "MPBTProgressView.h"
 #import "MP.h"
 #import "MPBTPairedAccessoriesViewController.h"
 #import "NSBundle+MPLocalizable.h"
@@ -18,14 +18,14 @@
 static CGFloat    const kProgressViewAnimationDuration = 1.0F;
 static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUpgrade";
 
-@interface MPBTFirmwareProgressView() <MPBTSprocketDelegate>
+@interface MPBTProgressView() <MPBTSprocketDelegate>
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end
 
-@implementation MPBTFirmwareProgressView
+@implementation MPBTProgressView
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -92,7 +92,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     [MPBTSprocket sharedInstance].delegate = self;
     [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashHP];
     
-    [UIView animateWithDuration:[MPBTFirmwareProgressView animationDuration]/2 animations:^{
+    [UIView animateWithDuration:[MPBTProgressView animationDuration]/2 animations:^{
         self.alpha = 1.0;
     }];
 }
@@ -106,7 +106,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     
     [[MPBTSprocket sharedInstance] printImage:image numCopies:1];
     
-    [UIView animateWithDuration:[MPBTFirmwareProgressView animationDuration]/2 animations:^{
+    [UIView animateWithDuration:[MPBTProgressView animationDuration]/2 animations:^{
         self.alpha = 1.0;
     }];
 }
@@ -128,7 +128,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)removeProgressView
 {
-    [UIView animateWithDuration:[MPBTFirmwareProgressView animationDuration] animations:^{
+    [UIView animateWithDuration:[MPBTProgressView animationDuration] animations:^{
         self.alpha = 0.0F;
     } completion:^(BOOL finished){
         [self removeFromSuperview];

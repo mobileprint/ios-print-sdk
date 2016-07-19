@@ -750,9 +750,13 @@ NSInteger const kLengthOfSHA = 7;
         [self presentViewController:vc animated:YES completion:nil];
     }
     else {
-        BOOL settingsInProgress = (Settings == self.action);
-        UIViewController *vc = [[MP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO settingsOnly:settingsInProgress];
-        [self presentViewController:vc animated:YES completion:nil];
+        if ([MP sharedInstance].useBluetooth) {
+            [[MP sharedInstance] headlessBluetoothPrintFromController:self.navigationController image:printItem.defaultPreviewImage animated:YES completion:nil];
+        } else {
+            BOOL settingsInProgress = (Settings == self.action);
+            UIViewController *vc = [[MP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO settingsOnly:settingsInProgress];
+            [self presentViewController:vc animated:YES completion:nil];
+        }
     }
 }
 
@@ -999,12 +1003,12 @@ NSInteger const kLengthOfSHA = 7;
 
 - (BOOL)hidePaperSizeForPrintSettings:(MPPrintSettings *)printSettings
 {    
-    return ([MP sharedInstance].useBluetooth || [self labelPrinter:printSettings]);
+    return ([self labelPrinter:printSettings]);
 }
 
 - (BOOL)hidePaperTypeForPrintSettings:(MPPrintSettings *)printSettings
 {
-    return ([MP sharedInstance].useBluetooth || [self labelPrinter:printSettings]);
+    return ([self labelPrinter:printSettings]);
 }
 
 - (MPPaper *)defaultPaperForPrintSettings:(MPPrintSettings *)printSettings

@@ -16,7 +16,7 @@
 #import "MP.h"
 #import "NSBundle+MPLocalizable.h"
 #import "MPBTDeviceInfoTableViewController.h"
-#import "MPBTFirmwareProgressView.h"
+#import "MPBTProgressView.h"
 #import <ExternalAccessory/ExternalAccessory.h>
 
 static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetting";
@@ -246,7 +246,7 @@ static const NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetti
         
         if (self.image  &&  self.hostController) {
             [self dismissViewControllerAnimated:YES completion:^{
-                MPBTFirmwareProgressView *progressView = [[MPBTFirmwareProgressView alloc] initWithFrame:self.hostController.view.frame];
+                MPBTProgressView *progressView = [[MPBTProgressView alloc] initWithFrame:self.hostController.view.frame];
                 progressView.viewController = self.hostController;
                 [progressView printToDevice:self.image];
             }];
