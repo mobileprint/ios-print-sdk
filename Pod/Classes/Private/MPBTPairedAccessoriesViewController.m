@@ -50,7 +50,7 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    [self setTitle:@"Devices"];
+    [self setTitle:MPLocalizedString(@"Devices",@"Title for screen listing all available sprocket printers")];
     self.bottomView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
     self.tableView.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -77,9 +77,6 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     self.descriptionLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFontColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-    
-    self.image = nil;
-    self.hostController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -104,6 +101,10 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 
 - (void)setImage:(UIImage *)image
 {
+    if (nil != image) {
+        [self setTitle:MPLocalizedString(@"Select Printer",@"Title for screen listing all available sprocket printers")];
+    }
+
     _image = image;
     [self refreshPairedDevices];
 }
@@ -123,16 +124,16 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesNavigationController"];
+    if ([MPBTPairedAccessoriesViewController class] == [[navigationController topViewController] class]) {
+        MPBTPairedAccessoriesViewController *vc = (MPBTPairedAccessoriesViewController *)[navigationController topViewController];
+        vc.image = image;
+        vc.hostController = hostController;
+        [vc.tableView reloadData];
+    }
+
     [hostController presentViewController:navigationController animated:animated completion:^{
         if (completion) {
             completion();
-        }
-        
-        if ([MPBTPairedAccessoriesViewController class] == [[navigationController topViewController] class]) {
-            MPBTPairedAccessoriesViewController *vc = (MPBTPairedAccessoriesViewController *)[navigationController topViewController];
-            vc.image = image;
-            vc.hostController = hostController;
-            [vc.tableView reloadData];
         }
     }];
 }
@@ -370,12 +371,14 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     self.recentDevice = nil;
     self.pairedDevices = [MPBTSprocket pairedSprockets];
     
-    self.recentDevice = [self lastAccessoryUsed];
-    if (self.recentDevice) {
-        for (EAAccessory *acc in self.pairedDevices) {
-            if (![[MPBTSprocket displayNameForAccessory:acc] isEqualToString:[MPBTSprocket displayNameForAccessory:self.recentDevice]]) {
-                [self.otherDevices addObject:acc];
-                break;
+    if (self.image) {
+        self.recentDevice = [self lastAccessoryUsed];
+        if (self.recentDevice) {
+            for (EAAccessory *acc in self.pairedDevices) {
+                if (![[MPBTSprocket displayNameForAccessory:acc] isEqualToString:[MPBTSprocket displayNameForAccessory:self.recentDevice]]) {
+                    [self.otherDevices addObject:acc];
+                    break;
+                }
             }
         }
     }

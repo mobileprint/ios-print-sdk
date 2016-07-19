@@ -82,6 +82,8 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
     self.label.font = [[MP sharedInstance].appearance.settings objectForKey:kMPOverlayPrimaryFont];
     self.label.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPOverlayLinkFontColor];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)reflashDevice
@@ -90,7 +92,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     
     [self.viewController.view addSubview:self];
     [MPBTSprocket sharedInstance].delegate = self;
-    [[MPBTSprocket sharedInstance] reflash:MPBTSprocketReflashHP];
+    [[MPBTSprocket sharedInstance] reflash];
     
     [UIView animateWithDuration:[MPBTProgressView animationDuration]/2 animations:^{
         self.alpha = 1.0;
@@ -144,6 +146,10 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     } else {
         return nil;
     }
+}
+
+- (void)becomeActive:(NSNotification *)notification {
+    [self removeFromSuperview];
 }
 
 #pragma mark - SprocketDelegate
