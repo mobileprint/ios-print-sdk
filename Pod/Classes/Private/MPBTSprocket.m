@@ -597,7 +597,11 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 + (NSString *)displayNameForAccessory:(EAAccessory *)accessory
 {
-    return [NSString stringWithFormat:@"%@ (%@)", accessory.name, accessory.serialNumber];
+    NSString *name = accessory.name;
+    if ([name isEqualToString:@"HP Sprocket Photo Printer"]) {
+        name = @"HP sprocket";
+    }
+    return [NSString stringWithFormat:@"%@ (%@)", name, accessory.serialNumber];
 }
 
 + (NSString *)autoExposureString:(MantaAutoExposure)exp
