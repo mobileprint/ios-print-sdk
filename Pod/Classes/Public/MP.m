@@ -279,9 +279,16 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return [MPBTSprocket pairedSprockets].count;
 }
 
-- (BOOL)bluetoothDeviceNeedsReflash
+- (NSString *)bluetoothDeviceNeedsReflash
 {
-    return (1 == [self numberOfPairedSprockets]  &&  [MPBTProgressView needFirmwareUpdate]);
+    NSString *deviceName = nil;
+    
+    NSArray *pairedSprockets = [MPBTSprocket pairedSprockets];
+    if (1 == pairedSprockets.count && [MPBTProgressView needFirmwareUpdate]) {
+        deviceName = [MPBTSprocket displayNameForAccessory:(EAAccessory *)pairedSprockets[0]];
+    }
+    
+    return deviceName;
 }
 
 -(void)reflashBluetoothDevice:(UIViewController *)viewController
