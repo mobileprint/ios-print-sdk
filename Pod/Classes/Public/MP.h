@@ -518,9 +518,9 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
 
 /*!
  * @abstract Indicates whether a single sprocket is paired and needs to be reflashed
- * @return YES if a single sprocket is paired and needs to be reflashed, NO if multiple sprockets are paired and/or if a single sprocket is paired, but doesn't need a reflash
+ * @return The name of the device to reflash if a single sprocket is paired and needs to be reflashed, nil if multiple sprockets are paired and/or if a single sprocket is paired, but doesn't need a reflash
  */
-- (BOOL)bluetoothDeviceNeedsReflash;
+- (NSString *)bluetoothDeviceNeedsReflash;
 
 
 /*!

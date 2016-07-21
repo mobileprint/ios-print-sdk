@@ -351,18 +351,10 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
                                                                    message:MPLocalizedString(@"Make sure the printer is turned on and check the Bluetooth connection.", @"Body of dialog letting the user know that there is no sprocket paired with their phone")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* settingsAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"Settings", @"Button that takes the user to the phone's Settings screen")
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * action) {
-                                                               NSURL *url = [NSURL URLWithString:@"prefs:root=Bluetooth"];
-                                                               [[UIApplication sharedApplication] openURL:url];
-                                                           }];
-    
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
                                                        style:UIAlertActionStyleCancel
                                                      handler:nil];
     [alert addAction:okAction];
-    [alert addAction:settingsAction];
     
     [hostController presentViewController:alert animated:YES completion:nil];
 }
