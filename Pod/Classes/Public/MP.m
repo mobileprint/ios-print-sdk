@@ -24,6 +24,7 @@
 #import "MPBTPairedAccessoriesViewController.h"
 #import "MPPrintSettingsDelegateManager.h"
 #import "MPBTProgressView.h"
+#import "MPBTDeviceInfoTableViewController.h"
 
 NSString * const kMPLibraryVersion = @"3.0.7";
 
@@ -291,7 +292,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return deviceName;
 }
 
--(void)reflashBluetoothDevice:(UIViewController *)viewController
+- (void)reflashBluetoothDevice:(UIViewController *)viewController
 {
     NSArray *pairedDevices = [MPBTSprocket pairedSprockets];
     if (1 <= pairedDevices.count) {
@@ -306,7 +307,14 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 
 - (void)presentBluetoothDevicesFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
 {
-    [MPBTPairedAccessoriesViewController presentAnimatedForDeviceInfo:animated usingController:controller andCompletion:completion];
+    NSArray *pairedSprockets = [MPBTSprocket pairedSprockets];
+
+    if (1 == pairedSprockets.count) {
+        EAAccessory *device = (EAAccessory *)[pairedSprockets objectAtIndex:0];
+        [MPBTDeviceInfoTableViewController presentAnimated:animated device:device usingController:controller  andCompletion:completion];
+    } else {
+        [MPBTPairedAccessoriesViewController presentAnimatedForDeviceInfo:animated usingController:controller andCompletion:completion];
+    }
 }
 
 - (void)headlessBluetoothPrintFromController:(UIViewController *)controller image:(UIImage *)image animated:(BOOL)animated completion:(void(^)(void))completion

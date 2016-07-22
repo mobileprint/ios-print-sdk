@@ -15,6 +15,8 @@
 
 @interface MPBTDeviceInfoTableViewController : UIViewController
 
++ (void)presentAnimated:(BOOL)animated device:(EAAccessory *)device usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion;
+
 @property (strong, nonatomic) EAAccessory *device;
 
 @end

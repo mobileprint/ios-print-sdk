@@ -32,6 +32,7 @@ typedef enum
 @property (strong, nonatomic) MPBTSprocket *sprocket;
 @property (strong, nonatomic) UIAlertController* alert;
 @property (strong, nonatomic) NSString *lastError;
+@property (assign, nonatomic) BOOL hideBackButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *fwUpgradeButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -71,11 +72,14 @@ typedef enum
                                                               action:@selector(didPressCancel)];
     self.navigationItem.rightBarButtonItem = xButton;
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back"]
-                                                             style:UIBarButtonItemStylePlain
-                                                            target:self
-                                                            action:@selector(didPressBack)];
-    self.navigationItem.leftBarButtonItem = backButton;
+    if (!self.hideBackButton) {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(didPressBack)];
+        self.navigationItem.leftBarButtonItem = backButton;
+    }
+
     self.lastError = @"";
 }
 
@@ -99,6 +103,22 @@ typedef enum
     self.sprocket.accessory = device;
     self.sprocket.delegate = self;
     [self.sprocket refreshInfo];
+}
+
++ (void)presentAnimated:(BOOL)animated device:(EAAccessory *)device usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
+    MPBTDeviceInfoTableViewController *vc = (MPBTDeviceInfoTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoTableViewController"];
+    vc.device = device;
+    vc.hideBackButton = YES;
+    
+    UINavigationController *navController = [[UINavigationController alloc] init];
+    [navController pushViewController:vc animated:NO];
+    [hostController presentViewController:navController animated:animated completion:^{
+        if (completion) {
+            completion();
+        }
+    }];
 }
 
 #pragma mark - Button handlers
