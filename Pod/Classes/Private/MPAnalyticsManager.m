@@ -89,10 +89,10 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 {
     NSURL *productionURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@:%@@%@", kMPMetricsUsername, kMPMetricsPassword, kMPMetricsServer]];
     NSURL *testURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@@%@", kMPMetricsUsername, kMPMetricsPassword, kMPMetricsServerTestBuilds]];
-    NSString *provisionPath = [[NSBundle bundleForClass:[MP class]] pathForResource:@"embedded" ofType:@"mobileprovision"];
+    NSString *provisionPath = [[NSBundle mainBundle] pathForResource:@"embedded" ofType:@"mobileprovision"];
 
     // The following is adapted from: http://stackoverflow.com/questions/26081543/how-to-tell-at-runtime-whether-an-ios-app-is-running-through-a-testflight-beta-i
-    BOOL sandboxReceipt = [[[[NSBundle bundleForClass:[MP class]] appStoreReceiptURL] lastPathComponent] isEqualToString:@"sandboxReceipt"];
+    BOOL sandboxReceipt = [[[[NSBundle mainBundle] appStoreReceiptURL] lastPathComponent] isEqualToString:@"sandboxReceipt"];
     
     NSURL *metricsURL = testURL;
     if (!provisionPath && !sandboxReceipt && !TARGET_IPHONE_SIMULATOR) {
@@ -117,12 +117,16 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 
 - (NSDictionary *)baseMetrics
 {
-    NSString *version = [[[NSBundle bundleForClass:[MP class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSString *build = [[[NSBundle bundleForClass:[MP class]] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSString *displayName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+    if (!displayName) {
+        // Adapted from https://developer.apple.com/library/mac/qa/qa1544/_index.html
+        displayName = [[NSFileManager defaultManager] displayNameAtPath: [[NSBundle mainBundle] bundlePath]];
+    }
+    NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
     NSString *completeVersion = [NSString stringWithFormat:@"%@ (%@)", version, build];
     NSString *osVersion = [[UIDevice currentDevice] systemVersion];
-    NSString *displayName = [[NSBundle bundleForClass:[MP class]] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-    NSString *bundleID = [[NSBundle bundleForClass:[MP class]] bundleIdentifier];
     NSString *printLibraryVersion = [MP sharedInstance].printLibraryVersion;
     NSDictionary *metrics = @{
                               kMPMetricsDeviceBrand : [self nonNullString:kMPManufacturer],
@@ -214,7 +218,7 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 {
     NSString *identifier = [[UIDevice currentDevice].identifierForVendor UUIDString];
     if ([MP sharedInstance].uniqueDeviceIdPerApp) {
-        NSString *seed = [NSString stringWithFormat:@"%@%@", identifier, [[NSBundle bundleForClass:[MP class]] bundleIdentifier]];
+        NSString *seed = [NSString stringWithFormat:@"%@%@", identifier, [[NSBundle mainBundle] bundleIdentifier]];
         identifier = [MPAnalyticsManager obfuscateValue:seed];
     }
     return identifier;
