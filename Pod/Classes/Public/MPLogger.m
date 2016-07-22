@@ -70,5 +70,15 @@
     }
 }
 
+- (void)logSize:(CGSize)size withName:(NSString *)name
+{
+    MPLogInfo(@"%@:  %.1f x %.1f", name, size.width, size.height);
+}
+
+- (void)logRect:(CGRect)rect withName:(NSString *)name
+{
+    MPLogInfo(@"%@ ORIGIN:  %.1f x %.1f", name, rect.origin.x, rect.origin.y);
+    [self logSize:rect.size withName:[NSString stringWithFormat:@"%@ SIZE", name]];
+}
 
 @end

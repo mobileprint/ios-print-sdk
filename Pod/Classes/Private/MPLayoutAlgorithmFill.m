@@ -18,7 +18,17 @@
 
 - (void)drawImage:(UIImage *)image inContainer:(CGRect)containerRect
 {
-    [image drawInRect:[self getContainerForImage:image inContainer:containerRect]];
+    CGRect computedRect = [self getContainerForImage:image inContainer:containerRect];
+    
+    MPLogInfo(@"~~~~~~~~~~~~~~~~~~~~~");
+    MPLogInfo(@"LAYOUT ALGORITHM FILL");
+    MPLogInfo(@"~~~~~~~~~~~~~~~~~~~~~");
+    [[MPLogger sharedInstance]logSize:image.size withName:@"IMAGE"];
+    [[MPLogger sharedInstance]logRect:containerRect withName:@"CONTAINER"];
+    [[MPLogger sharedInstance]logRect:computedRect withName:@"LAYOUT"];
+    MPLogInfo(@"~~~~~~~~~~~~~~~~~~~~~");
+    
+    [image drawInRect:computedRect];
 }
 
 - (CGRect)getContainerForImage:(UIImage *)image inContainer:(CGRect)containerRect
