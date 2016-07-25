@@ -11,7 +11,7 @@
 //
 
 #import "MPMultiPageConfigurationViewController.h"
-#import <MP.h>
+#import "MP.h"
 
 @interface MPMultiPageConfigurationViewController()
 

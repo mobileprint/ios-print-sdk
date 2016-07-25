@@ -14,10 +14,10 @@
 #import "MPSelectPrintItemTableViewController.h"
 #import "MPExperimentManager.h"
 #import "MP+PrintLibraryVersion.h"
-#import <MP.h>
-#import <MPLayoutFactory.h>
-#import <MPPrintItemFactory.h>
-#import <MPPrintManager.h>
+#import "MP.h"
+#import "MPLayoutFactory.h"
+#import "MPPrintItemFactory.h"
+#import "MPPrintManager.h"
 #import <CommonCrypto/CommonDigest.h>
 
 @interface MPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, MPPrintDelegate, MPPrintDataSource, MPSelectPrintItemTableViewControllerDelegate, MPAddPrintLaterDelegate, MPPrintManagerDelegate, MPPrintPaperDelegate>
