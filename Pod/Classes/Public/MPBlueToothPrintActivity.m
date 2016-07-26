@@ -21,7 +21,7 @@
 
 - (NSString *)activityTitle
 {
-    return @"BTPrint";
+    return @"Print";
 }
 
 - (UIImage *)_activityImage
