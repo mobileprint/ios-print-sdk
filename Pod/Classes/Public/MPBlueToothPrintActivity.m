@@ -21,7 +21,7 @@
 
 - (NSString *)activityTitle
 {
-    return @"Print";
+    return MPLocalizedString(@"Print", @"Activity title of the bt print when the share button is tapped");
 }
 
 - (UIImage *)_activityImage
