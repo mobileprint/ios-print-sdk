@@ -11,6 +11,7 @@
 //
 #import "MP.h"
 #import "MPBlueToothPrintActivity.h"
+#import "NSBundle+MPLocalizable.h"
 
 @implementation MPBlueToothPrintActivity
 
