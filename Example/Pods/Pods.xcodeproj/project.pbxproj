@@ -233,8 +233,8 @@
 		F4815A0DA0FF3296A0A6FDC866110DF8 /* MPBTAutoOffTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5875373FD2C63BB48E9FF3130734A3AE /* MPBTAutoOffTableViewController.m */; };
 		FB294C8C8DCC4EACB074C58C027C9723 /* OCMIndirectReturnValueProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = A57FAB1E7BCA9A71F44D17124B8C314A /* OCMIndirectReturnValueProvider.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FDFD77CF38AE5FDD235A02217B763809 /* OCMBlockCaller.h in Headers */ = {isa = PBXBuildFile; fileRef = 1724C18E655D26341007BF1FC653703D /* OCMBlockCaller.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		FF18E46E1D482406003E6006 /* MPBlueToothPrintActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = FF18E46C1D482406003E6006 /* MPBlueToothPrintActivity.h */; };
-		FF18E46F1D482406003E6006 /* MPBlueToothPrintActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = FF18E46D1D482406003E6006 /* MPBlueToothPrintActivity.m */; };
+		FF18E46E1D482406003E6006 /* MPBTPrintActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = FF18E46C1D482406003E6006 /* MPBTPrintActivity.h */; };
+		FF18E46F1D482406003E6006 /* MPBTPrintActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = FF18E46D1D482406003E6006 /* MPBTPrintActivity.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -529,8 +529,8 @@
 		FA77AF7086B37C50CF9E16041EFCBB66 /* NSInvocation+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSInvocation+OCMAdditions.m"; path = "Source/OCMock/NSInvocation+OCMAdditions.m"; sourceTree = "<group>"; };
 		FAEC16F8DE40FC5C41E0CCADB50CE327 /* MPPageSettingsTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPageSettingsTableViewController.m; sourceTree = "<group>"; };
 		FBF2D665F4B661BE01174424D5F4E43E /* OCMock-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OCMock-prefix.pch"; sourceTree = "<group>"; };
-		FF18E46C1D482406003E6006 /* MPBlueToothPrintActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBlueToothPrintActivity.h; sourceTree = "<group>"; };
-		FF18E46D1D482406003E6006 /* MPBlueToothPrintActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBlueToothPrintActivity.m; sourceTree = "<group>"; };
+		FF18E46C1D482406003E6006 /* MPBTPrintActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBTPrintActivity.h; sourceTree = "<group>"; };
+		FF18E46D1D482406003E6006 /* MPBTPrintActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBTPrintActivity.m; sourceTree = "<group>"; };
 		FF83D4F2C0839CACBA0254DF31249D8E /* OCMPassByRefSetter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMPassByRefSetter.h; path = Source/OCMock/OCMPassByRefSetter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -630,8 +630,8 @@
 				6180C287118A7CD936708E61715BA307 /* MPPaper.m */,
 				70475A2430D3A93CD76B3E2FDABA6DCB /* MPPrintActivity.h */,
 				F78C0944BEC3AD603E17B8598D513B75 /* MPPrintActivity.m */,
-				FF18E46C1D482406003E6006 /* MPBlueToothPrintActivity.h */,
-				FF18E46D1D482406003E6006 /* MPBlueToothPrintActivity.m */,
+				FF18E46C1D482406003E6006 /* MPBTPrintActivity.h */,
+				FF18E46D1D482406003E6006 /* MPBTPrintActivity.m */,
 				1BA939EC3E24C3EA7FEC22AA454F31A9 /* MPPrintItem.h */,
 				072F4F1778485152F5214223A7960359 /* MPPrintItem.m */,
 				B51F440230967E12E82026010FCBB2E0 /* MPPrintItemFactory.h */,
@@ -1071,7 +1071,7 @@
 				256BF4472C98186BBA1FDF557F65828C /* MPLayoutComposite.h in Headers */,
 				A2F5EA0227DF4B3887FE5EFEC8EED69F /* MPLayoutFactory.h in Headers */,
 				AE9DFE01E669E1B61A2BCC68595922BF /* MPLayoutFill.h in Headers */,
-				FF18E46E1D482406003E6006 /* MPBlueToothPrintActivity.h in Headers */,
+				FF18E46E1D482406003E6006 /* MPBTPrintActivity.h in Headers */,
 				576C2E6298242BC3AA4255600DD6E204 /* MPLayoutFit.h in Headers */,
 				63831D26DF2123D885BD8011A07221F9 /* MPLayoutPaperCellView.h in Headers */,
 				1148A5F5E1B875556F31EE7831997D3D /* MPLayoutPaperView.h in Headers */,
@@ -1339,7 +1339,7 @@
 				E9395CF8EACAD78E71B4B4306269319C /* MPDefaultSettingsManager.m in Sources */,
 				B6B3233A01C33850952A95E34950663B /* MPInterfaceOptions.m in Sources */,
 				5216B377B69874352C5B4FE56DD952A3 /* MPLayout.m in Sources */,
-				FF18E46F1D482406003E6006 /* MPBlueToothPrintActivity.m in Sources */,
+				FF18E46F1D482406003E6006 /* MPBTPrintActivity.m in Sources */,
 				9053817E258E21D98611D0035D21959E /* MPLayoutAlgorithm.m in Sources */,
 				D1138A613B400D597CB89B40AC59F439 /* MPLayoutAlgorithmFill.m in Sources */,
 				0D6C4F9956BE1460132E7BEF298B9230 /* MPLayoutAlgorithmFit.m in Sources */,

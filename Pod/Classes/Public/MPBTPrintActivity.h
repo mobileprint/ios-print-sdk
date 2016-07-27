@@ -13,7 +13,7 @@
 #import <UIKit/UIkit.h>
 #import <Foundation/Foundation.h>
 
-@interface MPBlueToothPrintActivity : UIActivity
+@interface MPBTPrintActivity : UIActivity
 
 @property (weak, nonatomic) UIImage *image;
 @property (weak, nonatomic) UIViewController *vc;

@@ -10,14 +10,14 @@
 // the license agreement.
 //
 #import "MP.h"
-#import "MPBlueToothPrintActivity.h"
+#import "MPBTPrintActivity.h"
 #import "NSBundle+MPLocalizable.h"
 
-@implementation MPBlueToothPrintActivity
+@implementation MPBTPrintActivity
 
 - (NSString *)activityType
 {
-    return @"MPBlueToothPrintActivity";
+    return @"MPBTPrintActivity";
 }
 
 - (NSString *)activityTitle
