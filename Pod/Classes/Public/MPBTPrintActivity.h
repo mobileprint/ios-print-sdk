@@ -15,7 +15,7 @@
 
 @interface MPBTPrintActivity : UIActivity
 
-@property (weak, nonatomic) UIImage *image;
+@property (strong, nonatomic) UIImage *image;
 @property (weak, nonatomic) UIViewController *vc;
 
 @end
