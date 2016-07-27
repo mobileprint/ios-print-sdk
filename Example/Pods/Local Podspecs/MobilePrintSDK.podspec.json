@@ -1,6 +1,6 @@
 {
   "name": "MobilePrintSDK",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "summary": "Implements AirPrint with custom layouts, graphical preview, print later queue, and more.",
   "description": "Select paper size, printer, view preview and send to print through AirPrint. Provides for custom layouts, persistent settings, printer availability notifications, print later queue, and more.",
   "homepage": "https://developers.hp.com/mobile-print-sdk/platform",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/mobileprint/ios-print-sdk.git",
-    "tag": "3.0.7"
+    "tag": "3.0.8"
   },
   "documentation_url": "http://mobileprint.herokuapp.com",
   "platforms": {
