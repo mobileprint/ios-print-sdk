@@ -1,10 +1,16 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-target 'MobilePrintSDK', :exclusive => true do
-  pod "MobilePrintSDK", :path => "../"
+target 'MobilePrintSDK' do
+    
+    pod 'MobilePrintSDK', :path => '../'
+    
+    target 'MobilePrintSDK-cal'
+    
+    target 'Tests' do
+        inherit! :search_paths
+        pod 'OCMock', '3.2.2' # not sure why 3.3.1 not working
+    end
+    
 end
 
-target 'Tests', :exclusive => true do
-  pod "OCMock"
-end
 

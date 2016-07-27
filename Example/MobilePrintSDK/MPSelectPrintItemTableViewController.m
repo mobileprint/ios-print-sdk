@@ -311,6 +311,10 @@ NSString * const kMPPrintItemExtras = @"kMPPrintItemExtras";
                 DBChooserResult *result = [results firstObject];
                 NSData *data = [NSData dataWithContentsOfURL:result.link];
                 self.dropboxBusy = NO;
+                if (!self.printItemExtras) {
+                    self.printItemExtras = [[NSMutableDictionary alloc] init];
+                }
+                [self.printItemExtras setObject:result.link.absoluteString forKey:kMPPrintItemExtras];
                 [self didSelectPrintAsset:data];
             });
         } else {

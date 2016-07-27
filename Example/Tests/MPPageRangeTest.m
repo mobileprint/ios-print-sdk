@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <MPPageRange.h>
+#import "MPPageRange.h"
 
 @interface MPPageRangeTest : XCTestCase
 

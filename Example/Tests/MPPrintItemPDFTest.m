@@ -12,10 +12,10 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <MPPrintItemFactory.h>
-#import <MPLayoutFactory.h>
-#import <MPLayoutFit.h>
-#import <MPLogger.h>
+#import "MPPrintItemFactory.h"
+#import "MPLayoutFactory.h"
+#import "MPLayoutFit.h"
+#import "MPLogger.h"
 #import <OCMock/OCMock.h>
 
 @interface MPPrintItemPDFTest : XCTestCase

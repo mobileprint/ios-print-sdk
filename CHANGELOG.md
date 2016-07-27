@@ -2,6 +2,7 @@
 ###### Not yet released
 
 - Fix compiler warnings
+- Fix handling of bundle when using frameworks
 
 #### 3.0.7
 ###### Tuesday May 17, 2016

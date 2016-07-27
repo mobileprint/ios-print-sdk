@@ -14,10 +14,10 @@
 #import "MPSelectPrintItemTableViewController.h"
 #import "MPExperimentManager.h"
 #import "MP+PrintLibraryVersion.h"
-#import <MP.h>
-#import <MPLayoutFactory.h>
-#import <MPPrintItemFactory.h>
-#import <MPPrintManager.h>
+#import "MP.h"
+#import "MPLayoutFactory.h"
+#import "MPPrintItemFactory.h"
+#import "MPPrintManager.h"
 #import <CommonCrypto/CommonDigest.h>
 
 @interface MPSettingsTableViewController () <UIPopoverPresentationControllerDelegate, MPPrintDelegate, MPPrintDataSource, MPSelectPrintItemTableViewControllerDelegate, MPAddPrintLaterDelegate, MPPrintManagerDelegate, MPPrintPaperDelegate>
@@ -170,7 +170,7 @@ NSInteger const kLengthOfSHA = 7;
     [MP sharedInstance].handlePrintMetricsAutomatically = NO;
     
     [MP sharedInstance].defaultPaper = [[MPPaper alloc] initWithPaperSize:MPPaperSize5x7 paperType:MPPaperTypePhoto];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"PrintInstructions"];
     
     MPSupportAction *action1 = [[MPSupportAction alloc] initWithIcon:[UIImage imageNamed:@"print-instructions"] title:@"Print Instructions" url:[NSURL URLWithString:@"http://hp.com"]];
@@ -326,7 +326,7 @@ NSInteger const kLengthOfSHA = 7;
 
 - (void) printAction:(SelectItemAction)action
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"SelectPrintItemNavigationController"];
     [self prepareForPrint:navigationController title:@"Print Item" action:action];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -672,7 +672,7 @@ NSInteger const kLengthOfSHA = 7;
 
 - (void)showGeoHelper
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle mainBundle]];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
     UINavigationController *nc = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPPrintLaterHelperNavigationController"];
     [self presentViewController:nc animated:YES completion:nil];
 }

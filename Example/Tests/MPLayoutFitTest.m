@@ -13,9 +13,9 @@
 #import "UIImage+MPResize.h"
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <MPLayoutFactory.h>
+#import "MPLayoutFactory.h"
 #import "MPLayoutAlgorithmFit.h"
-#import <MPLogger.h>
+#import "MPLogger.h"
 #import <OCMock/OCMock.h>
 
 @interface MPLayoutFit (private)
