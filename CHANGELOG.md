@@ -1,5 +1,5 @@
 #### 3.0.8
-###### Not yet released
+###### Wednesday July 27, 2016
 
 - Fix compiler warnings
 - Fix handling of bundle when using frameworks

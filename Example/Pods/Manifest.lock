@@ -1,5 +1,5 @@
 PODS:
-  - MobilePrintSDK (3.0.7)
+  - MobilePrintSDK (3.0.8)
   - OCMock (3.2.2)
 
 DEPENDENCIES:
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MobilePrintSDK: e410b55fc418e87052182a6c259bb71423be66ce
+  MobilePrintSDK: c906b48fd6cd246ce00f35a2d6fb7fe63142ed79
   OCMock: 18c9b7e67d4c2770e95bb77a9cc1ae0c91fe3835
 
 PODFILE CHECKSUM: 51e6ebab091f75fc8a7b8c878daf689794a12d81
