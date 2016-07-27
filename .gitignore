@@ -36,3 +36,6 @@ doc
 
 .ruby-*
 Example/Gemfile.lock
+
+Example/fastlane/build
+Example/fastlane/report.xml
