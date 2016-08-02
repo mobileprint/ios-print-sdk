@@ -55,7 +55,8 @@
 #import "MPMobilePrintSDKReachability.h"
 
 
-NSString *kMPReachabilityChangedNotification = @"kMPNetworkReachabilityChangedNotification";
+NSString *kMPMobilePrintSDKReachabilityChangedNotification =
+            @"kMPMobilePrintNetworkReachabilityChangedNotification";
 
 
 #pragma mark - Supporting functions
@@ -91,7 +92,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
     MPMobilePrintSDKReachability* noteObject = (__bridge MPMobilePrintSDKReachability *)info;
     // Post a notification to notify the client that the network reachability changed.
-    [[NSNotificationCenter defaultCenter] postNotificationName: kMPReachabilityChangedNotification object: noteObject];
+    [[NSNotificationCenter defaultCenter] postNotificationName: kMPMobilePrintSDKReachabilityChangedNotification object: noteObject];
 }
 
 
