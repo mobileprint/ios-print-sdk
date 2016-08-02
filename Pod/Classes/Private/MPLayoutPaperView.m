@@ -56,6 +56,9 @@ static const NSInteger MPLAYOUTPAPERVIEW_MULTIPAGE_END_GAP = 5;
             [multiPageImage drawInRect:multipageFrame];
         }
 
+        MPLogDebug(@"~~~~~~~~~~~~~~~~~~~~~");
+        MPLogDebug(@"UI LAYOUT (MPLayoutPaperView)");
+        MPLogDebug(@"~~~~~~~~~~~~~~~~~~~~~");
         [self.layout drawContentImage:self.image inRect:insetRect];
     }
 }

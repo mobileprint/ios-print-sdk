@@ -39,7 +39,17 @@ MPLayoutVerticalPosition const kMPDefaultVerticalPosition = MPLayoutVerticalPosi
 
 - (void)drawImage:(UIImage *)image inContainer:(CGRect)containerRect
 {
-    [image drawInRect:[self getContainerForImage:image inContainer:containerRect]];
+    CGRect computedRect = [self getContainerForImage:image inContainer:containerRect];
+    
+    MPLogDebug(@"~~~~~~~~~~~~~~~~~~~~~");
+    MPLogDebug(@"LAYOUT ALGORITHM FIT");
+    MPLogDebug(@"~~~~~~~~~~~~~~~~~~~~~");
+    [[MPLogger sharedInstance] logSize:image.size withName:@"IMAGE"];
+    [[MPLogger sharedInstance] logRect:containerRect withName:@"CONTAINER"];
+    [[MPLogger sharedInstance] logRect:computedRect withName:@"LAYOUT"];
+    MPLogDebug(@"~~~~~~~~~~~~~~~~~~~~~");
+    
+    [image drawInRect:computedRect];
 }
 
 - (CGRect)getContainerForImage:(UIImage *)image inContainer:(CGRect)containerRect

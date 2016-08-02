@@ -1,3 +1,8 @@
+#### 3.0.9
+###### Not Yet Released
+
+- Added debug logging for print layout
+
 #### 3.0.8
 ###### Wednesday July 27, 2016
 
