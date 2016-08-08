@@ -2,6 +2,7 @@
 ###### Not Yet Released
 
 - Added debug logging for print layout
+- Rename reachability constant to avoid conflicts 
 
 #### 3.0.8
 ###### Wednesday July 27, 2016

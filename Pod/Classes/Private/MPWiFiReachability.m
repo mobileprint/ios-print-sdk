@@ -39,7 +39,7 @@
 
 - (void)startMonitoring
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kMPReachabilityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kMPMobilePrintSDKReachabilityChangedNotification object:nil];
     self.reachability = [MPMobilePrintSDKReachability reachabilityForLocalWiFi];
     [self.reachability startNotifier];
     self.connected = (NotReachable != [self.reachability currentReachabilityStatus]);
