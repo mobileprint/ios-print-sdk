@@ -37,6 +37,7 @@ typedef enum
 @property (weak, nonatomic) IBOutlet UIButton *fwUpgradeButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) MPBTProgressView *progressView;
+@property (assign, nonatomic) BOOL receivedSprocketInfo;
 
 @end
 
@@ -45,6 +46,7 @@ typedef enum
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.receivedSprocketInfo = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
@@ -174,45 +176,48 @@ typedef enum
     
     [self setCellAppearance:cell];
     
-    switch (indexPath.row) {
-        case MPBTDeviceInfoOrderError:
-            cell.textLabel.text = MPLocalizedString(@"Errors", @"Title of field displaying latest errors");
-            cell.detailTextLabel.text = self.lastError;
-            break;
-            
-        case MPBTDeviceInfoOrderBatteryStatus:
-            cell.textLabel.text = MPLocalizedString(@"Battery Status", @"Title of field displaying battery level");
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu%@", (unsigned long)self.sprocket.batteryStatus, @"%"];
-            break;
-
-        case MPBTDeviceInfoOrderAutoOff:
-            cell.textLabel.text = MPLocalizedString(@"Auto Off", @"Title of field displaying how many minutes the device is on before it automatically powers off");
-            cell.detailTextLabel.text = [MPBTSprocket autoPowerOffIntervalString:self.sprocket.powerOffInterval];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            break;
-
-        case MPBTDeviceInfoOrderMacAddress:
-            cell.textLabel.text = MPLocalizedString(@"Mac Address", @"Title of field displaying the printer's mac address");
-            cell.detailTextLabel.text = [MPBTSprocket macAddress:self.sprocket.macAddress];
-            break;
-
-        case MPBTDeviceInfoOrderFirmwareVersion:
-            fw1 = (0xFF0000 & self.sprocket.firmwareVersion) >> 16;
-            fw2 = (0x00FF00 & self.sprocket.firmwareVersion) >>  8;
-            fw3 =  0x0000FF & self.sprocket.firmwareVersion;
-            cell.textLabel.text = MPLocalizedString(@"Firmware Version", @"Title of field displaying the printer's firmware version");
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d.%d.%d", fw1, fw2, fw3];
-            break;
-
-        case MPBTDeviceInfoOrderHardwareVersion:
-            cell.textLabel.text = MPLocalizedString(@"Hardware Version", @"Title of field displaying the printer's hardware version");
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%x", self.sprocket.hardwareVersion];
-            break;
-
-        default:
-            cell.textLabel.text = @"Unrecognized field";
-            cell.detailTextLabel.text = @"";
-            break;
+    if (self.receivedSprocketInfo) {
+        switch (indexPath.row) {
+            case MPBTDeviceInfoOrderError:
+                cell.textLabel.text = MPLocalizedString(@"Errors", @"Title of field displaying latest errors");
+                cell.detailTextLabel.text = self.lastError;
+                NSLog(@"Table... lastError: %@", self.lastError);
+                break;
+                
+            case MPBTDeviceInfoOrderBatteryStatus:
+                cell.textLabel.text = MPLocalizedString(@"Battery Status", @"Title of field displaying battery level");
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu%@", (unsigned long)self.sprocket.batteryStatus, @"%"];
+                break;
+                
+            case MPBTDeviceInfoOrderAutoOff:
+                cell.textLabel.text = MPLocalizedString(@"Auto Off", @"Title of field displaying how many minutes the device is on before it automatically powers off");
+                cell.detailTextLabel.text = [MPBTSprocket autoPowerOffIntervalString:self.sprocket.powerOffInterval];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                break;
+                
+            case MPBTDeviceInfoOrderMacAddress:
+                cell.textLabel.text = MPLocalizedString(@"Mac Address", @"Title of field displaying the printer's mac address");
+                cell.detailTextLabel.text = [MPBTSprocket macAddress:self.sprocket.macAddress];
+                break;
+                
+            case MPBTDeviceInfoOrderFirmwareVersion:
+                fw1 = (0xFF0000 & self.sprocket.firmwareVersion) >> 16;
+                fw2 = (0x00FF00 & self.sprocket.firmwareVersion) >>  8;
+                fw3 =  0x0000FF & self.sprocket.firmwareVersion;
+                cell.textLabel.text = MPLocalizedString(@"Firmware Version", @"Title of field displaying the printer's firmware version");
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%d.%d.%d", fw1, fw2, fw3];
+                break;
+                
+            case MPBTDeviceInfoOrderHardwareVersion:
+                cell.textLabel.text = MPLocalizedString(@"Hardware Version", @"Title of field displaying the printer's hardware version");
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%x", self.sprocket.hardwareVersion];
+                break;
+                
+            default:
+                cell.textLabel.text = @"Unrecognized field";
+                cell.detailTextLabel.text = @"";
+                break;
+        }
     }
     
     return cell;
@@ -233,8 +238,12 @@ typedef enum
     self.lastError = [MPBTSprocket errorTitle:error];
 
     [self setTitle:[NSString stringWithFormat:@"%@", sprocket.displayName]];
-
-    [self.tableView reloadData];
+    
+    self.receivedSprocketInfo = YES;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
