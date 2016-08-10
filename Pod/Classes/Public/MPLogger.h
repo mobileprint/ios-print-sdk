@@ -58,6 +58,9 @@
  */
 + (MPLogger *)sharedInstance;
 
+- (void)logSize:(CGSize)size withName:(NSString *)name;
+- (void)logRect:(CGRect)rect withName:(NSString *)name;
+
 /*!
  * @abstract An optional delegate used for logging
  * @discussion If provided, this delegate is used to provide fine-grained logging. The client typically uses a library such as Lumberjack for this purpose.

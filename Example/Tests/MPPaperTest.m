@@ -12,9 +12,9 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <MP.h>
-#import <MPPaper.h>
-#import <MPPrintItem.h>
+#import "MP.h"
+#import "MPPaper.h"
+#import "MPPrintItem.h"
 #import <OCMock/OCMock.h>
 
 @interface MPPaperTest : XCTestCase

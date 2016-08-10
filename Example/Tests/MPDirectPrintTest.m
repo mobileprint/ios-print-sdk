@@ -15,7 +15,7 @@
 #import "MP.h"
 #import "MPPrintItemFactory.h"
 #import "MPPrintManager.h"
-#import <MPLogger.h>
+#import "MPLogger.h"
 #import <OCMock/OCMock.h>
 
 @interface MPDirectPrintTest : XCTestCase

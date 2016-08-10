@@ -12,8 +12,8 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <MPLayoutFactory.h>
-#import <MPLogger.h>
+#import "MPLayoutFactory.h"
+#import "MPLogger.h"
 #import <OCMock/OCMock.h>
 
 @interface MPLayoutFillTest : XCTestCase

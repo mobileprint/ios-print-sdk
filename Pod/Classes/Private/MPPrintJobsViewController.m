@@ -141,7 +141,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
 
 + (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPPrintJobsNavigationController"];
     [hostController presentViewController:navigationController animated:animated completion:^{
         if (completion) {
@@ -523,7 +523,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
 
 - (void)printJobsTableViewCellDidTapImage:(MPPrintJobsTableViewCell *)printJobsTableViewCell
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
     MPPrintJobsPreviewViewController *vc = (MPPrintJobsPreviewViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPPrintJobsPreviewViewController"];
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     vc.printLaterJob = printJobsTableViewCell.printLaterJob;
