@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <MPPrintItemFactory.h>
+#import "MPPrintItemFactory.h"
 #import <OCMock/OCMock.h>
 
 @interface MPPrintItemImageTest : XCTestCase

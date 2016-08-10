@@ -12,11 +12,11 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <MP.h>
-#import <MPPaper.h>
-#import <MPPrintManager.h>
-#import <MPPrintManager+Options.h>
-#import <MPPrintJobsViewController.h>
+#import "MP.h"
+#import "MPPaper.h"
+#import "MPPrintManager.h"
+#import "MPPrintManager+Options.h"
+#import "MPPrintJobsViewController.h"
 
 @interface MPGenericDelegate : NSObject<MPPrintDelegate> @end
 @implementation MPGenericDelegate

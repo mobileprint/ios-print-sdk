@@ -277,6 +277,9 @@ NSString * const kMPOfframpDirect = @"PrintWithNoUI";
 {
     NSInteger printPageCount = pageRange ? [pageRange getPages].count : printItem.numberOfPages;
     NSMutableDictionary *metrics = [NSMutableDictionary dictionaryWithDictionary:printItem.extra];
+    if (nil == [MPAnalyticsManager sharedManager].printSessionId) {
+        [[MPAnalyticsManager sharedManager] trackUserFlowEventWithId:kMPMetricsEventTypePrintInitiated];
+    }
     [metrics addEntriesFromDictionary:@{
                                         kMPOfframpKey:[self offramp],
                                         kMPNumberPagesPrint:[NSNumber numberWithInteger:printPageCount],

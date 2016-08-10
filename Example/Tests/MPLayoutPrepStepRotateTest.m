@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <MPLayoutPrepStepRotate.h>
+#import "MPLayoutPrepStepRotate.h"
 
 @interface MPLayoutPrepStepRotateTest : XCTestCase
 

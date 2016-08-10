@@ -10,7 +10,7 @@
 // the license agreement.
 //
 
-#import <MP.h>
+#import "MP.h"
 #import "MPAppDelegate.h"
 #import <DBChooser/DBChooser.h>
 

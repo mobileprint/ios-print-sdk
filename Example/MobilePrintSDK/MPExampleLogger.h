@@ -12,7 +12,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import <MP.h>
+#import "MP.h"
 
 @interface MPExampleLogger : NSObject <MPLoggerDelegate>
 

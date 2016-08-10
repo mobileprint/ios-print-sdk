@@ -26,7 +26,7 @@
 #import "MPBTProgressView.h"
 #import "MPBTDeviceInfoTableViewController.h"
 
-NSString * const kMPLibraryVersion = @"3.0.7";
+NSString * const kMPLibraryVersion = @"3.0.8";
 
 NSString * const kLaterActionIdentifier = @"LATER_ACTION_IDENTIFIER";
 NSString * const kPrintActionIdentifier = @"PRINT_ACTION_IDENTIFIER";

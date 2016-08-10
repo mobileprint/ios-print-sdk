@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0e5d0520d0eabd24d04360de /* 1 Page.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AE1B03B0A400DCE2B4 /* 1 Page.pdf */; };
+		122C62D625AF20F058105A9B /* libPods-MobilePrintSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60AC3DBCD75377D689F4320E /* libPods-MobilePrintSDK.a */; };
 		19a7d9550badfe8556c82c68 /* calabash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60555372ec4ffae2b100799b /* calabash.framework */; };
 		1a7b1003861c8f33331e1b94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		1a8fa567d8cae756693610ca /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -76,20 +77,16 @@
 		65FFC9B61B03B0A400DCE2B4 /* 4 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9B01B03B0A400DCE2B4 /* 4 Pages.pdf */; };
 		65FFC9B71B03B0A400DCE2B4 /* 6 Pages (landscape).pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9B11B03B0A400DCE2B4 /* 6 Pages (landscape).pdf */; };
 		65FFC9B81B03B0A400DCE2B4 /* 10 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9B21B03B0A400DCE2B4 /* 10 Pages.pdf */; };
-		6C303E39D3219F5E12F89399 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 824DD1CAED53617BFC879B9B /* libPods-Tests.a */; };
+		706739D43E921CB8DCFB4826 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EFDE0621E0BB3D7E3EB476 /* libPods-Tests.a */; };
 		730c2e911e8d518fe37de7a1 /* MPLearnMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32115DF1A38BCE50079144C /* MPLearnMoreView.xib */; };
 		78cd8fb9b1bee9474f0c1617 /* 115 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B61B73FAA10013E738 /* 115 Pages.pdf */; };
 		7d9d68fa6acc2cb2dcaeabfb /* MPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651357881B4C7BEE003B6935 /* MPSettingsTableViewController.m */; };
-		9203D6F01D02217800BA45FA /* Polaroid_v200.rbn in Resources */ = {isa = PBXBuildFile; fileRef = 9203D6EE1D02217800BA45FA /* Polaroid_v200.rbn */; };
-		9203D6F11D02217800BA45FA /* Polaroid_v300.rbn in Resources */ = {isa = PBXBuildFile; fileRef = 9203D6EF1D02217800BA45FA /* Polaroid_v300.rbn */; };
+		8C1B4BD894973EB38FFCD2BC /* libPods-MobilePrintSDK-MobilePrintSDK-cal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 579612EC6EFD314073438DBC /* libPods-MobilePrintSDK-MobilePrintSDK-cal.a */; };
 		920746501CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */; };
 		920746511CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */; };
-		920E49CF1D34018500B6BF72 /* HP_protocol_v2.rbn in Resources */ = {isa = PBXBuildFile; fileRef = 920E49CE1D34018500B6BF72 /* HP_protocol_v2.rbn */; };
-		920E49D11D341DD900B6BF72 /* HP_protocol_v1.rbn in Resources */ = {isa = PBXBuildFile; fileRef = 920E49D01D341DD900B6BF72 /* HP_protocol_v1.rbn */; };
 		92BAEA5F1C1F51170033A200 /* MPLayoutFitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */; };
 		93acf3685826df4abe0f66ad /* MPLearnMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DE1A38BCE50079144C /* MPLearnMoreView.m */; };
 		9ee14810a090fa40eec00a4c /* MPMultiPageConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6531EB3D1B30C85700412BBF /* MPMultiPageConfigurationViewController.m */; };
-		AEBDAE10899722AFD450C051 /* libPods-MobilePrintSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 080854DE6C4D61428EC1D8E8 /* libPods-MobilePrintSDK.a */; };
 		E32115DC1A38B9E60079144C /* MPLearnMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DB1A38B9E60079144C /* MPLearnMoreViewController.m */; };
 		E32115E01A38BCE50079144C /* MPLearnMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DE1A38BCE50079144C /* MPLearnMoreView.m */; };
 		E32115E11A38BCE50079144C /* MPLearnMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32115DF1A38BCE50079144C /* MPLearnMoreView.xib */; };
@@ -106,7 +103,6 @@
 		b6cc89fff80f565eadaa0b3f /* MPSelectPrintItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C0652D1B0BF26200E56D83 /* MPSelectPrintItemTableViewController.m */; };
 		b855ba44f0f109d851911838 /* 236 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 651039B71B73FAA10013E738 /* 236 Pages.pdf */; };
 		b8e0980de8c6d51318d14188 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7d45322c23338821ae339a35 /* CFNetwork.framework */; };
-		bde38529fed96d2c38392140 /* libPods-MobilePrintSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 080854DE6C4D61428EC1D8E8 /* libPods-MobilePrintSDK.a */; };
 		bf4d8b8032cf9fda14ca9f6d /* MPLearnMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E32115DB1A38B9E60079144C /* MPLearnMoreViewController.m */; };
 		c4190e03a1effc96f35ed37a /* 6 Pages (landscape).pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9B11B03B0A400DCE2B4 /* 6 Pages (landscape).pdf */; };
 		d31cb33e5834f369d09cfe91 /* 2 Pages.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 65FFC9AF1B03B0A400DCE2B4 /* 2 Pages.pdf */; };
@@ -149,8 +145,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		080854DE6C4D61428EC1D8E8 /* libPods-MobilePrintSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobilePrintSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FABBD395BD676FF962B7E9B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		11EFDE0621E0BB3D7E3EB476 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A7A608A07637D37639F3EE8 /* Pods-MobilePrintSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.release.xcconfig"; sourceTree = "<group>"; };
+		51B540091208E08D316D13A6 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		579612EC6EFD314073438DBC /* libPods-MobilePrintSDK-MobilePrintSDK-cal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobilePrintSDK-MobilePrintSDK-cal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58A195388D20070C39A /* MobilePrintSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobilePrintSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -169,6 +168,7 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		60555372ec4ffae2b100799b /* calabash.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; path = calabash.framework; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		60AC3DBCD75377D689F4320E /* libPods-MobilePrintSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobilePrintSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		650858451B0C352900B0C70F /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
 		650E6EDE1C860210007497A1 /* MPPrintItemImageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPrintItemImageTest.m; sourceTree = "<group>"; };
 		651039B51B73FAA10013E738 /* 15 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "15 Pages.pdf"; sourceTree = "<group>"; };
@@ -216,18 +216,13 @@
 		65FFC9B01B03B0A400DCE2B4 /* 4 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "4 Pages.pdf"; sourceTree = "<group>"; };
 		65FFC9B11B03B0A400DCE2B4 /* 6 Pages (landscape).pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "6 Pages (landscape).pdf"; sourceTree = "<group>"; };
 		65FFC9B21B03B0A400DCE2B4 /* 10 Pages.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "10 Pages.pdf"; sourceTree = "<group>"; };
-		7337A2AC7BAEB8252FAAC8BB /* Pods-MobilePrintSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.release.xcconfig"; sourceTree = "<group>"; };
+		7B04D1BB4D8A663F7A997012 /* Pods-MobilePrintSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		7d45322c23338821ae339a35 /* CFNetwork.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		824DD1CAED53617BFC879B9B /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9203D6EE1D02217800BA45FA /* Polaroid_v200.rbn */ = {isa = PBXFileReference; lastKnownFileType = file; name = Polaroid_v200.rbn; path = Firmware/Polaroid_v200.rbn; sourceTree = "<group>"; };
-		9203D6EF1D02217800BA45FA /* Polaroid_v300.rbn */ = {isa = PBXFileReference; lastKnownFileType = file; name = Polaroid_v300.rbn; path = Firmware/Polaroid_v300.rbn; sourceTree = "<group>"; };
 		9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		920E49CE1D34018500B6BF72 /* HP_protocol_v2.rbn */ = {isa = PBXFileReference; lastKnownFileType = file; name = HP_protocol_v2.rbn; path = Firmware/HP_protocol_v2.rbn; sourceTree = "<group>"; };
-		920E49D01D341DD900B6BF72 /* HP_protocol_v1.rbn */ = {isa = PBXFileReference; lastKnownFileType = file; name = HP_protocol_v1.rbn; path = Firmware/HP_protocol_v1.rbn; sourceTree = "<group>"; };
 		92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFitTest.m; sourceTree = "<group>"; };
-		B4517B52F9E6A6FBAF719728 /* Pods-MobilePrintSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		AB3988E52992DECF561686AE /* Pods-MobilePrintSDK-MobilePrintSDK-cal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK-MobilePrintSDK-cal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK-MobilePrintSDK-cal/Pods-MobilePrintSDK-MobilePrintSDK-cal.debug.xcconfig"; sourceTree = "<group>"; };
 		B6412EFA41C9FD7C470C1D44 /* MobilePrintSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MobilePrintSDK.podspec; path = ../MobilePrintSDK.podspec; sourceTree = "<group>"; };
-		C6C2E8C63C60FC48B6767AD6 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		B87389BC21CCE3B17CB5BB65 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E31157C21AE5B2B100917A68 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E32115DA1A38B9E60079144C /* MPLearnMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLearnMoreViewController.h; sourceTree = "<group>"; };
 		E32115DB1A38B9E60079144C /* MPLearnMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLearnMoreViewController.m; sourceTree = "<group>"; };
@@ -235,7 +230,7 @@
 		E32115DE1A38BCE50079144C /* MPLearnMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLearnMoreView.m; sourceTree = "<group>"; };
 		E32115DF1A38BCE50079144C /* MPLearnMoreView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPLearnMoreView.xib; sourceTree = "<group>"; };
 		E35DD5971B0666F400E9BC97 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		EE7EBCBC7723D10BF4D13C7F /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		ECEF04BEEDCB896D9FD0191D /* Pods-MobilePrintSDK-MobilePrintSDK-cal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK-MobilePrintSDK-cal.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK-MobilePrintSDK-cal/Pods-MobilePrintSDK-MobilePrintSDK-cal.release.xcconfig"; sourceTree = "<group>"; };
 		F081076366F4C76425844536 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F10BCCCB1B7A53CC001A5F3B /* MPDirectPrintTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPDirectPrintTest.m; sourceTree = "<group>"; };
 		F10C7EBA1BE1808400ACB162 /* MPLayoutPrepStepRotateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPrepStepRotateTest.m; sourceTree = "<group>"; };
@@ -285,9 +280,9 @@
 				46780cf18bd667193309c52d /* DBChooser.framework in Frameworks */,
 				3b094ecec1a9f510f01247f7 /* MapKit.framework in Frameworks */,
 				1a8fa567d8cae756693610ca /* Foundation.framework in Frameworks */,
-				bde38529fed96d2c38392140 /* libPods-MobilePrintSDK.a in Frameworks */,
 				b8e0980de8c6d51318d14188 /* CFNetwork.framework in Frameworks */,
 				19a7d9550badfe8556c82c68 /* calabash.framework in Frameworks */,
+				8C1B4BD894973EB38FFCD2BC /* libPods-MobilePrintSDK-MobilePrintSDK-cal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,7 +295,7 @@
 				650858461B0C352900B0C70F /* DBChooser.framework in Frameworks */,
 				E35DD5981B0666F400E9BC97 /* MapKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				AEBDAE10899722AFD450C051 /* libPods-MobilePrintSDK.a in Frameworks */,
+				122C62D625AF20F058105A9B /* libPods-MobilePrintSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,7 +306,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				6C303E39D3219F5E12F89399 /* libPods-Tests.a in Frameworks */,
+				706739D43E921CB8DCFB4826 /* libPods-Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,7 +321,7 @@
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
-				BB1A7AE6C5D400E972020508 /* Pods */,
+				CB48CBB779DCB17017E31B4A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -349,10 +344,11 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				080854DE6C4D61428EC1D8E8 /* libPods-MobilePrintSDK.a */,
-				824DD1CAED53617BFC879B9B /* libPods-Tests.a */,
 				7d45322c23338821ae339a35 /* CFNetwork.framework */,
 				60555372ec4ffae2b100799b /* calabash.framework */,
+				60AC3DBCD75377D689F4320E /* libPods-MobilePrintSDK.a */,
+				11EFDE0621E0BB3D7E3EB476 /* libPods-Tests.a */,
+				579612EC6EFD314073438DBC /* libPods-MobilePrintSDK-MobilePrintSDK-cal.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -360,7 +356,6 @@
 		6003F593195388D20070C39A /* MobilePrintSDK */ = {
 			isa = PBXGroup;
 			children = (
-				9203D6ED1D02211200BA45FA /* FirmwareUpgradeFiles */,
 				65FFC9AC1B03B08700DCE2B4 /* PDF */,
 				6003F59F195388D20070C39A /* Main.storyboard */,
 				9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */,
@@ -483,24 +478,15 @@
 			name = PDF;
 			sourceTree = "<group>";
 		};
-		9203D6ED1D02211200BA45FA /* FirmwareUpgradeFiles */ = {
+		CB48CBB779DCB17017E31B4A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				920E49D01D341DD900B6BF72 /* HP_protocol_v1.rbn */,
-				920E49CE1D34018500B6BF72 /* HP_protocol_v2.rbn */,
-				9203D6EE1D02217800BA45FA /* Polaroid_v200.rbn */,
-				9203D6EF1D02217800BA45FA /* Polaroid_v300.rbn */,
-			);
-			name = FirmwareUpgradeFiles;
-			sourceTree = "<group>";
-		};
-		BB1A7AE6C5D400E972020508 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B4517B52F9E6A6FBAF719728 /* Pods-MobilePrintSDK.debug.xcconfig */,
-				7337A2AC7BAEB8252FAAC8BB /* Pods-MobilePrintSDK.release.xcconfig */,
-				C6C2E8C63C60FC48B6767AD6 /* Pods-Tests.debug.xcconfig */,
-				EE7EBCBC7723D10BF4D13C7F /* Pods-Tests.release.xcconfig */,
+				7B04D1BB4D8A663F7A997012 /* Pods-MobilePrintSDK.debug.xcconfig */,
+				4A7A608A07637D37639F3EE8 /* Pods-MobilePrintSDK.release.xcconfig */,
+				B87389BC21CCE3B17CB5BB65 /* Pods-Tests.debug.xcconfig */,
+				51B540091208E08D316D13A6 /* Pods-Tests.release.xcconfig */,
+				AB3988E52992DECF561686AE /* Pods-MobilePrintSDK-MobilePrintSDK-cal.debug.xcconfig */,
+				ECEF04BEEDCB896D9FD0191D /* Pods-MobilePrintSDK-MobilePrintSDK-cal.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -512,12 +498,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0856fbff897339910fb50916 /* Build configuration list for PBXNativeTarget "MobilePrintSDK-cal" */;
 			buildPhases = (
-				2e199d189b88675b20dd50a6 /* Check Pods Manifest.lock */,
+				650B406FAEFA1562D8AE7608 /* [CP] Check Pods Manifest.lock */,
 				25c1b2187431f09cad5ec023 /* Sources */,
 				512c47ba305f7cab14d8dfaa /* Frameworks */,
 				f02ead2035a6604e3dc59dd5 /* Resources */,
-				bb4e230704dbf7e8eb5b9bf3 /* Copy Pods Resources */,
 				6a98cefd869fac3c67ac5f87 /* Embed App Extensions */,
+				D33A3412066CC50BDFB317BD /* [CP] Embed Pods Frameworks */,
+				13A0A75DE4CF810CA4510A6E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -532,16 +519,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "MobilePrintSDK" */;
 			buildPhases = (
-				4B89F834ABF1DC87CED4EC0F /* Check Pods Manifest.lock */,
+				B961F7DA0A0125CB127AE8DA /* [CP] Check Pods Manifest.lock */,
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				65930B401BC46A6B003307D0 /* ShellScript */,
 				6003F588195388D20070C39A /* Resources */,
-				542373FFA571279CCE085671 /* Copy Pods Resources */,
 				F14A1C5F1B28F594000C5855 /* Embed App Extensions */,
 				65930B411BC474A3003307D0 /* ShellScript */,
 				65D1A2911BE9844C0091A571 /* ShellScript */,
-				859B32C14CCBE7D9F5EDDD6B /* Embed Pods Frameworks */,
+				642202AD52355D34D70D3AB3 /* [CP] Embed Pods Frameworks */,
+				0A3E4AE551B42DD0BC73DE88 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -556,12 +543,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
-				45781F838DD6C9BECCA158BA /* Check Pods Manifest.lock */,
+				49F23F1DC6A164DB07A0A62A /* [CP] Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
-				1C5F881ACDDE30D48333F2B5 /* Copy Pods Resources */,
-				8313CFAA93237F45FDCA7C27 /* Embed Pods Frameworks */,
+				FB7F2D1F026D0CCE5BA6AC67 /* [CP] Embed Pods Frameworks */,
+				5E698E25AAB7E88142302D96 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -638,9 +625,7 @@
 				65748EE81B2BFD5F00CC6907 /* 44 Pages.pdf in Resources */,
 				65FFC9B31B03B0A400DCE2B4 /* 1 Page (landscape).pdf in Resources */,
 				65FFC9B81B03B0A400DCE2B4 /* 10 Pages.pdf in Resources */,
-				9203D6F01D02217800BA45FA /* Polaroid_v200.rbn in Resources */,
 				E32115E11A38BCE50079144C /* MPLearnMoreView.xib in Resources */,
-				920E49CF1D34018500B6BF72 /* HP_protocol_v2.rbn in Resources */,
 				65FFC9B71B03B0A400DCE2B4 /* 6 Pages (landscape).pdf in Resources */,
 				651039BA1B73FAA10013E738 /* 236 Pages.pdf in Resources */,
 				920746501CD3DBBD0051CF1D /* LaunchScreen.storyboard in Resources */,
@@ -648,9 +633,7 @@
 				65748EE91B2BFD5F00CC6907 /* 51 Pages.pdf in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				658840E11BFE437A001B178D /* 1397 Pages.pdf in Resources */,
-				920E49D11D341DD900B6BF72 /* HP_protocol_v1.rbn in Resources */,
 				6003F5A1195388D20070C39A /* Main.storyboard in Resources */,
-				9203D6F11D02217800BA45FA /* Polaroid_v300.rbn in Resources */,
 				65FFC9B61B03B0A400DCE2B4 /* 4 Pages.pdf in Resources */,
 				651039B81B73FAA10013E738 /* 15 Pages.pdf in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -710,14 +693,59 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1C5F881ACDDE30D48333F2B5 /* Copy Pods Resources */ = {
+		0A3E4AE551B42DD0BC73DE88 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		13A0A75DE4CF810CA4510A6E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobilePrintSDK-MobilePrintSDK-cal/Pods-MobilePrintSDK-MobilePrintSDK-cal-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49F23F1DC6A164DB07A0A62A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5E698E25AAB7E88142302D96 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -725,64 +753,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2e199d189b88675b20dd50a6 /* Check Pods Manifest.lock */ = {
+		642202AD52355D34D70D3AB3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		650B406FAEFA1562D8AE7608 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		45781F838DD6C9BECCA158BA /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		4B89F834ABF1DC87CED4EC0F /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		542373FFA571279CCE085671 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		65930B401BC46A6B003307D0 /* ShellScript */ = {
@@ -825,49 +823,49 @@
 			shellScript = "set -e\n\nmp=$(cat \"../Pod/Classes/Public/MP.m\")\nmp_regex=\"kMPLibraryVersion = @\\\"([0-9]+\\.[0-9]+\\.[0-9]+)\"\n[[ $mp =~ $mp_regex ]]\nmp_version=\"${BASH_REMATCH[1]}\"\n\npod=$(cat \"../MobilePrintSDK.podspec\")\npod_regex=\"s.version *= *\\\"([0-9]+\\.[0-9]+\\.[0-9]+)\"\n[[ $pod =~ $pod_regex ]]\npod_version=\"${BASH_REMATCH[1]}\"\n\nif [ \"$mp_version\" == \"$pod_version\" ];\nthen\necho \"MP ($mp_version) is equal to pod version ($pod_version)\"\nfi\n\nif [ \"$mp_version\" != \"$pod_version\" ];\nthen\necho \"kMPLibraryVersion ($mp_version) is NOT equal to pod version ($pod_version)\"\nexit 1\nfi";
 			showEnvVarsInLog = 0;
 		};
-		8313CFAA93237F45FDCA7C27 /* Embed Pods Frameworks */ = {
+		B961F7DA0A0125CB127AE8DA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D33A3412066CC50BDFB317BD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobilePrintSDK-MobilePrintSDK-cal/Pods-MobilePrintSDK-MobilePrintSDK-cal-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB7F2D1F026D0CCE5BA6AC67 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		859B32C14CCBE7D9F5EDDD6B /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		bb4e230704dbf7e8eb5b9bf3 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -997,7 +995,7 @@
 /* Begin XCBuildConfiguration section */
 		46070f3ade5f7f1178823bfb /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B4517B52F9E6A6FBAF719728 /* Pods-MobilePrintSDK.debug.xcconfig */;
+			baseConfigurationReference = AB3988E52992DECF561686AE /* Pods-MobilePrintSDK-MobilePrintSDK-cal.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1006,10 +1004,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobilePrintSDK/MobilePrintSDK-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "MobilePrintSDK/MobilePrintSDK-Info.plist";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1025,7 +1023,7 @@
 		};
 		5e35633fdde30b85b8e05e76 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7337A2AC7BAEB8252FAAC8BB /* Pods-MobilePrintSDK.release.xcconfig */;
+			baseConfigurationReference = ECEF04BEEDCB896D9FD0191D /* Pods-MobilePrintSDK-MobilePrintSDK-cal.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1034,10 +1032,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobilePrintSDK/MobilePrintSDK-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "MobilePrintSDK/MobilePrintSDK-Info.plist";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1130,7 +1128,7 @@
 		};
 		6003F5C0195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B4517B52F9E6A6FBAF719728 /* Pods-MobilePrintSDK.debug.xcconfig */;
+			baseConfigurationReference = 7B04D1BB4D8A663F7A997012 /* Pods-MobilePrintSDK.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1143,6 +1141,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobilePrintSDK/MobilePrintSDK-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "MobilePrintSDK/MobilePrintSDK-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hp.dev.MobilePrintSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1153,7 +1152,7 @@
 		};
 		6003F5C1195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7337A2AC7BAEB8252FAAC8BB /* Pods-MobilePrintSDK.release.xcconfig */;
+			baseConfigurationReference = 4A7A608A07637D37639F3EE8 /* Pods-MobilePrintSDK.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1166,6 +1165,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobilePrintSDK/MobilePrintSDK-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "MobilePrintSDK/MobilePrintSDK-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hp.dev.MobilePrintSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1176,7 +1176,7 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6C2E8C63C60FC48B6767AD6 /* Pods-Tests.debug.xcconfig */;
+			baseConfigurationReference = B87389BC21CCE3B17CB5BB65 /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MobilePrintSDK.app/MobilePrintSDK";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1187,9 +1187,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/MobilePrintSDK\"",
-					"\"$(PODS_ROOT)/Headers/Build/MobilePrintSDK\"",
+					"$(inherited)",
 					"\"$(PODS_ROOT)/Headers/Private/MobilePrintSDK\"",
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
@@ -1202,16 +1200,14 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE7EBCBC7723D10BF4D13C7F /* Pods-Tests.release.xcconfig */;
+			baseConfigurationReference = 51B540091208E08D316D13A6 /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MobilePrintSDK.app/MobilePrintSDK";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/MobilePrintSDK\"",
-					"\"$(PODS_ROOT)/Headers/Build/MobilePrintSDK\"",
+					"$(inherited)",
 					"\"$(PODS_ROOT)/Headers/Private/MobilePrintSDK\"",
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";

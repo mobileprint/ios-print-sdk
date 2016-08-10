@@ -1,7 +1,14 @@
+#### 3.0.9
+###### Not Yet Released
+
+- Added debug logging for print layout
+- Rename reachability constant to avoid conflicts 
+
 #### 3.0.8
-###### Not yet released
+###### Wednesday July 27, 2016
 
 - Fix compiler warnings
+- Fix handling of bundle when using frameworks
 
 #### 3.0.7
 ###### Tuesday May 17, 2016

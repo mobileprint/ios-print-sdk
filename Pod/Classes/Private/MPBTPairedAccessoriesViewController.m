@@ -375,7 +375,6 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
             for (EAAccessory *acc in self.pairedDevices) {
                 if (![[MPBTSprocket displayNameForAccessory:acc] isEqualToString:[MPBTSprocket displayNameForAccessory:self.recentDevice]]) {
                     [self.otherDevices addObject:acc];
-                    break;
                 }
             }
         }
