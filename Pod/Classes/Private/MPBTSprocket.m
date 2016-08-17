@@ -144,9 +144,14 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
                                   [[NSString alloc] initWithData: data
                                                         encoding: NSUTF8StringEncoding]);
                             
-                            if (data) {
+                            if (data  &&  !error) {
                                 self.upgradeData = data;
                                 [self.session writeData:[self upgradeReadyRequest]];
+                            } else {
+                                MPLogError(@"Error receiving firmware upgrade file: %@", error);
+                                if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
+                                    [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusFail];
+                                }
                             }
                         }] resume];
 }
@@ -479,7 +484,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
             if ([MPBTSprocket latestFirmwareVersion:self.protocolString] > self.firmwareVersion) {
                 needsUpgrade = YES;
             }
-            [self.delegate didCompareWithLatestFirmwareVersion:self needsUpgrade:/*needsUpgrade*/YES];
+            [self.delegate didCompareWithLatestFirmwareVersion:self needsUpgrade:YES];
         }
     } else if (RESP_PRINT_START_CMD == cmdId[0]  &&
                RESP_PRINT_START_SUB_CMD == subCmdId[0]) {
