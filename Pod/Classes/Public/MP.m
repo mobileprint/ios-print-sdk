@@ -77,6 +77,7 @@ NSString * const kMPPrinterPaperAreaYPoints = @"printer_paper_area_y_points";
 BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 
 @interface MP()
+@property (weak, nonatomic) id<MPSprocketDelegate> sprocketDelegate;
 @end
 
 @implementation MP
@@ -280,16 +281,31 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return [MPBTSprocket pairedSprockets].count;
 }
 
-- (NSString *)bluetoothDeviceNeedsReflash
+- (void)checkSprocketForFirmwareUpgrade:(id<MPSprocketDelegate>)delegate
 {
     NSString *deviceName = nil;
     
     NSArray *pairedSprockets = [MPBTSprocket pairedSprockets];
-    if (1 == pairedSprockets.count && [MPBTProgressView needFirmwareUpdate]) {
-        deviceName = [MPBTSprocket displayNameForAccessory:(EAAccessory *)pairedSprockets[0]];
+    if (1 == pairedSprockets.count) {
+        self.sprocketDelegate = delegate;
+        EAAccessory *device = (EAAccessory *)pairedSprockets[0];
+        [MPBTSprocket sharedInstance].accessory = device;
+        [MPBTSprocket sharedInstance].delegate = self;
+        [[MPBTSprocket sharedInstance] refreshInfo];
+    }
+}
+
+- (void)didCompareWithLatestFirmwareVersion:(MPBTSprocket *)sprocket needsUpgrade:(BOOL)needsUpgrade
+{
+    if (needsUpgrade) {
+        [self.sprocketDelegate didCompareSprocketWithLatestFirmwareVersion:sprocket.displayName needsUpgrade:needsUpgrade];
     }
     
-    return deviceName;
+    if (self == sprocket.delegate) {
+        sprocket.delegate = nil;
+    }
+    
+    self.sprocketDelegate = nil;
 }
 
 - (void)reflashBluetoothDevice:(UIViewController *)viewController

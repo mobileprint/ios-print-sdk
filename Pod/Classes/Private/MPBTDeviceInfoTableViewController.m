@@ -27,12 +27,13 @@ typedef enum
     MPBTDeviceInfoOrderHardwareVersion = 5
 } MPBTDeviceInfoOrder;
 
-@interface MPBTDeviceInfoTableViewController () <MPBTAutoOffTableViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface MPBTDeviceInfoTableViewController () <MPBTAutoOffTableViewControllerDelegate, MPBTSprocketDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) MPBTSprocket *sprocket;
 @property (strong, nonatomic) UIAlertController* alert;
 @property (strong, nonatomic) NSString *lastError;
 @property (assign, nonatomic) BOOL hideBackButton;
+@property (strong, nonatomic) UIView *originalHeaderView;
 
 @property (weak, nonatomic) IBOutlet UIButton *fwUpgradeButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -60,10 +61,8 @@ typedef enum
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.separatorColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralTableSeparatorColor];
     
-    if (![MPBTProgressView needFirmwareUpdate]) {
-        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,10,10)];
-    }
-
+    self.originalHeaderView = self.tableView.tableHeaderView;
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0,0,10,10)];
     
     self.fwUpgradeButton.titleLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     self.fwUpgradeButton.titleLabel.textColor = [UIColor colorWithRed:47.0/255.0 green:184.0/255.0 blue:255.0/255.0 alpha:1.0];
@@ -244,6 +243,16 @@ typedef enum
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
+}
+
+- (void)didCompareWithLatestFirmwareVersion:(MPBTSprocket *)sprocket needsUpgrade:(BOOL)needsUpgrade
+{
+    if (needsUpgrade) {
+        self.tableView.tableHeaderView = self.originalHeaderView;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }
 }
 
 - (void)didSendPrintData:(MPBTSprocket *)sprocket percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
