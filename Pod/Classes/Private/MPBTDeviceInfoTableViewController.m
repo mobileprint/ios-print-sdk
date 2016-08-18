@@ -247,7 +247,7 @@ typedef enum
 
 - (void)didCompareWithLatestFirmwareVersion:(MPBTSprocket *)sprocket needsUpgrade:(BOOL)needsUpgrade
 {
-    if (needsUpgrade) {
+    if (needsUpgrade  &&  [MP sharedInstance].minimumSprocketBatteryLevelForUpgrade < sprocket.batteryStatus) {
         self.tableView.tableHeaderView = self.originalHeaderView;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
