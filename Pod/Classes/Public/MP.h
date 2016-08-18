@@ -24,6 +24,7 @@
 @class MPPaper;
 @class MPPrintItem;
 @protocol MPPrintPaperDelegate;
+@protocol MPSprocketDelegate;
 
 #define LAST_PRINTER_USED_URL_SETTING @"lastPrinterUrlUsed"
 #define MP_ERROR_DOMAIN @"com.hp.mp"
@@ -518,10 +519,10 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
 
 /*!
  * @abstract Indicates whether a single sprocket is paired and needs to be reflashed
- * @return The name of the device to reflash if a single sprocket is paired and needs to be reflashed, nil if multiple sprockets are paired and/or if a single sprocket is paired, but doesn't need a reflash
+ * @discussion This call will result in a call to the delegate's didCompareSprocketWithLatestFirmwareVersion:needsUpgrade function
+ * @param delegate An object that impelments the MPSprocketDelegate protocol.  It's didCompareSprocketWithLatestFirmwareVersion:needsUpgrade function will be called once the check has been completed.
  */
-- (NSString *)bluetoothDeviceNeedsReflash;
-
+- (void)checkSprocketForFirmwareUpgrade:(id<MPSprocketDelegate>)delegate;
 
 /*!
  * @abstract Causes a reflash of the first paired sprocket.
@@ -751,3 +752,19 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
 - (NSNumber *)printInteractionController:(UIPrintInteractionController *)printInteractionController cutLengthForPaper:(UIPrintPaper *)paper forPrintSettings:(MPPrintSettings *)printSettings;
 
 @end
+
+/*!
+ * @abstract Defines a delegate protocal for reporting that a sprocket needs a firmware upgrade
+ */
+@protocol MPSprocketDelegate <NSObject>
+
+/*!
+ * @abstract Called when a sprocket needs a firmware upgrade
+ * @discussion This delegate method is called when a sprocket needs a firmware upgrade.
+ * @param needsUpgrade YES if the sprocket needs to be upgraded, NO otherwise
+ * @returns Nothing
+ */
+- (void)didCompareSprocketWithLatestFirmwareVersion:(NSString *)deviceName needsUpgrade:(BOOL)needsUpgrade;
+
+@end
+

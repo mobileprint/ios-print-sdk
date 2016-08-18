@@ -63,5 +63,6 @@
 - (void)didSendDeviceUpgradeData:(MPBTSprocket *)manta percentageComplete:(NSInteger)percentageComplete error:(MantaError)error;
 - (void)didFinishSendingDeviceUpgrade:(MPBTSprocket *)manta;
 - (void)didChangeDeviceUpgradeStatus:(MPBTSprocket *)manta status:(MantaUpgradeStatus)status;
+- (void)didCompareWithLatestFirmwareVersion:(MPBTSprocket *)manta needsUpgrade:(BOOL)needsUpgrade;
 
 @end

@@ -17,8 +17,9 @@
 
 const char MANTA_PACKET_LENGTH = 34;
 
-static const NSString *polaroidProtocol = @"com.polaroid.mobileprinter";
-static const NSString *hpProtocol = @"com.hp.protocol";
+static const NSString *kPolaroidProtocol = @"com.polaroid.mobileprinter";
+static const NSString *kHpProtocol = @"com.hp.protocol";
+static const NSString *kFirmwareUpdatePath = @"https://s3-us-west-1.amazonaws.com/sprocket-fw-updates/fw_release.json";
 
 // Common to all packets
 static const char START_CODE_BYTE_1    = 0x1B;
@@ -94,7 +95,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     self = [super init];
     if (self) {
 
-        self.supportedProtocols = @[polaroidProtocol, hpProtocol/*, @"com.lge.pocketphoto"*/];
+        self.supportedProtocols = @[kPolaroidProtocol, kHpProtocol/*, @"com.lge.pocketphoto"*/];
         
         // watch for received data from the accessory
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_sessionDataReceived:) name:MPBTSessionDataReceivedNotification object:nil];
@@ -132,30 +133,28 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 - (void)reflash
 {
-    if ([self.protocolString isEqualToString:polaroidProtocol]  ||
-        [self.protocolString isEqualToString:hpProtocol]) {
-        
-        NSString *myFile = [[NSBundle mainBundle] pathForResource:@"HP_protocol_v2" ofType:@"rbn"];        
-        self.upgradeData = [NSData dataWithContentsOfFile:myFile];
-        
-        [self.session writeData:[self upgradeReadyRequest]];
-    } else {
-        NSLog(@"No reflash files for non-Polaroid and non-HP devices");
-    }
-}
-
-+ (NSArray *)pairedSprockets
-{
-    NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
-    NSMutableArray *pairedDevices = [[NSMutableArray alloc] init];
+    NSString *path = [MPBTSprocket pathForLatestFirmwareVersion:self.protocolString];
     
-    for (EAAccessory *accessory in accs) {
-        if ([MPBTSprocket supportedAccessory:accessory]) {
-            [pairedDevices addObject:accessory];
-        }
-    }
-
-    return pairedDevices;
+    NSURLSession *delegateFreeSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+    
+    [[delegateFreeSession dataTaskWithURL: [NSURL URLWithString:path]
+                        completionHandler:^(NSData *data, NSURLResponse *response,
+                                            NSError *error) {
+                            NSLog(@"Got response %@ with error %@.\n", response, error);
+                            NSLog(@"DATA:\n%@\nEND DATA\n",
+                                  [[NSString alloc] initWithData: data
+                                                        encoding: NSUTF8StringEncoding]);
+                            
+                            if (data  &&  !error) {
+                                self.upgradeData = data;
+                                [self.session writeData:[self upgradeReadyRequest]];
+                            } else {
+                                MPLogError(@"Error receiving firmware upgrade file: %@", error);
+                                if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
+                                    [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusFail];
+                                }
+                            }
+                        }] resume];
 }
 
 #pragma mark - Getters/Setters
@@ -250,10 +249,10 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     packet[0] = START_CODE_BYTE_1;
     packet[1] = START_CODE_BYTE_2;
     
-    if ([self.protocolString isEqualToString:polaroidProtocol]) {
+    if ([self.protocolString isEqualToString:kPolaroidProtocol]) {
         packet[2] = POLAROID_CUSTOMER_CODE_BYTE_1;
         packet[3] = POLAROID_CUSTOMER_CODE_BYTE_2;
-    } else if ([self.protocolString isEqualToString:hpProtocol]){
+    } else if ([self.protocolString isEqualToString:kHpProtocol]){
         packet[2] = HP_CUSTOMER_CODE_BYTE_1;
         packet[3] = HP_CUSTOMER_CODE_BYTE_2;
     } else {
@@ -481,6 +480,13 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
             [self.delegate didRefreshMantaInfo:self error:payload[1]];
         }
         
+        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didCompareWithLatestFirmwareVersion:needsUpgrade:)]) {
+            BOOL needsUpgrade = NO;
+            if ([MPBTSprocket latestFirmwareVersion:self.protocolString] > self.firmwareVersion) {
+                needsUpgrade = YES;
+            }
+            [self.delegate didCompareWithLatestFirmwareVersion:self needsUpgrade:needsUpgrade];
+        }
     } else if (RESP_PRINT_START_CMD == cmdId[0]  &&
                RESP_PRINT_START_SUB_CMD == subCmdId[0]) {
         NSLog(@"\n\nPrintStart: %@\n\n", data);
@@ -828,6 +834,108 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     };
     
     return errString;
+}
+
++ (NSDictionary *)getFirmwareUpdateInfo
+{
+    NSDictionary *fwUpdateInfo = nil;
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kFirmwareUpdatePath]];
+    [urlRequest setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+    [urlRequest setHTTPMethod:@"GET"];
+    [urlRequest setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    NSURLResponse *response = nil;
+    NSError *connectionError = nil;
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&connectionError];
+    
+    if (connectionError == nil) {
+        NSInteger statusCode = 0;
+        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            statusCode = [(NSHTTPURLResponse *)response statusCode];
+            if (statusCode != 200) {
+                MPLogError(@"FW Update:  Response code = %ld", (long)statusCode);
+            } else {
+                NSError *error;
+                NSDictionary *fwDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+                if (fwDictionary) {
+                    MPLogInfo(@"FW Update:  Result = %@", fwDictionary);
+                    fwUpdateInfo = [fwDictionary valueForKey:@"firmware"];
+                } else {
+                    MPLogError(@"FW Update:  Parse Error = %@", error);
+                    NSString *returnString = [[NSString alloc] initWithBytes:[responseData bytes] length:[responseData length] encoding:NSUTF8StringEncoding];
+                    MPLogInfo(@"FW Update:  Return string = %@", returnString);
+                }
+            }
+        }
+    } else {
+        MPLogError(@"FW Update:  Connection error = %@", connectionError);
+    }
+    
+    return fwUpdateInfo;
+}
+
++ (NSUInteger)latestFirmwareVersion:(NSString *)protocolString
+{
+    NSUInteger fwVersion = 0;
+    NSDictionary *fwUpdateInfo = [MPBTSprocket getFirmwareUpdateInfo];
+    NSDictionary *deviceUpdateInfo = nil;
+    
+    if (nil != fwUpdateInfo) {
+        if ([kPolaroidProtocol isEqualToString:protocolString]) {
+            deviceUpdateInfo = [fwUpdateInfo objectForKey:@"Polaroid"];
+        } else {
+            deviceUpdateInfo = [fwUpdateInfo objectForKey:@"HP"];
+        }
+        
+        if (deviceUpdateInfo) {
+            NSString *strVersion = [deviceUpdateInfo objectForKey:@"fw_ver"];
+            NSArray *bytes = [strVersion componentsSeparatedByString:@"."];
+            NSInteger topIdx = bytes.count-1;
+            for (NSInteger idx = topIdx; idx >= 0; idx--) {
+                NSString *strByte = bytes[idx];
+                NSInteger byte = [strByte integerValue];
+                
+                NSInteger shiftValue = topIdx-idx;
+                fwVersion += (byte << (8 * shiftValue));
+            }
+        } else {
+            MPLogError(@"Unrecognized firmware update info: %@", fwUpdateInfo);
+        }
+    }
+    
+    return fwVersion;
+}
+
++ (NSString *)pathForLatestFirmwareVersion:(NSString *)protocolString
+{
+    NSString *fwPath = nil;
+    NSDictionary *fwUpdateInfo = [MPBTSprocket getFirmwareUpdateInfo];
+    NSDictionary *deviceUpdateInfo = nil;
+
+    if ([kPolaroidProtocol isEqualToString:protocolString]) {
+        deviceUpdateInfo = [fwUpdateInfo objectForKey:@"Polaroid"];
+    } else {
+        deviceUpdateInfo = [fwUpdateInfo objectForKey:@"HP"];
+    }
+
+    if (deviceUpdateInfo) {
+        fwPath = [deviceUpdateInfo objectForKey:@"fw_url"];
+    }
+    
+    return fwPath;
+}
+
++ (NSArray *)pairedSprockets
+{
+    NSArray *accs = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
+    NSMutableArray *pairedDevices = [[NSMutableArray alloc] init];
+    
+    for (EAAccessory *accessory in accs) {
+        if ([MPBTSprocket supportedAccessory:accessory]) {
+            [pairedDevices addObject:accessory];
+        }
+    }
+    
+    return pairedDevices;
 }
 
 #pragma mark -

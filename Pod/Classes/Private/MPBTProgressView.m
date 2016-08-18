@@ -118,16 +118,6 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     return kProgressViewAnimationDuration;
 }
 
-+ (BOOL)needFirmwareUpdate
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (nil == [defaults objectForKey:kSettingShowFirmwareUpgrade]) {
-        [defaults setBool:NO forKey:kSettingShowFirmwareUpgrade];
-        [defaults synchronize];
-    }
-    return [defaults boolForKey:kSettingShowFirmwareUpgrade];
-}
-
 - (void)removeProgressView
 {
     [UIView animateWithDuration:[MPBTProgressView animationDuration] animations:^{

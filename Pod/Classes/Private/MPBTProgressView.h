@@ -20,7 +20,6 @@
 @property (weak, nonatomic) UIViewController *viewController;
 
 + (CGFloat)animationDuration;
-+ (BOOL)needFirmwareUpdate;
 
 - (void)setProgress:(CGFloat)progress;
 - (void)setStatus:(MantaUpgradeStatus)status;
