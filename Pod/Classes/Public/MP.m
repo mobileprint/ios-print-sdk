@@ -93,6 +93,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
         sharedInstance.interfaceOptions = [[MPInterfaceOptions alloc] init];
         sharedInstance.printPaperDelegate = nil;
         sharedInstance.uniqueDeviceIdPerApp = kMPDefaultUniqueDeviceIdPerApp;
+        sharedInstance.minimumSprocketBatteryLevelForUpgrade = 75;
     });
     
     return sharedInstance;
@@ -298,7 +299,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 - (void)didCompareWithLatestFirmwareVersion:(MPBTSprocket *)sprocket needsUpgrade:(BOOL)needsUpgrade
 {
     if (needsUpgrade) {
-        [self.sprocketDelegate didCompareSprocketWithLatestFirmwareVersion:sprocket.displayName needsUpgrade:needsUpgrade];
+        [self.sprocketDelegate didCompareSprocketWithLatestFirmwareVersion:sprocket.displayName batteryLevel:sprocket.batteryStatus needsUpgrade:needsUpgrade];
     }
     
     if (self == sprocket.delegate) {
