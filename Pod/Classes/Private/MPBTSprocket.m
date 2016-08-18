@@ -17,8 +17,9 @@
 
 const char MANTA_PACKET_LENGTH = 34;
 
-static const NSString *polaroidProtocol = @"com.polaroid.mobileprinter";
-static const NSString *hpProtocol = @"com.hp.protocol";
+static const NSString *kPolaroidProtocol = @"com.polaroid.mobileprinter";
+static const NSString *kHpProtocol = @"com.hp.protocol";
+static const NSString *kFirmwareUpdatePath = @"https://s3-us-west-1.amazonaws.com/sprocket-fw-updates/fw_release.json";
 
 // Common to all packets
 static const char START_CODE_BYTE_1    = 0x1B;
@@ -94,7 +95,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     self = [super init];
     if (self) {
 
-        self.supportedProtocols = @[polaroidProtocol, hpProtocol/*, @"com.lge.pocketphoto"*/];
+        self.supportedProtocols = @[kPolaroidProtocol, kHpProtocol/*, @"com.lge.pocketphoto"*/];
         
         // watch for received data from the accessory
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_sessionDataReceived:) name:MPBTSessionDataReceivedNotification object:nil];
@@ -248,10 +249,10 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     packet[0] = START_CODE_BYTE_1;
     packet[1] = START_CODE_BYTE_2;
     
-    if ([self.protocolString isEqualToString:polaroidProtocol]) {
+    if ([self.protocolString isEqualToString:kPolaroidProtocol]) {
         packet[2] = POLAROID_CUSTOMER_CODE_BYTE_1;
         packet[3] = POLAROID_CUSTOMER_CODE_BYTE_2;
-    } else if ([self.protocolString isEqualToString:hpProtocol]){
+    } else if ([self.protocolString isEqualToString:kHpProtocol]){
         packet[2] = HP_CUSTOMER_CODE_BYTE_1;
         packet[3] = HP_CUSTOMER_CODE_BYTE_2;
     } else {
@@ -484,7 +485,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
             if ([MPBTSprocket latestFirmwareVersion:self.protocolString] > self.firmwareVersion) {
                 needsUpgrade = YES;
             }
-            [self.delegate didCompareWithLatestFirmwareVersion:self needsUpgrade:YES];
+            [self.delegate didCompareWithLatestFirmwareVersion:self needsUpgrade:needsUpgrade];
         }
     } else if (RESP_PRINT_START_CMD == cmdId[0]  &&
                RESP_PRINT_START_SUB_CMD == subCmdId[0]) {
@@ -838,7 +839,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 + (NSDictionary *)getFirmwareUpdateInfo
 {
     NSDictionary *fwUpdateInfo = nil;
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://s3-us-west-1.amazonaws.com/sprocket-fw-updates/fw_release.json"]];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kFirmwareUpdatePath]];
     [urlRequest setCachePolicy:NSURLRequestReloadIgnoringCacheData];
     [urlRequest setHTTPMethod:@"GET"];
     [urlRequest setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -879,7 +880,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     NSDictionary *deviceUpdateInfo = nil;
     
     if (nil != fwUpdateInfo) {
-        if ([polaroidProtocol isEqualToString:protocolString]) {
+        if ([kPolaroidProtocol isEqualToString:protocolString]) {
             deviceUpdateInfo = [fwUpdateInfo objectForKey:@"Polaroid"];
         } else {
             deviceUpdateInfo = [fwUpdateInfo objectForKey:@"HP"];
@@ -910,7 +911,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     NSDictionary *fwUpdateInfo = [MPBTSprocket getFirmwareUpdateInfo];
     NSDictionary *deviceUpdateInfo = nil;
 
-    if ([polaroidProtocol isEqualToString:protocolString]) {
+    if ([kPolaroidProtocol isEqualToString:protocolString]) {
         deviceUpdateInfo = [fwUpdateInfo objectForKey:@"Polaroid"];
     } else {
         deviceUpdateInfo = [fwUpdateInfo objectForKey:@"HP"];
