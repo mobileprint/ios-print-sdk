@@ -120,6 +120,22 @@ typedef enum
     }];
 }
 
+- (void)displayError:(MantaError)error
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[MPBTSprocket errorTitle:error]
+                                                                   message:[MPBTSprocket errorDescription:error]
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         [self didPressCancel];
+                                                     }];
+    [alert addAction:okAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark - Button handlers
 
 - (void)didPressCancel
@@ -137,6 +153,7 @@ typedef enum
         self.updating = YES;
         self.progressView = [[MPBTProgressView alloc] initWithFrame:self.navigationController.view.frame];
         self.progressView.viewController = self.navigationController;
+        self.progressView.completion = ^{[self didPressCancel];};
         self.progressView.sprocketDelegate = self;
         [self.progressView reflashDevice];
     }
@@ -243,16 +260,7 @@ typedef enum
             [self.tableView reloadData];
         });
     } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[MPBTSprocket errorTitle:error]
-                                                                       message:[MPBTSprocket errorDescription:error]
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-        [alert addAction:okAction];
-        
-        [self presentViewController:alert animated:YES completion:nil];
+        [self displayError:error];
     }
 }
 
@@ -284,6 +292,9 @@ typedef enum
 - (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
 {
     self.fwUpgradeButton.enabled = NO;
+    if (!self.updating) {
+        [self displayError:error];
+    }
     self.updating = NO;
 }
 

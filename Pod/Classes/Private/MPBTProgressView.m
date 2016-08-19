@@ -89,6 +89,8 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     self.alert = [UIAlertController alertControllerWithTitle:@"Upgrade Status"
                                                      message:@"This is an alert."
                                               preferredStyle:UIAlertControllerStyleAlert];
+
+    self.completion = nil;
 }
 
 - (void)reflashDevice
@@ -254,8 +256,11 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Upgrade Status"
                                                                        message:@"This is an alert."
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        if (MantaUpgradeStatusStart != status  && MantaUpgradeStatusFinish != status) {
-            if (MantaUpgradeStatusFail == status) {
+         if (MantaUpgradeStatusStart != status) {
+             if (MantaUpgradeStatusFinish == status) {
+                 self.alert.title = MPLocalizedString(@"Firmware Updated", @"Title for dialog given after a successful firmware update");
+                 self.alert.message = @"";
+             } else if (MantaUpgradeStatusFail == status) {
                 self.alert.title = MPLocalizedString(@"Firmware Upgrade Error", @"Title for firmware upgrade error dialog");
                 self.alert.message = MPLocalizedString(@"Ensure the printer is on and bluetooth connected.", @"Body for firmware upgrade error dialog");
             } else if (MantaUpgradeStatusDownloadFail == status) {
@@ -286,6 +291,9 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) {
                                                                   [self.alert dismissViewControllerAnimated:YES completion:nil];
+                                                                  if (self.completion) {
+                                                                      self.completion();
+                                                                  }
                                                               }];
         [self.alert addAction:defaultAction];
     }

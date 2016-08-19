@@ -770,7 +770,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
             errString = MPLocalizedString(@"Error", @"Message given when sprocket cannot print due to not recognizing data from our app");
             break;
         case MantaErrorNoSession:
-            errString = MPLocalizedString(@"Error", @"Message given when sprocket cannot be reached")
+            errString = MPLocalizedString(@"Connection Error", @"Message given when sprocket cannot be reached");
             break;
             
         default:
@@ -831,7 +831,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
             break;
             
         case MantaErrorNoSession:
-            errString = MPLocalizedString(@"Error", @"Ensure the printer is on and bluetooth connected.")
+            errString = MPLocalizedString(@"Ensure the printer is on and bluetooth connected.", @"Message given when the printer can't be contacted.");
             break;
 
         default:
