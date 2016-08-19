@@ -135,21 +135,21 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 {
     NSString *path = [MPBTSprocket pathForLatestFirmwareVersion:self.protocolString];
     
-    NSURLSession *delegateFreeSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+    NSURLSession *httpSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
     
-    [[delegateFreeSession dataTaskWithURL: [NSURL URLWithString:path]
-                        completionHandler:^(NSData *data, NSURLResponse *response,
-                                            NSError *error) {
-                            if (data  &&  !error) {
-                                self.upgradeData = data;
-                                [self.session writeData:[self upgradeReadyRequest]];
-                            } else {
-                                MPLogError(@"Error receiving firmware upgrade file: %@", error);
-                                if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
-                                    [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusDownloadFail];
-                                }
-                            }
-                        }] resume];
+    [[httpSession dataTaskWithURL: [NSURL URLWithString:path]
+                completionHandler:^(NSData *data, NSURLResponse *response,
+                                    NSError *error) {
+                    if (data  &&  !error) {
+                        self.upgradeData = data;
+                        [self.session writeData:[self upgradeReadyRequest]];
+                    } else {
+                        MPLogError(@"Error receiving firmware upgrade file: %@", error);
+                        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
+                            [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusDownloadFail];
+                        }
+                    }
+                }] resume];
 }
 
 #pragma mark - Getters/Setters
