@@ -39,7 +39,8 @@ typedef enum {
 typedef enum {
     MantaUpgradeStatusStart  = 0x00,
     MantaUpgradeStatusFinish = 0x01,
-    MantaUpgradeStatusFail   = 0x02
+    MantaUpgradeStatusFail   = 0x02,
+    MantaUpgradeStatusDownloadFail = 0x0100
 } MantaUpgradeStatus;
 
 typedef enum {
@@ -57,7 +58,8 @@ typedef enum {
     MantaErrorLowTemperature  = 0x0B,
     MantaErrorCoolingMode     = 0x0C,
     // Cancel is for Android only
-    MantaErrorWrongCustomer   = 0x0E
+    MantaErrorWrongCustomer   = 0x0E,
+    MantaErrorNoSession       = 0xFF00,
 } MantaError;
 
 #endif /* MantDefinitions_h */

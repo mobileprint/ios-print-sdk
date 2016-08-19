@@ -405,6 +405,11 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  */
 @property (assign, nonatomic) BOOL pageSettingsCancelButtonLeft;
 
+/*!
+ * @abstract Indicates the minimum allowed battery level for performing a firmware upgrade on a sprocket device.
+ * @discussion The sprocket devices report their batteryStatus on a scale of 1-100.  If the sprocket's battery level is below this number, it will not be allowed to perform a firmware upgrade.  The default value is 75.
+ */
+@property (assign, nonatomic) NSUInteger minimumSprocketBatteryLevelForUpgrade;
 
 /*!
  * @abstract Prepares a view controller suitable for the device and OS
@@ -519,8 +524,8 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
 
 /*!
  * @abstract Indicates whether a single sprocket is paired and needs to be reflashed
- * @discussion This call will result in a call to the delegate's didCompareSprocketWithLatestFirmwareVersion:needsUpgrade function
- * @param delegate An object that impelments the MPSprocketDelegate protocol.  It's didCompareSprocketWithLatestFirmwareVersion:needsUpgrade function will be called once the check has been completed.
+ * @discussion This call will result in a call to the delegate's didCompareSprocketWithLatestFirmwareVersion:batteryLevel:needsUpgrade: function
+ * @param delegate An object that impelments the MPSprocketDelegate protocol.  It's didCompareSprocketWithLatestFirmwareVersion:batteryLevel:needsUpgrade: function will be called once the check has been completed.
  */
 - (void)checkSprocketForFirmwareUpgrade:(id<MPSprocketDelegate>)delegate;
 
@@ -761,10 +766,11 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
 /*!
  * @abstract Called when a sprocket needs a firmware upgrade
  * @discussion This delegate method is called when a sprocket needs a firmware upgrade.
+ * @param batteryLevel The current battery level (on a scale of 1-100) of the device
  * @param needsUpgrade YES if the sprocket needs to be upgraded, NO otherwise
  * @returns Nothing
  */
-- (void)didCompareSprocketWithLatestFirmwareVersion:(NSString *)deviceName needsUpgrade:(BOOL)needsUpgrade;
+- (void)didCompareSprocketWithLatestFirmwareVersion:(NSString *)deviceName batteryLevel:(NSUInteger)batteryLevel needsUpgrade:(BOOL)needsUpgrade;
 
 @end
 

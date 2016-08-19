@@ -22,6 +22,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (weak, nonatomic) IBOutlet UILabel *label;
+@property (strong, nonatomic) UIAlertController* alert;
 
 @end
 
@@ -84,6 +85,12 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     self.label.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPOverlayLinkFontColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    self.alert = [UIAlertController alertControllerWithTitle:@"Upgrade Status"
+                                                     message:@"This is an alert."
+                                              preferredStyle:UIAlertControllerStyleAlert];
+
+    self.completion = nil;
 }
 
 - (void)reflashDevice
@@ -220,7 +227,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     [self setProgress:(((CGFloat)percentageComplete)/100.0F)*0.8F];
     
     if (MantaErrorBusy == error) {
-        NSLog(@"Covering up busy error due to bug in firmware...");
+        MPLogError(@"Covering up busy error due to bug in firmware...");
     } else if (MantaErrorNoError != error) {
         [self didReceiveError:manta error:error];
     }
@@ -245,8 +252,50 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
         [self removeProgressView];
     }
     
+    if (self.viewController) {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Upgrade Status"
+                                                                       message:@"This is an alert."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+         if (MantaUpgradeStatusStart != status) {
+             if (MantaUpgradeStatusFinish == status) {
+                 self.alert.title = MPLocalizedString(@"Firmware Updated", @"Title for dialog given after a successful firmware update");
+                 self.alert.message = @"";
+             } else if (MantaUpgradeStatusFail == status) {
+                self.alert.title = MPLocalizedString(@"Firmware Upgrade Error", @"Title for firmware upgrade error dialog");
+                self.alert.message = MPLocalizedString(@"Ensure the printer is on and bluetooth connected.", @"Body for firmware upgrade error dialog");
+            } else if (MantaUpgradeStatusDownloadFail == status) {
+                self.alert.title = MPLocalizedString(@"Downloading Firmware Error", @"Title for firmware download error dialog");
+                self.alert.message = MPLocalizedString(@"Make sure you are connected to the internet and try again.", @"Body for firmware download error dialog");
+            } else {
+                self.alert.title = MPLocalizedString(@"Firmware Upgrade Error", @"Title for firmware upgrade error dialog");
+                NSString *body = MPLocalizedString(@"Unknown status", @"Body for firmware upgrade error where the reason for the error is unknown");
+                self.alert.message = [NSString stringWithFormat:@"%@: %d", body, status];
+            }
+            
+            [self addActionToBluetoothStatus];
+            
+            if (self.viewController.view.window  &&  !(self.alert.isViewLoaded  &&  self.alert.view.window)) {
+                [self.viewController presentViewController:self.alert animated:YES completion:nil];
+            }
+        }
+    }
+    
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
         [self.sprocketDelegate didChangeDeviceUpgradeStatus:manta status:status];
+    }
+}
+
+- (void)addActionToBluetoothStatus
+{
+    if (0 == self.alert.actions.count) {
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  [self.alert dismissViewControllerAnimated:YES completion:nil];
+                                                                  if (self.completion) {
+                                                                      self.completion();
+                                                                  }
+                                                              }];
+        [self.alert addAction:defaultAction];
     }
 }
 

@@ -140,18 +140,13 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     [[delegateFreeSession dataTaskWithURL: [NSURL URLWithString:path]
                         completionHandler:^(NSData *data, NSURLResponse *response,
                                             NSError *error) {
-                            NSLog(@"Got response %@ with error %@.\n", response, error);
-                            NSLog(@"DATA:\n%@\nEND DATA\n",
-                                  [[NSString alloc] initWithData: data
-                                                        encoding: NSUTF8StringEncoding]);
-                            
                             if (data  &&  !error) {
                                 self.upgradeData = data;
                                 [self.session writeData:[self upgradeReadyRequest]];
                             } else {
                                 MPLogError(@"Error receiving firmware upgrade file: %@", error);
                                 if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
-                                    [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusFail];
+                                    [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusDownloadFail];
                                 }
                             }
                         }] resume];
@@ -170,9 +165,14 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
                            withProtocolString:self.protocolString];
         
         BOOL success = [_session openSession];
-        NSAssert(success, @"Failed to open session with device");
+        if (!success) {
+            MPLogError(@"Failed to open session with device");
+            if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didReceiveError:error:)]) {
+                [self.delegate didReceiveError:self error:MantaErrorNoSession];
+            }
+        }
     } else {
-        NSLog(@"Can't open a session with a nil device / accessory");
+        MPLogError(@"Can't open a session with a nil device / accessory");
     }
     
     return _session;
@@ -187,7 +187,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     if( self.protocolString ) {
         _accessory = accessory;
     } else {
-        NSLog(@"Unsupported device");
+        MPLogError(@"Unsupported device");
     }
 }
 
@@ -256,7 +256,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         packet[2] = HP_CUSTOMER_CODE_BYTE_1;
         packet[3] = HP_CUSTOMER_CODE_BYTE_2;
     } else {
-        NSLog(@"Unexpected protocol string: %@, defaulting to HP customer code", self.protocolString);
+        MPLogError(@"Unexpected protocol string: %@, defaulting to HP customer code", self.protocolString);
         packet[2] = HP_CUSTOMER_CODE_BYTE_1;
         packet[3] = HP_CUSTOMER_CODE_BYTE_2;
     }
@@ -274,7 +274,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
     data = [NSMutableData dataWithBytes:byteArray length:MANTA_PACKET_LENGTH];
 
-    NSLog(@"accessoryInfoRequest: %@", data);
+    MPLogDebug(@"accessoryInfoRequest: %@", data);
 
     return data;
 }
@@ -300,7 +300,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     
     data = [NSMutableData dataWithBytes:byteArray length:MANTA_PACKET_LENGTH];
     
-    NSLog(@"printReadyRequest: %@", data);
+    MPLogDebug(@"printReadyRequest: %@", data);
     
     return data;
 }
@@ -323,7 +323,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     
     data = [NSMutableData dataWithBytes:byteArray length:MANTA_PACKET_LENGTH];
     
-    NSLog(@"upgradeReadyRequest: %@", data);
+    MPLogDebug(@"upgradeReadyRequest: %@", data);
 
     return data;
 }
@@ -341,7 +341,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
     data = [NSMutableData dataWithBytes:byteArray length:MANTA_PACKET_LENGTH];
     
-    NSLog(@"setInfoRequest: %@", data);
+    MPLogDebug(@"setInfoRequest: %@", data);
 
     return data;
 }
@@ -376,7 +376,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     NSUInteger firmwareVersion = fwVersion[0] << 16 | fwVersion[1] << 8 | fwVersion[2];
     NSUInteger hardwareVersion = hwVersion[0] << 16 | hwVersion[1] << 8 | hwVersion[2];
     
-    NSLog(@"\n\nAccessoryInfo:\n\terrorCode: %@  \n\ttotalPrintCount: 0x%04x  \n\tprintMode: %@  \n\tbatteryStatus: 0x%x => %d percent  \n\tautoExposure: %@  \n\tautoPowerOff: %@  \n\tmacAddress: %@  \n\tfwVersion: 0x%06x  \n\thwVersion: 0x%06x",
+    MPLogDebug(@"\n\nAccessoryInfo:\n\terrorCode: %@  \n\ttotalPrintCount: 0x%04x  \n\tprintMode: %@  \n\tbatteryStatus: 0x%x => %d percent  \n\tautoExposure: %@  \n\tautoPowerOff: %@  \n\tmacAddress: %@  \n\tfwVersion: 0x%06x  \n\thwVersion: 0x%06x",
           [MPBTSprocket errorTitle:errorCode[0]],
           printCount,
           [MPBTSprocket printModeString:printMode[0]],
@@ -423,9 +423,9 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     
     if (RESP_START_OF_SEND_ACK_CMD     == cmdId[0]  &&
         RESP_START_OF_SEND_ACK_SUB_CMD == subCmdId[0]) {
-        NSLog(@"\n\nStartOfSendAck: %@", data);
-        NSLog(@"\tPayload Classification: %@", [MPBTSprocket dataClassificationString:payload[0]]);
-        NSLog(@"\tError: %@\n\n", [MPBTSprocket errorTitle:payload[1]]);
+        MPLogDebug(@"\n\nStartOfSendAck: %@", data);
+        MPLogDebug(@"\tPayload Classification: %@", [MPBTSprocket dataClassificationString:payload[0]]);
+        MPLogDebug(@"\tError: %@\n\n", [MPBTSprocket errorTitle:payload[1]]);
         
         if (MantaErrorNoError == payload[1]  ||
             (MantaErrorBusy == payload[1]  &&  MantaDataClassFirmware == payload[0])) {
@@ -442,7 +442,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
                 [session writeData:self.upgradeData];
             }
         } else {
-            NSLog(@"Error returned in StartOfSendAck: %@", [MPBTSprocket errorTitle:payload[1]]);
+            MPLogDebug(@"Error returned in StartOfSendAck: %@", [MPBTSprocket errorTitle:payload[1]]);
         }
         
         // let any callers know the process is finished
@@ -457,8 +457,8 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         }
     } else if (RESP_END_OF_RECEIVE_ACK_CMD == cmdId[0]  &&
                RESP_END_OF_RECEIVE_ACK_SUB_CMD == subCmdId[0]) {
-        NSLog(@"\n\nEndOfReceiveAck: %@", data);
-        NSLog(@"\tPayload Classification: %@\n\n", [MPBTSprocket dataClassificationString:payload[0]]);
+        MPLogDebug(@"\n\nEndOfReceiveAck: %@", data);
+        MPLogDebug(@"\tPayload Classification: %@\n\n", [MPBTSprocket dataClassificationString:payload[0]]);
         
         // let any callers know the process is finished
         if (MantaDataClassImage == payload[0]) {
@@ -473,7 +473,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         
     } else if (RESP_ACCESSORY_INFO_ACK_CMD == cmdId[0]  &&
                RESP_ACCESSORY_INFO_ACK_SUB_CMD == subCmdId[0]) {
-        NSLog(@"\n\nAccessoryInfoAck: %@\n\n", data);
+        MPLogDebug(@"\n\nAccessoryInfoAck: %@\n\n", data);
         [self parseAccessoryInfo:payloadData];
         
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didRefreshMantaInfo:error:)]) {
@@ -489,29 +489,29 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         }
     } else if (RESP_PRINT_START_CMD == cmdId[0]  &&
                RESP_PRINT_START_SUB_CMD == subCmdId[0]) {
-        NSLog(@"\n\nPrintStart: %@\n\n", data);
+        MPLogDebug(@"\n\nPrintStart: %@\n\n", data);
 
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didStartPrinting:)]) {
             [self.delegate didStartPrinting:self];
         }
     } else if (RESP_ERROR_MESSAGE_ACK_CMD == cmdId[0]  &&
                RESP_ERROR_MESSAGE_ACK_SUB_CMD == subCmdId[0]) {
-        NSLog(@"\n\nErrorMessageAck %@", data);
-        NSLog(@"\tError: %@\n\n", [MPBTSprocket errorTitle:payload[0]]);
+        MPLogDebug(@"\n\nErrorMessageAck %@", data);
+        MPLogDebug(@"\tError: %@\n\n", [MPBTSprocket errorTitle:payload[0]]);
         
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didReceiveError:error:)]) {
             [self.delegate didReceiveError:self error:payload[0]];
         }
     } else if (RESP_UPGRADE_ACK_CMD == cmdId[0]  &&
                RESP_UPGRADE_ACK_SUB_CMD == subCmdId[0]) {
-        NSLog(@"\n\nUpgradeAck %@", data);
-        NSLog(@"\tUpgrade status: %@\n\n", [MPBTSprocket upgradeStatusString:payload[0]]);
+        MPLogDebug(@"\n\nUpgradeAck %@", data);
+        MPLogDebug(@"\tUpgrade status: %@\n\n", [MPBTSprocket upgradeStatusString:payload[0]]);
         
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
             [self.delegate didChangeDeviceUpgradeStatus:self status:payload[0]];
         }
     } else {
-        NSLog(@"\n\nUnrecognized response: %@\n\n", data);
+        MPLogDebug(@"\n\nUnrecognized response: %@\n\n", data);
     }
 }
 
@@ -556,13 +556,13 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     //    EAAccessory *connectedAccessory = [[notification userInfo] objectForKey:EAAccessoryKey];
     //    [self.accessories addObject:connectedAccessory];
     //[self didPressRefreshButton:nil];
-    NSLog(@"Accessory connected");
+    MPLogDebug(@"Accessory connected");
 }
 
 - (void)_accessoryDidDisconnect:(NSNotification *)notification {
     //    EAAccessory *disconnectedAccessory = [[notification userInfo] objectForKey:EAAccessoryKey];
     //[self didPressRefreshButton:nil];
-    NSLog(@"Accessory disconnected");
+    MPLogDebug(@"Accessory disconnected");
     if (self.imageData) {
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSendPrintData:percentageComplete:error:)]) {
             [self.delegate didSendPrintData:self percentageComplete:0 error:MantaErrorDataError];
@@ -769,6 +769,9 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         case MantaErrorWrongCustomer:
             errString = MPLocalizedString(@"Error", @"Message given when sprocket cannot print due to not recognizing data from our app");
             break;
+        case MantaErrorNoSession:
+            errString = MPLocalizedString(@"Connection Error", @"Message given when sprocket cannot be reached");
+            break;
             
         default:
             errString = [NSString stringWithFormat:@"Unrecognized Error: %d", error];
@@ -827,6 +830,10 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
             errString = MPLocalizedString(@"The device is not recognized.", @"Message given when sprocket cannot print due to not recognizing data from our app");
             break;
             
+        case MantaErrorNoSession:
+            errString = MPLocalizedString(@"Ensure the printer is on and bluetooth connected.", @"Message given when the printer can't be contacted.");
+            break;
+
         default:
             errString = [NSString stringWithFormat:@"Unrecognized Error: %d", error];
             errString = MPLocalizedString(errString, @"Message given when sprocket has an unrecgonized error");
@@ -999,7 +1006,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     
     if(newImage == nil)
     {
-        NSLog(@"could not scale image");
+        MPLogError(@"could not scale image");
     }
     
     //pop the context to get back to the default
