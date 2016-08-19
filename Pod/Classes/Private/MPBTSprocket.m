@@ -909,7 +909,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         }
     }
     
-    return 0xFFFFFF;//fwVersion;
+    return fwVersion;
 }
 
 + (NSString *)pathForLatestFirmwareVersion:(NSString *)protocolString
