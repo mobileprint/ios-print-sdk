@@ -25,6 +25,9 @@
 /* No comment provided by engineer. */
 "Done" = "完成";
 
+/* Generic Cancel from an action. */
+"Cancel" = "取消";
+
 /* No comment provided by engineer. */
 "Later" = "稍后";
 
