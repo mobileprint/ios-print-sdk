@@ -436,10 +436,14 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
                 [session writeData:self.imageData];
                 
             } else if (MantaDataClassFirmware == payload[0]) {
-                
-                NSAssert( nil != self.upgradeData, @"No upgrade data");
-                MPBTSessionController *session = [MPBTSessionController sharedController];
-                [session writeData:self.upgradeData];
+                if (nil == self.upgradeData) {
+                    if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
+                        [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusDownloadFail];
+                    }
+                } else {
+                    MPBTSessionController *session = [MPBTSessionController sharedController];
+                    [session writeData:self.upgradeData];
+                }
             }
         } else {
             MPLogDebug(@"Error returned in StartOfSendAck: %@", [MPBTSprocket errorTitle:payload[1]]);
@@ -770,7 +774,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
             errString = MPLocalizedString(@"Error", @"Message given when sprocket cannot print due to not recognizing data from our app");
             break;
         case MantaErrorNoSession:
-            errString = MPLocalizedString(@"Connection Error", @"Message given when sprocket cannot be reached");
+            errString = MPLocalizedString(@"Sprocket Not Connected", @"Message given when sprocket cannot be reached");
             break;
             
         default:
