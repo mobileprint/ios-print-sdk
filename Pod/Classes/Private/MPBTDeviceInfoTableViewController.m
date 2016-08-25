@@ -249,26 +249,27 @@ typedef enum
 
 - (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
 {
-    if (MantaErrorNoError == error) {
-        self.lastError = [MPBTSprocket errorTitle:error];
-        
-        [self setTitle:[NSString stringWithFormat:@"%@", sprocket.displayName]];
-        
-        self.receivedSprocketInfo = YES;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (MantaErrorNoError == error) {
+            self.lastError = [MPBTSprocket errorTitle:error];
+            
+            [self setTitle:[NSString stringWithFormat:@"%@", sprocket.displayName]];
+            
+            self.receivedSprocketInfo = YES;
+            
             [self.tableView reloadData];
-        });
-    } else {
-        [self displayError:error];
-    }
+            MPLogDebug(@"Reloading DeviceInfo table");
+        } else {
+            [self displayError:error];
+        }
+    });
 }
 
 - (void)didCompareWithLatestFirmwareVersion:(MPBTSprocket *)sprocket needsUpgrade:(BOOL)needsUpgrade
 {
     if (needsUpgrade  &&  [MP sharedInstance].minimumSprocketBatteryLevelForUpgrade < sprocket.batteryStatus) {
-        self.tableView.tableHeaderView = self.originalHeaderView;
         dispatch_async(dispatch_get_main_queue(), ^{
+            self.tableView.tableHeaderView = self.originalHeaderView;
             [self.tableView reloadData];
         });
     }
@@ -291,10 +292,13 @@ typedef enum
 
 - (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
 {
-    self.fwUpgradeButton.enabled = NO;
-    if (!self.updating) {
-        [self displayError:error];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.fwUpgradeButton.enabled = NO;
+        if (!self.updating) {
+            [self displayError:error];
+        }
+    });
+    
     self.updating = NO;
 }
 
