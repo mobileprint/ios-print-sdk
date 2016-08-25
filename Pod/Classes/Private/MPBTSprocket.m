@@ -133,23 +133,24 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 - (void)reflash
 {
-    NSString *path = [MPBTSprocket pathForLatestFirmwareVersion:self.protocolString];
-    
-    NSURLSession *httpSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
-    
-    [[httpSession dataTaskWithURL: [NSURL URLWithString:path]
-                completionHandler:^(NSData *data, NSURLResponse *response,
-                                    NSError *error) {
-                    if (data  &&  !error) {
-                        self.upgradeData = data;
-                        [self.session writeData:[self upgradeReadyRequest]];
-                    } else {
-                        MPLogError(@"Error receiving firmware upgrade file: %@", error);
-                        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
-                            [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusDownloadFail];
+    [MPBTSprocket pathForLatestFirmwareVersion:self.protocolString completon:^(NSString *path) {
+        
+        NSURLSession *httpSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+        
+        [[httpSession downloadTaskWithURL: [NSURL URLWithString:path]
+                    completionHandler:^(NSURL *location, NSURLResponse *response,
+                                        NSError *error) {
+                        if (location  &&  !error) {
+                            self.upgradeData = [NSData dataWithContentsOfURL:location];
+                            [self.session writeData:[self upgradeReadyRequest]];
+                        } else {
+                            MPLogError(@"Error receiving firmware upgrade file: %@", error);
+                            if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
+                                [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusDownloadFail];
+                            }
                         }
-                    }
-                }] resume];
+                    }] resume];
+    }];
 }
 
 #pragma mark - Getters/Setters
@@ -373,7 +374,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     
     NSData *macAddressData = [[NSData alloc] initWithBytes:macAddress length:6];
     NSUInteger printCount = totalPrintCount[0] << 8 | totalPrintCount[1];
-    NSUInteger firmwareVersion = fwVersion[0] << 16 | fwVersion[1] << 8 | fwVersion[2];
+    NSUInteger firmwareVersion = 1;//fwVersion[0] << 16 | fwVersion[1] << 8 | fwVersion[2];
     NSUInteger hardwareVersion = hwVersion[0] << 16 | hwVersion[1] << 8 | hwVersion[2];
     
     MPLogDebug(@"\n\nAccessoryInfo:\n\terrorCode: %@  \n\ttotalPrintCount: 0x%04x  \n\tprintMode: %@  \n\tbatteryStatus: 0x%x => %d percent  \n\tautoExposure: %@  \n\tautoPowerOff: %@  \n\tmacAddress: %@  \n\tfwVersion: 0x%06x  \n\thwVersion: 0x%06x",
@@ -481,11 +482,13 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         }
         
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didCompareWithLatestFirmwareVersion:needsUpgrade:)]) {
-            BOOL needsUpgrade = NO;
-            if ([MPBTSprocket latestFirmwareVersion:self.protocolString] > self.firmwareVersion) {
-                needsUpgrade = YES;
-            }
-            [self.delegate didCompareWithLatestFirmwareVersion:self needsUpgrade:needsUpgrade];
+            [MPBTSprocket latestFirmwareVersion:self.protocolString completion:^(NSUInteger fwVersion) {
+                BOOL needsUpgrade = NO;
+                if (fwVersion > self.firmwareVersion) {
+                    needsUpgrade = YES;
+                }
+                [self.delegate didCompareWithLatestFirmwareVersion:self needsUpgrade:needsUpgrade];
+            }];
         }
     } else if (RESP_PRINT_START_CMD == cmdId[0]  &&
                RESP_PRINT_START_SUB_CMD == subCmdId[0]) {
@@ -843,50 +846,78 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     return errString;
 }
 
-+ (NSDictionary *)getFirmwareUpdateInfo
++ (void)getFirmwareUpdateInfo:(void (^)(NSDictionary *fwUpdateInfo))completion
 {
-    NSDictionary *fwUpdateInfo = nil;
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kFirmwareUpdatePath]];
-    [urlRequest setCachePolicy:NSURLRequestReloadIgnoringCacheData];
-    [urlRequest setHTTPMethod:@"GET"];
-    [urlRequest setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    NSURLResponse *response = nil;
-    NSError *connectionError = nil;
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&connectionError];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    config.URLCache = nil;
+    NSURLSession *httpSession = [NSURLSession sessionWithConfiguration:config delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
     
-    if (connectionError == nil) {
-        NSInteger statusCode = 0;
-        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-            statusCode = [(NSHTTPURLResponse *)response statusCode];
-            if (statusCode != 200) {
-                MPLogError(@"FW Update:  Response code = %ld", (long)statusCode);
-            } else {
-                NSError *error;
-                NSDictionary *fwDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
-                if (fwDictionary) {
-                    MPLogInfo(@"FW Update:  Result = %@", fwDictionary);
-                    fwUpdateInfo = [fwDictionary valueForKey:@"firmware"];
-                } else {
-                    MPLogError(@"FW Update:  Parse Error = %@", error);
-                    NSString *returnString = [[NSString alloc] initWithBytes:[responseData bytes] length:[responseData length] encoding:NSUTF8StringEncoding];
-                    MPLogInfo(@"FW Update:  Return string = %@", returnString);
-                }
-            }
-        }
-    } else {
-        MPLogError(@"FW Update:  Connection error = %@", connectionError);
-    }
-    
-    return fwUpdateInfo;
+    [[httpSession dataTaskWithURL: [NSURL URLWithString:kFirmwareUpdatePath]
+                completionHandler:^(NSData *data, NSURLResponse *response,
+                                    NSError *error) {
+                    NSDictionary *fwUpdateInfo = nil;
+                    if (data  &&  !error) {
+                        NSError *error;
+                        NSDictionary *fwDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                        if (fwDictionary) {
+                            MPLogInfo(@"FW Update:  Result = %@", fwDictionary);
+                            fwUpdateInfo = [fwDictionary valueForKey:@"firmware"];
+                        } else {
+                            MPLogError(@"FW Update:  Parse Error = %@", error);
+                            NSString *returnString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
+                            MPLogInfo(@"FW Update:  Return string = %@", returnString);
+                        }
+                    } else {
+                        MPLogError(@"FW Update Info failure: %@, data: %@", error, data);
+                    }
+                    
+                    if (completion) {
+                        completion(fwUpdateInfo);
+                    }
+                }] resume];
 }
 
-+ (NSUInteger)latestFirmwareVersion:(NSString *)protocolString
++ (void)latestFirmwareVersion:(NSString *)protocolString completion:(void (^)(NSUInteger fwVersion))completion
 {
-    NSUInteger fwVersion = 0;
-    NSDictionary *fwUpdateInfo = [MPBTSprocket getFirmwareUpdateInfo];
-    NSDictionary *deviceUpdateInfo = nil;
-    
-    if (nil != fwUpdateInfo) {
+    [MPBTSprocket getFirmwareUpdateInfo:^(NSDictionary *fwUpdateInfo){
+        NSUInteger fwVersion = 0;
+        NSDictionary *deviceUpdateInfo = nil;
+        
+        if (nil != fwUpdateInfo) {
+            if ([kPolaroidProtocol isEqualToString:protocolString]) {
+                deviceUpdateInfo = [fwUpdateInfo objectForKey:@"Polaroid"];
+            } else {
+                deviceUpdateInfo = [fwUpdateInfo objectForKey:@"HP"];
+            }
+            
+            if (deviceUpdateInfo) {
+                NSString *strVersion = [deviceUpdateInfo objectForKey:@"fw_ver"];
+                NSArray *bytes = [strVersion componentsSeparatedByString:@"."];
+                NSInteger topIdx = bytes.count-1;
+                for (NSInteger idx = topIdx; idx >= 0; idx--) {
+                    NSString *strByte = bytes[idx];
+                    NSInteger byte = [strByte integerValue];
+                    
+                    NSInteger shiftValue = topIdx-idx;
+                    fwVersion += (byte << (8 * shiftValue));
+                }
+            } else {
+                MPLogError(@"Unrecognized firmware update info: %@", fwUpdateInfo);
+            }
+            
+            if (completion) {
+                completion(fwVersion);
+            }
+        }
+    }];
+}
+
++ (NSString *)pathForLatestFirmwareVersion:(NSString *)protocolString completon:(void(^)(NSString *fwPath))completion
+{
+    [MPBTSprocket getFirmwareUpdateInfo:^(NSDictionary *fwUpdateInfo) {
+        NSString *fwPath = nil;
+        NSDictionary *deviceUpdateInfo = nil;
+        
         if ([kPolaroidProtocol isEqualToString:protocolString]) {
             deviceUpdateInfo = [fwUpdateInfo objectForKey:@"Polaroid"];
         } else {
@@ -894,41 +925,13 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         }
         
         if (deviceUpdateInfo) {
-            NSString *strVersion = [deviceUpdateInfo objectForKey:@"fw_ver"];
-            NSArray *bytes = [strVersion componentsSeparatedByString:@"."];
-            NSInteger topIdx = bytes.count-1;
-            for (NSInteger idx = topIdx; idx >= 0; idx--) {
-                NSString *strByte = bytes[idx];
-                NSInteger byte = [strByte integerValue];
-                
-                NSInteger shiftValue = topIdx-idx;
-                fwVersion += (byte << (8 * shiftValue));
-            }
-        } else {
-            MPLogError(@"Unrecognized firmware update info: %@", fwUpdateInfo);
+            fwPath = [deviceUpdateInfo objectForKey:@"fw_url"];
         }
-    }
-    
-    return fwVersion;
-}
-
-+ (NSString *)pathForLatestFirmwareVersion:(NSString *)protocolString
-{
-    NSString *fwPath = nil;
-    NSDictionary *fwUpdateInfo = [MPBTSprocket getFirmwareUpdateInfo];
-    NSDictionary *deviceUpdateInfo = nil;
-
-    if ([kPolaroidProtocol isEqualToString:protocolString]) {
-        deviceUpdateInfo = [fwUpdateInfo objectForKey:@"Polaroid"];
-    } else {
-        deviceUpdateInfo = [fwUpdateInfo objectForKey:@"HP"];
-    }
-
-    if (deviceUpdateInfo) {
-        fwPath = [deviceUpdateInfo objectForKey:@"fw_url"];
-    }
-    
-    return fwPath;
+        
+        if (completion) {
+            completion(fwPath);
+        }
+    }];
 }
 
 + (NSArray *)pairedSprockets

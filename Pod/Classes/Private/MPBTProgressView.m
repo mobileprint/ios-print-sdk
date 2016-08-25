@@ -275,7 +275,9 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
             [self addActionToBluetoothStatus];
             
             if (self.viewController.view.window  &&  !(self.alert.isViewLoaded  &&  self.alert.view.window)) {
-                [self.viewController presentViewController:self.alert animated:YES completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.viewController presentViewController:self.alert animated:YES completion:nil];
+                });
             }
         }
     }
