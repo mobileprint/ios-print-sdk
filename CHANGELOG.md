@@ -4,6 +4,7 @@
 - Added support for Japanese, Portuguese (Brazil), Turkish, and Chinese
 - Added debug logging for print layout
 - Rename reachability constant to avoid conflicts 
+- Fix crashes related to print queue
 
 #### 3.0.8
 ###### Wednesday July 27, 2016
