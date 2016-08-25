@@ -64,7 +64,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 
 @import UIKit;
 
-@interface MPBTSprocket ()
+@interface MPBTSprocket () <NSURLSessionDownloadDelegate>
 
 @property (strong, nonatomic) MPBTSessionController *session;
 @property (strong, nonatomic) NSData* imageData;
@@ -135,22 +135,50 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 {
     [MPBTSprocket pathForLatestFirmwareVersion:self.protocolString completon:^(NSString *path) {
         
-        NSURLSession *httpSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+        NSURLSession *httpSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue: [NSOperationQueue mainQueue]];
         
-        [[httpSession downloadTaskWithURL: [NSURL URLWithString:path]
-                    completionHandler:^(NSURL *location, NSURLResponse *response,
-                                        NSError *error) {
-                        if (location  &&  !error) {
-                            self.upgradeData = [NSData dataWithContentsOfURL:location];
-                            [self.session writeData:[self upgradeReadyRequest]];
-                        } else {
-                            MPLogError(@"Error receiving firmware upgrade file: %@", error);
-                            if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
-                                [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusDownloadFail];
-                            }
-                        }
-                    }] resume];
+        [[httpSession downloadTaskWithURL:[NSURL URLWithString:path]] resume];
     }];
+}
+
+#pragma mark - NSURLSessionDownloadDelegate
+
+- (void)URLSession:(NSURLSession *)session
+      downloadTask:(NSURLSessionDownloadTask *)downloadTask
+ didResumeAtOffset:(int64_t)fileOffset
+expectedTotalBytes:(int64_t)expectedTotalBytes
+{
+    MPLogDebug(@"Resuming firmware download");
+}
+
+- (void)URLSession:(NSURLSession *)session
+      downloadTask:(NSURLSessionDownloadTask *)downloadTask
+      didWriteData:(int64_t)bytesWritten
+ totalBytesWritten:(int64_t)totalBytesWritten
+totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
+{
+    MPLogDebug(@"%d of %d bytes", totalBytesWritten, totalBytesExpectedToWrite);
+    if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didDownloadDeviceUpgradeData:percentageComplete:)]) {
+        NSInteger percentageComplete = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite) * 100;
+        [self.delegate didDownloadDeviceUpgradeData:self percentageComplete:percentageComplete];
+    }
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location
+{
+    MPLogInfo(@"Finished downloading firmware");
+    self.upgradeData = [NSData dataWithContentsOfURL:location];
+    [self.session writeData:[self upgradeReadyRequest]];
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
+{
+    if (nil != error) {
+        MPLogError(@"Error receiving firmware upgrade file: %@", error);
+        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
+            [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusDownloadFail];
+        }
+    }
 }
 
 #pragma mark - Getters/Setters
