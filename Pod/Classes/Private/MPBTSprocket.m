@@ -135,21 +135,21 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 {
     NSString *path = [MPBTSprocket pathForLatestFirmwareVersion:self.protocolString];
     
-    NSURLSession *delegateFreeSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+    NSURLSession *httpSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
     
-    [[delegateFreeSession dataTaskWithURL: [NSURL URLWithString:path]
-                        completionHandler:^(NSData *data, NSURLResponse *response,
-                                            NSError *error) {
-                            if (data  &&  !error) {
-                                self.upgradeData = data;
-                                [self.session writeData:[self upgradeReadyRequest]];
-                            } else {
-                                MPLogError(@"Error receiving firmware upgrade file: %@", error);
-                                if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
-                                    [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusDownloadFail];
-                                }
-                            }
-                        }] resume];
+    [[httpSession dataTaskWithURL: [NSURL URLWithString:path]
+                completionHandler:^(NSData *data, NSURLResponse *response,
+                                    NSError *error) {
+                    if (data  &&  !error) {
+                        self.upgradeData = data;
+                        [self.session writeData:[self upgradeReadyRequest]];
+                    } else {
+                        MPLogError(@"Error receiving firmware upgrade file: %@", error);
+                        if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
+                            [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusDownloadFail];
+                        }
+                    }
+                }] resume];
 }
 
 #pragma mark - Getters/Setters
@@ -436,10 +436,14 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
                 [session writeData:self.imageData];
                 
             } else if (MantaDataClassFirmware == payload[0]) {
-                
-                NSAssert( nil != self.upgradeData, @"No upgrade data");
-                MPBTSessionController *session = [MPBTSessionController sharedController];
-                [session writeData:self.upgradeData];
+                if (nil == self.upgradeData) {
+                    if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didChangeDeviceUpgradeStatus:status:)]) {
+                        [self.delegate didChangeDeviceUpgradeStatus:self status:MantaUpgradeStatusDownloadFail];
+                    }
+                } else {
+                    MPBTSessionController *session = [MPBTSessionController sharedController];
+                    [session writeData:self.upgradeData];
+                }
             }
         } else {
             MPLogDebug(@"Error returned in StartOfSendAck: %@", [MPBTSprocket errorTitle:payload[1]]);
@@ -770,7 +774,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
             errString = MPLocalizedString(@"Error", @"Message given when sprocket cannot print due to not recognizing data from our app");
             break;
         case MantaErrorNoSession:
-            errString = MPLocalizedString(@"Error", @"Message given when sprocket cannot be reached")
+            errString = MPLocalizedString(@"Sprocket Not Connected", @"Message given when sprocket cannot be reached");
             break;
             
         default:
@@ -831,7 +835,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
             break;
             
         case MantaErrorNoSession:
-            errString = MPLocalizedString(@"Error", @"Ensure the printer is on and bluetooth connected.")
+            errString = MPLocalizedString(@"Ensure the printer is on and bluetooth connected.", @"Message given when the printer can't be contacted.");
             break;
 
         default:
@@ -909,7 +913,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         }
     }
     
-    return 0xFFFFFF;//fwVersion;
+    return fwVersion;
 }
 
 + (NSString *)pathForLatestFirmwareVersion:(NSString *)protocolString

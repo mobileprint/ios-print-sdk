@@ -89,6 +89,8 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     self.alert = [UIAlertController alertControllerWithTitle:@"Upgrade Status"
                                                      message:@"This is an alert."
                                               preferredStyle:UIAlertControllerStyleAlert];
+
+    self.completion = nil;
 }
 
 - (void)reflashDevice
@@ -254,9 +256,12 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Upgrade Status"
                                                                        message:@"This is an alert."
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        if (MantaUpgradeStatusStart != status  && MantaUpgradeStatusFinish != status) {
-            if (MantaUpgradeStatusFail == status) {
-                self.alert.title = MPLocalizedString(@"Firmware Upgrade Error", @"Title for firmware upgrade error dialog");
+         if (MantaUpgradeStatusStart != status) {
+             if (MantaUpgradeStatusFinish == status) {
+                 self.alert.title = MPLocalizedString(@"Firmware Updated", @"Title for dialog given after a successful firmware update");
+                 self.alert.message = MPLocalizedString(@"Your printer will shut down now. Turn your sprocket on and continue the fun!", @"Body of dialog giving instructions on how to proceed after a firmware upgrade");
+             } else if (MantaUpgradeStatusFail == status) {
+                self.alert.title = MPLocalizedString(@"Sprocket Not Connected", @"Title for firmware upgrade error dialog");
                 self.alert.message = MPLocalizedString(@"Ensure the printer is on and bluetooth connected.", @"Body for firmware upgrade error dialog");
             } else if (MantaUpgradeStatusDownloadFail == status) {
                 self.alert.title = MPLocalizedString(@"Downloading Firmware Error", @"Title for firmware download error dialog");
@@ -286,6 +291,9 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) {
                                                                   [self.alert dismissViewControllerAnimated:YES completion:nil];
+                                                                  if (self.completion) {
+                                                                      self.completion();
+                                                                  }
                                                               }];
         [self.alert addAction:defaultAction];
     }
