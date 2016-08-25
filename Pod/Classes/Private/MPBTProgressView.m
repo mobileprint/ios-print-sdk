@@ -146,7 +146,6 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 }
 
 - (void)becomeActive:(NSNotification *)notification {
-    //    [self removeFromSuperview];
 }
 
 #pragma mark - SprocketDelegate

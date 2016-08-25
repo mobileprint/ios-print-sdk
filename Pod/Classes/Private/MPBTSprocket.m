@@ -402,7 +402,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
     
     NSData *macAddressData = [[NSData alloc] initWithBytes:macAddress length:6];
     NSUInteger printCount = totalPrintCount[0] << 8 | totalPrintCount[1];
-    NSUInteger firmwareVersion = 1;//fwVersion[0] << 16 | fwVersion[1] << 8 | fwVersion[2];
+    NSUInteger firmwareVersion = fwVersion[0] << 16 | fwVersion[1] << 8 | fwVersion[2];
     NSUInteger hardwareVersion = hwVersion[0] << 16 | hwVersion[1] << 8 | hwVersion[2];
     
     MPLogDebug(@"\n\nAccessoryInfo:\n\terrorCode: %@  \n\ttotalPrintCount: 0x%04x  \n\tprintMode: %@  \n\tbatteryStatus: 0x%x => %d percent  \n\tautoExposure: %@  \n\tautoPowerOff: %@  \n\tmacAddress: %@  \n\tfwVersion: 0x%06x  \n\thwVersion: 0x%06x",
