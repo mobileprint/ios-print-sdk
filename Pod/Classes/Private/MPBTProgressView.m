@@ -58,17 +58,17 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 {
     switch (status) {
         case MantaUpgradeStatusStart:
-            [self.label setText:MPLocalizedString(@"Upgrade Started", "Indicates that a firmware upgrade has started")];
+            [self.label setText:MPLocalizedString(@"Finishing Firmware Upgrade", "Indicates that a firmware upgrade has started")];
             [self setProgress:0.9F];
             break;
             
         case MantaUpgradeStatusFinish:
-            [self.label setText:MPLocalizedString(@"Upgrade Complete", @"Indicates that a firmware upgrade has completed")];
+            [self.label setText:MPLocalizedString(@"Firmware Upgrade Complete", @"Indicates that a firmware upgrade has completed")];
             [self setProgress:1.0F];
             break;
             
         case MantaUpgradeStatusFail:
-            [self.label setText:MPLocalizedString(@"Upgrade Failed", @"Indicates that a firmware update has failed")];
+            [self.label setText:MPLocalizedString(@"Firmware Upgrade Failed", @"Indicates that a firmware update has failed")];
             break;
             
         default:
