@@ -1,5 +1,5 @@
 /* No comment provided by engineer. */
-"1 copy" = "1部";
+"1 Copy" = "1部";
 
 /* No comment provided by engineer. */
 "Add Print" = "印刷を追加します";
@@ -11,7 +11,7 @@
 "Black & White mode" = "白黒モード";
 
 /* No comment provided by engineer. */
-"%ld copies" = "%ld部";
+"%ld Copies" = "%ld部";
 
 /* No comment provided by engineer. */
 "Date" = "日付";
@@ -157,7 +157,8 @@
 /* Let's the user know their job will be printed in black-and-white */
 "B&W" = "白黒";
 
-/* copies label in job summary */
+/*
+ copies label in job summary */
 "Copies" = "部数";
 
 /* copy label in job summary */
