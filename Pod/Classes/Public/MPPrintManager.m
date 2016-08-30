@@ -314,6 +314,11 @@ NSString * const kMPOfframpDirect = @"PrintWithNoUI";
     return [self printNowOfframp:offramp] || [self printLaterOfframp:offramp];
 }
 
++ (NSString *)printNowOfframp
+{
+    return kMPOfframpPrint;
+}
+
 + (BOOL)printNowOfframp:(NSString *)offramp
 {
     NSArray *offramps = @[

@@ -113,6 +113,7 @@ typedef enum {
  */
 + (BOOL)printLaterOfframp:(NSString *)offramp;
 
++ (NSString *)printNowOfframp;
 @end
 
 /*!
