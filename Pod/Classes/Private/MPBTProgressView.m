@@ -23,6 +23,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (strong, nonatomic) UIAlertController* alert;
+@property (assign, nonatomic) BOOL performingFileDownload;
 
 @end
 
@@ -57,17 +58,17 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 {
     switch (status) {
         case MantaUpgradeStatusStart:
-            [self.label setText:MPLocalizedString(@"Upgrade Started", "Indicates that a firmware upgrade has started")];
+            [self.label setText:MPLocalizedString(@"Finishing Firmware Upgrade", "Indicates that a firmware upgrade has started")];
             [self setProgress:0.9F];
             break;
             
         case MantaUpgradeStatusFinish:
-            [self.label setText:MPLocalizedString(@"Upgrade Complete", @"Indicates that a firmware upgrade has completed")];
+            [self.label setText:MPLocalizedString(@"Firmware Upgrade Complete", @"Indicates that a firmware upgrade has completed")];
             [self setProgress:1.0F];
             break;
             
         case MantaUpgradeStatusFail:
-            [self.label setText:MPLocalizedString(@"Upgrade Failed", @"Indicates that a firmware update has failed")];
+            [self.label setText:MPLocalizedString(@"Firmware Upgrade Failed", @"Indicates that a firmware update has failed")];
             break;
             
         default:
@@ -91,6 +92,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
                                               preferredStyle:UIAlertControllerStyleAlert];
 
     self.completion = nil;
+    self.performingFileDownload = NO;
 }
 
 - (void)reflashDevice
@@ -146,6 +148,9 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 }
 
 - (void)becomeActive:(NSNotification *)notification {
+    if (!self.performingFileDownload) {
+        [self removeFromSuperview];
+    }
 }
 
 #pragma mark - SprocketDelegate
@@ -223,6 +228,8 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)didDownloadDeviceUpgradeData:(MPBTSprocket *)manta percentageComplete:(NSInteger)percentageComplete
 {
+    self.performingFileDownload = YES;
+    
     [self setProgress:(((CGFloat)percentageComplete)/100.0F)];
     
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didDownloadDeviceUpgradeData:percentageComplete:)]) {
@@ -232,7 +239,9 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)didSendDeviceUpgradeData:(MPBTSprocket *)manta percentageComplete:(NSInteger)percentageComplete error:(MantaError)error
 {
-    NSString *text = MPLocalizedString(@"Sending Firmware Upgrade", @"Indicates that the firmware upgrade is being sent to the printer");
+    self.performingFileDownload = NO;
+    
+    NSString *text = MPLocalizedString(@"Sending Firmware Upgrade to Printer", @"Indicates that the firmware upgrade is being sent to the printer");
     if (![text isEqualToString:self.label.text]) {
         self.label.text = text;
     }
