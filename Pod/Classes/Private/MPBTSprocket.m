@@ -14,6 +14,7 @@
 #import "MPBTSessionController.h"
 #import "MPPrintItemImage.h"
 #import "NSBundle+MPLocalizable.h"
+#import "MP.h"
 
 const char MANTA_PACKET_LENGTH = 34;
 
@@ -218,6 +219,11 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
 - (NSString *)displayName
 {
     return [MPBTSprocket displayNameForAccessory:self.accessory];
+}
+
+- (NSDictionary *)analytics
+{
+    return [MPBTSprocket analyticsForAccessory:self.accessory];
 }
 
 #pragma mark - Util
@@ -608,6 +614,17 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         name = @"HP sprocket";
     }
     return [NSString stringWithFormat:@"%@ (%@)", name, accessory.serialNumber];
+}
+
++ (NSDictionary *)analyticsForAccessory:(EAAccessory *)accessory
+{
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    
+    [dictionary setValue:accessory.serialNumber forKey:kMPPrinterId];
+    [dictionary setValue:[MPBTSprocket displayNameForAccessory:accessory] forKey:kMPPrinterDisplayName];
+    [dictionary setValue:[NSString stringWithFormat:@"HP sprocket %@ (%@)", accessory.modelNumber, accessory.hardwareRevision] forKey:kMPPrinterMakeAndModel];
+    
+    return dictionary;
 }
 
 + (NSString *)autoExposureString:(MantaAutoExposure)exp

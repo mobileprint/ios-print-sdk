@@ -35,6 +35,7 @@
 @property (assign, nonatomic, readonly) NSUInteger firmwareVersion;
 @property (assign, nonatomic, readonly) NSUInteger hardwareVersion;
 @property (strong, nonatomic, readonly) NSString *displayName;
+@property (strong, nonatomic, readonly) NSDictionary *analytics;
 
 - (void)refreshInfo;
 - (void)printImage:(UIImage *)image numCopies:(NSInteger)numCopies;
@@ -43,6 +44,7 @@
 
 + (NSArray *)pairedSprockets;
 + (NSString *)displayNameForAccessory:(EAAccessory *)accessory;
++ (NSString *)analyticsForAccessory:(EAAccessory *)accessory;
 + (BOOL)supportedAccessory:(EAAccessory *)accessory;
 + (NSString *)macAddress:(NSData *)data;
 + (NSString *)errorTitle:(MantaError)error;
