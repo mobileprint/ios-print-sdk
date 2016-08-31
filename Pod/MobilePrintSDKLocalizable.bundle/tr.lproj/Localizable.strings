@@ -1,0 +1,191 @@
+/* No comment provided by engineer. */
+"1 Copy" = "1 kopya";
+
+/* No comment provided by engineer. */
+"Add Print" = "Baskı Ekle";
+
+/* No comment provided by engineer. */
+"Add to Print Queue" = "Yazdırma Kuyruğuna Ekle";
+
+/* No comment provided by engineer. */
+"Black & White mode" = "Siyah Beyaz modu";
+
+/* No comment provided by engineer. */
+"%ld Copies" = "%ld kopya";
+
+/* No comment provided by engineer. */
+"Date" = "Tarih";
+
+/* No comment provided by engineer. */
+"Default printer not currently available" = "Varsayılan yazıcı şu anda kullanılamıyor";
+
+/* No comment provided by engineer. */
+"Delete" = "Sil";
+
+/* No comment provided by engineer. */
+"Done" = "Bitti";
+
+/* Generic Cancel from an action. */
+"Cancel" = "İptal";
+
+/* No comment provided by engineer. */
+"Later" = "Daha sonra";
+
+/* No comment provided by engineer. */
+"Monitoring not available" = "İzleme kullanılamıyor";
+
+/* No comment provided by engineer. */
+"Network" = "Ağ";
+
+/* No comment provided by engineer. */
+"No default printer" = "Varsayılan yazıcı yok";
+
+/* No comment provided by engineer. */
+"No Wi-Fi connection" = "Wi-Fi bağlantısını yok";
+
+/* No comment provided by engineer. */
+"No, thanks" = "Hayır, teşekkürler";
+
+/* No comment provided by engineer. */
+"Not Available" = "Kullanılamıyor";
+
+/* No comment provided by engineer. */
+"OK" = "Tamam";
+
+/* No comment provided by engineer. */
+"Page Settings" = "Sayfa Ayarları";
+
+/* No comment provided by engineer. */
+"Paper Settings Screen" = "Kağıt Ayarları Ekranı";
+
+/* No comment provided by engineer. */
+"Paper Size" = "Kağıt Boyutu";
+
+/* No comment provided by engineer. */
+"Paper Type" = "Kağıt Türü";
+
+/* No comment provided by engineer. */
+"Photo" = "Fotoğraf";
+
+/* No comment provided by engineer. */
+"Photo Paper" = "Fotoğraf Kağıdı";
+
+/* No comment provided by engineer. */
+"Plain Paper" = "Düz Kağıt";
+
+/* No comment provided by engineer. */
+"Preview" = "Önizleme";
+
+/* No comment provided by engineer. */
+"Print" = "Yazdır";
+
+/* No comment provided by engineer. */
+"Print all %lu" = "%lu öğenin tümünü yazdır";
+
+/* No comment provided by engineer. */
+"Print both" = "Her ikisini de yazdır";
+
+/* No comment provided by engineer. */
+"Print Queue" = "Yazdırma Kuyruğu";
+
+/* No comment provided by engineer. */
+"Print queue is empty" = "Yazdırma kuyruğu boş";
+
+/* No comment provided by engineer. */
+"Print Settings" = "Yazdırma Ayarları";
+
+/* No comment provided by engineer. */
+"Printer" = "Yazıcı";
+
+/* No comment provided by engineer. */
+"Printer nearby. Projects waiting to be printed..." = "Yazıcı yakında. Basılmayı bekleyen projeler...";
+
+/* No comment provided by engineer. */
+"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Yazdırma işlemi için mobil aygıtın ve yazıcının aynı Wi-Fi ağı üzerinde olması gerekir. Lütfen Wi-Fi ayarlarınızı kontrol edin.";
+
+/* No comment provided by engineer. */
+"Recent printer not currently available" = "Son kullanılan yazıcı şu anda kullanılamıyor";
+
+/* No comment provided by engineer. */
+"Select Printer" = "Yazıcı Seç";
+
+/* No comment provided by engineer. */
+"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Bir yazıcı seçilmesi için mobil aygıtınızın ve yazıcının aynı Wi-Fi ağı üzerinde olması gerekir. Lütfen Wi-Fi ayarlarınızı kontrol edin.";
+
+/* No comment provided by engineer. */
+"Settings" = "Ayarlar";
+
+/* No comment provided by engineer. */
+"SUPPORT:" = "DESTEK:";
+
+/* No comment provided by engineer. */
+"Wi-Fi Required" = "Wi-Fi Gerekli";
+
+/* No comment provided by engineer. */
+"Would you like to set the following as this app's default printer?\n\n'%@'" = "Şu yazıcıyı bu uygulamanın varsayılan yazıcısı olarak ayarlamak istiyor musunuz?\n\n'%@'";
+
+/* No comment provided by engineer. */
+"Yes" = "Evet";
+
+/* No comment provided by engineer. */
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Aygıtınız bölgesel izleme özelliğini desteklemiyor, konum temelinde alarm verilmesi mümkün değil";
+
+/* No comment provided by engineer. */
+"Print Instructions" = "Yazdırma Talimatları";
+
+/* No comment provided by engineer. */
+"Buy sticker pack" = "Çıkartma paketi satın alın";
+
+/* Specifies that all pages will be selected */
+"All" = "Tümü";
+
+/* Specifies that no pages are selected for printing */
+"No pages selected" = "Sayfa seçilmedi";
+
+/* Used on a button for closing the dialog */
+"Done" = "Bitti";
+
+/* Text used on a button that selects all pages for printing */
+"ALL" = "TÜMÜ";
+
+/* Text used to give an example of how to enter a page range */
+"e.g. 1,3-5" = "örn. 1.3-5";
+
+/* Used to specify that a range of pages can be displayed */
+"Page Range" = "Sayfa Aralığı";
+
+/* Let's the user know their job will be printed in black-and-white */
+"B&W" = "SB";
+
+/* copies label in job summary */
+"Copies" = "Kopyalar";
+
+/* copy label in job summary */
+"Copy" = "Kopya";
+
+/* Print button label for printing multiple jobs */
+"Print All" = "Tümünü Yazdır";
+
+/* No comment provide by engineer */
+"Accept" = "Kabul Et";
+
+/* No comment provided by engineer. */
+"Add to Print Queue" = "Yazdırma Kuyruğuna Ekle";
+
+/* footer heading describing print queue */
+"What is Print Queue?" = "Yazdırma Kuyruğu nedir?";
+
+/* fotter text describing print queue */
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Yazdırma Kuyruğuna bir baskı eklerseniz, yazıcınızın yakınında olduğunuzda bir bildirim alırsınız.  Projelerinizi yazdırmak için bildiriminize dokunun veya sadece bu uygulamaya geri dönün.";
+
+/* location premission string on using print queue */
+"Current location is required to identify when your printer connection is available." = "Yazıcı bağlantınızın kullanılabilir olduğunun belirlenebilmesi için geçerli konumunuz gereklidir";
+
+/* Print button label with multiple pages */
+"Print %ld Pages" = "%ld Sayfa Yazdır";
+
+/* job name label */
+"Name" = "Ad";
+
+/* Add multipage pdf to print queue button label */
+"Add %ld Pages" = "%ld Sayfa Ekle";
