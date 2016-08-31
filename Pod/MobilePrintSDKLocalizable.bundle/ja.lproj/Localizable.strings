@@ -1,0 +1,192 @@
+/* No comment provided by engineer. */
+"1 Copy" = "1部";
+
+/* No comment provided by engineer. */
+"Add Print" = "印刷を追加します";
+
+/* No comment provided by engineer. */
+"Add to Print Queue" = "印刷キューに追加します";
+
+/* No comment provided by engineer. */
+"Black & White mode" = "白黒モード";
+
+/* No comment provided by engineer. */
+"%ld Copies" = "%ld部";
+
+/* No comment provided by engineer. */
+"Date" = "日付";
+
+/* No comment provided by engineer. */
+"Default printer not currently available" = "通常使用するプリンタは現在使用できません";
+
+/* No comment provided by engineer. */
+"Delete" = "削除";
+
+/* No comment provided by engineer. */
+"Done" = "完了";
+
+/* Generic Cancel from an action. */
+"Cancel" = "キャンセル";
+
+/* No comment provided by engineer. */
+"Later" = "後で";
+
+/* No comment provided by engineer. */
+"Monitoring not available" = "モニタリングが使用できません";
+
+/* No comment provided by engineer. */
+"Network" = "ネットワーク";
+
+/* No comment provided by engineer. */
+"No default printer" = "通常使用するプリンタがありません";
+
+/* No comment provided by engineer. */
+"No Wi-Fi connection" = "Wi-Fi接続がありません";
+
+/* No comment provided by engineer. */
+"No, thanks" = "評価しない";
+
+/* No comment provided by engineer. */
+"Not Available" = "使用できません";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Page Settings" = "ページ設定";
+
+/* No comment provided by engineer. */
+"Paper Settings Screen" = "用紙設定画面";
+
+/* No comment provided by engineer. */
+"Paper Size" = "用紙サイズ";
+
+/* No comment provided by engineer. */
+"Paper Type" = "用紙の種類";
+
+/* No comment provided by engineer. */
+"Photo" = "写真";
+
+/* No comment provided by engineer. */
+"Photo Paper" = "写真用紙";
+
+/* No comment provided by engineer. */
+"Plain Paper" = "普通紙";
+
+/* No comment provided by engineer. */
+"Preview" = "プレビュー";
+
+/* No comment provided by engineer. */
+"Print" = "印刷する";
+
+/* No comment provided by engineer. */
+"Print all %lu" = "%luすべてを印刷";
+
+/* No comment provided by engineer. */
+"Print both" = "両方を印刷";
+
+/* No comment provided by engineer. */
+"Print Queue" = "印刷キュー";
+
+/* No comment provided by engineer. */
+"Print queue is empty" = "印刷キューは空です";
+
+/* No comment provided by engineer. */
+"Print Settings" = "印刷設定";
+
+/* No comment provided by engineer. */
+"Printer" = "プリンタ";
+
+/* No comment provided by engineer. */
+"Printer nearby. Projects waiting to be printed..." = "手近なプリンタ 印刷待ち中のプロジェクト...";
+
+/* No comment provided by engineer. */
+"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "印刷するには、ご使用のモバイルデバイスとプリンタが、同じWiFiネットワーク上にあることが必要です。 ご使用のWiFi設定を確認してください。";
+
+/* No comment provided by engineer. */
+"Recent printer not currently available" = "以前のプリンタは現在使用できません";
+
+/* No comment provided by engineer. */
+"Select Printer" = "プリンタ を選択します。";
+
+/* No comment provided by engineer. */
+"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "プリンタを選択するには、ご使用のモバイルデバイスとプリンタが、同じWiFiネットワーク上にあることが必要です。 ご使用のWiFi設定を確認してください。";
+
+/* No comment provided by engineer. */
+"Settings" = "設定";
+
+/* No comment provided by engineer. */
+"SUPPORT:" = "サポート：";
+
+/* No comment provided by engineer. */
+"Wi-Fi Required" = "Wi-Fiが必要です";
+
+/* No comment provided by engineer. */
+"Would you like to set the following as this app's default printer?\n\n'%@'" = "以下を、このアプリの通常使用するプリンタに設定しますか?\n\n'%@'";
+
+/* No comment provided by engineer. */
+"Yes" = "はい";
+
+/* No comment provided by engineer. */
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "ご使用のデバイスは、領域観測をサポートしていません。位置に基づくアラームを始動することはできません";
+
+/* No comment provided by engineer. */
+"Print Instructions" = "ページを印刷するには";
+
+/* No comment provided by engineer. */
+"Buy sticker pack" = "ステッカパックを購入してください";
+
+/* Specifies that all pages will be selected */
+"All" = "すべて";
+
+/* Specifies that no pages are selected for printing */
+"No pages selected" = "ページが選択されていません。";
+
+/* Used on a button for closing the dialog */
+"Done" = "完了";
+
+/* Text used on a button that selects all pages for printing */
+"ALL" = "すべて";
+
+/* Text used to give an example of how to enter a page range */
+"e.g. 1,3-5" = "例 1、3-5";
+
+/* Used to specify that a range of pages can be displayed */
+"Page Range" = "ページ範囲";
+
+/* Let's the user know their job will be printed in black-and-white */
+"B&W" = "白黒";
+
+/*
+ copies label in job summary */
+"Copies" = "部数";
+
+/* copy label in job summary */
+"Copy" = "コピー";
+
+/* Print button label for printing multiple jobs */
+"Print All" = "すべて印刷";
+
+/* No comment provide by engineer */
+"Accept" = "承認する";
+
+/* No comment provided by engineer. */
+"Add to Print Queue" = "印刷キューに追加します";
+
+/* footer heading describing print queue */
+"What is Print Queue?" = "印刷キューとは ?";
+
+/* fotter text describing print queue */
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "印刷を印刷キューに追加し、プリンタの近くまで行くと通知を受け取ります。  通知をタップするか、単にこのアプリに戻るだけでプロジェクトを印刷できます。";
+
+/* location premission string on using print queue */
+"Current location is required to identify when your printer connection is available." = "プリンタの接続がいつ可能になるか特定するためには、現在の場所が必要です。";
+
+/* Print button label with multiple pages */
+"Print %ld Pages" = "%ldページを印刷します";
+
+/* job name label */
+"Name" = "名前";
+
+/* Add multipage pdf to print queue button label */
+"Add %ld Pages" = "%ldページを追加します";

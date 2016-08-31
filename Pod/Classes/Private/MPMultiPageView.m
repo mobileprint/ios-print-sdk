@@ -339,9 +339,10 @@ static NSNumber *lastPinchScale = nil;
 {
     if (pageNumber >= 1 && pageNumber <= self.pageImages.count) {
         CGFloat scrollWidth = self.scrollView.bounds.size.width;
-        
         [self.scrollView setContentOffset:CGPointMake(scrollWidth * (pageNumber - 1), 0) animated:animated];
-        [self scrollViewDidEndDecelerating:self.scrollView];
+        if (scrollWidth > 0) {
+            [self scrollViewDidEndDecelerating:self.scrollView];
+        }
         [self updatePageImages:pageNumber];
     }
 }
@@ -565,8 +566,10 @@ static NSNumber *lastPinchScale = nil;
     [self showSpinner:NO];
     
     if (!CGSizeEqualToSize(lastScrollViewSize, self.scrollView.bounds.size)) {
-        [self updatePageNumberLabelText];
-        [self positionSpinner];
+        if (self.scrollView.bounds.size.width > 0) {
+            [self updatePageNumberLabelText];
+            [self positionSpinner];
+        }
         lastScrollViewSize = self.scrollView.bounds.size;
     }
 }
