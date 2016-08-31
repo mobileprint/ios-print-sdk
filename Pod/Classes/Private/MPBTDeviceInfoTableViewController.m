@@ -210,7 +210,7 @@ typedef enum
                 break;
                 
             case MPBTDeviceInfoOrderMacAddress:
-                cell.textLabel.text = MPLocalizedString(@"Mac Address", @"Title of field displaying the printer's mac address");
+                cell.textLabel.text = MPLocalizedString(@"MAC Address", @"Title of field displaying the printer's mac address");
                 cell.detailTextLabel.text = [MPBTSprocket macAddress:self.sprocket.macAddress];
                 break;
                 
