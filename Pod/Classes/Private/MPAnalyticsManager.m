@@ -388,6 +388,7 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
         if (returnDictionary) {
             MPLogInfo(@"MobilePrintSDK METRICS:  Result = %@", returnDictionary);
         } else {
+            // the format of our embellishment metrics produces an error, but the data is logged as expected on the server
             MPLogError(@"MobilePrintSDK METRICS:  Parse Error = %@", error);
             NSString *returnString = [[NSString alloc] initWithBytes:[responseData bytes] length:[responseData length] encoding:NSUTF8StringEncoding];
             MPLogInfo(@"MobilePrintSDK METRICS:  Return string = %@", returnString);

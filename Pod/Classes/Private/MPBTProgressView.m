@@ -115,6 +115,10 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     [self.viewController.view addSubview:self];
     [MPBTSprocket sharedInstance].delegate = self;
     
+    NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionaryWithDictionary:[MP sharedInstance].lastOptionsUsed];
+    [lastOptionsUsed addEntriesFromDictionary:[MPBTSprocket sharedInstance].analytics];
+    [MP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
+
     [[MPBTSprocket sharedInstance] printImage:image numCopies:1];
     
     [UIView animateWithDuration:[MPBTProgressView animationDuration]/2 animations:^{
