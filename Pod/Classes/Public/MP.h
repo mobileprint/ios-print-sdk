@@ -504,6 +504,12 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  */
 - (NSInteger)numberOfPairedSprockets;
 
+/*! 
+ * @abstract Indicates sprocket printer firmware version number
+ * @return The sprocket printer firmware version number
+ */
+- (NSUInteger)printerVersionNumber;
+
 /*!
  * @abstract Displays the list of sprockets paired with the iPhone/iPad
  * @discussion This method prepares an instance of a view controller with the paired sprockets, and displays it modally.
@@ -520,7 +526,7 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  * @param animated A boolean indicating whether or not to animate the display
  * @param completion A block to call when the display animation is complete
  */
-- (void)headlessBluetoothPrintFromController:(UIViewController *)controller image:(UIImage *)image animated:(BOOL)animated completion:(void(^)(void))completion;
+- (void)headlessBluetoothPrintFromController:(UIViewController *)controller image:(UIImage *)image animated:(BOOL)animated printCompletion:(void(^)(void))completion;
 
 /*!
  * @abstract Indicates whether a single sprocket is paired and needs to be reflashed

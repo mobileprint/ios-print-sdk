@@ -482,7 +482,7 @@ CGFloat const kMPDisabledAlpha = 0.5;
             self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
         }
         
-        if (IS_IPAD  &&  MPPageSettingsDisplayTypeSingleView == self.displayType) {
+        if (MPPageSettingsDisplayTypeSingleView == self.displayType) {
             self.displayType = MPPageSettingsDisplayTypePageSettingsPane;
             [self configureJobSummaryCell];
             [self.previewViewController.multiPageView changeToPage:_multiPageView.currentPage animated:NO];
@@ -1630,11 +1630,15 @@ CGFloat const kMPDisabledAlpha = 0.5;
             
             if (result) {
                 if ([self.printLaterDelegate respondsToSelector:@selector(didFinishAddPrintLaterFlow:)]) {
-                    [self.printLaterDelegate didFinishAddPrintLaterFlow:self];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.printLaterDelegate didFinishAddPrintLaterFlow:self];
+                    });
                 }
             } else {
                 if ([self.printLaterDelegate respondsToSelector:@selector(didCancelAddPrintLaterFlow:)]) {
-                    [self.printLaterDelegate didCancelAddPrintLaterFlow:self];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.printLaterDelegate didCancelAddPrintLaterFlow:self];
+                    });
                 }
             }
         }

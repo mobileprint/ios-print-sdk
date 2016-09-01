@@ -17,6 +17,8 @@
 #import "MP.h"
 #import "NSBundle+MPLocalizable.h"
 
+static NSString * const kDeviceInfoScreenName = @"Device Info Screen";
+
 typedef enum
 {
     MPBTDeviceInfoOrderError           = 0,
@@ -80,6 +82,13 @@ typedef enum
 
     self.lastError = @"";
     self.updating = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kDeviceInfoScreenName forKey:kMPTrackableScreenNameKey]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -210,7 +219,7 @@ typedef enum
                 break;
                 
             case MPBTDeviceInfoOrderMacAddress:
-                cell.textLabel.text = MPLocalizedString(@"Mac Address", @"Title of field displaying the printer's mac address");
+                cell.textLabel.text = MPLocalizedString(@"MAC Address", @"Title of field displaying the printer's mac address");
                 cell.detailTextLabel.text = [MPBTSprocket macAddress:self.sprocket.macAddress];
                 break;
                 

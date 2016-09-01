@@ -113,6 +113,20 @@ typedef enum {
  */
 + (BOOL)printLaterOfframp:(NSString *)offramp;
 
+/*!
+ * @abstract The printOfframp string (for prints that bypass the MPPrintManager)
+ * @description Returns the print-from-share offramp
+ * @return Returns the print-from-share offramp
+ */
++ (NSString *)printOfframp;
+
+/*!
+ * @abstract The directPrintOfframp string (for prints that bypass the MPPrintManager)
+ * @description Returns the print-without-ui offramp
+ * @return Returns the print-without-ui offramp
+ */
++ (NSString *)directPrintOfframp;
+
 @end
 
 /*!

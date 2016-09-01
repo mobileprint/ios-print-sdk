@@ -20,6 +20,7 @@
 #import <ExternalAccessory/ExternalAccessory.h>
 
 static NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetting";
+static NSString * const kDeviceListScreenName = @"Devices Screen";
 static const NSInteger kMPBTPairedAccessoriesRecentSection = 0;
 static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 
@@ -39,6 +40,7 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewHeightConstraint;
 @property (strong, nonatomic) UIImage *image;
 @property (weak, nonatomic) UIViewController *hostController;
+@property (strong, nonatomic) void (^printCompletionBlock)(void);
 
 @end
 
@@ -93,6 +95,8 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     if (0 == self.pairedDevices.count) {
         [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:self];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kDeviceListScreenName forKey:kMPTrackableScreenNameKey]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -126,7 +130,7 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     }];
 }
 
-+ (void)presentAnimatedForPrint:(BOOL)animated image:(UIImage *)image usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
++ (void)presentAnimatedForPrint:(BOOL)animated image:(UIImage *)image usingController:(UIViewController *)hostController andPrintCompletion:(void(^)(void))completion
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesNavigationController"];
@@ -134,14 +138,11 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
         MPBTPairedAccessoriesViewController *vc = (MPBTPairedAccessoriesViewController *)[navigationController topViewController];
         vc.image = image;
         vc.hostController = hostController;
+        vc.printCompletionBlock = completion;
         [vc.tableView reloadData];
     }
-
-    [hostController presentViewController:navigationController animated:animated completion:^{
-        if (completion) {
-            completion();
-        }
-    }];
+    
+    [hostController presentViewController:navigationController animated:animated completion:nil];
 }
 
 #pragma mark - UITableViewDataSource
@@ -277,6 +278,10 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
                 MPBTProgressView *progressView = [[MPBTProgressView alloc] initWithFrame:self.hostController.view.frame];
                 progressView.viewController = self.hostController;
                 [progressView printToDevice:self.image];
+                if (self.printCompletionBlock) {
+                    self.printCompletionBlock();
+                    self.printCompletionBlock = nil;
+                }
             }];
         }
         else if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectSprocket:)]) {
