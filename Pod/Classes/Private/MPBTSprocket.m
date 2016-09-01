@@ -657,7 +657,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
     
     [dictionary setValue:accessory.serialNumber forKey:kMPPrinterId];
     [dictionary setValue:[MPBTSprocket displayNameForAccessory:accessory] forKey:kMPPrinterDisplayName];
-    [dictionary setValue:[NSString stringWithFormat:@"HP sprocket (%@-%@)", accessory.modelNumber, accessory.hardwareRevision] forKey:kMPPrinterMakeAndModel];
+    [dictionary setValue:[NSString stringWithFormat:@"HP sprocket ()"] forKey:kMPPrinterMakeAndModel];
     
     return dictionary;
 }

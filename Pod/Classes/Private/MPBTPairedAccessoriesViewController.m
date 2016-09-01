@@ -20,6 +20,7 @@
 #import <ExternalAccessory/ExternalAccessory.h>
 
 static NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetting";
+static NSString * const kDeviceListScreenName = @"Devices Screen";
 static const NSInteger kMPBTPairedAccessoriesRecentSection = 0;
 static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 
@@ -94,6 +95,8 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     if (0 == self.pairedDevices.count) {
         [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:self];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kDeviceListScreenName forKey:kMPTrackableScreenNameKey]];
 }
 
 - (void)didReceiveMemoryWarning {
