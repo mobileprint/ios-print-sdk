@@ -520,7 +520,7 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  * @param animated A boolean indicating whether or not to animate the display
  * @param completion A block to call when the display animation is complete
  */
-- (void)headlessBluetoothPrintFromController:(UIViewController *)controller image:(UIImage *)image animated:(BOOL)animated completion:(void(^)(void))completion;
+- (void)headlessBluetoothPrintFromController:(UIViewController *)controller image:(UIImage *)image animated:(BOOL)animated printCompletion:(void(^)(void))completion;
 
 /*!
  * @abstract Indicates whether a single sprocket is paired and needs to be reflashed

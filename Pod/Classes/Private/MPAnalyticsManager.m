@@ -275,8 +275,14 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
     for (NSString *key in [self obfuscatedMetrics]) {
         NSString *value = [metrics objectForKey:key];
         if (value) {
-            NSString *obfsucatedValue = [MPAnalyticsManager obfuscateValue:value];
-            [metrics setObject:obfsucatedValue forKey:key];
+            if ([key isEqualToString:kMPMetricsWiFiSSID]  &&  [value isEqualToString:kMPNoNetwork]) {
+                // do nothing for unpopulated wifi
+            } else if ([key isEqualToString:kMPPrinterId]  &&  [[metrics objectForKey:kMPMetricsProductName] containsString:@"sprocket"]) {
+                // do nothing for the sprocket printer ids
+            } else {
+                NSString *obfsucatedValue = [MPAnalyticsManager obfuscateValue:value];
+                [metrics setObject:obfsucatedValue forKey:key];
+            }
         }
     }
 }
