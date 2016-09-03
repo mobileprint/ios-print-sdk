@@ -24,6 +24,8 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (strong, nonatomic) UIAlertController* alert;
 @property (assign, nonatomic) BOOL performingFileDownload;
+@property (assign, nonatomic) BOOL printJob;
+@property (assign, nonatomic) BOOL newJob;
 
 @end
 
@@ -97,6 +99,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)reflashDevice
 {
+    self.printJob = NO;
     self.label.text = MPLocalizedString(@"Downloading Firmware Upgrade", @"Indicates that the firmware upgrade is being downloaded from the internet");
     
     [self.viewController.view addSubview:self];
@@ -110,6 +113,8 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)printToDevice:(UIImage *)image
 {
+    self.printJob = YES;
+    self.newJob   = YES;
     self.label.text = MPLocalizedString(@"Sending to printer", @"Indicates that the phone is sending an image to the printer");
 
     [self.viewController.view addSubview:self];
@@ -177,6 +182,11 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didSendPrintData:percentageComplete:error:)]) {
         [self.sprocketDelegate didSendPrintData:sprocket percentageComplete:percentageComplete error:error];
     }
+    
+    if( self.newJob ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMPBTPrintJobStartedNotification object:nil userInfo:[NSDictionary dictionaryWithObject:[sprocket.analytics objectForKey:kMPPrinterId] forKey:kMPBTPrintJobPrinterIdKey]];
+        self.newJob = NO;
+    }
 }
 
 - (void)didFinishSendingPrint:(MPBTSprocket *)sprocket
@@ -198,6 +208,9 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didStartPrinting:)]) {
         [self.sprocketDelegate didStartPrinting:sprocket];
     }
+    
+    NSDictionary *dictionary = @{kMPBTPrintJobPrinterIdKey : [sprocket.analytics objectForKey:kMPPrinterId]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMPBTPrintJobCompletedNotification object:nil userInfo:dictionary];
 }
 
 - (void)didReceiveError:(MPBTSprocket *)sprocket error:(MantaError)error
@@ -220,6 +233,12 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didReceiveError:error:)]) {
         [self.sprocketDelegate didReceiveError:sprocket error:error];
+    }
+
+    if (self.printJob) {
+        NSDictionary *dictionary = @{kMPBTPrintJobPrinterIdKey : [sprocket.analytics objectForKey:kMPPrinterId],
+                                     kMPBTPrintJobErrorKey     : [MPBTSprocket errorTitle:error]};
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMPBTPrintJobCompletedNotification object:nil userInfo:dictionary];
     }
 }
 

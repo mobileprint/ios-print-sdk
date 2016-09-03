@@ -70,6 +70,33 @@ extern NSString * const kPrintCategoryIdentifier;
 extern NSString * const kMPLibraryVersion;
 
 /*!
+ * @abstract Notifies subscribers that a bluetooth print job was started
+ * @discussion Clients can use this notification to indicate that a print has been started on a bluetooth device
+ */
+extern NSString * const kMPBTPrintJobStartedNotification;
+
+/*!
+ * @abstract Notifies subscribers that a bluetooth print job has completed
+ * @discussion Clients can use this notification to indicate that a print has completed on a bluetooth device
+ */
+extern NSString * const kMPBTPrintJobCompletedNotification;
+
+/*!
+ * @abstract Used to retrieve the printer ID from bluetooth print job notifications
+ * @discussion Clients can use this to retrieve the printer id from a notification's userInfo argument
+ * @seealso kMPBTPrintJobStartedNotification
+ * @seealso kMPBTPrintJobCompletedNotification
+ */
+extern NSString * const kMPBTPrintJobPrinterIdKey;
+
+/*!
+ * @abstract Used to retrieve the print job error from bluetooth print job completion notifications
+ * @discussion Clients can use this to retrieve the error code from a notification's userInfo argument
+ * @seealso kMPBTPrintJobCompletedNotification
+ */
+extern NSString * const kMPBTPrintJobErrorKey;
+
+/*!
  * @abstract Notifies subscribers that a share action was completed
  * @discussion Clients can use this notification to indicate that the user completed a sharing action. This is useful for collecting and reporting analytics.
  */

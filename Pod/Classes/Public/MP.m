@@ -32,6 +32,11 @@ NSString * const kLaterActionIdentifier = @"LATER_ACTION_IDENTIFIER";
 NSString * const kPrintActionIdentifier = @"PRINT_ACTION_IDENTIFIER";
 NSString * const kPrintCategoryIdentifier = @"PRINT_CATEGORY_IDENTIFIER";
 
+NSString * const kMPBTPrintJobStartedNotification = @"kMPBTPrintJobStartedNotification";
+NSString * const kMPBTPrintJobCompletedNotification = @"kMPBTPrintJobCompletedNotification";
+NSString * const kMPBTPrintJobPrinterIdKey = @"kMPBTPrintJobPrinterIdKey";
+NSString * const kMPBTPrintJobErrorKey = @"kMPBTPrintJobErrorKey";
+
 NSString * const kMPShareCompletedNotification = @"kMPShareCompletedNotification";
 
 NSString * const kMPTrackableScreenNotification = @"kMPTrackableScreenNotification";
