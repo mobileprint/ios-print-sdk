@@ -362,6 +362,15 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     [alert addAction:okAction];
     
     [hostController presentViewController:alert animated:YES completion:nil];
+    
+    NSString *source = @"Print";
+    if ([hostController isKindOfClass:[MPBTPairedAccessoriesViewController class]]) {
+        if (nil == ((MPBTPairedAccessoriesViewController *)hostController).image) {
+            source = @"DeviceInfo";
+        }
+    }
+    NSDictionary *dictionary = @{kMPBTPrinterNotConnectedSourceKey : source};
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMPBTPrinterNotConnectedNotification object:nil userInfo:dictionary];
 }
 
 - (void)becomeActive:(NSNotification *)notification {

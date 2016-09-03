@@ -97,6 +97,19 @@ extern NSString * const kMPBTPrintJobPrinterIdKey;
 extern NSString * const kMPBTPrintJobErrorKey;
 
 /*!
+ * @abstract Notifies subscribers that a bluetooth operation could not be completed due to not having a bluetooth printer connected
+ * @discussion Clients can use this notification to indicate that a printer could not be connected
+ */
+extern NSString * const kMPBTPrinterNotConnectedNotification;
+
+/*!
+ * @abstract Used to retrieve the source of a printer not connected notification
+ * @discussion Clients can use this to retrieve the source of a printer not connected notification
+ * @seealso kMPBTPrinterNotConnectedNotification
+ */
+extern NSString * const kMPBTPrinterNotConnectedSourceKey;
+
+/*!
  * @abstract Notifies subscribers that a share action was completed
  * @discussion Clients can use this notification to indicate that the user completed a sharing action. This is useful for collecting and reporting analytics.
  */

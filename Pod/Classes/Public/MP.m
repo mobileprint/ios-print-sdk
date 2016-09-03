@@ -36,6 +36,8 @@ NSString * const kMPBTPrintJobStartedNotification = @"kMPBTPrintJobStartedNotifi
 NSString * const kMPBTPrintJobCompletedNotification = @"kMPBTPrintJobCompletedNotification";
 NSString * const kMPBTPrintJobPrinterIdKey = @"kMPBTPrintJobPrinterIdKey";
 NSString * const kMPBTPrintJobErrorKey = @"kMPBTPrintJobErrorKey";
+NSString * const kMPBTPrinterNotConnectedNotification = @"kMPBTPrinterNotConnectedNotification";
+NSString * const kMPBTPrinterNotConnectedSourceKey = @"kMPBTPrinterNotConnectedSourceKey";
 
 NSString * const kMPShareCompletedNotification = @"kMPShareCompletedNotification";
 
