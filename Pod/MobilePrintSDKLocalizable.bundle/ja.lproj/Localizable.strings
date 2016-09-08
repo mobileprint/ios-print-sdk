@@ -1,4 +1,85 @@
 /* No comment provided by engineer. */
+"%d Print" = "%dプリント";
+
+/* No comment provided by engineer. */
+"%d Prints" = "%dプリント";
+
+/* No comment provided by engineer. */
+"%d/%d Print" = "%1$d/%2$dプリント";
+
+/* No comment provided by engineer. */
+"%d/%d Prints" = "%1$d/%2$dプリント";
+
+/* Number of copies */
+"%ld Copies" = "%ldコピー";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "%1$ld/%2$ldページ";
+
+/* No comment provided by engineer. */
+"1 Copy" = "1コピー";
+
+/* Option for paper size */
+"10x13cm" = "10 x 13cm";
+
+/* Option for paper size */
+"10x15cm" = "10 x 15cm";
+
+/* Option for paper size */
+"13x18cm" = "13 x 18cm";
+
+/* Option for paper size */
+"4 x 5" = "4 x 5インチ";
+
+/* Option for paper size */
+"4 x 6" = "4 x 6インチ";
+
+/* Option for paper size */
+"5 x 7" = "5 x 7インチ";
+
+/* Option for paper size */
+"8.5 x 11" = "8.5 x 11インチ";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "1ページ追加する";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "%d枚のプリントを削除してよろしいですか?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "1枚のプリントを削除してよろしいですか?";
+
+/* button bar cancel button */
+"Cancel" = "キャンセル";
+
+/* No comment provided by engineer. */
+"Delete Print from Print Queue" = "プリントを印刷キューから削除します";
+
+/* No comment provided by engineer. */
+"Next" = "次へ";
+
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "/";
+
+/* Print button label single page */
+"Print 1 Page" = "1ページ印刷する";
+
+/* No comment provided by engineer. */
+"Select All" = "すべて選択する";
+
+/* No comment provided by engineer. */
+"Unselect All" = "すべての選択を解除";
+
+/* No comment provided by engineer. */
 "1 Copy" = "1部";
 
 /* No comment provided by engineer. */
