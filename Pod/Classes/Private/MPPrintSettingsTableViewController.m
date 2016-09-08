@@ -53,7 +53,7 @@ NSString * const kPrintSettingsScreenName = @"Print Settings Screen";
 {
     [super viewDidLoad];
     
-    self.title = MPLocalizedString(@"Print Settings", @"Title of the Print Settings screen");
+    self.title = MPLocalizedString(@"Print Settings", @"Title of the print settings screen");
     
     self.mp = [MP sharedInstance];
     

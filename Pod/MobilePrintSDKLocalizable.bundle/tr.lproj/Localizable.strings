@@ -1,4 +1,85 @@
 /* No comment provided by engineer. */
+"%d Print" = "%d Baskı";
+
+/* No comment provided by engineer. */
+"%d Prints" = "%d Baskı";
+
+/* No comment provided by engineer. */
+"%d/%d Print" = "%1$d/%2$d Baskı";
+
+/* No comment provided by engineer. */
+"%d/%d Prints" = "%1$d/%2$d Baskı";
+
+/* Number of copies */
+"%ld Copies" = "%ld Kopya";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "%1$ld / %2$ld Sayfa";
+
+/* No comment provided by engineer. */
+"1 Copy" = "1 Kopya";
+
+/* Option for paper size */
+"10x13cm" = "10x13cm";
+
+/* Option for paper size */
+"10x15cm" = "10x15cm";
+
+/* Option for paper size */
+"13x18cm" = "13x18cm";
+
+/* Option for paper size */
+"4 x 5" = "4 x 5";
+
+/* Option for paper size */
+"4 x 6" = "4 x 6";
+
+/* Option for paper size */
+"5 x 7" = "5 x 7";
+
+/* Option for paper size */
+"8.5 x 11" = "8,5 x 11";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "1 Sayfa Ekle";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "%d Baskı silmek istediğinizden emin misiniz?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "1 Baskı silmek istediğinizden emin misiniz?";
+
+/* button bar cancel button */
+"Cancel" = "İptal";
+
+/* No comment provided by engineer. */
+"Delete Print from Print Queue" = "Baskıyı Yazdırma Kuyruğundan Sil";
+
+/* No comment provided by engineer. */
+"Next" = "İleri";
+
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "/";
+
+/* Print button label single page */
+"Print 1 Page" = "1 Sayfa Yazdır";
+
+/* No comment provided by engineer. */
+"Select All" = "Tümünü Seç";
+
+/* No comment provided by engineer. */
+"Unselect All" = "Tümünün İşaretini Kaldır";
+
+/* No comment provided by engineer. */
 "1 Copy" = "1 kopya";
 
 /* No comment provided by engineer. */
