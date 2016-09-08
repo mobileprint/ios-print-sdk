@@ -15,7 +15,6 @@
 #import "UIColor+MPStyle.h"
 #import "NSBundle+MPLocalizable.h"
 
-
 @interface MPPageRangeKeyboardView ()
 
 @property (weak, nonatomic) UITextField *textField;
@@ -31,8 +30,8 @@
 
 @implementation MPPageRangeKeyboardView
 
-NSString *kPageRangeAllPages = @"All";
-NSString *kPageRangeNoPages = @"No pages selected";
+NSString *kPageRangeAllPages;
+NSString *kPageRangeNoPages;
 
 static NSString *kBackButtonText;
 static NSString *kCheckButtonText;
@@ -47,8 +46,8 @@ static NSString *kPlaceholderText;
 
 - (id) loadView:(UITextField *)textField maxPageNum:(NSInteger)maxPageNum
 {
-    kPageRangeAllPages = MPLocalizedString(kPageRangeAllPages, @"Specifies that all pages will be selected");
-    kPageRangeNoPages = MPLocalizedString(kPageRangeNoPages, @"Specifies that no pages are selected for printing");
+    kPageRangeAllPages = MPLocalizedString(@"All", @"Specifies that all pages will be selected");
+    kPageRangeNoPages = MPLocalizedString(@"No pages selected", @"Specifies that no pages are selected for printing");
 
     kBackButtonText = @"⌫";
     kCheckButtonText = MPLocalizedString(@"Done", @"Used on a button for closing the dialog");

@@ -342,7 +342,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
         UIMutableUserNotificationAction *printAction = [[UIMutableUserNotificationAction alloc] init];
         printAction.identifier = kPrintActionIdentifier;
         printAction.activationMode = UIUserNotificationActivationModeForeground;
-        printAction.title = MPLocalizedString(@"Print", @"Option of the push notification to print the print later job");
+        printAction.title = MPLocalizedString(@"Print", @"Print button label");
         printAction.destructive = NO;
         
         UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];

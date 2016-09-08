@@ -32,7 +32,7 @@
 
 - (NSString *)activityTitle
 {
-    return MPLocalizedString(@"Print", @"Activity title of the print when the share button is tapped");
+    return MPLocalizedString(@"Print", @"Print button label");
 }
 
 - (UIImage *)_activityImage

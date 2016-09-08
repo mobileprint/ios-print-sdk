@@ -20,7 +20,7 @@
 {
     [super viewDidLoad];
     
-    self.title = MPLocalizedString(@"Preview", @"Title of the Preview Screen");
+    self.title = MPLocalizedString(@"Preview", @"Title of the Preview pane in any print or add-to-queue screen");
 }
 
 - (void)viewDidLayoutSubviews
