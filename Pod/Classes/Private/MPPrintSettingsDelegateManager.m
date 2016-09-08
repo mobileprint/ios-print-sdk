@@ -200,7 +200,7 @@ NSString * const kMPPrintSummarySeparatorText = @" / ";
     
     BOOL printingOneCopyOfAllPages = (1 == self.numCopies && [self allPagesSelected]);
     if( [self noPagesSelected]  ||  printingOneCopyOfAllPages ) {
-        _printLabelText = MPLocalizedString(@"Print", @"Print button label image");
+        _printLabelText = MPLocalizedString(@"Print", @"Print button label");
     } else if( 1 == numPagesToBePrinted ) {
         _printLabelText = MPLocalizedString(@"Print 1 Page", @"Print button label single page");
     } else {
@@ -217,7 +217,7 @@ NSString * const kMPPrintSummarySeparatorText = @" / ";
 
 - (NSString *)printSingleJobFromQueueLabelText
 {
-    return MPLocalizedString(@"Print", @"Print button label for printing a single job");
+    return MPLocalizedString(@"Print", @"Print button label");
 }
 
 - (NSString *)printLaterLabelText

@@ -1,4 +1,85 @@
 /* No comment provided by engineer. */
+"%d Print" = "%d 份打印件";
+
+/* No comment provided by engineer. */
+"%d Prints" = "%d 份打印件";
+
+/* No comment provided by engineer. */
+"%d/%d Print" = "%1$d/%2$d 打印件";
+
+/* No comment provided by engineer. */
+"%d/%d Prints" = "%1$d/%2$d 打印件";
+
+/* Number of copies */
+"%ld Copies" = "%ld 份";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "第 %1$ld 页，共 %2$ld 页";
+
+/* No comment provided by engineer. */
+"1 Copy" = "1 份";
+
+/* Option for paper size */
+"10x13cm" = "10 x 13 厘米";
+
+/* Option for paper size */
+"10x15cm" = "10 x 15 厘米";
+
+/* Option for paper size */
+"13x18cm" = "13 x 18 厘米";
+
+/* Option for paper size */
+"4 x 5" = "4 x 5";
+
+/* Option for paper size */
+"4 x 6" = "4 x 6";
+
+/* Option for paper size */
+"5 x 7" = "5 x 7";
+
+/* Option for paper size */
+"8.5 x 11" = "8.5 x 11";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "加 1 页";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "是否确定要删除 %d 份打印件？";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "是否确定要删除 1 份打印件？";
+
+/* button bar cancel button */
+"Cancel" = "取消";
+
+/* No comment provided by engineer. */
+"Delete Print from Print Queue" = "从打印队列中删除打印件";
+
+/* No comment provided by engineer. */
+"Next" = "下一页";
+
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "/";
+
+/* Print button label single page */
+"Print 1 Page" = "打印 1 页";
+
+/* No comment provided by engineer. */
+"Select All" = "全选";
+
+/* No comment provided by engineer. */
+"Unselect All" = "全部不选";
+
+/* No comment provided by engineer. */
 "1 Copy" = "1 份";
 
 /* No comment provided by engineer. */
