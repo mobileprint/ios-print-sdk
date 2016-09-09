@@ -1,5 +1,5 @@
 #### 3.0.9
-###### Not Yet Released
+###### Friday September 9, 2016
 
 - Added support for Japanese, Portuguese (Brazil), Turkish, and Chinese
 - Added debug logging for print layout

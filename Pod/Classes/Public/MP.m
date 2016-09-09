@@ -21,7 +21,7 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import "MPLayoutFactory.h"
 
-NSString * const kMPLibraryVersion = @"3.0.8";
+NSString * const kMPLibraryVersion = @"3.0.9";
 
 NSString * const kLaterActionIdentifier = @"LATER_ACTION_IDENTIFIER";
 NSString * const kPrintActionIdentifier = @"PRINT_ACTION_IDENTIFIER";
