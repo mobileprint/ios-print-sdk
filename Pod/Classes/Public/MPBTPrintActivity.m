@@ -22,7 +22,7 @@
 
 - (NSString *)activityTitle
 {
-    return MPLocalizedString(@"Print", @"Activity title of the bt print when the share button is tapped");
+    return MPLocalizedString(@"Print to sprocket", @"Bluetooth print button label");
 }
 
 - (UIImage *)_activityImage
