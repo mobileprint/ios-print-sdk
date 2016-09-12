@@ -96,7 +96,7 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
     self = [super init];
     if (self) {
 
-        self.supportedProtocols = @[kPolaroidProtocol, kHpProtocol/*, @"com.lge.pocketphoto"*/];
+        self.supportedProtocols = @[kHpProtocol/*kPolaroidProtocol, @"com.lge.pocketphoto"*/];
         
         // watch for received data from the accessory
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_sessionDataReceived:) name:MPBTSessionDataReceivedNotification object:nil];
