@@ -26,6 +26,12 @@
 
 @end
 
+@interface MPAnalyticsManager()
+
+@property NSMutableArray *userSpecifiedObfuscationMetrics;
+
+@end
+
 @implementation MPAnalyticsManager
 
 NSString * const kMPMetricsServer = @"print-metrics-w1.twosmiles.com/api/v1/mobile_app_metrics";
@@ -80,6 +86,7 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
     dispatch_once(&onceToken, ^{
         sharedManager = [[self alloc] init];
         kMPMetricsEventInitialCount = [NSNumber numberWithInteger:kMPMetricsEventInitialCountValue];
+        sharedManager.userSpecifiedObfuscationMetrics = [[NSMutableArray alloc] init];
     });
     
     return sharedManager;
@@ -234,11 +241,19 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
              ];
 }
 
+- (void)obfuscateMetric:(NSString *)keyName
+{
+    [self.userSpecifiedObfuscationMetrics addObject:keyName];
+}
+
 - (NSArray *)obfuscatedMetrics
 {
-    return @[
-             kMPPrinterId,
-             kMPMetricsWiFiSSID];
+    NSMutableArray *metrics = [[NSMutableArray alloc] initWithArray:@[
+                                                                      kMPPrinterId,
+                                                                      kMPMetricsWiFiSSID]];
+    [metrics addObjectsFromArray:self.userSpecifiedObfuscationMetrics];
+    
+    return metrics;
 }
 
 // The following is adapted from http://stackoverflow.com/questions/2018550/how-do-i-create-an-md5-hash-of-a-string-in-cocoa

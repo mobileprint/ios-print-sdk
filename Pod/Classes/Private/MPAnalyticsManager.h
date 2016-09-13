@@ -30,5 +30,6 @@ extern NSString * const kMPMetricsPrintSessionID;
 - (void)trackShareEventWithPrintItem:(MPPrintItem *)printItem andOptions:(NSDictionary *)options;
 - (void)trackShareEventWithPrintLaterJob:(NSMutableDictionary *)objects andOptions:(NSDictionary *)options;
 - (void)trackUserFlowEventWithId:(NSString *)eventId;
+- (void)obfuscateMetric:(NSString *)keyName;
 
 @end
