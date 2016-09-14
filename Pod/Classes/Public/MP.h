@@ -582,6 +582,12 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
 - (void)reflashBluetoothDevice:(UIViewController *)viewController;
 
 /*!
+ * @abstract Causes a metric value to be obfuscated before it is posted to the server.
+ * @param keyName The key of the value that is to be obfuscated.  Any metric identified by this key will be obfuscated.
+ */
+- (void)obfuscateMetric:(NSString *)keyName;
+
+/*!
  * @abstract Used to access the singleton instance of this class
  */
 + (MP *)sharedInstance;

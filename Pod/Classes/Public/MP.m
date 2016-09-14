@@ -334,6 +334,11 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     }
 }
 
+- (void)obfuscateMetric:(NSString *)keyName
+{
+    [[MPAnalyticsManager sharedManager] obfuscateMetric:keyName];
+}
+
 - (void)presentBluetoothDevicesFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion
 {
     NSArray *pairedSprockets = [MPBTSprocket pairedSprockets];
