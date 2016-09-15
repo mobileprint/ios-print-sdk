@@ -22,6 +22,11 @@ static const NSString *kPolaroidProtocol = @"com.polaroid.mobileprinter";
 static const NSString *kHpProtocol = @"com.hp.protocol";
 static const NSString *kFirmwareUpdatePath = @"https://s3-us-west-1.amazonaws.com/sprocket-fw-updates/fw_release.json";
 
+static const NSString *kMPBTFirmwareVersionKey = @"fw_version";
+static const NSString *kMPBTTmdVersionKey = @"tmd_version";
+static const NSString *kMPBTModelNumberKey = @"model_number";
+static const NSString *kMPBTHardwareVersion = @"hw_version";
+
 // Common to all packets
 static const char START_CODE_BYTE_1    = 0x1B;
 static const char START_CODE_BYTE_2    = 0x2A;
@@ -252,7 +257,19 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 
 - (NSDictionary *)analytics
 {
-    return [MPBTSprocket analyticsForAccessory:self.accessory];
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    
+    [dictionary setValue:[MPBTSprocket macAddress:self.macAddress] forKey:kMPPrinterId];
+    [dictionary setValue:[MPBTSprocket displayNameForAccessory:self.accessory] forKey:kMPPrinterDisplayName];
+    [dictionary setValue:[NSString stringWithFormat:@"HP sprocket"] forKey:kMPPrinterMakeAndModel];
+    
+    NSDictionary *customData = @{ kMPBTFirmwareVersionKey : [MPBTSprocket version:self.firmwareVersion],
+                                  kMPBTTmdVersionKey      : [MPBTSprocket version:self.hardwareVersion],
+                                  kMPBTModelNumberKey     : self.accessory.modelNumber,
+                                  kMPBTHardwareVersion    : self.accessory.hardwareRevision };
+    [dictionary setValue:customData forKey:kMPCustomAnalyticsKey];
+    
+    return dictionary;
 }
 
 #pragma mark - Util
@@ -635,6 +652,17 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
     return string;
 }
 
++ (NSString *)version:(NSUInteger)version
+{
+    NSUInteger fw1, fw2, fw3;
+
+    fw1 = (0xFF0000 & version) >> 16;
+    fw2 = (0x00FF00 & version) >>  8;
+    fw3 =  0x0000FF & version;
+ 
+    return [NSString stringWithFormat:@"%d.%d.%d", fw1, fw2, fw3];
+}
+
 + (BOOL)supportedAccessory:(EAAccessory *)accessory
 {
     NSString *protocolString = [[MPBTSprocket sharedInstance] supportedProtocolString:accessory];
@@ -649,17 +677,6 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
         name = @"HP sprocket";
     }
     return [NSString stringWithFormat:@"%@ (%@)", name, accessory.serialNumber];
-}
-
-+ (NSDictionary *)analyticsForAccessory:(EAAccessory *)accessory
-{
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-    
-    [dictionary setValue:accessory.serialNumber forKey:kMPPrinterId];
-    [dictionary setValue:[MPBTSprocket displayNameForAccessory:accessory] forKey:kMPPrinterDisplayName];
-    [dictionary setValue:[NSString stringWithFormat:@"HP sprocket ()"] forKey:kMPPrinterMakeAndModel];
-    
-    return dictionary;
 }
 
 + (NSString *)autoExposureString:(MantaAutoExposure)exp

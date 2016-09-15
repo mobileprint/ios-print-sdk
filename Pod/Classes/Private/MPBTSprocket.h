@@ -47,6 +47,7 @@
 + (NSString *)analyticsForAccessory:(EAAccessory *)accessory;
 + (BOOL)supportedAccessory:(EAAccessory *)accessory;
 + (NSString *)macAddress:(NSData *)data;
++ (NSString *)version:(NSUInteger)version;
 + (NSString *)errorTitle:(MantaError)error;
 + (NSString *)errorDescription:(MantaError)error;
 + (NSString *)autoPowerOffIntervalString:(MantaAutoPowerOffInterval)interval;
