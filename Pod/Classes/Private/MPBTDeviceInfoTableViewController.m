@@ -191,7 +191,6 @@ typedef enum
 #pragma mark - Table view data source
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSInteger fw1, fw2, fw3;
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MPBTSprocketDeviceInfoCell"];
     
     if (!cell) {
@@ -224,11 +223,8 @@ typedef enum
                 break;
                 
             case MPBTDeviceInfoOrderFirmwareVersion:
-                fw1 = (0xFF0000 & self.sprocket.firmwareVersion) >> 16;
-                fw2 = (0x00FF00 & self.sprocket.firmwareVersion) >>  8;
-                fw3 =  0x0000FF & self.sprocket.firmwareVersion;
                 cell.textLabel.text = MPLocalizedString(@"Firmware Version", @"Title of field displaying the printer's firmware version");
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%d.%d.%d", fw1, fw2, fw3];
+                cell.detailTextLabel.text = [MPBTSprocket version:self.sprocket.firmwareVersion];
                 break;
                 
             case MPBTDeviceInfoOrderHardwareVersion:

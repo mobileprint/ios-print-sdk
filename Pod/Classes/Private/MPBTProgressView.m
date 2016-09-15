@@ -24,7 +24,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (strong, nonatomic) UIAlertController* alert;
 @property (assign, nonatomic) BOOL performingFileDownload;
-@property (assign, nonatomic) BOOL printJob;
+@property (strong, nonatomic) UIImage *printJobImage;
 @property (assign, nonatomic) BOOL newJob;
 
 @end
@@ -99,7 +99,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)reflashDevice
 {
-    self.printJob = NO;
+    self.printJobImage = nil;
     self.label.text = MPLocalizedString(@"Downloading Firmware Upgrade", @"Indicates that the firmware upgrade is being downloaded from the internet");
     
     [self.viewController.view addSubview:self];
@@ -113,7 +113,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)printToDevice:(UIImage *)image
 {
-    self.printJob = YES;
+    self.printJobImage = image;
     self.newJob   = YES;
     self.label.text = MPLocalizedString(@"Sending to printer", @"Indicates that the phone is sending an image to the printer");
 
@@ -124,11 +124,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     [lastOptionsUsed addEntriesFromDictionary:[MPBTSprocket sharedInstance].analytics];
     [MP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
 
-    [[MPBTSprocket sharedInstance] printImage:image numCopies:1];
-    
-    [UIView animateWithDuration:[MPBTProgressView animationDuration]/2 animations:^{
-        self.alpha = 1.0;
-    }];
+    [[MPBTSprocket sharedInstance] refreshInfo];
 }
 
 + (CGFloat)animationDuration
@@ -166,6 +162,14 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
 {
+    if (self.printJobImage) {
+        [[MPBTSprocket sharedInstance] printImage:self.printJobImage numCopies:1];
+        
+        [UIView animateWithDuration:[MPBTProgressView animationDuration]/2 animations:^{
+            self.alpha = 1.0;
+        }];
+    }
+    
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didRefreshMantaInfo:error:)]) {
         [self.sprocketDelegate didRefreshMantaInfo:sprocket error:error];
     }
@@ -235,7 +239,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
         [self.sprocketDelegate didReceiveError:sprocket error:error];
     }
 
-    if (self.printJob) {
+    if (self.printJobImage) {
         NSDictionary *dictionary = @{kMPBTPrintJobPrinterIdKey : [sprocket.analytics objectForKey:kMPPrinterId],
                                      kMPBTPrintJobErrorKey     : [MPBTSprocket errorTitle:error]};
         [[NSNotificationCenter defaultCenter] postNotificationName:kMPBTPrintJobCompletedNotification object:nil userInfo:dictionary];

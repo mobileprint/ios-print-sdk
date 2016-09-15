@@ -452,7 +452,16 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
     [metrics addEntriesFromDictionary:[self printMetricsForOfframp:[options objectForKey:kMPOfframpKey]]];
     [metrics addEntriesFromDictionary:[self contentOptionsForPrintItem:printItem]];
     
-    NSString *customAnalyticsJson = [self convertCustomAnalyticsToJson:[options objectForKey:kMPCustomAnalyticsKey]];
+    NSDictionary *customAnalyticsFromOfframp = [metrics objectForKey:kMPCustomAnalyticsKey];
+    NSDictionary *customAnalyticsFromOptions = [options objectForKey:kMPCustomAnalyticsKey];
+    NSMutableDictionary *customAnalytics = [[NSMutableDictionary alloc] init];
+    if (customAnalyticsFromOfframp) {
+        [customAnalytics addEntriesFromDictionary:customAnalyticsFromOfframp];
+    }
+    if (customAnalyticsFromOptions) {
+        [customAnalytics addEntriesFromDictionary:customAnalyticsFromOptions];
+    }
+    NSString *customAnalyticsJson = [self convertCustomAnalyticsToJson:customAnalytics];
     NSMutableDictionary *mutableOptions = [options mutableCopy];
     [mutableOptions setObject:customAnalyticsJson forKey:kMPCustomAnalyticsKey];
     [metrics addEntriesFromDictionary:mutableOptions];
