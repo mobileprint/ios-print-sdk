@@ -289,9 +289,11 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return [MPBTSprocket pairedSprockets].count;
 }
 
-- (NSUInteger)printerVersionNumber
+- (NSString *)printerVersion
 {
-    return [[MPBTSprocket sharedInstance] firmwareVersion];
+    NSUInteger ver = [[MPBTSprocket sharedInstance] firmwareVersion];
+    
+    return [MPBTSprocket version:ver];
 }
 
 - (void)checkSprocketForFirmwareUpgrade:(id<MPSprocketDelegate>)delegate

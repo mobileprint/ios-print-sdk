@@ -546,9 +546,9 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
 
 /*! 
  * @abstract Indicates sprocket printer firmware version number
- * @return The sprocket printer firmware version number
+ * @return The sprocket printer firmware version
  */
-- (NSUInteger)printerVersionNumber;
+- (NSString *)printerVersion;
 
 /*!
  * @abstract Displays the list of sprockets paired with the iPhone/iPad
