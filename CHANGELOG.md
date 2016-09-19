@@ -1,3 +1,9 @@
+#### 3.0.10
+###### Not Yet Released
+
+- Updated project for Xcode 8
+- Set minimum target to iOS 8.0
+
 #### 3.0.9
 ###### Friday September 9, 2016
 
