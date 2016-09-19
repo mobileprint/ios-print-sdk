@@ -400,7 +400,7 @@ NSInteger const kLengthOfSHA = 7;
                                                      UIActivityTypeAssignToContact,
                                                      UIActivityTypePostToVimeo];
     
-    activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
+    activityViewController.completionWithItemsHandler = ^(UIActivityType __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError) {
         NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
         BOOL printActivity = [activityType isEqualToString:[[MPPrintActivity alloc] init].activityType];
         BOOL printLaterActivity = [activityType isEqualToString:[[MPPrintLaterActivity alloc] init].activityType];
