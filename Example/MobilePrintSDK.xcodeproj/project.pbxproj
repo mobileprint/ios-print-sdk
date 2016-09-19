@@ -570,6 +570,9 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = James;
 				TargetAttributes = {
+					2e39556281c57257a6bfc17e = {
+						DevelopmentTeam = UJ5KAZ5V7V;
+					};
 					6003F589195388D20070C39A = {
 						DevelopmentTeam = UJ5KAZ5V7V;
 						SystemCapabilities = {
@@ -1001,6 +1004,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = UJ5KAZ5V7V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1010,6 +1014,7 @@
 				GCC_PREFIX_HEADER = "MobilePrintSDK/MobilePrintSDK-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "MobilePrintSDK/MobilePrintSDK-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-force_load",
@@ -1018,6 +1023,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hp.dev.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "HP Wildcard Development Provision";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1029,6 +1036,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = UJ5KAZ5V7V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1038,6 +1046,7 @@
 				GCC_PREFIX_HEADER = "MobilePrintSDK/MobilePrintSDK-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "MobilePrintSDK/MobilePrintSDK-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-force_load",
@@ -1046,6 +1055,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hp.dev.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "HP Wildcard Development Provision";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
