@@ -44,8 +44,8 @@
 
 #define IS_SPLIT_VIEW_CONTROLLER_IMPLEMENTATION (IS_OS_8_OR_LATER && IS_IPAD && IS_USING_FULL_SCREEN)
 
-#define IS_PORTRAIT UIDeviceOrientationIsPortrait((UIDeviceOrientation)[UIApplication sharedApplication].statusBarOrientation)
-#define IS_LANDSCAPE UIDeviceOrientationIsLandscape((UIDeviceOrientation)[UIApplication sharedApplication].statusBarOrientation)
+#define IS_PORTRAIT UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)
+#define IS_LANDSCAPE UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)
 
 #define DEGREES_TO_RADIANS(x) (x * M_PI/180.0)
 
@@ -450,6 +450,15 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  * @discussion The sprocket devices report their batteryStatus on a scale of 1-100.  If the sprocket's battery level is below this number, it will not be allowed to perform a firmware upgrade.  The default value is 75.
  */
 @property (assign, nonatomic) NSUInteger minimumSprocketBatteryLevelForUpgrade;
+
+/*!
+ * @abstract View Controller used on extensions
+ * @discussion View Controller allow to present new screens on extensions
+ */
+@property (strong, nonatomic) UIViewController *extensionController;
+
+
+- (UIViewController *)keyWindowTopMostController;
 
 /*!
  * @abstract Prepares a view controller suitable for the device and OS
