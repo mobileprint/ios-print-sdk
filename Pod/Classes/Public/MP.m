@@ -171,6 +171,26 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 
 #pragma mark - Getter methods
 
+- (UIViewController *)keyWindowTopMostController
+{
+    
+#ifndef TARGET_IS_EXTENSION
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+#else
+    UIViewController *topController = self.extensionController;
+#endif
+    
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    
+    if ([topController isKindOfClass:[UINavigationController class]]) {
+        topController = ((UINavigationController *)topController).topViewController;
+    }
+    
+    return topController;
+}
+
 - (UIViewController *)printViewControllerWithDelegate:(id<MPPrintDelegate>)delegate
                                            dataSource:(id<MPPrintDataSource>)dataSource
                                        printLaterJobs: (NSArray *)printLaterJobs

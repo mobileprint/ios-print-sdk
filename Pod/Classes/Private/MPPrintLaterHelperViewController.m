@@ -167,11 +167,12 @@
         
         self.notificationReceivedView.text = @"Notification received";
         
-        [[[UIAlertView alloc] initWithTitle:@"Push notification"
-                                    message:@"Entering printer region. Notification received."
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil] show];
+        UIAlertController *alert = [UIAlertController
+            alertControllerWithTitle:@"Push notification"
+            message:@"Entering printer region. Notification received."
+            preferredStyle:UIAlertControllerStyleAlert];
+        
+        [self presentViewController:alert animated:YES completion:nil];
                 
         [UIView animateWithDuration:1.0f animations:^{
             self.notificationReceivedView.alpha = 1.0f;
@@ -186,11 +187,12 @@
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     if ([[MPPrintLaterManager sharedInstance] isDefaultPrinterRegion:region]) {
-        [[[UIAlertView alloc] initWithTitle:@"Push notification"
+        UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle:@"Push notification"
                                     message:@"Exiting printer region."
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil] show];
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -206,11 +208,12 @@
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
 {
     if ([[MPPrintLaterManager sharedInstance] isDefaultPrinterRegion:region]) {
-        [[[UIAlertView alloc] initWithTitle:@"Push notification"
+        UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle:@"Push notification"
                                     message:@"Fail to monitor printer region."
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil] show];
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 

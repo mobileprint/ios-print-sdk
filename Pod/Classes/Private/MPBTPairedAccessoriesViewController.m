@@ -299,18 +299,20 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
                 completionBlock();
             }
         } else {
-            // show device info screen
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
-            MPBTDeviceInfoTableViewController *settingsViewController = (MPBTDeviceInfoTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoTableViewController"];
-            settingsViewController.device = sprocket.accessory;
-            
-            UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-            
-            while (topController.presentedViewController) {
-                topController = topController.presentedViewController;
-            }
-            
-            [((UINavigationController *)topController) pushViewController:settingsViewController animated:YES];
+            #ifndef TARGET_IS_EXTENSION
+                // show device info screen
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
+                MPBTDeviceInfoTableViewController *settingsViewController = (MPBTDeviceInfoTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoTableViewController"];
+                settingsViewController.device = sprocket.accessory;
+                
+                UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+                
+                while (topController.presentedViewController) {
+                    topController = topController.presentedViewController;
+                }
+                
+                [((UINavigationController *)topController) pushViewController:settingsViewController animated:YES];
+            #endif
         }
     } else {
         [self refreshPairedDevices];
