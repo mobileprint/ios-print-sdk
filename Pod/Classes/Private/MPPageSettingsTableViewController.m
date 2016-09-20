@@ -1530,7 +1530,9 @@ CGFloat const kMPDisabledAlpha = 0.5;
     if (indexPath.section == SUPPORT_SECTION) {
         MPSupportAction *action = self.mp.supportActions[indexPath.row];
         if (action.url) {
-            [[UIApplication sharedApplication] openURL:action.url];
+            #ifndef TARGET_IS_EXTENSION
+                [[UIApplication sharedApplication] openURL:action.url];
+            #endif
         } else {
             [self presentViewController:action.viewController animated:YES completion:nil];
         }
