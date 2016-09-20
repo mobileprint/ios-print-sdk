@@ -47,22 +47,22 @@
 
 - (void)noPrintingAlert
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:MPLocalizedString(@"Wi-Fi Required", ni)
-                                                    message:MPLocalizedString(@"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings.", nil)
-                                                   delegate:nil
-                                          cancelButtonTitle:MPLocalizedString(@"OK", nil)
-                                          otherButtonTitles:nil];
-    [alert show];
+    UIAlertController *alert = [UIAlertController
+                                alertControllerWithTitle:MPLocalizedString(@"Wi-Fi Required", nil)
+                                message:MPLocalizedString(@"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings.", nil)
+                                preferredStyle:UIAlertControllerStyleAlert];
+    
+    [[MP sharedInstance].keyWindowTopMostController presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)noPrinterSelectAlert
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:MPLocalizedString(@"Wi-Fi Required", nil)
-                                                    message:MPLocalizedString(@"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings.", nil)
-                                                   delegate:nil
-                                          cancelButtonTitle:MPLocalizedString(@"OK", nil)
-                                          otherButtonTitles:nil];
-    [alert show];
+    UIAlertController *alert = [UIAlertController
+                                alertControllerWithTitle:MPLocalizedString(@"Wi-Fi Required", nil)
+                                message:MPLocalizedString(@"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings.", nil)
+                                preferredStyle:UIAlertControllerStyleAlert];
+    
+    [[MP sharedInstance].keyWindowTopMostController presentViewController:alert animated:YES completion:nil];
 }
 
 - (BOOL)isWifiConnected
