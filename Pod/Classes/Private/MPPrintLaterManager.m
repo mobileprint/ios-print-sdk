@@ -76,11 +76,12 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
         self.locationManager.activityType = CLActivityTypeOtherNavigation;
         
         if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
-            [[[UIAlertView alloc] initWithTitle:MPLocalizedString(@"Monitoring not available", @"Monitoring of regions (location) not available")
+            UIAlertController *alert = [UIAlertController
+                                        alertControllerWithTitle:MPLocalizedString(@"Monitoring not available", @"Monitoring of regions (location) not available")
                                         message:MPLocalizedString(@"Your device does not support the region monitoring, it is not possible to fire alarms base on position", nil)
-                                       delegate:nil
-                              cancelButtonTitle:nil
-                              otherButtonTitles:nil] show];
+                                        preferredStyle:UIAlertControllerStyleAlert];
+            
+            [[MP sharedInstance].keyWindowTopMostController presentViewController:alert animated:YES completion:nil];
         }
         
         MPLogInfo(@"Checking for printLater jobs...");
@@ -188,9 +189,12 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 // Method call when the region is entered and there are jobs in the print queue
 - (void)fireNotification
 {
+#ifndef TARGET_IS_EXTENSION
     MPLogInfo(@"Default printer region entered. Presenting notification");
     UILocalNotification *localNotification = [self localNotification];
     [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+#endif
+
 }
 
 - (BOOL)isDefaultPrinterRegion:(CLRegion *)region
@@ -200,9 +204,11 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 
 - (void)fireNotificationLater
 {
+#ifndef TARGET_IS_EXTENSION
     UILocalNotification *localNotification = [self localNotification];
     localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:(kSecondsInOneHour / 2)];
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+#endif
 }
 
 - (CLLocationCoordinate2D)retrieveCurrentLocation
@@ -287,7 +293,7 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 
 - (void)showPrintJobsTableViewController
 {
-    UIViewController *viewController = [self keyWindowTopMostController];
+    UIViewController *viewController = [[MP sharedInstance] keyWindowTopMostController];
     
     if (![viewController isKindOfClass:[MPPrintJobsViewController class]]) {
         [MPPrintJobsViewController presentAnimated:YES usingController:viewController andCompletion:nil];
@@ -311,21 +317,6 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
     if ([notification.category isEqualToString:kPrintCategoryIdentifier]) {
         [self showPrintJobsTableViewController];
     }
-}
-
-- (UIViewController *)keyWindowTopMostController
-{
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    
-    while (topController.presentedViewController) {
-        topController = topController.presentedViewController;
-    }
-    
-    if ([topController isKindOfClass:[UINavigationController class]]) {
-        topController = ((UINavigationController *)topController).topViewController;
-    }
-    
-    return topController;
 }
 
 #pragma mark - User Notifications methods
@@ -359,10 +350,12 @@ NSString * const kUserNotificationsPermissionSetKey = @"kUserNotificationsPermis
 - (void)initUserNotifications
 {
     if (nil == _printLaterUserNotificationCategory) {
+#ifndef TARGET_IS_EXTENSION
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeSound|UIUserNotificationTypeBadge|UIUserNotificationTypeAlert categories:[NSSet setWithObjects:self.printLaterUserNotificationCategory, nil]];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
         
         self.userNotificationsPermissionSet = YES;
+#endif
     }
 }
 
