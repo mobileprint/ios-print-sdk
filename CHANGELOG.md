@@ -1,3 +1,8 @@
+#### 3.0.10
+###### Not Yet Released
+
+- Fix compiler errors and warnings when using as a pod on a extension.
+
 #### 3.0.9
 ###### Not Yet Released
 
