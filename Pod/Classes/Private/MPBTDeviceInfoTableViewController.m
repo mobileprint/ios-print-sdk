@@ -26,7 +26,8 @@ typedef enum
     MPBTDeviceInfoOrderAutoOff         = 2,
     MPBTDeviceInfoOrderMacAddress      = 3,
     MPBTDeviceInfoOrderFirmwareVersion = 4,
-    MPBTDeviceInfoOrderHardwareVersion = 5
+    MPBTDeviceInfoOrderHardwareVersion = 5,
+    MPBTDeviceInfoOrderTechnicalInfo   = 6
 } MPBTDeviceInfoOrder;
 
 @interface MPBTDeviceInfoTableViewController () <MPBTAutoOffTableViewControllerDelegate, MPBTSprocketDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -232,6 +233,12 @@ typedef enum
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%x", self.sprocket.hardwareVersion];
                 break;
                 
+            case MPBTDeviceInfoOrderTechnicalInfo:
+                cell.textLabel.text = MPLocalizedString(@"Tecnical Information", @"Title of field for displaying the technical infomration");
+                cell.detailTextLabel.text = @" ";
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                break;
+                
             default:
                 cell.textLabel.text = @"Unrecognized field";
                 cell.detailTextLabel.text = @"";
@@ -247,7 +254,7 @@ typedef enum
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 7;
 }
 
 #pragma mark - SprocketDelegate
