@@ -12,6 +12,7 @@
 
 #import "MPBTDeviceInfoTableViewController.h"
 #import "MPBTAutoOffTableViewController.h"
+#import "MPBTTechnicalInformationViewController.h"
 #import "MPBTProgressView.h"
 #import "MPBTSprocket.h"
 #import "MP.h"
@@ -185,6 +186,11 @@ typedef enum
         MPBTAutoOffTableViewController *vc = (UIViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTAutoOffTableViewController"];
         vc.currentAutoOffValue = self.sprocket.powerOffInterval;
         vc.delegate = self;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (MPBTDeviceInfoOrderTechnicalInfo == indexPath.row) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
+        MPBTTechnicalInformationViewController *vc = (UIViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTTechnicalInformationViewController"];
+
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

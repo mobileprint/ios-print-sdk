@@ -1055,7 +1055,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MPActiveNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="fnW-UD-Pih" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wna-j7-ZC5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wna-j7-ZC5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1591,7 +1591,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MPPrintLaterHelperNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="489-Z0-T8h" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oXS-BZ-65J">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="oXS-BZ-65J">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1735,78 +1735,126 @@ Ensure the printer is on and bluetooth connected.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plastics" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlR-mx-oeM">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PrP-QQ-nir" userLabel="PlasticsText">
-                                <string key="text">Plastic parts over 25 grams are marked according to international standards that enhance the ability to identify plastics for recycling purposes at the end of product life.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Material safety data sheets" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9P-OY-Su3">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safety Data Sheets, product safety and environmental information are available at www.hp.com/go/ecodata or on request." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzO-Il-ak6" userLabel="MaterialText">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Power Consumption" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaD-4E-TX9">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVN-Eh-tNW" userLabel="PowerText">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disposal of waste equipment by users" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijn-tq-A33">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjh-mo-66H" userLabel="DisposalText">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fwe-R2-X0Q">
+                                <frame key="frameInset" width="375" height="667"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safety data sheets" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9P-OY-Su3" userLabel="DataSheets">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safety Data Sheets, product safety and environmental information are available at www.hp.com/go/ecodata or on request." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzO-Il-ak6" userLabel="DataSheetsText" customClass="TTTAttributedLabel">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chemical substances" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaD-4E-TX9">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVN-Eh-tNW" userLabel="ChemicalText" customClass="TTTAttributedLabel">
+                                        <string key="text">HP is committed to providing our customers with information about the chemical substances in our products as needed to comply with legal requirements such as REACH (Regulation EC No 1907/2006 of the European Parliament and the Council). A chemical information report for this product can be found at: www.hp.com/go/reach</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recycling program" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijn-tq-A33">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjh-mo-66H" userLabel="RecyclingText" customClass="TTTAttributedLabel">
+                                        <string key="text">HP offers an increasing number of product return and recycling programs in many countries/regions, and partners with some of the largest electronic recycling centers throughout the world. HP conserves resources by reselling some of its most popular products. For more information regarding recycling of HP products, please visit: www.hp.com/recycle</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="California Rechargeable Battery Take-back Notice" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5X-45-boy" userLabel="Battery">
+                                        <rect key="frame" x="33" y="1008" width="293" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yr7-Kl-NeI" userLabel="BatteryText" customClass="TTTAttributedLabel">
+                                        <rect key="frame" x="33" y="1073" width="293" height="122"/>
+                                        <string key="text">HP encourages customers to recycle used electronic hardware, HP original print cartridges, and rechargeable batteries. For more information about recycling programs, go to
+www.hp.com/recycle.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Disposal of waste equipment by users " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjF-BM-zcD" userLabel="Disposal">
+                                        <rect key="frame" x="33" y="1241" width="293" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fwa-NI-mZs" userLabel="DisposalText" customClass="TTTAttributedLabel">
+                                        <rect key="frame" x="33" y="1306" width="293" height="244"/>
+                                        <string key="text">This symbol means do not dispose of your product with your other household waste. Instead, you should protect human health and the environment by handing over your waste equipment to a designated collection point for the recycling of waste electrical and electronic equipment. For more information, please contact your household waste disposal service, or go to http://www.hp.com/recycle.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="zjh-mo-66H" firstAttribute="top" secondItem="ijn-tq-A33" secondAttribute="bottom" constant="24" id="2R1-xw-WwV"/>
+                                    <constraint firstItem="eaD-4E-TX9" firstAttribute="width" secondItem="rzO-Il-ak6" secondAttribute="width" id="3vx-ZA-mfr"/>
+                                    <constraint firstItem="zjh-mo-66H" firstAttribute="centerX" secondItem="ijn-tq-A33" secondAttribute="centerX" id="5kr-Xu-ng0"/>
+                                    <constraint firstItem="ijn-tq-A33" firstAttribute="centerX" secondItem="rVN-Eh-tNW" secondAttribute="centerX" id="8ji-75-jsN"/>
+                                    <constraint firstItem="Fwa-NI-mZs" firstAttribute="centerX" secondItem="FjF-BM-zcD" secondAttribute="centerX" id="8l0-AK-WTS"/>
+                                    <constraint firstItem="E9P-OY-Su3" firstAttribute="top" secondItem="Fwe-R2-X0Q" secondAttribute="top" constant="33" id="8v7-55-PFr"/>
+                                    <constraint firstItem="eaD-4E-TX9" firstAttribute="top" secondItem="rzO-Il-ak6" secondAttribute="bottom" constant="46" id="9UX-NR-VCz"/>
+                                    <constraint firstItem="rzO-Il-ak6" firstAttribute="width" secondItem="E9P-OY-Su3" secondAttribute="width" id="BRc-QV-PNF"/>
+                                    <constraint firstItem="Fwa-NI-mZs" firstAttribute="top" secondItem="FjF-BM-zcD" secondAttribute="bottom" constant="24" id="Deh-fg-8Ha"/>
+                                    <constraint firstItem="rVN-Eh-tNW" firstAttribute="centerX" secondItem="eaD-4E-TX9" secondAttribute="centerX" id="EuY-fT-bkv"/>
+                                    <constraint firstItem="ijn-tq-A33" firstAttribute="top" secondItem="rVN-Eh-tNW" secondAttribute="bottom" constant="46" id="LEj-A3-J0c"/>
+                                    <constraint firstItem="z5X-45-boy" firstAttribute="centerX" secondItem="zjh-mo-66H" secondAttribute="centerX" id="LRe-pJ-gm5"/>
+                                    <constraint firstItem="Yr7-Kl-NeI" firstAttribute="top" secondItem="z5X-45-boy" secondAttribute="bottom" constant="24" id="MBS-X5-Dzp"/>
+                                    <constraint firstItem="z5X-45-boy" firstAttribute="top" secondItem="zjh-mo-66H" secondAttribute="bottom" constant="46" id="Qv1-m2-aNe"/>
+                                    <constraint firstItem="eaD-4E-TX9" firstAttribute="centerX" secondItem="rzO-Il-ak6" secondAttribute="centerX" id="ThG-PB-zgW"/>
+                                    <constraint firstItem="z5X-45-boy" firstAttribute="width" secondItem="zjh-mo-66H" secondAttribute="width" id="aAm-y7-GB8"/>
+                                    <constraint firstItem="rzO-Il-ak6" firstAttribute="centerX" secondItem="E9P-OY-Su3" secondAttribute="centerX" id="aJm-eE-R9I"/>
+                                    <constraint firstItem="rVN-Eh-tNW" firstAttribute="top" secondItem="eaD-4E-TX9" secondAttribute="bottom" constant="24" id="cOs-Rt-I1q"/>
+                                    <constraint firstItem="FjF-BM-zcD" firstAttribute="top" secondItem="Yr7-Kl-NeI" secondAttribute="bottom" constant="46" id="cgk-gR-vef"/>
+                                    <constraint firstItem="FjF-BM-zcD" firstAttribute="centerX" secondItem="Yr7-Kl-NeI" secondAttribute="centerX" id="fPP-BC-CAV"/>
+                                    <constraint firstItem="Fwa-NI-mZs" firstAttribute="width" secondItem="FjF-BM-zcD" secondAttribute="width" id="gnr-dE-W7N"/>
+                                    <constraint firstItem="ijn-tq-A33" firstAttribute="width" secondItem="rVN-Eh-tNW" secondAttribute="width" id="jqY-yN-1Pp"/>
+                                    <constraint firstItem="FjF-BM-zcD" firstAttribute="width" secondItem="Yr7-Kl-NeI" secondAttribute="width" id="kCv-ck-Km1"/>
+                                    <constraint firstItem="zjh-mo-66H" firstAttribute="width" secondItem="ijn-tq-A33" secondAttribute="width" id="kLp-cH-9rT"/>
+                                    <constraint firstItem="Yr7-Kl-NeI" firstAttribute="centerX" secondItem="z5X-45-boy" secondAttribute="centerX" id="pIl-Jo-hrK"/>
+                                    <constraint firstItem="rVN-Eh-tNW" firstAttribute="width" secondItem="eaD-4E-TX9" secondAttribute="width" id="rVB-KK-L07"/>
+                                    <constraint firstItem="rzO-Il-ak6" firstAttribute="top" secondItem="E9P-OY-Su3" secondAttribute="bottom" constant="24" id="wQq-Rt-IGp"/>
+                                    <constraint firstItem="Yr7-Kl-NeI" firstAttribute="width" secondItem="z5X-45-boy" secondAttribute="width" id="xTH-NW-q6c"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="eaD-4E-TX9" firstAttribute="width" secondItem="AlR-mx-oeM" secondAttribute="width" id="2HI-p5-pdP"/>
-                            <constraint firstItem="eaD-4E-TX9" firstAttribute="top" secondItem="rzO-Il-ak6" secondAttribute="bottom" constant="42" id="2bV-dX-Eca"/>
-                            <constraint firstItem="AlR-mx-oeM" firstAttribute="top" secondItem="4Cw-Xb-46D" secondAttribute="bottom" constant="30" id="5D3-X7-F9r"/>
-                            <constraint firstItem="rVN-Eh-tNW" firstAttribute="top" secondItem="eaD-4E-TX9" secondAttribute="bottom" constant="24" id="7MC-rC-STK"/>
-                            <constraint firstItem="E9P-OY-Su3" firstAttribute="top" secondItem="PrP-QQ-nir" secondAttribute="bottom" constant="46" id="A5y-Fl-Yht"/>
-                            <constraint firstItem="rzO-Il-ak6" firstAttribute="width" secondItem="E9P-OY-Su3" secondAttribute="width" id="Aon-3R-rNB"/>
-                            <constraint firstItem="E9P-OY-Su3" firstAttribute="width" secondItem="AlR-mx-oeM" secondAttribute="width" id="Dki-uK-tCx"/>
-                            <constraint firstItem="eaD-4E-TX9" firstAttribute="centerX" secondItem="AlR-mx-oeM" secondAttribute="centerX" id="EdM-ul-IId"/>
-                            <constraint firstItem="rVN-Eh-tNW" firstAttribute="centerX" secondItem="eaD-4E-TX9" secondAttribute="centerX" id="Edi-gE-5ZG"/>
-                            <constraint firstItem="ijn-tq-A33" firstAttribute="width" secondItem="AlR-mx-oeM" secondAttribute="width" id="G3Q-sp-UI8"/>
-                            <constraint firstItem="zjh-mo-66H" firstAttribute="width" secondItem="ijn-tq-A33" secondAttribute="width" id="Jfv-bv-jZ3"/>
-                            <constraint firstItem="ijn-tq-A33" firstAttribute="centerX" secondItem="AlR-mx-oeM" secondAttribute="centerX" id="Jwy-nl-t4R"/>
-                            <constraint firstItem="zjh-mo-66H" firstAttribute="centerX" secondItem="ijn-tq-A33" secondAttribute="centerX" id="O1f-S6-Zxj"/>
-                            <constraint firstItem="rVN-Eh-tNW" firstAttribute="width" secondItem="eaD-4E-TX9" secondAttribute="width" id="Y6s-vk-r2I"/>
-                            <constraint firstItem="ijn-tq-A33" firstAttribute="top" secondItem="rVN-Eh-tNW" secondAttribute="bottom" constant="46" id="deG-zN-sdp"/>
-                            <constraint firstItem="PrP-QQ-nir" firstAttribute="width" secondItem="AlR-mx-oeM" secondAttribute="width" id="eOJ-1V-88l"/>
-                            <constraint firstItem="rzO-Il-ak6" firstAttribute="centerX" secondItem="E9P-OY-Su3" secondAttribute="centerX" id="mZ7-uR-aNg"/>
-                            <constraint firstItem="rzO-Il-ak6" firstAttribute="top" secondItem="E9P-OY-Su3" secondAttribute="bottom" constant="24" id="oZs-aR-AGs"/>
-                            <constraint firstAttribute="trailing" secondItem="AlR-mx-oeM" secondAttribute="trailing" constant="33" id="pLZ-fG-q2e"/>
-                            <constraint firstItem="PrP-QQ-nir" firstAttribute="centerX" secondItem="AlR-mx-oeM" secondAttribute="centerX" id="ryS-Up-At3"/>
-                            <constraint firstItem="PrP-QQ-nir" firstAttribute="top" secondItem="AlR-mx-oeM" secondAttribute="bottom" constant="24" id="tQ8-4i-dh6"/>
-                            <constraint firstItem="zjh-mo-66H" firstAttribute="top" secondItem="ijn-tq-A33" secondAttribute="bottom" constant="24" id="x7Z-If-S8p"/>
-                            <constraint firstItem="E9P-OY-Su3" firstAttribute="centerX" secondItem="AlR-mx-oeM" secondAttribute="centerX" id="yhE-H8-yGp"/>
-                            <constraint firstItem="AlR-mx-oeM" firstAttribute="leading" secondItem="34O-ov-blt" secondAttribute="leading" constant="33" id="ziE-f4-bHd"/>
+                            <constraint firstItem="Fwe-R2-X0Q" firstAttribute="centerY" secondItem="34O-ov-blt" secondAttribute="centerY" id="PFD-FY-f2p"/>
+                            <constraint firstItem="Fwe-R2-X0Q" firstAttribute="centerX" secondItem="34O-ov-blt" secondAttribute="centerX" id="QqL-Cf-Epy"/>
+                            <constraint firstItem="Fwe-R2-X0Q" firstAttribute="height" secondItem="34O-ov-blt" secondAttribute="height" id="Yx7-uP-wnr"/>
+                            <constraint firstItem="E9P-OY-Su3" firstAttribute="leading" secondItem="34O-ov-blt" secondAttribute="leadingMargin" constant="33" id="dr8-e4-gNx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="E9P-OY-Su3" secondAttribute="trailing" constant="33" id="jOb-7L-Fpp"/>
+                            <constraint firstItem="Fwe-R2-X0Q" firstAttribute="width" secondItem="34O-ov-blt" secondAttribute="width" id="kUB-Xg-8yI"/>
                         </constraints>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
-                        <outlet property="plasticsTextLabel" destination="PrP-QQ-nir" id="Cd9-Wf-0QD"/>
+                        <outlet property="disposalTextLabel" destination="Fwa-NI-mZs" id="46q-e7-jNb"/>
+                        <outlet property="scrollView" destination="Fwe-R2-X0Q" id="4cQ-k8-LUZ"/>
+                        <outletCollection property="titleLabels" destination="E9P-OY-Su3" id="PMl-lg-dEe"/>
+                        <outletCollection property="textLabels" destination="rzO-Il-ak6" id="W6r-QB-CQo"/>
+                        <outletCollection property="titleLabels" destination="eaD-4E-TX9" id="JxE-gZ-A8g"/>
+                        <outletCollection property="textLabels" destination="rVN-Eh-tNW" id="qRv-Vb-gyg"/>
+                        <outletCollection property="titleLabels" destination="ijn-tq-A33" id="xnG-QK-xGj"/>
+                        <outletCollection property="textLabels" destination="zjh-mo-66H" id="gyf-nE-cZt"/>
+                        <outletCollection property="titleLabels" destination="z5X-45-boy" id="xuf-mf-pWX"/>
+                        <outletCollection property="textLabels" destination="Yr7-Kl-NeI" id="1uX-gW-WTN"/>
+                        <outletCollection property="titleLabels" destination="FjF-BM-zcD" id="LhP-7S-eCP"/>
+                        <outletCollection property="textLabels" destination="Fwa-NI-mZs" id="6yp-NP-oSB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gDV-ML-IrO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1818,7 +1866,7 @@ Ensure the printer is on and bluetooth connected.</string>
             <objects>
                 <navigationController storyboardIdentifier="MPBTPairedAccessoriesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="AUc-29-YMD" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cbY-IF-j6G">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cbY-IF-j6G">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

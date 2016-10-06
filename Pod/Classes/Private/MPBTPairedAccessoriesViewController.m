@@ -42,6 +42,7 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewHeightConstraint;
 @property (strong, nonatomic) UIImage *image;
 @property (weak, nonatomic) UIViewController *hostController;
+@property (assign, nonatomic) BOOL presentedNoDevicesModal;
 @property (strong, nonatomic) void (^printCompletionBlock)(void);
 
 @end
@@ -79,6 +80,8 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     self.descriptionLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFont];
     self.descriptionLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFontColor];
 
+    self.presentedNoDevicesModal = NO;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
@@ -94,7 +97,8 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     [self setTitle];
     [self refreshPairedDevices];
     
-    if (0 == self.pairedDevices.count) {
+    if (0 == self.pairedDevices.count && !self.presentedNoDevicesModal) {
+        self.presentedNoDevicesModal = YES;
         [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:self];
     }
     

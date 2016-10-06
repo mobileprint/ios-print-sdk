@@ -310,13 +310,13 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
                  self.alert.title = MPLocalizedString(@"Firmware Updated", @"Title for dialog given after a successful firmware update");
                  self.alert.message = MPLocalizedString(@"Your printer will shut down now. Turn your sprocket on and continue the fun!", @"Body of dialog giving instructions on how to proceed after a firmware upgrade");
              } else if (MantaUpgradeStatusFail == status) {
-                self.alert.title = MPLocalizedString(@"Sprocket Not Connected", @"Title for firmware upgrade error dialog");
-                self.alert.message = MPLocalizedString(@"Ensure the printer is on and bluetooth connected.", @"Body for firmware upgrade error dialog");
+                self.alert.title = MPLocalizedString(@"Sprocket Not Connected", @"Message given when sprocket cannot be reached");
+                self.alert.message = MPLocalizedString(@"Ensure the printer is on and bluetooth connected.", @"Message given when the printer can't be contacted.");
             } else if (MantaUpgradeStatusDownloadFail == status) {
                 self.alert.title = MPLocalizedString(@"Downloading Firmware Error", @"Title for firmware download error dialog");
                 self.alert.message = MPLocalizedString(@"Make sure you are connected to the internet and try again.", @"Body for firmware download error dialog");
             } else {
-                self.alert.title = MPLocalizedString(@"Firmware Upgrade Error", @"Title for firmware upgrade error dialog");
+                self.alert.title = MPLocalizedString(@"Firmware Upgrade Error", @"Message given when sprocket cannot be reached");
                 NSString *body = MPLocalizedString(@"Unknown status", @"Body for firmware upgrade error where the reason for the error is unknown");
                 self.alert.message = [NSString stringWithFormat:@"%@: %d", body, status];
             }
