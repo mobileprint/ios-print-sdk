@@ -11,6 +11,7 @@
 //
 
 #import "MPBTTechnicalInformationViewController.h"
+#import "MP.h"
 #import <TTTAttributedLabel.h>
 
 @interface MPBTTechnicalInformationViewController () <TTTAttributedLabelDelegate>
@@ -61,15 +62,15 @@
 
 - (void)configureTitle:(UILabel*)titleLabel
 {
-    titleLabel.font = [UIFont fontWithName:@"HPSimplified-Light" size:22];
-    titleLabel.textColor = [UIColor colorWithRed:77.0F/255.0F green:77.0F/255.0F blue:77.0F/255.0F alpha:1.0F];
+    titleLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundPrimaryFont];
+    titleLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundPrimaryFontColor];
     [titleLabel sizeToFit];
 }
 
 - (void)configureText:(UILabel *)textLabel
 {
-    textLabel.font = [UIFont fontWithName:@"HPSimplified-Regular" size:17];
-    textLabel.textColor = [UIColor colorWithRed:117.0F/255.0F green:118.0F/255.0F blue:120.0F/255.0F alpha:1.0F];
+    textLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundSecondaryFont];
+    textLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPGeneralBackgroundSecondaryFontColor];
     
     for (NSString *link in self.links) {
         [self setLinkForLabel:textLabel range:[textLabel.text rangeOfString:link options:NSCaseInsensitiveSearch]];

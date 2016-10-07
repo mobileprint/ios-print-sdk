@@ -1770,28 +1770,30 @@ Ensure the printer is on and bluetooth connected.</string>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="California Rechargeable Battery Take-back Notice" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5X-45-boy" userLabel="Battery">
-                                        <rect key="frame" x="33" y="1008" width="293" height="41"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="California Rechargeable Battery Take-back Notice" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5X-45-boy" userLabel="Battery">
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yr7-Kl-NeI" userLabel="BatteryText" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="33" y="1073" width="293" height="122"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yr7-Kl-NeI" userLabel="BatteryText" customClass="TTTAttributedLabel">
                                         <string key="text">HP encourages customers to recycle used electronic hardware, HP original print cartridges, and rechargeable batteries. For more information about recycling programs, go to
 www.hp.com/recycle.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Disposal of waste equipment by users " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjF-BM-zcD" userLabel="Disposal">
-                                        <rect key="frame" x="33" y="1241" width="293" height="41"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disposal of waste equipment by users " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjF-BM-zcD" userLabel="Disposal">
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fwa-NI-mZs" userLabel="DisposalText" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="33" y="1306" width="293" height="244"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MPWaste@2x.png" translatesAutoresizingMaskIntoConstraints="NO" id="8VT-rD-f1K">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="82" id="DMb-UU-GSd"/>
+                                            <constraint firstAttribute="width" constant="54" id="H9T-0r-cvu"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fwa-NI-mZs" userLabel="DisposalText" customClass="TTTAttributedLabel">
                                         <string key="text">This symbol means do not dispose of your product with your other household waste. Instead, you should protect human health and the environment by handing over your waste equipment to a designated collection point for the recycling of waste electrical and electronic equipment. For more information, please contact your household waste disposal service, or go to http://www.hp.com/recycle.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -1807,8 +1809,9 @@ www.hp.com/recycle.</string>
                                     <constraint firstItem="E9P-OY-Su3" firstAttribute="top" secondItem="Fwe-R2-X0Q" secondAttribute="top" constant="33" id="8v7-55-PFr"/>
                                     <constraint firstItem="eaD-4E-TX9" firstAttribute="top" secondItem="rzO-Il-ak6" secondAttribute="bottom" constant="46" id="9UX-NR-VCz"/>
                                     <constraint firstItem="rzO-Il-ak6" firstAttribute="width" secondItem="E9P-OY-Su3" secondAttribute="width" id="BRc-QV-PNF"/>
-                                    <constraint firstItem="Fwa-NI-mZs" firstAttribute="top" secondItem="FjF-BM-zcD" secondAttribute="bottom" constant="24" id="Deh-fg-8Ha"/>
                                     <constraint firstItem="rVN-Eh-tNW" firstAttribute="centerX" secondItem="eaD-4E-TX9" secondAttribute="centerX" id="EuY-fT-bkv"/>
+                                    <constraint firstItem="8VT-rD-f1K" firstAttribute="top" secondItem="FjF-BM-zcD" secondAttribute="bottom" constant="12" id="HqK-Ep-dCb"/>
+                                    <constraint firstItem="Fwa-NI-mZs" firstAttribute="top" secondItem="8VT-rD-f1K" secondAttribute="bottom" constant="12" id="J38-ew-XN7"/>
                                     <constraint firstItem="ijn-tq-A33" firstAttribute="top" secondItem="rVN-Eh-tNW" secondAttribute="bottom" constant="46" id="LEj-A3-J0c"/>
                                     <constraint firstItem="z5X-45-boy" firstAttribute="centerX" secondItem="zjh-mo-66H" secondAttribute="centerX" id="LRe-pJ-gm5"/>
                                     <constraint firstItem="Yr7-Kl-NeI" firstAttribute="top" secondItem="z5X-45-boy" secondAttribute="bottom" constant="24" id="MBS-X5-Dzp"/>
@@ -1827,6 +1830,7 @@ www.hp.com/recycle.</string>
                                     <constraint firstItem="rVN-Eh-tNW" firstAttribute="width" secondItem="eaD-4E-TX9" secondAttribute="width" id="rVB-KK-L07"/>
                                     <constraint firstItem="rzO-Il-ak6" firstAttribute="top" secondItem="E9P-OY-Su3" secondAttribute="bottom" constant="24" id="wQq-Rt-IGp"/>
                                     <constraint firstItem="Yr7-Kl-NeI" firstAttribute="width" secondItem="z5X-45-boy" secondAttribute="width" id="xTH-NW-q6c"/>
+                                    <constraint firstItem="8VT-rD-f1K" firstAttribute="leading" secondItem="FjF-BM-zcD" secondAttribute="leading" id="xeG-rf-oQg"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -1835,8 +1839,8 @@ www.hp.com/recycle.</string>
                             <constraint firstItem="Fwe-R2-X0Q" firstAttribute="centerY" secondItem="34O-ov-blt" secondAttribute="centerY" id="PFD-FY-f2p"/>
                             <constraint firstItem="Fwe-R2-X0Q" firstAttribute="centerX" secondItem="34O-ov-blt" secondAttribute="centerX" id="QqL-Cf-Epy"/>
                             <constraint firstItem="Fwe-R2-X0Q" firstAttribute="height" secondItem="34O-ov-blt" secondAttribute="height" id="Yx7-uP-wnr"/>
-                            <constraint firstItem="E9P-OY-Su3" firstAttribute="leading" secondItem="34O-ov-blt" secondAttribute="leadingMargin" constant="33" id="dr8-e4-gNx"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="E9P-OY-Su3" secondAttribute="trailing" constant="33" id="jOb-7L-Fpp"/>
+                            <constraint firstItem="E9P-OY-Su3" firstAttribute="leading" secondItem="34O-ov-blt" secondAttribute="leadingMargin" constant="20" id="dr8-e4-gNx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="E9P-OY-Su3" secondAttribute="trailing" constant="20" id="jOb-7L-Fpp"/>
                             <constraint firstItem="Fwe-R2-X0Q" firstAttribute="width" secondItem="34O-ov-blt" secondAttribute="width" id="kUB-Xg-8yI"/>
                         </constraints>
                     </view>
@@ -1996,6 +2000,7 @@ www.hp.com/recycle.</string>
     <resources>
         <image name="MPDownload.png" width="14" height="16"/>
         <image name="MPMagnify.png" width="25" height="25"/>
+        <image name="MPWaste@2x.png" width="25" height="25"/>
         <image name="MPX.png" width="17" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
