@@ -1670,7 +1670,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nE9-95-jhU" userLabel="NoDevicesView">
                                 <rect key="frame" x="0.0" y="200" width="600" height="200"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Devices Connected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzE-E9-I2z" userLabel="NoDevicesLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No sprockets Connected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzE-E9-I2z" userLabel="NoDevicesLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1681,8 +1681,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="hHA-y7-mpe"/>
                                         </constraints>
-                                        <string key="text">Pair your bluetooth printer with this device.
-Ensure the printer is on and bluetooth connected.</string>
+                                        <string key="text">Pair your bluetooth sprocket printer with this device.
+Make sure the sprocket printer is on and bluetooth connected.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>

@@ -115,7 +115,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 {
     self.printJobImage = image;
     self.newJob   = YES;
-    self.label.text = MPLocalizedString(@"Sending to printer", @"Indicates that the phone is sending an image to the printer");
+    self.label.text = MPLocalizedString(@"Sending to sprocket printer", @"Indicates that the phone is sending an image to the printer");
 
     [self.viewController.view addSubview:self];
     [MPBTSprocket sharedInstance].delegate = self;
@@ -268,7 +268,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 {
     self.performingFileDownload = NO;
     
-    NSString *text = MPLocalizedString(@"Sending Firmware Upgrade to Printer", @"Indicates that the firmware upgrade is being sent to the printer");
+    NSString *text = MPLocalizedString(@"Sending Firmware Upgrade to Sprocket Printer", @"Indicates that the firmware upgrade is being sent to the printer");
     if (![text isEqualToString:self.label.text]) {
         self.label.text = text;
     }
@@ -308,10 +308,10 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
          if (MantaUpgradeStatusStart != status) {
              if (MantaUpgradeStatusFinish == status) {
                  self.alert.title = MPLocalizedString(@"Firmware Updated", @"Title for dialog given after a successful firmware update");
-                 self.alert.message = MPLocalizedString(@"Your printer will shut down now. Turn your sprocket on and continue the fun!", @"Body of dialog giving instructions on how to proceed after a firmware upgrade");
+                 self.alert.message = MPLocalizedString(@"Your sprocket printer will shut down now. Turn your sprocket back on and continue the fun!", @"Body of dialog giving instructions on how to proceed after a firmware upgrade");
              } else if (MantaUpgradeStatusFail == status) {
-                self.alert.title = MPLocalizedString(@"Sprocket Not Connected", @"Title for firmware upgrade error dialog");
-                self.alert.message = MPLocalizedString(@"Ensure the printer is on and bluetooth connected.", @"Body for firmware upgrade error dialog");
+                self.alert.title = MPLocalizedString(@"Sprocket Printer Not Connected", @"Title for firmware upgrade error dialog");
+                self.alert.message = MPLocalizedString(@"Make sure the sprocket printer is on and bluetooth connected.", @"Body for firmware upgrade error dialog");
             } else if (MantaUpgradeStatusDownloadFail == status) {
                 self.alert.title = MPLocalizedString(@"Downloading Firmware Error", @"Title for firmware download error dialog");
                 self.alert.message = MPLocalizedString(@"Make sure you are connected to the internet and try again.", @"Body for firmware download error dialog");
