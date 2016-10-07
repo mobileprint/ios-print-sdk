@@ -12,6 +12,7 @@
 
 #import "MPBTDeviceInfoTableViewController.h"
 #import "MPBTAutoOffTableViewController.h"
+#import "MPBTTechnicalInformationViewController.h"
 #import "MPBTProgressView.h"
 #import "MPBTSprocket.h"
 #import "MP.h"
@@ -26,7 +27,8 @@ typedef enum
     MPBTDeviceInfoOrderAutoOff         = 2,
     MPBTDeviceInfoOrderMacAddress      = 3,
     MPBTDeviceInfoOrderFirmwareVersion = 4,
-    MPBTDeviceInfoOrderHardwareVersion = 5
+    MPBTDeviceInfoOrderHardwareVersion = 5,
+    MPBTDeviceInfoOrderTechnicalInfo   = 6
 } MPBTDeviceInfoOrder;
 
 @interface MPBTDeviceInfoTableViewController () <MPBTAutoOffTableViewControllerDelegate, MPBTSprocketDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -185,6 +187,11 @@ typedef enum
         vc.currentAutoOffValue = self.sprocket.powerOffInterval;
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
+    } else if (MPBTDeviceInfoOrderTechnicalInfo == indexPath.row) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
+        MPBTTechnicalInformationViewController *vc = (UIViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTTechnicalInformationViewController"];
+
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -232,6 +239,12 @@ typedef enum
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%x", self.sprocket.hardwareVersion];
                 break;
                 
+            case MPBTDeviceInfoOrderTechnicalInfo:
+                cell.textLabel.text = MPLocalizedString(@"Tecnical Information", @"Title of field for displaying the technical infomration");
+                cell.detailTextLabel.text = @" ";
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                break;
+                
             default:
                 cell.textLabel.text = @"Unrecognized field";
                 cell.detailTextLabel.text = @"";
@@ -247,7 +260,7 @@ typedef enum
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 7;
 }
 
 #pragma mark - SprocketDelegate

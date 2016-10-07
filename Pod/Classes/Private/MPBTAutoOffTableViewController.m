@@ -43,7 +43,7 @@
                                                                   target:self
                                                                   action:@selector(didPressBack)];
     self.navigationItem.leftBarButtonItem = backButton;
-    self.title = MPLocalizedString(@"Auto Off", @"Title with options for turning the device off automatically after a certain amount of time");
+    self.title = MPLocalizedString(@"Auto Off", @"Title of field displaying how many minutes the device is on before it automatically powers off");
 }
 
 - (void)didReceiveMemoryWarning {

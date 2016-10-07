@@ -17,6 +17,8 @@
 #import "NSBundle+MPLocalizable.h"
 #import "MPBTDeviceInfoTableViewController.h"
 #import "MPBTProgressView.h"
+#import "MPBTTechnicalInformationViewController.h"
+
 #import <ExternalAccessory/ExternalAccessory.h>
 
 static NSString *kMPBTLastPrinterNameSetting = @"kMPBTLastPrinterNameSetting";
@@ -40,6 +42,7 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewHeightConstraint;
 @property (strong, nonatomic) UIImage *image;
 @property (weak, nonatomic) UIViewController *hostController;
+@property (assign, nonatomic) BOOL presentedNoDevicesModal;
 @property (strong, nonatomic) void (^printCompletionBlock)(void);
 
 @end
@@ -77,6 +80,8 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     self.descriptionLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFont];
     self.descriptionLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFontColor];
 
+    self.presentedNoDevicesModal = NO;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
@@ -92,7 +97,8 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     [self setTitle];
     [self refreshPairedDevices];
     
-    if (0 == self.pairedDevices.count) {
+    if (0 == self.pairedDevices.count && !self.presentedNoDevicesModal) {
+        self.presentedNoDevicesModal = YES;
         [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:self];
     }
     
@@ -157,24 +163,30 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
-    EAAccessory *accessory = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
-    if ([self numberOfSectionsInTableView:tableView] > 1) {
-        
-        if (kMPBTPairedAccessoriesRecentSection == indexPath.section) {
-            accessory = self.recentDevice;
-        } else {
-            accessory = (EAAccessory *)[self.otherDevices objectAtIndex:indexPath.row];
-        }
-    }
-    
-    [[cell textLabel] setText:[MPBTSprocket displayNameForAccessory:accessory]];
     cell.backgroundColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsBackgroundColor];
     cell.textLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     cell.textLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
-    if (self.image) {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    } else {
+
+    if (!self.noDevicesView.hidden) {
+        [[cell textLabel] setText:MPLocalizedString(@"Technical Information", @"Title of table view cell used for displaying technical information")];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else {
+        EAAccessory *accessory = (EAAccessory *)[self.pairedDevices objectAtIndex:indexPath.row];
+        if ([self numberOfSectionsInTableView:tableView] > 1) {
+            
+            if (kMPBTPairedAccessoriesRecentSection == indexPath.section) {
+                accessory = self.recentDevice;
+            } else {
+                accessory = (EAAccessory *)[self.otherDevices objectAtIndex:indexPath.row];
+            }
+        }
+        
+        [[cell textLabel] setText:[MPBTSprocket displayNameForAccessory:accessory]];
+        if (self.image) {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
     }
     
     return cell;
@@ -214,6 +226,10 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
         } else {
             numRows = self.otherDevices.count;
         }
+    }
+    
+    if (!self.noDevicesView.hidden) {
+        numRows = 1;
     }
     
     return numRows;
@@ -257,49 +273,64 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // ensure that the device is still connected
-    EAAccessory *accessory = nil;
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    NSString *displayName = cell.textLabel.text;
-    
-    NSArray *currentlyPairedDevices = [MPBTSprocket pairedSprockets];
-    for (EAAccessory *acc in currentlyPairedDevices) {
-        if ([displayName isEqualToString:[MPBTSprocket displayNameForAccessory:acc]]) {
-            accessory = acc;
-        }
-    }
-    
-    if (nil != accessory) {
-        MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
-        sprocket.accessory = accessory;
+    if (!self.noDevicesView.hidden) {
+#ifndef TARGET_IS_EXTENSION
+        // show device info screen
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
+        MPBTTechnicalInformationViewController *techInfoViewController = (MPBTTechnicalInformationViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTTechnicalInformationViewController"];
         
-        if (self.image  &&  self.hostController) {
-            [self dismissViewControllerAnimated:YES completion:^{
-                MPBTProgressView *progressView = [[MPBTProgressView alloc] initWithFrame:self.hostController.view.frame];
-                progressView.viewController = self.hostController;
-                [progressView printToDevice:self.image];
-                if (self.printCompletionBlock) {
-                    self.printCompletionBlock();
-                    self.printCompletionBlock = nil;
-                }
-            }];
+        UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        
+        while (topController.presentedViewController) {
+            topController = topController.presentedViewController;
         }
-        else if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectSprocket:)]) {
-            void (^completionBlock)(void) = ^{
-                [self.delegate didSelectSprocket:sprocket];
-                
-                if (self.completionBlock) {
-                    self.completionBlock(YES);
-                }
-            };
-            
-            if (nil == self.parentViewController) {
-                [self dismissViewControllerAnimated:YES completion:completionBlock];
-            } else {
-                completionBlock();
+        
+        [((UINavigationController *)topController) pushViewController:techInfoViewController animated:YES];
+#endif
+    } else {
+        // ensure that the device is still connected
+        EAAccessory *accessory = nil;
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        NSString *displayName = cell.textLabel.text;
+        
+        NSArray *currentlyPairedDevices = [MPBTSprocket pairedSprockets];
+        for (EAAccessory *acc in currentlyPairedDevices) {
+            if ([displayName isEqualToString:[MPBTSprocket displayNameForAccessory:acc]]) {
+                accessory = acc;
             }
-        } else {
-            #ifndef TARGET_IS_EXTENSION
+        }
+        
+        if (nil != accessory) {
+            MPBTSprocket *sprocket = [MPBTSprocket sharedInstance];
+            sprocket.accessory = accessory;
+            
+            if (self.image  &&  self.hostController) {
+                [self dismissViewControllerAnimated:YES completion:^{
+                    MPBTProgressView *progressView = [[MPBTProgressView alloc] initWithFrame:self.hostController.view.frame];
+                    progressView.viewController = self.hostController;
+                    [progressView printToDevice:self.image];
+                    if (self.printCompletionBlock) {
+                        self.printCompletionBlock();
+                        self.printCompletionBlock = nil;
+                    }
+                }];
+            }
+            else if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSelectSprocket:)]) {
+                void (^completionBlock)(void) = ^{
+                    [self.delegate didSelectSprocket:sprocket];
+                    
+                    if (self.completionBlock) {
+                        self.completionBlock(YES);
+                    }
+                };
+                
+                if (nil == self.parentViewController) {
+                    [self dismissViewControllerAnimated:YES completion:completionBlock];
+                } else {
+                    completionBlock();
+                }
+            } else {
+#ifndef TARGET_IS_EXTENSION
                 // show device info screen
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
                 MPBTDeviceInfoTableViewController *settingsViewController = (MPBTDeviceInfoTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoTableViewController"];
@@ -312,10 +343,11 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
                 }
                 
                 [((UINavigationController *)topController) pushViewController:settingsViewController animated:YES];
-            #endif
+#endif
+            }
+        } else {
+            [self refreshPairedDevices];
         }
-    } else {
-        [self refreshPairedDevices];
     }
 }
 
