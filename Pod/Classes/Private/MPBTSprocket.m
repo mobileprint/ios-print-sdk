@@ -843,8 +843,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
             break;
             
         default:
-            errString = [NSString stringWithFormat:@"Unrecognized Error: %d", error];
-            errString = MPLocalizedString(errString, @"Message given when sprocket has an unrecgonized error");
+            errString = MPLocalizedString(@"Unrecognized Error", @"Message given when sprocket has an unrecgonized error");
             break;
     };
     
@@ -904,8 +903,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
             break;
 
         default:
-            errString = [NSString stringWithFormat:@"Unrecognized Error: %d", error];
-            errString = MPLocalizedString(errString, @"Message given when sprocket has an unrecgonized error");
+            errString = MPLocalizedString(@"Unrecognized Error", @"Message given when sprocket has an unrecgonized error");
             break;
     };
     
