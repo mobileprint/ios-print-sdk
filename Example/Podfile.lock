@@ -1,10 +1,12 @@
 PODS:
   - MobilePrintSDK (3.0.9)
   - OCMock (3.2.2)
+  - TTTAttributedLabel (1.10.1)
 
 DEPENDENCIES:
   - MobilePrintSDK (from `../`)
   - OCMock (= 3.2.2)
+  - TTTAttributedLabel (= 1.10.1)
 
 EXTERNAL SOURCES:
   MobilePrintSDK:
@@ -13,7 +15,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   MobilePrintSDK: dc228ff7c4adb9ed8fed8b9a6d016356a23d4fe1
   OCMock: 18c9b7e67d4c2770e95bb77a9cc1ae0c91fe3835
+  TTTAttributedLabel: c8f3801a6463b9c9b82b0c84c465fdda9751892a
 
-PODFILE CHECKSUM: 51e6ebab091f75fc8a7b8c878daf689794a12d81
+PODFILE CHECKSUM: f433d67f6b587ccde1b565d357c07425f9e7d69a
 
 COCOAPODS: 1.0.1

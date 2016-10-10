@@ -402,7 +402,7 @@ NSInteger const kLengthOfSHA = 7;
                                                      UIActivityTypeAssignToContact,
                                                      UIActivityTypePostToVimeo];
     
-    activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
+    activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *activityItems, NSError *error) {
         NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
         BOOL printActivity = [activityType isEqualToString:[[MPPrintActivity alloc] init].activityType];
         BOOL printLaterActivity = [activityType isEqualToString:[[MPPrintLaterActivity alloc] init].activityType];
@@ -751,7 +751,7 @@ NSInteger const kLengthOfSHA = 7;
     }
     else {
         if ([MP sharedInstance].useBluetooth) {
-            [[MP sharedInstance] headlessBluetoothPrintFromController:self.navigationController image:printItem.defaultPreviewImage animated:YES completion:nil];
+            [[MP sharedInstance] headlessBluetoothPrintFromController:self.navigationController image:printItem.defaultPreviewImage animated:YES printCompletion:nil];
         } else {
             BOOL settingsInProgress = (Settings == self.action);
             UIViewController *vc = [[MP sharedInstance] printViewControllerWithDelegate:self dataSource:self printItem:printItem fromQueue:NO settingsOnly:settingsInProgress];

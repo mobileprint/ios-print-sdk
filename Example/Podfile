@@ -3,7 +3,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 target 'MobilePrintSDK' do
     
     pod 'MobilePrintSDK', :path => '../'
-    
+    pod 'TTTAttributedLabel', '1.10.1'
+
     target 'MobilePrintSDK-cal'
     
     target 'Tests' do
