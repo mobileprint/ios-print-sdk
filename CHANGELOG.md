@@ -1,10 +1,11 @@
 #### 3.0.10
 ###### Not Yet Released
 
-- Fix compiler errors and warnings when using as a pod on a extension.
+- Updated project for Xcode 8
+- Set minimum target to iOS 8.0
 
 #### 3.0.9
-###### Not Yet Released
+###### Friday September 9, 2016
 
 - Added support for Japanese, Portuguese (Brazil), Turkish, and Chinese
 - Added debug logging for print layout

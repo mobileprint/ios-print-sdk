@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		000086FBEA497A6A5151FE79EAE804B4 /* MPLayoutAlgorithmFit.m in Sources */ = {isa = PBXBuildFile; fileRef = 994F0FBFC9709C93FC3111BDB97BA447 /* MPLayoutAlgorithmFit.m */; };
-		03650CE981F26A37B74B4CB5506D9677 /* MPLayoutAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = D1DC786FD8DF7DF562361F7C5508B323 /* MPLayoutAlgorithm.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		03A60584C73D6C0599280B8D986738D6 /* MPPrintJobsPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB3A56BBE939461A06D8649787AED93 /* MPPrintJobsPreviewViewController.m */; };
+		00D0CF5DA71215B9B4BE71B9E577ABC1 /* MPPrintLaterHelperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A006F3D1CA9BEBCD461632ED32591BE6 /* MPPrintLaterHelperViewController.m */; };
+		036E919C715CCA558CCC44AE32586748 /* MPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AA82281CC601C8B58AEB6A414346C0 /* MPLogger.m */; };
+		03B6813D73AC605CFB84588D13C432ED /* MPPrintLaterJob.h in Headers */ = {isa = PBXBuildFile; fileRef = BB9E8C28D9AC8ED4D69923D31514BDFA /* MPPrintLaterJob.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03EF931564978791D4ABC400F3FDDBED /* OCMVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9CA2F306C7DB95BE7D2E6141CCE8 /* OCMVerifier.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		046937EA1C4859D4D96EFA7B7687E441 /* OCMBlockCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7AA0923A4732C1B7C8C3102C0B8A55 /* OCMBlockCaller.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		04D44643C40A3850AF709ADBB8211692 /* MPLayoutPaperView.h in Headers */ = {isa = PBXBuildFile; fileRef = 456720083433A9FAEB3DAF6FD32696B8 /* MPLayoutPaperView.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -1546,27 +1546,6 @@
 			};
 			name = Debug;
 		};
-		471600EC71EC9DCE76856CEA9CD21260 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1843F554F2FC67D6210094513CC3DAC0 /* MobilePrintSDK.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MobilePrintSDK/MobilePrintSDK-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		47BEF9D903506B003EA5C2B249729489 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1609,16 +1588,16 @@
 			};
 			name = Debug;
 		};
-		63966CB5016D214F852683736DC4D942 /* Debug */ = {
+		7560FDF5A4D2872B5535DC2C5FD54EC3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1843F554F2FC67D6210094513CC3DAC0 /* MobilePrintSDK.xcconfig */;
+			baseConfigurationReference = AE2F41E6B4E3D929A3A55A460EC465E8 /* OCMock.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MobilePrintSDK/MobilePrintSDK-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				GCC_PREFIX_HEADER = "Target Support Files/OCMock/OCMock-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -1630,7 +1609,70 @@
 			};
 			name = Debug;
 		};
-		7560FDF5A4D2872B5535DC2C5FD54EC3 /* Debug */ = {
+		90BCB94B4814F60607CC466208C32738 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 258F2DD67ADD081BB9844A92E8309EA0 /* Pods-MobilePrintSDK.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		9E5245DAF192DE4F771C9B06268883D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 754F2EE8BC852C91AA1DD14FDCFD902C /* Pods-MobilePrintSDK-MobilePrintSDK-cal.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		9E99C346694409F289BC6B3F8BFD660A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1843F554F2FC67D6210094513CC3DAC0 /* MobilePrintSDK.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MobilePrintSDK/MobilePrintSDK-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AAF678CED40D3499169D10F63CA0719E /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AE2F41E6B4E3D929A3A55A460EC465E8 /* OCMock.xcconfig */;
 			buildSettings = {
@@ -1731,6 +1773,27 @@
 			};
 			name = Release;
 		};
+		B0200A3A10E69F1167F4FAEB3FE6BC70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1843F554F2FC67D6210094513CC3DAC0 /* MobilePrintSDK.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MobilePrintSDK/MobilePrintSDK-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		C2290918F422A31A6C5106299A882B55 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 28468C09FC4F650FABA32C21AE016986 /* Pods-MobilePrintSDK.release.xcconfig */;
@@ -1818,8 +1881,8 @@
 		82D9F8326C6B1B92EA9537463AE5510F /* Build configuration list for PBXNativeTarget "MobilePrintSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				63966CB5016D214F852683736DC4D942 /* Debug */,
-				471600EC71EC9DCE76856CEA9CD21260 /* Release */,
+				9E99C346694409F289BC6B3F8BFD660A /* Debug */,
+				B0200A3A10E69F1167F4FAEB3FE6BC70 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
