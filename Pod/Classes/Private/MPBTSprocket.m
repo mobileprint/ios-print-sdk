@@ -983,8 +983,6 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
             strVersion = [fwVersionInfo objectForKey:@"fw_ver"];
             NSUInteger fwVersion = [MPBTSprocket fwVersionFromString:strVersion];
             
-            NSLog (@"FW Version: %@", strVersion);
-            
             if (existingFwVersion < fwVersion) {
                 // check the dependency
                 NSString *dependencyStrVersion = [fwVersionInfo objectForKey:@"dependency"];
