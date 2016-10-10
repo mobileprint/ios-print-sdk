@@ -800,7 +800,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
             errString = MPLocalizedString(@"None", @"Message given when sprocket has no known error");
             break;
         case MantaErrorBusy:
-            errString = MPLocalizedString(@"Printer in Use", @"Message given when sprocket cannot print due to being in use.");
+            errString = MPLocalizedString(@"Sprocket Printer in Use", @"Message given when sprocket cannot print due to being in use.");
             break;
         case MantaErrorPaperJam:
             errString = MPLocalizedString(@"Paper has Jammed", @"Message given when sprocket cannot print due to having a paper jam");
@@ -839,7 +839,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
             errString = MPLocalizedString(@"Error", @"Message given when sprocket cannot print due to not recognizing data from our app");
             break;
         case MantaErrorNoSession:
-            errString = MPLocalizedString(@"Sprocket Not Connected", @"Message given when sprocket cannot be reached");
+            errString = MPLocalizedString(@"Sprocket Printer Not Connected", @"Message given when sprocket cannot be reached");
             break;
             
         default:
@@ -859,16 +859,16 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
             errString = MPLocalizedString(@"Sprocket is ready to print.", @"Message given when sprocket has no known error");
             break;
         case MantaErrorBusy:
-            errString = MPLocalizedString(@"Sprocket is already processing a job. Please wait to resend photo.", @"Message given when sprocket cannot print due to being in use.");
+            errString = MPLocalizedString(@"The sprocket printer is already processing a job. Please wait to resend photo.", @"Message given when sprocket cannot print due to being in use.");
             break;
         case MantaErrorPaperJam:
             errString = MPLocalizedString(@"Clear paper jam and restart the printer by pressing and holding the power button.", @"Message given when sprocket cannot print due to having a paper jam");
             break;
         case MantaErrorPaperEmpty:
-            errString = MPLocalizedString(@"Load paper with the included smartsheet to continue printing.", @"Message given when sprocket cannot print due to having no paper");
+            errString = MPLocalizedString(@"Load paper with the included Smartsheet to continue printing.", @"Message given when sprocket cannot print due to having no paper");
             break;
         case MantaErrorPaperMismatch:
-            errString = MPLocalizedString(@"Use only HP branded ZINK paper. If using the correct paper, try printing again. ", @"Message given when sprocket cannot print due to being loaded with the wrong kind of paper");
+            errString = MPLocalizedString(@"Use HP branded ZINK Photo Paper. Load the blue Smartsheet, barcode down, and restart the printer. ", @"Message given when sprocket cannot print due to being loaded with the wrong kind of paper");
             break;
         case MantaErrorDataError:
             errString = MPLocalizedString(@"There was an error sending your photo. The photo format may not be supported on this printer. Choose another image. ", @"Message given when sprocket cannot print due to an error with the image data.");
@@ -899,7 +899,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
             break;
             
         case MantaErrorNoSession:
-            errString = MPLocalizedString(@"Ensure the printer is on and bluetooth connected.", @"Message given when the printer can't be contacted.");
+            errString = MPLocalizedString(@"Make sure the sprocket printer is on and bluetooth connected.", @"Message given when the printer can't be contacted.");
             break;
 
         default:

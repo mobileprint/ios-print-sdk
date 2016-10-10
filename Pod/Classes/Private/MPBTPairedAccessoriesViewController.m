@@ -112,7 +112,7 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 - (void)setTitle
 {
     if (nil == self.image) {
-        [self setTitle:MPLocalizedString(@"Devices",@"Title for screen listing all available sprocket printers")];
+        [self setTitle:MPLocalizedString(@"sprockets",@"Title for screen listing all available sprocket printers")];
     } else {
         [self setTitle:MPLocalizedString(@"Select Printer",@"Title for screen listing all available sprocket printers")];
     }
@@ -386,8 +386,8 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 
 + (void)presentNoPrinterConnectedAlert:(UIViewController *)hostController
 {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MPLocalizedString(@"Printer not connected to device", @"Title of dialog letting the user know that there is no sprocket paired with their phone")
-                                                                   message:MPLocalizedString(@"Make sure the printer is turned on and check the Bluetooth connection.", @"Body of dialog letting the user know that there is no sprocket paired with their phone")
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MPLocalizedString(@"No Sprockets Connected", @"Title of dialog letting the user know that there is no sprocket paired with their phone")
+                                                                   message:MPLocalizedString(@"Make sure the sprocket printer is on and bluetooth connected.", @"Body of dialog letting the user know that there is no sprocket paired with their phone")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
