@@ -20,7 +20,7 @@ const char MANTA_PACKET_LENGTH = 34;
 
 static const NSString *kPolaroidProtocol = @"com.polaroid.mobileprinter";
 static const NSString *kHpProtocol = @"com.hp.protocol";
-static const NSString *kFirmwareUpdatePath = @"https://s3-us-west-1.amazonaws.com/sprocket-fw-updates/fw_release.json";
+static const NSString *kFirmwareUpdatePath = @"https://s3-us-west-2.amazonaws.com/sprocket-fw-updates-2/fw_release.json";
 
 static const NSString *kMPBTFirmwareVersionKey = @"fw_version";
 static const NSString *kMPBTTmdVersionKey = @"tmd_version";
@@ -537,7 +537,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
         }
         
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didCompareWithLatestFirmwareVersion:needsUpgrade:)]) {
-            [MPBTSprocket latestFirmwareVersion:self.protocolString completion:^(NSUInteger fwVersion) {
+            [MPBTSprocket latestFirmwareVersion:self.protocolString forExistingVersion:self.firmwareVersion completion:^(NSUInteger fwVersion) {
                 BOOL needsUpgrade = NO;
                 if (fwVersion > self.firmwareVersion) {
                     needsUpgrade = YES;
@@ -943,7 +943,47 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
                 }] resume];
 }
 
-+ (void)latestFirmwareVersion:(NSString *)protocolString completion:(void (^)(NSUInteger fwVersion))completion
++ (NSUInteger)fwVersionFromString:(NSString *)strVersion
+{
+    NSUInteger fwVersion = 0;
+    
+    NSArray *bytes = [strVersion componentsSeparatedByString:@"."];
+    NSInteger topIdx = bytes.count-1;
+    for (NSInteger idx = topIdx; idx >= 0; idx--) {
+        NSString *strByte = bytes[idx];
+        NSInteger byte = [strByte integerValue];
+        
+        NSInteger shiftValue = topIdx-idx;
+        fwVersion += (byte << (8 * shiftValue));
+    }
+    
+    return fwVersion;
+}
+
++ (NSDictionary *)getCorrectFirmwareVersion:(NSArray *)fwInfo forExistingVersion:(NSUInteger)existingFwVersion
+{
+    if (nil != fwInfo) {
+        // start at the end of the array
+        NSUInteger length = [fwInfo count];
+        
+        for (int idx=length; idx>=0; --idx) {
+            NSDictionary *fwVersionInfo = [fwInfo objectAtIndex:idx];
+            NSString *strVersion = [fwVersionInfo objectForKey:@"fw_ver"];
+            NSUInteger fwVersion = [MPBTSprocket fwVersionFromString:strVersion];
+            
+            if (existingFwVersion < fwVersion) {
+                // check the dependency
+                strVersion = [fwVersionInfo objectForKey:@"dependency"];
+                fwVersion = 
+                if (<#condition#>) {
+                    <#statements#>
+                }
+            }
+        }
+    }
+}
+
++ (void)latestFirmwareVersion:(NSString *)protocolString forExistingVersion:(NSUInteger)existingFwVersion completion:(void (^)(NSUInteger fwVersion))completion
 {
     [MPBTSprocket getFirmwareUpdateInfo:^(NSDictionary *fwUpdateInfo){
         NSUInteger fwVersion = 0;
@@ -954,19 +994,22 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
                 deviceUpdateInfo = [fwUpdateInfo objectForKey:@"Polaroid"];
             } else {
                 deviceUpdateInfo = [fwUpdateInfo objectForKey:@"HP"];
+                deviceUpdateInfo = [MPBTSprocket getCorrectFirmwareVersion:fwUpdateInfo forExistingVersion:existingFwVersion];
             }
             
             if (deviceUpdateInfo) {
                 NSString *strVersion = [deviceUpdateInfo objectForKey:@"fw_ver"];
-                NSArray *bytes = [strVersion componentsSeparatedByString:@"."];
-                NSInteger topIdx = bytes.count-1;
-                for (NSInteger idx = topIdx; idx >= 0; idx--) {
-                    NSString *strByte = bytes[idx];
-                    NSInteger byte = [strByte integerValue];
-                    
-                    NSInteger shiftValue = topIdx-idx;
-                    fwVersion += (byte << (8 * shiftValue));
-                }
+                fwVersion = [MPBTSprocket fwVersionFromString:strVersion];
+                
+//                NSArray *bytes = [strVersion componentsSeparatedByString:@"."];
+//                NSInteger topIdx = bytes.count-1;
+//                for (NSInteger idx = topIdx; idx >= 0; idx--) {
+//                    NSString *strByte = bytes[idx];
+//                    NSInteger byte = [strByte integerValue];
+//                    
+//                    NSInteger shiftValue = topIdx-idx;
+//                    fwVersion += (byte << (8 * shiftValue));
+//                }
             } else {
                 MPLogError(@"Unrecognized firmware update info: %@", fwUpdateInfo);
             }
