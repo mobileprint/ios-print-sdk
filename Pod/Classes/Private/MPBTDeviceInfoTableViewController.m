@@ -209,7 +209,7 @@ typedef enum
     if (self.receivedSprocketInfo) {
         switch (indexPath.row) {
             case MPBTDeviceInfoOrderError:
-                cell.textLabel.text = MPLocalizedString(@"Errors", @"Title of field displaying latest errors");
+                cell.textLabel.text = MPLocalizedString(@"Status", @"Title of field displaying latest errors");
                 cell.detailTextLabel.text = self.lastError;
                 break;
                 

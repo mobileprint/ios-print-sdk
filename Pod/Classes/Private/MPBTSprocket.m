@@ -797,7 +797,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
     
     switch (error) {
         case MantaErrorNoError:
-            errString = MPLocalizedString(@"None", @"Message given when sprocket has no known error");
+            errString = MPLocalizedString(@"Ready", @"Message given when sprocket has no known error");
             break;
         case MantaErrorBusy:
             errString = MPLocalizedString(@"Sprocket Printer in Use", @"Message given when sprocket cannot print due to being in use.");
