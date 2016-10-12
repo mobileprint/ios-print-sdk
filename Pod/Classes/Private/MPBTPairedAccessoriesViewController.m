@@ -308,7 +308,7 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
                 [self dismissViewControllerAnimated:YES completion:^{
                     MPBTProgressView *progressView = [[MPBTProgressView alloc] initWithFrame:self.hostController.view.frame];
                     progressView.viewController = self.hostController;
-                    [progressView printToDevice:self.image];
+                    [progressView printToDevice:self.image refreshCompletion:nil];
                     if (self.printCompletionBlock) {
                         self.printCompletionBlock();
                         self.printCompletionBlock = nil;

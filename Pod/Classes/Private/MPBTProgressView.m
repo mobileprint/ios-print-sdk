@@ -26,6 +26,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 @property (assign, nonatomic) BOOL performingFileDownload;
 @property (strong, nonatomic) UIImage *printJobImage;
 @property (assign, nonatomic) BOOL newJob;
+@property (strong, nonatomic) void(^refreshCompletion)(void);
 
 @end
 
@@ -111,7 +112,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     }];
 }
 
-- (void)printToDevice:(UIImage *)image
+- (void)printToDevice:(UIImage *)image refreshCompletion:(void(^)(void))completion
 {
     self.printJobImage = image;
     self.newJob   = YES;
@@ -120,10 +121,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
     [self.viewController.view addSubview:self];
     [MPBTSprocket sharedInstance].delegate = self;
     
-    NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionaryWithDictionary:[MP sharedInstance].lastOptionsUsed];
-    [lastOptionsUsed addEntriesFromDictionary:[MPBTSprocket sharedInstance].analytics];
-    [MP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
-
+    self.refreshCompletion = completion;
     [[MPBTSprocket sharedInstance] refreshInfo];
 }
 
@@ -162,6 +160,15 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
 - (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
 {
+    NSMutableDictionary *lastOptionsUsed = [NSMutableDictionary dictionaryWithDictionary:[MP sharedInstance].lastOptionsUsed];
+    [lastOptionsUsed addEntriesFromDictionary:[MPBTSprocket sharedInstance].analytics];
+    [MP sharedInstance].lastOptionsUsed = [NSDictionary dictionaryWithDictionary:lastOptionsUsed];
+
+    if (self.refreshCompletion) {
+        self.refreshCompletion();
+        self.refreshCompletion = nil;
+    }
+
     if (self.printJobImage) {
         [[MPBTSprocket sharedInstance] printImage:self.printJobImage numCopies:1];
         

@@ -25,6 +25,6 @@
 - (void)setProgress:(CGFloat)progress;
 - (void)setStatus:(MantaUpgradeStatus)status;
 - (void)reflashDevice;
-- (void)printToDevice:(UIImage *)image;
+- (void)printToDevice:(UIImage *)image refreshCompletion:(void(^)(void))completion;
 
 @end
