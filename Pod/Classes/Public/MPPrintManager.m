@@ -39,6 +39,7 @@ NSString * const kMPOfframpQueue = @"PrintSingleFromQueue";
 NSString * const kMPOfframpQueueMulti = @"PrintMultipleFromQueue";
 NSString * const kMPOfframpCustom = @"PrintFromClientUI";
 NSString * const kMPOfframpDirect = @"PrintWithNoUI";
+NSString * const kMPOfframpActionExtension = @"PrintFromActionExtension";
 
 #pragma mark - Initialization
 
@@ -324,6 +325,11 @@ NSString * const kMPOfframpDirect = @"PrintWithNoUI";
     return kMPOfframpDirect;
 }
 
++ (NSString *)printFromActionExtension
+{
+    return kMPOfframpActionExtension;
+}
+
 + (BOOL)printNowOfframp:(NSString *)offramp
 {
     NSArray *offramps = @[
@@ -331,7 +337,8 @@ NSString * const kMPOfframpDirect = @"PrintWithNoUI";
                           kMPOfframpQueue,
                           kMPOfframpQueueMulti,
                           kMPOfframpCustom,
-                          kMPOfframpDirect ];
+                          kMPOfframpDirect,
+                          kMPOfframpActionExtension];
     
     return [offramps containsObject:offramp];
 }

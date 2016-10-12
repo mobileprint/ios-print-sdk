@@ -127,6 +127,13 @@ typedef enum {
  */
 + (NSString *)directPrintOfframp;
 
+/*!
+ * @abstract The printFromActionExtension string (for prints that bypass the MPPrintManager)
+ * @description Returns the print-from-action-extension offramp
+ * @return Returns the print-from-action-extension offramp
+ */
++ (NSString *)printFromActionExtension;
+    
 @end
 
 /*!
