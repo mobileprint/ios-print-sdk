@@ -386,8 +386,8 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 
 + (void)presentNoPrinterConnectedAlert:(UIViewController *)hostController
 {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MPLocalizedString(@"Sprocket Printer Not Connected", @"Title of dialog letting the user know that there is no sprocket paired with their phone")
-                                                                   message:MPLocalizedString(@"Make sure the sprocket printer is on and bluetooth connected.", @"Body of dialog letting the user know that there is no sprocket paired with their phone")
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MPLocalizedString(@"Sprocket Printer Not Connected", @"Message given when sprocket cannot be reached")
+                                                                   message:MPLocalizedString(@"Make sure the sprocket printer is on and bluetooth connected.", @"Message given when the printer can't be contacted.")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
