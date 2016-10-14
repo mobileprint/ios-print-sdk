@@ -34,6 +34,12 @@
     self.links = @[ @"www.hp.com/go/ecodata",
                     @"http://www.hp.com/go/reach",
                     @"www.hp.com/recycle" ];
+
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(didPressBack)];
+    self.navigationItem.leftBarButtonItem = backButton;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -58,6 +64,11 @@
     
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)didPressBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)configureTitle:(UILabel*)titleLabel
