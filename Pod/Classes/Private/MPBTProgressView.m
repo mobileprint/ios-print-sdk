@@ -275,7 +275,7 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 {
     self.performingFileDownload = NO;
     
-    NSString *text = MPLocalizedString(@"Sending Firmware Upgrade to Sprocket Printer", @"Indicates that the firmware upgrade is being sent to the printer");
+    NSString *text = MPLocalizedString(@"Sending Firmware Upgrade\nto Sprocket Printer", @"Indicates that the firmware upgrade is being sent to the printer");
     if (![text isEqualToString:self.label.text]) {
         self.label.text = text;
     }
