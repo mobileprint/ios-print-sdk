@@ -268,18 +268,14 @@ typedef enum
 - (void)didRefreshMantaInfo:(MPBTSprocket *)sprocket error:(MantaError)error
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (MantaErrorNoError == error) {
-            self.lastError = [MPBTSprocket errorTitle:error];
-            
-            [self setTitle:[NSString stringWithFormat:@"%@", sprocket.displayName]];
-            
-            self.receivedSprocketInfo = YES;
-            
-            [self.tableView reloadData];
-            MPLogDebug(@"Reloading DeviceInfo table");
-        } else {
-            [self displayError:error];
-        }
+        self.lastError = [MPBTSprocket errorTitle:error];
+        
+        [self setTitle:[NSString stringWithFormat:@"%@", sprocket.displayName]];
+        
+        self.receivedSprocketInfo = YES;
+        
+        [self.tableView reloadData];
+        MPLogDebug(@"Reloading DeviceInfo table");
     });
 }
 

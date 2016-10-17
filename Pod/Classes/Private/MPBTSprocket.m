@@ -439,18 +439,16 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
           firmwareVersion,
           hardwareVersion);
     
-    if (MantaErrorNoError == errorCode[0]) {
-        _totalPrintCount = printCount;
-        _batteryStatus = batteryStatus[0];
-        _macAddress = macAddressData;
-        _firmwareVersion = firmwareVersion;
-        _hardwareVersion = hardwareVersion;
-        
-        // purposely bypass the setters for these properties
-        _printMode = printMode[0];
-        _autoExposure = autoExposure[0];
-        _powerOffInterval = autoPowerOff[0];
-    }
+    _totalPrintCount = printCount;
+    _batteryStatus = batteryStatus[0];
+    _macAddress = macAddressData;
+    _firmwareVersion = firmwareVersion;
+    _hardwareVersion = hardwareVersion;
+    
+    // purposely bypass the setters for these properties
+    _printMode = printMode[0];
+    _autoExposure = autoExposure[0];
+    _powerOffInterval = autoPowerOff[0];
 }
 
 - (void)parseMantaResponse:(NSData *)data
@@ -531,19 +529,24 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
                RESP_ACCESSORY_INFO_ACK_SUB_CMD == subCmdId[0]) {
         MPLogDebug(@"\n\nAccessoryInfoAck: %@\n\n", data);
         [self parseAccessoryInfo:payloadData];
+        NSUInteger error = payload[0];
         
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didRefreshMantaInfo:error:)]) {
-            [self.delegate didRefreshMantaInfo:self error:payload[1]];
+            [self.delegate didRefreshMantaInfo:self error:error];
         }
         
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didCompareWithLatestFirmwareVersion:needsUpgrade:)]) {
-            [MPBTSprocket latestFirmwareVersion:self.protocolString forExistingVersion:self.firmwareVersion completion:^(NSUInteger fwVersion) {
-                BOOL needsUpgrade = NO;
-                if (fwVersion > self.firmwareVersion) {
-                    needsUpgrade = YES;
-                }
-                [self.delegate didCompareWithLatestFirmwareVersion:self needsUpgrade:needsUpgrade];
-            }];
+            if (MantaErrorNoError == error) {
+                [MPBTSprocket latestFirmwareVersion:self.protocolString forExistingVersion:self.firmwareVersion completion:^(NSUInteger fwVersion) {
+                    BOOL needsUpgrade = NO;
+                    if (fwVersion > self.firmwareVersion) {
+                        needsUpgrade = YES;
+                    }
+                    [self.delegate didCompareWithLatestFirmwareVersion:self needsUpgrade:needsUpgrade];
+                }];
+            } else {
+                [self.delegate didCompareWithLatestFirmwareVersion:self needsUpgrade:NO];
+            }
         }
     } else if (RESP_PRINT_START_CMD == cmdId[0]  &&
                RESP_PRINT_START_SUB_CMD == subCmdId[0]) {
