@@ -99,7 +99,6 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     
     if (0 == self.pairedDevices.count && !self.presentedNoDevicesModal) {
         self.presentedNoDevicesModal = YES;
-        [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:self];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kMPTrackableScreenNotification object:nil userInfo:[NSDictionary dictionaryWithObject:kDeviceListScreenName forKey:kMPTrackableScreenNameKey]];
