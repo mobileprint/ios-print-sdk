@@ -25,6 +25,7 @@
 #import "MPPrintSettingsDelegateManager.h"
 #import "MPBTProgressView.h"
 #import "MPBTDeviceInfoTableViewController.h"
+#import "MPBTStatusChecker.h"
 
 NSString * const kMPLibraryVersion = @"3.0.10";
 
@@ -124,6 +125,8 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
         self.supportedPapers = [MPPaper availablePapers];
         self.defaultPaper = [[MPPaper alloc] initWithPaperSize:MPPaperSize5x7 paperType:MPPaperTypePhoto];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleShareCompletedNotification:) name:kMPShareCompletedNotification object:nil];
+
+        [[MPBTStatusChecker sharedInstance] startChecking];
     }
     
     return self;
@@ -378,7 +381,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     NSArray *pairedSprockets = [MPBTSprocket pairedSprockets];
     
     if (0 == pairedSprockets.count) {
-        [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:controller];
+        [MPBTPairedAccessoriesViewController presentNoPrinterConnectedAlert:controller showConnectSprocket:YES];
     } else if (1 == pairedSprockets.count) {
         EAAccessory *device = (EAAccessory *)[pairedSprockets objectAtIndex:0];
         [MPBTSprocket sharedInstance].accessory = device;
