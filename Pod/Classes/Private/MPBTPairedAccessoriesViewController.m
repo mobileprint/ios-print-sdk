@@ -388,30 +388,33 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 
 + (void)presentNoPrinterConnectedAlert:(UIViewController *)hostController showConnectSprocket:(BOOL)showConnectSprocket
 {
+#ifndef TARGET_IS_EXTENSION
     // The following call forces the system "Connect to Bluetooth" dialog if bluetooth has been turned off
     if (![[MPBTStatusChecker sharedInstance] isBluetoothEnabled]) {
         CBCentralManager* cbManager = [[CBCentralManager alloc] initWithDelegate:nil queue: nil];
-    } else if (showConnectSprocket) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:MPLocalizedString(@"Sprocket Printer Not Connected", @"Message given when sprocket cannot be reached")
-                                                                       message:MPLocalizedString(@"Make sure the sprocket printer is on and bluetooth connected.", @"Message given when the printer can't be contacted.")
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-        [alert addAction:okAction];
-        
-        [hostController presentViewController:alert animated:YES completion:nil];
-        
-        NSString *source = @"Print";
-        if ([hostController isKindOfClass:[MPBTPairedAccessoriesViewController class]]) {
-            if (nil == ((MPBTPairedAccessoriesViewController *)hostController).image) {
-                source = @"DeviceInfo";
+    } else
+#endif
+        if (showConnectSprocket) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:MPLocalizedString(@"Sprocket Printer Not Connected", @"Message given when sprocket cannot be reached")
+                                                                           message:MPLocalizedString(@"Make sure the sprocket printer is on and bluetooth connected.", @"Message given when the printer can't be contacted.")
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:MPLocalizedString(@"OK", @"Dismisses dialog without taking action")
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
+            [alert addAction:okAction];
+            
+            [hostController presentViewController:alert animated:YES completion:nil];
+            
+            NSString *source = @"Print";
+            if ([hostController isKindOfClass:[MPBTPairedAccessoriesViewController class]]) {
+                if (nil == ((MPBTPairedAccessoriesViewController *)hostController).image) {
+                    source = @"DeviceInfo";
+                }
             }
+            NSDictionary *dictionary = @{kMPBTPrinterNotConnectedSourceKey : source};
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMPBTPrinterNotConnectedNotification object:nil userInfo:dictionary];
         }
-        NSDictionary *dictionary = @{kMPBTPrinterNotConnectedSourceKey : source};
-        [[NSNotificationCenter defaultCenter] postNotificationName:kMPBTPrinterNotConnectedNotification object:nil userInfo:dictionary];
-    }
 }
 
 - (void)becomeActive:(NSNotification *)notification {
