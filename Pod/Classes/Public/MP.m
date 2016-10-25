@@ -319,10 +319,8 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     return [MPBTSprocket version:ver];
 }
 
-- (void)checkSprocketForFirmwareUpgrade:(id<MPSprocketDelegate>)delegate
+- (void)checkSprocketForUpdates:(id<MPSprocketDelegate>)delegate
 {
-    NSString *deviceName = nil;
-    
     NSArray *pairedSprockets = [MPBTSprocket pairedSprockets];
     if (1 == pairedSprockets.count) {
         self.sprocketDelegate = delegate;
@@ -333,10 +331,19 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     }
 }
 
+- (void)didRefreshMantaInfo:(MPBTSprocket *)manta error:(MantaError)error
+{
+    if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didReceiveSprocketBatteryLevel:)]) {
+        [self.sprocketDelegate didReceiveSprocketBatteryLevel:manta.batteryStatus];
+    }
+}
+
 - (void)didCompareWithLatestFirmwareVersion:(MPBTSprocket *)sprocket needsUpgrade:(BOOL)needsUpgrade
 {
     if (needsUpgrade) {
-        [self.sprocketDelegate didCompareSprocketWithLatestFirmwareVersion:sprocket.displayName batteryLevel:sprocket.batteryStatus needsUpgrade:needsUpgrade];
+        if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didCompareWithLatestFirmwareVersion:needsUpgrade:)]) {
+            [self.sprocketDelegate didCompareSprocketWithLatestFirmwareVersion:sprocket.displayName batteryLevel:sprocket.batteryStatus needsUpgrade:needsUpgrade];
+        }
     }
     
     if (self == sprocket.delegate) {

@@ -577,12 +577,13 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  */
 - (void)headlessBluetoothPrintFromController:(UIViewController *)controller image:(UIImage *)image animated:(BOOL)animated printCompletion:(void(^)(void))completion;
 
+
 /*!
- * @abstract Indicates whether a single sprocket is paired and needs to be reflashed
- * @discussion This call will result in a call to the delegate's didCompareSprocketWithLatestFirmwareVersion:batteryLevel:needsUpgrade: function
- * @param delegate An object that impelments the MPSprocketDelegate protocol.  It's didCompareSprocketWithLatestFirmwareVersion:batteryLevel:needsUpgrade: function will be called once the check has been completed.
+ * @abstract Indicates whether a single sprocket is paired and needs to be updated
+ * @discussion This call will result in a call to the delegate's didRefreshMantaInfo:error: function
+ * @param delegate An object that implements the MPSprocketDelegate protocol.  It's didReceiveSprocketBatteryLevel: and didCompareSprocketWithLatestFirmwareVersion:batteryLevel:needsUpgrade: function will be called once the check has been completed.
  */
-- (void)checkSprocketForFirmwareUpgrade:(id<MPSprocketDelegate>)delegate;
+- (void)checkSprocketForUpdates:(id<MPSprocketDelegate>)delegate;
 
 /*!
  * @abstract Causes a reflash of the first paired sprocket.
@@ -824,6 +825,7 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  */
 @protocol MPSprocketDelegate <NSObject>
 
+@optional
 /*!
  * @abstract Called when a sprocket needs a firmware upgrade
  * @discussion This delegate method is called when a sprocket needs a firmware upgrade.
@@ -832,6 +834,14 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  * @returns Nothing
  */
 - (void)didCompareSprocketWithLatestFirmwareVersion:(NSString *)deviceName batteryLevel:(NSUInteger)batteryLevel needsUpgrade:(BOOL)needsUpgrade;
+
+/*!
+ * @abstract Called when a sprocket battery level property is updated
+ * @discussion This delegate method is called when a sprocket had its battery level updated from manta refresh info
+ * @param batteryLevel The current battery level (on a scale of 1-100) of the device
+ * @returns Nothing
+ */
+- (void)didReceiveSprocketBatteryLevel:(NSUInteger)batteryLevel;
 
 @end
 
