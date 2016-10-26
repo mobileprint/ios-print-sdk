@@ -1,8 +1,9 @@
 #### 3.0.10
-###### Monday October 10, 2016
+###### Not yet released
 
 - Updated project for Xcode 8
 - Set minimum target to iOS 8.0
+- Fix image scale when sharing print items 
 
 #### 3.0.9
 ###### Friday September 9, 2016
