@@ -227,9 +227,6 @@ static long long totalBytesWritten = 0;
 #pragma mark EAAccessoryDelegate
 - (void)accessoryDidDisconnect:(EAAccessory *)accessory
 {
-    // do something ...
-    MPLogError(@"Accessory disconnected");
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:MPBTSessionAccessoryDisconnectedNotification object:self userInfo:nil];
 }
 
