@@ -112,7 +112,9 @@
 {
     NSMutableArray *items = [NSMutableArray arrayWithArray:[super activityItems]];
     if (1 == self.printImages.count) {
-        [items addObject:[self.printImages firstObject]];
+        UIImage *originalImage = [self.printImages firstObject];
+        UIImage *scaleOneImage = [UIImage imageWithCGImage:[originalImage CGImage] scale:1.0 orientation:[originalImage imageOrientation]];
+        [items addObject:scaleOneImage];
     }
     return items;
 }
