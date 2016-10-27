@@ -106,9 +106,8 @@ static const char RESP_ERROR_MESSAGE_ACK_SUB_CMD  = 0x00;
         // watch for received data from the accessory
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_sessionDataReceived:) name:MPBTSessionDataReceivedNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_sessionDataSent:) name:MPBTSessionDataSentNotification object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidConnect:) name:EAAccessoryDidConnectNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidDisconnect:) name:EAAccessoryDidDisconnectNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidDisconnect:) name:MPBTSessionAccessoryDisconnectedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_sessionStreamError:) name:MPBTSessionStreamErrorNotification object:nil];
         [[EAAccessoryManager sharedAccessoryManager] registerForLocalNotifications];
     }
     
@@ -613,17 +612,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 
 #pragma mark - Accessory Event Listeners
 
-- (void)_accessoryDidConnect:(NSNotification *)notification {
-    //    EAAccessory *connectedAccessory = [[notification userInfo] objectForKey:EAAccessoryKey];
-    //    [self.accessories addObject:connectedAccessory];
-    //[self didPressRefreshButton:nil];
-    MPLogDebug(@"Accessory connected");
-}
-
-- (void)_accessoryDidDisconnect:(NSNotification *)notification {
-    //    EAAccessory *disconnectedAccessory = [[notification userInfo] objectForKey:EAAccessoryKey];
-    //[self didPressRefreshButton:nil];
-    MPLogDebug(@"Accessory disconnected");
+- (void)_sessionStreamError:(NSNotification *)notification {
     if (self.imageData) {
         if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didSendPrintData:percentageComplete:error:)]) {
             [self.delegate didSendPrintData:self percentageComplete:0 error:MantaErrorDataError];
@@ -636,6 +625,12 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
     
     self.imageData = nil;
     self.upgradeData = nil;
+}
+
+- (void)_accessoryDidDisconnect:(NSNotification *)notification {
+    if (self.delegate  &&  [self.delegate respondsToSelector:@selector(didReceiveError:error:)]) {
+        [self.delegate didReceiveError:self error:MantaErrorNoSession];
+    }
 }
 
 #pragma mark - Constant Helpers

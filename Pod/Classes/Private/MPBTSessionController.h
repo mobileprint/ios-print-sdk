@@ -15,6 +15,8 @@
 
 extern NSString *MPBTSessionDataReceivedNotification;
 extern NSString *MPBTSessionDataSentNotification;
+extern NSString *MPBTSessionAccessoryDisconnectedNotification;
+extern NSString *MPBTSessionStreamErrorNotification;
 extern NSString *MPBTSessionDataBytesWritten;
 extern NSString *MPBTSessionDataTotalBytesWritten;
 

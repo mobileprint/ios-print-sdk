@@ -17,6 +17,8 @@ const char SPROCKET_SESSION_PACKET_LENGTH = 34;
 
 NSString *MPBTSessionDataReceivedNotification = @"MPBTSessionDataReceivedNotification";
 NSString *MPBTSessionDataSentNotification = @"MPBTSessionDataSentNotification";
+NSString *MPBTSessionAccessoryDisconnectedNotification = @"MPBTSessionAccessoryDisconnectedNotification";
+NSString *MPBTSessionStreamErrorNotification = @"MPBTSessionStreamErrorNotification";
 NSString *MPBTSessionDataBytesWritten = @"MPBTSessionDataBytesWritten";
 NSString *MPBTSessionDataTotalBytesWritten = @"MPBTSessionDataTotalBytesWritten";
 
@@ -226,6 +228,9 @@ static long long totalBytesWritten = 0;
 - (void)accessoryDidDisconnect:(EAAccessory *)accessory
 {
     // do something ...
+    MPLogError(@"Accessory disconnected");
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:MPBTSessionAccessoryDisconnectedNotification object:self userInfo:nil];
 }
 
 #pragma mark NSStreamDelegateEventExtensions
@@ -249,6 +254,8 @@ static long long totalBytesWritten = 0;
             [self _writeData];
             break;
         case NSStreamEventErrorOccurred:
+            MPLogError(@"Accessory disconnected");
+            [[NSNotificationCenter defaultCenter] postNotificationName:MPBTSessionStreamErrorNotification object:self userInfo:nil];
             NSLog(@"StreamEvent: NSStreamEventErrorOccurred");
             break;
         case NSStreamEventEndEncountered:
