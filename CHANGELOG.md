@@ -1,3 +1,8 @@
+#### 3.0.11 
+###### Unreleased
+
+- Updated translations for: da, de, es, et, fi, fr, it, lt, lv, nl, nb, pt, sv, and zh-Hans
+
 #### 3.0.10
 ###### Thursday October 27, 2016
 
