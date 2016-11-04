@@ -240,7 +240,7 @@ typedef enum
                 break;
                 
             case MPBTDeviceInfoOrderTechnicalInfo:
-                cell.textLabel.text = MPLocalizedString(@"Tecnical Information", @"Title of field for displaying the technical infomration");
+                cell.textLabel.text = MPLocalizedString(@"Technical Information", @"Title of field for displaying the technical infomration");
                 cell.detailTextLabel.text = @" ";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 break;
