@@ -114,7 +114,7 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 - (void)setTitle
 {
     if (nil == self.image) {
-        [self setTitle:MPLocalizedString(@"sprockets",@"Title for screen listing all available sprocket printers")];
+        [self setTitle:MPLocalizedString(@"sprocket",@"Title for screen listing all available sprocket printers")];
     } else {
         [self setTitle:MPLocalizedString(@"Select Printer",@"Title for screen listing all available sprocket printers")];
     }
