@@ -560,6 +560,11 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
 - (NSString *)printerVersion;
 
 /*!
+ * @abstract Close session on current connected accessory
+ */
+- (void)closeAccessorySession;
+
+/*!
  * @abstract Displays the list of sprockets paired with the iPhone/iPad
  * @discussion This method prepares an instance of a view controller with the paired sprockets, and displays it modally.
  * @param controller The controller used as the parent for displaying the modal view controller

@@ -21,6 +21,7 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import "MPLayoutFactory.h"
 #import "MPBTSprocket.h"
+#import "MPBTSessionController.h"
 #import "MPBTPairedAccessoriesViewController.h"
 #import "MPPrintSettingsDelegateManager.h"
 #import "MPBTProgressView.h"
@@ -329,6 +330,11 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
         [MPBTSprocket sharedInstance].delegate = self;
         [[MPBTSprocket sharedInstance] refreshInfo];
     }
+}
+
+- (void)closeAccessorySession
+{
+    [[MPBTSessionController sharedController] closeSession];
 }
 
 - (void)didRefreshMantaInfo:(MPBTSprocket *)manta error:(MantaError)error
