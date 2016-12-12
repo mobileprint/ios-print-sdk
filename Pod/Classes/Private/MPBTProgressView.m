@@ -253,7 +253,8 @@ static NSString * const kSettingShowFirmwareUpgrade    = @"SettingShowFirmwareUp
 
     if (self.printJobImage) {
         NSDictionary *dictionary = @{kMPBTPrintJobPrinterIdKey : [sprocket.analytics objectForKey:kMPPrinterId],
-                                     kMPBTPrintJobErrorKey     : [MPBTSprocket errorTitle:error]};
+                                     kMPBTPrintJobErrorKey     : [MPBTSprocket errorTitle:error],
+                                     kMPBTPrintJobErrorRawKey  : [MPBTSprocket errorTitleKey:error]};
         [[NSNotificationCenter defaultCenter] postNotificationName:kMPBTPrintJobCompletedNotification object:nil userInfo:dictionary];
     }
 }

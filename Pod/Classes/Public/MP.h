@@ -97,6 +97,13 @@ extern NSString * const kMPBTPrintJobPrinterIdKey;
 extern NSString * const kMPBTPrintJobErrorKey;
 
 /*!
+ * @abstract Used to retrieve the raw unlocalized the print job error from bluetooth print job completion notifications
+ * @discussion Clients can use this to retrieve the error code from a notification's userInfo argument
+ * @seealso kMPBTPrintJobCompletedNotification
+ */
+extern NSString * const kMPBTPrintJobErrorRawKey;
+
+/*!
  * @abstract Notifies subscribers that a bluetooth operation could not be completed due to not having a bluetooth printer connected
  * @discussion Clients can use this notification to indicate that a printer could not be connected
  */

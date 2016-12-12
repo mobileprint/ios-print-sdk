@@ -789,6 +789,65 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
     return statusString;
 }
 
++ (NSString *)errorTitleKey:(MantaError)error
+{
+    NSString *errString;
+
+    switch (error) {
+        case MantaErrorNoError:
+            errString = @"Ready";
+            break;
+        case MantaErrorBusy:
+            errString = @"Sprocket Printer in Use";
+            break;
+        case MantaErrorPaperJam:
+            errString = @"Paper has Jammed";
+            break;
+        case MantaErrorPaperEmpty:
+            errString = @"Out of Paper";
+            break;
+        case MantaErrorPaperMismatch:
+            errString = @"Incorrect Paper Type";
+            break;
+        case MantaErrorDataError:
+            errString = @"Photo Unsupported";
+            break;
+        case MantaErrorCoverOpen:
+            errString = @"Paper Cover Open";
+            break;
+        case MantaErrorSystemError:
+            errString = @"System Error Occured";
+            break;
+        case MantaErrorBatteryLow:
+            errString = @"Battery Low";
+            break;
+        case MantaErrorBatteryFault:
+            errString = @"Battery Error";
+            break;
+        case MantaErrorHighTemperature:
+            errString = @"Sprocket is Warm";
+            break;
+        case MantaErrorLowTemperature:
+            errString = @"Sprocket is Cold";
+            break;
+        case MantaErrorCoolingMode:
+            errString = @"Cooling Down...";
+            break;
+        case MantaErrorWrongCustomer:
+            errString = @"Error";
+            break;
+        case MantaErrorNoSession:
+            errString = @"Sprocket Printer Not Connected";
+            break;
+
+        default:
+            errString = @"Unrecognized Error";
+            break;
+    };
+
+    return errString;
+}
+
 + (NSString *)errorTitle:(MantaError)error
 {
     NSString *errString;
