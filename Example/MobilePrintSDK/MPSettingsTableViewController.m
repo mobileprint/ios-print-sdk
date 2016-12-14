@@ -74,6 +74,8 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UISwitch *cancelButtonPositionLeft;
 @property (weak, nonatomic) IBOutlet UITextField *customLibraryVersionTextField;
 @property (weak, nonatomic) IBOutlet UITableViewCell *bluetoothSettingsCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *bluetoothLeCell;
+
 
 @end
 
@@ -527,6 +529,8 @@ NSInteger const kLengthOfSHA = 7;
         [self toggleMetricsSwitch:self.extendedMetricsSwitch];
     } else if (selectedCell == self.bluetoothSettingsCell) {
         [self respondToBluetoothCell];
+    } else if (selectedCell == self.bluetoothLeCell) {
+        [self respondToBluetoothLeCell];
     }
 }
 
@@ -630,6 +634,11 @@ NSInteger const kLengthOfSHA = 7;
 - (void)respondToBluetoothCell
 {
     [[MP sharedInstance] presentBluetoothDevicesFromController:self animated:YES completion:nil];
+}
+
+- (void)respondToBluetoothLeCell
+{
+    [[MP sharedInstance] presentBluetoothLePeripheralsFromController:self animated:YES completion:nil];
 }
 
 - (void)showPrintQueue

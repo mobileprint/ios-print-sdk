@@ -1,1 +1,1 @@
-../../../../../Pod/Classes/Private/MPBTPairedAccessoriesViewController.h
+../../../../../Pod/Classes/Private/Manta/MPBTPairedAccessoriesViewController.h

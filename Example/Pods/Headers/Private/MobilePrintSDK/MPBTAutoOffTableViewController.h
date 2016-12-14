@@ -1,1 +1,1 @@
-../../../../../Pod/Classes/Private/MPBTAutoOffTableViewController.h
+../../../../../Pod/Classes/Private/Manta/MPBTAutoOffTableViewController.h

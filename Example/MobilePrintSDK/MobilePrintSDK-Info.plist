@@ -88,6 +88,7 @@
 	<string>Current location is required to identify when your printer connection is available.</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>bluetooth-central</string>
 		<string>fetch</string>
 		<string>location</string>
 	</array>

@@ -1,1 +1,1 @@
-../../../../../Pod/Classes/Private/MPBTDeviceInfoTableViewController.h
+../../../../../Pod/Classes/Private/Manta/MPBTDeviceInfoTableViewController.h
