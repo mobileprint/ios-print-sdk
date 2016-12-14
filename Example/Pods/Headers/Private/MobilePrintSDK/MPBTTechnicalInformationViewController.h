@@ -1,1 +1,1 @@
-../../../../../Pod/Classes/Private/MPBTTechnicalInformationViewController.h
+../../../../../Pod/Classes/Private/Manta/MPBTTechnicalInformationViewController.h

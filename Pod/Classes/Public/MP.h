@@ -571,6 +571,7 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  */
 - (void)closeAccessorySession;
 
+- (void)presentBluetoothLePeripheralsFromController:(UIViewController *)controller animated:(BOOL)animated completion:(void(^)(void))completion;
 /*!
  * @abstract Displays the list of sprockets paired with the iPhone/iPad
  * @discussion This method prepares an instance of a view controller with the paired sprockets, and displays it modally.
