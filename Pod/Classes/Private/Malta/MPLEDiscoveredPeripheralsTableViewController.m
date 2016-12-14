@@ -24,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [MPLEDiscovery sharedInstance].discoveryDelegate = self;
     self.tableView.dataSource = self;
     
     // Uncomment the following line to preserve selection between presentations.
@@ -34,9 +33,19 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MPLEDiscovery sharedInstance].discoveryDelegate = self;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [MPLEDiscovery sharedInstance].discoveryDelegate = nil;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 + (void)presentAnimated:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
@@ -62,7 +71,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[MPLEDiscovery sharedInstance].foundPeripherals count];
+    return [self.peripherals count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,8 +85,8 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSObject *peripheral = [[MPLEDiscovery sharedInstance].foundPeripherals objectAtIndex:indexPath.row];
-    cell.textLabel.text = peripheral.description;
+    CBPeripheral *peripheral = [self.peripherals objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"Name: %@, UUID: %@", peripheral.name, peripheral.identifier];
     
     return cell;
 }
@@ -86,6 +95,7 @@
 
 - (void) discoveryDidRefresh
 {
+    self.peripherals = [MPLEDiscovery sharedInstance].foundPeripherals;
     [self.tableView reloadData];
 }
 

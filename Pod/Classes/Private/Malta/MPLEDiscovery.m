@@ -22,13 +22,6 @@
 
 @implementation MPLEDiscovery
 
-@synthesize foundPeripherals;
-@synthesize connectedServices;
-@synthesize discoveryDelegate;
-@synthesize peripheralDelegate;
-
-
-
 #pragma mark Init
 
 + (MPLEDiscovery *) sharedInstance
@@ -49,8 +42,8 @@
 		pendingInit = YES;
 		centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
 
-		foundPeripherals = [[NSMutableArray alloc] init];
-		connectedServices = [[NSMutableArray alloc] init];
+		_foundPeripherals = [[NSMutableArray alloc] init];
+		_connectedServices = [[NSMutableArray alloc] init];
 	}
     return self;
 }
@@ -145,14 +138,14 @@
 	for (peripheral in peripherals) {
 		[central connectPeripheral:peripheral options:nil];
 	}
-	[discoveryDelegate discoveryDidRefresh];
+	[_discoveryDelegate discoveryDidRefresh];
 }
 
 
 - (void) centralManager:(CBCentralManager *)central didRetrievePeripheral:(CBPeripheral *)peripheral
 {
 	[central connectPeripheral:peripheral options:nil];
-	[discoveryDelegate discoveryDidRefresh];
+	[_discoveryDelegate discoveryDidRefresh];
 }
 
 
@@ -187,13 +180,24 @@
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-	if (![foundPeripherals containsObject:peripheral]) {
-		[foundPeripherals addObject:peripheral];
-		[discoveryDelegate discoveryDidRefresh];
+	if (![_foundPeripherals containsObject:peripheral]) {
+		[_foundPeripherals addObject:peripheral];
+		[_discoveryDelegate discoveryDidRefresh];
 	}
 }
 
 
+- (void) setDiscoveryDelegate:(id<MPLEDiscoveryDelegate>)discoveryDelegate
+{
+    _discoveryDelegate = discoveryDelegate;
+    
+    if (nil != discoveryDelegate && !pendingInit) {
+        [self startScanningForUUIDString:nil];
+    } else {
+        [self stopScanning];
+        [self clearDevices];
+    }
+}
 
 #pragma mark Connection/Disconnection
 - (void) connectPeripheral:(CBPeripheral*)peripheral
@@ -255,12 +259,12 @@
 - (void) clearDevices
 {
 //    LeTemperatureAlarmService	*service;
-    [foundPeripherals removeAllObjects];
+    [_foundPeripherals removeAllObjects];
     
 //    for (service in connectedServices) {
 //        [service reset];
 //    }
-    [connectedServices removeAllObjects];
+    [_connectedServices removeAllObjects];
 }
 
 
@@ -272,11 +276,11 @@
 		case CBCentralManagerStatePoweredOff:
 		{
             [self clearDevices];
-            [discoveryDelegate discoveryDidRefresh];
+            [_discoveryDelegate discoveryDidRefresh];
             
 			/* Tell user to power ON BT for functionality, but not on first run - the Framework will alert in that instance. */
             if (previousState != -1) {
-                [discoveryDelegate discoveryStatePoweredOff];
+                [_discoveryDelegate discoveryStatePoweredOff];
             }
 			break;
 		}
@@ -296,16 +300,18 @@
 		case CBCentralManagerStatePoweredOn:
 		{
 			pendingInit = NO;
-			[self loadSavedDevices];
-            //[centralManager retrieveConnectedPeripheralsWithServices:[[NSArray alloc]init]];
-            [self startScanningForUUIDString:nil];
+            if (nil != self.discoveryDelegate) {
+                [self loadSavedDevices];
+                //[centralManager retrieveConnectedPeripheralsWithServices:[[NSArray alloc]init]];
+                [self startScanningForUUIDString:nil];
+            }
 			break;
 		}
             
 		case CBCentralManagerStateResetting:
 		{
 			[self clearDevices];
-            [discoveryDelegate discoveryDidRefresh];
+            [_discoveryDelegate discoveryDidRefresh];
 //            [peripheralDelegate alarmServiceDidReset];
             
 			pendingInit = YES;

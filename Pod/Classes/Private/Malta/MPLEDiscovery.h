@@ -15,46 +15,24 @@
 
 //#import "LeTemperatureAlarmService.h"
 
-
-
-/****************************************************************************/
-/*							UI protocols									*/
-/****************************************************************************/
 @protocol MPLEDiscoveryDelegate <NSObject>
 - (void) discoveryDidRefresh;
 - (void) discoveryStatePoweredOff;
 @end
 
-
-
-/****************************************************************************/
-/*							Discovery class									*/
-/****************************************************************************/
 @interface MPLEDiscovery : NSObject
 
 + (MPLEDiscovery *) sharedInstance;
 
-
-/****************************************************************************/
-/*								UI controls									*/
-/****************************************************************************/
+@property (retain, nonatomic) NSMutableArray    *foundPeripherals;
+@property (retain, nonatomic) NSMutableArray	*connectedServices;	// Array of LeTemperatureAlarmService
 @property (nonatomic, assign) id<MPLEDiscoveryDelegate>           discoveryDelegate;
 @property (nonatomic, assign) id/*<LeTemperatureAlarmProtocol>*/	peripheralDelegate;
 
-
-/****************************************************************************/
-/*								Actions										*/
-/****************************************************************************/
 - (void) startScanningForUUIDString:(NSString *)uuidString;
 - (void) stopScanning;
 
 - (void) connectPeripheral:(CBPeripheral*)peripheral;
 - (void) disconnectPeripheral:(CBPeripheral*)peripheral;
 
-
-/****************************************************************************/
-/*							Access to the devices							*/
-/****************************************************************************/
-@property (retain, nonatomic) NSMutableArray    *foundPeripherals;
-@property (retain, nonatomic) NSMutableArray	*connectedServices;	// Array of LeTemperatureAlarmService
 @end
