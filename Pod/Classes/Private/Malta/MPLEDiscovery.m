@@ -26,12 +26,14 @@
 
 + (MPLEDiscovery *) sharedInstance
 {
-	static MPLEDiscovery	*this	= nil;
-
-	if (!this)
-		this = [[MPLEDiscovery alloc] init];
-
-	return this;
+	static MPLEDiscovery *sharedDiscovery = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+		sharedDiscovery = [[MPLEDiscovery alloc] init];
+    });
+    
+	return sharedDiscovery;
 }
 
 
@@ -161,8 +163,8 @@
 
 - (void) startScanningForUUIDString:(NSString *)uuidString
 {
-    NSArray         *uuidArray	= nil;
-    NSDictionary	*options	= [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
+    NSArray *uuidArray = nil;
+    NSDictionary *options = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
 
     if (uuidString) {
         uuidArray = [NSArray arrayWithObjects:[CBUUID UUIDWithString:uuidString], nil];

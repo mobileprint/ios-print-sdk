@@ -52,11 +52,8 @@
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
     UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPLEDiscoveredPeripheralsNavigationController"];
-    [hostController presentViewController:navigationController animated:animated completion:^{
-        if (completion) {
-            completion();
-        }
-    }];
+   
+    [hostController presentViewController:navigationController animated:animated completion:completion];
 }
 
 - (IBAction)done:(id)sender {
