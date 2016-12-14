@@ -89,9 +89,9 @@
 
 - (void) addSavedDevice:(CFUUIDRef) uuid
 {
-	NSArray			*storedDevices	= [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
-	NSMutableArray	*newDevices		= nil;
-	CFStringRef		uuidString		= NULL;
+	NSArray *storedDevices = [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
+	NSMutableArray *newDevices = nil;
+	CFStringRef uuidString = NULL;
 
 	if (![storedDevices isKindOfClass:[NSArray class]]) {
         NSLog(@"Can't find/create an array to store the uuid");
