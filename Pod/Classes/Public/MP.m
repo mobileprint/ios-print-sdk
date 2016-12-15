@@ -344,6 +344,10 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
     if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didReceiveSprocketBatteryLevel:)]) {
         [self.sprocketDelegate didReceiveSprocketBatteryLevel:manta.batteryStatus];
     }
+    
+    if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didReceiveSprocketName:)]) {
+        [self.sprocketDelegate didReceiveSprocketName:manta.displayName];
+    }
 }
 
 - (void)didCompareWithLatestFirmwareVersion:(MPBTSprocket *)sprocket needsUpgrade:(BOOL)needsUpgrade

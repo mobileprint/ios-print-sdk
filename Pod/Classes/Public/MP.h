@@ -856,5 +856,14 @@ extern NSString * const kMPPrinterPaperAreaYPoints;
  */
 - (void)didReceiveSprocketBatteryLevel:(NSUInteger)batteryLevel;
 
+/*!
+ * @abstract Called when receive a manta refresh info
+ * @discussion This delegate method is called when a sprocket receive a manta refresh info
+ * @param batteryLevel The current name of the device
+ * @returns Nothing
+ */
+- (void)didReceiveSprocketName:(NSString *)name;
+
+
 @end
 
