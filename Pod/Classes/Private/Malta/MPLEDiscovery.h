@@ -26,11 +26,10 @@
 
 @property (retain, nonatomic) NSMutableArray    *foundPeripherals;
 @property (retain, nonatomic) NSMutableArray	*connectedServices;	// Array of LeTemperatureAlarmService
-@property (nonatomic, assign) id<MPLEDiscoveryDelegate>           discoveryDelegate;
-@property (nonatomic, assign) id/*<LeTemperatureAlarmProtocol>*/	peripheralDelegate;
+@property (nonatomic, assign) id/*<LeTemperatureAlarmProtocol>*/ peripheralDelegate;
 
-- (void) startScanningForUUIDString:(NSString *)uuidString;
-- (void) stopScanning;
+// Setting the discoveryDelegate starts the discovery of Bluetooth LE devices
+@property (nonatomic, assign) id<MPLEDiscoveryDelegate> discoveryDelegate;
 
 - (void) connectPeripheral:(CBPeripheral*)peripheral;
 - (void) disconnectPeripheral:(CBPeripheral*)peripheral;
