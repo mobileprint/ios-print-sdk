@@ -13,16 +13,15 @@
 #import "MPLEDiscovery.h"
 
 
-@interface MPLEDiscovery () <CBCentralManagerDelegate, CBPeripheralDelegate> {
-	CBCentralManager    *centralManager;
-	BOOL				pendingInit;
-}
+@interface MPLEDiscovery () <CBCentralManagerDelegate, CBPeripheralDelegate>
+	@property (strong, nonatomic) CBCentralManager *centralManager;
+	@property (assign, nonatomic) BOOL pendingInit;
 @end
 
 
 @implementation MPLEDiscovery
 
-#pragma mark Init
+#pragma mark - init
 
 + (MPLEDiscovery *) sharedInstance
 {
@@ -41,11 +40,8 @@
 {
     self = [super init];
     if (self) {
-		pendingInit = YES;
-		centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
-
-		_foundPeripherals = [[NSMutableArray alloc] init];
-		_connectedServices = [[NSMutableArray alloc] init];
+		self.foundPeripherals = [[NSMutableArray alloc] init];
+		self.connectedServices = [[NSMutableArray alloc] init];
 	}
     return self;
 }
@@ -57,80 +53,55 @@
     assert(NO);
 }
 
+#pragma mark - Manually start discovery
 
-
-#pragma mark Restoring
-
-/* Reload from file. */
-- (void) loadSavedDevices
+- (void) setDiscoveryDelegate:(id<MPLEDiscoveryDelegate>)discoveryDelegate
 {
-	NSArray	*storedDevices	= [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
-
-	if (![storedDevices isKindOfClass:[NSArray class]]) {
-        NSLog(@"No stored array to load");
-        return;
-    }
-     
-    for (id deviceUUIDString in storedDevices) {
-        
-        if (![deviceUUIDString isKindOfClass:[NSString class]])
-            continue;
-        
-        CFUUIDRef uuid = CFUUIDCreateFromString(NULL, (CFStringRef)deviceUUIDString);
-        if (!uuid)
-            continue;
-        
-        [centralManager retrieveConnectedPeripheralsWithServices:[NSArray arrayWithObject:(__bridge id)uuid]];
-        CFRelease(uuid);
-    }
-
-}
-
-
-- (void) addSavedDevice:(CFUUIDRef) uuid
-{
-	NSArray *storedDevices = [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
-	NSMutableArray *newDevices = nil;
-	CFStringRef uuidString = NULL;
-
-	if (![storedDevices isKindOfClass:[NSArray class]]) {
-        NSLog(@"Can't find/create an array to store the uuid");
-        return;
-    }
-
-    newDevices = [NSMutableArray arrayWithArray:storedDevices];
+    _discoveryDelegate = discoveryDelegate;
     
-    uuidString = CFUUIDCreateString(NULL, uuid);
-    if (uuidString) {
-        [newDevices addObject:(__bridge NSString*)uuidString];
-        CFRelease(uuidString);
+    // We don't want to leave discovery running amuck in the background for no reason.
+    //  So, we only scan for devices when a delegate is listening.
+    if (nil == discoveryDelegate) {
+        [self stopScanning];
+    } else {
+        
+        // The scan will begin once the centralManager's state is set to CBCentralManagerStatePoweredOn
+        self.pendingInit = YES;
+        self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
     }
-    /* Store */
-    [[NSUserDefaults standardUserDefaults] setObject:newDevices forKey:@"StoredDevices"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-
-- (void) removeSavedDevice:(CFUUIDRef) uuid
+- (void) startScan
 {
-	NSArray			*storedDevices	= [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
-	NSMutableArray	*newDevices		= nil;
-	CFStringRef		uuidString		= NULL;
-
-	if ([storedDevices isKindOfClass:[NSArray class]]) {
-		newDevices = [NSMutableArray arrayWithArray:storedDevices];
-
-		uuidString = CFUUIDCreateString(NULL, uuid);
-		if (uuidString) {
-			[newDevices removeObject:(__bridge NSString*)uuidString];
-            CFRelease(uuidString);
-        }
-		/* Store */
-		[[NSUserDefaults standardUserDefaults] setObject:newDevices forKey:@"StoredDevices"];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-	}
+    if (nil != self.discoveryDelegate && !self.pendingInit) {
+        [self clearDevices];
+        [self loadSavedDevices];
+        [self startScanningForUUIDString:nil];
+    } else {
+        [self stopScanning];
+        [self clearDevices];
+    }
 }
 
+- (void) startScanningForUUIDString:(NSString *)uuidString
+{
+    NSArray *uuidArray = nil;
+    NSDictionary *options = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
+    
+    if (uuidString) {
+        uuidArray = [NSArray arrayWithObjects:[CBUUID UUIDWithString:uuidString], nil];
+    }
+    
+    [self.centralManager scanForPeripheralsWithServices:uuidArray options:options];
+}
+
+- (void) stopScanning
+{
+    [self.centralManager stopScan];
+    self.centralManager = nil;
+}
+
+#pragma mark - CBCentralManagerDelegate
 
 - (void) centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals
 {
@@ -143,13 +114,11 @@
 	[_discoveryDelegate discoveryDidRefresh];
 }
 
-
 - (void) centralManager:(CBCentralManager *)central didRetrievePeripheral:(CBPeripheral *)peripheral
 {
 	[central connectPeripheral:peripheral options:nil];
 	[_discoveryDelegate discoveryDidRefresh];
 }
-
 
 - (void) centralManager:(CBCentralManager *)central didFailToRetrievePeripheralForUUID:(CFUUIDRef)UUID error:(NSError *)error
 {
@@ -157,64 +126,27 @@
 	[self removeSavedDevice:UUID];
 }
 
-
-
-#pragma mark Discovery
-
-- (void) startScanningForUUIDString:(NSString *)uuidString
-{
-    NSArray *uuidArray = nil;
-    NSDictionary *options = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
-
-    if (uuidString) {
-        uuidArray = [NSArray arrayWithObjects:[CBUUID UUIDWithString:uuidString], nil];
-    }
-
-	[centralManager scanForPeripheralsWithServices:uuidArray options:options];
-}
-
-
-- (void) stopScanning
-{
-	[centralManager stopScan];
-}
-
-
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-	if (![_foundPeripherals containsObject:peripheral]) {
-		[_foundPeripherals addObject:peripheral];
-		[_discoveryDelegate discoveryDidRefresh];
+	if (![self.foundPeripherals containsObject:peripheral]) {
+		[self.foundPeripherals addObject:peripheral];
+		[self.discoveryDelegate discoveryDidRefresh];
 	}
 }
 
+#pragma mark - Connection/Disconnection
 
-- (void) setDiscoveryDelegate:(id<MPLEDiscoveryDelegate>)discoveryDelegate
-{
-    _discoveryDelegate = discoveryDelegate;
-    
-    if (nil != discoveryDelegate && !pendingInit) {
-        [self startScanningForUUIDString:nil];
-    } else {
-        [self stopScanning];
-        [self clearDevices];
-    }
-}
-
-#pragma mark Connection/Disconnection
 - (void) connectPeripheral:(CBPeripheral*)peripheral
 {
 	if (CBPeripheralStateDisconnected == peripheral.state) {
-		[centralManager connectPeripheral:peripheral options:nil];
+		[self.centralManager connectPeripheral:peripheral options:nil];
 	}
 }
 
-
 - (void) disconnectPeripheral:(CBPeripheral*)peripheral
 {
-	[centralManager cancelPeripheralConnection:peripheral];
+	[self.centralManager cancelPeripheralConnection:peripheral];
 }
-
 
 - (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
@@ -234,12 +166,10 @@
 //	[discoveryDelegate discoveryDidRefresh];
 }
 
-
 - (void) centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     NSLog(@"Attempted connection to peripheral %@ failed: %@", [peripheral name], [error localizedDescription]);
 }
-
 
 - (void) centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
@@ -257,24 +187,22 @@
 //	[discoveryDelegate discoveryDidRefresh];
 }
 
-
 - (void) clearDevices
 {
 //    LeTemperatureAlarmService	*service;
-    [_foundPeripherals removeAllObjects];
+    [self.foundPeripherals removeAllObjects];
     
 //    for (service in connectedServices) {
 //        [service reset];
 //    }
-    [_connectedServices removeAllObjects];
+    [self.connectedServices removeAllObjects];
 }
-
 
 - (void) centralManagerDidUpdateState:(CBCentralManager *)central
 {
     static CBCentralManagerState previousState = -1;
     
-	switch ([centralManager state]) {
+	switch ([self.centralManager state]) {
 		case CBCentralManagerStatePoweredOff:
 		{
             [self clearDevices];
@@ -301,12 +229,8 @@
             
 		case CBCentralManagerStatePoweredOn:
 		{
-			pendingInit = NO;
-            if (nil != self.discoveryDelegate) {
-                [self loadSavedDevices];
-                //[centralManager retrieveConnectedPeripheralsWithServices:[[NSArray alloc]init]];
-                [self startScanningForUUIDString:nil];
-            }
+			self.pendingInit = NO;
+            [self startScan];
 			break;
 		}
             
@@ -316,11 +240,82 @@
             [_discoveryDelegate discoveryDidRefresh];
 //            [peripheralDelegate alarmServiceDidReset];
             
-			pendingInit = YES;
+			self.pendingInit = YES;
 			break;
 		}
 	}
     
-    previousState = [centralManager state];
+    previousState = [self.centralManager state];
 }
+
+#pragma mark - Restoring Previous Devices
+
+/* Reload from file. */
+- (void) loadSavedDevices
+{
+    NSArray	*storedDevices = [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
+    
+    if (![storedDevices isKindOfClass:[NSArray class]]) {
+        NSLog(@"No stored array to load");
+        return;
+    }
+    
+    for (id deviceUUIDString in storedDevices) {
+        
+        if (![deviceUUIDString isKindOfClass:[NSString class]])
+            continue;
+        
+        CFUUIDRef uuid = CFUUIDCreateFromString(NULL, (CFStringRef)deviceUUIDString);
+        if (!uuid)
+            continue;
+        
+        [self.centralManager retrieveConnectedPeripheralsWithServices:[NSArray arrayWithObject:(__bridge id)uuid]];
+        CFRelease(uuid);
+    }
+    
+}
+
+- (void) addSavedDevice:(CFUUIDRef) uuid
+{
+    NSArray *storedDevices = [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
+    NSMutableArray *newDevices = nil;
+    CFStringRef uuidString = NULL;
+    
+    if (![storedDevices isKindOfClass:[NSArray class]]) {
+        NSLog(@"Can't find/create an array to store the uuid");
+        return;
+    }
+    
+    newDevices = [NSMutableArray arrayWithArray:storedDevices];
+    
+    uuidString = CFUUIDCreateString(NULL, uuid);
+    if (uuidString) {
+        [newDevices addObject:(__bridge NSString*)uuidString];
+        CFRelease(uuidString);
+    }
+    /* Store */
+    [[NSUserDefaults standardUserDefaults] setObject:newDevices forKey:@"StoredDevices"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void) removeSavedDevice:(CFUUIDRef) uuid
+{
+    NSArray			*storedDevices	= [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
+    NSMutableArray	*newDevices		= nil;
+    CFStringRef		uuidString		= NULL;
+    
+    if ([storedDevices isKindOfClass:[NSArray class]]) {
+        newDevices = [NSMutableArray arrayWithArray:storedDevices];
+        
+        uuidString = CFUUIDCreateString(NULL, uuid);
+        if (uuidString) {
+            [newDevices removeObject:(__bridge NSString*)uuidString];
+            CFRelease(uuidString);
+        }
+        /* Store */
+        [[NSUserDefaults standardUserDefaults] setObject:newDevices forKey:@"StoredDevices"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
 @end
