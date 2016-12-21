@@ -292,7 +292,8 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
         if (value) {
             if ([key isEqualToString:kMPMetricsWiFiSSID]  &&  [value isEqualToString:kMPNoNetwork]) {
                 // do nothing for unpopulated wifi
-            } else if ([key isEqualToString:kMPPrinterId]  &&  [[metrics objectForKey:kMPMetricsProductName] containsString:@"sprocket"]) {
+            } else if ([key isEqualToString:kMPPrinterId]  &&  [[metrics objectForKey:kMPMetricsProductName] localizedCaseInsensitiveContainsString:@"sprocket"]) {
+                NSLog(@"Not obfuscating");
                 // do nothing for the sprocket printer ids
             } else {
                 NSString *obfsucatedValue = [MPAnalyticsManager obfuscateValue:value];
