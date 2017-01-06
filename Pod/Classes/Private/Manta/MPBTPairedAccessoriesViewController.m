@@ -130,27 +130,22 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 + (void)presentAnimatedForDeviceInfo:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
-    UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesNavigationController"];
-    [hostController presentViewController:navigationController animated:animated completion:^{
-        if (completion) {
-            completion();
-        }
-    }];
+    UIViewController *viewControlller = (UIViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesViewController"];
+    
+    [hostController showViewController:viewControlller sender:nil];
 }
 
 + (void)presentAnimatedForPrint:(BOOL)animated image:(UIImage *)image usingController:(UIViewController *)hostController andPrintCompletion:(void(^)(void))completion
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
-    UINavigationController *navigationController = (UINavigationController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesNavigationController"];
-    if ([MPBTPairedAccessoriesViewController class] == [[navigationController topViewController] class]) {
-        MPBTPairedAccessoriesViewController *vc = (MPBTPairedAccessoriesViewController *)[navigationController topViewController];
-        vc.image = image;
-        vc.hostController = hostController;
-        vc.printCompletionBlock = completion;
-        [vc.tableView reloadData];
-    }
+    MPBTPairedAccessoriesViewController *vc = (MPBTPairedAccessoriesViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTPairedAccessoriesViewController"];
+
+    vc.image = image;
+    vc.hostController = hostController;
+    vc.printCompletionBlock = completion;
+    [vc.tableView reloadData];
     
-    [hostController presentViewController:navigationController animated:animated completion:nil];
+    [hostController showViewController:vc sender:nil];
 }
 
 #pragma mark - UITableViewDataSource
