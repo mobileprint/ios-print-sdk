@@ -68,20 +68,6 @@ typedef enum
     self.fwUpgradeButton.titleLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     self.fwUpgradeButton.titleLabel.textColor = [UIColor colorWithRed:47.0/255.0 green:184.0/255.0 blue:255.0/255.0 alpha:1.0];
     
-    UIBarButtonItem *xButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MPX"]
-                                                               style:UIBarButtonItemStylePlain
-                                                              target:self
-                                                              action:@selector(didPressCancel)];
-    self.navigationItem.rightBarButtonItem = xButton;
-    
-    if (!self.hideBackButton) {
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back"]
-                                                                       style:UIBarButtonItemStylePlain
-                                                                      target:self
-                                                                      action:@selector(didPressBack)];
-        self.navigationItem.leftBarButtonItem = backButton;
-    }
-
     self.lastError = @"";
     self.updating = NO;
 }
@@ -120,15 +106,8 @@ typedef enum
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:nil];
     MPBTDeviceInfoTableViewController *vc = (MPBTDeviceInfoTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPBTDeviceInfoTableViewController"];
     vc.device = device;
-    vc.hideBackButton = YES;
-    
-    UINavigationController *navController = [[UINavigationController alloc] init];
-    [navController pushViewController:vc animated:NO];
-    [hostController presentViewController:navController animated:animated completion:^{
-        if (completion) {
-            completion();
-        }
-    }];
+
+    [hostController showViewController:vc sender:nil];
 }
 
 - (void)displayError:(MantaError)error
