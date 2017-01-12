@@ -79,9 +79,10 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 
     self.noDevicesLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFont];
     self.noDevicesLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsPrimaryFontColor];
+    self.noDevicesLabel.text = MPLocalizedString(@"No sprockets Connected", @"Indicates that no sprocket printers are connected");
     self.descriptionLabel.font = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFont];
     self.descriptionLabel.textColor = [[MP sharedInstance].appearance.settings objectForKey:kMPSelectionOptionsSecondaryFontColor];
-
+    self.descriptionLabel.text = MPLocalizedString(@"Pair your bluetooth sprocket printer with this device. Make sure the sprocket printer is on and bluetooth connected.", @"Instructions for pairing a printer");
     self.presentedNoDevicesModal = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];

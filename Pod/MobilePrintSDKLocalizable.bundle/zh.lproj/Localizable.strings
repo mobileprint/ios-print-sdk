@@ -1,4 +1,4 @@
-﻿/* Title of delete-from-queue confirmation dialog */
+/* Title of delete-from-queue confirmation dialog */
 "Delete Print from Print Queue" = "从打印队列中删除打印任务";
 
 /* Text for confirming delete single print job */
@@ -219,3 +219,54 @@
 
 /* Add multipage pdf to print queue button label */
 "Add %ld Pages" = "添加 %ld 页";
+
+/* Message given when sprocket cannot print due to having a low battery */
+"Battery Low" = "电池电量不足";
+
+/* Message given when sprocket cannot print due to having a low battery */
+"Connect your sprocket to a power source to continue use." = "将您的 Spocket 接通电源以继续使用。";
+
+/* Indicates that the phone is sending an image to the printer */
+"Sending to sprocket printer" = "正在发送至 sprocket 打印机, 请稍候。";
+
+/* Title of table view cell used for displaying technical information */
+"Technical Information" = "技术信息";
+
+/* Safety Data Sheets Title for Technical Information screen */
+"Safety data sheets" = "安全说明";
+
+/* Safety Data Sheets Content for Technical Information screen */
+"Safety Data Sheets, product safety and environmental information are available at www.hp.com/go/ecodata or on request." = "可访问 www.hp.com/go/ecodata 获取安全说明、产品安全和环境信息或来函索取这些信息。";
+
+/* Chemical Substances Title for Technical Information screen */
+"Chemical substances" = "化学物质";
+
+/* Chemical Substances Content for Technical Information screen */
+"HP is committed to providing our customers with information about the chemical substances in our products as needed to comply with legal requirements such as REACH (Regulation EC No 1907/2006 of the European Parliament and the Council). A chemical information report for this product can be found at: www.hp.com/go/reach" = "惠普会根据需要为用户提供有关产品中所含化学物质的信息，以遵从法律要求，如 REACH（欧盟执委会和欧盟理事会法规 EC 第 1907/2006 号）。  可从以下网站查找有关此产品的化学物质信息报告：www.hp.com/go/reach";
+
+/* Recycling Program Title for Technical Information screen */
+"Recycling program" = "回收计划";
+
+/* Recycling Program Content for Technical Information screen */
+"HP offers an increasing number of product return and recycling programs in many countries/regions, and partners with some of the largest electronic recycling centers throughout the world. HP conserves resources by reselling some of its most popular products. For more information regarding recycling of HP products, please visit: www.hp.com/recycle" = "惠普在许多国家/地区提供了越来越多的产品回收和循环使用计划，并与世界各地的一些大型电子回收中心结成合作伙伴关系。 惠普通过再次销售其某些受欢迎的产品来节约资源。 有关惠普产品的详细回收信息，请访问：www.hp.com/recycle";
+
+/* California Battery Title for Technical Information screen */
+"California Rechargeable Battery Take-back Notice" = "加利福尼亚充电电池回收公告";
+
+/* California Battery Content for Technical Information screen */
+"HP encourages customers to recycle used electronic hardware, HP original print cartridges, and rechargeable batteries. For more information about recycling programs, go to www.hp.com/recycle." = "惠普鼓励客户循环利用使用过的电子硬件、惠普原装打印墨盒和可充电电池。 有关回收计划的详细信息，请访问 www.hp.com/recycle。";
+
+/* Disposal Title for Technical Information screen */
+"Disposal of waste equipment by users" = "用户处理废弃设备";
+
+/* Disposal Content for Technical Information screen */
+"This symbol means do not dispose of your product with your other household waste. Instead, you should protect human health and the environment by handing over your waste equipment to a designated collection point for the recycling of waste electrical and electronic equipment. For more information, please contact your household waste disposal service, or go to http://www.hp.com/recycle." = "此符号表示请不要将您的产品与其他生活垃圾一起处理。 相反，您应该保护人类健康和环境，将废弃设备移交到指定回收点对其进行处理，以便回收废弃的电子电机设备。 有关详细信息，请联系您的生活垃圾处理服务，或访问 http://www.hp.com/recycle。 ";
+
+/* Text displayed when print is being sent to sprocket printer */
+"Sending to sprocket printer" = "正在发送至 sprocket 打印机, 请稍候。"
+
+/* Instructions for pairing a printer */
+"Pair your bluetooth sprocket printer with this device. Make sure the sprocket printer is on and bluetooth connected." = "确保已开启 sprocket 打印机电源并已连接蓝牙。";
+
+/* Indicates that no sprocket printers are connected */
+"No sprockets Connected" = "打印机尚未连接";
