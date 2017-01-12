@@ -12,16 +12,28 @@
 
 #import "MPBTTechnicalInformationViewController.h"
 #import "MP.h"
+#import "NSBundle+MPLocalizable.h"
 #import <TTTAttributedLabel.h>
 
 @interface MPBTTechnicalInformationViewController () <TTTAttributedLabelDelegate>
 
 @property (strong, nonatomic) NSArray *links;
-@property (weak, nonatomic) IBOutlet UILabel *disposalTextLabel;
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *titleLabels;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *textLabels;
-   
+
+@property (weak, nonatomic) IBOutlet UILabel *dataSheetsTitle;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *dataSheetsContent;
+@property (weak, nonatomic) IBOutlet UILabel *chemicalTitle;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *chemicalContent;
+@property (weak, nonatomic) IBOutlet UILabel *recycleTitle;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *recycleContent;
+@property (weak, nonatomic) IBOutlet UILabel *batteryTitle;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *batteryContent;
+@property (weak, nonatomic) IBOutlet UILabel *disposalTitle;
+@property (weak, nonatomic) IBOutlet UILabel *disposalContent;
+
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
@@ -46,6 +58,17 @@
 {
     [super viewWillAppear:animated];
     
+    self.dataSheetsTitle = MPLocalizedString(@"Safety data sheets", @"Title");
+    self.dataSheetsContent = MPLocalizedString(@"Safety Data Sheets, product safety and environmental information are available at www.hp.com/go/ecodata or on request.", @"Description");
+    self.chemicalTitle = MPLocalizedString(@"Chemical substances", @"Title");
+    self.chemicalContent = MPLocalizedString(@"HP is committed to providing our customers with information about the chemical substances in our products as needed to comply with legal requirements such as REACH (Regulation EC No 1907/2006 of the European Parliament and the Council). A chemical information report for this product can be found at: www.hp.com/go/reach", @"Description");
+    self.recycleTitle = MPLocalizedString(@"Recycling program", @"Title");
+    self.recycleContent = MPLocalizedString(@"HP offers an increasing number of product return and recycling programs in many countries/regions, and partners with some of the largest electronic recycling centers throughout the world. HP conserves resources by reselling some of its most popular products. For more information regarding recycling of HP products, please visit: www.hp.com/recycle", @"Description");
+    self.batteryTitle = MPLocalizedString(@"California Rechargeable Battery Take-back Notice", @"Title");
+    self.batteryContent = MPLocalizedString(@"HP encourages customers to recycle used electronic hardware, HP original print cartridges, and rechargeable batteries. For more information about recycling programs, go to www.hp.com/recycle.", @"Description");
+    self.disposalTitle = MPLocalizedString(@"Disposal of waste equipment by users", @"Title");;
+    self.disposalContent = MPLocalizedString(@"This symbol means do not dispose of your product with your other household waste. Instead, you should protect human health and the environment by handing over your waste equipment to a designated collection point for the recycling of waste electrical and electronic equipment. For more information, please contact your household waste disposal service, or go to http://www.hp.com/recycle.", @"Description");
+    
     for (UILabel *label in self.titleLabels) {
         [self configureTitle:label];
     }
@@ -59,7 +82,7 @@
 {
     [super viewDidAppear:animated];
 
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.disposalTextLabel.frame.origin.y + self.disposalTextLabel.frame.size.height + 33);
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.disposalContent.frame.origin.y + self.disposalContent.frame.size.height + 33);
 }
     
 - (void)didReceiveMemoryWarning {

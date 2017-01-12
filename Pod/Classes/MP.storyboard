@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -414,7 +414,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kps-nb-uzb" userLabel="Editable name">
-                                                    <rect key="frame" x="161" y="14" width="200" height="17"/>
+                                                    <rect key="frame" x="161" y="13" width="200" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="fzg-Ss-eVC"/>
                                                     </constraints>
@@ -448,7 +448,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gj8-Zo-R2d">
-                                                    <rect key="frame" x="61" y="14" width="300" height="17"/>
+                                                    <rect key="frame" x="61" y="13" width="300" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="300" id="Ivq-Hb-HHH"/>
                                                     </constraints>
@@ -1064,7 +1064,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MPActiveNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="fnW-UD-Pih" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wna-j7-ZC5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wna-j7-ZC5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1115,7 +1115,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-gY-uef" userLabel="Date Label">
-                                                    <rect key="frame" x="70" y="42" width="42" height="21"/>
+                                                    <rect key="frame" x="70" y="41" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1542,7 +1542,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MPPreviewNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="hsW-qF-QpS" userLabel="Page Settings Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DKK-UT-fAb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="DKK-UT-fAb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1573,7 +1573,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MPAddPrintLaterJobNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="hOa-24-1AG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nlw-Th-x4S">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nlw-Th-x4S">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1588,7 +1588,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MPPrintJobsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="T9Y-JX-XmC" userLabel="Print Queue Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5YP-rE-PbO">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5YP-rE-PbO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1606,7 +1606,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MPPrintLaterHelperNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="489-Z0-T8h" userLabel="Print Later Helper Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oXS-BZ-65J">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="oXS-BZ-65J">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1751,45 +1751,45 @@ Make sure the sprocket printer is on and bluetooth connected.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safety Data Sheets, product safety and environmental information are available at www.hp.com/go/ecodata or on request." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzO-Il-ak6" userLabel="DataSheetsText" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="36" y="78" width="303" height="82"/>
+                                        <rect key="frame" x="36" y="78" width="303" height="81.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chemical substances" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaD-4E-TX9">
-                                        <rect key="frame" x="36" y="206" width="303" height="21"/>
+                                        <rect key="frame" x="36" y="205.5" width="303" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVN-Eh-tNW" userLabel="ChemicalText" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="36" y="251" width="303" height="203"/>
+                                        <rect key="frame" x="36" y="250.5" width="303" height="203"/>
                                         <string key="text">HP is committed to providing our customers with information about the chemical substances in our products as needed to comply with legal requirements such as REACH (Regulation EC No 1907/2006 of the European Parliament and the Council). A chemical information report for this product can be found at: www.hp.com/go/reach</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recycling program" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijn-tq-A33">
-                                        <rect key="frame" x="36" y="500" width="303" height="21"/>
+                                        <rect key="frame" x="36" y="499.5" width="303" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjh-mo-66H" userLabel="RecyclingText" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="36" y="545" width="303" height="203"/>
+                                        <rect key="frame" x="36" y="544.5" width="303" height="203"/>
                                         <string key="text">HP offers an increasing number of product return and recycling programs in many countries/regions, and partners with some of the largest electronic recycling centers throughout the world. HP conserves resources by reselling some of its most popular products. For more information regarding recycling of HP products, please visit: www.hp.com/recycle</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="California Rechargeable Battery Take-back Notice" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5X-45-boy" userLabel="Battery">
-                                        <rect key="frame" x="36" y="794" width="303" height="41"/>
+                                        <rect key="frame" x="36" y="793.5" width="303" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yr7-Kl-NeI" userLabel="BatteryText" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="36" y="859" width="303" height="122"/>
+                                        <rect key="frame" x="36" y="858.5" width="303" height="122"/>
                                         <string key="text">HP encourages customers to recycle used electronic hardware, HP original print cartridges, and rechargeable batteries. For more information about recycling programs, go to
 www.hp.com/recycle.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1797,20 +1797,20 @@ www.hp.com/recycle.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disposal of waste equipment by users " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjF-BM-zcD" userLabel="Disposal">
-                                        <rect key="frame" x="36" y="1027" width="303" height="21"/>
+                                        <rect key="frame" x="36" y="1026.5" width="303" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MPWaste@2x.png" translatesAutoresizingMaskIntoConstraints="NO" id="8VT-rD-f1K">
-                                        <rect key="frame" x="36" y="1060" width="54" height="82"/>
+                                        <rect key="frame" x="36" y="1059.5" width="54" height="82"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="82" id="DMb-UU-GSd"/>
                                             <constraint firstAttribute="width" constant="54" id="H9T-0r-cvu"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fwa-NI-mZs" userLabel="DisposalText" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="36" y="1154" width="303" height="224"/>
+                                        <rect key="frame" x="36" y="1153.5" width="303" height="223.5"/>
                                         <string key="text">This symbol means do not dispose of your product with your other household waste. Instead, you should protect human health and the environment by handing over your waste equipment to a designated collection point for the recycling of waste electrical and electronic equipment. For more information, please contact your household waste disposal service, or go to http://www.hp.com/recycle.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -1864,7 +1864,16 @@ www.hp.com/recycle.</string>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
-                        <outlet property="disposalTextLabel" destination="Fwa-NI-mZs" id="46q-e7-jNb"/>
+                        <outlet property="batteryContent" destination="Yr7-Kl-NeI" id="CGY-PH-Zst"/>
+                        <outlet property="batteryTitle" destination="z5X-45-boy" id="24M-yb-O39"/>
+                        <outlet property="chemicalContent" destination="rVN-Eh-tNW" id="BlB-wS-YC9"/>
+                        <outlet property="chemicalTitle" destination="eaD-4E-TX9" id="BFG-XB-hD8"/>
+                        <outlet property="dataSheetsContent" destination="rzO-Il-ak6" id="pzs-jB-peE"/>
+                        <outlet property="dataSheetsTitle" destination="E9P-OY-Su3" id="Mlj-C8-bZ8"/>
+                        <outlet property="disposalContent" destination="Fwa-NI-mZs" id="Nth-aI-ERq"/>
+                        <outlet property="disposalTitle" destination="FjF-BM-zcD" id="bpc-JP-XNK"/>
+                        <outlet property="recycleContent" destination="zjh-mo-66H" id="CU4-ja-3w4"/>
+                        <outlet property="recycleTitle" destination="ijn-tq-A33" id="eNA-vf-jJo"/>
                         <outlet property="scrollView" destination="Fwe-R2-X0Q" id="4cQ-k8-LUZ"/>
                         <outletCollection property="titleLabels" destination="E9P-OY-Su3" id="PMl-lg-dEe"/>
                         <outletCollection property="textLabels" destination="rzO-Il-ak6" id="W6r-QB-CQo"/>
@@ -2036,7 +2045,7 @@ www.hp.com/recycle.</string>
             <objects>
                 <navigationController storyboardIdentifier="MPLEDiscoveredPeripheralsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="bUk-gs-0fP" userLabel="Discovered Peripherals Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="x4z-RN-X2K">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="x4z-RN-X2K">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2058,7 +2067,7 @@ www.hp.com/recycle.</string>
     <inferredMetricsTieBreakers>
         <segue reference="C3t-Tz-4rn"/>
         <segue reference="FCW-gd-DkI"/>
-        <segue reference="E8A-CH-mPX"/>
-        <segue reference="4eJ-bv-9qP"/>
+        <segue reference="OHc-hu-xz3"/>
+        <segue reference="gpl-F0-UT5"/>
     </inferredMetricsTieBreakers>
 </document>
