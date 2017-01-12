@@ -229,7 +229,6 @@
 /* Indicates that the phone is sending an image to the printer */
 "Sending to sprocket printer" = "正在发送至 sprocket 打印机, 请稍候。";
 
-/*CHRISSY & PETER*/
 /* Title of table view cell used for displaying technical information */
 "Technical Information" = "技术信息";
 
@@ -265,3 +264,9 @@
 
 /* Text displayed when print is being sent to sprocket printer */
 "Sending to sprocket printer" = "正在发送至 sprocket 打印机, 请稍候。"
+
+/* Instructions for pairing a printer */
+"Pair your bluetooth sprocket printer with this device. Make sure the sprocket printer is on and bluetooth connected." = "确保已开启 sprocket 打印机电源并已连接蓝牙。";
+
+/* Indicates that no sprocket printers are connected */
+"No sprockets Connected" = "打印机尚未连接";
