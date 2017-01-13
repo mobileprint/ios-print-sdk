@@ -58,16 +58,16 @@
 {
     [super viewWillAppear:animated];
     
-    self.dataSheetsTitle = MPLocalizedString(@"Safety data sheets", @"Title");
-    self.dataSheetsContent = MPLocalizedString(@"Safety Data Sheets, product safety and environmental information are available at www.hp.com/go/ecodata or on request.", @"Description");
-    self.chemicalTitle = MPLocalizedString(@"Chemical substances", @"Title");
-    self.chemicalContent = MPLocalizedString(@"HP is committed to providing our customers with information about the chemical substances in our products as needed to comply with legal requirements such as REACH (Regulation EC No 1907/2006 of the European Parliament and the Council). A chemical information report for this product can be found at: www.hp.com/go/reach", @"Description");
-    self.recycleTitle = MPLocalizedString(@"Recycling program", @"Title");
-    self.recycleContent = MPLocalizedString(@"HP offers an increasing number of product return and recycling programs in many countries/regions, and partners with some of the largest electronic recycling centers throughout the world. HP conserves resources by reselling some of its most popular products. For more information regarding recycling of HP products, please visit: www.hp.com/recycle", @"Description");
-    self.batteryTitle = MPLocalizedString(@"California Rechargeable Battery Take-back Notice", @"Title");
-    self.batteryContent = MPLocalizedString(@"HP encourages customers to recycle used electronic hardware, HP original print cartridges, and rechargeable batteries. For more information about recycling programs, go to www.hp.com/recycle.", @"Description");
-    self.disposalTitle = MPLocalizedString(@"Disposal of waste equipment by users", @"Title");;
-    self.disposalContent = MPLocalizedString(@"This symbol means do not dispose of your product with your other household waste. Instead, you should protect human health and the environment by handing over your waste equipment to a designated collection point for the recycling of waste electrical and electronic equipment. For more information, please contact your household waste disposal service, or go to http://www.hp.com/recycle.", @"Description");
+    self.dataSheetsTitle.text = MPLocalizedString(@"Safety data sheets", @"Title");
+    self.dataSheetsContent.text = MPLocalizedString(@"Safety Data Sheets, product safety and environmental information are available at www.hp.com/go/ecodata or on request.", @"Description");
+    self.chemicalTitle.text = MPLocalizedString(@"Chemical substances", @"Title");
+    self.chemicalContent.text = MPLocalizedString(@"HP is committed to providing our customers with information about the chemical substances in our products as needed to comply with legal requirements such as REACH (Regulation EC No 1907/2006 of the European Parliament and the Council). A chemical information report for this product can be found at: www.hp.com/go/reach", @"Description");
+    self.recycleTitle.text = MPLocalizedString(@"Recycling program", @"Title");
+    self.recycleContent.text = MPLocalizedString(@"HP offers an increasing number of product return and recycling programs in many countries/regions, and partners with some of the largest electronic recycling centers throughout the world. HP conserves resources by reselling some of its most popular products. For more information regarding recycling of HP products, please visit: www.hp.com/recycle", @"Description");
+    self.batteryTitle.text = MPLocalizedString(@"California Rechargeable Battery Take-back Notice", @"Title");
+    self.batteryContent.text = MPLocalizedString(@"HP encourages customers to recycle used electronic hardware, HP original print cartridges, and rechargeable batteries. For more information about recycling programs, go to www.hp.com/recycle.", @"Description");
+    self.disposalTitle.text = MPLocalizedString(@"Disposal of waste equipment by users", @"Title");;
+    self.disposalContent.text = MPLocalizedString(@"This symbol means do not dispose of your product with your other household waste. Instead, you should protect human health and the environment by handing over your waste equipment to a designated collection point for the recycling of waste electrical and electronic equipment. For more information, please contact your household waste disposal service, or go to http://www.hp.com/recycle.", @"Description");
     
     for (UILabel *label in self.titleLabels) {
         [self configureTitle:label];
