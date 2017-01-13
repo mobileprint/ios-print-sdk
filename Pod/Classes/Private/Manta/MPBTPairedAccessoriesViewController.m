@@ -283,6 +283,7 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
             topController = topController.presentedViewController;
         }
         
+        techInfoViewController.title = MPLocalizedString(@"Technical Information", @"Title of Technical Information screen");
         [((UINavigationController *)topController) pushViewController:techInfoViewController animated:YES];
 #endif
     } else {
