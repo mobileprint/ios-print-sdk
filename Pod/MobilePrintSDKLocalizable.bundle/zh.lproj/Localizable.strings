@@ -179,7 +179,7 @@
 "ALL" = "全部";
 
 /* Text used to give an example of how to enter a page range */
-"e.g. 1,3-5" = ""例如， 1,3-5"";
+"e.g. 1,3-5" = "例如， 1,3-5";
 
 /* Used to specify that a range of pages can be displayed */
 "Page Range" = "页面范围";
