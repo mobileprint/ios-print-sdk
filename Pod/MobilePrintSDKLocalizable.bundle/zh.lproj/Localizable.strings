@@ -79,8 +79,8 @@
 /* No comment provided by engineer. */
 "Not Available" = "不可用";
 
-/* No comment provided by engineer. */
-"OK" = "OK";
+/* Allows user close dialog */
+"OK" = "确定";
 
 /* No comment provided by engineer. */
 "Page Settings" = "页面设置";
