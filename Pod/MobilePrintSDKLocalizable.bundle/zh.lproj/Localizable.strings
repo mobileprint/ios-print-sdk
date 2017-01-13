@@ -268,3 +268,9 @@ www.hp.com/recycle";
 
 /* Indicates that no sprocket printers are connected */
 "No sprockets Connected" = "打印机尚未连接";
+
+/* Indicates that no sprocket printers are connected */
+"Sprocket Printer Not Connected" = "Sprocket 打印机尚未连接";
+
+/* Instructions for correcting printer-not-connected error */
+"Make sure the sprocket printer is on and bluetooth connected." = "确保已开启 sprocket 打印机电源并已连接蓝牙。";
