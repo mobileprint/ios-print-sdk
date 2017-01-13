@@ -226,9 +226,6 @@
 /* Message given when sprocket cannot print due to having a low battery */
 "Connect your sprocket to a power source to continue use." = "将您的 Spocket 接通电源以继续使用。";
 
-/* Indicates that the phone is sending an image to the printer */
-"Sending to sprocket printer" = "正在发送至 sprocket 打印机, 请稍候。";
-
 /* Title of table view cell used for displaying technical information */
 "Technical Information" = "技术信息";
 
