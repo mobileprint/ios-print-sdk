@@ -263,7 +263,7 @@
 "This symbol means do not dispose of your product with your other household waste. Instead, you should protect human health and the environment by handing over your waste equipment to a designated collection point for the recycling of waste electrical and electronic equipment. For more information, please contact your household waste disposal service, or go to http://www.hp.com/recycle." = "此符号表示请不要将您的产品与其他生活垃圾一起处理。 相反，您应该保护人类健康和环境，将废弃设备移交到指定回收点对其进行处理，以便回收废弃的电子电机设备。 有关详细信息，请联系您的生活垃圾处理服务，或访问 http://www.hp.com/recycle。 ";
 
 /* Text displayed when print is being sent to sprocket printer */
-"Sending to sprocket printer" = "正在发送至 sprocket 打印机, 请稍候。"
+"Sending to sprocket printer" = "正在发送至 sprocket 打印机, 请稍候。";
 
 /* Instructions for pairing a printer */
 "Pair your bluetooth sprocket printer with this device. Make sure the sprocket printer is on and bluetooth connected." = "确保已开启 sprocket 打印机电源并已连接蓝牙。";
