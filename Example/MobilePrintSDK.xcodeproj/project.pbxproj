@@ -219,6 +219,9 @@
 		7B04D1BB4D8A663F7A997012 /* Pods-MobilePrintSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK/Pods-MobilePrintSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		7d45322c23338821ae339a35 /* CFNetwork.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9207464F1CD3DBBD0051CF1D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		92A4368F1E294DC6007F73FA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		92A436901E294DC6007F73FA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		92A436911E294DC6007F73FA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		92BAEA5E1C1F51170033A200 /* MPLayoutFitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLayoutFitTest.m; sourceTree = "<group>"; };
 		AB3988E52992DECF561686AE /* Pods-MobilePrintSDK-MobilePrintSDK-cal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePrintSDK-MobilePrintSDK-cal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobilePrintSDK-MobilePrintSDK-cal/Pods-MobilePrintSDK-MobilePrintSDK-cal.debug.xcconfig"; sourceTree = "<group>"; };
 		B6412EFA41C9FD7C470C1D44 /* MobilePrintSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MobilePrintSDK.podspec; path = ../MobilePrintSDK.podspec; sourceTree = "<group>"; };
@@ -607,6 +610,7 @@
 				nl,
 				"fr-CA",
 				"es-419",
+				"zh-Hans",
 			);
 			mainGroup = 6003F581195388D10070C39A;
 			productRefGroup = 6003F58B195388D20070C39A /* Products */;
@@ -954,6 +958,7 @@
 				FF7C05F31BF55589005FB596 /* nl */,
 				FF7C05F61BF5559E005FB596 /* fr-CA */,
 				FF7C05F91BF555B7005FB596 /* es-419 */,
+				92A436901E294DC6007F73FA /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -972,6 +977,7 @@
 				FF7C05F21BF55589005FB596 /* nl */,
 				FF7C05F51BF5559E005FB596 /* fr-CA */,
 				FF7C05F81BF555B7005FB596 /* es-419 */,
+				92A4368F1E294DC6007F73FA /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -990,6 +996,7 @@
 				FF7C05F41BF55589005FB596 /* nl */,
 				FF7C05F71BF5559E005FB596 /* fr-CA */,
 				FF7C05FA1BF555B7005FB596 /* es-419 */,
+				92A436911E294DC6007F73FA /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
