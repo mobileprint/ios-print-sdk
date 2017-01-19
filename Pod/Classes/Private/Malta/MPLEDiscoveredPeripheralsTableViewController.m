@@ -12,6 +12,7 @@
 
 #import "MPLEDiscoveredPeripheralsTableViewController.h"
 #import "MPLEDiscovery.h"
+#import "MPLEService.h"
 
 @interface MPLEDiscoveredPeripheralsTableViewController ()<MPLEDiscoveryDelegate, UITableViewDataSource>
 
@@ -96,6 +97,54 @@
 - (void)stopDiscovery
 {
     [MPLEDiscovery sharedInstance].discoveryDelegate = nil;
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CBPeripheral	*peripheral;
+    NSArray			*devices;
+    NSInteger		row	= [indexPath row];
+    
+//    if ([indexPath section] == 0) {
+//        devices = [[MPLEDiscovery sharedInstance] connectedServices];
+//        peripheral = [(MPLEService*)[devices objectAtIndex:row] peripheral];
+//    } else {
+//        devices = [[MPLEDiscovery sharedInstance] foundPeripherals];
+//        peripheral = (CBPeripheral*)[devices objectAtIndex:row];
+//    }
+    devices = [[MPLEDiscovery sharedInstance] foundPeripherals];
+    peripheral = (CBPeripheral*)[devices objectAtIndex:row];
+    
+    if (peripheral.state != CBPeripheralStateConnected) {
+        [[MPLEDiscovery sharedInstance] connectPeripheral:peripheral];
+    }
+    
+    else {
+
+        NSLog(@"Peripheral is connected");
+        [[MPLEDiscovery sharedInstance] disconnectPeripheral:peripheral];
+
+//        if ( currentlyDisplayingService != nil ) {
+//            [currentlyDisplayingService release];
+//            currentlyDisplayingService = nil;
+//        }
+//        
+//        currentlyDisplayingService = [self serviceForPeripheral:peripheral];
+//        [currentlyDisplayingService retain];
+//        
+//        [currentlyConnectedSensor setText:[peripheral name]];
+//        
+//        [currentTemperatureLabel setText:[NSString stringWithFormat:@"%dº", (int)[currentlyDisplayingService temperature]]];
+//        [maxAlarmLabel setText:[NSString stringWithFormat:@"MAX %dº", (int)[currentlyDisplayingService maximumTemperature]]];
+//        [minAlarmLabel setText:[NSString stringWithFormat:@"MIN %dº", (int)[currentlyDisplayingService minimumTemperature]]];
+//        
+//        [currentlyConnectedSensor setEnabled:YES];
+//        [currentTemperatureLabel setEnabled:YES];
+//        [maxAlarmLabel setEnabled:YES];
+//        [minAlarmLabel setEnabled:YES];
+    }
 }
 
 #pragma mark - Table view data source

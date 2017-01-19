@@ -11,11 +11,13 @@
 //
 
 #import "MPLEDiscovery.h"
+#import "MPLEService.h"
 
 
-@interface MPLEDiscovery () <CBCentralManagerDelegate, CBPeripheralDelegate>
+@interface MPLEDiscovery () <CBCentralManagerDelegate, CBPeripheralDelegate, MPLEMaltaProtocol>
 	@property (strong, nonatomic) CBCentralManager *centralManager;
 	@property (assign, nonatomic) BOOL pendingInit;
+    @property (strong, nonatomic) MPLEService *leService;
 @end
 
 
@@ -122,15 +124,37 @@
 
 - (void) centralManager:(CBCentralManager *)central didFailToRetrievePeripheralForUUID:(CFUUIDRef)UUID error:(NSError *)error
 {
-	/* Nuke from plist. */
-	[self removeSavedDevice:UUID];
+    NSLog(@"Failed to retrieve peripheral for UUID: %@ with Error: %@", UUID, error.localizedDescription);
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
+    NSLog(@"Peripheral Name: %@", peripheral.name);
+
 	if (![self.foundPeripherals containsObject:peripheral]) {
-		[self.foundPeripherals addObject:peripheral];
-		[self.discoveryDelegate discoveryDidRefresh];
+        [self.foundPeripherals addObject:peripheral];
+        [self.discoveryDelegate discoveryDidRefresh];
+
+        if ([peripheral.name isEqualToString:@"Malta"]) {
+            NSLog(@"%@", advertisementData);
+            
+            NSData *manufacturerData = [advertisementData objectForKey:@"kCBAdvDataManufacturerData"];
+            unsigned char *bytes = [manufacturerData bytes];
+            
+            NSInteger companyIdentifier = (bytes[0] << 8  |  bytes[1]);
+            NSInteger format            = bytes[2];
+            NSInteger calibratedRssi    = bytes[3];
+            NSInteger connectableStatus = bytes[4];
+            NSInteger deviceColor       = bytes[5];
+            NSInteger printerStatus     = bytes[6];
+            
+            NSLog(@"companyIdentifier : %#x", companyIdentifier);
+            NSLog(@"format            : %d",  format);
+            NSLog(@"calibratedRssi    : %#x", calibratedRssi);
+            NSLog(@"connectableStatus : %d",  connectableStatus);
+            NSLog(@"deviceColor       : %d",  deviceColor);
+            NSLog(@"printerStatus     : %d",  printerStatus);
+        }
 	}
 }
 
@@ -138,7 +162,7 @@
 
 - (void) connectPeripheral:(CBPeripheral*)peripheral
 {
-	if (CBPeripheralStateDisconnected == peripheral.state) {
+	if (CBPeripheralStateConnected != peripheral.state) {
 		[self.centralManager connectPeripheral:peripheral options:nil];
 	}
 }
@@ -150,20 +174,9 @@
 
 - (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
-//	LeTemperatureAlarmService	*service	= nil;
-//	
-//	/* Create a service instance. */
-//	service = [[[LeTemperatureAlarmService alloc] initWithPeripheral:peripheral controller:peripheralDelegate] autorelease];
-//	[service start];
-//
-//	if (![connectedServices containsObject:service])
-//		[connectedServices addObject:service];
-//
-//	if ([foundPeripherals containsObject:peripheral])
-//		[foundPeripherals removeObject:peripheral];
-//
-//    [peripheralDelegate alarmServiceDidChangeStatus:service];
-//	[discoveryDelegate discoveryDidRefresh];
+    self.leService = nil;
+    self.leService = [[MPLEService alloc] initWithPeripheral:peripheral controller:self];
+    [self.leService start];
 }
 
 - (void) centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
@@ -174,27 +187,25 @@
 - (void) centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     NSLog(@"Disconnected peripheral %@", [peripheral name]);
-//	LeTemperatureAlarmService	*service	= nil;
-//
-//	for (service in connectedServices) {
-//		if ([service peripheral] == peripheral) {
-//			[connectedServices removeObject:service];
-//            [peripheralDelegate alarmServiceDidChangeStatus:service];
-//			break;
-//		}
-//	}
-//
-//	[discoveryDelegate discoveryDidRefresh];
+
+	for (MPLEService *service in _connectedServices) {
+		if (service.servicePeripheral == peripheral) {
+			[_connectedServices removeObject:service];
+			break;
+		}
+	}
+
+	[_discoveryDelegate discoveryDidRefresh];
 }
 
 - (void) clearDevices
 {
-//    LeTemperatureAlarmService	*service;
     [self.foundPeripherals removeAllObjects];
     
-//    for (service in connectedServices) {
-//        [service reset];
-//    }
+    for (MPLEService *service in _connectedServices) {
+        // reset service
+    }
+
     [self.connectedServices removeAllObjects];
 }
 
@@ -205,6 +216,7 @@
 	switch ([self.centralManager state]) {
 		case CBCentralManagerStatePoweredOff:
 		{
+            NSLog(@"CBCentralManagerStatePoweredOff");
             [self clearDevices];
             [_discoveryDelegate discoveryDidRefresh];
             
@@ -217,18 +229,21 @@
             
 		case CBCentralManagerStateUnauthorized:
 		{
+            NSLog(@"CBCentralManagerStateUnauthorized");
 			/* Tell user the app is not allowed. */
 			break;
 		}
             
 		case CBCentralManagerStateUnknown:
 		{
+            NSLog(@"CBCentralManagerStateUnknown");
 			/* Bad news, let's wait for another event. */
 			break;
 		}
             
 		case CBCentralManagerStatePoweredOn:
 		{
+            NSLog(@"CBCentralManagerStatePoweredOn");
 			self.pendingInit = NO;
             [self startScan];
 			break;
@@ -236,9 +251,9 @@
             
 		case CBCentralManagerStateResetting:
 		{
+            NSLog(@"CBCentralManagerStateResetting");
 			[self clearDevices];
             [_discoveryDelegate discoveryDidRefresh];
-//            [peripheralDelegate alarmServiceDidReset];
             
 			self.pendingInit = YES;
 			break;
@@ -273,49 +288,6 @@
         CFRelease(uuid);
     }
     
-}
-
-- (void) addSavedDevice:(CFUUIDRef) uuid
-{
-    NSArray *storedDevices = [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
-    NSMutableArray *newDevices = nil;
-    CFStringRef uuidString = NULL;
-    
-    if (![storedDevices isKindOfClass:[NSArray class]]) {
-        NSLog(@"Can't find/create an array to store the uuid");
-        return;
-    }
-    
-    newDevices = [NSMutableArray arrayWithArray:storedDevices];
-    
-    uuidString = CFUUIDCreateString(NULL, uuid);
-    if (uuidString) {
-        [newDevices addObject:(__bridge NSString*)uuidString];
-        CFRelease(uuidString);
-    }
-    /* Store */
-    [[NSUserDefaults standardUserDefaults] setObject:newDevices forKey:@"StoredDevices"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void) removeSavedDevice:(CFUUIDRef) uuid
-{
-    NSArray			*storedDevices	= [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
-    NSMutableArray	*newDevices		= nil;
-    CFStringRef		uuidString		= NULL;
-    
-    if ([storedDevices isKindOfClass:[NSArray class]]) {
-        newDevices = [NSMutableArray arrayWithArray:storedDevices];
-        
-        uuidString = CFUUIDCreateString(NULL, uuid);
-        if (uuidString) {
-            [newDevices removeObject:(__bridge NSString*)uuidString];
-            CFRelease(uuidString);
-        }
-        /* Store */
-        [[NSUserDefaults standardUserDefaults] setObject:newDevices forKey:@"StoredDevices"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
 }
 
 @end
