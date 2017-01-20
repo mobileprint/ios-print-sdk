@@ -12,10 +12,11 @@
 
 #import "MPLEDiscovery.h"
 #import "MPLEService.h"
-
+#import "MPLEMalta.h"
+#import "MPLogger.h"
 
 @interface MPLEDiscovery () <CBCentralManagerDelegate, CBPeripheralDelegate, MPLEMaltaProtocol>
-	@property (strong, nonatomic) CBCentralManager *centralManager;
+    @property (strong, nonatomic) CBCentralManager *centralManager;
 	@property (assign, nonatomic) BOOL pendingInit;
     @property (strong, nonatomic) MPLEService *leService;
 @end
@@ -37,17 +38,16 @@
 	return sharedDiscovery;
 }
 
-
 - (id) init
 {
     self = [super init];
     if (self) {
 		self.foundPeripherals = [[NSMutableArray alloc] init];
+        self.foundMaltas = [[NSMutableArray alloc] init];
 		self.connectedServices = [[NSMutableArray alloc] init];
 	}
     return self;
 }
-
 
 - (void) dealloc
 {
@@ -66,7 +66,6 @@
     if (nil == discoveryDelegate) {
         [self stopScanning];
     } else {
-        
         // The scan will begin once the centralManager's state is set to CBCentralManagerStatePoweredOn
         self.pendingInit = YES;
         self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
@@ -77,7 +76,6 @@
 {
     if (nil != self.discoveryDelegate && !self.pendingInit) {
         [self clearDevices];
-        [self loadSavedDevices];
         [self startScanningForUUIDString:nil];
     } else {
         [self stopScanning];
@@ -124,36 +122,47 @@
 
 - (void) centralManager:(CBCentralManager *)central didFailToRetrievePeripheralForUUID:(CFUUIDRef)UUID error:(NSError *)error
 {
-    NSLog(@"Failed to retrieve peripheral for UUID: %@ with Error: %@", UUID, error.localizedDescription);
+    MPLogError(@"Failed to retrieve peripheral for UUID: %@ with Error: %@", UUID, error.localizedDescription);
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    NSLog(@"Peripheral Name: %@", peripheral.name);
-
 	if (![self.foundPeripherals containsObject:peripheral]) {
+
+        MPLogDebug(@"Peripheral Name: %@", peripheral.name);
+        MPLEMalta *malta = [[MPLEMalta alloc] init];
+        malta.peripheral = peripheral;
+        [self.foundMaltas addObject:malta];
+        
         [self.foundPeripherals addObject:peripheral];
         [self.discoveryDelegate discoveryDidRefresh];
 
         if ([peripheral.name isEqualToString:@"Malta"]) {
-            NSLog(@"%@", advertisementData);
+            MPLogDebug(@"%@", advertisementData);
             
             NSData *manufacturerData = [advertisementData objectForKey:@"kCBAdvDataManufacturerData"];
             unsigned char *bytes = [manufacturerData bytes];
             
-            NSInteger companyIdentifier = (bytes[0] << 8  |  bytes[1]);
+            NSInteger companyIdentifier = (bytes[1] << 8  |  bytes[0]);
             NSInteger format            = bytes[2];
             NSInteger calibratedRssi    = bytes[3];
             NSInteger connectableStatus = bytes[4];
             NSInteger deviceColor       = bytes[5];
             NSInteger printerStatus     = bytes[6];
             
-            NSLog(@"companyIdentifier : %#x", companyIdentifier);
-            NSLog(@"format            : %d",  format);
-            NSLog(@"calibratedRssi    : %#x", calibratedRssi);
-            NSLog(@"connectableStatus : %d",  connectableStatus);
-            NSLog(@"deviceColor       : %d",  deviceColor);
-            NSLog(@"printerStatus     : %d",  printerStatus);
+            MPLogDebug(@"companyIdentifier : %#x", companyIdentifier);
+            MPLogDebug(@"format            : %d",  format);
+            MPLogDebug(@"calibratedRssi    : %#x", calibratedRssi);
+            MPLogDebug(@"connectableStatus : %d",  connectableStatus);
+            MPLogDebug(@"deviceColor       : %d",  deviceColor);
+            MPLogDebug(@"printerStatus     : %d",  printerStatus);
+            
+            malta.companyId = companyIdentifier;
+            malta.format = format;
+            malta.calibratedRssi = calibratedRssi;
+            malta.connectableStatus = connectableStatus;
+            malta.deviceColor = deviceColor;
+            malta.printerStatus = printerStatus;
         }
 	}
 }
@@ -175,18 +184,31 @@
 - (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
     self.leService = nil;
-    self.leService = [[MPLEService alloc] initWithPeripheral:peripheral controller:self];
-    [self.leService start];
+
+    MPLEMalta *malta = nil;
+    for (MPLEMalta *m in self.foundMaltas) {
+        if (m.peripheral == peripheral) {
+            malta = m;
+            break;
+        }
+    }
+    
+    if (malta) {
+        self.leService = [[MPLEService alloc] initWithMalta:malta controller:self];
+        [self.leService start];
+    } else {
+        MPLogDebug(@"Device is not a Malta");
+    }
 }
 
 - (void) centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    NSLog(@"Attempted connection to peripheral %@ failed: %@", [peripheral name], [error localizedDescription]);
+    MPLogError(@"Attempted connection to peripheral %@ failed: %@", [peripheral name], [error localizedDescription]);
 }
 
 - (void) centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    NSLog(@"Disconnected peripheral %@", [peripheral name]);
+    MPLogDebug(@"Disconnected peripheral %@", [peripheral name]);
 
 	for (MPLEService *service in _connectedServices) {
 		if (service.servicePeripheral == peripheral) {
@@ -201,6 +223,7 @@
 - (void) clearDevices
 {
     [self.foundPeripherals removeAllObjects];
+    [self.foundMaltas removeAllObjects];
     
     for (MPLEService *service in _connectedServices) {
         // reset service
@@ -216,7 +239,7 @@
 	switch ([self.centralManager state]) {
 		case CBCentralManagerStatePoweredOff:
 		{
-            NSLog(@"CBCentralManagerStatePoweredOff");
+            MPLogDebug(@"CBCentralManagerStatePoweredOff");
             [self clearDevices];
             [_discoveryDelegate discoveryDidRefresh];
             
@@ -229,21 +252,21 @@
             
 		case CBCentralManagerStateUnauthorized:
 		{
-            NSLog(@"CBCentralManagerStateUnauthorized");
+            MPLogDebug(@"CBCentralManagerStateUnauthorized");
 			/* Tell user the app is not allowed. */
 			break;
 		}
             
 		case CBCentralManagerStateUnknown:
 		{
-            NSLog(@"CBCentralManagerStateUnknown");
+            MPLogDebug(@"CBCentralManagerStateUnknown");
 			/* Bad news, let's wait for another event. */
 			break;
 		}
             
 		case CBCentralManagerStatePoweredOn:
 		{
-            NSLog(@"CBCentralManagerStatePoweredOn");
+            MPLogDebug(@"CBCentralManagerStatePoweredOn");
 			self.pendingInit = NO;
             [self startScan];
 			break;
@@ -251,7 +274,7 @@
             
 		case CBCentralManagerStateResetting:
 		{
-            NSLog(@"CBCentralManagerStateResetting");
+            MPLogDebug(@"CBCentralManagerStateResetting");
 			[self clearDevices];
             [_discoveryDelegate discoveryDidRefresh];
             
@@ -261,33 +284,6 @@
 	}
     
     previousState = [self.centralManager state];
-}
-
-#pragma mark - Restoring Previous Devices
-
-/* Reload from file. */
-- (void) loadSavedDevices
-{
-    NSArray	*storedDevices = [[NSUserDefaults standardUserDefaults] arrayForKey:@"StoredDevices"];
-    
-    if (![storedDevices isKindOfClass:[NSArray class]]) {
-        NSLog(@"No stored array to load");
-        return;
-    }
-    
-    for (id deviceUUIDString in storedDevices) {
-        
-        if (![deviceUUIDString isKindOfClass:[NSString class]])
-            continue;
-        
-        CFUUIDRef uuid = CFUUIDCreateFromString(NULL, (CFStringRef)deviceUUIDString);
-        if (!uuid)
-            continue;
-        
-        [self.centralManager retrieveConnectedPeripheralsWithServices:[NSArray arrayWithObject:(__bridge id)uuid]];
-        CFRelease(uuid);
-    }
-    
 }
 
 @end

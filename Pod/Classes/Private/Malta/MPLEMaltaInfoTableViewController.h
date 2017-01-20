@@ -10,22 +10,11 @@
 // the license agreement.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreBluetooth/CoreBluetooth.h>
+#import <UIKit/UIKit.h>
 #import "MPLEMalta.h"
 
-extern NSString *kManufacturerNameCharacteristicUUIDString;
+@interface MPLEMaltaInfoTableViewController : UITableViewController
 
-@protocol MPLEMaltaProtocol<NSObject>
-@end
-
-@interface MPLEService : NSObject
-
-- (id) initWithMalta:(MPLEMalta *)malta controller:(id<MPLEMaltaProtocol>)controller;
-- (void)start;
-
-@property (readonly) MPLEMalta *malta;
-@property (readonly) CBPeripheral *servicePeripheral;
-@property (readonly) CGFloat manufacturerName;
+@property (strong, nonatomic) MPLEMalta *malta;
 
 @end

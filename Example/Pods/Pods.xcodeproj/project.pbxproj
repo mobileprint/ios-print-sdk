@@ -37,6 +37,10 @@
 		245B5D07D057827B8D16000CFF42D34D /* MPLayoutPrepStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DA2602271DBE86E26E75F49EB6D83ED /* MPLayoutPrepStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25ECE9C3640C40ECB1AE40F24A731277 /* MPPageRangeKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8CE06942A0861C00440753FED98E43 /* MPPageRangeKeyboardView.m */; };
 		2609EC5A1CFBFB44629733D767913E0B /* MPInterfaceOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D226C408FB0F32F4C7BC232F3E082E4 /* MPInterfaceOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		266D41131E314C7600B7F72F /* MPLEMaltaInfoTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 266D41111E314C7600B7F72F /* MPLEMaltaInfoTableViewController.h */; };
+		266D41141E314C7600B7F72F /* MPLEMaltaInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 266D41121E314C7600B7F72F /* MPLEMaltaInfoTableViewController.m */; };
+		266D41171E314D8B00B7F72F /* MPLEMalta.h in Headers */ = {isa = PBXBuildFile; fileRef = 266D41151E314D8B00B7F72F /* MPLEMalta.h */; };
+		266D41181E314D8B00B7F72F /* MPLEMalta.m in Sources */ = {isa = PBXBuildFile; fileRef = 266D41161E314D8B00B7F72F /* MPLEMalta.m */; };
 		27D522701F3223B6A429E00D8F4B06FE /* MPBTPairedAccessoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C27CBD94E5AB32B6773AE8911ED2B05E /* MPBTPairedAccessoriesViewController.m */; };
 		27E27DAC73A3FE8AF0E8E351FE1DA67B /* MPInterfaceOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = D608D8318AE40FF6EEE6FE99DB4990F6 /* MPInterfaceOptions.m */; };
 		298948F755F1881069C6F8A5616FB417 /* MPLegacyPrintLaterJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E2D6AE529847395099260BBFC50C9DA /* MPLegacyPrintLaterJob.m */; };
@@ -342,6 +346,10 @@
 		2417B49F70FA71E56D1FF0DCDE84F85B /* libTTTAttributedLabel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTTTAttributedLabel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E3436D81C66CB5FCAD4CF956771CFB /* MPLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLogger.h; sourceTree = "<group>"; };
 		258F2DD67ADD081BB9844A92E8309EA0 /* Pods-MobilePrintSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MobilePrintSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		266D41111E314C7600B7F72F /* MPLEMaltaInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLEMaltaInfoTableViewController.h; sourceTree = "<group>"; };
+		266D41121E314C7600B7F72F /* MPLEMaltaInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLEMaltaInfoTableViewController.m; sourceTree = "<group>"; };
+		266D41151E314D8B00B7F72F /* MPLEMalta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLEMalta.h; sourceTree = "<group>"; };
+		266D41161E314D8B00B7F72F /* MPLEMalta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLEMalta.m; sourceTree = "<group>"; };
 		2691CECE838444CED889A64F569B91B1 /* MPLayoutPaperCellView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPLayoutPaperCellView.m; sourceTree = "<group>"; };
 		2801CE1DD9DB1E0309326BBF7E543E59 /* NSValue+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSValue+OCMAdditions.h"; path = "Source/OCMock/NSValue+OCMAdditions.h"; sourceTree = "<group>"; };
 		281BD43FA715CEF93E5AA2037605321E /* MobilePrintSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MobilePrintSDK-dummy.m"; sourceTree = "<group>"; };
@@ -1142,6 +1150,10 @@
 				1BF83D214784EC309F382E8690DC9F73 /* MPLEDiscovery.m */,
 				3EA944C7853190C3AC94A52FF1BFEEEE /* MPLEDiscoveredPeripheralsTableViewController.h */,
 				CAF681729133574171ECCAD959EF54BB /* MPLEDiscoveredPeripheralsTableViewController.m */,
+				266D41151E314D8B00B7F72F /* MPLEMalta.h */,
+				266D41161E314D8B00B7F72F /* MPLEMalta.m */,
+				266D41111E314C7600B7F72F /* MPLEMaltaInfoTableViewController.h */,
+				266D41121E314C7600B7F72F /* MPLEMaltaInfoTableViewController.m */,
 				92A436921E2EC4D7007F73FA /* MPLEService.h */,
 				92A436931E2EC4D7007F73FA /* MPLEService.m */,
 			);
@@ -1317,6 +1329,7 @@
 				42488372ADA19E7D1EFBF06DF3C7E3C9 /* MPPrintJobsTableViewCell.h in Headers */,
 				9F918CC4CAB12F54F24AFD51DF4A4D2C /* MPPrintJobsViewController.h in Headers */,
 				FC0D3BD697A64F763E6DEE8CC0C5D0C6 /* MPPrintLaterActivity.h in Headers */,
+				266D41171E314D8B00B7F72F /* MPLEMalta.h in Headers */,
 				18A518FB4F4FCE13F213E2858DFC8B4C /* MPPrintLaterHelperViewController.h in Headers */,
 				93E9760DDC7CB35C0738FCBE816072D3 /* MPPrintLaterJob.h in Headers */,
 				857DC3D77642CA0E4CB2A984E7E5E4F1 /* MPPrintLaterManager.h in Headers */,
@@ -1337,6 +1350,7 @@
 				B0F9732EF1B4E82867557409F78683C7 /* UIImage+MPBundle.h in Headers */,
 				9CB0402D1BB470B9072C3ABEF537F670 /* UIImage+MPResize.h in Headers */,
 				FCE00BBB65D4A0374BC30204E1FA3DE4 /* UITableView+MPHeader.h in Headers */,
+				266D41131E314C7600B7F72F /* MPLEMaltaInfoTableViewController.h in Headers */,
 				DB138761CFAB39E981360C4F44E41708 /* UIView+MPAnimation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1546,6 +1560,7 @@
 				E99157987B8A1974D4B1B054D76E2115 /* MPBTSprocket.m in Sources */,
 				10F5352CD612C5A17053B5F117A8187F /* MPBTStatusChecker.m in Sources */,
 				811645BD1EDAEA2EFF6112AC9209FDD5 /* MPBTTechnicalInformationViewController.m in Sources */,
+				266D41181E314D8B00B7F72F /* MPLEMalta.m in Sources */,
 				7E7A533F42F8184BB66E7E0C0E5FAFEA /* MPDashedLineView.m in Sources */,
 				557618A1B5FDE06D2EE4E790428CE3CF /* MPDefaultSettingsManager.m in Sources */,
 				27E27DAC73A3FE8AF0E8E351FE1DA67B /* MPInterfaceOptions.m in Sources */,
@@ -1556,6 +1571,7 @@
 				3EDC4E17318A845873EABA2103CADCE7 /* MPLayoutAlgorithmStretch.m in Sources */,
 				705DA808BB344DA1D700B868A9D9BF66 /* MPLayoutComposite.m in Sources */,
 				A42F4FE8D44084880D9986EBB1E4022C /* MPLayoutFactory.m in Sources */,
+				266D41141E314C7600B7F72F /* MPLEMaltaInfoTableViewController.m in Sources */,
 				DF1CF2C9C042E869369C164127B7DA55 /* MPLayoutFill.m in Sources */,
 				BF2F85F535E11B17D0AB302708AB4620 /* MPLayoutFit.m in Sources */,
 				92A436951E2EC4D7007F73FA /* MPLEService.m in Sources */,
