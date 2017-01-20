@@ -386,9 +386,11 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
 + (void)presentNoPrinterConnectedAlert:(UIViewController *)hostController showConnectSprocket:(BOOL)showConnectSprocket
 {
 #ifndef TARGET_IS_EXTENSION
-    // The following call forces the system "Connect to Bluetooth" dialog if bluetooth has been turned off
     if (![[MPBTStatusChecker sharedInstance] isBluetoothEnabled]) {
-        CBCentralManager* cbManager = [[CBCentralManager alloc] initWithDelegate:nil queue: nil];
+        if (showConnectSprocket) {
+            // The following call forces the system "Connect to Bluetooth" dialog if bluetooth has been turned off
+            CBCentralManager* cbManager = [[CBCentralManager alloc] initWithDelegate:nil queue: nil];
+        }
     } else
 #endif
         if (showConnectSprocket) {
