@@ -12,8 +12,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-
-//#import "LeTemperatureAlarmService.h"
+#import "MPLEMalta.h"
 
 @protocol MPLEDiscoveryDelegate <NSObject>
 - (void) discoveryDidRefresh;
@@ -24,14 +23,13 @@
 
 + (MPLEDiscovery *) sharedInstance;
 
-@property (strong, nonatomic) NSMutableArray    *foundPeripherals;
 @property (strong, nonatomic) NSMutableArray    *foundMaltas;
 @property (strong, nonatomic) NSMutableArray	*connectedServices;
 
 // Setting the discoveryDelegate starts the discovery of Bluetooth LE devices
-@property (nonatomic, assign) id<MPLEDiscoveryDelegate> discoveryDelegate;
+@property (weak, nonatomic) id<MPLEDiscoveryDelegate> discoveryDelegate;
 
-- (void) connectPeripheral:(CBPeripheral*)peripheral;
+- (void) connectMalta:(MPLEMalta*)malta;
 - (void) disconnectPeripheral:(CBPeripheral*)peripheral;
 
 - (void) startScan;

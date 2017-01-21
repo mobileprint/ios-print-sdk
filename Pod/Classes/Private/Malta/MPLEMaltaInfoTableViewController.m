@@ -46,7 +46,7 @@ typedef enum MPLEMaltaProperties
     [super viewWillAppear:animated];
     
     if (self.malta.peripheral.state != CBPeripheralStateConnected) {
-        [[MPLEDiscovery sharedInstance] connectPeripheral:self.malta.peripheral];
+        [[MPLEDiscovery sharedInstance] connectMalta:self.malta];
     }
 }
 
@@ -70,7 +70,7 @@ typedef enum MPLEMaltaProperties
 {
     _malta = malta;
     if (self.malta.peripheral.state != CBPeripheralStateConnected) {
-        [[MPLEDiscovery sharedInstance] connectPeripheral:self.malta.peripheral];
+        [[MPLEDiscovery sharedInstance] connectMalta:self.malta];
     }
 }
 

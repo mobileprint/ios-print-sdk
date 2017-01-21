@@ -23,9 +23,10 @@ extern NSString *kManufacturerNameCharacteristicUUIDString;
 
 - (id) initWithMalta:(MPLEMalta *)malta controller:(id<MPLEMaltaProtocol>)controller;
 - (void)start;
+- (void)reset;
 
-@property (readonly) MPLEMalta *malta;
-@property (readonly) CBPeripheral *servicePeripheral;
-@property (readonly) CGFloat manufacturerName;
+@property (strong, readonly) MPLEMalta *malta;
+@property (strong, readonly) CBPeripheral *servicePeripheral;
+@property (assign, readonly) CGFloat manufacturerName;
 
 @end

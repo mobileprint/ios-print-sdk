@@ -18,7 +18,7 @@
 
 @interface MPLEDiscoveredPeripheralsTableViewController ()<MPLEDiscoveryDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) NSArray *peripherals;
+@property (strong, nonatomic) NSArray *maltas;
 
 @end
 
@@ -33,6 +33,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self clearTable];
     [self startDiscovery];
     [[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(appWillEnterForeground)
@@ -87,7 +88,8 @@
 
 - (void)clearTable
 {
-    self.peripherals = [[NSMutableArray alloc] init];
+    [[MPLEDiscovery sharedInstance] clearDevices];
+    self.maltas = [[NSMutableArray alloc] init];
     [self.tableView reloadData];
 }
 
@@ -135,7 +137,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.peripherals count];
+    return [self.maltas count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -149,7 +151,8 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    CBPeripheral *peripheral = [self.peripherals objectAtIndex:indexPath.row];
+    MPLEMalta *malta = [self.maltas objectAtIndex:indexPath.row];
+    CBPeripheral *peripheral = malta.peripheral;
     cell.textLabel.text = [NSString stringWithFormat:@"Name: %@, UUID: %@", peripheral.name, peripheral.identifier];
     
     return cell;
@@ -159,7 +162,7 @@
 
 - (void) discoveryDidRefresh
 {
-    self.peripherals = [MPLEDiscovery sharedInstance].foundPeripherals;
+    self.maltas = [MPLEDiscovery sharedInstance].foundMaltas;
     [self.tableView reloadData];
 }
 

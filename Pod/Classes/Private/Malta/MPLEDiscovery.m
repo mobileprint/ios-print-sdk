@@ -12,13 +12,14 @@
 
 #import "MPLEDiscovery.h"
 #import "MPLEService.h"
-#import "MPLEMalta.h"
 #import "MPLogger.h"
 
 @interface MPLEDiscovery () <CBCentralManagerDelegate, CBPeripheralDelegate, MPLEMaltaProtocol>
     @property (strong, nonatomic) CBCentralManager *centralManager;
 	@property (assign, nonatomic) BOOL pendingInit;
     @property (strong, nonatomic) MPLEService *leService;
+    @property (strong, nonatomic) MPLEMalta *connectingMalta;
+//@property (strong, nonatomic) NSMutableArray    *foundPeripherals;
 @end
 
 
@@ -42,7 +43,7 @@
 {
     self = [super init];
     if (self) {
-		self.foundPeripherals = [[NSMutableArray alloc] init];
+        //self.foundPeripherals = [[NSMutableArray alloc] init];
         self.foundMaltas = [[NSMutableArray alloc] init];
 		self.connectedServices = [[NSMutableArray alloc] init];
 	}
@@ -98,7 +99,6 @@
 - (void) stopScanning
 {
     [self.centralManager stopScan];
-    self.centralManager = nil;
 }
 
 #pragma mark - CBCentralManagerDelegate
@@ -127,15 +127,9 @@
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-	if (![self.foundPeripherals containsObject:peripheral]) {
+	if (![self alreadyFound:peripheral]) {//![self.foundPeripherals containsObject:peripheral]) {
 
         MPLogDebug(@"Peripheral Name: %@", peripheral.name);
-        MPLEMalta *malta = [[MPLEMalta alloc] init];
-        malta.peripheral = peripheral;
-        [self.foundMaltas addObject:malta];
-        
-        [self.foundPeripherals addObject:peripheral];
-        [self.discoveryDelegate discoveryDidRefresh];
 
         if ([peripheral.name isEqualToString:@"Malta"]) {
             MPLogDebug(@"%@", advertisementData);
@@ -144,40 +138,69 @@
             unsigned char *bytes = [manufacturerData bytes];
             
             NSInteger companyIdentifier = (bytes[1] << 8  |  bytes[0]);
-            NSInteger format            = bytes[2];
-            NSInteger calibratedRssi    = bytes[3];
-            NSInteger connectableStatus = bytes[4];
-            NSInteger deviceColor       = bytes[5];
-            NSInteger printerStatus     = bytes[6];
             
-            MPLogDebug(@"companyIdentifier : %#x", companyIdentifier);
-            MPLogDebug(@"format            : %d",  format);
-            MPLogDebug(@"calibratedRssi    : %#x", calibratedRssi);
-            MPLogDebug(@"connectableStatus : %d",  connectableStatus);
-            MPLogDebug(@"deviceColor       : %d",  deviceColor);
-            MPLogDebug(@"printerStatus     : %d",  printerStatus);
-            
-            malta.companyId = companyIdentifier;
-            malta.format = format;
-            malta.calibratedRssi = calibratedRssi;
-            malta.connectableStatus = connectableStatus;
-            malta.deviceColor = deviceColor;
-            malta.printerStatus = printerStatus;
+            // Weird bug... sporadically get bad advertising data (all 0's)
+            if (0 != companyIdentifier) {
+                MPLEMalta *malta = [[MPLEMalta alloc] init];
+                malta.peripheral = peripheral;
+                [self.foundMaltas addObject:malta];
+                
+                //                [self.foundPeripherals addObject:peripheral];
+                [self.discoveryDelegate discoveryDidRefresh];
+
+                NSInteger format            = bytes[2];
+                NSInteger calibratedRssi    = bytes[3];
+                NSInteger connectableStatus = bytes[4];
+                NSInteger deviceColor       = bytes[5];
+                NSInteger printerStatus     = bytes[6];
+                
+                MPLogDebug(@"companyIdentifier : %#x", companyIdentifier);
+                MPLogDebug(@"format            : %d",  format);
+                MPLogDebug(@"calibratedRssi    : %#x", calibratedRssi);
+                MPLogDebug(@"connectableStatus : %d",  connectableStatus);
+                MPLogDebug(@"deviceColor       : %d",  deviceColor);
+                MPLogDebug(@"printerStatus     : %d",  printerStatus);
+                
+                malta.companyId = companyIdentifier;
+                malta.format = format;
+                malta.calibratedRssi = calibratedRssi;
+                malta.connectableStatus = connectableStatus;
+                malta.deviceColor = deviceColor;
+                malta.printerStatus = printerStatus;
+            } else {
+                MPLogDebug(@"Reject Malta discovery due to incomplete advertisement data");
+            }
         }
 	}
 }
 
+- (BOOL) alreadyFound:(CBPeripheral *)peripheral
+{
+    BOOL found = NO;
+    
+    for (MPLEMalta *malta in self.foundMaltas) {
+        if (peripheral == malta.peripheral) {
+            found = YES;
+            break;
+        }
+    }
+    
+    return found;
+}
+
 #pragma mark - Connection/Disconnection
 
-- (void) connectPeripheral:(CBPeripheral*)peripheral
+- (void) connectMalta:(MPLEMalta*)malta
 {
-	if (CBPeripheralStateConnected != peripheral.state) {
-		[self.centralManager connectPeripheral:peripheral options:nil];
+	if (CBPeripheralStateConnected != malta.peripheral.state) {
+        self.connectingMalta = malta;
+		[self.centralManager connectPeripheral:malta.peripheral options:nil];
 	}
 }
 
 - (void) disconnectPeripheral:(CBPeripheral*)peripheral
 {
+    self.connectingMalta = nil;
 	[self.centralManager cancelPeripheralConnection:peripheral];
 }
 
@@ -185,17 +208,10 @@
 {
     self.leService = nil;
 
-    MPLEMalta *malta = nil;
-    for (MPLEMalta *m in self.foundMaltas) {
-        if (m.peripheral == peripheral) {
-            malta = m;
-            break;
-        }
-    }
-    
-    if (malta) {
-        self.leService = [[MPLEService alloc] initWithMalta:malta controller:self];
+    if (self.connectingMalta.peripheral == peripheral) {
+        self.leService = [[MPLEService alloc] initWithMalta:self.connectingMalta controller:self];
         [self.leService start];
+        self.connectingMalta = nil;
     } else {
         MPLogDebug(@"Device is not a Malta");
     }
@@ -222,11 +238,11 @@
 
 - (void) clearDevices
 {
-    [self.foundPeripherals removeAllObjects];
+    //[self.foundPeripherals removeAllObjects];
     [self.foundMaltas removeAllObjects];
     
     for (MPLEService *service in _connectedServices) {
-        // reset service
+        [service reset];
     }
 
     [self.connectedServices removeAllObjects];

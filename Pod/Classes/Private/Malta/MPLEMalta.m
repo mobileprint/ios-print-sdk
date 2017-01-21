@@ -115,39 +115,39 @@ NSString * const kMPLEMaltaUpdatedNotification = @"kMPLEMaltaUpdatedNotification
             break;
             
         case MPLEMaltaDeviceColorGreen:
-            str = MPLocalizedString(@"Green", @"The color red");
+            str = MPLocalizedString(@"Green", @"The color green");
             break;
             
         case MPLEMaltaDeviceColorBlue:
-            str = MPLocalizedString(@"Blue", @"The color red");
+            str = MPLocalizedString(@"Blue", @"The color blue");
             break;
             
         case MPLEMaltaDeviceColorPink:
-            str = MPLocalizedString(@"Pink", @"The color red");
+            str = MPLocalizedString(@"Pink", @"The color pink");
             break;
             
         case MPLEMaltaDeviceColorYellow:
-            str = MPLocalizedString(@"Yellow", @"The color red");
+            str = MPLocalizedString(@"Yellow", @"The color yellow");
             break;
             
         case MPLEMaltaDeviceColorOrange:
-            str = MPLocalizedString(@"Orange", @"The color red");
+            str = MPLocalizedString(@"Orange", @"The color orange");
             break;
             
         case MPLEMaltaDeviceColorPurple:
-            str = MPLocalizedString(@"Purple", @"The color red");
+            str = MPLocalizedString(@"Purple", @"The color purple");
             break;
             
         case MPLEMaltaDeviceColorBrown:
-            str = MPLocalizedString(@"Brown", @"The color red");
+            str = MPLocalizedString(@"Brown", @"The color brown");
             break;
             
         case MPLEMaltaDeviceColorGrey:
-            str = MPLocalizedString(@"Grey", @"The color red");
+            str = MPLocalizedString(@"Grey", @"The color grey");
             break;
             
         case MPLEMaltaDeviceColorBlack:
-            str = MPLocalizedString(@"Black", @"The color red");
+            str = MPLocalizedString(@"Black", @"The color black");
             break;
 
         default:

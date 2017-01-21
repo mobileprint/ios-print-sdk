@@ -36,7 +36,7 @@ static const NSInteger MPLEMaltaBatteryLevelKey = 0x2A19;
 
 @property (strong, nonatomic) CBCharacteristic *manufacturerNameCharacteristic;
 @property (strong, nonatomic) CBUUID *manufacturerNameUUID;
-@property (strong, nonatomic) id<MPLEMaltaProtocol>	peripheralDelegate;
+@property (weak, nonatomic) id<MPLEMaltaProtocol>	peripheralDelegate;
 
 @end
 
@@ -58,6 +58,22 @@ static const NSInteger MPLEMaltaBatteryLevelKey = 0x2A19;
 
 - (void) reset
 {
+    CBPeripheral *peripheral = _malta.peripheral;
+    
+    // See if we are subscribed to a characteristic on the peripheral
+//    if (peripheral.services != nil) {
+//        for (CBService *service in peripheral.services) {
+//            if (service.characteristics != nil) {
+//                for (CBCharacteristic *characteristic in service.characteristics) {
+//                    if (characteristic.isNotifying) {
+//                        [peripheral setNotifyValue:NO forCharacteristic:characteristic];
+//                        return;
+//                    }
+//                }
+//            }
+//        }
+//    }
+
     _malta = nil;
 }
 
