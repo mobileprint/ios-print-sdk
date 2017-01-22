@@ -61,18 +61,18 @@ static const NSInteger MPLEMaltaBatteryLevelKey = 0x2A19;
     CBPeripheral *peripheral = _malta.peripheral;
     
     // See if we are subscribed to a characteristic on the peripheral
-//    if (peripheral.services != nil) {
-//        for (CBService *service in peripheral.services) {
-//            if (service.characteristics != nil) {
-//                for (CBCharacteristic *characteristic in service.characteristics) {
-//                    if (characteristic.isNotifying) {
-//                        [peripheral setNotifyValue:NO forCharacteristic:characteristic];
-//                        return;
-//                    }
-//                }
-//            }
-//        }
-//    }
+    //  Not sure if this applies to our single queries as well as ongoing notifications, but just in case...
+    if (peripheral.services != nil) {
+        for (CBService *service in peripheral.services) {
+            if (service.characteristics != nil) {
+                for (CBCharacteristic *characteristic in service.characteristics) {
+                    if (characteristic.isNotifying) {
+                        [peripheral setNotifyValue:NO forCharacteristic:characteristic];
+                    }
+                }
+            }
+        }
+    }
 
     _malta = nil;
 }

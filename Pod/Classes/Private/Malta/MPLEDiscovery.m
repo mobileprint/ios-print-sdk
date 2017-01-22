@@ -19,7 +19,6 @@
 	@property (assign, nonatomic) BOOL pendingInit;
     @property (strong, nonatomic) MPLEService *leService;
     @property (strong, nonatomic) MPLEMalta *connectingMalta;
-//@property (strong, nonatomic) NSMutableArray    *foundPeripherals;
 @end
 
 
