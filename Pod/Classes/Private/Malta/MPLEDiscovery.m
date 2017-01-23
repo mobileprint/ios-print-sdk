@@ -42,7 +42,6 @@
 {
     self = [super init];
     if (self) {
-        //self.foundPeripherals = [[NSMutableArray alloc] init];
         self.foundMaltas = [[NSMutableArray alloc] init];
 		self.connectedServices = [[NSMutableArray alloc] init];
 	}
@@ -126,8 +125,7 @@
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-	if (![self alreadyFound:peripheral]) {//![self.foundPeripherals containsObject:peripheral]) {
-
+	if (![self alreadyFound:peripheral]) {
         MPLogDebug(@"Peripheral Name: %@", peripheral.name);
 
         if ([peripheral.name isEqualToString:@"Malta"]) {
@@ -144,7 +142,6 @@
                 malta.peripheral = peripheral;
                 [self.foundMaltas addObject:malta];
                 
-                //                [self.foundPeripherals addObject:peripheral];
                 [self.discoveryDelegate discoveryDidRefresh];
 
                 NSInteger format            = bytes[2];
