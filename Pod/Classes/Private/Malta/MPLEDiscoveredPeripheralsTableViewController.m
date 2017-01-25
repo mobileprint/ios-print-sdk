@@ -115,7 +115,7 @@
     MPLEMaltaInfoTableViewController *infoViewController = (MPLEMaltaInfoTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPLEMaltaInfoTableViewController"];
     
     infoViewController.malta = malta;
-    
+#ifndef TARGET_IS_EXTENSION
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
     
     while (topController.presentedViewController) {
@@ -123,6 +123,7 @@
     }
     
     [((UINavigationController *)topController) pushViewController:infoViewController animated:YES];
+#endif
 }
 
 #pragma mark - Table view data source
