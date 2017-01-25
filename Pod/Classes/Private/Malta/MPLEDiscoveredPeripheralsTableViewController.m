@@ -103,6 +103,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#ifndef TARGET_IS_EXTENSION
     MPLEMalta	    *malta;
     NSArray			*maltas;
     NSInteger		row	= [indexPath row];
@@ -123,6 +124,7 @@
     }
     
     [((UINavigationController *)topController) pushViewController:infoViewController animated:YES];
+#endif
 }
 
 #pragma mark - Table view data source
