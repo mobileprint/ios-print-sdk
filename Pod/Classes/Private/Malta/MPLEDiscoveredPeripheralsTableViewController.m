@@ -103,6 +103,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#ifndef TARGET_IS_EXTENSION
     MPLEMalta	    *malta;
     NSArray			*maltas;
     NSInteger		row	= [indexPath row];
@@ -115,7 +116,7 @@
     MPLEMaltaInfoTableViewController *infoViewController = (MPLEMaltaInfoTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPLEMaltaInfoTableViewController"];
     
     infoViewController.malta = malta;
-#ifndef TARGET_IS_EXTENSION
+    
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
     
     while (topController.presentedViewController) {
