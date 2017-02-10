@@ -85,6 +85,12 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     self.descriptionLabel.text = MPLocalizedString(@"Pair your bluetooth sprocket printer with this device. Make sure the sprocket printer is on and bluetooth connected.", @"Instructions for pairing a printer");
     self.presentedNoDevicesModal = NO;
     
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(didPressBack)];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(becomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
@@ -126,6 +132,11 @@ static const NSInteger kMPBTPairedAccessoriesOtherSection  = 1;
     _image = image;
     [self setTitle];
     [self refreshPairedDevices];
+}
+
+- (void)didPressBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 + (void)presentAnimatedForDeviceInfo:(BOOL)animated usingController:(UIViewController *)hostController andCompletion:(void(^)(void))completion
