@@ -353,7 +353,7 @@ NSString * const kJobListScreenName = @"Job List Screen";
     
     NSString *text = nil;
     if (![[MPWiFiReachability sharedInstance] isWifiConnected]) {
-        text = MPLocalizedString(@"No Wi-Fi connection222", nil);
+        text = MPLocalizedString(@"No Wi-Fi connection", nil);
     }
     
     textLabel.text = text;
