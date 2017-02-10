@@ -20,13 +20,13 @@
 "1 Copy" = "1 copia";
 
 /* Option for paper size */
-"10x13cm" = "10 x 13 cm";
+"10x13cm" = "10x13cm";
 
 /* Option for paper size */
-"10x15cm" = "10 x 15 cm";
+"10x15cm" = "10x15cm";
 
 /* Option for paper size */
-"13x18cm" = "13 x 18 cm";
+"13x18cm" = "13x18cm";
 
 /* Option for paper size */
 "2 x 3" = "2 x 3";
@@ -41,7 +41,7 @@
 "5 x 7" = "5 x 7";
 
 /* Option for paper size */
-"8.5 x 11" = "8,5 x 11";
+"8.5 x 11" = "8 5 x 11";
 
 /* Option for paper size */
 "A4" = "A4";
@@ -53,37 +53,37 @@
 "A6" = "A6";
 
 /* Add multipage pdf to print queue button label */
-"Add %ld Pages" = "Añadir %ld páginas";
+"Add %ld Pages" = "Agregar %ld de páginas";
 
 /* Add single pdf doc to print queue button label */
 "Add 1 Page" = "Añadir 1 página";
 
 /* fotter text describing print queue */
-"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Añada una impresión a la cola y reciba una notificación cuando se encuentre cerca de su impresora.  Toque la notificación o simplemente vuelva a esta aplicación para imprimir sus proyectos.";
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Agregue una impresora a la Cola de Impresión y reciba una notificación cuando esté cerca de su impresora.  Dé un toque en la notificación o simplemente vuelva a utilizar esta aplicación para imprimir sus proyectos.";
 
 /* Title of the Add Print to the Print Later Queue Screen */
-"Add Print" = "Añadir impresión";
+"Add Print" = "Agregar impresión";
 
 /* Add image to print queue button label */
-"Add to Print Queue" = "Añadir a la cola de impresión";
+"Add to Print Queue" = "Agregar a la Cola de Impresión";
 
 /* Text used on a button that selects all pages for printing */
-"ALL" = "TODO";
+"ALL" = "TODOS";
 
 /* No comment provided by engineer. */
-"All" = "Todo";
+"All" = "Todos";
 
 /* No comment provided by engineer. */
-"Are you sure you want to delete %d Prints?" = "¿Seguro que desea eliminar %d impresiones?";
+"Are you sure you want to delete %d Prints?" = "¿Está seguro de que desea eliminar %d impresión?";
 
 /* No comment provided by engineer. */
-"Are you sure you want to delete 1 Print?" = "¿Seguro que desea eliminar 1 impresión?";
+"Are you sure you want to delete 1 Print?" = "¿Está seguro de que desea eliminar %d impresiones?";
 
 /* Let's the user know their job will be printed in black-and-white */
-"B&W" = "B y N";
+"B&W" = "Blanco y Negro";
 
 /* No comment provided by engineer. */
-"Black & White mode" = "Modo Blanco y negro";
+"Black & White mode" = "Modo blanco y negro";
 
 /* button bar cancel button */
 "Cancel" = "Cancelar";
@@ -92,28 +92,28 @@
 "Copies" = "Copias";
 
 /* copy label in job summary */
-"Copy" = "Copiar";
+"Copy" = "Copia";
 
 /* No comment provided by engineer. */
-"Default printer not currently available" = "La impresora predeterminada no está disponible ahora";
+"Default printer not currently available" = "La impresora predeterminada actualmente no está disponible";
 
 /* No comment provided by engineer. */
-"Delete" = "Eliminar";
+"Delete" = "Borrar";
 
 /* No comment provided by engineer. */
-"Delete Print from Print Queue" = "Eliminar impresión de la cola de impresiones";
+"Delete Print from Print Queue" = "Eliminar impresión de la cola de impresión";
 
 /* Used on a button for closing the dialog */
 "Done" = "Listo";
 
 /* Text used to give an example of how to enter a page range */
-"e.g. 1,3-5" = "Ejemplo: 1,3-5";
+"e.g. 1,3-5" = "por ejemplo, 1,3-5";
 
 /* Option of the push notification to send another push notification later */
 "Later" = "Más tarde";
 
 /* Monitoring of regions (location) not available */
-"Monitoring not available" = "Supervisión no disponible";
+"Monitoring not available" = "La supervisión no está disponible";
 
 /* job name label */
 "Name" = "Nombre";
@@ -131,22 +131,22 @@
 "of" = "de";
 
 /* Used to specify that a range of pages can be displayed */
-"Page Range" = "Intervalo de páginas";
+"Page Range" = "Rango de Páginas";
 
 /* Title of the Page Settings Screen */
-"Page Settings" = "Ajustes de página";
+"Page Settings" = "Configuración de página";
 
 /* Title of the Paper Size screen */
-"Paper Size" = "Tamaño del papel";
+"Paper Size" = "Tamaño de papel";
 
 /* Title of the Paper Type screen */
 "Paper Type" = "Tipo de papel";
 
 /* Default job name of the print send to the printer */
-"Photo" = "Fotografía";
+"Photo" = "Foto";
 
 /* Option for paper type */
-"Photo Paper" = "Papel fotográfico";
+"Photo Paper" = "Papel para foto";
 
 /* Option for paper type */
 "Plain Paper" = "Papel normal";
@@ -167,19 +167,19 @@
 "Print All" = "Imprimir todo";
 
 /* Caption of the button for printing */
-"Print all %lu" = "Imprimir todo: %lu fotos";
+"Print all %lu" = "Imprimir todo %lu";
 
 /* Caption of the button for printing */
-"Print both" = "Imprimir ambas";
+"Print both" = "Imprimir ambos";
 
 /* Activity title of the print queue when the share button is tapped */
-"Print Queue" = "Cola de impresión";
+"Print Queue" = "Imprimir cola";
 
 /* No comment provided by engineer. */
 "Print queue is empty" = "La cola de impresión está vacía";
 
 /* Title of the print settings screen */
-"Print Settings" = "Ajustes de impresión";
+"Print Settings" = "Configuración de impresión";
 
 /* Bluetooth print button label */
 "Print to sprocket" = "Imprimir en sprocket";
@@ -188,13 +188,13 @@
 "Printer" = "Impresora";
 
 /* The printer is available and there are print later jobs in the print queue */
-"Printer nearby. Projects waiting to be printed..." = "Impresora cercana. Hay proyectos pendientes de imprimir...";
+"Printer nearby. Projects waiting to be printed..." = "Impresora cercana. Proyectos a la espera de impresión...";
 
 /* No comment provided by engineer. */
-"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Para imprimir, el dispositivo móvil y la impresora deben estar en la misma red Wi-Fi. Compruebe los ajustes de Wi-Fi.";
+"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "La impresión requiere su dispositivo móvil y una impresora para estar en una misma red Wi-Fi. Compruebe los ajustes de Wi-Fi.";
 
 /* No comment provided by engineer. */
-"Recent printer not currently available" = "La impresora más reciente no está disponible ahora";
+"Recent printer not currently available" = "La impresora reciente actualmente no está disponible";
 
 /* No comment provided by engineer. */
 "Select All" = "Seleccionar todo";
@@ -203,23 +203,23 @@
 "Select Printer" = "Seleccionar impresora";
 
 /* No comment provided by engineer. */
-"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Para seleccionar una impresora, el dispositivo móvil y la impresora deben estar en la misma red Wi-Fi. Compruebe los ajustes de Wi-Fi.";
+"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Para seleccionar una impresora, se requiere que su dispositivo móvil y la impresora estén en una misma red Wi-Fi. Compruebe los ajustes de Wi-Fi.";
 
 /* No comment provided by engineer. */
-"Settings" = "Ajustes";
+"Settings" = "Configuración";
 
 /* Title of a table section */
-"SUPPORT:" = "ASISTENCIA:";
+"SUPPORT:" = "SOPORTE:";
 
 /* No comment provided by engineer. */
-"Unselect All" = "Desmarcar todo";
+"Unselect All" = "Anular selección";
 
 /* footer heading describing print queue */
-"What is Print Queue?" = "¿Qué es la cola de impresión?";
+"What is Print Queue?" = "¿Qué es la Cola de Impresión?";
 
 /* No comment provided by engineer. */
-"Wi-Fi Required" = "Wi-Fi necesario";
+"Wi-Fi Required" = "Wi-Fi requerido";
 
 /* No comment provided by engineer. */
-"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Su dispositivo no admite la supervisión de región. No es posible activar alarmas según la ubicación";
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "El dispositivo no admite la supervisión región, no es posible activar alarmas según la posición";
 
