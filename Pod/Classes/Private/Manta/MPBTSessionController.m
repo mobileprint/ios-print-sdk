@@ -12,6 +12,7 @@
 
 #import "MPBTSessionController.h"
 #import "MPBTSprocketDefinitions.h"
+#import "MPBTSprocket.h"
 
 const char SPROCKET_SESSION_PACKET_LENGTH = 34;
 
@@ -24,14 +25,11 @@ NSString *MPBTSessionDataTotalBytesWritten = @"MPBTSessionDataTotalBytesWritten"
 
 @interface MPBTSessionController()
 
-@property NSMutableArray *packets;
+    @property (strong, nonatomic) NSMutableArray *packets;
 
 @end
 
 @implementation MPBTSessionController
-
-@synthesize accessory = _accessory;
-@synthesize protocolString = _protocolString;
 
 static long long totalBytesWritten = 0;
 
@@ -227,7 +225,29 @@ static long long totalBytesWritten = 0;
 #pragma mark EAAccessoryDelegate
 - (void)accessoryDidDisconnect:(EAAccessory *)accessory
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:MPBTSessionAccessoryDisconnectedNotification object:self userInfo:nil];
+    [NSTimer scheduledTimerWithTimeInterval:1.0
+                                     target:self
+                                   selector:@selector(notifyDisconnect:)
+                                   userInfo:accessory
+                                    repeats:NO];
+}
+
+- (void)notifyDisconnect:(NSTimer *)timer
+{
+    BOOL connected = NO;
+    NSArray *sprockets = [MPBTSprocket pairedSprockets];
+    for (EAAccessory *acc in sprockets) {
+        if (acc.serialNumber == self.accessory.serialNumber) {
+            connected = YES;
+            _accessory = acc;
+            [self openSession];
+            break;
+        }
+    }
+
+    if (!connected) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MPBTSessionAccessoryDisconnectedNotification object:self userInfo:nil];
+    }
 }
 
 #pragma mark NSStreamDelegateEventExtensions
