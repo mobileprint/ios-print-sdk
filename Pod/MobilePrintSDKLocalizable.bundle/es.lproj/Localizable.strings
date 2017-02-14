@@ -1,0 +1,225 @@
+/* No comment provided by engineer. */
+"%d Print" = "%d impresión";
+
+/* No comment provided by engineer. */
+"%d Prints" = "%d impresiones";
+
+/* No comment provided by engineer. */
+"%d/%d Print" = "%d/%d impresión";
+
+/* No comment provided by engineer. */
+"%d/%d Prints" = "%d/%d impresiones";
+
+/* Number of copies */
+"%ld Copies" = "%ld copias";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "%ld de %ld páginas";
+
+/* No comment provided by engineer. */
+"1 Copy" = "1 copia";
+
+/* Option for paper size */
+"10x13cm" = "10 x 13 cm";
+
+/* Option for paper size */
+"10x15cm" = "10 x 15 cm";
+
+/* Option for paper size */
+"13x18cm" = "13 x 18 cm";
+
+/* Option for paper size */
+"2 x 3" = "2 x 3";
+
+/* Option for paper size */
+"4 x 5" = "4 x 5";
+
+/* Option for paper size */
+"4 x 6" = "4 x 6";
+
+/* Option for paper size */
+"5 x 7" = "5 x 7";
+
+/* Option for paper size */
+"8.5 x 11" = "8,5 x 11";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add multipage pdf to print queue button label */
+"Add %ld Pages" = "Añadir %ld páginas";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "Añadir 1 página";
+
+/* fotter text describing print queue */
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Añada una impresión a la cola y reciba una notificación cuando se encuentre cerca de su impresora.  Toque la notificación o simplemente vuelva a esta aplicación para imprimir sus proyectos.";
+
+/* Title of the Add Print to the Print Later Queue Screen */
+"Add Print" = "Añadir impresión";
+
+/* Add image to print queue button label */
+"Add to Print Queue" = "Añadir a la cola de impresión";
+
+/* Text used on a button that selects all pages for printing */
+"ALL" = "TODO";
+
+/* No comment provided by engineer. */
+"All" = "Todo";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "¿Seguro que desea eliminar %d impresiones?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "¿Seguro que desea eliminar 1 impresión?";
+
+/* Let's the user know their job will be printed in black-and-white */
+"B&W" = "B y N";
+
+/* No comment provided by engineer. */
+"Black & White mode" = "Modo Blanco y negro";
+
+/* button bar cancel button */
+"Cancel" = "Cancelar";
+
+/* copies label in job summary */
+"Copies" = "Copias";
+
+/* copy label in job summary */
+"Copy" = "Copiar";
+
+/* No comment provided by engineer. */
+"Default printer not currently available" = "La impresora predeterminada no está disponible ahora";
+
+/* No comment provided by engineer. */
+"Delete" = "Eliminar";
+
+/* No comment provided by engineer. */
+"Delete Print from Print Queue" = "Eliminar impresión de la cola de impresiones";
+
+/* Used on a button for closing the dialog */
+"Done" = "Listo";
+
+/* Text used to give an example of how to enter a page range */
+"e.g. 1,3-5" = "Ejemplo: 1,3-5";
+
+/* Option of the push notification to send another push notification later */
+"Later" = "Más tarde";
+
+/* Monitoring of regions (location) not available */
+"Monitoring not available" = "Supervisión no disponible";
+
+/* job name label */
+"Name" = "Nombre";
+
+/* No comment provided by engineer. */
+"Next" = "Siguiente";
+
+/* No comment provided by engineer. */
+"No Wi-Fi connection" = "Sin conexión Wi-Fi";
+
+/* Printer details not available */
+"Not Available" = "No disponible";
+
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "de";
+
+/* Used to specify that a range of pages can be displayed */
+"Page Range" = "Intervalo de páginas";
+
+/* Title of the Page Settings Screen */
+"Page Settings" = "Ajustes de página";
+
+/* Title of the Paper Size screen */
+"Paper Size" = "Tamaño del papel";
+
+/* Title of the Paper Type screen */
+"Paper Type" = "Tipo de papel";
+
+/* Default job name of the print send to the printer */
+"Photo" = "Fotografía";
+
+/* Option for paper type */
+"Photo Paper" = "Papel fotográfico";
+
+/* Option for paper type */
+"Plain Paper" = "Papel normal";
+
+/* Title of the Preview pane in any print or add-to-queue screen */
+"Preview" = "Vista previa";
+
+/* Print button label */
+"Print" = "Imprimir";
+
+/* Print button label with multiple pages */
+"Print %ld Pages" = "Imprimir %ld páginas";
+
+/* Print button label single page */
+"Print 1 Page" = "Imprimir 1 página";
+
+/* Print button label for printing multiple jobs */
+"Print All" = "Imprimir todo";
+
+/* Caption of the button for printing */
+"Print all %lu" = "Imprimir todo: %lu fotos";
+
+/* Caption of the button for printing */
+"Print both" = "Imprimir ambas";
+
+/* Activity title of the print queue when the share button is tapped */
+"Print Queue" = "Cola de impresión";
+
+/* No comment provided by engineer. */
+"Print queue is empty" = "La cola de impresión está vacía";
+
+/* Title of the print settings screen */
+"Print Settings" = "Ajustes de impresión";
+
+/* Bluetooth print button label */
+"Print to sprocket" = "Imprimir en sprocket";
+
+/* No comment provided by engineer. */
+"Printer" = "Impresora";
+
+/* The printer is available and there are print later jobs in the print queue */
+"Printer nearby. Projects waiting to be printed..." = "Impresora cercana. Hay proyectos pendientes de imprimir...";
+
+/* No comment provided by engineer. */
+"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Para imprimir, el dispositivo móvil y la impresora deben estar en la misma red Wi-Fi. Compruebe los ajustes de Wi-Fi.";
+
+/* No comment provided by engineer. */
+"Recent printer not currently available" = "La impresora más reciente no está disponible ahora";
+
+/* No comment provided by engineer. */
+"Select All" = "Seleccionar todo";
+
+/* No comment provided by engineer. */
+"Select Printer" = "Seleccionar impresora";
+
+/* No comment provided by engineer. */
+"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Para seleccionar una impresora, el dispositivo móvil y la impresora deben estar en la misma red Wi-Fi. Compruebe los ajustes de Wi-Fi.";
+
+/* No comment provided by engineer. */
+"Settings" = "Ajustes";
+
+/* Title of a table section */
+"SUPPORT:" = "ASISTENCIA:";
+
+/* No comment provided by engineer. */
+"Unselect All" = "Desmarcar todo";
+
+/* footer heading describing print queue */
+"What is Print Queue?" = "¿Qué es la cola de impresión?";
+
+/* No comment provided by engineer. */
+"Wi-Fi Required" = "Wi-Fi necesario";
+
+/* No comment provided by engineer. */
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Su dispositivo no admite la supervisión de región. No es posible activar alarmas según la ubicación";
+
