@@ -237,7 +237,7 @@ static long long totalBytesWritten = 0;
     BOOL connected = NO;
     NSArray *sprockets = [MPBTSprocket pairedSprockets];
     for (EAAccessory *acc in sprockets) {
-        if (acc.serialNumber == self.accessory.serialNumber) {
+        if ([acc.serialNumber isEqualToString:self.accessory.serialNumber]) {
             connected = YES;
             _accessory = acc;
             [self openSession];
