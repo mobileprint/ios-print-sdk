@@ -1,23 +1,23 @@
 /* No comment provided by engineer. */
-"%d Print" = "%d Baskı";
+"%d Print" = "%d Pencetakan";
 
 /* No comment provided by engineer. */
-"%d Prints" = "%d Baskı";
+"%d Prints" = "%d Pencetakan";
 
 /* No comment provided by engineer. */
-"%d/%d Print" = "%d/%d Baskı";
+"%d/%d Print" = "%d/%d Pencetakan";
 
 /* No comment provided by engineer. */
-"%d/%d Prints" = "%d/%d Baskı";
+"%d/%d Prints" = "%d/%d Pencetakan";
 
 /* Number of copies */
-"%ld Copies" = "%ld Kopya";
+"%ld Copies" = "%ld Salinan";
 
 /* page range label in job summary */
-"%ld of %ld Pages" = "%ld / %ld Sayfa";
+"%ld of %ld Pages" = "%ld of %ld Halaman";
 
 /* No comment provided by engineer. */
-"1 Copy" = "1 Kopya";
+"1 Copy" = "1 Salinan";
 
 /* Option for paper size */
 "10x13cm" = "10x13cm";
@@ -53,173 +53,173 @@
 "A6" = "A6";
 
 /* Add multipage pdf to print queue button label */
-"Add %ld Pages" = "%ld Sayfa Ekle";
+"Add %ld Pages" = "Tambahkan %ld Halaman";
 
 /* Add single pdf doc to print queue button label */
-"Add 1 Page" = "1 Sayfa Ekle";
+"Add 1 Page" = "Tambahkan 1 Halaman";
 
 /* fotter text describing print queue */
-"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Yazdırma Kuyruğuna bir baskı eklerseniz, yazıcınızın yakınında olduğunuzda bir bildirim alırsınız.  Projelerinizi yazdırmak için bildiriminize dokunun veya sadece bu uygulamaya geri dönün.";
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Tambahkan pencetakan ke Antrian Pencetakan dan dapatkan pemberitahuan saat Anda berada di dekat printer.  Ketuk pemberitahuan, atau cukup kembali ke aplikasi ini untuk mencetak proyek Anda.";
 
 /* Title of the Add Print to the Print Later Queue Screen */
-"Add Print" = "Baskı Ekle";
+"Add Print" = "Tambahkan Pencetakan";
 
 /* Add image to print queue button label */
-"Add to Print Queue" = "Yazdırma Kuyruğuna Ekle";
+"Add to Print Queue" = "Tambahkan ke Antrian Pencetakan";
 
 /* Text used on a button that selects all pages for printing */
-"ALL" = "TÜMÜ";
+"ALL" = "SEMUA";
 
 /* No comment provided by engineer. */
-"All" = "Tümü";
+"All" = "Semua";
 
 /* No comment provided by engineer. */
-"Are you sure you want to delete %d Prints?" = "%d Baskı silmek istediğinizden emin misiniz?";
+"Are you sure you want to delete %d Prints?" = "Anda yakin ingin menghapus %d Pencetakan?";
 
 /* No comment provided by engineer. */
-"Are you sure you want to delete 1 Print?" = "1 Baskı silmek istediğinizden emin misiniz?";
+"Are you sure you want to delete 1 Print?" = "Anda yakin ingin menghapus 1 Pencetakan?";
 
 /* Let's the user know their job will be printed in black-and-white */
-"B&W" = "SB";
+"B&W" = "H&P";
 
 /* No comment provided by engineer. */
-"Black & White mode" = "Siyah Beyaz modu";
+"Black & White mode" = "Mode Hitam Putih";
 
 /* button bar cancel button */
-"Cancel" = "İptal";
+"Cancel" = "Batal";
 
 /* copies label in job summary */
-"Copies" = "Kopya";
+"Copies" = "Salinan";
 
 /* copy label in job summary */
-"Copy" = "Kopya";
+"Copy" = "Salin";
 
 /* No comment provided by engineer. */
-"Default printer not currently available" = "Varsayılan yazıcı şu anda kullanılamıyor";
+"Default printer not currently available" = "Printer default saat ini tidak tersedia";
 
 /* No comment provided by engineer. */
-"Delete" = "Sil";
+"Delete" = "Hapus";
 
 /* No comment provided by engineer. */
-"Delete Print from Print Queue" = "Baskıyı Yazdırma Kuyruğundan Sil";
+"Delete Print from Print Queue" = "Hapus Pencetakan dari Antrian Pencetakan";
 
 /* Used on a button for closing the dialog */
-"Done" = "Bitti";
+"Done" = "Selesai";
 
 /* Text used to give an example of how to enter a page range */
-"e.g. 1,3-5" = "örn. 1,3-5";
+"e.g. 1,3-5" = "contoh 1,3-5";
 
 /* Option of the push notification to send another push notification later */
-"Later" = "Daha sonra";
+"Later" = "Nanti";
 
 /* Monitoring of regions (location) not available */
-"Monitoring not available" = "İzleme kullanılamıyor";
+"Monitoring not available" = "Pemantauan tidak tersedia";
 
 /* job name label */
-"Name" = "Ad";
+"Name" = "Nama";
 
 /* No comment provided by engineer. */
-"Next" = "İleri";
+"Next" = "Selanjutnya";
 
 /* No comment provided by engineer. */
-"No Wi-Fi connection" = "Wi-Fi bağlantısı yok";
+"No Wi-Fi connection" = "Tidak ada koneksi Wi-Fi";
 
 /* Printer details not available */
-"Not Available" = "Kullanılamıyor";
+"Not Available" = "Tidak Tersedia";
 
 /* Used to denote a page range.  IE: x 'of' y pages */
-"of" = "/";
+"of" = "dari";
 
 /* Used to specify that a range of pages can be displayed */
-"Page Range" = "Sayfa Aralığı";
+"Page Range" = "Kisaran Halaman";
 
 /* Title of the Page Settings Screen */
-"Page Settings" = "Sayfa Ayarları";
+"Page Settings" = "Pengaturan Halaman";
 
 /* Title of the Paper Size screen */
-"Paper Size" = "Kağıt Boyutu";
+"Paper Size" = "Ukuran Kertas";
 
 /* Title of the Paper Type screen */
-"Paper Type" = "Kağıt Türü";
+"Paper Type" = "Jenis Kertas";
 
 /* Default job name of the print send to the printer */
-"Photo" = "Fotoğraf";
+"Photo" = "Foto";
 
 /* Option for paper type */
-"Photo Paper" = "Fotoğraf Kağıdı";
+"Photo Paper" = "Kertas Foto";
 
 /* Option for paper type */
-"Plain Paper" = "Düz Kağıt";
+"Plain Paper" = "Kertas Polos";
 
 /* Title of the Preview pane in any print or add-to-queue screen */
-"Preview" = "Önizleme";
+"Preview" = "Pratinjau";
 
 /* Print button label */
-"Print" = "Yazdır";
+"Print" = "Cetak";
 
 /* Print button label with multiple pages */
-"Print %ld Pages" = "%ld Sayfa Yazdır";
+"Print %ld Pages" = "Cetak %ld Halaman";
 
 /* Print button label single page */
-"Print 1 Page" = "1 Sayfa Yazdır";
+"Print 1 Page" = "Cetak 1 Halaman";
 
 /* Print button label for printing multiple jobs */
-"Print All" = "Tümünü Yazdır";
+"Print All" = "Cetak Semua";
 
 /* Caption of the button for printing */
-"Print all %lu" = "%lu öğenin tümünü yazdır";
+"Print all %lu" = "Cetak semua %lu";
 
 /* Caption of the button for printing */
-"Print both" = "Her ikisini de yazdır";
+"Print both" = "Cetak keduanya";
 
 /* Activity title of the print queue when the share button is tapped */
-"Print Queue" = "Yazdırma Kuyruğu";
+"Print Queue" = "Antrian Pencetakan";
 
 /* No comment provided by engineer. */
-"Print queue is empty" = "Yazdırma kuyruğu boş";
+"Print queue is empty" = "Antrian pencetakan kosong";
 
 /* Title of the print settings screen */
-"Print Settings" = "Yazdırma Ayarları";
+"Print Settings" = "Pengaturan Cetak";
 
 /* Bluetooth print button label */
-"Print to sprocket" = "sprocket'a yazdır";
+"Print to sprocket" = "Cetak ke sprocket";
 
 /* No comment provided by engineer. */
-"Printer" = "Yazıcı";
+"Printer" = "Printer";
 
 /* The printer is available and there are print later jobs in the print queue */
-"Printer nearby. Projects waiting to be printed..." = "Yakındaki yazıcı. Basılmayı bekleyen projeler...";
+"Printer nearby. Projects waiting to be printed..." = "Printer terdekat. Proyek menunggu untuk dicetak...";
 
 /* No comment provided by engineer. */
-"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Yazdırma işlemi için mobil aygıtın ve yazıcının aynı Wi-Fi ağı üzerinde olması gerekir. Lütfen Wi-Fi ayarlarınızı kontrol edin.";
+"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Mencetak memerlukan perangkat seluler dan printer harus berada di jaringan Wi-Fi yang sama. Harap periksa pengaturan Wi-Fi Anda";
 
 /* No comment provided by engineer. */
-"Recent printer not currently available" = "Son kullanılan yazıcı şu anda kullanılamıyor";
+"Recent printer not currently available" = "Printer yang terakhir kali digunakan saat ini tidak tersedia";
 
 /* No comment provided by engineer. */
-"Select All" = "Tümünü Seç";
+"Select All" = "Pilih Semua";
 
 /* No comment provided by engineer. */
-"Select Printer" = "Yazıcı Seç";
+"Select Printer" = "Pilih Printer";
 
 /* No comment provided by engineer. */
-"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Bir yazıcı seçilmesi için mobil aygıtınızın ve yazıcının aynı Wi-Fi ağı üzerinde olması gerekir. Lütfen Wi-Fi ayarlarınızı kontrol edin.";
+"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Memilih printer memerlukan perangkat seluler dan printer harus berada di jaringan Wi-Fi yang sama. Harap periksa pengaturan Wi-Fi Anda";
 
 /* No comment provided by engineer. */
-"Settings" = "Ayarlar";
+"Settings" = "Pengaturan";
 
 /* Title of a table section */
-"SUPPORT:" = "DESTEK:";
+"SUPPORT:" = "DUKUNGAN:";
 
 /* No comment provided by engineer. */
-"Unselect All" = "Tüm Seçimi Kaldır";
+"Unselect All" = "Batal Pilih Semua";
 
 /* footer heading describing print queue */
-"What is Print Queue?" = "Yazdırma Kuyruğu nedir?";
+"What is Print Queue?" = "Apa itu Antrian Pencetakan?";
 
 /* No comment provided by engineer. */
-"Wi-Fi Required" = "Wi-Fi Gerekli";
+"Wi-Fi Required" = "Wi-Fi Diperlukan";
 
 /* No comment provided by engineer. */
-"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Aygıtınız bölgesel izleme özelliğini desteklemiyor, konum temelinde alarm verilmesi mümkün değil";
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Perangkat Anda tidak mendukung pemantauan wilayah, alarm kebakaran tidak dapat dibunyikan berdasarkan posisi";
 

@@ -1,0 +1,225 @@
+/* No comment provided by engineer. */
+"%d Print" = "%d การพิมพ์";
+
+/* No comment provided by engineer. */
+"%d Prints" = "%d การพิมพ์";
+
+/* No comment provided by engineer. */
+"%d/%d Print" = "%d/%d การพิมพ์";
+
+/* No comment provided by engineer. */
+"%d/%d Prints" = "%d/%d การพิมพ์";
+
+/* Number of copies */
+"%ld Copies" = "# ฉบับ";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "%ld of %ld หน้า";
+
+/* No comment provided by engineer. */
+"1 Copy" = "1 ฉบับ";
+
+/* Option for paper size */
+"10x13cm" = "10x13ซม.";
+
+/* Option for paper size */
+"10x15cm" = "10x15ซม.";
+
+/* Option for paper size */
+"13x18cm" = "13x18ซม.";
+
+/* Option for paper size */
+"2 x 3" = "2 x 3";
+
+/* Option for paper size */
+"4 x 5" = "4 x 5";
+
+/* Option for paper size */
+"4 x 6" = "4 x 6";
+
+/* Option for paper size */
+"5 x 7" = "5 x 7";
+
+/* Option for paper size */
+"8.5 x 11" = "8.5 x 11";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add multipage pdf to print queue button label */
+"Add %ld Pages" = "เพิ่ม %ld หน้า";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "เพิ่ม 1 หน้า";
+
+/* fotter text describing print queue */
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "เพิ่มการพิมพ์ในลำดับการพิมพ์และรับการแจ้งเตือนเมื่อคุณอยู่ใกล้เครื่องพิมพ์ของคุณ  แตะการแจ้งเตือนหรือกลับมาที่แอปพลิเคชันนี้เพื่อพิมพ์งานของคุณ";
+
+/* Title of the Add Print to the Print Later Queue Screen */
+"Add Print" = "เพิ่มการพิมพ์";
+
+/* Add image to print queue button label */
+"Add to Print Queue" = "เพิ่มในลำดับการพิมพ์";
+
+/* Text used on a button that selects all pages for printing */
+"ALL" = "ทั้งหมด";
+
+/* No comment provided by engineer. */
+"All" = "ทั้งหมด";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "คุณต้องการลบการพิมพ์ %d ใช่หรือไม่";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "คุณต้องการลบการพิมพ์ 1 ใช่หรือไม่";
+
+/* Let's the user know their job will be printed in black-and-white */
+"B&W" = "ขาวดำ";
+
+/* No comment provided by engineer. */
+"Black & White mode" = "โหมดขาวดำ";
+
+/* button bar cancel button */
+"Cancel" = "ยกเลิก";
+
+/* copies label in job summary */
+"Copies" = "ฉบับ";
+
+/* copy label in job summary */
+"Copy" = "ทำสำเนา";
+
+/* No comment provided by engineer. */
+"Default printer not currently available" = "เครื่องพิมพ์ที่ตั้งค่าไว้ไม่พร้อมใช้งาน";
+
+/* No comment provided by engineer. */
+"Delete" = "ลบ";
+
+/* No comment provided by engineer. */
+"Delete Print from Print Queue" = "ลบการพิมพ์ออกจากลำดับการพิมพ์";
+
+/* Used on a button for closing the dialog */
+"Done" = "เสร็จสิ้น";
+
+/* Text used to give an example of how to enter a page range */
+"e.g. 1,3-5" = "ตัวอย่าง 1,3.-5";
+
+/* Option of the push notification to send another push notification later */
+"Later" = "ภายหลัง";
+
+/* Monitoring of regions (location) not available */
+"Monitoring not available" = "หน้าจอไม่พร้อมใช้งาน";
+
+/* job name label */
+"Name" = "ชื่อ";
+
+/* No comment provided by engineer. */
+"Next" = "ถัดไป";
+
+/* No comment provided by engineer. */
+"No Wi-Fi connection" = "ไม่มีสัญญาณ Wi-Fi";
+
+/* Printer details not available */
+"Not Available" = "ไม่พร้อมใช้งาน";
+
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "ของ";
+
+/* Used to specify that a range of pages can be displayed */
+"Page Range" = "ระยะ หน้ากระดาษ";
+
+/* Title of the Page Settings Screen */
+"Page Settings" = "การตั้งค่า หน้ากระดาษ";
+
+/* Title of the Paper Size screen */
+"Paper Size" = "ขนาดกระดาษ";
+
+/* Title of the Paper Type screen */
+"Paper Type" = "ประเภทกระดาษ";
+
+/* Default job name of the print send to the printer */
+"Photo" = "ภาพถ่าย";
+
+/* Option for paper type */
+"Photo Paper" = "กระดาษภาพถ่าย";
+
+/* Option for paper type */
+"Plain Paper" = "กระดาษธรรมดา";
+
+/* Title of the Preview pane in any print or add-to-queue screen */
+"Preview" = "แสดงตัวอย่าง";
+
+/* Print button label */
+"Print" = "พิมพ์";
+
+/* Print button label with multiple pages */
+"Print %ld Pages" = "พิมพ์ %ld หน้า";
+
+/* Print button label single page */
+"Print 1 Page" = "พิมพ์ 1 หน้า";
+
+/* Print button label for printing multiple jobs */
+"Print All" = "พิมพ์ทั้งหมด";
+
+/* Caption of the button for printing */
+"Print all %lu" = "พิมพ์ทั้งหมด %lu";
+
+/* Caption of the button for printing */
+"Print both" = "พิมพ์ทั้งสอง";
+
+/* Activity title of the print queue when the share button is tapped */
+"Print Queue" = "ลำดับการพิมพ์";
+
+/* No comment provided by engineer. */
+"Print queue is empty" = "ลำดับการพิมพ์ว่าง";
+
+/* Title of the print settings screen */
+"Print Settings" = "การตั้งค่าการพิมพ์";
+
+/* Bluetooth print button label */
+"Print to sprocket" = "พิมพ์ไปยัง Sprocket";
+
+/* No comment provided by engineer. */
+"Printer" = "เครื่องพิมพ์";
+
+/* The printer is available and there are print later jobs in the print queue */
+"Printer nearby. Projects waiting to be printed..." = "เครื่องพิมพ์ที่อยู่ใกล้ งานกำลังรอพิมพ์...";
+
+/* No comment provided by engineer. */
+"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "อุปกรณ์ไร้สายของคุณและเครื่องพิมพ์ต้องใช้เครือข่าย Wi Fi เดียวกันเพื่อทำการพิมพ์งาน กรุณาตรวจสอบการตั้งค่า Wi-Fi";
+
+/* No comment provided by engineer. */
+"Recent printer not currently available" = "เครื่องพิมพ์ที่ใช้งานก่อนหน้าไม่พร้อมใช้งาน";
+
+/* No comment provided by engineer. */
+"Select All" = "เลือกทั้งหมด";
+
+/* No comment provided by engineer. */
+"Select Printer" = "เลือกเครื่องพิมพ์";
+
+/* No comment provided by engineer. */
+"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "อุปกรณ์ไร้สายของคุณและเครื่องพิมพ์ต้องใช้เครือข่าย Wi Fi เดียวกันเพื่อให้สามารถเลือกเครื่องพิมพ์ได้ กรุณาตรวจสอบการตั้งค่า Wi-Fi";
+
+/* No comment provided by engineer. */
+"Settings" = "การตั้งค่า";
+
+/* Title of a table section */
+"SUPPORT:" = "การสนับสนุน:";
+
+/* No comment provided by engineer. */
+"Unselect All" = "ยกเลิกการเลือกทั้งหมด";
+
+/* footer heading describing print queue */
+"What is Print Queue?" = "ลำดับการพิมพ์คืออะไร";
+
+/* No comment provided by engineer. */
+"Wi-Fi Required" = "ต้องใช้ Wi-Fi";
+
+/* No comment provided by engineer. */
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "อุปกรณ์ของคุณไม่รองรับการตรวจสอบในท้องถิ่น ไม่สามารถรับการแจ้งเตือนตามที่ตั้งได้";
+

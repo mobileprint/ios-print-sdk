@@ -1,50 +1,98 @@
-﻿/* Title of delete-from-queue confirmation dialog */
-"Delete Print from Print Queue" = "Eliminar impressão de fila de impressão";
-
-/* Text for confirming delete single print job */
-"Are you sure you want to delete %d Prints?" = "Tem a certeza de que pretende eliminar %d impressões?";
-
-/* Text for confirming delete multiple print jobs */
-"Are you sure you want to delete 1 Print?" = "Tem a certeza de que pretende eliminar 1 impressão?";
-
-/* Select all print jobs */
-"Select All" = "Selecionar tudo";
-
-/* Unselect all print jobs */
-"Unselect All" = "Desmarcar tudo";
-
-/* Proceed to the next step */
-"Next" = "Seguinte";
-
-/* Single print  */
+/* No comment provided by engineer. */
 "%d Print" = "%d impressão";
 
-/* Multiple prints */
+/* No comment provided by engineer. */
 "%d Prints" = "%d impressões";
 
-/* Display x of y prints when there is only one print */
-"%d/%d Print" = "%d/%d impressão";
+/* No comment provided by engineer. */
+"%d/%d Print" = "Impressão %d/%d";
 
-/* Display x of y prints when there are multiple prints */
-"%d/%d Prints" = "%d/%d impressões";
+/* No comment provided by engineer. */
+"%d/%d Prints" = "Impressões %d/%d";
 
-/* Display single copy selected */
+/* Number of copies */
+"%ld Copies" = "%ld cópias";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "%ld de %ld páginas";
+
+/* No comment provided by engineer. */
 "1 Copy" = "1 cópia";
 
-/* No comment provided by engineer. */
+/* Option for paper size */
+"10x13cm" = "10 x 13 cm";
+
+/* Option for paper size */
+"10x15cm" = "10 x 15 cm";
+
+/* Option for paper size */
+"13x18cm" = "13 x 18 cm";
+
+/* Option for paper size */
+"2 x 3" = "2 x 3";
+
+/* Option for paper size */
+"4 x 5" = "4 x 5";
+
+/* Option for paper size */
+"4 x 6" = "4 x 6";
+
+/* Option for paper size */
+"5 x 7" = "5 x 7";
+
+/* Option for paper size */
+"8.5 x 11" = "8,5 x 11";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add multipage pdf to print queue button label */
+"Add %ld Pages" = "Adicionar %ld páginas";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "Adicionar 1 página";
+
+/* fotter text describing print queue */
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Adicione uma impressão à fila de impressão e receba uma notificação quando estiver próximo da impressora.  Toque na notificação ou simplesmente regresse à aplicação para imprimir os seus projetos.";
+
+/* Title of the Add Print to the Print Later Queue Screen */
 "Add Print" = "Adicionar impressão";
 
-/* No comment provided by engineer. */
+/* Add image to print queue button label */
 "Add to Print Queue" = "Adicionar à fila de impressão";
+
+/* Text used on a button that selects all pages for printing */
+"ALL" = "TUDO";
+
+/* No comment provided by engineer. */
+"All" = "Tudo";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "Tem a certeza de que pretende eliminar %d impressões?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "Tem a certeza de que pretende eliminar 1 impressão?";
+
+/* Let's the user know their job will be printed in black-and-white */
+"B&W" = "Preto e branco";
 
 /* No comment provided by engineer. */
 "Black & White mode" = "Modo a preto e branco";
 
-/* No comment provided by engineer. */
-"%ld Copies" = "%ld cópias";
+/* button bar cancel button */
+"Cancel" = "Cancelar";
 
-/* No comment provided by engineer. */
-"Date" = "Data";
+/* copies label in job summary */
+"Copies" = "Cópias";
+
+/* copy label in job summary */
+"Copy" = "Copiar";
 
 /* No comment provided by engineer. */
 "Default printer not currently available" = "A impressora predefinida não está atualmente disponível";
@@ -53,81 +101,93 @@
 "Delete" = "Eliminar";
 
 /* No comment provided by engineer. */
+"Delete Print from Print Queue" = "Eliminar impressão de fila de impressão";
+
+/* Used on a button for closing the dialog */
 "Done" = "Concluído";
 
-/* Generic Cancel from an action. */
-"Cancel" = "Cancelar";
+/* Text used to give an example of how to enter a page range */
+"e.g. 1,3-5" = "Ex. 1,3-5";
 
-/* No comment provided by engineer. */
+/* Option of the push notification to send another push notification later */
 "Later" = "Mais tarde";
 
-/* No comment provided by engineer. */
+/* Monitoring of regions (location) not available */
 "Monitoring not available" = "Monitorização não disponível";
 
-/* No comment provided by engineer. */
-"Network" = "Rede";
+/* job name label */
+"Name" = "Nome";
 
 /* No comment provided by engineer. */
-"No default printer" = "Sem impressora predefinida";
+"Next" = "Seguinte";
 
 /* No comment provided by engineer. */
 "No Wi-Fi connection" = "Sem ligação Wi-Fi";
 
-/* No comment provided by engineer. */
-"No, thanks" = ""Não, obrigado"";
-
-/* No comment provided by engineer. */
+/* Printer details not available */
 "Not Available" = "Não disponível";
 
-/* No comment provided by engineer. */
-"OK" = "OK";
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "de";
 
-/* No comment provided by engineer. */
+/* Used to specify that a range of pages can be displayed */
+"Page Range" = "Intervalo de páginas";
+
+/* Title of the Page Settings Screen */
 "Page Settings" = "Definições de página";
 
-/* No comment provided by engineer. */
-"Paper Settings Screen" = "Ecrã de definições de papel";
-
-/* No comment provided by engineer. */
+/* Title of the Paper Size screen */
 "Paper Size" = "Formato do papel";
 
-/* No comment provided by engineer. */
+/* Title of the Paper Type screen */
 "Paper Type" = "Tipo de papel";
 
-/* No comment provided by engineer. */
+/* Default job name of the print send to the printer */
 "Photo" = "Fotografia";
 
-/* No comment provided by engineer. */
+/* Option for paper type */
 "Photo Paper" = "Papel para fotografias";
 
-/* No comment provided by engineer. */
+/* Option for paper type */
 "Plain Paper" = "Papel normal";
 
-/* No comment provided by engineer. */
+/* Title of the Preview pane in any print or add-to-queue screen */
 "Preview" = "Pré-visualizar";
 
-/* No comment provided by engineer. */
+/* Print button label */
 "Print" = "Imprimir";
 
-/* No comment provided by engineer. */
+/* Print button label with multiple pages */
+"Print %ld Pages" = "Imprimir %ld páginas";
+
+/* Print button label single page */
+"Print 1 Page" = "Imprimir 1 página";
+
+/* Print button label for printing multiple jobs */
+"Print All" = "Imprimir tudo";
+
+/* Caption of the button for printing */
 "Print all %lu" = "Imprimir tudo %lu ";
 
-/* No comment provided by engineer. */
+/* Caption of the button for printing */
 "Print both" = "Imprimir ambos";
 
-/* No comment provided by engineer. */
+/* Activity title of the print queue when the share button is tapped */
 "Print Queue" = "Fila de impressão";
 
 /* No comment provided by engineer. */
 "Print queue is empty" = "A fila de impressão está vazia";
 
-/* No comment provided by engineer. */
+/* Title of the print settings screen */
 "Print Settings" = "Definições de impressão";
+
+/* Bluetooth print button label */
+"Print to sprocket" = "Imprimir para a sprocket";
 
 /* No comment provided by engineer. */
 "Printer" = "Impressora";
 
-/* No comment provided by engineer. */
+/* The printer is available and there are print later jobs in the print queue */
 "Printer nearby. Projects waiting to be printed..." = "Impressora próxima. Projetos a aguardar a impressão...";
 
 /* No comment provided by engineer. */
@@ -135,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "Recent printer not currently available" = "Impressora recente não está atualmente disponível";
+
+/* No comment provided by engineer. */
+"Select All" = "Selecionar tudo";
 
 /* No comment provided by engineer. */
 "Select Printer" = "Selecionar impressora";
@@ -145,77 +208,18 @@
 /* No comment provided by engineer. */
 "Settings" = "Definições";
 
-/* No comment provided by engineer. */
+/* Title of a table section */
 "SUPPORT:" = "SUPORTE:";
+
+/* No comment provided by engineer. */
+"Unselect All" = "Desmarcar tudo";
+
+/* footer heading describing print queue */
+"What is Print Queue?" = "O que é a fila de impressão?";
 
 /* No comment provided by engineer. */
 "Wi-Fi Required" = "Requer Wi-Fi";
 
 /* No comment provided by engineer. */
-"Would you like to set the following as this app's default printer?\n\n'%@'" = "Gostaria de definir a seguinte como a impressora predefinida desta app? \n\n'%@'";
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "O seu dispositivo não suporta a monitorização de região, não é possível soar alarmes com base na posição";
 
-/* No comment provided by engineer. */
-"Yes" = "Sim";
-
-/* No comment provided by engineer. */
-"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = ""O seu dispositivo não suporta a monitorização de região, não é possível soar alarmes com base na posição"";
-
-/* No comment provided by engineer. */
-"Print Instructions" = "Instruções de impressão";
-
-/* No comment provided by engineer. */
-"Buy sticker pack" = "Comprar conjunto de autocolantes";
-
-/* Specifies that all pages will be selected */
-"All" = "Todos";
-
-/* Specifies that no pages are selected for printing */
-"No pages selected" = "Sem páginas selecionadas";
-
-/* Used on a button for closing the dialog */
-"Done" = "Concluído";
-
-/* Text used on a button that selects all pages for printing */
-"ALL" = "TODOS";
-
-/* Text used to give an example of how to enter a page range */
-"e.g. 1,3-5" = ""Ex. 1,3-5"";
-
-/* Used to specify that a range of pages can be displayed */
-"Page Range" = "Intervalo de páginas";
-
-/* Let's the user know their job will be printed in black-and-white */
-"B&W" = "Preto e branco";
-
-/* copies label in job summary */
-"Copies" = "Cópias";
-
-/* copy label in job summary */
-"Copy" = "Copiar";
-
-/* Print button label for printing multiple jobs */
-"Print All" = "Imprimir tudo";
-
-/* No comment provide by engineer */
-"Accept" = "Aceitar";
-
-/* No comment provided by engineer. */
-"Add to Print Queue" = "Adicionar à fila de impressão";
-
-/* footer heading describing print queue */
-"What is Print Queue?" = "O que é a fila de impressão?";
-
-/* fotter text describing print queue */
-"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Adicione uma impressão à fila de impressão e receba uma notificação quando estiver próximo da impressora.  Toque na notificação ou simplesmente regresse à aplicação para imprimir os seus projetos.";
-
-/* location premission string on using print queue */
-"Current location is required to identify when your printer connection is available." = "É necessária a localização atual para identificar quando a ligação da sua impressora está disponível.";
-
-/* Print button label with multiple pages */
-"Print %ld Pages" = "Imprimir %ld páginas";
-
-/* job name label */
-"Name" = "Nome";
-
-/* Add multipage pdf to print queue button label */
-"Add %ld Pages" = "Adicionar %ld páginas";

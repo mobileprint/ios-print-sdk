@@ -1,50 +1,98 @@
-﻿/* Title of delete-from-queue confirmation dialog */
-"Delete Print from Print Queue" = "Kustuta printimine prindijärjekorrast";
-
-/* Text for confirming delete single print job */
-"Are you sure you want to delete %d Prints?" = "Kas soovite kindlasti %d printimist kustutada?";
-
-/* Text for confirming delete multiple print jobs */
-"Are you sure you want to delete 1 Print?" = "Kas soovite kindlasti 1 printimise kustutada?";
-
-/* Select all print jobs */
-"Select All" = "Vali kõik";
-
-/* Unselect all print jobs */
-"Unselect All" = "Tühista valitud";
-
-/* Proceed to the next step */
-"Next" = "Edasi";
-
-/* Single print  */
+/* No comment provided by engineer. */
 "%d Print" = "%d printimine";
 
-/* Multiple prints */
+/* No comment provided by engineer. */
 "%d Prints" = "%d printimist";
 
-/* Display x of y prints when there is only one print */
-"%d/%d Print" = "&d/%d printimine";
+/* No comment provided by engineer. */
+"%d/%d Print" = "%d/%d printimine";
 
-/* Display x of y prints when there are multiple prints */
+/* No comment provided by engineer. */
 "%d/%d Prints" = "%d/%d printimist";
 
-/* Display single copy selected */
+/* Number of copies */
+"%ld Copies" = "%ld eksemplari";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "%ld/%ld lehekülge";
+
+/* No comment provided by engineer. */
 "1 Copy" = "1 eksemplar";
 
-/* No comment provided by engineer. */
+/* Option for paper size */
+"10x13cm" = "10×13 cm";
+
+/* Option for paper size */
+"10x15cm" = "10×15 cm";
+
+/* Option for paper size */
+"13x18cm" = "13×18 cm";
+
+/* Option for paper size */
+"2 x 3" = "2×3";
+
+/* Option for paper size */
+"4 x 5" = "4×5";
+
+/* Option for paper size */
+"4 x 6" = "4×6";
+
+/* Option for paper size */
+"5 x 7" = "5×7";
+
+/* Option for paper size */
+"8.5 x 11" = "8,5×11";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add multipage pdf to print queue button label */
+"Add %ld Pages" = "Lisa %ld lehekülge";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "Lisa 1 lehekülg";
+
+/* fotter text describing print queue */
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Lisa printimine prindijärjekorda ja saage teatis, kui viibite printeri lähedal.  Projektide printimiseks koputage teatist või tulge selle rakenduse juurde tagasi.";
+
+/* Title of the Add Print to the Print Later Queue Screen */
 "Add Print" = "Lisa printimine";
 
-/* No comment provided by engineer. */
+/* Add image to print queue button label */
 "Add to Print Queue" = "Lisa prindijärjekorda";
+
+/* Text used on a button that selects all pages for printing */
+"ALL" = "KÕIK";
+
+/* No comment provided by engineer. */
+"All" = "Kõik";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "Kas soovite kindlasti %d printimist kustutada?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "Kas soovite kindlasti 1 printimise kustutada?";
+
+/* Let's the user know their job will be printed in black-and-white */
+"B&W" = "Mustvalge";
 
 /* No comment provided by engineer. */
 "Black & White mode" = "Mustvalge režiim";
 
-/* No comment provided by engineer. */
-"%ld Copies" = "%ld eksemplari";
+/* button bar cancel button */
+"Cancel" = "Katkesta";
 
-/* No comment provided by engineer. */
-"Date" = "kuupäeva";
+/* copies label in job summary */
+"Copies" = "Eksemplaride arv";
+
+/* copy label in job summary */
+"Copy" = "Eksemplar";
 
 /* No comment provided by engineer. */
 "Default printer not currently available" = "Vaikimisi printer ei ole praegu saadaval";
@@ -53,81 +101,93 @@
 "Delete" = "Kustuta";
 
 /* No comment provided by engineer. */
+"Delete Print from Print Queue" = "Kustuta printimine prindijärjekorrast";
+
+/* Used on a button for closing the dialog */
 "Done" = "Valmis";
 
-/* Generic Cancel from an action. */
-"Cancel" = "Katkesta";
+/* Text used to give an example of how to enter a page range */
+"e.g. 1,3-5" = "nt. 1,3-5";
 
-/* No comment provided by engineer. */
+/* Option of the push notification to send another push notification later */
 "Later" = "Hiljem";
 
-/* No comment provided by engineer. */
+/* Monitoring of regions (location) not available */
 "Monitoring not available" = "Jälgimist pole saadaval";
 
-/* No comment provided by engineer. */
-"Network" = "Võrk";
+/* job name label */
+"Name" = "Nimi";
 
 /* No comment provided by engineer. */
-"No default printer" = "Vaikeprinter puudub";
+"Next" = "Edasi";
 
 /* No comment provided by engineer. */
 "No Wi-Fi connection" = "Wi-Fi-ühendus pole saadaval";
 
-/* No comment provided by engineer. */
-"No, thanks" = ""Tänan, ei"";
-
-/* No comment provided by engineer. */
+/* Printer details not available */
 "Not Available" = "Pole saadaval";
 
-/* No comment provided by engineer. */
-"OK" = "OK";
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "/";
 
-/* No comment provided by engineer. */
+/* Used to specify that a range of pages can be displayed */
+"Page Range" = "Leheküljevahemik";
+
+/* Title of the Page Settings Screen */
 "Page Settings" = "Lehe sätted";
 
-/* No comment provided by engineer. */
-"Paper Settings Screen" = "Paberisätete ekraan";
-
-/* No comment provided by engineer. */
+/* Title of the Paper Size screen */
 "Paper Size" = "Paberi formaat";
 
-/* No comment provided by engineer. */
+/* Title of the Paper Type screen */
 "Paper Type" = "Paberi tüüp";
 
-/* No comment provided by engineer. */
+/* Default job name of the print send to the printer */
 "Photo" = "Foto";
 
-/* No comment provided by engineer. */
+/* Option for paper type */
 "Photo Paper" = "Fotopaber";
 
-/* No comment provided by engineer. */
+/* Option for paper type */
 "Plain Paper" = "Tavapaber";
 
-/* No comment provided by engineer. */
+/* Title of the Preview pane in any print or add-to-queue screen */
 "Preview" = "Eelvaade";
 
-/* No comment provided by engineer. */
+/* Print button label */
 "Print" = "Prindi";
 
-/* No comment provided by engineer. */
+/* Print button label with multiple pages */
+"Print %ld Pages" = "Prindi %ld lehte";
+
+/* Print button label single page */
+"Print 1 Page" = "Prindi 1 leht";
+
+/* Print button label for printing multiple jobs */
+"Print All" = "Prindi kõik";
+
+/* Caption of the button for printing */
 "Print all %lu" = "Prindi kõik %lu";
 
-/* No comment provided by engineer. */
+/* Caption of the button for printing */
 "Print both" = "Prindi mõlemad";
 
-/* No comment provided by engineer. */
+/* Activity title of the print queue when the share button is tapped */
 "Print Queue" = "Prindijärjekord";
 
 /* No comment provided by engineer. */
 "Print queue is empty" = "Prindijärjekord on tühi";
 
-/* No comment provided by engineer. */
+/* Title of the print settings screen */
 "Print Settings" = "Prindisätted";
+
+/* Bluetooth print button label */
+"Print to sprocket" = "Printige sprocketile";
 
 /* No comment provided by engineer. */
 "Printer" = "Printer";
 
-/* No comment provided by engineer. */
+/* The printer is available and there are print later jobs in the print queue */
 "Printer nearby. Projects waiting to be printed..." = "Printer on lähedal. Printimist ootavad projektid …";
 
 /* No comment provided by engineer. */
@@ -135,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "Recent printer not currently available" = "Viimast printerit ei ole praegu saadaval";
+
+/* No comment provided by engineer. */
+"Select All" = "Vali kõik";
 
 /* No comment provided by engineer. */
 "Select Printer" = "Vali printer";
@@ -145,77 +208,18 @@
 /* No comment provided by engineer. */
 "Settings" = "Sätted";
 
-/* No comment provided by engineer. */
+/* Title of a table section */
 "SUPPORT:" = "TUGI:";
+
+/* No comment provided by engineer. */
+"Unselect All" = "Tühista valitud";
+
+/* footer heading describing print queue */
+"What is Print Queue?" = "Mis on prindijärjekord?";
 
 /* No comment provided by engineer. */
 "Wi-Fi Required" = "Wi-Fi-ühendus on nõutav";
 
 /* No comment provided by engineer. */
-"Would you like to set the following as this app's default printer?\n\n'%@'" = "Kas sooviksite järgneva selle rakenduse vaikeprinteriks lisada?\n\n'%@'";
-
-/* No comment provided by engineer. */
-"Yes" = "Jah";
-
-/* No comment provided by engineer. */
 "Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Teie seade ei toeta piirkonna jälgimist ja asukoha põhjal pole võimalik häireid vallandada";
 
-/* No comment provided by engineer. */
-"Print Instructions" = "Printimisjuhised";
-
-/* No comment provided by engineer. */
-"Buy sticker pack" = "Ostke kleebistepakk";
-
-/* Specifies that all pages will be selected */
-"All" = "Kõik";
-
-/* Specifies that no pages are selected for printing */
-"No pages selected" = "Valitud pole ühtegi lehekülge";
-
-/* Used on a button for closing the dialog */
-"Done" = "Valmis";
-
-/* Text used on a button that selects all pages for printing */
-"ALL" = "KÕIK";
-
-/* Text used to give an example of how to enter a page range */
-"e.g. 1,3-5" = ""nt. 1,3-5"";
-
-/* Used to specify that a range of pages can be displayed */
-"Page Range" = "Leheküljevahemik";
-
-/* Let's the user know their job will be printed in black-and-white */
-"B&W" = "Mustvalge";
-
-/* copies label in job summary */
-"Copies" = "Eksemplaride arv";
-
-/* copy label in job summary */
-"Copy" = "Eksemplar";
-
-/* Print button label for printing multiple jobs */
-"Print All" = "Prindi kõik";
-
-/* No comment provide by engineer */
-"Accept" = "Aktsepteeri";
-
-/* No comment provided by engineer. */
-"Add to Print Queue" = "Lisa prindijärjekorda";
-
-/* footer heading describing print queue */
-"What is Print Queue?" = "Mis on prindijärjekord?";
-
-/* fotter text describing print queue */
-"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = ""Lisa printimine prindijärjekorda ja saage teatis, kui viibite printeri lähedal.  Projektide printimiseks koputage teatist või tulge selle rakenduse juurde tagasi."";
-
-/* location premission string on using print queue */
-"Current location is required to identify when your printer connection is available." = "Printeriühenduse saadavaloleku kindlakstegemiseks on vaja praegust asukohta.";
-
-/* Print button label with multiple pages */
-"Print %ld Pages" = "Prindi %ld lehte";
-
-/* job name label */
-"Name" = "Nimi";
-
-/* Add multipage pdf to print queue button label */
-"Add %ld Pages" = "Lisa %ld lehekülge";

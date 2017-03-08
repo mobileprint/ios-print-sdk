@@ -1,50 +1,98 @@
-﻿/* Title of delete-from-queue confirmation dialog */
-"Delete Print from Print Queue" = "Radera utskrift från utskriftskön";
-
-/* Text for confirming delete single print job */
-"Are you sure you want to delete %d Prints?" = "Är du säker på att du vill ta bort %d utskrifter?";
-
-/* Text for confirming delete multiple print jobs */
-"Are you sure you want to delete 1 Print?" = "Är du säker på att du vill ta bort 1 utskrift?";
-
-/* Select all print jobs */
-"Select All" = "Välj alla";
-
-/* Unselect all print jobs */
-"Unselect All" = "Avmarkera alla";
-
-/* Proceed to the next step */
-"Next" = "Nästa";
-
-/* Single print  */
+/* No comment provided by engineer. */
 "%d Print" = "%d Utskrift";
 
-/* Multiple prints */
+/* No comment provided by engineer. */
 "%d Prints" = "%d Utskrifter";
 
-/* Display x of y prints when there is only one print */
-"%d/%d Print" = "%d/%d Utskrift";
+/* No comment provided by engineer. */
+"%d/%d Print" = "%d / %d Utskrift";
 
-/* Display x of y prints when there are multiple prints */
-"%d/%d Prints" = "%d/%d Utskrifter";
+/* No comment provided by engineer. */
+"%d/%d Prints" = "%d / %d Utskrifter";
 
-/* Display single copy selected */
+/* Number of copies */
+"%ld Copies" = "%ld kopior";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "%ld of %ld Sidor";
+
+/* No comment provided by engineer. */
 "1 Copy" = "1 Kopia";
 
-/* No comment provided by engineer. */
+/* Option for paper size */
+"10x13cm" = "10x13cm";
+
+/* Option for paper size */
+"10x15cm" = "10x15cm";
+
+/* Option for paper size */
+"13x18cm" = "13x18cm";
+
+/* Option for paper size */
+"2 x 3" = "2 x 3";
+
+/* Option for paper size */
+"4 x 5" = "4 x 5";
+
+/* Option for paper size */
+"4 x 6" = "4 x 6";
+
+/* Option for paper size */
+"5 x 7" = "5 x 7";
+
+/* Option for paper size */
+"8.5 x 11" = "8,5 x 11";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add multipage pdf to print queue button label */
+"Add %ld Pages" = "Lägg till %ld sidor";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "Lägg till 1 sida";
+
+/* fotter text describing print queue */
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Lägg till en utskrift i utskriftskön och få ett meddelande när du är nära din skrivare.   Klicka på ditt meddelande eller gå bara tillbaka till den här appen för att skriva ut dina projekt.";
+
+/* Title of the Add Print to the Print Later Queue Screen */
 "Add Print" = "Lägg till utskrift";
 
-/* No comment provided by engineer. */
+/* Add image to print queue button label */
 "Add to Print Queue" = "Lägg till i utskriftskön";
+
+/* Text used on a button that selects all pages for printing */
+"ALL" = "Alla";
+
+/* No comment provided by engineer. */
+"All" = "Alla";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "Är du säker på att du vill ta bort %d utskrifter?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "Är du säker på att du vill ta bort 1 utskrift?";
+
+/* Let's the user know their job will be printed in black-and-white */
+"B&W" = "Svartvitt";
 
 /* No comment provided by engineer. */
 "Black & White mode" = "Svartvit läge";
 
-/* No comment provided by engineer. */
-"%ld Copies" = "%ld kopior";
+/* button bar cancel button */
+"Cancel" = "Avbryt";
 
-/* No comment provided by engineer. */
-"Date" = "Datum";
+/* copies label in job summary */
+"Copies" = "Kopior";
+
+/* copy label in job summary */
+"Copy" = "Kopia";
 
 /* No comment provided by engineer. */
 "Default printer not currently available" = "Standardskrivaren är för närvarande inte tillgänglig";
@@ -53,81 +101,93 @@
 "Delete" = "Radera";
 
 /* No comment provided by engineer. */
+"Delete Print from Print Queue" = "Radera utskrift från utskriftskön";
+
+/* Used on a button for closing the dialog */
 "Done" = "Klar";
 
-/* Generic Cancel from an action. */
-"Cancel" = "Avbryt";
+/* Text used to give an example of how to enter a page range */
+"e.g. 1,3-5" = "t.ex. 1,3–5";
 
-/* No comment provided by engineer. */
+/* Option of the push notification to send another push notification later */
 "Later" = "Senare";
 
-/* No comment provided by engineer. */
+/* Monitoring of regions (location) not available */
 "Monitoring not available" = "Övervakning är inte tillgängligt";
 
-/* No comment provided by engineer. */
-"Network" = "Nätverk";
+/* job name label */
+"Name" = "Namn";
 
 /* No comment provided by engineer. */
-"No default printer" = "Ingen standardskrivare";
+"Next" = "Nästa";
 
 /* No comment provided by engineer. */
 "No Wi-Fi connection" = "Ingen Wi-Fi-anslutning";
 
-/* No comment provided by engineer. */
-"No, thanks" = "Nej tack";
-
-/* No comment provided by engineer. */
+/* Printer details not available */
 "Not Available" = "Ej tillgängligt";
 
-/* No comment provided by engineer. */
-"OK" = "OK";
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "av";
 
-/* No comment provided by engineer. */
+/* Used to specify that a range of pages can be displayed */
+"Page Range" = "Sidomfång";
+
+/* Title of the Page Settings Screen */
 "Page Settings" = "Sidinställningar";
 
-/* No comment provided by engineer. */
-"Paper Settings Screen" = "Pappersinställningsskärm";
-
-/* No comment provided by engineer. */
+/* Title of the Paper Size screen */
 "Paper Size" = "Pappersformat";
 
-/* No comment provided by engineer. */
+/* Title of the Paper Type screen */
 "Paper Type" = "Papperstyp";
 
-/* No comment provided by engineer. */
+/* Default job name of the print send to the printer */
 "Photo" = "Foto";
 
-/* No comment provided by engineer. */
+/* Option for paper type */
 "Photo Paper" = "Fotopapper";
 
-/* No comment provided by engineer. */
+/* Option for paper type */
 "Plain Paper" = "Vanligt papper";
 
-/* No comment provided by engineer. */
+/* Title of the Preview pane in any print or add-to-queue screen */
 "Preview" = "Förhandsvisning";
 
-/* No comment provided by engineer. */
+/* Print button label */
 "Print" = "Skriv ut";
 
-/* No comment provided by engineer. */
+/* Print button label with multiple pages */
+"Print %ld Pages" = "Skriv ut %ld sidor";
+
+/* Print button label single page */
+"Print 1 Page" = "Skriv 1 sida";
+
+/* Print button label for printing multiple jobs */
+"Print All" = "Skriv ut alla";
+
+/* Caption of the button for printing */
 "Print all %lu" = "Skriva ut alla %lu";
 
-/* No comment provided by engineer. */
+/* Caption of the button for printing */
 "Print both" = "Skriv ut båda";
 
-/* No comment provided by engineer. */
+/* Activity title of the print queue when the share button is tapped */
 "Print Queue" = "Utskriftskö";
 
 /* No comment provided by engineer. */
 "Print queue is empty" = "Utskriftskön är tom";
 
-/* No comment provided by engineer. */
+/* Title of the print settings screen */
 "Print Settings" = "Utskriftsinställningar";
+
+/* Bluetooth print button label */
+"Print to sprocket" = "Skriv ut med Sprocket";
 
 /* No comment provided by engineer. */
 "Printer" = "Skrivare";
 
-/* No comment provided by engineer. */
+/* The printer is available and there are print later jobs in the print queue */
 "Printer nearby. Projects waiting to be printed..." = "Skrivare är nära Projekt väntas på att skrivas ut ...";
 
 /* No comment provided by engineer. */
@@ -135,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "Recent printer not currently available" = "Ny skrivare är för närvarande inte tillgänglig";
+
+/* No comment provided by engineer. */
+"Select All" = "Välj alla";
 
 /* No comment provided by engineer. */
 "Select Printer" = "Välj Skrivare";
@@ -145,77 +208,18 @@
 /* No comment provided by engineer. */
 "Settings" = "Inställningar";
 
-/* No comment provided by engineer. */
+/* Title of a table section */
 "SUPPORT:" = "SUPPORT:";
+
+/* No comment provided by engineer. */
+"Unselect All" = "Avmarkera alla";
+
+/* footer heading describing print queue */
+"What is Print Queue?" = "Vad är utskriftskö?";
 
 /* No comment provided by engineer. */
 "Wi-Fi Required" = "WiFi krävs";
 
 /* No comment provided by engineer. */
-"Would you like to set the following as this app's default printer?\n\n'%@'" = "Vill du ange följande som den här appens standardskrivare?\n\n'%@'";
-
-/* No comment provided by engineer. */
-"Yes" = "Ja";
-
-/* No comment provided by engineer. */
 "Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Din enhet stöder inte den regionala övervakningen. Det är inte möjligt att utlösa alarm utifrån position.";
 
-/* No comment provided by engineer. */
-"Print Instructions" = "Utskriftsanvisningar";
-
-/* No comment provided by engineer. */
-"Buy sticker pack" = "Köp klistermärkespaketet";
-
-/* Specifies that all pages will be selected */
-"All" = "Alla";
-
-/* Specifies that no pages are selected for printing */
-"No pages selected" = "Inga sidor har valts";
-
-/* Used on a button for closing the dialog */
-"Done" = "Klar";
-
-/* Text used on a button that selects all pages for printing */
-"ALL" = "Alla";
-
-/* Text used to give an example of how to enter a page range */
-"e.g. 1,3-5" = ""t.ex. 1,3–5"";
-
-/* Used to specify that a range of pages can be displayed */
-"Page Range" = "Sidomfång";
-
-/* Let's the user know their job will be printed in black-and-white */
-"B&W" = "Svartvitt";
-
-/* copies label in job summary */
-"Copies" = "Kopior";
-
-/* copy label in job summary */
-"Copy" = "Kopia";
-
-/* Print button label for printing multiple jobs */
-"Print All" = "Skriv ut alla";
-
-/* No comment provide by engineer */
-"Accept" = "Godkänn";
-
-/* No comment provided by engineer. */
-"Add to Print Queue" = "Lägg till i utskriftskön";
-
-/* footer heading describing print queue */
-"What is Print Queue?" = "Vad är utskriftskö?";
-
-/* fotter text describing print queue */
-"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Lägg till en utskrift i utskriftskön och få ett meddelande när du är nära din skrivare.   Klicka på ditt meddelande eller gå bara tillbaka till den här appen för att skriva ut dina projekt.";
-
-/* location premission string on using print queue */
-"Current location is required to identify when your printer connection is available." = "Nuvarande plats krävs för att identifiera när anslutningen till din skrivare är tillgänglig.";
-
-/* Print button label with multiple pages */
-"Print %ld Pages" = "Skriv ut %ld sidor";
-
-/* job name label */
-"Name" = "Namn";
-
-/* Add multipage pdf to print queue button label */
-"Add %ld Pages" = "Lägg till %ld sidor";
