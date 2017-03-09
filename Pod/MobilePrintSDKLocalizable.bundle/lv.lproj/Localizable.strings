@@ -1,50 +1,98 @@
-﻿/* Title of delete-from-queue confirmation dialog */
-"Delete Print from Print Queue" = "Dzēst izdruku no drukas rindas";
-
-/* Text for confirming delete single print job */
-"Are you sure you want to delete %d Prints?" = "Vai tiešām vēlaties izdzēst %d izdrukas?";
-
-/* Text for confirming delete multiple print jobs */
-"Are you sure you want to delete 1 Print?" = "Vai tiešām vēlaties izdzēst 1 izdruku?";
-
-/* Select all print jobs */
-"Select All" = "Atlasīt visu";
-
-/* Unselect all print jobs */
-"Unselect All" = "Noņemt visu atlasi";
-
-/* Proceed to the next step */
-"Next" = "Tālāk";
-
-/* Single print  */
+/* No comment provided by engineer. */
 "%d Print" = "%d izdruka";
 
-/* Multiple prints */
+/* No comment provided by engineer. */
 "%d Prints" = "%d izdrukas";
 
-/* Display x of y prints when there is only one print */
+/* No comment provided by engineer. */
 "%d/%d Print" = "%d/%d izdruka";
 
-/* Display x of y prints when there are multiple prints */
+/* No comment provided by engineer. */
 "%d/%d Prints" = "%d/%d izdrukas";
 
-/* Display single copy selected */
+/* Number of copies */
+"%ld Copies" = "%ld kopijas";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "%ld no %ld lapām";
+
+/* No comment provided by engineer. */
 "1 Copy" = "1 kopija";
 
-/* No comment provided by engineer. */
+/* Option for paper size */
+"10x13cm" = "10 × 13 cm";
+
+/* Option for paper size */
+"10x15cm" = "10 × 15 cm";
+
+/* Option for paper size */
+"13x18cm" = "13 × 18 cm";
+
+/* Option for paper size */
+"2 x 3" = "2 × 3";
+
+/* Option for paper size */
+"4 x 5" = "4 × 5";
+
+/* Option for paper size */
+"4 x 6" = "4 × 6";
+
+/* Option for paper size */
+"5 x 7" = "5 × 7";
+
+/* Option for paper size */
+"8.5 x 11" = "8,5 × 11";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add multipage pdf to print queue button label */
+"Add %ld Pages" = "Pievienot %ld lapas";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "Pievienot 1 lapu";
+
+/* fotter text describing print queue */
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Pievienojiet izdruku drukas rindai un saņemiet paziņojumu, kad esat sava printera tuvumā.  Pieskarieties savam paziņojumam vai vienkārši atveriet atkal šo programmu, lai izdrukātu savus projektus.";
+
+/* Title of the Add Print to the Print Later Queue Screen */
 "Add Print" = "Pievienot printeri";
 
-/* No comment provided by engineer. */
+/* Add image to print queue button label */
 "Add to Print Queue" = "Pievienot drukas rindai";
+
+/* Text used on a button that selects all pages for printing */
+"ALL" = "VISU";
+
+/* No comment provided by engineer. */
+"All" = "Visas";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "Vai tiešām vēlaties izdzēst %d izdrukas?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "Vai tiešām vēlaties izdzēst 1 izdruku?";
+
+/* Let's the user know their job will be printed in black-and-white */
+"B&W" = "Melnbalts";
 
 /* No comment provided by engineer. */
 "Black & White mode" = "Melnbaltas drukas režīms";
 
-/* No comment provided by engineer. */
-"%ld Copies" = "%ld kopijas";
+/* button bar cancel button */
+"Cancel" = "Atcelt";
 
-/* No comment provided by engineer. */
-"Date" = "datumu.";
+/* copies label in job summary */
+"Copies" = "Kopijas";
+
+/* copy label in job summary */
+"Copy" = "Kopēt";
 
 /* No comment provided by engineer. */
 "Default printer not currently available" = "Noklusējuma printeris pašreiz nav pieejams";
@@ -53,169 +101,125 @@
 "Delete" = "Dzēst";
 
 /* No comment provided by engineer. */
+"Delete Print from Print Queue" = "Dzēst izdruku no drukas rindas";
+
+/* Used on a button for closing the dialog */
 "Done" = "Gatavs";
 
-/* Generic Cancel from an action. */
-"Cancel" = "Atcelt";
+/* Text used to give an example of how to enter a page range */
+"e.g. 1,3-5" = "piem. 1,3-5";
 
-/* No comment provided by engineer. */
+/* Option of the push notification to send another push notification later */
 "Later" = "Vēlāk";
 
-/* No comment provided by engineer. */
+/* Monitoring of regions (location) not available */
 "Monitoring not available" = "Uzraudzības iespēja nav pieejama";
 
-/* No comment provided by engineer. */
-"Network" = "Tīkls";
+/* job name label */
+"Name" = "Nosaukums";
 
 /* No comment provided by engineer. */
-"No default printer" = "Nav noklusējuma printera";
+"Next" = "Tālāk";
 
 /* No comment provided by engineer. */
 "No Wi-Fi connection" = "Nav Wi-Fi savienojuma";
 
-/* No comment provided by engineer. */
-"No, thanks" = ""Nē, paldies!"";
-
-/* No comment provided by engineer. */
+/* Printer details not available */
 "Not Available" = "Nav pieejams";
 
-/* No comment provided by engineer. */
-"OK" = "Labi";
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "no";
 
-/* No comment provided by engineer. */
+/* Used to specify that a range of pages can be displayed */
+"Page Range" = "Lappušu diapazons";
+
+/* Title of the Page Settings Screen */
 "Page Settings" = "Lapas iestatījumi";
 
-/* No comment provided by engineer. */
-"Paper Settings Screen" = "Papīra iestatījumu ekrāns";
-
-/* No comment provided by engineer. */
+/* Title of the Paper Size screen */
 "Paper Size" = "Papīra formāts";
 
-/* No comment provided by engineer. */
+/* Title of the Paper Type screen */
 "Paper Type" = "Papīra veids";
 
-/* No comment provided by engineer. */
+/* Default job name of the print send to the printer */
 "Photo" = "Fotoattēls";
 
-/* No comment provided by engineer. */
+/* Option for paper type */
 "Photo Paper" = "Fotopapīrs";
 
-/* No comment provided by engineer. */
+/* Option for paper type */
 "Plain Paper" = "Parasts papīrs";
 
-/* No comment provided by engineer. */
+/* Title of the Preview pane in any print or add-to-queue screen */
 "Preview" = "Priekšskatījums";
 
-/* No comment provided by engineer. */
+/* Print button label */
 "Print" = "Drukāt";
 
-/* No comment provided by engineer. */
+/* Print button label with multiple pages */
+"Print %ld Pages" = "Drukāt %ld lapas";
+
+/* Print button label single page */
+"Print 1 Page" = "Drukāt 1 lapu";
+
+/* Print button label for printing multiple jobs */
+"Print All" = "Drukāt visu";
+
+/* Caption of the button for printing */
 "Print all %lu" = "Drukāt visas %lu";
 
-/* No comment provided by engineer. */
+/* Caption of the button for printing */
 "Print both" = "Drukāt abas";
 
-/* No comment provided by engineer. */
+/* Activity title of the print queue when the share button is tapped */
 "Print Queue" = "Drukas rinda";
 
 /* No comment provided by engineer. */
 "Print queue is empty" = "Drukas rinda ir tukšs";
 
-/* No comment provided by engineer. */
+/* Title of the print settings screen */
 "Print Settings" = "Drukas iestatījumi";
+
+/* Bluetooth print button label */
+"Print to sprocket" = "Drukāt Sprocket printerī";
 
 /* No comment provided by engineer. */
 "Printer" = "Printeris";
 
-/* No comment provided by engineer. */
-"Printer nearby. Projects waiting to be printed..." = ""Tuvumā esošs printeris. Projekti, kas gaida drukāšanu..."";
+/* The printer is available and there are print later jobs in the print queue */
+"Printer nearby. Projects waiting to be printed..." = "Tuvumā esošs printeris. Projekti, kas gaida drukāšanu...";
 
 /* No comment provided by engineer. */
-"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = ""Lai drukātu, jūsu mobilajai ierīcei un printerim jābūt vienā Wi-Fi tīklā. Lūdzu, pārbaudiet savus Wi-Fi iestatījumus."";
+"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Lai drukātu, jūsu mobilajai ierīcei un printerim jābūt vienā Wi-Fi tīklā. Lūdzu, pārbaudiet savus Wi-Fi iestatījumus.";
 
 /* No comment provided by engineer. */
 "Recent printer not currently available" = "Pēdējais izmantotais printeris pašreiz nav pieejams";
 
 /* No comment provided by engineer. */
+"Select All" = "Atlasīt visu";
+
+/* No comment provided by engineer. */
 "Select Printer" = "Atlasīt printeri";
 
 /* No comment provided by engineer. */
-"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = ""Lai atlasītu printeri, jūsu mobilajai ierīcei un printerim jābūt vienā Wi-Fi tīklā. Lūdzu, pārbaudiet savus Wi-Fi iestatījumus."";
+"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Lai atlasītu printeri, jūsu mobilajai ierīcei un printerim jābūt vienā Wi-Fi tīklā. Lūdzu, pārbaudiet savus Wi-Fi iestatījumus.";
 
 /* No comment provided by engineer. */
 "Settings" = "Iestatījumi";
 
-/* No comment provided by engineer. */
+/* Title of a table section */
 "SUPPORT:" = "ATBALSTS:";
+
+/* No comment provided by engineer. */
+"Unselect All" = "Noņemt visu atlasi";
+
+/* footer heading describing print queue */
+"What is Print Queue?" = "Kas ir drukas rinda?";
 
 /* No comment provided by engineer. */
 "Wi-Fi Required" = "Nepieciešams Wi-Fi savienojums";
 
 /* No comment provided by engineer. */
-"Would you like to set the following as this app's default printer?\n\n'%@'" = "Vai iestatīt tālāk norādīto printeri kā noklusējuma printeri šajā programmā?\n\n'%@'";
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Jūsu ierīce neatbalsta reģiona uzraudzības iespēju, tādēļ nav iespējams aktivizēt brīdinājumus, pamatojoties uz atrašanās vietu.";
 
-/* No comment provided by engineer. */
-"Yes" = "Jā";
-
-/* No comment provided by engineer. */
-"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = ""Jūsu ierīce neatbalsta reģiona uzraudzības iespēju, tādēļ nav iespējams aktivizēt brīdinājumus, pamatojoties uz atrašanās vietu."";
-
-/* No comment provided by engineer. */
-"Print Instructions" = "Drukāšanas norādījumi";
-
-/* No comment provided by engineer. */
-"Buy sticker pack" = "Iegādāties uzlīmju paku";
-
-/* Specifies that all pages will be selected */
-"All" = "Visu";
-
-/* Specifies that no pages are selected for printing */
-"No pages selected" = "Nav atlasītu lappušu";
-
-/* Used on a button for closing the dialog */
-"Done" = "Gatavs";
-
-/* Text used on a button that selects all pages for printing */
-"ALL" = "VISU";
-
-/* Text used to give an example of how to enter a page range */
-"e.g. 1,3-5" = ""piem. 1,3-5"";
-
-/* Used to specify that a range of pages can be displayed */
-"Page Range" = "Lappušu diapazons";
-
-/* Let's the user know their job will be printed in black-and-white */
-"B&W" = "Melnbalts";
-
-/* copies label in job summary */
-"Copies" = "Kopijas";
-
-/* copy label in job summary */
-"Copy" = "Kopēt";
-
-/* Print button label for printing multiple jobs */
-"Print All" = "Drukāt visu";
-
-/* No comment provide by engineer */
-"Accept" = "Apstiprināt";
-
-/* No comment provided by engineer. */
-"Add to Print Queue" = "Pievienot drukas rindai";
-
-/* footer heading describing print queue */
-"What is Print Queue?" = "Kas ir drukas rinda?";
-
-/* fotter text describing print queue */
-"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = ""Pievienojiet izdruku drukas rindai un saņemiet paziņojumu, kad esat sava printera tuvumā.  Pieskarieties savam paziņojumam vai vienkārši atveriet atkal šo programmu, lai izdrukātu savus projektus."";
-
-/* location premission string on using print queue */
-"Current location is required to identify when your printer connection is available." = ""Lai noteiktu printera savienojuma pieejamību, jānorāda pašreizējā atrašanās vieta."";
-
-/* Print button label with multiple pages */
-"Print %ld Pages" = "Drukāt %ld lapas";
-
-/* job name label */
-"Name" = "Nosaukums";
-
-/* Add multipage pdf to print queue button label */
-"Add %ld Pages" = "Pievienot %ld lapas";

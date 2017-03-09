@@ -1,50 +1,98 @@
-﻿/* Title of delete-from-queue confirmation dialog */
-"Delete Print from Print Queue" = "Poista tuloste tulostusjonosta";
-
-/* Text for confirming delete single print job */
-"Are you sure you want to delete %d Prints?" = "Haluatko varmasti poistaa %d tulostetta?";
-
-/* Text for confirming delete multiple print jobs */
-"Are you sure you want to delete 1 Print?" = "Haluatko varmasti poistaa yhden tulosteen?";
-
-/* Select all print jobs */
-"Select All" = "Valitse kaikki";
-
-/* Unselect all print jobs */
-"Unselect All" = "Poista kaikkien valinta";
-
-/* Proceed to the next step */
-"Next" = "Seuraava";
-
-/* Single print  */
+/* No comment provided by engineer. */
 "%d Print" = "%d tuloste";
 
-/* Multiple prints */
+/* No comment provided by engineer. */
 "%d Prints" = "%d tulostetta";
 
-/* Display x of y prints when there is only one print */
+/* No comment provided by engineer. */
 "%d/%d Print" = "%d/%d tuloste";
 
-/* Display x of y prints when there are multiple prints */
+/* No comment provided by engineer. */
 "%d/%d Prints" = "%d/%d tulostetta";
 
-/* Display single copy selected */
+/* Number of copies */
+"%ld Copies" = "%ld kopiota";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "%ld/%ld sivua";
+
+/* No comment provided by engineer. */
 "1 Copy" = "1 kopio";
 
-/* No comment provided by engineer. */
+/* Option for paper size */
+"10x13cm" = "10x13 cm";
+
+/* Option for paper size */
+"10x15cm" = "10x15 cm";
+
+/* Option for paper size */
+"13x18cm" = "13x18 cm";
+
+/* Option for paper size */
+"2 x 3" = "2x3";
+
+/* Option for paper size */
+"4 x 5" = "4x5";
+
+/* Option for paper size */
+"4 x 6" = "4x6";
+
+/* Option for paper size */
+"5 x 7" = "5x7";
+
+/* Option for paper size */
+"8.5 x 11" = "8,5x11";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add multipage pdf to print queue button label */
+"Add %ld Pages" = "Lisää %ld sivua";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "Lisää 1 sivu";
+
+/* fotter text describing print queue */
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Lisää tuloste tulostusjonoon, niin saat ilmoituksen, kun olet lähellä tulostinta.  Tulosta työt napauttamalla ilmoitusta tai palaamalla sovellukseen.";
+
+/* Title of the Add Print to the Print Later Queue Screen */
 "Add Print" = "Lisää tuloste";
 
-/* No comment provided by engineer. */
+/* Add image to print queue button label */
 "Add to Print Queue" = "Lisää tulostusjonoon";
+
+/* Text used on a button that selects all pages for printing */
+"ALL" = "KAIKKI";
+
+/* No comment provided by engineer. */
+"All" = "Kaikki";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "Haluatko varmasti poistaa %d tulostetta?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "Haluatko varmasti poistaa yhden tulosteen?";
+
+/* Let's the user know their job will be printed in black-and-white */
+"B&W" = "MV";
 
 /* No comment provided by engineer. */
 "Black & White mode" = "Mustavalkotila";
 
-/* No comment provided by engineer. */
-"%ld Copies" = "%ld kopiota";
+/* button bar cancel button */
+"Cancel" = "Peruuta";
 
-/* No comment provided by engineer. */
-"Date" = "Päivämäärä";
+/* copies label in job summary */
+"Copies" = "Kopiot";
+
+/* copy label in job summary */
+"Copy" = "Kopioi";
 
 /* No comment provided by engineer. */
 "Default printer not currently available" = "Oletustulostin ei ole tällä hetkellä saatavilla";
@@ -53,169 +101,125 @@
 "Delete" = "Poista";
 
 /* No comment provided by engineer. */
+"Delete Print from Print Queue" = "Poista tuloste tulostusjonosta";
+
+/* Used on a button for closing the dialog */
 "Done" = "Valmis";
 
-/* Generic Cancel from an action. */
-"Cancel" = "Peruuta";
+/* Text used to give an example of how to enter a page range */
+"e.g. 1,3-5" = "esim. 1,3–5";
 
-/* No comment provided by engineer. */
+/* Option of the push notification to send another push notification later */
 "Later" = "Myöhemmin";
 
-/* No comment provided by engineer. */
+/* Monitoring of regions (location) not available */
 "Monitoring not available" = "Seuranta ei ole saatavilla";
 
-/* No comment provided by engineer. */
-"Network" = "Verkko";
+/* job name label */
+"Name" = "Nimi";
 
 /* No comment provided by engineer. */
-"No default printer" = "Ei oletustulostinta";
+"Next" = "Seuraava";
 
 /* No comment provided by engineer. */
 "No Wi-Fi connection" = "Ei Wi-Fi-yhteyttä";
 
-/* No comment provided by engineer. */
-"No, thanks" = "Ei kiitos";
-
-/* No comment provided by engineer. */
+/* Printer details not available */
 "Not Available" = "Ei käytettävissä";
 
-/* No comment provided by engineer. */
-"OK" = "OK";
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "/";
 
-/* No comment provided by engineer. */
+/* Used to specify that a range of pages can be displayed */
+"Page Range" = "Sivualue";
+
+/* Title of the Page Settings Screen */
 "Page Settings" = "Sivun asetukset";
 
-/* No comment provided by engineer. */
-"Paper Settings Screen" = "Paperin asetusnäyttö";
-
-/* No comment provided by engineer. */
+/* Title of the Paper Size screen */
 "Paper Size" = "Paperikoko";
 
-/* No comment provided by engineer. */
+/* Title of the Paper Type screen */
 "Paper Type" = "Paperityyppi";
 
-/* No comment provided by engineer. */
+/* Default job name of the print send to the printer */
 "Photo" = "Valokuva";
 
-/* No comment provided by engineer. */
+/* Option for paper type */
 "Photo Paper" = "Valokuvapaperi";
 
-/* No comment provided by engineer. */
+/* Option for paper type */
 "Plain Paper" = "Tavallinen paperi";
 
-/* No comment provided by engineer. */
+/* Title of the Preview pane in any print or add-to-queue screen */
 "Preview" = "Esikatselu";
 
-/* No comment provided by engineer. */
+/* Print button label */
 "Print" = "Tulosta";
 
-/* No comment provided by engineer. */
+/* Print button label with multiple pages */
+"Print %ld Pages" = "Tulosta %ld sivua";
+
+/* Print button label single page */
+"Print 1 Page" = "Tulosta 1 sivu";
+
+/* Print button label for printing multiple jobs */
+"Print All" = "Tulosta kaikki";
+
+/* Caption of the button for printing */
 "Print all %lu" = "Tulosta kaikki %lu";
 
-/* No comment provided by engineer. */
+/* Caption of the button for printing */
 "Print both" = "Tulosta molemmat";
 
-/* No comment provided by engineer. */
+/* Activity title of the print queue when the share button is tapped */
 "Print Queue" = "Tulostusjono";
 
 /* No comment provided by engineer. */
 "Print queue is empty" = "Tulostusjono on tyhjä";
 
-/* No comment provided by engineer. */
+/* Title of the print settings screen */
 "Print Settings" = "Tulostusasetukset";
+
+/* Bluetooth print button label */
+"Print to sprocket" = "Tulosta sprocketiin";
 
 /* No comment provided by engineer. */
 "Printer" = "Tulostin";
 
-/* No comment provided by engineer. */
+/* The printer is available and there are print later jobs in the print queue */
 "Printer nearby. Projects waiting to be printed..." = "Tulostin lähellä. Tulostusta odottavat työt...";
 
 /* No comment provided by engineer. */
-"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = ""Tulostus ei ole mahdollista, jos mobiililaite ja tulostin eivät ole samassa Wi-Fi-verkossa. Tarkista Wi-Fi-asetukset."";
+"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Tulostus ei ole mahdollista, jos mobiililaite ja tulostin eivät ole samassa Wi-Fi-verkossa. Tarkista Wi-Fi-asetukset.";
 
 /* No comment provided by engineer. */
 "Recent printer not currently available" = "Äskettäin käytetty tulostin ei ole saatavana.";
 
 /* No comment provided by engineer. */
+"Select All" = "Valitse kaikki";
+
+/* No comment provided by engineer. */
 "Select Printer" = "Valitse tulostin";
 
 /* No comment provided by engineer. */
-"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = ""Tulostinta ei voida valita, jos mobiililaite ja tulostin eivät ole samassa Wi-Fi-verkossa. Tarkista Wi-Fi-asetukset."";
+"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Tulostinta ei voida valita, jos mobiililaite ja tulostin eivät ole samassa Wi-Fi-verkossa. Tarkista Wi-Fi-asetukset.";
 
 /* No comment provided by engineer. */
 "Settings" = "Asetukset";
 
-/* No comment provided by engineer. */
+/* Title of a table section */
 "SUPPORT:" = "TUKI:";
+
+/* No comment provided by engineer. */
+"Unselect All" = "Poista kaikkien valinta";
+
+/* footer heading describing print queue */
+"What is Print Queue?" = "Mikä on tulostusjono?";
 
 /* No comment provided by engineer. */
 "Wi-Fi Required" = "Wi-Fi pakollinen";
 
 /* No comment provided by engineer. */
-"Would you like to set the following as this app's default printer?\n\n'%@'" = "Haluatko tehdä seuraavasta tämän sovelluksen oletustulostimen?\n\n'%@'";
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Laite ei tue paikannusta, ilmoituksia ei voida antaa sijainnin perusteella.";
 
-/* No comment provided by engineer. */
-"Yes" = "Kyllä";
-
-/* No comment provided by engineer. */
-"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = ""Laite ei tue paikannusta, ilmoituksia ei voida antaa sijainnin perusteella."";
-
-/* No comment provided by engineer. */
-"Print Instructions" = "Tulostusohjeet";
-
-/* No comment provided by engineer. */
-"Buy sticker pack" = "Osta tarrapakkaus";
-
-/* Specifies that all pages will be selected */
-"All" = "Kaikki";
-
-/* Specifies that no pages are selected for printing */
-"No pages selected" = "Sivuja ei valittu";
-
-/* Used on a button for closing the dialog */
-"Done" = "Valmis";
-
-/* Text used on a button that selects all pages for printing */
-"ALL" = "KAIKKI";
-
-/* Text used to give an example of how to enter a page range */
-"e.g. 1,3-5" = ""esim. 1,3–5"";
-
-/* Used to specify that a range of pages can be displayed */
-"Page Range" = "Sivualue";
-
-/* Let's the user know their job will be printed in black-and-white */
-"B&W" = "MV";
-
-/* copies label in job summary */
-"Copies" = "Kopiot";
-
-/* copy label in job summary */
-"Copy" = "Kopioi";
-
-/* Print button label for printing multiple jobs */
-"Print All" = "Tulosta kaikki";
-
-/* No comment provide by engineer */
-"Accept" = "Hyväksy";
-
-/* No comment provided by engineer. */
-"Add to Print Queue" = "Lisää tulostusjonoon";
-
-/* footer heading describing print queue */
-"What is Print Queue?" = "Mikä on tulostusjono?";
-
-/* fotter text describing print queue */
-"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = ""Lisää tuloste tulostusjonoon, niin saat ilmoituksen, kun olet lähellä tulostinta.  Tulosta työt napauttamalla ilmoitusta tai palaamalla sovellukseen."";
-
-/* location premission string on using print queue */
-"Current location is required to identify when your printer connection is available." = ""Tieto sijainnista tarvitaan, jotta voidaan selvittää tulostimen yhteyden saatavuus."";
-
-/* Print button label with multiple pages */
-"Print %ld Pages" = "Tulosta %ld sivua";
-
-/* job name label */
-"Name" = "Nimi";
-
-/* Add multipage pdf to print queue button label */
-"Add %ld Pages" = "Lisää %ld sivua";

@@ -1,0 +1,225 @@
+/* No comment provided by engineer. */
+"%d Print" = "%d spaudinys";
+
+/* No comment provided by engineer. */
+"%d Prints" = "%d spaudiniai";
+
+/* No comment provided by engineer. */
+"%d/%d Print" = "%d/%d spaudinys";
+
+/* No comment provided by engineer. */
+"%d/%d Prints" = "%d/%d spaudin.";
+
+/* Number of copies */
+"%ld Copies" = "%ld kopijos";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "%ld psl. iš %ld";
+
+/* No comment provided by engineer. */
+"1 Copy" = "1 kopija";
+
+/* Option for paper size */
+"10x13cm" = "10 x 13 cm";
+
+/* Option for paper size */
+"10x15cm" = "10 x 15 cm";
+
+/* Option for paper size */
+"13x18cm" = "13 x 18 cm";
+
+/* Option for paper size */
+"2 x 3" = "21,6 x 27,9 cm (2 x 3 colių)";
+
+/* Option for paper size */
+"4 x 5" = "21,6 x 27,9 cm (4 x 5 colių)";
+
+/* Option for paper size */
+"4 x 6" = "21,6 x 27,9 cm (4 x 6 colių)";
+
+/* Option for paper size */
+"5 x 7" = "21,6 x 27,9 cm (5 x 7 colių)";
+
+/* Option for paper size */
+"8.5 x 11" = "21,6 x 27,9 cm (8,5 x 11 colių)";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add multipage pdf to print queue button label */
+"Add %ld Pages" = "Pridėti %ld psl.";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "Pridėti 1 puslapį";
+
+/* fotter text describing print queue */
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Pridėkite spaudinį į spausdinimo eilę ir gaukite pranešimą, kai būsite prie spausdintuvo.  Bakstelėkite pranešimą arba tiesiog grįžkite į šią programą, kad išspausdintumėte savo projektus.";
+
+/* Title of the Add Print to the Print Later Queue Screen */
+"Add Print" = "Pridėti spaudinį";
+
+/* Add image to print queue button label */
+"Add to Print Queue" = "Pridėti į spausdinimo eilę";
+
+/* Text used on a button that selects all pages for printing */
+"ALL" = "VISI";
+
+/* No comment provided by engineer. */
+"All" = "Visi";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "Ar tikrai norite panaikinti %d spaudin.?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "Ar tikrai norite panaikinti 1 spaudinį?";
+
+/* Let's the user know their job will be printed in black-and-white */
+"B&W" = "Nespalvota";
+
+/* No comment provided by engineer. */
+"Black & White mode" = "Nespalvotas režimas";
+
+/* button bar cancel button */
+"Cancel" = "Atšaukti";
+
+/* copies label in job summary */
+"Copies" = "Kopijos";
+
+/* copy label in job summary */
+"Copy" = "Kopija";
+
+/* No comment provided by engineer. */
+"Default printer not currently available" = "Numatytasis spausdintuvas šiuo metu nepasiekiamas";
+
+/* No comment provided by engineer. */
+"Delete" = "Šalinti";
+
+/* No comment provided by engineer. */
+"Delete Print from Print Queue" = "Šalinti spaudinį iš spausdinimo eilės";
+
+/* Used on a button for closing the dialog */
+"Done" = "Baigta";
+
+/* Text used to give an example of how to enter a page range */
+"e.g. 1,3-5" = "pvz., 1,3–5";
+
+/* Option of the push notification to send another push notification later */
+"Later" = "Vėliau";
+
+/* Monitoring of regions (location) not available */
+"Monitoring not available" = "Stebėjimas negalimas";
+
+/* job name label */
+"Name" = "Pavadinimas";
+
+/* No comment provided by engineer. */
+"Next" = "Kitas";
+
+/* No comment provided by engineer. */
+"No Wi-Fi connection" = "Nėra „Wi-Fi“ ryšio";
+
+/* Printer details not available */
+"Not Available" = "Nėra";
+
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "iš";
+
+/* Used to specify that a range of pages can be displayed */
+"Page Range" = "Puslapių diapazonas";
+
+/* Title of the Page Settings Screen */
+"Page Settings" = "Puslapio parametrai";
+
+/* Title of the Paper Size screen */
+"Paper Size" = "Popieriaus formatas";
+
+/* Title of the Paper Type screen */
+"Paper Type" = "Popieriaus rūšis";
+
+/* Default job name of the print send to the printer */
+"Photo" = "Nuotrauka";
+
+/* Option for paper type */
+"Photo Paper" = "Fotopopierius";
+
+/* Option for paper type */
+"Plain Paper" = "Paprastas popierius";
+
+/* Title of the Preview pane in any print or add-to-queue screen */
+"Preview" = "Peržiūra";
+
+/* Print button label */
+"Print" = "Spausdinti";
+
+/* Print button label with multiple pages */
+"Print %ld Pages" = "Spausdinti %ld psl.";
+
+/* Print button label single page */
+"Print 1 Page" = "Spausdinti 1 puslapį";
+
+/* Print button label for printing multiple jobs */
+"Print All" = "Spausdinti viską";
+
+/* Caption of the button for printing */
+"Print all %lu" = "Spausdinti visus %lu";
+
+/* Caption of the button for printing */
+"Print both" = "Spausdinti abu";
+
+/* Activity title of the print queue when the share button is tapped */
+"Print Queue" = "Spausdinimo eilė";
+
+/* No comment provided by engineer. */
+"Print queue is empty" = "Spausdinimo eilė yra tuščia";
+
+/* Title of the print settings screen */
+"Print Settings" = "Spausdinimo nustatymai";
+
+/* Bluetooth print button label */
+"Print to sprocket" = "Spausdinti į „Sprocket“";
+
+/* No comment provided by engineer. */
+"Printer" = "Spausdintuvas";
+
+/* The printer is available and there are print later jobs in the print queue */
+"Printer nearby. Projects waiting to be printed..." = "Netoliese esantis spausdintuvas. Projektai, kurie turi būti spausdinami...";
+
+/* No comment provided by engineer. */
+"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Norint spausdinti, reikia, kad mobilusis įrenginys ir spausdintuvas būtų prijungti prie to paties „Wi-Fi“ tinklo. Patikrinkite savo „Wi-Fi“ nustatymus.";
+
+/* No comment provided by engineer. */
+"Recent printer not currently available" = "Pastarąjį kartą naudotas spausdintuvas šiuo metu nepasiekiamas";
+
+/* No comment provided by engineer. */
+"Select All" = "Pasirinkti visus";
+
+/* No comment provided by engineer. */
+"Select Printer" = "Pasirinkti spausdintuvą";
+
+/* No comment provided by engineer. */
+"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Norint pasirinkti spausdintuvą, reikia, kad mobilusis įrenginys ir spausdintuvas būtų prijungti prie to paties „Wi-Fi“ tinklo. Patikrinkite savo „Wi-Fi“ nustatymus.";
+
+/* No comment provided by engineer. */
+"Settings" = "Nustatymai";
+
+/* Title of a table section */
+"SUPPORT:" = "PAGALBA.";
+
+/* No comment provided by engineer. */
+"Unselect All" = "Panaikinti visų žymėjimą";
+
+/* footer heading describing print queue */
+"What is Print Queue?" = "Kas yra spausdinimo eilė?";
+
+/* No comment provided by engineer. */
+"Wi-Fi Required" = "Būtinas „Wi-Fi“";
+
+/* No comment provided by engineer. */
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Jūsų įrenginys nepalaiko srities stebėjimo, neįmanoma gaisro pavojaus signalų pagrįsti pagal padėtį";
+
