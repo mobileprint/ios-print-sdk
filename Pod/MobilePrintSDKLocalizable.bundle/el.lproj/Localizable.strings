@@ -1,0 +1,225 @@
+/* No comment provided by engineer. */
+"%d Print" = "%d εκτύπωση";
+
+/* No comment provided by engineer. */
+"%d Prints" = "%d εκτυπώσεις";
+
+/* No comment provided by engineer. */
+"%d/%d Print" = "%d/%d εκτύπωση";
+
+/* No comment provided by engineer. */
+"%d/%d Prints" = "%d/%d εκτυπώσεις";
+
+/* Number of copies */
+"%ld Copies" = "%ld αντίγραφα";
+
+/* page range label in job summary */
+"%ld of %ld Pages" = "%ld από %ld σελίδες";
+
+/* No comment provided by engineer. */
+"1 Copy" = "1 αντίγραφο";
+
+/* Option for paper size */
+"10x13cm" = "10x13 cm";
+
+/* Option for paper size */
+"10x15cm" = "10x15 cm";
+
+/* Option for paper size */
+"13x18cm" = "13x18 cm";
+
+/* Option for paper size */
+"2 x 3" = "2 x 3";
+
+/* Option for paper size */
+"4 x 5" = "4 x 5";
+
+/* Option for paper size */
+"4 x 6" = "4 x 6";
+
+/* Option for paper size */
+"5 x 7" = "5 x 7";
+
+/* Option for paper size */
+"8.5 x 11" = "8,5 x 11";
+
+/* Option for paper size */
+"A4" = "A4";
+
+/* Option for paper size */
+"A5" = "A5";
+
+/* Option for paper size */
+"A6" = "A6";
+
+/* Add multipage pdf to print queue button label */
+"Add %ld Pages" = "Προσθήκη %ld σελίδων";
+
+/* Add single pdf doc to print queue button label */
+"Add 1 Page" = "Προσθήκη 1 σελίδας";
+
+/* fotter text describing print queue */
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Προσθέστε μια εκτύπωση στην ουρά εκτύπωσης και θα λάβετε ειδοποίηση όταν βρίσκεστε κοντά στον εκτυπωτή σας.  Πατήστε την ειδοποίηση ή απλά επιστρέψτε στην εφαρμογή για να εκτυπώσετε τις εργασίες σας.";
+
+/* Title of the Add Print to the Print Later Queue Screen */
+"Add Print" = "Προσθήκη εκτύπωσης";
+
+/* Add image to print queue button label */
+"Add to Print Queue" = "Προσθήκη στην ουρά εκτύπωσης";
+
+/* Text used on a button that selects all pages for printing */
+"ALL" = "ΟΛΑ";
+
+/* No comment provided by engineer. */
+"All" = "Όλα";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete %d Prints?" = "Είστε βέβαιοι ότι θέλετε να διαγράψετε %d εκτυπώσεις;";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete 1 Print?" = "Είστε βέβαιοι ότι θέλετε να διαγράψετε 1 εκτύπωση;";
+
+/* Let's the user know their job will be printed in black-and-white */
+"B&W" = "Ασπρόμαυρη";
+
+/* No comment provided by engineer. */
+"Black & White mode" = "Ασπρόμαυρη λειτουργία";
+
+/* button bar cancel button */
+"Cancel" = "Άκυρο";
+
+/* copies label in job summary */
+"Copies" = "Αντίγραφα";
+
+/* copy label in job summary */
+"Copy" = "Αντίγραφο";
+
+/* No comment provided by engineer. */
+"Default printer not currently available" = "Ο προεπιλεγμένος εκτυπωτής δεν είναι διαθέσιμος αυτή τη στιγμή";
+
+/* No comment provided by engineer. */
+"Delete" = "Διαγραφή";
+
+/* No comment provided by engineer. */
+"Delete Print from Print Queue" = "Διαγραφή εκτύπωσης από την ουρά εκτύπωσης";
+
+/* Used on a button for closing the dialog */
+"Done" = "Τέλος";
+
+/* Text used to give an example of how to enter a page range */
+"e.g. 1,3-5" = "π.χ. 1,3-5";
+
+/* Option of the push notification to send another push notification later */
+"Later" = "Αργότερα";
+
+/* Monitoring of regions (location) not available */
+"Monitoring not available" = "Η παρακολούθηση δεν είναι διαθέσιμη";
+
+/* job name label */
+"Name" = "Όνομα";
+
+/* No comment provided by engineer. */
+"Next" = "Επόμενο";
+
+/* No comment provided by engineer. */
+"No Wi-Fi connection" = "Δεν υπάρχει σύνδεση Wi-Fi";
+
+/* Printer details not available */
+"Not Available" = "Μη διαθέσιμο";
+
+/* Used to denote a page range.  IE: x 'of' y pages */
+"of" = "από";
+
+/* Used to specify that a range of pages can be displayed */
+"Page Range" = "Εύρος σελίδων";
+
+/* Title of the Page Settings Screen */
+"Page Settings" = "Ρυθμίσεις σελίδας";
+
+/* Title of the Paper Size screen */
+"Paper Size" = "Μέγεθος χαρτιού";
+
+/* Title of the Paper Type screen */
+"Paper Type" = "Τύπος χαρτιού";
+
+/* Default job name of the print send to the printer */
+"Photo" = "Φωτογραφία";
+
+/* Option for paper type */
+"Photo Paper" = "Φωτογραφικό χαρτί";
+
+/* Option for paper type */
+"Plain Paper" = "Απλό χαρτί";
+
+/* Title of the Preview pane in any print or add-to-queue screen */
+"Preview" = "Προεπισκόπηση";
+
+/* Print button label */
+"Print" = "Εκτύπωση";
+
+/* Print button label with multiple pages */
+"Print %ld Pages" = "Εκτύπωση %ld σελίδων";
+
+/* Print button label single page */
+"Print 1 Page" = "Εκτύπωση 1 σελίδας";
+
+/* Print button label for printing multiple jobs */
+"Print All" = "Εκτύπωση όλων";
+
+/* Caption of the button for printing */
+"Print all %lu" = "Εκτύπωση όλων (%lu)";
+
+/* Caption of the button for printing */
+"Print both" = "Εκτύπωση και των δύο";
+
+/* Activity title of the print queue when the share button is tapped */
+"Print Queue" = "Ουρά εκτύπωσης";
+
+/* No comment provided by engineer. */
+"Print queue is empty" = "Η ουρά εκτύπωσης είναι άδεια";
+
+/* Title of the print settings screen */
+"Print Settings" = "Ρυθμίσεις εκτύπωσης";
+
+/* Bluetooth print button label */
+"Print to sprocket" = "Εκτύπωση σε εκτυπωτή sprocket";
+
+/* No comment provided by engineer. */
+"Printer" = "Εκτυπωτής";
+
+/* The printer is available and there are print later jobs in the print queue */
+"Printer nearby. Projects waiting to be printed..." = "Βρίσκεστε κοντά στον εκτυπωτή. Αναμονή για εκτύπωση εργασιών...";
+
+/* No comment provided by engineer. */
+"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Για να γίνει εκτύπωση, η φορητή συσκευή και ο εκτυπωτής πρέπει να έχουν συνδεθεί στο ίδιο δίκτυο Wi-Fi. Ελέγξτε τις ρυθμίσεις Wi-Fi.";
+
+/* No comment provided by engineer. */
+"Recent printer not currently available" = "Ο εκτυπωτής που χρησιμοποιήσατε πρόσφατα δεν είναι διαθέσιμος αυτή τη στιγμή";
+
+/* No comment provided by engineer. */
+"Select All" = "Επιλογή όλων";
+
+/* No comment provided by engineer. */
+"Select Printer" = "Επιλογή εκτυπωτή";
+
+/* No comment provided by engineer. */
+"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Για να επιλέξετε εκτυπωτή, η φορητή συσκευή και ο εκτυπωτής πρέπει να έχουν συνδεθεί στο ίδιο δίκτυο Wi-Fi. Ελέγξτε τις ρυθμίσεις Wi-Fi.";
+
+/* No comment provided by engineer. */
+"Settings" = "Ρυθμίσεις";
+
+/* Title of a table section */
+"SUPPORT:" = "ΥΠΟΣΤΗΡΙΞΗ:";
+
+/* No comment provided by engineer. */
+"Unselect All" = "Αποεπιλογή όλων";
+
+/* footer heading describing print queue */
+"What is Print Queue?" = "Τι είναι η ουρά εκτύπωσης;";
+
+/* No comment provided by engineer. */
+"Wi-Fi Required" = "Απαιτείται δίκτυο Wi-Fi";
+
+/* No comment provided by engineer. */
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Η συσκευή σας δεν υποστηρίζει την παρακολούθηση περιοχής και, επομένως, δεν είναι δυνατή η ενεργοποίηση ειδοποιήσεων με βάση την τοποθεσία";
+

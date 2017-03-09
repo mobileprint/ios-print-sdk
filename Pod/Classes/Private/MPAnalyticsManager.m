@@ -94,8 +94,9 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
 
 - (NSURL *)metricsServerPrintMetricsURL
 {
-    NSURL *productionURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@:%@@%@", kMPMetricsUsername, kMPMetricsPassword, kMPMetricsServer]];
-    NSURL *testURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@@%@", kMPMetricsUsername, kMPMetricsPassword, kMPMetricsServerTestBuilds]];
+    NSURL *productionURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@", kMPMetricsServer]];
+    NSURL *testURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", kMPMetricsServerTestBuilds]];
+    
     NSString *provisionPath = [[NSBundle mainBundle] pathForResource:@"embedded" ofType:@"mobileprovision"];
 
     // The following is adapted from: http://stackoverflow.com/questions/26081543/how-to-tell-at-runtime-whether-an-ios-app-is-running-through-a-testflight-beta-i
@@ -351,9 +352,15 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
     NSData *bodyData = [self postBodyWithValues:metrics];
     NSString *bodyLength = [NSString stringWithFormat:@"%ld", (long)[bodyData length]];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", kMPMetricsUsername, kMPMetricsPassword];
+    NSData   *authData = [authStr dataUsingEncoding:NSASCIIStringEncoding];
+    NSString *authValue = [authData base64Encoding];
+    
     [urlRequest setHTTPMethod:@"POST"];
     [urlRequest setHTTPBody:bodyData];
     [urlRequest addValue:bodyLength forHTTPHeaderField: @"Content-Length"];
+    [urlRequest setValue:[NSString stringWithFormat:@"Basic %@", authValue] forHTTPHeaderField:@"Authorization"];
     [urlRequest setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{

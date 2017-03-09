@@ -353,7 +353,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
 - (void)didCompareWithLatestFirmwareVersion:(MPBTSprocket *)sprocket needsUpgrade:(BOOL)needsUpgrade
 {
     if (needsUpgrade) {
-        if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didCompareWithLatestFirmwareVersion:needsUpgrade:)]) {
+        if (self.sprocketDelegate  &&  [self.sprocketDelegate respondsToSelector:@selector(didCompareSprocketWithLatestFirmwareVersion:batteryLevel:needsUpgrade:)]) {
             [self.sprocketDelegate didCompareSprocketWithLatestFirmwareVersion:sprocket.displayName batteryLevel:sprocket.batteryStatus needsUpgrade:needsUpgrade];
         }
     }

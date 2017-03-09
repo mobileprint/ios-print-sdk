@@ -1,32 +1,32 @@
 /* No comment provided by engineer. */
-"%d Print" = "%d print";
+"%d Print" = "%d Pencetakan";
 
 /* No comment provided by engineer. */
-"%d Prints" = "%d prints";
+"%d Prints" = "%d Pencetakan";
 
 /* No comment provided by engineer. */
-"%d/%d Print" = "%d/%d print";
+"%d/%d Print" = "%d/%d Pencetakan";
 
 /* No comment provided by engineer. */
-"%d/%d Prints" = "%d/%d prints";
+"%d/%d Prints" = "%d/%d Pencetakan";
 
 /* Number of copies */
-"%ld Copies" = "%ld kopieën";
+"%ld Copies" = "%ld Salinan";
 
 /* page range label in job summary */
-"%ld of %ld Pages" = "%ld van %ld pagina's";
+"%ld of %ld Pages" = "%ld of %ld Halaman";
 
 /* No comment provided by engineer. */
-"1 Copy" = "1 kopie";
+"1 Copy" = "1 Salinan";
 
 /* Option for paper size */
-"10x13cm" = "10 x 13 cm";
+"10x13cm" = "10x13cm";
 
 /* Option for paper size */
-"10x15cm" = "10 x 15 cm";
+"10x15cm" = "10x15cm";
 
 /* Option for paper size */
-"13x18cm" = "13 x 18 cm";
+"13x18cm" = "13x18cm";
 
 /* Option for paper size */
 "2 x 3" = "2 x 3";
@@ -53,173 +53,173 @@
 "A6" = "A6";
 
 /* Add multipage pdf to print queue button label */
-"Add %ld Pages" = "%ld pagina's toevoegen";
+"Add %ld Pages" = "Tambahkan %ld Halaman";
 
 /* Add single pdf doc to print queue button label */
-"Add 1 Page" = "1 pagina toevoegen";
+"Add 1 Page" = "Tambahkan 1 Halaman";
 
 /* fotter text describing print queue */
-"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Plaats een print in de printwachtrij en krijg een melding wanneer je in de buurt van een printer bent.  Tik op de melding of ga terug naar deze app om je documenten te printen.";
+"Add a print to the Print Queue and receive a notification when you are near your printer.  Tap your notification or simply come back to this app to print your projects." = "Tambahkan pencetakan ke Antrian Pencetakan dan dapatkan pemberitahuan saat Anda berada di dekat printer.  Ketuk pemberitahuan, atau cukup kembali ke aplikasi ini untuk mencetak proyek Anda.";
 
 /* Title of the Add Print to the Print Later Queue Screen */
-"Add Print" = "Print toevoegen";
+"Add Print" = "Tambahkan Pencetakan";
 
 /* Add image to print queue button label */
-"Add to Print Queue" = "In de printwachtrij plaatsen";
+"Add to Print Queue" = "Tambahkan ke Antrian Pencetakan";
 
 /* Text used on a button that selects all pages for printing */
-"ALL" = "ALLE";
+"ALL" = "SEMUA";
 
 /* No comment provided by engineer. */
-"All" = "Alle";
+"All" = "Semua";
 
 /* No comment provided by engineer. */
-"Are you sure you want to delete %d Prints?" = "Weet je zeker dat je %d prints wilt verwijderen?";
+"Are you sure you want to delete %d Prints?" = "Anda yakin ingin menghapus %d Pencetakan?";
 
 /* No comment provided by engineer. */
-"Are you sure you want to delete 1 Print?" = "Weet je zeker dat je 1 print wilt verwijderen?";
+"Are you sure you want to delete 1 Print?" = "Anda yakin ingin menghapus 1 Pencetakan?";
 
 /* Let's the user know their job will be printed in black-and-white */
-"B&W" = "Z&W";
+"B&W" = "H&P";
 
 /* No comment provided by engineer. */
-"Black & White mode" = "Zwart-witmodus";
+"Black & White mode" = "Mode Hitam Putih";
 
 /* button bar cancel button */
-"Cancel" = "Annuleren";
+"Cancel" = "Batal";
 
 /* copies label in job summary */
-"Copies" = "Kopieën";
+"Copies" = "Salinan";
 
 /* copy label in job summary */
-"Copy" = "Kopie";
+"Copy" = "Salin";
 
 /* No comment provided by engineer. */
-"Default printer not currently available" = "De standaardprinter is nu niet beschikbaar";
+"Default printer not currently available" = "Printer default saat ini tidak tersedia";
 
 /* No comment provided by engineer. */
-"Delete" = "Verwijderen";
+"Delete" = "Hapus";
 
 /* No comment provided by engineer. */
-"Delete Print from Print Queue" = "Print uit printwachtrij verwijderen";
+"Delete Print from Print Queue" = "Hapus Pencetakan dari Antrian Pencetakan";
 
 /* Used on a button for closing the dialog */
-"Done" = "Klaar";
+"Done" = "Selesai";
 
 /* Text used to give an example of how to enter a page range */
-"e.g. 1,3-5" = "bv. 1,3-5";
+"e.g. 1,3-5" = "contoh 1,3-5";
 
 /* Option of the push notification to send another push notification later */
-"Later" = "Later";
+"Later" = "Nanti";
 
 /* Monitoring of regions (location) not available */
-"Monitoring not available" = "Bewaking is niet beschikbaar";
+"Monitoring not available" = "Pemantauan tidak tersedia";
 
 /* job name label */
-"Name" = "Naam";
+"Name" = "Nama";
 
 /* No comment provided by engineer. */
-"Next" = "Volgende";
+"Next" = "Selanjutnya";
 
 /* No comment provided by engineer. */
-"No Wi-Fi connection" = "Geen Wi-Fi-verbinding";
+"No Wi-Fi connection" = "Tidak ada koneksi Wi-Fi";
 
 /* Printer details not available */
-"Not Available" = "Niet beschikbaar";
+"Not Available" = "Tidak Tersedia";
 
 /* Used to denote a page range.  IE: x 'of' y pages */
-"of" = "van";
+"of" = "dari";
 
 /* Used to specify that a range of pages can be displayed */
-"Page Range" = "Paginabereik";
+"Page Range" = "Kisaran Halaman";
 
 /* Title of the Page Settings Screen */
-"Page Settings" = "Pagina-instellingen";
+"Page Settings" = "Pengaturan Halaman";
 
 /* Title of the Paper Size screen */
-"Paper Size" = "Papierformaat";
+"Paper Size" = "Ukuran Kertas";
 
 /* Title of the Paper Type screen */
-"Paper Type" = "Papiersoort";
+"Paper Type" = "Jenis Kertas";
 
 /* Default job name of the print send to the printer */
 "Photo" = "Foto";
 
 /* Option for paper type */
-"Photo Paper" = "Fotopapier";
+"Photo Paper" = "Kertas Foto";
 
 /* Option for paper type */
-"Plain Paper" = "Gewoon papier";
+"Plain Paper" = "Kertas Polos";
 
 /* Title of the Preview pane in any print or add-to-queue screen */
-"Preview" = "Voorbeeld";
+"Preview" = "Pratinjau";
 
 /* Print button label */
-"Print" = "Printen";
+"Print" = "Cetak";
 
 /* Print button label with multiple pages */
-"Print %ld Pages" = "%ld pagina's printen";
+"Print %ld Pages" = "Cetak %ld Halaman";
 
 /* Print button label single page */
-"Print 1 Page" = "1 pagina printen";
+"Print 1 Page" = "Cetak 1 Halaman";
 
 /* Print button label for printing multiple jobs */
-"Print All" = "Alles printen";
+"Print All" = "Cetak Semua";
 
 /* Caption of the button for printing */
-"Print all %lu" = "Alle %lu printen";
+"Print all %lu" = "Cetak semua %lu";
 
 /* Caption of the button for printing */
-"Print both" = "Beide printen";
+"Print both" = "Cetak keduanya";
 
 /* Activity title of the print queue when the share button is tapped */
-"Print Queue" = "Printwachtrij";
+"Print Queue" = "Antrian Pencetakan";
 
 /* No comment provided by engineer. */
-"Print queue is empty" = "Printwachtrij is leeg";
+"Print queue is empty" = "Antrian pencetakan kosong";
 
 /* Title of the print settings screen */
-"Print Settings" = "Printinstellingen";
+"Print Settings" = "Pengaturan Cetak";
 
 /* Bluetooth print button label */
-"Print to sprocket" = "Printen naar sprocket";
+"Print to sprocket" = "Cetak ke sprocket";
 
 /* No comment provided by engineer. */
 "Printer" = "Printer";
 
 /* The printer is available and there are print later jobs in the print queue */
-"Printer nearby. Projects waiting to be printed..." = "Printer in de buurt. Projecten wachten om te worden geprint...";
+"Printer nearby. Projects waiting to be printed..." = "Printer terdekat. Proyek menunggu untuk dicetak...";
 
 /* No comment provided by engineer. */
-"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Om te printen moeten je mobiele device en de printer op hetzelfde Wi-Fi-netwerk zijn aangesloten. Controleer je Wi-Fi-instellingen.";
+"Printing requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Mencetak memerlukan perangkat seluler dan printer harus berada di jaringan Wi-Fi yang sama. Harap periksa pengaturan Wi-Fi Anda";
 
 /* No comment provided by engineer. */
-"Recent printer not currently available" = "Recente printer is nu niet beschikbaar";
+"Recent printer not currently available" = "Printer yang terakhir kali digunakan saat ini tidak tersedia";
 
 /* No comment provided by engineer. */
-"Select All" = "Alles selecteren";
+"Select All" = "Pilih Semua";
 
 /* No comment provided by engineer. */
-"Select Printer" = "Printer selecteren";
+"Select Printer" = "Pilih Printer";
 
 /* No comment provided by engineer. */
-"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Om een printer te selecteren moeten je mobiele device en de printer op hetzelfde Wi-Fi-netwerk zijn aangesloten. Controleer je Wi-Fi-instellingen.";
+"Selecting a printer requires your mobile device and printer to be on same Wi-Fi network. Please check your Wi-Fi settings." = "Memilih printer memerlukan perangkat seluler dan printer harus berada di jaringan Wi-Fi yang sama. Harap periksa pengaturan Wi-Fi Anda";
 
 /* No comment provided by engineer. */
-"Settings" = "Instellingen";
+"Settings" = "Pengaturan";
 
 /* Title of a table section */
-"SUPPORT:" = "ONDERSTEUNING:";
+"SUPPORT:" = "DUKUNGAN:";
 
 /* No comment provided by engineer. */
-"Unselect All" = "Alles deselecteren";
+"Unselect All" = "Batal Pilih Semua";
 
 /* footer heading describing print queue */
-"What is Print Queue?" = "Wat is de printwachtrij?";
+"What is Print Queue?" = "Apa itu Antrian Pencetakan?";
 
 /* No comment provided by engineer. */
-"Wi-Fi Required" = "Wi-Fi is vereist";
+"Wi-Fi Required" = "Wi-Fi Diperlukan";
 
 /* No comment provided by engineer. */
-"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Je apparaat ondersteunt de regiobewaking niet, er kunnen geen alarmen worden gegeven op basis van je positie";
+"Your device does not support the region monitoring, it is not possible to fire alarms base on position" = "Perangkat Anda tidak mendukung pemantauan wilayah, alarm kebakaran tidak dapat dibunyikan berdasarkan posisi";
 
