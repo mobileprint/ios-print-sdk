@@ -15,6 +15,7 @@
 #import "MPPageRange.h"
 #import "MPPrintManager.h"
 #import "MPPaper.h"
+#import "MPsecretKeeper.h"
 #import <sys/sysctl.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <CommonCrypto/CommonDigest.h>
@@ -37,8 +38,6 @@
 NSString * const kMPMetricsServer = @"print-metrics-w1.twosmiles.com/api/v1/mobile_app_metrics";
 NSString * const kMPMetricsServerTestBuilds = @"print-metrics-test.twosmiles.com/api/v1/mobile_app_metrics";
 //NSString * const kMPMetricsServerTestBuilds = @"localhost:4567/api/v1/mobile_app_metrics"; // use for local testing
-NSString * const kMPMetricsUsername = @"hpmobileprint";
-NSString * const kMPMetricsPassword = @"print1t";
 NSString * const kMPOSType = @"iOS";
 NSString * const kMPManufacturer = @"Apple";
 NSString * const kMPNoNetwork = @"NO-WIFI";
@@ -353,7 +352,10 @@ NSString * const kMPMetricsEventTypePrintCompleted = @"5";
     NSString *bodyLength = [NSString stringWithFormat:@"%ld", (long)[bodyData length]];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
 
-    NSString *authStr = [NSString stringWithFormat:@"%@:%@", kMPMetricsUsername, kMPMetricsPassword];
+    NSString *username = [[MPSecretKeeper sharedInstance] secretForEntry:kSecretKeeperEntryPrintMetricsUsername];
+    NSString *password = [[MPSecretKeeper sharedInstance] secretForEntry:kSecretKeeperEntryPrintMetricsPassword];
+
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", username, password];
     NSData   *authData = [authStr dataUsingEncoding:NSASCIIStringEncoding];
     NSString *authValue = [authData base64Encoding];
     
