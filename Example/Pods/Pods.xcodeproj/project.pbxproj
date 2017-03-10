@@ -130,6 +130,8 @@
 		8D128D7DDEA5AEA3A376388CDE031436 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = B1C67C5E89FB8C56D0A714DA154F8CB7 /* TTTAttributedLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		919920B4A1A5F17BCB703BBDF4F3B93D /* MPBTDeviceInfoTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E3549F6A2D11AC63EBFE832382F3404A /* MPBTDeviceInfoTableViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		920A24D9C37F9FBF4A76EAECC69E2C75 /* OCMBlockArgCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 617BE1610AAD0BA7855943CDD06BBC5F /* OCMBlockArgCaller.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9249107C1E7317BC0089A925 /* MPSecretKeeper.h in Headers */ = {isa = PBXBuildFile; fileRef = 9249107A1E7317BC0089A925 /* MPSecretKeeper.h */; };
+		9249107D1E7317BC0089A925 /* MPSecretKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9249107B1E7317BC0089A925 /* MPSecretKeeper.m */; };
 		92A436941E2EC4D7007F73FA /* MPLEService.h in Headers */ = {isa = PBXBuildFile; fileRef = 92A436921E2EC4D7007F73FA /* MPLEService.h */; };
 		92A436951E2EC4D7007F73FA /* MPLEService.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A436931E2EC4D7007F73FA /* MPLEService.m */; };
 		93724363CB68CD2B80961E9B6A736B5B /* MPPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD337E036823693D9B64AFFC6C94940 /* MPPrinter.m */; };
@@ -479,6 +481,8 @@
 		8F61FC0CF36B422654F8A87E71C593F3 /* MPLEDiscovery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPLEDiscovery.h; sourceTree = "<group>"; };
 		911FB9440AD7F05764682CFC6E577B8B /* OCMExpectationRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMExpectationRecorder.h; path = Source/OCMock/OCMExpectationRecorder.h; sourceTree = "<group>"; };
 		915113AB6D85BFE530EADC4D5BBEF3DB /* OCMRealObjectForwarder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMRealObjectForwarder.h; path = Source/OCMock/OCMRealObjectForwarder.h; sourceTree = "<group>"; };
+		9249107A1E7317BC0089A925 /* MPSecretKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSecretKeeper.h; sourceTree = "<group>"; };
+		9249107B1E7317BC0089A925 /* MPSecretKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSecretKeeper.m; sourceTree = "<group>"; };
 		9259AC2E35780CD2574B6483BF4EA486 /* MPPrintLaterActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPPrintLaterActivity.h; sourceTree = "<group>"; };
 		92A436921E2EC4D7007F73FA /* MPLEService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLEService.h; sourceTree = "<group>"; };
 		92A436931E2EC4D7007F73FA /* MPLEService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLEService.m; sourceTree = "<group>"; };
@@ -812,6 +816,8 @@
 				ACEA24C8CF414D1E9063E187F9C5AC73 /* MPPrintManager.m */,
 				A8C5961C76B6B4B8C23884A294B00E58 /* MPPrintSettings.h */,
 				F908729C2E2B3F34BA10BD1498DBEFD0 /* MPPrintSettings.m */,
+				9249107A1E7317BC0089A925 /* MPSecretKeeper.h */,
+				9249107B1E7317BC0089A925 /* MPSecretKeeper.m */,
 				A3304EC68BE93D5276C6881C1E8B9D44 /* MPSupportAction.h */,
 				9E1E725CE1D0A28C97F7ED24F425B6E8 /* MPSupportAction.m */,
 			);
@@ -1282,6 +1288,7 @@
 				29EC381B9A1D9F4E5979011487478B05 /* MPBTSprocketDefinitions.h in Headers */,
 				7D2ED99538FDBC0CB303C03FAA1D2D2D /* MPBTStatusChecker.h in Headers */,
 				14737908580ECA7502BFA7476CFEC9BA /* MPBTTechnicalInformationViewController.h in Headers */,
+				9249107C1E7317BC0089A925 /* MPSecretKeeper.h in Headers */,
 				0CD825AEF10223810EFE04C9D79F6EA0 /* MPDashedLineView.h in Headers */,
 				B98FF2F248F45900E1A925883DB89008 /* MPDefaultSettingsManager.h in Headers */,
 				2609EC5A1CFBFB44629733D767913E0B /* MPInterfaceOptions.h in Headers */,
@@ -1561,6 +1568,7 @@
 				10F5352CD612C5A17053B5F117A8187F /* MPBTStatusChecker.m in Sources */,
 				811645BD1EDAEA2EFF6112AC9209FDD5 /* MPBTTechnicalInformationViewController.m in Sources */,
 				266D41181E314D8B00B7F72F /* MPLEMalta.m in Sources */,
+				9249107D1E7317BC0089A925 /* MPSecretKeeper.m in Sources */,
 				7E7A533F42F8184BB66E7E0C0E5FAFEA /* MPDashedLineView.m in Sources */,
 				557618A1B5FDE06D2EE4E790428CE3CF /* MPDefaultSettingsManager.m in Sources */,
 				27E27DAC73A3FE8AF0E8E351FE1DA67B /* MPInterfaceOptions.m in Sources */,

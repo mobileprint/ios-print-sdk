@@ -15,7 +15,7 @@
 #import "MPPageRange.h"
 #import "MPPrintManager.h"
 #import "MPPaper.h"
-#import "MPsecretKeeper.h"
+#import "MPSecretKeeper.h"
 #import <sys/sysctl.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <CommonCrypto/CommonDigest.h>
