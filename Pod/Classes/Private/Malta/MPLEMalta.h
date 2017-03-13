@@ -41,6 +41,7 @@ typedef enum
 @interface MPLEMalta : NSObject
 
 @property (strong, nonatomic) CBPeripheral *peripheral;
+@property (strong, nonatomic) NSString *name;
 @property (assign, nonatomic) NSInteger companyId;
 @property (assign, nonatomic) NSInteger format;
 @property (assign, nonatomic) NSInteger calibratedRssi;
