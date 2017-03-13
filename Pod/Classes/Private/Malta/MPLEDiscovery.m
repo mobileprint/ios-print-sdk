@@ -14,6 +14,8 @@
 #import "MPLEService.h"
 #import "MPLogger.h"
 
+static const NSString *MALTA_DISCOVERY_PREFIX = @"HPMalta-";
+
 @interface MPLEDiscovery () <CBCentralManagerDelegate, CBPeripheralDelegate, MPLEMaltaProtocol>
     @property (strong, nonatomic) CBCentralManager *centralManager;
 	@property (assign, nonatomic) BOOL pendingInit;
@@ -128,7 +130,7 @@
 	if (![self alreadyFound:peripheral]) {
         MPLogDebug(@"Peripheral Name: %@", peripheral.name);
 
-        if ([peripheral.name isEqualToString:@"Malta"]) {
+        if ([peripheral.name hasPrefix:MALTA_DISCOVERY_PREFIX]) {
             MPLogDebug(@"%@", advertisementData);
             
             NSData *manufacturerData = [advertisementData objectForKey:@"kCBAdvDataManufacturerData"];
@@ -144,12 +146,14 @@
                 
                 [self.discoveryDelegate discoveryDidRefresh];
 
+                NSString *name              = [peripheral.name substringFromIndex:MALTA_DISCOVERY_PREFIX.length];
                 NSInteger format            = bytes[2];
                 NSInteger calibratedRssi    = bytes[3];
                 NSInteger connectableStatus = bytes[4];
                 NSInteger deviceColor       = bytes[5];
                 NSInteger printerStatus     = bytes[6];
                 
+                MPLogDebug(@"name              : %@", name);
                 MPLogDebug(@"companyIdentifier : %#x", companyIdentifier);
                 MPLogDebug(@"format            : %d",  format);
                 MPLogDebug(@"calibratedRssi    : %#x", calibratedRssi);
@@ -157,6 +161,7 @@
                 MPLogDebug(@"deviceColor       : %d",  deviceColor);
                 MPLogDebug(@"printerStatus     : %d",  printerStatus);
                 
+                malta.name = name;
                 malta.companyId = companyIdentifier;
                 malta.format = format;
                 malta.calibratedRssi = calibratedRssi;

@@ -17,6 +17,16 @@ NSString * const kMPLEMaltaUpdatedNotification = @"kMPLEMaltaUpdatedNotification
 
 @implementation MPLEMalta
 
+- (void) setName:(NSString *)name
+{
+    _name = @"Fredy's super duper sprocket";
+
+    if ([name length]) {
+        _name = name;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMPLEMaltaUpdatedNotification object:self userInfo:nil];
+}
+
 - (void) setCompanyId:(NSInteger)companyId
 {
     _companyId = companyId;

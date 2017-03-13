@@ -151,7 +151,7 @@
     
     MPLEMalta *malta = [self.maltas objectAtIndex:indexPath.row];
     CBPeripheral *peripheral = malta.peripheral;
-    cell.textLabel.text = [NSString stringWithFormat:@"Name: %@, UUID: %@", peripheral.name, peripheral.identifier];
+    cell.textLabel.text = [NSString stringWithFormat:@"Name: %@", malta.name];
     
     return cell;
 }
