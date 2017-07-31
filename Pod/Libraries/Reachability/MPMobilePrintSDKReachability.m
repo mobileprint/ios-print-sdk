@@ -55,7 +55,8 @@
 #import "MPMobilePrintSDKReachability.h"
 
 
-NSString *kMPMobilePrintSDKReachabilityChangedNotification = @"kMPMobilePrintSDKReachabilityChangedNotification";
+NSString *kMPMobilePrintSDKReachabilityChangedNotification =
+            @"kMPMobilePrintNetworkReachabilityChangedNotification";
 
 
 #pragma mark - Supporting functions
