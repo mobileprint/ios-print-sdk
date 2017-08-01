@@ -10,6 +10,7 @@
 // the license agreement.
 //
 
+#import "MPUtils.h"
 #import "MPView.h"
 #import "MP.h"
 
@@ -45,7 +46,7 @@
 
 - (void)initWithXibName:(NSString *)xibName
 {
-    UIView *containerView = [[[NSBundle bundleForClass:[MP class]] loadNibNamed:xibName owner:self options:nil] lastObject];
+    UIView *containerView = [[[MPUtils MPResourcesBundle] loadNibNamed:xibName owner:self options:nil] lastObject];
     
     [containerView setTranslatesAutoresizingMaskIntoConstraints:NO];
     

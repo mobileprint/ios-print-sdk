@@ -26,7 +26,12 @@ s.requires_arc = true
 
 s.source_files = ['Pod/Classes/**/*.{h,m}', 'Pod/Libraries/Reachability/*.{h,m}']
 
-s.resources = ['Pod/Assets/*.png', 'Pod/Assets/Fonts/*.ttf', 'Pod/Classes/**/*.xib', 'Pod/Classes/*.storyboard', 'Pod/*.bundle']
+s.resources = ['Pod/*.bundle']
+s.resource_bundles  = { 'MPResources' => 
+                          ['Pod/Assets/MP.xcassets', 
+                           'Pod/Classes/**/*.xib', 
+                           'Pod/Classes/*.storyboard'] 
+                      }
 
 s.public_header_files = ['Pod/Classes/Public/**/*.h', 'Pod/Libraries/Reachability/*.h']
 s.private_header_files = ['Pod/Classes/Private/**/*.h']

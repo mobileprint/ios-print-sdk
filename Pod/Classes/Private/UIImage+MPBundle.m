@@ -10,13 +10,24 @@
 // the license agreement.
 //
 
+#import "MPUtils.h"
 #import "UIImage+MPBundle.h"
 #import "MP.h"
 
 @implementation UIImage (MPBundle)
 
++ (UIImage *)imageNamedInMPBundle:(NSString*)name
+{
+    return [UIImage imageNamed:name inBundle:[MPUtils MPResourcesBundle] compatibleWithTraitCollection:nil];
+}
+
 + (UIImage *)imageResource:(NSString *)resource ofType:(NSString *)extension
 {
+    UIImage *image = [self imageNamedInMPBundle:resource];
+    if (image) {
+        return image;
+    }
+    
     NSBundle *bundle = [NSBundle bundleForClass:[MP class]];
     
     // Note: The bundle-aware version of 'imagedNamed' is only available in iOS >= 8

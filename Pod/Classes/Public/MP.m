@@ -11,6 +11,7 @@
 //
 
 #import "MP.h"
+#import "MPUtils.h"
 #import "MPAnalyticsManager.h"
 #import "MPPrintLaterManager.h"
 #import "MPPrintLaterQueue.h"
@@ -185,7 +186,7 @@ BOOL const kMPDefaultUniqueDeviceIdPerApp = YES;
                                             fromQueue:(BOOL)fromQueue
                                          settingsOnly:(BOOL)settingsOnly;
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[NSBundle bundleForClass:[MP class]]];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MP" bundle:[MPUtils MPResourcesBundle]];
     
     UISplitViewController *pageSettingsSplitViewController = (UISplitViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MPPageSettingsSplitViewController"];
     
